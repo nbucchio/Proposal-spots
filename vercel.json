@@ -1,5 +1,8 @@
-{
-  "rewrites": [
-    { "source": "/", "destination": "/proposal-spots-current (1).html" }
-  ]
-}
+1{
+2  "rewrites": [
+3    {
+4      "source": "/",
+5      "destination": "/proposal-spots-current (1).html"
+6    }
+7  ]
+8}
