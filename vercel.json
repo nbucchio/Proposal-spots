@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/", "destination": "/proposal-spots-current.html" }
-  ]
-}
