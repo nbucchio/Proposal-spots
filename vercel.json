@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/proposal-spots-current (1).html" }
+  ]
+}
