@@ -336,6 +336,7 @@ nav.scrolled {
   display: flex;
   align-items: stretch;
   position: relative;
+  z-index: 100;
 }
 
 .search-input-wrap {
@@ -3804,7 +3805,8 @@ footer {
 .rcal-day-checkin { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
 .rcal-day-checkout { background: var(--accent) !important; color: white !important; border-radius: 0 6px 6px 0; }
 .rcal-day-inrange { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
-.rcal-day-hover-range { background: rgba(165,90,74,0.08) !important; border-radius: 0; }
+.rcal-day-hover-range { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
+.rcal-day-hover-checkout { background: rgba(165,90,74,0.25) !important; border-radius: 0 6px 6px 0; color: var(--ink) !important; }
 .rcal-day-checkin.rcal-day-checkout { border-radius: 6px !important; }
 
 /* Enquiry proposal date calendar */
@@ -4571,7 +4573,7 @@ footer {
         <div class="inline-tags">
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Beach')">🏖 Beach</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Mountain')">⛰ Mountain</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Cliff')">🪨 Cliff</div>
+          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Cliff')">🏔 Cliff</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Lake')">🏞 Lake</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Volcano')">🌋 Volcano</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -4700,25 +4702,25 @@ footer {
       <a href="#" class="section-link">All collections →</a>
     </div>
     <div class="collections-grid">
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(165,90,74,0.06)">
         <span class="collection-num">01</span>
         <div class="collection-name">Most Private</div>
         <p class="collection-desc">Secluded spots where it will just be the two of you — no crowds, no interruptions.</p>
         <span class="collection-link">24 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(140,123,100,0.08)">
         <span class="collection-num">02</span>
         <div class="collection-name">Best Sunset</div>
         <p class="collection-desc">Golden-hour locations chosen for their legendary light and atmosphere.</p>
         <span class="collection-link">18 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(46,44,42,0.04)">
         <span class="collection-num">03</span>
         <div class="collection-name">Luxury Resorts</div>
         <p class="collection-desc">World-class properties where every detail of the moment can be arranged.</p>
         <span class="collection-link">31 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(107,102,96,0.07)">
         <span class="collection-num">04</span>
         <div class="collection-name">Hidden Gems</div>
         <p class="collection-desc">Off-the-map locations only locals and our curators know about.</p>
@@ -5130,7 +5132,7 @@ footer {
               <div class="inline-tags">
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">🏖 Beach</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🪨 Cliff</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Volcano')">🌋 Volcano</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -5515,7 +5517,7 @@ footer {
             <div class="inline-tags">
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Beach')">🏖 Beach</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Mountain')">⛰ Mountain</div>
-              <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Cliff')">🪨 Cliff</div>
+              <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Cliff')">🏔 Cliff</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Lake')">🏞 Lake</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Volcano')">🌋 Volcano</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -5670,7 +5672,7 @@ footer {
             <div class="mf-tags">
               <div class="mf-tag" onclick="this.classList.toggle('on')">🏖 Beach</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">⛰ Mountain</div>
-              <div class="mf-tag" onclick="this.classList.toggle('on')">🪨 Cliff</div>
+              <div class="mf-tag" onclick="this.classList.toggle('on')">🏔 Cliff</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🏞 Lake</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🌋 Volcano</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🌊 Ocean</div>
@@ -5747,7 +5749,7 @@ footer {
           <h2 class="insp-story-title">He told her it was just lunch. She had no idea about the lemon grove.</h2>
           <p class="insp-story-text">James spent four months planning a proposal on the Amalfi Coast. He'd been researching the best places to propose in Positano since February, quietly eliminating one idea after another. Too public. Too obvious. Not quite right. Then a local hotel owner told him about a private terrace above the cliffside — carved into the rock face, draped in lemon trees, invisible from the path below. He booked it. Told Sarah it was just a long lunch. When the guitarist started playing as they sat down, she thought it was a coincidence. When she turned to ask why he was so quiet, he was already on one knee.</p>
           <div class="insp-story-meta">
-            <span>🪨 Cliff</span><span>🔒 Private</span><span>$$$$</span><span>Amalfi Coast</span>
+            <span>🏔 Cliff</span><span>🔒 Private</span><span>$$$$</span><span>Amalfi Coast</span>
           </div>
           <button class="insp-read-more" onclick="openStoryPage('amalfi')">Read the full story →</button>
         </div>
@@ -5971,61 +5973,15 @@ footer {
     </div>
 
     <!-- 4 STEPS -->
-    <div class="hiw-flow">
-      <div class="hiw-step">
-        <div class="hiw-step-num">01</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">✦</div>
-          <h3 class="hiw-step-title">Browse the collection</h3>
-          <p class="hiw-step-body">Search by destination, vibe, privacy level, and budget. Every spot has been personally assessed — the light, the access, the crowd levels at different times of day. You're not browsing a database. You're looking at a shortlist someone already made for you.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">02</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">◈</div>
-          <h3 class="hiw-step-title">Find the one that feels right</h3>
-          <p class="hiw-step-body">Each spot page gives you everything — the setting, the timing, what's included, how private it really is. When something clicks, hit enquire. There's nothing to commit to yet.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">03</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">⬡</div>
-          <h3 class="hiw-step-title">We send you a full quote</h3>
-          <p class="hiw-step-body">A real person reviews your enquiry and responds within 24 hours with a complete, itemised quote — spot access, any add-ons, hotel nights if you've included them. No hidden fees, no surprises. You decide if it's right.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">04</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">✦</div>
-          <h3 class="hiw-step-title">Show up. We've handled the rest.</h3>
-          <p class="hiw-step-body">Once you confirm, we coordinate everything. The setup, the timing, the details you don't want to think about. Your only job on the day is to be present for the moment itself.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- PULL QUOTE -->
-    <div class="hiw-quote-section">
-      <div class="hiw-quote-inner">
-        <div class="hiw-quote-mark">"</div>
-        <p class="hiw-quote-text">I didn't know a place like this existed until I found it here. The whole thing felt impossibly easy.</p>
-        <span class="hiw-quote-attr">— James, Nicaragua</span>
-      </div>
-    </div>
-
-    <!-- HOW WE CHOOSE SPOTS -->
-    <div class="hiw-curation-section">
+    <!-- HOW WE CHOOSE SPOTS — elevated trust section -->
+    <div class="hiw-curation-section" style="margin-top:0">
       <div class="hiw-curation-inner">
         <span class="pg-eyebrow" style="display:block;margin-bottom:16px">Our standard</span>
         <h2 class="hiw-curation-title">How we choose spots</h2>
-        <p class="hiw-curation-body">Every location on Proposal Spots is assessed against the same criteria: genuine privacy at the right time of day, quality of light at golden hour, access difficulty versus reward, and whether the moment could be interrupted. We also look at the emotional weight of a place — some locations simply feel different when you're standing in them.</p>
-        <p class="hiw-curation-body">Most spots we scout don't make the cut. The ones that do are here because we'd propose at them ourselves.</p>
+        <p class="hiw-curation-body">Most places are beautiful. Very few are right for a proposal.</p>
+        <p class="hiw-curation-body">Every location on Proposal Spots is evaluated against five criteria: genuine seclusion at the moment that matters, quality of light at golden hour, ease of access without logistical stress, protection from interruption, and the emotional weight of the space itself. Some places simply feel different when you're standing in them — a quality that no photograph fully captures, and no algorithm can assess.</p>
+        <p class="hiw-curation-body">We research each destination in person or through trusted local partners who know the difference between a location that looks impressive and one that will make her cry. We look at crowd patterns by hour and season. We eliminate anything with unpredictable access. We reject spots that require a perfect Instagram caption to justify them.</p>
+        <p class="hiw-curation-body" style="font-style:italic;color:var(--ink);font-family:'Cormorant',serif;font-size:17px;line-height:1.7;border-left:2px solid #A55A4A;padding-left:20px;margin-top:28px">The majority of spots we scout don't make it. The ones on this platform are here because we would propose at them ourselves — and we hold them to exactly that standard.</p>
       </div>
     </div>
 
@@ -7176,13 +7132,15 @@ function rcalHover(ds) {
   document.querySelectorAll('#sdp-range-cal .rcal-day').forEach(el => {
     const d = el.dataset.ds;
     if (!d) return;
-    el.classList.remove('rcal-day-hover-range');
+    el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout');
     if (d > ci && d < ds) el.classList.add('rcal-day-hover-range');
+    if (d === ds) el.classList.add('rcal-day-hover-checkout');
   });
 }
 
 function rcalHoverEnd() {
-  document.querySelectorAll('#sdp-range-cal .rcal-day-hover-range').forEach(el => el.classList.remove('rcal-day-hover-range'));
+  document.querySelectorAll('#sdp-range-cal .rcal-day-hover-range, #sdp-range-cal .rcal-day-hover-checkout')
+    .forEach(el => { el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout'); });
 }
 
 function onCheckinChange() {
@@ -7337,6 +7295,29 @@ function openEnquiryModal() {
   if (enqBD) enqBD.value = backupDatePrefill;
   console.log('Enquiry date prefill: proposal=', proposalDatePrefill, 'backup=', backupDatePrefill);
 
+  // Show hotel stay nights as clickable chips in enquiry date section
+  const hintEl  = document.getElementById('enq-hotel-nights-hint');
+  const chipsEl = document.getElementById('enq-hotel-nights-chips');
+  const ciHotel = document.getElementById('sdp-checkin')?.value;
+  const coHotel = document.getElementById('sdp-checkout')?.value;
+  if (hintEl && chipsEl && ciHotel && coHotel) {
+    hintEl.style.display = 'block';
+    chipsEl.style.display = 'flex';
+    const fmt = s => { const d=new Date(s+'T00:00:00'); return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); };
+    let chipHTML = '';
+    let cursor = new Date(ciHotel+'T00:00:00');
+    const end   = new Date(coHotel+'T00:00:00');
+    while (cursor < end) {
+      const ds = cursor.toISOString().split('T')[0];
+      chipHTML += `<div onclick="enqPickDate('${ds}')" style="padding:6px 12px;background:rgba(165,90,74,0.1);border:1px solid rgba(165,90,74,0.3);font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:#A55A4A;cursor:pointer;letter-spacing:0.04em;transition:background 0.15s" onmouseenter="this.style.background='rgba(165,90,74,0.2)'" onmouseleave="this.style.background='rgba(165,90,74,0.1)'">${fmt(ds)}</div>`;
+      cursor.setDate(cursor.getDate()+1);
+    }
+    chipsEl.innerHTML = chipHTML;
+  } else if (hintEl && chipsEl) {
+    hintEl.style.display = 'none';
+    chipsEl.style.display = 'none';
+  }
+
   // Package summary
   const pkgNames = { moment: 'The Moment', hotel: 'The Moment + Hotel stay' };
   const pkgRow   = document.getElementById('enq-sum-package');
@@ -7406,6 +7387,28 @@ function closeEnquiryModal() {
   document.getElementById('enq-overlay').classList.remove('open');
   document.getElementById('enq-modal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// Enquiry: click a hotel night chip to set as preferred proposal date
+function enqPickDate(ds) {
+  const pd = document.getElementById('enq-proposal-date');
+  const bd = document.getElementById('enq-backup-date');
+  if (!pd) return;
+  if (!pd.value || pd.value === ds) {
+    pd.value = ds;
+  } else if (!bd.value) {
+    bd.value = ds;
+  } else {
+    // Both set — update preferred
+    pd.value = ds;
+  }
+  // Highlight the selected chip
+  document.querySelectorAll('#enq-hotel-nights-chips div').forEach(el => {
+    const elDs = el.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+    const active = elDs === pd.value || elDs === bd.value;
+    el.style.background = active ? 'rgba(165,90,74,0.3)' : 'rgba(165,90,74,0.1)';
+    el.style.fontWeight  = active ? '400' : '300';
+  });
 }
 
 // ─── Booking Drawer (stub — drawer removed in favour of sidebar) ──
@@ -8269,7 +8272,7 @@ const STORY_DATA = {
     photo: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1200&q=80&fit=crop',
     eyebrow: 'Amalfi Coast, Italy · June 2024',
     title: 'He told her it was just lunch. She had no idea about the lemon grove.',
-    meta: ['🪨 Cliff', '🔒 Private', '$$$$', 'Amalfi Coast'],
+    meta: ['🏔 Cliff', '🔒 Private', '$$$$', 'Amalfi Coast'],
     dest: 'Amalfi Coast',
     body: `<p>James had been planning for four months. He had dismissed a dozen ideas — a boat trip, a rooftop restaurant, a beach at sunset — before a local hotel owner mentioned a private terrace carved into the cliffside above Positano. It was invisible from the path below. Most people walk past without ever knowing it exists.</p>
 <p>He booked it in January for a June trip. He told no one except the hotel, the guitarist, and the photographer he had hired to be in position before they arrived.</p>
@@ -8668,7 +8671,7 @@ function filterAC(val) {
 function pickAC(value) {
   document.getElementById('search-main').value = value;
   document.getElementById('ac-main').style.display = 'none';
-  applySpotFilters();
+  // Just set the value — don't auto-navigate. User can still apply filters or hit Search.
 }
 
 document.addEventListener('click', e => {
@@ -9955,11 +9958,17 @@ function submitHotelForm(e) {
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Preferred proposal date</label>
-      <input type="date" id="enq-proposal-date" class="enq-input">
+      <div id="enq-hotel-nights-hint" style="display:none;margin-bottom:8px;font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:var(--mid);letter-spacing:0.02em">Your hotel stay nights — select one:</div>
+      <div id="enq-hotel-nights-chips" style="display:none;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+      <div onclick="document.getElementById('enq-proposal-date').showPicker?document.getElementById('enq-proposal-date').showPicker():document.getElementById('enq-proposal-date').focus()" style="cursor:pointer">
+        <input type="date" id="enq-proposal-date" class="enq-input" style="cursor:pointer;pointer-events:none">
+      </div>
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Backup proposal date</label>
-      <input type="date" id="enq-backup-date" class="enq-input">
+      <div onclick="document.getElementById('enq-backup-date').showPicker?document.getElementById('enq-backup-date').showPicker():document.getElementById('enq-backup-date').focus()" style="cursor:pointer">
+        <input type="date" id="enq-backup-date" class="enq-input" style="cursor:pointer;pointer-events:none">
+      </div>
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Anything we should know?</label>
