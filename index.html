@@ -8533,56 +8533,46 @@ function renderCollection() {
 
   console.log('renderCollection: matched spots=', spots.length);
 
-  // If saved IDs don't match any live spots, clear stale IDs and show empty
   if (spots.length === 0) {
-    // Remove stale IDs that no longer exist in Airtable
     savedSpotIds = savedSpotIds.filter(id => validIds.includes(id));
     try { localStorage.setItem('ps_saved', JSON.stringify(savedSpotIds)); } catch(e) {}
-    grid.innerHTML      = '';
-    grid.style.display  = 'none';
-    empty.style.display = 'block';
+    grid.style.cssText = 'display:none';
+    empty.style.cssText = 'display:block;text-align:center;padding:80px 40px 60px';
     return;
   }
 
-  grid.style.display  = 'grid';
-  empty.style.display = 'none';
   if (sub) sub.textContent = `${spots.length} spot${spots.length > 1 ? 's' : ''} saved to your collection.`;
+  empty.style.cssText = 'display:none';
 
-  // Force reflow so grid columns get computed correctly after page was display:none
-  void grid.offsetHeight;
-
-  grid.innerHTML = spots.map(s => {
+  // Build cards HTML
+  const cardsHtml = spots.map(s => {
     const imgStyle = s['Cover Photo']
       ? `background-image:url('${s['Cover Photo']}');background-size:cover;background-position:center;`
-      : `background:${s.coverGradient || 'var(--bg3)'};`;
-    const badge     = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
-    const hook      = s['Hook'] || s['Line Summary'] || '';
-    const privacy   = s.Privacy || '';
-    const privEmoji = privacyEmojiMap[privacy] || '';
-    const bestTime  = s['Best Time'] || s['Best Time of Day'] || '';
-    const price     = s['Moment Price'] || s['Price'] || '';
-    const priceStr  = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
-    return `
-      <div class="spot-card" onclick="openSpotDrawer('${s.id}')" style="cursor:pointer">
-        <div class="spot-card-img">
-          <div class="img-bg" style="${imgStyle}"></div>
-          ${badge}
-          <div class="spot-save saved" data-spot-id="${s.id}" onclick="event.stopPropagation();removeSavedSpot('${s.id}')">♥</div>
-          <div class="spot-card-overlay">
-            <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
-            <div class="spot-card-name">${s.Name}</div>
-            ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
-          </div>
+      : `background:#e8e2d9;`;
+    const hook     = s['Hook'] || s['Line Summary'] || '';
+    const price    = s['Moment Price'] || s['Price'] || '';
+    const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
+    const bestTime = s['Best Time'] || s['Best Time of Day'] || '';
+    return `<div onclick="openSpotDrawer('${s.id}')" style="cursor:pointer;display:block;width:100%">
+      <div style="${imgStyle}width:100%;height:360px;position:relative;border-radius:4px;overflow:hidden;background-size:cover;background-position:center">
+        <div onclick="event.stopPropagation();removeSavedSpot('${s.id}')" style="position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(28,28,28,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;cursor:pointer;z-index:2">♥</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px 16px;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 100%)">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,241,235,0.7);margin-bottom:4px">${s.Region || ''} · ${s.Country || ''}</div>
+          <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:300;color:#fdfcfa;line-height:1.1">${s.Name}</div>
+          ${hook ? `<p style="font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:rgba(244,241,235,0.75);margin-top:6px;line-height:1.5">${hook}</p>` : ''}
         </div>
-        <div class="spot-card-body">
-          <span class="spot-card-budget-new">${priceStr}</span>
-          <div class="spot-card-meta-tags">
-            ${privEmoji ? `<span class="spot-card-meta-tag">${privEmoji}</span>` : ''}
-            ${bestTime  ? `<span class="spot-card-meta-tag">· ${bestTime}</span>` : ''}
-          </div>
-        </div>
-      </div>`;
+      </div>
+      <div style="padding:12px 2px 0;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:#1c1c1c">${priceStr}</span>
+        <span style="font-family:'Jost',sans-serif;font-size:11px;color:#888">${bestTime}</span>
+      </div>
+    </div>`;
   }).join('');
+
+  // Inject into a fresh wrapper — completely bypass the spots-grid CSS class
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%';
+  grid.innerHTML = cardsHtml;
+  console.log('renderCollection: done. grid offsetHeight=', grid.offsetHeight, 'offsetWidth=', grid.offsetWidth);
 }
 
 function removeSavedSpot(id) {
@@ -9852,36 +9842,6 @@ function submitHotelForm(e) {
 </div>
 
 
-<!-- ═══ MY COLLECTION PAGE ═══ -->
-<div id="page-collection" class="page" style="display:none">
-  <div class="pg-collection">
-    <div class="collection-header">
-      <span class="pg-eyebrow" style="text-align:center;display:block;margin-bottom:16px">Your saved spots</span>
-      <h1 class="collection-title">My <em>Collection</em></h1>
-      <p class="collection-sub" id="collection-sub">The proposal spots you've saved, all in one place.</p>
-    </div>
-    <div class="section-wrap" style="background:var(--bg)">
-      <div class="section" style="padding-top:40px">
-        <div class="spots-grid" id="collection-grid" style="display:none"></div>
-        <div class="collection-empty" id="collection-empty" style="display:none">
-        <div class="collection-empty-icon">♡</div>
-        <p class="collection-empty-title">No saved spots yet.</p>
-        <p class="collection-empty-sub">Save spots from across our destinations and find them here, anytime.</p>
-        <div class="collection-signup-cta">
-          <div class="collection-signup-inner">
-            <p class="collection-signup-eyebrow">Create your free collection</p>
-            <h3 class="collection-signup-heading">Start your<br><em>collection.</em></h3>
-            <p class="collection-signup-body">Create your free collection in seconds. Save spots, plan your proposal, and access everything from any device. No passwords. No friction.</p>
-            <button class="collection-signup-btn" onclick="openSignUpPrompt()">Sign Up to Save Spots →</button>
-          </div>
-        </div>
-        <button class="pg-cta-btn" style="margin-top:20px;background:none;color:var(--mid);border:1px solid var(--hairline);font-size:9px;" onclick="showPage('home')">Or explore spots first →</button>
-      </div>
-      </div><!-- /.section -->
-    </div><!-- /.section-wrap -->
-  </div><!-- /.pg-collection -->
-</div><!-- /#page-collection -->
-
 
 <!-- LIGHTBOX -->
 <div class="sdp-lightbox" id="sdp-lightbox" onclick="closeLightbox()">
@@ -10030,6 +9990,36 @@ function submitHotelForm(e) {
 </div><!-- end enq-modal -->
 
 </div><!-- end page wrapper -->
+
+<!-- ═══ MY COLLECTION PAGE ═══ -->
+<div id="page-collection" class="page" style="display:none">
+  <div class="pg-collection">
+    <div class="collection-header">
+      <span class="pg-eyebrow" style="text-align:center;display:block;margin-bottom:16px">Your saved spots</span>
+      <h1 class="collection-title">My <em>Collection</em></h1>
+      <p class="collection-sub" id="collection-sub">The proposal spots you've saved, all in one place.</p>
+    </div>
+    <div class="section-wrap" style="background:var(--bg)">
+      <div class="section" style="padding-top:40px">
+        <div class="spots-grid" id="collection-grid" style="display:none"></div>
+        <div class="collection-empty" id="collection-empty" style="display:none">
+        <div class="collection-empty-icon">♡</div>
+        <p class="collection-empty-title">No saved spots yet.</p>
+        <p class="collection-empty-sub">Save spots from across our destinations and find them here, anytime.</p>
+        <div class="collection-signup-cta">
+          <div class="collection-signup-inner">
+            <p class="collection-signup-eyebrow">Create your free collection</p>
+            <h3 class="collection-signup-heading">Start your<br><em>collection.</em></h3>
+            <p class="collection-signup-body">Create your free collection in seconds. Save spots, plan your proposal, and access everything from any device. No passwords. No friction.</p>
+            <button class="collection-signup-btn" onclick="openSignUpPrompt()">Sign Up to Save Spots →</button>
+          </div>
+        </div>
+        <button class="pg-cta-btn" style="margin-top:20px;background:none;color:var(--mid);border:1px solid var(--hairline);font-size:9px;" onclick="showPage('home')">Or explore spots first →</button>
+      </div>
+      </div><!-- /.section -->
+    </div><!-- /.section-wrap -->
+  </div><!-- /.pg-collection -->
+</div><!-- /#page-collection -->
 
 <!-- ═══ SAVE SPOT MODAL ═══ -->
 <div id="save-overlay" style="display:none; position:fixed; inset:0; background:rgba(28,28,28,0.5); z-index:20000; opacity:0; transition:opacity 0.3s;" onclick="closeSaveModal()"></div>
