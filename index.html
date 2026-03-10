@@ -1863,6 +1863,104 @@ footer {
   margin-bottom: 40px;
 }
 .dest-landing-spots-wrap { min-height: 300px; }
+
+/* Destination editorial / marketing section */
+.dest-editorial {
+  background: var(--ink2);
+  padding: 80px 40px;
+  margin-top: 0;
+}
+.dest-editorial-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.dest-editorial-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(165,90,74,0.85);
+  display: block;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.dest-editorial-headline {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(32px,5vw,58px);
+  font-weight: 300;
+  color: var(--bg);
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dest-editorial-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(244,241,235,0.6);
+  line-height: 1.85;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 64px;
+}
+.dest-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(244,241,235,0.08);
+  margin-bottom: 64px;
+}
+@media(max-width:768px) { .dest-editorial-grid { grid-template-columns: 1fr; } }
+.dest-editorial-card {
+  background: rgba(28,28,28,0.6);
+  padding: 36px 32px;
+}
+.dest-editorial-card-icon {
+  font-size: 22px;
+  margin-bottom: 16px;
+  display: block;
+}
+.dest-editorial-card-title {
+  font-family: 'Cormorant', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--bg);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.dest-editorial-card-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(244,241,235,0.55);
+  line-height: 1.8;
+}
+.dest-editorial-pull {
+  border-left: 2px solid #A55A4A;
+  padding-left: 28px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: left;
+}
+.dest-editorial-pull-text {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(20px,2.5vw,28px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(244,241,235,0.85);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.dest-editorial-pull-attr {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244,241,235,0.35);
+}
+@media(max-width:640px) { .dest-editorial { padding: 60px 24px; } }
 .dest-landing-budget {
   max-width: 960px;
   margin: 80px auto 0;
@@ -5197,6 +5295,11 @@ footer {
     </div>
 
     <!-- Budget Guide for this destination -->
+    <div class="dest-landing-editorial" id="dest-landing-editorial" style="display:none">
+      <div id="dest-landing-editorial-content"></div>
+    </div>
+
+    <!-- Budget Guide for this destination -->
     <div class="dest-landing-budget" id="dest-landing-budget">
       <div class="dest-landing-budget-header">
         <span class="pg-eyebrow" style="display:block;text-align:center;margin-bottom:12px">Plan with clarity</span>
@@ -8095,6 +8198,173 @@ const DEST_DATA = {
 };
 
 const DEST_BUDGET_DATA = {
+
+// ── Destination Editorial / Marketing Content ──────────────────────────
+const DEST_EDITORIAL_DATA = {
+  'New York': {
+    eyebrow: 'New York City · USA',
+    headline: 'The most cinematic city on earth. It does half the work for you.',
+    sub: 'Eight million people, and somehow a hundred places where it feels like just the two of you. New York proposals are different — the city amplifies the moment. The skyline at golden hour, a rooftop above the noise, a hidden garden you found that nobody else knew about.',
+    cards: [
+      { icon: '🌆', title: 'The skyline effect', body: 'No backdrop on earth communicates scale and ambition like the Manhattan skyline. Brooklyn Bridge Park, Dumbo, and the High Line at sunset turn the city into your photographer.' },
+      { icon: '🌿', title: 'Secret gardens', body: 'Central Park has 843 acres. Most visitors see the same five landmarks. Our spots are the hidden meadows, private terraces, and rose gardens that feel miles from the city — and minutes from anywhere.' },
+      { icon: '🔒', title: 'Private inside public', body: 'New York seems impossible to escape — until you know where to look. Rooftop terraces, private dining rooms, and waterfront spots that give you Manhattan without the crowds.' },
+    ],
+    pull: 'She thought we were just getting dinner in Brooklyn. When we turned the corner and she saw the Manhattan skyline reflected in the water, she stopped walking. I got down on one knee before she turned back around.',
+    pullAttr: '— Marcus, Brooklyn Bridge Park, 2024'
+  },
+  'Amalfi Coast': {
+    eyebrow: 'Campania · Italy',
+    headline: 'Europe\'s most cinematic coastline. Some moments are inevitable here.',
+    sub: 'The Amalfi Coast has been making people fall in love for centuries — the light, the limestone cliffs, the lemon groves, the sea. There is a reason proposals here feel like they were meant to happen. The setting removes all doubt.',
+    cards: [
+      { icon: '🍋', title: 'The lemon grove light', body: 'Late afternoon on the Amalfi Coast produces a quality of light that photographers call unrepeatable — golden, diffuse, warm. The terraced lemon groves glow. Positano turns amber. The proposal almost takes care of itself.' },
+      { icon: '🏔', title: 'Private cliffside terraces', body: 'The most extraordinary proposal spots here are invisible from the path. Carved into the cliffside, draped in bougainvillea, they exist specifically for moments that demand privacy. Most tourists walk past without knowing.' },
+      { icon: '🚤', title: 'Boat access spots', body: 'Several of our vetted locations are only accessible by boat — which means you are the only person who knows they exist. A local boatman, two hours, and a cove that doesn\'t appear on any map.' },
+    ],
+    pull: 'The guitarist started playing around the corner and she thought it was for another table. When she turned to ask if we should move, I was already on one knee.',
+    pullAttr: '— James, Positano, 2024'
+  },
+  'Santorini': {
+    eyebrow: 'Cyclades · Greece',
+    headline: 'The caldera at sunset. There is nothing else like it.',
+    sub: 'Santorini is the most photographed proposal destination on earth — and there is a reason. The caldera, the whitewashed terraces, the light turning the Aegean pink. The challenge is not finding somewhere beautiful. It\'s finding somewhere private.',
+    cards: [
+      { icon: '🌅', title: 'The caldera effect', body: 'The Santorini caldera is one of the few places where the scenery is so overwhelming that she won\'t be thinking about anything else — until you get down on one knee. The backdrop does the emotional work before you say a word.' },
+      { icon: '🏛', title: 'Private villa terraces', body: 'The Oia castle at sunset has thousands of tourists. Our vetted spots are private terraces, villa rooftops, and hidden viewpoints that have the same caldera view — with nobody else present.' },
+      { icon: '📸', title: 'Legendary light', body: 'Santorini photographers call the hour before sunset "the window" — a quality of light that exists nowhere else. Plan around it. Our spots are chosen specifically for how they read in this light.' },
+    ],
+    pull: 'She was wearing a dress she\'d bought that morning from a small boutique in Oia. She had no idea I\'d already arranged everything. Sometimes the details arrange themselves.',
+    pullAttr: '— Tom, Oia, 2023'
+  },
+  'Bali': {
+    eyebrow: 'Indonesia · Southeast Asia',
+    headline: 'Private villas, ancient rice terraces, and a light that makes everything feel sacred.',
+    sub: 'Bali offers the highest value-for-money proposal experience in the world. Private villa setups that would cost $5,000 in Europe happen here for under $1,000. But the real reason people propose in Bali is the quality of the feeling — something about the island makes it feel like the right place to ask.',
+    cards: [
+      { icon: '🌾', title: 'Rice terraces at sunrise', body: 'Tegallalang at 5:30am, before the tour groups arrive, is one of the most beautiful things you will ever see. Layers of emerald terraces descending into mist, almost complete silence. Nobody else is there.' },
+      { icon: '🏊', title: 'Infinity pool proposals', body: 'Bali\'s private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally.' },
+      { icon: '🌊', title: 'Uluwatu at sunset', body: 'The Uluwatu clifftops at golden hour rival anything in Europe — hidden coves, crashing surf, the kind of light that makes every photograph look like a film still. And almost entirely unknown to tourists.' },
+    ],
+    pull: 'He woke me at 4:30am. I was furious. Then I saw the rice terraces in the first light and understood completely.',
+    pullAttr: '— Sophie, Ubud, 2024'
+  },
+  'Maldives': {
+    eyebrow: 'Indian Ocean · Private Islands',
+    headline: 'The sandbank appears at low tide. It disappears by afternoon. The moment is everything.',
+    sub: 'The Maldives is the only destination where total privacy is the default, not the exception. Overwater villas, sandbanks that exist for a few hours a day, and a quality of light that makes the Indian Ocean look like it was designed for this exact moment.',
+    cards: [
+      { icon: '🏝', title: 'Private sandbanks', body: 'At low tide, small sand islands emerge from the Indian Ocean — visible for 2–3 hours, then gone. Accessible only by speedboat. Used by almost nobody. The most private proposal setting in the world.' },
+      { icon: '🌊', title: 'Overwater villas', body: 'Waking up above the lagoon, hearing nothing but water. Our vetted Maldives properties have proposal coordinators on staff who understand discretion completely — everything arranged before you even ask.' },
+      { icon: '🤿', title: 'Underwater proposals', body: 'For the genuinely adventurous: several of our partner properties offer underwater proposal experiences in the lagoon. Written on a slate, in 3 metres of crystal water, with manta rays.' },
+    ],
+    pull: 'The resort called it "the proposal sandbank." We were the only people who knew it existed. It was available for two hours. That was all we needed.',
+    pullAttr: '— Daniel, North Malé Atoll, 2024'
+  },
+  'Tulum': {
+    eyebrow: 'Quintana Roo · Mexico',
+    headline: 'Cenotes glowing turquoise underground. Jungle eco-lodges above the canopy. The Americas\' most sophisticated proposal destination.',
+    sub: 'Tulum has transformed from a backpacker stop into the most design-forward destination in the Americas. Private cenote access before the crowds arrive, open-air beds above the jungle, and Caribbean water the colour of gemstones.',
+    cards: [
+      { icon: '💧', title: 'Private cenote access', body: 'The cenotes — underground sinkholes filled with crystal freshwater — are extraordinary at dawn, when the light shafts through. Our vetted spots include private early-morning access before tour groups arrive at 9am.' },
+      { icon: '🌴', title: 'Jungle eco-lodges', body: 'Tulum\'s design-conscious eco-lodges have turned the jungle into a luxury setting. Open-air bedrooms, outdoor showers, infinity pools above the canopy. The proposal setup is often the easiest part.' },
+      { icon: '🏖', title: 'Caribbean seclusion', body: 'North of Tulum, a series of near-empty beaches remain accessible only by dirt road. Turquoise water, no facilities, no other people. Some of the best proposal photography in the Americas happens here.' },
+    ],
+    pull: 'We had private access to the cenote from 6am. By 9am it had 40 tourists. The timing was everything.',
+    pullAttr: '— Alex, Gran Cenote, 2024'
+  },
+  'Costa Rica': {
+    eyebrow: 'Central America · Pacific & Caribbean',
+    headline: 'Cloud forests suspended in mist. Hidden Pacific coves. A biodiversity that makes the proposal feel like a David Attenborough scene.',
+    sub: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — at a fraction of the price of European equivalents. Cloud forest hanging bridges, Pacific cliff proposals, and eco-lodges where the jungle comes to you.',
+    cards: [
+      { icon: '☁️', title: 'Cloud forest proposals', body: 'Monteverde at dawn, the suspension bridges above the canopy, howler monkeys in the distance and mist below your feet. Private early access (before 7am) means no tour groups — just the two of you above the jungle.' },
+      { icon: '🌊', title: 'Pacific hidden coves', body: 'Costa Rica\'s Osa Peninsula has some of the least-visited coastline in Central America. Beaches accessible only by boat or a 45-minute jungle hike — which guarantees you\'ll be entirely alone.' },
+      { icon: '🌿', title: 'Eco-lodge magic', body: 'The best eco-lodges in Costa Rica have proposal setups perfected — candlelit jungle clearings, private hanging bridges, infinity pools above the rainforest. The nature does most of the work.' },
+    ],
+    pull: 'The hanging bridge was completely deserted at sunrise. We were above the cloud layer. It felt like we were the only two people alive.',
+    pullAttr: '— Ryan, Monteverde, 2024'
+  },
+  'Nicaragua': {
+    eyebrow: 'Central America · Untouched',
+    headline: 'Twin volcanos rising from a lake. Black sand coves. The rawness the rest of Central America has already lost.',
+    sub: 'Nicaragua is where the most adventurous proposals happen. Isla de Ometepe — accessible only by ferry, rising out of Lake Nicaragua with twin volcanos — is one of the most extraordinary and private places on earth. Almost no one goes there. That\'s the point.',
+    cards: [
+      { icon: '🌋', title: 'Ometepe island', body: 'Two volcanos rising from a freshwater lake, accessible only by ferry. The island has basic infrastructure and almost no tourists. Which means the proposal feels genuinely private and genuinely adventurous.' },
+      { icon: '⛵', title: 'Boat-only access', body: 'Several of Nicaragua\'s best coves and beaches are only reachable by boat — black sand, volcanic coastline, absolute silence. You won\'t see another person for hours. That\'s the entire appeal.' },
+      { icon: '🌅', title: 'Volcano sunrise', body: 'Watching the sun rise from above the cloud line, on the slopes of Concepción volcano, is one of the most dramatic proposal backdrops in the world. And almost no one has done it.' },
+    ],
+    pull: 'Nobody we know has been to Nicaragua. Nobody had proposed there before us. That was exactly what I wanted.',
+    pullAttr: '— Luke, Isla de Ometepe, 2023'
+  },
+  'Algarve': {
+    eyebrow: 'Portugal · Atlantic Coast',
+    headline: 'Sea caves with natural skylights. Sandstone arches glowing amber. Europe\'s best-value proposal coastline.',
+    sub: 'The Algarve rivals the Amalfi Coast for sheer dramatic beauty — at roughly half the cost. Sandstone sea arches, grottos accessible by kayak, and Atlantic cliffs that turn the colour of copper at golden hour.',
+    cards: [
+      { icon: '🚣', title: 'Sea cave proposals', body: 'Benagil Cave — a sea cave with a natural skylight — is one of the most extraordinary proposal locations in Europe. After tour boats leave at 5pm, it becomes entirely private. The light through the ceiling is extraordinary.' },
+      { icon: '🏖', title: 'Hidden coves', body: 'The Algarve coastline is fractured with hidden coves accessible only by kayak or a steep cliff path. Most tourists stay at the main beaches. Ten minutes of effort puts you entirely alone.' },
+      { icon: '🌅', title: 'Copper hour light', body: 'At golden hour the Algarve\'s sandstone cliffs turn the colour of copper — a quality of warm, amber light that makes every photograph extraordinary. The Ponta da Piedade sea arches are the finest example.' },
+    ],
+    pull: 'We kayaked into Benagil after the last tour boat left. The light through the cave ceiling was extraordinary. She had no idea I had the ring.',
+    pullAttr: '— Chris, Benagil, 2024'
+  },
+  'South of France': {
+    eyebrow: 'Provence & Côte d\'Azur · France',
+    headline: 'Lavender fields in full bloom. Hilltop villages above the sea. The light that painters have been chasing for three centuries.',
+    sub: 'The South of France offers a romantic variety that no other European destination matches — lavender fields in July, Côte d\'Azur clifftop villages, ancient hilltop towns with views across Provence. The light here is famous for a reason.',
+    cards: [
+      { icon: '💜', title: 'Lavender in bloom', body: 'Valensole in late June and July: 30 square kilometres of lavender in full bloom, purple to every horizon. Early morning, before the tour buses arrive, it is entirely silent and extraordinary. The fragrance alone is overwhelming.' },
+      { icon: '🏰', title: 'Perched villages', body: 'Les Baux-de-Provence, Gordes, Roussillon — hilltop villages with 360° views across the Provence landscape. Private terraces, quiet courtyards, and the extraordinary evening light that arrives just before sunset.' },
+      { icon: '🌊', title: 'Côte d\'Azur coves', body: 'The Calanques between Marseille and Cassis — fjord-like limestone inlets accessible only on foot or by boat — are some of the most dramatic and private coastline in Europe. Impossible blue water, white limestone, total silence.' },
+    ],
+    pull: 'She asked why we were getting up at 5am. I said we needed to beat the crowds. When she saw the lavender fields in the first light, she stopped asking questions.',
+    pullAttr: '— Pierre, Valensole, 2023'
+  },
+  'Switzerland': {
+    eyebrow: 'Swiss Alps · Central Europe',
+    headline: 'The Jungfrau at golden hour. Private cable car access above the clouds. A setting that makes everything feel permanent.',
+    sub: 'Switzerland offers the most dramatic natural proposal backdrops in Europe — and the most well-organised. Private cable car access, mountain restaurant reservations, and a silence above the treeline that exists nowhere else on the continent.',
+    cards: [
+      { icon: '🏔', title: 'Above the cloud layer', body: 'At 2,500 metres, above the clouds, with the Eiger and Jungfrau visible at every angle, the scale of the proposal setting is almost incomprehensible. There is no urban noise, no interruption, and no one else.' },
+      { icon: '🚡', title: 'Private cable car', body: 'Several of our Swiss partners offer private cable car access to mountain platforms — the gondola to yourselves, sunrise over the Alps, and a location visible from 50 kilometres away.' },
+      { icon: '🌄', title: 'Alpine meadow timing', body: 'The window between snowmelt and the autumn — June through September — gives you Alpine meadows in full flower at elevation. The Bernese Oberland has a dozen such spots within an hour of Grindelwald that almost no visitors know.' },
+    ],
+    pull: 'She said the silence was the loudest thing she had ever experienced. He was already on one knee when she finished the sentence.',
+    pullAttr: '— Oliver, Bernese Oberland, 2024'
+  },
+};
+
+function renderDestEditorial(destName) {
+  const el = document.getElementById('dest-landing-editorial');
+  const content = document.getElementById('dest-landing-editorial-content');
+  if (!el || !content) return;
+  const d = DEST_EDITORIAL_DATA[destName];
+  if (!d) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  content.innerHTML = `
+    <div class="dest-editorial">
+      <div class="dest-editorial-inner">
+        <span class="dest-editorial-eyebrow">${d.eyebrow}</span>
+        <h2 class="dest-editorial-headline">${d.headline}</h2>
+        <p class="dest-editorial-sub">${d.sub}</p>
+        <div class="dest-editorial-grid">
+          ${d.cards.map(c => `
+            <div class="dest-editorial-card">
+              <span class="dest-editorial-card-icon">${c.icon}</span>
+              <div class="dest-editorial-card-title">${c.title}</div>
+              <p class="dest-editorial-card-body">${c.body}</p>
+            </div>`).join('')}
+        </div>
+        <div class="dest-editorial-pull">
+          <p class="dest-editorial-pull-text">"${d.pull}"</p>
+          <span class="dest-editorial-pull-attr">${d.pullAttr}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+const DEST_BUDGET_DATA = {
   'santorini': { range: '$800 – $8,000+', tagline: 'The most photographed proposal backdrop on earth. Premium views command premium prices — but there are ways to do it beautifully without the most expensive options.', rows: [['Proposal spot access','Free – $150','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (3 nights, cave suite)','—','$900 – $3,000'],['Private sunset dinner','$150 – $400','$200 – $500'],['Flowers & champagne setup','$80 – $200','Often included'],], total: ['$530 – $1,550','$1,400 – $4,300+'], tip: 'Avoid the Oia castle at sunset — it has thousands of tourists and zero privacy. Our vetted spots include private terraces with the same caldera views, for the same or less.', dest: 'Santorini' },
   'bali': { range: '$400 – $4,000+', tagline: 'The most value-for-money luxury proposal destination in the world. Private villa setups that would cost $5,000 in Europe can be arranged in Bali for under $1,000.', rows: [['Private access / guide','$30 – $100','Included'],['Photographer (2–3 hrs)','$150 – $450','$150 – $450'],['Hotel (3 nights, private villa)','—','$400 – $1,800'],['Private dinner setup','$80 – $200','$100 – $300'],['Flowers & décor','$30 – $120','Often included'],], total: ['$290 – $870','$650 – $2,550+'], tip: `Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don't skip this. The rice terrace light at sunrise is unrepeatable.`, dest: 'Bali' },
   'maldives': { range: '$2,000 – $15,000+', tagline: 'The highest-cost destination on our list — and the one where every penny of it is visible. If your budget allows, this is the proposal that requires the least effort and delivers the most impact.', rows: [['Private beach / sandbank access','$200 – $600','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, water villa)','—','$1,500 – $8,000'],['Champagne & setup','$150 – $400','Often included'],['Seaplane transfer','—','$400 – $800'],], total: ['$750 – $1,900','$2,300 – $9,700+'], tip: `The sandbank proposals are spectacular but time-sensitive — accessible only 2–3 hours per day. Book through a resort concierge briefed in advance. We've vetted the properties that handle this best.`, dest: 'Maldives' },
@@ -8104,7 +8374,8 @@ const DEST_BUDGET_DATA = {
   'france': { range: '$800 – $6,000+', tagline: `Lavender fields, the Côte d'Azur, hilltop villages, Provençal farmhouses. The South of France offers a level of romantic variety that no other European destination can match.`, rows: [['Private access / venue','$80 – $300','Included'],['Photographer (2–3 hrs)','$300 – $700','$300 – $700'],['Hotel (3 nights, mas/château)','—','$600 – $3,000'],['Private dinner','$150 – $500','$150 – $500'],['Flowers & setup','$80 – $200','Often included'],], total: ['$610 – $1,700','$1,150 – $4,200+'], tip: 'The lavender fields in Valensole peak in late June–July. Go early morning or late evening for golden light and no tour groups. Private farm access can usually be arranged through a local gîte.', dest: 'South of France' },
   'switzerland': { range: '$1,000 – $8,000+', tagline: 'The Alps provide the most dramatic natural proposal backdrops in Europe. Private cable car access and mountain restaurant reservations require advance planning — but deliver something unforgettable.', rows: [['Private cable car / guide','$100 – $400','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, mountain lodge)','—','$700 – $3,000'],['Private mountain dinner','$200 – $600','$200 – $600'],['Setup & flowers','$100 – $250','Often included'],], total: ['$800 – $2,150','$1,400 – $4,500+'], tip: 'The best Swiss Alps spots are not in the guidebooks. The Bernese Oberland has dozens of accessible viewpoints that see almost no visitors. A local mountain guide is worth every franc.', dest: 'Switzerland' },
   'costa-rica': { range: '$400 – $4,000+', tagline: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forests, Pacific cliffs, hidden beaches — at a fraction of the price of European equivalents.', rows: [['Private guide / access','$50 – $150','Included'],['Photographer (2–3 hrs)','$150 – $400','$150 – $400'],['Hotel (3 nights, eco-lodge)','—','$400 – $1,800'],['Private dinner','$80 – $250','$100 – $300'],['Setup & flowers','$40 – $120','Often included'],], total: ['$320 – $920','$690 – $2,500+'], tip: 'The Monteverde cloud forest hanging bridges are the most dramatic proposal setting in the country. Private early-access before 7am means no tour groups — just mist, jungle, and howler monkeys.', dest: 'Costa Rica' },
-  'nicaragua': { range: '$200 – $2,000+', tagline: 'The last undiscovered destination on our list. Nicaragua offers extraordinary natural settings — twin volcanos, black sand beaches, colonial cities — at prices that make even budget-conscious proposals feel extraordinary.', rows: [['Private boat / guide','$40 – $150','Included'],['Photographer (2–3 hrs)','$100 – $300','$100 – $300'],['Hotel (3 nights, eco-lodge)','—','$200 – $800'],['Private dinner','$50 – $150','$80 – $200'],['Setup','$20 – $80','Often included'],], total: ['$210 – $680','$420 – $1,280+'], tip: 'Isla de Ometepe is accessible only by ferry and is one of the most beautiful and private proposal locations in the world. The island has almost no tourist infrastructure — which is entirely the point.', dest: 'Nicaragua' }
+  'nicaragua': { range: '$200 – $2,000+', tagline: 'The last undiscovered destination on our list. Nicaragua offers extraordinary natural settings — twin volcanos, black sand beaches, colonial cities — at prices that make even budget-conscious proposals feel extraordinary.', rows: [['Private boat / guide','$40 – $150','Included'],['Photographer (2–3 hrs)','$100 – $300','$100 – $300'],['Hotel (3 nights, eco-lodge)','—','$200 – $800'],['Private dinner','$50 – $150','$80 – $200'],['Setup','$20 – $80','Often included'],], total: ['$210 – $680','$420 – $1,280+'], tip: 'Isla de Ometepe is accessible only by ferry and is one of the most beautiful and private proposal locations in the world. The island has almost no tourist infrastructure — which is entirely the point.', dest: 'Nicaragua' },
+  'new-york': { range: '$400 – $5,000+', tagline: 'New York proposals are cinematic by default — the city does half the work. The skyline, the light off the water at golden hour, the secret gardens hidden inside one of the most photographous cities on earth. The key is finding the spots that feel private inside the most public city in the world.', rows: [['Proposal spot access','Free – $200','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (2 nights, Manhattan)','—','$400 – $2,000'],['Private dinner reservation','$100 – $400','$150 – $500'],['Flowers & champagne setup','$80 – $200','Often included'],], total: ['$480 – $1,600','$850 – $3,500+'], tip: 'Central Park is the most proposed-in place in the world — which means it can also feel ordinary. Our vetted NYC spots include private rooftop terraces, hidden garden spaces, and waterfront locations that give you the skyline without the crowd. Golden hour from Brooklyn Bridge Park is free and extraordinary.', dest: 'New York' }
 };
 
 function renderDestBudget(key, destName) {
@@ -8155,15 +8426,35 @@ function clearDLFilters() {
   ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => { document.getElementById(id)?.classList.remove('active'); });
   renderDLSpots();
 }
+// Maps each destination name to all valid Country/Region values a spot might have in Airtable
+const DEST_COUNTRY_MAP = {
+  'Amalfi Coast':    ['italy','amalfi','positano','ravello','praiano'],
+  'Santorini':       ['greece','santorini','oia','fira'],
+  'Bali':            ['indonesia','bali','ubud','seminyak','canggu','uluwatu'],
+  'Tulum':           ['mexico','tulum'],
+  'Maldives':        ['maldives','indian ocean'],
+  'Costa Rica':      ['costa rica'],
+  'Nicaragua':       ['nicaragua'],
+  'Algarve':         ['portugal','algarve'],
+  'South of France': ['france','provence','côte d\'azur','cote d\'azur','nice','marseille'],
+  'Switzerland':     ['switzerland','swiss','alps','bernese','grindelwald','zurich','geneva'],
+  'New York':        ['new york','usa','united states','nyc','manhattan','brooklyn'],
+};
+
 function renderDLSpots() {
   const grid = document.getElementById('dest-landing-grid');
   const empty = document.getElementById('dest-landing-empty');
   if (!grid) return;
+  const destAliases = (DEST_COUNTRY_MAP[dlState.dest] || [dlState.dest.toLowerCase()]);
   let spots = allSpots.filter(s => {
-    const country = (s.Country||'').toLowerCase();
-    const region  = (s.Region||'').toLowerCase();
-    const dest    = dlState.dest.toLowerCase();
-    const matchDest = country.includes(dest) || region.includes(dest) || dest.includes(country) || dest.includes(region);
+    const country = (s.Country||'').toLowerCase().trim();
+    const region  = (s.Region||'').toLowerCase().trim();
+    const matchDest = destAliases.some(alias =>
+      country === alias || country.includes(alias) || alias.includes(country) ||
+      region  === alias || region.includes(alias)  || alias.includes(region)
+    );
+    // If country/region is blank, exclude from all destinations (don't show garbage)
+    if (!country && !region) return false;
     if (!matchDest) return false;
     if (dlState.vibe.size) {
       const vibeVal = (s.Vibe || s.vibe || '');
@@ -8235,6 +8526,7 @@ function goToDestination(name) {
 
   showPage('dest-landing');
   renderDLSpots();
+  renderDestEditorial(name);
   window.scrollTo(0,0);
 }
 
