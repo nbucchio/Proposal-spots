@@ -260,6 +260,8 @@ nav.scrolled {
   padding: 120px 40px 80px;
   position: relative;
   overflow: visible;
+  z-index: 10;
+  isolation: isolate;
 }
 
 /* Thin rule above/below eyebrow */
@@ -680,7 +682,10 @@ nav.scrolled {
 /* ─────────────────────────────────────
    SECTION STRUCTURE
 ───────────────────────────────────── */
-.section-wrap { background: var(--bg); }
+.section-wrap { background: var(--bg); 
+  position: relative;
+  z-index: 1;
+}
 .section-wrap.alt { background: var(--bg2); }
 .section-wrap.white { background: var(--white); }
 
@@ -6974,13 +6979,8 @@ function goBackFromSpot() {
   const bar = document.getElementById('sdp-bottom-bar');
   if (bar) bar.style.display = 'none';
   closeBookingDrawer();
-  // spotReturnPage is set when openSpotDrawer is called — always correct
   const dest = spotReturnPage || 'home';
-  // Navigate back without pushing to history
-  document.querySelectorAll('.page').forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
-  const pg = document.getElementById('page-' + dest);
-  if (pg) { pg.classList.add('active'); pg.style.display = 'block'; }
-  window.scrollTo(0, 0);
+  showPage(dest);
 }
 
 function closeSpotDrawer() {
