@@ -861,6 +861,7 @@ nav.scrolled {
   position: relative;
 }
 .collection-card:last-child { border-right: none; }
+.collection-card { cursor: pointer; }
 .collection-card:hover { background: var(--white); }
 
 .collection-num {
@@ -1008,7 +1009,7 @@ nav.scrolled {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 2px 0;
+  padding: 10px 2px 12px;
 }
 .spot-card-summary { display: none; }
 .spot-card-tags { display: none; }
@@ -1827,7 +1828,7 @@ footer {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.35) 50%, rgba(10,10,10,0.5) 100%);
+  background: linear-gradient(to top, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.18) 50%, rgba(10,10,10,0.28) 100%);
   z-index: 1;
 }
 .dest-landing-hero-content {
@@ -1967,7 +1968,7 @@ footer {
 
 /* ═══ HOW IT WORKS ═══ */
 .pg-hiw { padding-top: 92px; background: var(--bg); }
-.hiw-experiences { max-width: 1100px; margin: 0 auto 80px; padding: 0 40px; }
+.hiw-experiences { max-width: 1100px; margin: 60px auto 80px; padding: 0 40px; }
 .hiw-exp-header { text-align: center; margin-bottom: 48px; }
 .hiw-exp-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
 .hiw-exp-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.8; }
@@ -3821,6 +3822,35 @@ footer {
 }
 .sdp-lightbox.open { display: flex; }
 .sdp-lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 6px; cursor: default; }
+.sdp-lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(28,28,28,0.5);
+  border: none;
+  color: white;
+  font-size: 36px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+  line-height: 1;
+}
+.sdp-lightbox-arrow:hover { background: rgba(28,28,28,0.85); }
+.sdp-lightbox-prev { left: 24px; }
+.sdp-lightbox-next { right: 24px; }
+.sdp-lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em;
+}
 .sdp-lightbox-close {
   position: absolute; top: 24px; right: 28px;
   background: none; border: none;
@@ -3860,6 +3890,7 @@ footer {
 .rcal-day-disabled { color: var(--hairline); cursor: default; pointer-events:none; }
 .rcal-day-empty { cursor: default; }
 .rcal-day-checkin { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
+.rcal-day-checkin.rcal-day-hover-range { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
 .rcal-day-checkout { background: var(--accent) !important; color: white !important; border-radius: 0 6px 6px 0; }
 .rcal-day-inrange { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
 .rcal-day-hover-range { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
@@ -3889,6 +3920,61 @@ footer {
 .enq-pcal-legend-dot { width:10px; height:10px; border-radius:3px; }
 .enq-pcal-label { font-family:'Jost',sans-serif; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
 .enq-pcal-selected-display { font-family:'Jost',sans-serif; font-size:12px; color:var(--ink); min-height:18px; margin-bottom:8px; }
+.enq-section-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0 12px;
+}
+.enq-section-divider::before, .enq-section-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--hairline);
+}
+.enq-section-label {
+  font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  white-space: nowrap;
+}
+.enq-hotel-stay-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(100,149,237,0.07); border: 1px solid rgba(100,149,237,0.2);
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 4px;
+}
+.enq-hotel-stay-dates {
+  font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300;
+  color: #4a6bb5; line-height: 1.5;
+}
+.enq-hotel-change-btn {
+  font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid);
+  background: none; border: 1px solid var(--hairline); border-radius: 100px;
+  padding: 4px 10px; cursor: pointer; transition: color 0.15s;
+  white-space: nowrap;
+}
+.enq-hotel-change-btn:hover { color: var(--ink); }
+.enq-proposal-dates-display {
+  margin-top: 12px; border: 1px solid var(--hairline); border-radius: 8px;
+  overflow: hidden;
+}
+.enq-prop-date-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--white);
+  border-bottom: 1px solid var(--hairline);
+}
+.enq-prop-date-row-2 { border-bottom: none; background: rgba(165,90,74,0.03); }
+.enq-prop-date-label {
+  font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400;
+  letter-spacing: 0.05em; color: var(--mid); min-width: 140px;
+}
+.enq-prop-date-val {
+  font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300;
+  color: var(--accent); flex: 1;
+}
+.enq-prop-date-val-2 { color: rgba(165,90,74,0.7); }
+.enq-prop-date-val.empty { color: var(--muted); font-size: 11px; }
+.enq-prop-clear-btn {
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  font-size: 11px; padding: 2px 4px; border-radius: 3px;
+  transition: color 0.15s;
+}
+.enq-prop-clear-btn:hover { color: var(--ink); }
 .enq-hotel-notice { background: rgba(100,149,237,0.08); border: 1px solid rgba(100,149,237,0.2); border-radius:8px; padding:10px 12px; margin-bottom:12px; font-family:'Jost',sans-serif; font-size:10px; color:#4a6bb5; letter-spacing:0.03em; line-height:1.5; }
 .rcal-mode-label { font-family:'Jost',sans-serif; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-align:center; margin-bottom:10px; }
 .sdp-date-lbl {
@@ -4759,25 +4845,25 @@ footer {
       <a href="#" class="section-link">All collections →</a>
     </div>
     <div class="collections-grid">
-      <div class="collection-card" style="background:rgba(165,90,74,0.06)">
+      <div class="collection-card" style="background:rgba(165,90,74,0.11); border-top: 2px solid rgba(165,90,74,0.25);" onclick="showPage('collection-coming-soon')" title="Most Private">
         <span class="collection-num">01</span>
         <div class="collection-name">Most Private</div>
         <p class="collection-desc">Secluded spots where it will just be the two of you — no crowds, no interruptions.</p>
         <span class="collection-link">24 spots →</span>
       </div>
-      <div class="collection-card" style="background:rgba(140,123,100,0.08)">
+      <div class="collection-card" style="background:rgba(140,123,100,0.13); border-top: 2px solid rgba(140,123,100,0.3);" onclick="showPage('collection-coming-soon')" title="Best Sunset">
         <span class="collection-num">02</span>
         <div class="collection-name">Best Sunset</div>
         <p class="collection-desc">Golden-hour locations chosen for their legendary light and atmosphere.</p>
         <span class="collection-link">18 spots →</span>
       </div>
-      <div class="collection-card" style="background:rgba(28,28,28,0.04)">
+      <div class="collection-card" style="background:rgba(28,28,28,0.07); border-top: 2px solid rgba(28,28,28,0.15); cursor:pointer;" onclick="showPage('collection-coming-soon')" title="Luxury Resorts">
         <span class="collection-num">03</span>
         <div class="collection-name">Luxury Resorts</div>
         <p class="collection-desc">World-class properties where every detail of the moment can be arranged.</p>
         <span class="collection-link">31 spots →</span>
       </div>
-      <div class="collection-card" style="background:rgba(107,102,96,0.07)">
+      <div class="collection-card" style="background:rgba(107,102,96,0.12); border-top: 2px solid rgba(107,102,96,0.25); cursor:pointer;" onclick="showPage('collection-coming-soon')" title="Hidden Gems">
         <span class="collection-num">04</span>
         <div class="collection-name">Hidden Gems</div>
         <p class="collection-desc">Off-the-map locations only locals and our curators know about.</p>
@@ -6742,22 +6828,7 @@ function openSpotDrawer(id) {
   // About
   document.getElementById('sdp-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
 
-  // Proposal plan
-  const planSection = document.getElementById('sdp-plan-section');
-  const stepsEl = document.getElementById('sdp-steps');
-  if (s['Proposal Plan Steps']) {
-    const steps = s['Proposal Plan Steps'].split('\n').filter(l => l.trim());
-    stepsEl.innerHTML = steps.map((step, i) => {
-      const text = step.replace(/^\d+\.\s*/, '');
-      return `<div class="sdp-step">
-        <div class="sdp-step-n">${String(i + 1).padStart(2,'0')}</div>
-        <div class="sdp-step-txt">${text}</div>
-      </div>`;
-    }).join('');
-    planSection.style.display = '';
-  } else {
-    planSection.style.display = 'none';
-  }
+  // Proposal plan — removed from display
 
   // What\'s Included
   const includedSection = document.getElementById('sdp-included-section');
@@ -6903,7 +6974,19 @@ function goBackFromSpot() {
   const bar = document.getElementById('sdp-bottom-bar');
   if (bar) bar.style.display = 'none';
   closeBookingDrawer();
-  showPage(spotReturnPage);
+  // Use history if available, else fall back to spotReturnPage
+  const dest = pageHistory.length > 0 ? pageHistory[pageHistory.length - 1] : (spotReturnPage || 'home');
+  // Don't push to history when going back
+  const activePage = document.querySelector('.page.active');
+  if (activePage) {
+    document.querySelectorAll('.page').forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
+    const pg = document.getElementById('page-' + dest);
+    if (pg) { pg.classList.add('active'); pg.style.display = 'block'; }
+    window.scrollTo(0, 0);
+    if (pageHistory.length > 0) pageHistory.pop();
+  } else {
+    showPage(dest);
+  }
 }
 
 function closeSpotDrawer() {
@@ -7513,26 +7596,37 @@ function initEnqCal() {
     _enqCalMonth = new Date().getMonth();
   }
 
-  // Show hotel notice if dates are set
+  // Show hotel stay section
+  const hotelSection = document.getElementById('enq-hotel-stay-section');
+  const hotelDates = document.getElementById('enq-hotel-stay-dates');
   const notice = document.getElementById('enq-hotel-notice');
-  if (notice) {
-    if (ci && co) {
-      const fmt = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-      notice.textContent = `🏨 Your hotel stay: ${fmt(ci)} → ${fmt(co)}. Proposal dates must fall within your stay.`;
-      notice.style.display = 'block';
-      document.getElementById('enq-pcal-legend').style.display = 'flex';
-    } else {
-      notice.style.display = 'none';
-      document.getElementById('enq-pcal-legend').style.display = 'none';
+  const fmtShort = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const fmtFull = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+
+  if (ci && co) {
+    // Show hotel stay row
+    if (hotelSection) hotelSection.style.display = 'block';
+    if (hotelDates) {
+      const nights = Math.round((new Date(co+'T00:00:00') - new Date(ci+'T00:00:00')) / 86400000);
+      hotelDates.innerHTML = `🏨 ${fmtShort(ci)} → ${fmtShort(co)} <span style="opacity:0.6;font-size:10px">(${nights} night${nights!==1?'s':''})</span>`;
     }
+    if (notice) {
+      notice.textContent = `Select your proposal date within your hotel stay (${fmtShort(ci)} – ${fmtShort(co)})`;
+      notice.style.display = 'block';
+    }
+    document.getElementById('enq-pcal-legend').style.display = 'flex';
+  } else {
+    if (hotelSection) hotelSection.style.display = 'none';
+    if (notice) notice.style.display = 'none';
+    document.getElementById('enq-pcal-legend').style.display = 'none';
   }
   renderEnqCal();
+  enqUpdateDateDisplay();
 }
 
 function renderEnqCal() {
   const grid   = document.getElementById('enq-pcal-grid');
   const monthEl = document.getElementById('enq-pcal-month');
-  const display = document.getElementById('enq-pcal-display');
   if (!grid || !monthEl) return;
 
   const ci = document.getElementById('sdp-checkin')?.value  || '';
@@ -7545,15 +7639,7 @@ function renderEnqCal() {
 
   monthEl.textContent = `${MONTHS[_enqCalMonth]} ${_enqCalYear}`;
 
-  // Update display text
-  const fmt = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-  if (_enqProp1 && _enqProp2) {
-    display.innerHTML = `<span style="color:var(--accent)">✦ ${fmt(_enqProp1)}</span> &nbsp;·&nbsp; <span style="color:rgba(165,90,74,0.7)">backup: ${fmt(_enqProp2)}</span>`;
-  } else if (_enqProp1) {
-    display.innerHTML = `<span style="color:var(--accent)">✦ ${fmt(_enqProp1)}</span> &nbsp;<span style="color:var(--muted);font-size:10px">— tap a backup date (optional)</span>`;
-  } else {
-    display.textContent = hasHotel ? 'Select your preferred proposal date (within your hotel stay)' : 'Select your preferred proposal date';
-  }
+  // Display is now handled by enqUpdateDateDisplay()
 
   const firstDay = new Date(_enqCalYear, _enqCalMonth, 1).getDay();
   const daysInMo = new Date(_enqCalYear, _enqCalMonth+1, 0).getDate();
@@ -7607,7 +7693,52 @@ function enqCalSelect(ds) {
   const p2 = document.getElementById('enq-backup-date');
   if (p1) p1.value = _enqProp1;
   if (p2) p2.value = _enqProp2;
-  renderEnqCal();
+  renderEnqCal(); enqUpdateDateDisplay();
+}
+
+function enqUpdateDateDisplay() {
+  const fmt = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  const p1display = document.getElementById('enq-prop1-display');
+  const p2display = document.getElementById('enq-prop2-display');
+  const p1clear   = document.getElementById('enq-prop1-clear');
+  const p2clear   = document.getElementById('enq-prop2-clear');
+  if (p1display) {
+    if (_enqProp1) {
+      p1display.textContent = '✦ ' + fmt(_enqProp1);
+      p1display.classList.remove('empty');
+      if (p1clear) p1clear.style.display = '';
+    } else {
+      p1display.textContent = 'Tap a date above';
+      p1display.classList.add('empty');
+      if (p1clear) p1clear.style.display = 'none';
+    }
+  }
+  if (p2display) {
+    if (_enqProp2) {
+      p2display.textContent = '✦ ' + fmt(_enqProp2);
+      p2display.classList.remove('empty');
+      if (p2clear) p2clear.style.display = '';
+    } else {
+      p2display.textContent = 'Tap a second date for backup (optional)';
+      p2display.classList.add('empty');
+      if (p2clear) p2clear.style.display = 'none';
+    }
+  }
+}
+
+function enqClearProp1() {
+  _enqProp1 = ''; _enqProp2 = '';
+  const p1 = document.getElementById('enq-proposal-date');
+  const p2 = document.getElementById('enq-backup-date');
+  if (p1) p1.value = ''; if (p2) p2.value = '';
+  renderEnqCal(); enqUpdateDateDisplay();
+}
+
+function enqClearProp2() {
+  _enqProp2 = '';
+  const p2 = document.getElementById('enq-backup-date');
+  if (p2) p2.value = '';
+  renderEnqCal(); enqUpdateDateDisplay();
 }
 
 function enqCalNav(dir) {
@@ -7887,7 +8018,13 @@ function checkGalleryEmpty(scroll) {
 
 function openLightbox(url) {
   const lb = document.getElementById('sdp-lightbox');
-  document.getElementById('sdp-lightbox-img').src = url;
+  // Find index in current gallery
+  lightboxPhotos = galleryPhotos && galleryPhotos.length ? galleryPhotos : [url];
+  lightboxIndex = lightboxPhotos.indexOf(url);
+  if (lightboxIndex < 0) { lightboxIndex = 0; lightboxPhotos = [url]; }
+  document.getElementById('sdp-lightbox-img').src = lightboxPhotos[lightboxIndex];
+  const counter = document.getElementById('sdp-lightbox-counter');
+  if (counter) counter.textContent = lightboxPhotos.length > 1 ? (lightboxIndex + 1) + ' / ' + lightboxPhotos.length : '';
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -7896,6 +8033,24 @@ function closeLightbox() {
   document.getElementById('sdp-lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+let lightboxPhotos = [];
+let lightboxIndex = 0;
+
+function lightboxNav(dir) {
+  if (!lightboxPhotos.length) return;
+  lightboxIndex = (lightboxIndex + dir + lightboxPhotos.length) % lightboxPhotos.length;
+  const img = document.getElementById('sdp-lightbox-img');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = lightboxPhotos[lightboxIndex];
+    img.style.opacity = '1';
+  }, 120);
+  const counter = document.getElementById('sdp-lightbox-counter');
+  if (counter) counter.textContent = lightboxPhotos.length > 1 ? (lightboxIndex + 1) + ' / ' + lightboxPhotos.length : '';
+}
+function lightboxPrev() { lightboxNav(-1); }
+function lightboxNext() { lightboxNav(1); }
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -9868,7 +10023,19 @@ function goMarket(slug) {
 // ─────────────────────────────────────────────────────────
 //  PAGE ROUTING
 // ─────────────────────────────────────────────────────────
+const pageHistory = [];
+
 function showPage(pageId) {
+  // Track history for back button
+  const activePage = document.querySelector('.page.active');
+  if (activePage) {
+    const currentId = activePage.id.replace('page-', '');
+    if (currentId !== pageId && currentId !== 'spot-detail') {
+      pageHistory.push(currentId);
+      if (pageHistory.length > 20) pageHistory.shift();
+    }
+  }
+
   // Hide all pages
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
@@ -10037,11 +10204,7 @@ function submitHotelForm(e) {
         <p class="sdp-about-text" id="sdp-full-summary"></p>
       </div>
 
-      <!-- Proposal Plan — numbered steps -->
-      <div class="sdp-plan" id="sdp-plan-section">
-        <span class="sdp-lbl">How your day unfolds</span>
-        <div id="sdp-steps"></div>
-      </div>
+      <!-- Proposal Plan removed -->
 
       <!-- What's Included -->
       <div class="sdp-included" id="sdp-included-section" style="display:none">
@@ -10279,7 +10442,10 @@ function submitHotelForm(e) {
 <!-- LIGHTBOX -->
 <div class="sdp-lightbox" id="sdp-lightbox" onclick="closeLightbox()">
   <button class="sdp-lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="sdp-lightbox-arrow sdp-lightbox-prev" onclick="event.stopPropagation(); lightboxPrev()">&#8249;</button>
   <img id="sdp-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <button class="sdp-lightbox-arrow sdp-lightbox-next" onclick="event.stopPropagation(); lightboxNext()">&#8250;</button>
+  <div class="sdp-lightbox-counter" id="sdp-lightbox-counter"></div>
 </div>
 
 
@@ -10386,16 +10552,57 @@ function submitHotelForm(e) {
       <label class="enq-label">Your country</label>
       <input type="text" id="enq-country" class="enq-input" placeholder="e.g. United States">
     </div>
-    <div class="enq-form-field">
-      <label class="enq-label">Preferred proposal date</label>
-      <div id="enq-hotel-nights-hint" style="display:none;margin-bottom:8px;font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:var(--mid);letter-spacing:0.02em">Your hotel stay nights — click to select:</div>
-      <div id="enq-hotel-nights-chips" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
-      <input type="date" id="enq-proposal-date" class="enq-input" style="cursor:pointer">
+    <!-- HOTEL NIGHTS SECTION (only shows if hotel stay selected) -->
+    <div id="enq-hotel-stay-section" style="display:none">
+      <div class="enq-section-divider">
+        <span class="enq-section-label">Your Hotel Stay</span>
+      </div>
+      <div class="enq-hotel-stay-row" id="enq-hotel-stay-row">
+        <div class="enq-hotel-stay-dates" id="enq-hotel-stay-dates"></div>
+        <button class="enq-hotel-change-btn" onclick="closeEnquiryModal()" type="button">Change dates</button>
+      </div>
     </div>
-    <div class="enq-form-field">
-      <label class="enq-label">Backup proposal date</label>
-      <input type="date" id="enq-backup-date" class="enq-input" style="cursor:pointer">
+
+    <!-- PROPOSAL DATES SECTION -->
+    <div class="enq-section-divider">
+      <span class="enq-section-label">Proposal Dates</span>
     </div>
+
+    <!-- Calendar -->
+    <div class="enq-pcal-wrap" id="enq-pcal-wrap">
+      <div id="enq-hotel-notice" class="enq-hotel-notice" style="display:none"></div>
+      <div class="enq-pcal">
+        <div class="enq-pcal-header">
+          <button class="enq-pcal-nav" onclick="enqCalNav(-1)" type="button">&#8249;</button>
+          <span class="enq-pcal-month" id="enq-pcal-month"></span>
+          <button class="enq-pcal-nav" onclick="enqCalNav(1)" type="button">&#8250;</button>
+        </div>
+        <div class="enq-pcal-grid" id="enq-pcal-grid"></div>
+        <div class="enq-pcal-legend" id="enq-pcal-legend" style="display:none">
+          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:rgba(100,149,237,0.35)"></div>Hotel stay</div>
+          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:var(--accent)"></div>Preferred proposal</div>
+          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:rgba(165,90,74,0.5)"></div>Backup proposal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selected proposal dates display -->
+    <div class="enq-proposal-dates-display" id="enq-dates-display-wrap">
+      <div class="enq-prop-date-row" id="enq-prop1-row">
+        <div class="enq-prop-date-label">Preferred proposal night</div>
+        <div class="enq-prop-date-val" id="enq-prop1-display">Tap a date above to select</div>
+        <button class="enq-prop-clear-btn" id="enq-prop1-clear" onclick="enqClearProp1()" type="button" style="display:none">✕</button>
+      </div>
+      <div class="enq-prop-date-row enq-prop-date-row-2" id="enq-prop2-row">
+        <div class="enq-prop-date-label">Backup proposal night <span style="opacity:0.5;font-size:9px">(optional)</span></div>
+        <div class="enq-prop-date-val enq-prop-date-val-2" id="enq-prop2-display">Tap a second date for backup</div>
+        <button class="enq-prop-clear-btn" id="enq-prop2-clear" onclick="enqClearProp2()" type="button" style="display:none">✕</button>
+      </div>
+    </div>
+
+    <!-- Hidden inputs for form submission -->
+    <input type="date" id="enq-proposal-date" style="display:none">
+    <input type="date" id="enq-backup-date" style="display:none">
     <div class="enq-form-field">
       <label class="enq-label">Anything we should know?</label>
       <textarea id="enq-notes" class="enq-textarea" rows="3" placeholder="Special requests, dietary needs, how you met, anything that makes this moment more personal..."></textarea>
