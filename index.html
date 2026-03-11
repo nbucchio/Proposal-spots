@@ -336,6 +336,7 @@ nav.scrolled {
   display: flex;
   align-items: stretch;
   position: relative;
+  z-index: 100;
 }
 
 .search-input-wrap {
@@ -1862,6 +1863,37 @@ footer {
   margin-bottom: 40px;
 }
 .dest-landing-spots-wrap { min-height: 300px; }
+.dest-highlights { background: var(--white); padding: 80px 40px 60px; border-top: 1px solid var(--hairline); }
+.dest-highlights-inner { max-width: 1000px; margin: 0 auto; }
+.dest-highlights-header { text-align: center; margin-bottom: 56px; }
+.dest-highlights-title { font-family:'Cormorant',serif; font-size:clamp(28px,4vw,46px); font-weight:300; color:var(--ink); line-height:1.15; margin-bottom:16px; }
+.dest-highlights-sub { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--mid); line-height:1.8; max-width:520px; margin:0 auto; }
+.dest-highlights-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-bottom:52px; }
+@media(max-width:768px){ .dest-highlights-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:480px){ .dest-highlights-grid { grid-template-columns:1fr; } }
+.dest-hl-item { border-top: 1px solid var(--hairline); padding-top: 20px; }
+.dest-hl-icon { font-size: 18px; margin-bottom: 10px; display:block; }
+.dest-hl-title { font-family:'Cormorant',serif; font-size:18px; font-weight:400; color:var(--ink); margin-bottom:8px; line-height:1.2; }
+.dest-hl-body { font-family:'Jost',sans-serif; font-size:11.5px; font-weight:300; color:var(--mid); line-height:1.78; }
+.dest-highlights-tip { background: rgba(165,90,74,0.06); border-left: 2px solid #A55A4A; padding: 24px 28px; max-width:680px; margin:0 auto; }
+.dest-highlights-tip-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:8px; }
+.dest-highlights-tip-text { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.8; }
+@media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
+.dest-editorial { background: var(--ink2); padding: 80px 40px; }
+.dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
+.dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
+.dest-editorial-headline { font-family:'Cormorant',serif; font-size:clamp(30px,4.5vw,54px); font-weight:300; color:var(--bg); line-height:1.1; text-align:center; margin-bottom:18px; }
+.dest-editorial-sub { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:rgba(244,241,235,0.55); line-height:1.85; text-align:center; max-width:620px; margin:0 auto 60px; }
+.dest-editorial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(244,241,235,0.08); margin-bottom:60px; }
+@media(max-width:768px){ .dest-editorial-grid { grid-template-columns:1fr; } }
+.dest-editorial-card { background:rgba(20,20,22,0.7); padding:36px 30px; }
+.dest-editorial-icon { font-size:20px; margin-bottom:14px; display:block; }
+.dest-editorial-card-title { font-family:'Cormorant',serif; font-size:21px; font-weight:400; color:var(--bg); margin-bottom:10px; line-height:1.2; }
+.dest-editorial-card-body { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:rgba(244,241,235,0.5); line-height:1.82; }
+.dest-editorial-pull { border-left:2px solid #A55A4A; padding-left:28px; max-width:660px; margin:0 auto; }
+.dest-editorial-pull-text { font-family:'Cormorant',serif; font-size:clamp(19px,2.2vw,26px); font-weight:300; font-style:italic; color:rgba(244,241,235,0.82); line-height:1.5; margin-bottom:14px; }
+.dest-editorial-pull-attr { font-family:'Jost',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,241,235,0.3); }
+@media(max-width:640px){ .dest-editorial { padding:60px 24px; } }
 .dest-landing-budget {
   max-width: 960px;
   margin: 80px auto 0;
@@ -2321,6 +2353,19 @@ footer {
 .about-process-title { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 400; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 12px; }
 .about-process-body { font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--mid); letter-spacing: 0.03em; line-height: 1.9; }
 
+.about-founder { background: var(--white); padding: 100px 40px; }
+.about-founder-inner { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 72px; align-items: start; }
+@media(max-width:768px){ .about-founder-inner { grid-template-columns:1fr; gap:40px; } }
+.about-founder-img-wrap { position: sticky; top: 40px; }
+.about-founder-img { width: 100%; aspect-ratio: 3/4; background: var(--warm); object-fit: cover; }
+.about-founder-img-placeholder { width: 100%; aspect-ratio: 3/4; background: linear-gradient(160deg,rgba(165,90,74,0.12),rgba(140,123,100,0.08)); display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:13px;color:var(--mid);letter-spacing:0.08em; }
+.about-founder-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:20px; }
+.about-founder-name { font-family:'Cormorant',serif; font-size:clamp(28px,4vw,46px); font-weight:300; color:var(--ink); line-height:1.1; margin-bottom:28px; }
+.about-founder-body { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:var(--mid); line-height:1.95; margin-bottom:18px; }
+.about-founder-body strong { font-weight:400; color:var(--ink); }
+.about-founder-pull { font-family:'Cormorant',serif; font-size:20px; font-style:italic; font-weight:300; color:var(--ink); line-height:1.55; border-left:2px solid #A55A4A; padding-left:24px; margin:32px 0; }
+.about-founder-sig { font-family:'Cormorant',serif; font-size:17px; font-style:italic; color:var(--mid); margin-top:28px; }
+@media(max-width:640px){ .about-founder { padding:72px 24px; } }
 .about-vision { padding: 96px 80px; background: var(--ink); text-align: center; }
 .about-vision-inner { max-width: 680px; margin: 0 auto; }
 .about-vision-title { font-family: 'Cormorant', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 300; color: rgba(253,252,250,0.95); line-height: 1.1; letter-spacing: 0.01em; margin-bottom: 36px; }
@@ -2339,7 +2384,20 @@ footer {
   .about-philosophy-grid { grid-template-columns: 1fr; gap: 36px; }
   .about-diff-grid { grid-template-columns: 1fr; }
   .about-process-step { grid-template-columns: 48px 1fr; gap: 20px; }
-  .about-vision { padding: 72px 24px; }
+  .about-founder { background: var(--white); padding: 100px 40px; }
+.about-founder-inner { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 72px; align-items: start; }
+@media(max-width:768px){ .about-founder-inner { grid-template-columns:1fr; gap:40px; } }
+.about-founder-img-wrap { position: sticky; top: 40px; }
+.about-founder-img { width: 100%; aspect-ratio: 3/4; background: var(--warm); object-fit: cover; }
+.about-founder-img-placeholder { width: 100%; aspect-ratio: 3/4; background: linear-gradient(160deg,rgba(165,90,74,0.12),rgba(140,123,100,0.08)); display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:13px;color:var(--mid);letter-spacing:0.08em; }
+.about-founder-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:20px; }
+.about-founder-name { font-family:'Cormorant',serif; font-size:clamp(28px,4vw,46px); font-weight:300; color:var(--ink); line-height:1.1; margin-bottom:28px; }
+.about-founder-body { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:var(--mid); line-height:1.95; margin-bottom:18px; }
+.about-founder-body strong { font-weight:400; color:var(--ink); }
+.about-founder-pull { font-family:'Cormorant',serif; font-size:20px; font-style:italic; font-weight:300; color:var(--ink); line-height:1.55; border-left:2px solid #A55A4A; padding-left:24px; margin:32px 0; }
+.about-founder-sig { font-family:'Cormorant',serif; font-size:17px; font-style:italic; color:var(--mid); margin-top:28px; }
+@media(max-width:640px){ .about-founder { padding:72px 24px; } }
+.about-vision { padding: 72px 24px; }
   .about-vision-stat { padding: 0 24px; }
 }
 
@@ -3804,7 +3862,8 @@ footer {
 .rcal-day-checkin { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
 .rcal-day-checkout { background: var(--accent) !important; color: white !important; border-radius: 0 6px 6px 0; }
 .rcal-day-inrange { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
-.rcal-day-hover-range { background: rgba(165,90,74,0.08) !important; border-radius: 0; }
+.rcal-day-hover-range { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
+.rcal-day-hover-checkout { background: rgba(165,90,74,0.25) !important; border-radius: 0 6px 6px 0; }
 .rcal-day-checkin.rcal-day-checkout { border-radius: 6px !important; }
 
 /* Enquiry proposal date calendar */
@@ -4571,7 +4630,7 @@ footer {
         <div class="inline-tags">
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Beach')">🏖 Beach</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Mountain')">⛰ Mountain</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Cliff')">🪨 Cliff</div>
+          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Cliff')">🏔 Cliff</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Lake')">🏞 Lake</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Volcano')">🌋 Volcano</div>
           <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -4700,25 +4759,25 @@ footer {
       <a href="#" class="section-link">All collections →</a>
     </div>
     <div class="collections-grid">
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(165,90,74,0.06)">
         <span class="collection-num">01</span>
         <div class="collection-name">Most Private</div>
         <p class="collection-desc">Secluded spots where it will just be the two of you — no crowds, no interruptions.</p>
         <span class="collection-link">24 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(140,123,100,0.08)">
         <span class="collection-num">02</span>
         <div class="collection-name">Best Sunset</div>
         <p class="collection-desc">Golden-hour locations chosen for their legendary light and atmosphere.</p>
         <span class="collection-link">18 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(28,28,28,0.04)">
         <span class="collection-num">03</span>
         <div class="collection-name">Luxury Resorts</div>
         <p class="collection-desc">World-class properties where every detail of the moment can be arranged.</p>
         <span class="collection-link">31 spots →</span>
       </div>
-      <div class="collection-card">
+      <div class="collection-card" style="background:rgba(107,102,96,0.07)">
         <span class="collection-num">04</span>
         <div class="collection-name">Hidden Gems</div>
         <p class="collection-desc">Off-the-map locations only locals and our curators know about.</p>
@@ -5130,7 +5189,7 @@ footer {
               <div class="inline-tags">
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">🏖 Beach</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🪨 Cliff</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Volcano')">🌋 Volcano</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -5193,6 +5252,12 @@ footer {
         </div>
       </div>
     </div>
+
+    <!-- Destination editorial / marketing -->
+    <div id="dest-landing-editorial" style="display:none"></div>
+
+    <!-- Destination highlights / what to do / romance tips -->
+    <div id="dest-landing-highlights" style="display:none"></div>
 
     <!-- Budget Guide for this destination -->
     <div class="dest-landing-budget" id="dest-landing-budget">
@@ -5515,7 +5580,7 @@ footer {
             <div class="inline-tags">
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Beach')">🏖 Beach</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Mountain')">⛰ Mountain</div>
-              <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Cliff')">🪨 Cliff</div>
+              <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Cliff')">🏔 Cliff</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Lake')">🏞 Lake</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Volcano')">🌋 Volcano</div>
               <div class="filter-tag" onclick="toggleResultsFilter(this,'vibe','Ocean')">🌊 Ocean</div>
@@ -5670,7 +5735,7 @@ footer {
             <div class="mf-tags">
               <div class="mf-tag" onclick="this.classList.toggle('on')">🏖 Beach</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">⛰ Mountain</div>
-              <div class="mf-tag" onclick="this.classList.toggle('on')">🪨 Cliff</div>
+              <div class="mf-tag" onclick="this.classList.toggle('on')">🏔 Cliff</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🏞 Lake</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🌋 Volcano</div>
               <div class="mf-tag" onclick="this.classList.toggle('on')">🌊 Ocean</div>
@@ -5747,7 +5812,7 @@ footer {
           <h2 class="insp-story-title">He told her it was just lunch. She had no idea about the lemon grove.</h2>
           <p class="insp-story-text">James spent four months planning a proposal on the Amalfi Coast. He'd been researching the best places to propose in Positano since February, quietly eliminating one idea after another. Too public. Too obvious. Not quite right. Then a local hotel owner told him about a private terrace above the cliffside — carved into the rock face, draped in lemon trees, invisible from the path below. He booked it. Told Sarah it was just a long lunch. When the guitarist started playing as they sat down, she thought it was a coincidence. When she turned to ask why he was so quiet, he was already on one knee.</p>
           <div class="insp-story-meta">
-            <span>🪨 Cliff</span><span>🔒 Private</span><span>$$$$</span><span>Amalfi Coast</span>
+            <span>🏔 Cliff</span><span>🔒 Private</span><span>$$$$</span><span>Amalfi Coast</span>
           </div>
           <button class="insp-read-more" onclick="openStoryPage('amalfi')">Read the full story →</button>
         </div>
@@ -5970,62 +6035,15 @@ footer {
       </div>
     </div>
 
-    <!-- 4 STEPS -->
-    <div class="hiw-flow">
-      <div class="hiw-step">
-        <div class="hiw-step-num">01</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">✦</div>
-          <h3 class="hiw-step-title">Browse the collection</h3>
-          <p class="hiw-step-body">Search by destination, vibe, privacy level, and budget. Every spot has been personally assessed — the light, the access, the crowd levels at different times of day. You're not browsing a database. You're looking at a shortlist someone already made for you.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">02</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">◈</div>
-          <h3 class="hiw-step-title">Find the one that feels right</h3>
-          <p class="hiw-step-body">Each spot page gives you everything — the setting, the timing, what's included, how private it really is. When something clicks, hit enquire. There's nothing to commit to yet.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">03</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">⬡</div>
-          <h3 class="hiw-step-title">We send you a full quote</h3>
-          <p class="hiw-step-body">A real person reviews your enquiry and responds within 24 hours with a complete, itemised quote — spot access, any add-ons, hotel nights if you've included them. No hidden fees, no surprises. You decide if it's right.</p>
-        </div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-num">04</div>
-        <div class="hiw-step-track"></div>
-        <div class="hiw-step-content">
-          <div class="hiw-step-icon">✦</div>
-          <h3 class="hiw-step-title">Show up. We've handled the rest.</h3>
-          <p class="hiw-step-body">Once you confirm, we coordinate everything. The setup, the timing, the details you don't want to think about. Your only job on the day is to be present for the moment itself.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- PULL QUOTE -->
-    <div class="hiw-quote-section">
-      <div class="hiw-quote-inner">
-        <div class="hiw-quote-mark">"</div>
-        <p class="hiw-quote-text">I didn't know a place like this existed until I found it here. The whole thing felt impossibly easy.</p>
-        <span class="hiw-quote-attr">— James, Nicaragua</span>
-      </div>
-    </div>
-
-    <!-- HOW WE CHOOSE SPOTS -->
-    <div class="hiw-curation-section">
+    <!-- HOW WE CHOOSE SPOTS — elevated as primary trust section -->
+    <div class="hiw-curation-section" style="margin-top:0">
       <div class="hiw-curation-inner">
         <span class="pg-eyebrow" style="display:block;margin-bottom:16px">Our standard</span>
         <h2 class="hiw-curation-title">How we choose spots</h2>
-        <p class="hiw-curation-body">Every location on Proposal Spots is assessed against the same criteria: genuine privacy at the right time of day, quality of light at golden hour, access difficulty versus reward, and whether the moment could be interrupted. We also look at the emotional weight of a place — some locations simply feel different when you're standing in them.</p>
-        <p class="hiw-curation-body">Most spots we scout don't make the cut. The ones that do are here because we'd propose at them ourselves.</p>
+        <p class="hiw-curation-body">Most places are beautiful. Very few are right for a proposal.</p>
+        <p class="hiw-curation-body">Every location on Proposal Spots is evaluated against five criteria: genuine seclusion at the moment that matters, quality of light at golden hour, ease of access without logistical stress, protection from interruption, and the emotional weight of the space itself. Some places simply feel different when you're standing in them — a quality that no photograph fully captures, and no algorithm can assess.</p>
+        <p class="hiw-curation-body">We research each destination in person or through trusted local partners who know the difference between a location that looks impressive and one that will make her cry. We look at crowd patterns by hour and season. We eliminate anything with unpredictable access. We reject spots that require a perfect Instagram caption to justify them.</p>
+        <p class="hiw-curation-body" style="font-style:italic;color:var(--ink);font-family:'Cormorant',serif;font-size:17px;line-height:1.7;border-left:2px solid #A55A4A;padding-left:20px;margin-top:28px">The majority of spots we scout don't make it. The ones on this platform are here because we would propose at them ourselves — and we hold them to exactly that standard.</p>
       </div>
     </div>
 
@@ -6214,6 +6232,27 @@ footer {
               <p class="about-process-body">Everything is in place. The location has been chosen with care, the details have been considered, and the people around you know their role. All that remains is the question — and the answer that begins the rest of your life together.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOUNDER BIO -->
+    <div class="about-founder">
+      <div class="about-founder-inner">
+        <div class="about-founder-img-wrap">
+          <div class="about-founder-img-placeholder">Nicholas Bucchio</div>
+        </div>
+        <div class="about-founder-text">
+          <span class="about-founder-label">The founder</span>
+          <h2 class="about-founder-name">Why I built<br>Proposal Spots.</h2>
+          <p class="about-founder-body">My name is Nicholas Bucchio. In 2024, I began planning a proposal to the woman who is now my fiancée.</p>
+          <p class="about-founder-body">I knew what I wanted: something private, something beautiful, something that felt genuinely considered. Not a restaurant with a dessert menu. Not a tourist landmark at peak hour. A real place — somewhere that felt worthy of the question.</p>
+          <p class="about-founder-body">What I found, when I started researching, was chaos. Travel blogs with no real curation. Instagram posts without any practical information. Hotels that listed "proposal packages" but couldn't tell me where the actual moment would happen. A staggering amount of advice that told me almost nothing useful.</p>
+          <div class="about-founder-pull">"I wanted to know: where exactly do I stand, at what time of day, and what will she see when she turns around? That information didn't exist anywhere in one place."</div>
+          <p class="about-founder-body">So I started building it myself. I researched locations obsessively. I contacted local photographers, guides, and hotel coordinators. I mapped out timing, crowd patterns, access routes, and golden hour windows. I eventually found the right place — <strong>and she said yes.</strong></p>
+          <p class="about-founder-body">Proposal Spots exists because that information should have been easier to find. Because the most important question of your life deserves better than a Google search and a travel blog. Because the men who care enough to plan this right deserve a resource that meets them at that standard.</p>
+          <p class="about-founder-body">Every spot on this platform has been evaluated with the same obsessive criteria I used when planning my own proposal. If it wouldn't have been right for that moment, it isn't on this list.</p>
+          <span class="about-founder-sig">— Nicholas Bucchio, Founder</span>
         </div>
       </div>
     </div>
@@ -7176,13 +7215,15 @@ function rcalHover(ds) {
   document.querySelectorAll('#sdp-range-cal .rcal-day').forEach(el => {
     const d = el.dataset.ds;
     if (!d) return;
-    el.classList.remove('rcal-day-hover-range');
+    el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout');
     if (d > ci && d < ds) el.classList.add('rcal-day-hover-range');
+    if (d === ds) el.classList.add('rcal-day-hover-checkout');
   });
 }
 
 function rcalHoverEnd() {
-  document.querySelectorAll('#sdp-range-cal .rcal-day-hover-range').forEach(el => el.classList.remove('rcal-day-hover-range'));
+  document.querySelectorAll('#sdp-range-cal .rcal-day-hover-range, #sdp-range-cal .rcal-day-hover-checkout')
+    .forEach(el => el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout'));
 }
 
 function onCheckinChange() {
@@ -7336,6 +7377,7 @@ function openEnquiryModal() {
   if (enqPD) enqPD.value = proposalDatePrefill;
   if (enqBD) enqBD.value = backupDatePrefill;
   console.log('Enquiry date prefill: proposal=', proposalDatePrefill, 'backup=', backupDatePrefill);
+  populateEnqHotelNights();
 
   // Package summary
   const pkgNames = { moment: 'The Moment', hotel: 'The Moment + Hotel stay' };
@@ -7406,6 +7448,42 @@ function closeEnquiryModal() {
   document.getElementById('enq-overlay').classList.remove('open');
   document.getElementById('enq-modal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+function enqPickDate(ds) {
+  const pd = document.getElementById('enq-proposal-date');
+  const bd = document.getElementById('enq-backup-date');
+  if (!pd) return;
+  if (!pd.value) { pd.value = ds; }
+  else if (!bd.value && ds !== pd.value) { bd.value = ds; }
+  else { pd.value = ds; }
+  document.querySelectorAll('#enq-hotel-nights-chips .enq-night-chip').forEach(el => {
+    const active = el.dataset.ds === pd.value || el.dataset.ds === bd.value;
+    el.style.background  = active ? 'rgba(165,90,74,0.3)' : 'rgba(165,90,74,0.08)';
+    el.style.borderColor = active ? 'rgba(165,90,74,0.6)' : 'rgba(165,90,74,0.25)';
+    el.style.fontWeight  = active ? '400' : '300';
+  });
+}
+
+function populateEnqHotelNights() {
+  const hintEl  = document.getElementById('enq-hotel-nights-hint');
+  const chipsEl = document.getElementById('enq-hotel-nights-chips');
+  if (!hintEl || !chipsEl) return;
+  const ci = document.getElementById('sdp-checkin')?.value;
+  const co = document.getElementById('sdp-checkout')?.value;
+  if (!ci || !co) { hintEl.style.display='none'; chipsEl.style.display='none'; return; }
+  const fmt = s => { const d=new Date(s+'T00:00:00'); return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); };
+  let chips = '';
+  let cursor = new Date(ci+'T00:00:00');
+  const end  = new Date(co+'T00:00:00');
+  while (cursor < end) {
+    const ds = cursor.toISOString().split('T')[0];
+    chips += `<div class="enq-night-chip" data-ds="${ds}" onclick="enqPickDate('${ds}')" style="padding:5px 11px;background:rgba(165,90,74,0.08);border:1px solid rgba(165,90,74,0.25);font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:#A55A4A;cursor:pointer;letter-spacing:0.03em;transition:all 0.15s">${fmt(ds)}</div>`;
+    cursor.setDate(cursor.getDate()+1);
+  }
+  chipsEl.innerHTML = chips;
+  hintEl.style.display  = 'block';
+  chipsEl.style.display = 'flex';
 }
 
 // ─── Booking Drawer (stub — drawer removed in favour of sidebar) ──
@@ -7658,7 +7736,11 @@ async function submitEnquiry() {
       ci && co   ? `Stay: ${ci} → ${co} (${nightCount} nights)` : '',
     ].filter(Boolean).join('\n'),
     'Internal Notes':      'Submitted via website enquiry form. Spot: ' + spotName,
+    'Spot Name':           spotName,
   };
+
+  // Linked Spot record — critical for knowing which spot this enquiry is about
+  if (currentSpotId) fields['Linked Spot'] = [currentSpotId];
 
   // Add-ons Selected — new field you added
   if (addons.length) fields['Add-ons Selected'] = addons.join(', ');
@@ -8091,6 +8173,336 @@ const DEST_DATA = {
   }
 };
 
+
+
+const DEST_HIGHLIGHTS_DATA = {
+  'New York': {
+    intro: 'New York proposals succeed when they balance the city's incredible energy with genuine intimacy. Here's how to make the most of it.',
+    items: [
+      { icon: '🌅', title: 'Time it for golden hour', body: 'The hour before sunset turns Manhattan gold. Brooklyn Bridge Park, the High Line at 14th St, and Dumbo are extraordinary in this light. Plan to arrive 45 minutes before.' },
+      { icon: '🌿', title: 'The Conservatory Garden', body: 'Central Park's hidden secret — a formal, gated garden on the Upper East Side that sees almost no tourists. The wisteria pergola in spring is one of the most romantic spots in the city.' },
+      { icon: '🍷', title: 'Dinner after, not before', body: 'Propose first, then celebrate. Book a table at a restaurant nearby for right after — Gramercy Tavern, Lilia, or Le Bernardin. She'll want to call everyone while you're still out.' },
+      { icon: '📸', title: 'Hire a photographer', body: 'NYC proposal photographers often work as "proposal ambush" specialists — they're hidden nearby, appear only for the moment, and disappear. Your one-line brief: she doesn't know they're there.' },
+      { icon: '🚁', title: 'Rooftop access', body: 'Several Manhattan buildings offer private rooftop access for proposals. The view of the skyline from a private terrace is different from any public spot — quieter, more deliberate, more personal.' },
+      { icon: '🌉', title: 'Brooklyn or Manhattan?', body: 'Brooklyn gives you Manhattan. Manhattan gives you a skyline that feels abstract from inside it. The best proposals we've seen happen from Brooklyn looking back — specifically Dumbo, Brooklyn Bridge Park Pier 1, or Transmitter Park in Greenpoint.' },
+    ],
+    tip: 'Avoid Times Square, the Top of the Rock, and the Brooklyn Bridge walkway — all extraordinary in photographs, all impossible for a private proposal. The best New York proposals happen in the places tourists haven't found yet.'
+  },
+  'Amalfi Coast': {
+    intro: 'The Amalfi Coast rewards those who move slowly and arrive early. Here's how to experience it the way locals do — and find the proposal moment only visitors who know miss.',
+    items: [
+      { icon: '🚤', title: 'Hire a private boat', body: 'The most extraordinary Amalfi Coast experiences happen from the water. A half-day private boat gives you sea cave access, swimming coves, and the coastline from an angle no tourist bus can reach.' },
+      { icon: '🍋', title: 'Ravello over Positano', body: 'Positano is beautiful and crowded. Ravello — perched 350 metres above the sea — has gardens, silence, and the most dramatic valley views on the coast. The Villa Cimbrone gardens are extraordinary at 7am.' },
+      { icon: '🌅', title: 'Watch sunrise, not sunset', body: 'Sunset on the Amalfi Coast is famous — and shared with hundreds of others. Sunrise is yours alone. The light on the cliffs at 6:30am is warmer, quieter, and unlike anything you'll see at dusk.' },
+      { icon: '🍽', title: 'Book a private terrace dinner', body: 'Several Amalfi restaurants have private terrace tables that require advance booking and a small premium. Call, don't email. Mention the proposal. Italians understand these moments completely.' },
+      { icon: '🛵', title: 'The road to Praiano', body: 'The stretch of coast between Positano and Praiano has a series of small lay-bys with railings above the sea that most visitors drive past without stopping. They're private, they're extraordinary, and they require only the willingness to pull over.' },
+      { icon: '🏊', title: 'Emerald Grotto', body: 'Grotta dello Smeraldo — accessible only by boat or an elevator from the road — is a sea cave filled with eerie green light. It's one of the most surreal settings on the coast, and between tour boats it's nearly empty.' },
+    ],
+    tip: 'The Amalfi Coast is at its best in May and September — warm, clear, but without the July–August crowds that can make even the most private spots feel compromised.'
+  },
+  'Santorini': {
+    intro: 'Santorini is the most proposeable island on earth. It has one challenge: everyone knows it. Here's how to find the version of Santorini that's still yours.',
+    items: [
+      { icon: '🏛', title: 'Oia in the morning, not at sunset', body: 'The Oia castle at sunset has 4,000 tourists and 400 tripods. Oia at 7am has almost no one. The light from the rising sun on the white walls is equally extraordinary — and the caldera is entirely yours.' },
+      { icon: '⛵', title: 'Caldera boat tour', body: 'A private catamaran on the caldera at sunset — away from the island entirely — is one of the most private proposal settings in Santorini. No crowd, no noise, just the caldera at golden hour from the water.' },
+      { icon: '🏊', title: 'Red Beach', body: 'The Red Beach near Akrotiri is dramatic, strange, and beautiful. Arrive early morning before tour groups — the volcanic red cliffs against the Aegean are unlike anything else on the island.' },
+      { icon: '🍷', title: 'Private villa dining', body: 'Several Santorini villas offer private rooftop dining experiences that can be arranged for one couple. The sunset from a private terrace with the caldera below is what people imagine when they imagine Santorini.' },
+      { icon: '🌋', title: 'Akrotiri lighthouse', body: 'The south tip of the island, almost no tourists, and a sunset view over the sea that rivals anything in Oia. If you have a car, this is the proposal spot almost nobody uses.' },
+      { icon: '📍', title: 'Firostefani over Fira', body: 'The path between Firostefani and Imerovigli — the caldera path — has private viewpoints and terraces that most tourists walk past. The clifftop views here are as dramatic as Oia, with a fraction of the foot traffic.' },
+    ],
+    tip: 'Book villa accommodation with caldera views — not just a hotel room. The most extraordinary Santorini proposals happen from private terraces, not public spots. The terrace IS the venue.'
+  },
+  'Bali': {
+    intro: 'Bali works best when you slow down and go local. The island rewards early risers, people who leave the main roads, and anyone willing to arrive before the tour buses.',
+    items: [
+      { icon: '🌄', title: 'Mt Batur sunrise trek', body: 'A 2am departure, a 2-hour hike in darkness, and sunrise from the summit of an active volcano — one of the most extraordinary mornings available anywhere on earth. The crater views at dawn are incomprehensible.' },
+      { icon: '🌾', title: 'Tegallalang at 5:30am', body: 'The rice terraces are famous. What most visitors don't know: at 5:30am they're deserted. Layers of green descending into mist, near-complete silence, and photography that looks nothing like the midday shots everyone else takes.' },
+      { icon: '🌊', title: 'Uluwatu temple at dusk', body: 'The Uluwatu temple perched on a 70-metre cliff above the Indian Ocean, with the Kecak fire dance performed at sunset — one of the most cinematic evenings available anywhere in Southeast Asia.' },
+      { icon: '🏊', title: 'Nyang Nyang Beach', body: 'A 20-minute hike down steep steps leads to one of the least-visited beaches in south Bali. The combination of effort and isolation makes it a genuinely private setting — and the walk down is part of the experience.' },
+      { icon: '🛕', title: 'Pura Lempuyang gates', body: 'The "gates of heaven" with Mt Agung reflected in the pool below — the most photographed image in Bali, and for good reason. Arrive before 6am to have the gates to yourself. By 7am there's a queue.' },
+      { icon: '🌿', title: 'Ubud Sacred Monkey Forest', body: 'Not for the proposal moment itself — but for the morning after. The forest at dawn, feeding monkeys in dappled jungle light, is one of those experiences that makes a trip feel genuinely unlike any other.' },
+    ],
+    tip: 'Hire a local guide for your proposal morning. Not a tourist guide — a local fixer who can arrange private rice terrace access, know which viewpoints are empty before 6am, and drive you without GPS anxiety. Most reputable villas can recommend someone.'
+  },
+  'Maldives': {
+    intro: 'The Maldives is the only destination on our list where doing less is doing more. Resist the urge to pack the itinerary. The experience is the ocean, the silence, and the pace.',
+    items: [
+      { icon: '🌅', title: 'Chase the sandbank', body: 'Ask your resort which sandbank appears at low tide and when. Book it specifically. Arriving at a temporary island — just the two of you and 200 metres of white sand above the ocean — is unlike any proposal experience on earth.' },
+      { icon: '🤿', title: 'House reef snorkelling', body: 'The coral reefs directly off most resort jetties are extraordinary. Manta rays, sea turtles, reef sharks. A private snorkelling session at dawn — before the resort wakes up — is completely achievable and completely surreal.' },
+      { icon: '🚤', title: 'Dolphin cruise sunset', body: 'Almost every Maldives resort offers a sunset dolphin cruise. What most don't advertise: private versions for one couple can usually be arranged. The experience of watching spinner dolphins in a private boat at sunset is extraordinary.' },
+      { icon: '🌙', title: 'Night fishing by starlight', body: 'Traditional Maldivian night fishing — by hand line, from a small boat, with a sky full of stars at 10pm — is one of the most romantic and unexpected evenings the islands offer. Most resorts can arrange this.' },
+      { icon: '💆', title: 'Overwater bungalow ritual', body: 'Build the proposal around the villa. Morning coffee on the deck watching the lagoon. A day with nothing scheduled. The sandbank at low tide. The sunset from the dock. Let the island create the atmosphere — it will.' },
+      { icon: '🍽', title: 'Private beach dinner', body: 'Every resort can arrange this. A single table on the beach, lit by candles and lanterns, with the sound of the Indian Ocean and the Milky Way above. Request the proposal dinner be on the beach, not the jetty — the difference in romance is significant.' },
+    ],
+    tip: 'The Maldives works best when the resort knows it's a proposal trip. Tell them. They will quietly arrange small details — flowers at turndown, champagne on arrival, a discreet note from the chef — that collectively make the trip feel designed. Because it will be.'
+  },
+  'Tulum': {
+    intro: 'Tulum is now one of the most design-conscious destinations in the world. Here's how to experience it beyond the Instagram feed — and find the version that's still genuinely extraordinary.',
+    items: [
+      { icon: '💧', title: 'Dos Ojos cenote', body: 'One of the most extraordinary underground experiences in the world — a network of connected cenotes with crystal water and surreal light through the surface. Private early-morning access is available and transforms the experience entirely.' },
+      { icon: '🌅', title: 'Tulum beach at dawn', body: 'The Tulum beach at 5:30am — before the palapa bars set up and the DJs arrive — is deserted, dramatic, and extraordinary. The Maya ruins visible on the cliff above the beach at this hour look like a film set.' },
+      { icon: '🌴', title: 'Sian Ka'an biosphere', body: 'South of Tulum, the Sian Ka'an reserve is a UNESCO world heritage site. Private boat tours through the lagoons and mangroves — with no other people visible in any direction — is one of the most remote proposal experiences available in the Americas.' },
+      { icon: '🦋', title: 'Cobá jungle ruins', body: 'The Cobá pyramid — the last climbable Mayan ruin in the Yucatán — rises above the jungle canopy to a view that extends to the horizon. The descent at sunset, with the jungle turning gold below, is extraordinary.' },
+      { icon: '🍽', title: 'Hartwood for the celebration dinner', body: 'Hartwood — the legendary open-fire restaurant in the Tulum jungle — is worth the effort to book months in advance. An outdoor table in the jungle, lit by candles and wood smoke, for the dinner after the proposal.' },
+      { icon: '🌿', title: 'Azulik for the atmosphere', body: 'The Azulik resort — treehouse villas above the jungle, no electronics, connected by wooden walkways — is one of the most extraordinary hotel environments in the world. Worth a visit even if not staying there.' },
+    ],
+    tip: 'Tulum's best experiences require early rising and advance booking. The cenotes, the ruins, the best beach spots — all are best before 8am. The same places that feel transcendent at dawn feel like a theme park by 11am.'
+  },
+  'Costa Rica': {
+    intro: 'Costa Rica's extraordinary nature rewards those who are willing to get up early, accept some mud, and let the jungle do the work.',
+    items: [
+      { icon: '☁️', title: 'Monteverde cloud forest', body: 'The Monteverde reserve at dawn — the hanging bridges above the jungle in silence, mist rising from the canopy, the possibility of quetzals in the trees — is one of the most extraordinary natural experiences in Central America.' },
+      { icon: '🌊', title: 'Playa Conchal', body: 'A beach made entirely of crushed seashells — white, fine, glittering. North of Tamarindo, with turquoise water and almost no development. One of the most beautiful and least-known beaches in the Pacific coast.' },
+      { icon: '🦜', title: 'Corcovado National Park', body: 'The Osa Peninsula's Corcovado is what National Geographic has called the most biologically intense place on earth. A private guided tour at dawn — tapirs, scarlet macaws, spider monkeys — is a proposal morning unlike anything else.' },
+      { icon: '🌋', title: 'Arenal volcano lava', body: 'At night, Arenal's lava flows visible from the base are a genuinely surreal experience. Hot springs at the volcano's base, with the glowing lava above — one of the most dramatic evening experiences in Central America.' },
+      { icon: '🏄', title: 'Santa Teresa', body: 'The Pacific surf town at the southern Nicoya Peninsula — remote enough to feel like a discovery, developed enough to have excellent food and accommodation. One of the few truly beautiful beach towns left in Costa Rica.' },
+      { icon: '🌉', title: 'Hanging bridges at night', body: 'Several eco-lodges in Monteverde and the cloud forest offer private night bridge walks — the jungle alive with insects, frogs, and the occasional ocelot in a flashlight beam. Not for everyone. Completely extraordinary.' },
+    ],
+    tip: 'The rainy season (May–November) in Costa Rica is dramatically underrated for proposals. The jungle is at its most vivid, the waterfalls are at full flow, the prices are lower, and the crowds are minimal. The afternoon storms are usually brief and followed by extraordinary golden light.'
+  },
+  'Nicaragua': {
+    intro: 'Nicaragua is for the genuinely adventurous. The reward is an experience that feels completely discovered — because it largely is.',
+    items: [
+      { icon: '🌋', title: 'Volcán Masaya lava lake', body: 'One of the only accessible active lava lakes in the world. At night, the glowing crater visible from the viewing platform is one of the most surreal and primal experiences available anywhere. A 20-minute drive from Granada.' },
+      { icon: '🏝', title: 'Ometepe at dawn', body: 'The ferry to Ometepe at 6am, arriving as the twin volcanos appear above the morning mist, is one of the great arrivals in Central American travel. The island has almost no tourists — which is entirely the point.' },
+      { icon: '🚣', title: 'Lake Nicaragua kayak', body: 'Kayaking on Lake Nicaragua — the largest lake in Central America, with both freshwater sharks and the volcanic island of Ometepe visible — is an experience that exists almost nowhere else on earth.' },
+      { icon: '🏛', title: 'Granada colonial streets', body: 'Granada — the most beautifully preserved colonial city in Central America — at sunset, when the locals are out and the light turns the painted facades gold, is one of the great evening walks in the Americas.' },
+      { icon: '🌊', title: 'The Pacific beaches', body: 'Nicaragua's Pacific coast — Popoyo, Playa Maderas — has some of the best uncrowded surf beaches in Central America. Almost completely undeveloped, dramatically beautiful, and rarely visited by non-surfers.' },
+      { icon: '⛺', title: 'Volcano boarding on Cerro Negro', body: 'Boarding down an active black volcano on a wooden board — one of the most unusual adventure experiences in Central America. Not the proposal itself, but the morning after. She'll remember it.' },
+    ],
+    tip: 'Nicaragua requires a different mindset to the rest of our destinations — things take longer, infrastructure is less reliable, and the unexpected is part of the experience. This is not a weakness. It is exactly why the proposals that happen here feel so different from anywhere else.'
+  },
+  'Algarve': {
+    intro: 'The Algarve is best explored by kayak, by rental car, and by simply stopping whenever the view demands it. Here's how to find the coast that the holiday brochures haven't reached yet.',
+    items: [
+      { icon: '🚣', title: 'Kayak the coast', body: 'The only way to access many of the Algarve's best spots is from the water. A kayak lets you enter sea caves, reach hidden beaches, and find coves that the cliff paths don't reach. Half-day private guided kayak is the single best activity on this coast.' },
+      { icon: '🌅', title: 'Ponta da Piedade at sunset', body: 'The sea arches at Ponta da Piedade — golden limestone stacks in shallow turquoise water — at the last hour of sunlight are the most extraordinary landscape on the Algarve. Boat access from Lagos gives you the full view.' },
+      { icon: '🏖', title: 'Praia da Marinha', body: 'Consistently rated one of the most beautiful small beaches in Europe. The walk down the cliff is steep, the beach is narrow, and on a weekday in May it's nearly yours. The rock formations are extraordinary.' },
+      { icon: '🌊', title: 'Sagres and the Southwest', body: 'The southwestern tip of continental Europe — the Cabo de São Vicente lighthouse above sheer 50-metre cliffs — is one of the most dramatically positioned spots on the continent. At sunset, facing the Atlantic, it feels like the edge of the world.' },
+      { icon: '🍽', title: 'The fish restaurants of Ferragudo', body: 'The village of Ferragudo — across the river from Portimão, accessible by small boat — has old-school fish restaurants on the quay that feel untouched by tourism. A long lunch here, watching the fishing boats, is one of the great Algarve meals.' },
+      { icon: '🔦', title: 'Benagil after hours', body: 'The Benagil cave tour boats stop running at 5pm. After that, private kayak access into the cave — with the skylight turning the dome of the cave gold — is entirely achievable and entirely private.' },
+    ],
+    tip: 'The Algarve is best in May, June, and September. July and August turn the most-photographed beaches into car parks. The same beaches in shoulder season, with the same extraordinary light, feel like a private discovery.'
+  },
+  'South of France': {
+    intro: 'The South of France is deceptively vast — Provence, the Côte d'Azur, the Calanques, the Rhône Valley. Here's how to navigate it and find the moments that matter.',
+    items: [
+      { icon: '💜', title: 'Valensole lavender timing', body: 'The lavender peaks in Valensole in late June to mid-July. The exact peak shifts by a week or two each year — check the current year's reports. At 5:30am on a cloudless morning, before any other visitors, the scene is incomprehensible.' },
+      { icon: '🏰', title: 'Les Baux-de-Provence', body: 'The ruined hilltop citadel above Les Baux — with views across the Alpilles valley from 200 metres — is one of the most dramatic medieval sites in France. At golden hour in late spring, the stone turns copper and the valley goes gold.' },
+      { icon: '🌊', title: 'The Calanques of Cassis', body: 'The fjord-like limestone inlets between Marseille and Cassis — some accessible only by boat — are extraordinary and almost unknown outside France. A private boat from Cassis port gives you access to deserted coves and crystal water.' },
+      { icon: '🍷', title: 'The Luberon wine villages', body: 'Ménerbes, Bonnieux, Lacoste — the Luberon perched villages in the Vaucluse combine extraordinary views, lavender fields below, and wine cellars that have been producing since the 12th century. A self-drive day through these villages in late afternoon is one of the great Provence experiences.' },
+      { icon: '🎨', title: 'Aix-en-Provence morning market', body: 'The daily market in the old town of Aix — with Cézanne's café, the fountain squares, the plane tree avenues — at 8am on a Tuesday, when it's still locals buying bread, is one of the great European market experiences.' },
+      { icon: '🚂', title: 'The Gorges du Verdon', body: 'Europe's largest canyon — turquoise water 700 metres below, mule tracks along the rim, and a scale that makes the Grand Canyon feel familiar by comparison. The Route des Crêtes drive along the rim is one of the great road journeys in France.' },
+    ],
+    tip: 'The South of France is best understood as several different destinations. Provence (lavender, hill towns, wine) and the Côte d'Azur (cliff villages, sea, yacht culture) require different itineraries. Choose one and do it well, rather than trying to cover both in a week.'
+  },
+  'Switzerland': {
+    intro: 'Switzerland rewards those who go higher. The best of the Swiss Alps is above the treeline — the places where the silence is total and the scale becomes impossible to process.',
+    items: [
+      { icon: '🚡', title: 'The Schilthorn summit', body: 'The revolving restaurant at 2,970 metres — with the Eiger, Mönch, and Jungfrau visible across the valley — is one of the most dramatic dining experiences in the Alps. A private table at sunrise, when the valley below is still in cloud, is extraordinary.' },
+      { icon: '🌄', title: 'Grindelwald First at dawn', body: 'The First gondola opens at 8:30am. The mountain at this hour — before the day hikers arrive, with the morning cloud still in the valley — has a silence and a light that transforms the already extraordinary landscape.' },
+      { icon: '🏔', title: 'Lauterbrunnen valley', body: 'The Lauterbrunnen valley — 72 waterfalls descending from 300-metre cliffs on both sides — is one of the most dramatic valley landscapes in Europe. The village at the base is almost impossibly picturesque. Most visitors pass through to Jungfraujoch; the valley itself rewards staying.' },
+      { icon: '⛷', title: 'The Kleine Scheidegg saddle', body: 'The rail station between Grindelwald and Wengen — with the north face of the Eiger rising directly above — has a terrace restaurant from which the scale of the Alps becomes physically imposing. A quiet afternoon here, with the trains arriving from below, is unlike any other Alpine experience.' },
+      { icon: '🌊', title: 'Lake Brienz', body: 'The turquoise glacial lake east of Interlaken — bordered by 2,000-metre peaks and accessible by antique steam boat — is one of the most beautiful lakes in Switzerland and among the least crowded of the Bernese Oberland's attractions.' },
+      { icon: '🌿', title: 'Bachalpsee alpine lake', body: 'A 1-hour hike above Grindelwald First leads to Bachalpsee — a small alpine lake that reflects the Schreckhorn in its surface. At dawn, with no other visitors, this is one of the most beautiful and private spots in the Bernese Oberland.' },
+    ],
+    tip: 'Swiss mountain transport — cable cars, rack railways, gondolas — requires advance booking in peak season (July–August). Plan the proposal logistics around transport schedules. First gondola of the day is always the right call: better light, no queues, and the mountain to yourselves.'
+  },
+};
+
+function renderDestHighlights(destName) {
+  const el = document.getElementById('dest-landing-highlights');
+  if (!el) return;
+  const d = DEST_HIGHLIGHTS_DATA[destName];
+  if (!d) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="dest-highlights">
+      <div class="dest-highlights-inner">
+        <div class="dest-highlights-header">
+          <span class="pg-eyebrow" style="display:block;margin-bottom:16px">Make the most of it</span>
+          <h2 class="dest-highlights-title">Experiencing ${destName}</h2>
+          <p class="dest-highlights-sub">${d.intro}</p>
+        </div>
+        <div class="dest-highlights-grid">
+          ${d.items.map(item => `
+            <div class="dest-hl-item">
+              <span class="dest-hl-icon">${item.icon}</span>
+              <div class="dest-hl-title">${item.title}</div>
+              <p class="dest-hl-body">${item.body}</p>
+            </div>`).join('')}
+        </div>
+        <div class="dest-highlights-tip">
+          <span class="dest-highlights-tip-label">Proposal Spots Tip</span>
+          <p class="dest-highlights-tip-text">${d.tip}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+const DEST_EDITORIAL_DATA = {
+  'New York': {
+    eyebrow: 'New York City · USA',
+    headline: 'The most cinematic city on earth. It does half the work for you.',
+    sub: 'Eight million people, and somehow a hundred places where it feels like just the two of you. The skyline at golden hour, a rooftop above the noise, a hidden garden nobody else found.',
+    cards: [
+      { icon: '🌆', title: 'The skyline effect', body: 'No backdrop on earth communicates scale and ambition like the Manhattan skyline. Brooklyn Bridge Park, Dumbo, and the High Line at sunset turn the city into your photographer.' },
+      { icon: '🌿', title: 'Secret gardens', body: 'Central Park has 843 acres. Most visitors see the same five landmarks. Our spots are the hidden meadows, private terraces, and rose gardens that feel miles from the city — and minutes from anywhere.' },
+      { icon: '🔒', title: 'Private inside public', body: 'New York seems impossible to escape — until you know where to look. Rooftop terraces, private dining rooms, and waterfront spots that give you Manhattan without the crowds.' },
+    ],
+    pull: 'She thought we were just getting dinner in Brooklyn. When we turned the corner and she saw the Manhattan skyline reflected in the water, she stopped walking.',
+    pullAttr: '— Marcus, Brooklyn Bridge Park'
+  },
+  'Amalfi Coast': {
+    eyebrow: 'Campania · Italy',
+    headline: "Europe's most cinematic coastline. Some moments are inevitable here.",
+    sub: 'The Amalfi Coast has been making people fall in love for centuries — the light, the limestone cliffs, the lemon groves, the sea. There is a reason proposals here feel like they were meant to happen.',
+    cards: [
+      { icon: '🍋', title: 'The lemon grove light', body: 'Late afternoon on the Amalfi Coast produces a quality of light photographers call unrepeatable — golden, diffuse, warm. The terraced lemon groves glow. Positano turns amber. The proposal almost takes care of itself.' },
+      { icon: '🏔', title: 'Private cliffside terraces', body: "The most extraordinary proposal spots here are invisible from the path. Carved into the cliffside, draped in bougainvillea, they exist specifically for moments that demand privacy." },
+      { icon: '🚤', title: 'Boat-access only spots', body: "Several of our vetted locations are only accessible by boat — which means you are the only person who knows they exist. A local boatman, two hours, and a cove that doesn't appear on any map." },
+    ],
+    pull: 'The guitarist started playing around the corner and she thought it was for another table. When she turned to ask if we should move, I was already on one knee.',
+    pullAttr: '— James, Positano'
+  },
+  'Santorini': {
+    eyebrow: 'Cyclades · Greece',
+    headline: 'The caldera at sunset. There is nothing else like it.',
+    sub: "Santorini is the most photographed proposal destination on earth. The challenge is not finding somewhere beautiful. It's finding somewhere private.",
+    cards: [
+      { icon: '🌅', title: 'The caldera effect', body: "The Santorini caldera is one of the few places where the scenery is so overwhelming that she won't be thinking about anything else — until you get down on one knee." },
+      { icon: '🏛', title: 'Private villa terraces', body: 'The Oia castle at sunset has thousands of tourists. Our vetted spots are private terraces and villa rooftops with the same caldera view — with nobody else present.' },
+      { icon: '📸', title: 'Legendary light', body: 'Santorini photographers call the hour before sunset "the window." Our spots are chosen specifically for how they read in this light. Plan around it.' },
+    ],
+    pull: "She was wearing a dress she'd bought that morning from a small boutique in Oia. She had no idea I'd already arranged everything. Sometimes the details arrange themselves.",
+    pullAttr: '— Tom, Oia'
+  },
+  'Bali': {
+    eyebrow: 'Indonesia · Southeast Asia',
+    headline: 'Private villas, ancient rice terraces, and a light that makes everything feel sacred.',
+    sub: 'Bali offers the highest value-for-money proposal experience in the world. But the real reason people propose in Bali is the quality of the feeling — something about the island makes it feel like the right place to ask.',
+    cards: [
+      { icon: '🌾', title: 'Rice terraces at sunrise', body: 'Tegallalang at 5:30am, before the tour groups arrive, is one of the most beautiful things you will ever see. Layers of emerald terraces descending into mist, almost complete silence.' },
+      { icon: '🏊', title: 'Infinity pool proposals', body: "Bali's private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally." },
+      { icon: '🌊', title: 'Uluwatu at sunset', body: 'The Uluwatu clifftops at golden hour rival anything in Europe — hidden coves, crashing surf, and the kind of light that makes every photograph look like a film still.' },
+    ],
+    pull: 'He woke me at 4:30am. I was furious. Then I saw the rice terraces in the first light and understood completely.',
+    pullAttr: '— Sophie, Ubud'
+  },
+  'Maldives': {
+    eyebrow: 'Indian Ocean · Private Islands',
+    headline: 'The sandbank appears at low tide. It disappears by afternoon. The moment is everything.',
+    sub: 'The Maldives is the only destination where total privacy is the default, not the exception. Overwater villas, sandbanks that exist for a few hours a day, and a quality of light that makes the Indian Ocean look designed for this exact moment.',
+    cards: [
+      { icon: '🏝', title: 'Private sandbanks', body: 'At low tide, small sand islands emerge from the Indian Ocean — visible for 2–3 hours, then gone. Accessible only by speedboat. The most private proposal setting in the world.' },
+      { icon: '🌊', title: 'Overwater villas', body: 'Waking up above the lagoon, hearing nothing but water. Our vetted Maldives properties have proposal coordinators on staff who understand discretion completely.' },
+      { icon: '🤿', title: 'Underwater proposals', body: 'For the genuinely adventurous: several of our partner properties offer underwater proposal experiences in the lagoon — written on a slate, in crystal water, with manta rays.' },
+    ],
+    pull: 'The resort called it "the proposal sandbank." We were the only people who knew it existed. It was available for two hours. That was all we needed.',
+    pullAttr: '— Daniel, North Malé Atoll'
+  },
+  'Tulum': {
+    eyebrow: 'Quintana Roo · Mexico',
+    headline: "Cenotes glowing turquoise underground. The Americas' most sophisticated proposal destination.",
+    sub: 'Tulum has transformed from a backpacker stop into the most design-forward destination in the Americas. Private cenote access, open-air beds above the jungle, and Caribbean water the colour of gemstones.',
+    cards: [
+      { icon: '💧', title: 'Private cenote access', body: 'The cenotes — underground sinkholes filled with crystal freshwater — are extraordinary at dawn. Our vetted spots include private early-morning access before tour groups arrive at 9am.' },
+      { icon: '🌴', title: 'Jungle eco-lodges', body: "Tulum's design-conscious eco-lodges have turned the jungle into a luxury setting. Open-air bedrooms, outdoor showers, infinity pools above the canopy. The proposal setup is often the easiest part." },
+      { icon: '🏖', title: 'Caribbean seclusion', body: 'North of Tulum, near-empty beaches remain accessible only by dirt road. Turquoise water, no facilities, no other people. Some of the best proposal photography in the Americas happens here.' },
+    ],
+    pull: 'We had private access to the cenote from 6am. By 9am it had 40 tourists. The timing was everything.',
+    pullAttr: '— Alex, Gran Cenote'
+  },
+  'Costa Rica': {
+    eyebrow: 'Central America · Pacific & Caribbean',
+    headline: 'Cloud forests suspended in mist. A biodiversity that makes the proposal feel like a David Attenborough scene.',
+    sub: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forest hanging bridges, Pacific cliff proposals, and eco-lodges where the jungle comes to you.',
+    cards: [
+      { icon: '☁️', title: 'Cloud forest proposals', body: 'Monteverde at dawn, the suspension bridges above the canopy, howler monkeys in the distance and mist below your feet. Private early access (before 7am) means no tour groups — just the two of you above the jungle.' },
+      { icon: '🌊', title: 'Pacific hidden coves', body: "Costa Rica's Osa Peninsula has some of the least-visited coastline in Central America. Beaches accessible only by boat or a jungle hike — which guarantees you'll be entirely alone." },
+      { icon: '🌿', title: 'Eco-lodge magic', body: 'The best eco-lodges in Costa Rica have proposal setups perfected — candlelit jungle clearings, private hanging bridges, infinity pools above the rainforest. The nature does most of the work.' },
+    ],
+    pull: 'The hanging bridge was completely deserted at sunrise. We were above the cloud layer. It felt like we were the only two people alive.',
+    pullAttr: '— Ryan, Monteverde'
+  },
+  'Nicaragua': {
+    eyebrow: 'Central America · Untouched',
+    headline: 'Twin volcanos rising from a lake. The rawness the rest of Central America has already lost.',
+    sub: 'Nicaragua is where the most adventurous proposals happen. Isla de Ometepe — accessible only by ferry, rising out of Lake Nicaragua with twin volcanos — is one of the most extraordinary and private places on earth.',
+    cards: [
+      { icon: '🌋', title: 'Ometepe island', body: 'Two volcanos rising from a freshwater lake, accessible only by ferry. The island has basic infrastructure and almost no tourists — which means the proposal feels genuinely private and adventurous.' },
+      { icon: '⛵', title: 'Boat-only access', body: "Several of Nicaragua's best coves are only reachable by boat — black sand, volcanic coastline, absolute silence. You won't see another person for hours. That's the entire appeal." },
+      { icon: '🌅', title: 'Volcano sunrise', body: 'Watching the sun rise from above the cloud line on the slopes of Concepción volcano is one of the most dramatic proposal backdrops in the world. And almost no one has done it.' },
+    ],
+    pull: "Nobody we know has been to Nicaragua. Nobody had proposed there before us. That was exactly what I wanted.",
+    pullAttr: '— Luke, Isla de Ometepe'
+  },
+  'Algarve': {
+    eyebrow: 'Portugal · Atlantic Coast',
+    headline: "Sea caves with natural skylights. Europe's best-value proposal coastline.",
+    sub: 'The Algarve rivals the Amalfi Coast for sheer dramatic beauty — at roughly half the cost. Sandstone sea arches, grottos accessible by kayak, and Atlantic cliffs that turn copper at golden hour.',
+    cards: [
+      { icon: '🚣', title: 'Sea cave proposals', body: 'Benagil Cave — a sea cave with a natural skylight — is one of the most extraordinary proposal locations in Europe. After tour boats leave at 5pm, it becomes entirely private.' },
+      { icon: '🏖', title: 'Hidden coves', body: 'The Algarve coastline is fractured with hidden coves accessible only by kayak or a steep cliff path. Most tourists stay at the main beaches. Ten minutes of effort puts you entirely alone.' },
+      { icon: '🌅', title: 'Copper hour light', body: "At golden hour the Algarve's sandstone cliffs turn the colour of copper. The Ponta da Piedade sea arches in this light make every photograph extraordinary." },
+    ],
+    pull: 'We kayaked into Benagil after the last tour boat left. The light through the cave ceiling was extraordinary. She had no idea I had the ring.',
+    pullAttr: '— Chris, Benagil'
+  },
+  'South of France': {
+    eyebrow: "Provence & Côte d'Azur · France",
+    headline: 'Lavender fields in full bloom. The light that painters have been chasing for three centuries.',
+    sub: 'The South of France offers a romantic variety that no other European destination matches — lavender fields in July, Côte d'Azur clifftop villages, ancient hilltop towns with views across Provence.',
+    cards: [
+      { icon: '💜', title: 'Lavender in bloom', body: 'Valensole in late June and July: 30 square kilometres of lavender in full bloom. Early morning, before the tour buses arrive, it is entirely silent and extraordinary.' },
+      { icon: '🏰', title: 'Perched villages', body: 'Les Baux-de-Provence, Gordes, Roussillon — hilltop villages with 360° views across the Provence landscape. Private terraces and the extraordinary evening light before sunset.' },
+      { icon: '🌊', title: "Côte d'Azur coves", body: 'The Calanques between Marseille and Cassis — fjord-like limestone inlets accessible only on foot or by boat — are some of the most dramatic and private coastline in Europe.' },
+    ],
+    pull: 'She asked why we were getting up at 5am. I said we needed to beat the crowds. When she saw the lavender fields in the first light, she stopped asking questions.',
+    pullAttr: '— Pierre, Valensole'
+  },
+  'Switzerland': {
+    eyebrow: 'Swiss Alps · Central Europe',
+    headline: 'The Jungfrau at golden hour. A silence that makes everything feel permanent.',
+    sub: 'Switzerland offers the most dramatic natural proposal backdrops in Europe. Private cable car access, mountain restaurant reservations, and a silence above the treeline that exists nowhere else on the continent.',
+    cards: [
+      { icon: '🏔', title: 'Above the cloud layer', body: 'At 2,500 metres, above the clouds, with the Eiger and Jungfrau visible at every angle, the scale of the proposal setting is almost incomprehensible. No urban noise, no interruption.' },
+      { icon: '🚡', title: 'Private cable car', body: 'Several of our Swiss partners offer private cable car access to mountain platforms — the gondola to yourselves, sunrise over the Alps, and a location visible from 50 kilometres away.' },
+      { icon: '🌄', title: 'Alpine meadow timing', body: 'June through September gives you Alpine meadows in full flower at elevation. The Bernese Oberland has a dozen such spots within an hour of Grindelwald that almost no visitors know.' },
+    ],
+    pull: 'She said the silence was the loudest thing she had ever experienced. I was already on one knee when she finished the sentence.',
+    pullAttr: '— Oliver, Bernese Oberland'
+  },
+};
+
+function renderDestEditorial(destName) {
+  const el = document.getElementById('dest-landing-editorial');
+  if (!el) return;
+  const d = DEST_EDITORIAL_DATA[destName];
+  if (!d) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="dest-editorial">
+      <div class="dest-editorial-inner">
+        <span class="dest-editorial-eyebrow">${d.eyebrow}</span>
+        <h2 class="dest-editorial-headline">${d.headline}</h2>
+        <p class="dest-editorial-sub">${d.sub}</p>
+        <div class="dest-editorial-grid">
+          ${d.cards.map(c=>`
+            <div class="dest-editorial-card">
+              <span class="dest-editorial-icon">${c.icon}</span>
+              <div class="dest-editorial-card-title">${c.title}</div>
+              <p class="dest-editorial-card-body">${c.body}</p>
+            </div>`).join('')}
+        </div>
+        <div class="dest-editorial-pull">
+          <p class="dest-editorial-pull-text">"${d.pull}"</p>
+          <span class="dest-editorial-pull-attr">${d.pullAttr}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
 const DEST_BUDGET_DATA = {
   'santorini': { range: '$800 – $8,000+', tagline: 'The most photographed proposal backdrop on earth. Premium views command premium prices — but there are ways to do it beautifully without the most expensive options.', rows: [['Proposal spot access','Free – $150','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (3 nights, cave suite)','—','$900 – $3,000'],['Private sunset dinner','$150 – $400','$200 – $500'],['Flowers & champagne setup','$80 – $200','Often included'],], total: ['$530 – $1,550','$1,400 – $4,300+'], tip: 'Avoid the Oia castle at sunset — it has thousands of tourists and zero privacy. Our vetted spots include private terraces with the same caldera views, for the same or less.', dest: 'Santorini' },
   'bali': { range: '$400 – $4,000+', tagline: 'The most value-for-money luxury proposal destination in the world. Private villa setups that would cost $5,000 in Europe can be arranged in Bali for under $1,000.', rows: [['Private access / guide','$30 – $100','Included'],['Photographer (2–3 hrs)','$150 – $450','$150 – $450'],['Hotel (3 nights, private villa)','—','$400 – $1,800'],['Private dinner setup','$80 – $200','$100 – $300'],['Flowers & décor','$30 – $120','Often included'],], total: ['$290 – $870','$650 – $2,550+'], tip: `Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don't skip this. The rice terrace light at sunrise is unrepeatable.`, dest: 'Bali' },
@@ -8101,7 +8513,8 @@ const DEST_BUDGET_DATA = {
   'france': { range: '$800 – $6,000+', tagline: `Lavender fields, the Côte d'Azur, hilltop villages, Provençal farmhouses. The South of France offers a level of romantic variety that no other European destination can match.`, rows: [['Private access / venue','$80 – $300','Included'],['Photographer (2–3 hrs)','$300 – $700','$300 – $700'],['Hotel (3 nights, mas/château)','—','$600 – $3,000'],['Private dinner','$150 – $500','$150 – $500'],['Flowers & setup','$80 – $200','Often included'],], total: ['$610 – $1,700','$1,150 – $4,200+'], tip: 'The lavender fields in Valensole peak in late June–July. Go early morning or late evening for golden light and no tour groups. Private farm access can usually be arranged through a local gîte.', dest: 'South of France' },
   'switzerland': { range: '$1,000 – $8,000+', tagline: 'The Alps provide the most dramatic natural proposal backdrops in Europe. Private cable car access and mountain restaurant reservations require advance planning — but deliver something unforgettable.', rows: [['Private cable car / guide','$100 – $400','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, mountain lodge)','—','$700 – $3,000'],['Private mountain dinner','$200 – $600','$200 – $600'],['Setup & flowers','$100 – $250','Often included'],], total: ['$800 – $2,150','$1,400 – $4,500+'], tip: 'The best Swiss Alps spots are not in the guidebooks. The Bernese Oberland has dozens of accessible viewpoints that see almost no visitors. A local mountain guide is worth every franc.', dest: 'Switzerland' },
   'costa-rica': { range: '$400 – $4,000+', tagline: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forests, Pacific cliffs, hidden beaches — at a fraction of the price of European equivalents.', rows: [['Private guide / access','$50 – $150','Included'],['Photographer (2–3 hrs)','$150 – $400','$150 – $400'],['Hotel (3 nights, eco-lodge)','—','$400 – $1,800'],['Private dinner','$80 – $250','$100 – $300'],['Setup & flowers','$40 – $120','Often included'],], total: ['$320 – $920','$690 – $2,500+'], tip: 'The Monteverde cloud forest hanging bridges are the most dramatic proposal setting in the country. Private early-access before 7am means no tour groups — just mist, jungle, and howler monkeys.', dest: 'Costa Rica' },
-  'nicaragua': { range: '$200 – $2,000+', tagline: 'The last undiscovered destination on our list. Nicaragua offers extraordinary natural settings — twin volcanos, black sand beaches, colonial cities — at prices that make even budget-conscious proposals feel extraordinary.', rows: [['Private boat / guide','$40 – $150','Included'],['Photographer (2–3 hrs)','$100 – $300','$100 – $300'],['Hotel (3 nights, eco-lodge)','—','$200 – $800'],['Private dinner','$50 – $150','$80 – $200'],['Setup','$20 – $80','Often included'],], total: ['$210 – $680','$420 – $1,280+'], tip: 'Isla de Ometepe is accessible only by ferry and is one of the most beautiful and private proposal locations in the world. The island has almost no tourist infrastructure — which is entirely the point.', dest: 'Nicaragua' }
+  'nicaragua': { range: '$200 – $2,000+', tagline: 'The last undiscovered destination on our list. Nicaragua offers extraordinary natural settings — twin volcanos, black sand beaches, colonial cities — at prices that make even budget-conscious proposals feel extraordinary.', rows: [['Private boat / guide','$40 – $150','Included'],['Photographer (2–3 hrs)','$100 – $300','$100 – $300'],['Hotel (3 nights, eco-lodge)','—','$200 – $800'],['Private dinner','$50 – $150','$80 – $200'],['Setup','$20 – $80','Often included'],], total: ['$210 – $680','$420 – $1,280+'], tip: 'Isla de Ometepe is accessible only by ferry and is one of the most beautiful and private proposal locations in the world. The island has almost no tourist infrastructure — which is entirely the point.', dest: 'Nicaragua' },
+  'new-york': { range: '$400 – $5,000+', tagline: 'New York proposals are cinematic by default — the city does half the work. The skyline, the light off the water at golden hour, the secret gardens inside one of the most photographed cities on earth. The key is finding the spots that feel private inside the most public city in the world.', rows: [['Proposal spot access','Free – $200','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (2 nights, Manhattan)','—','$400 – $2,000'],['Private dinner reservation','$100 – $400','$150 – $500'],['Flowers & champagne setup','$80 – $200','Often included'],], total: ['$480 – $1,600','$850 – $3,500+'], tip: 'Central Park is the most proposed-in place in the world — which means it can feel ordinary. Our vetted NYC spots include private rooftop terraces, hidden garden spaces, and waterfront locations that give you the skyline without the crowd. Golden hour from Brooklyn Bridge Park is free and extraordinary.', dest: 'New York' }
 };
 
 function renderDestBudget(key, destName) {
@@ -8152,15 +8565,33 @@ function clearDLFilters() {
   ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => { document.getElementById(id)?.classList.remove('active'); });
   renderDLSpots();
 }
+const DEST_COUNTRY_MAP = {
+  'Amalfi Coast':    ['italy','amalfi','positano','ravello','praiano','campania'],
+  'Santorini':       ['greece','santorini','oia','fira','cyclades'],
+  'Bali':            ['indonesia','bali','ubud','seminyak','canggu','uluwatu'],
+  'Tulum':           ['mexico','tulum','quintana roo'],
+  'Maldives':        ['maldives','indian ocean'],
+  'Costa Rica':      ['costa rica'],
+  'Nicaragua':       ['nicaragua'],
+  'Algarve':         ['portugal','algarve'],
+  'South of France': ['france','provence','south of france','côte d'azur','cote d'azur','nice'],
+  'Switzerland':     ['switzerland','swiss','alps','bernese','grindelwald','zurich','geneva'],
+  'New York':        ['new york','usa','united states','nyc','manhattan','brooklyn'],
+};
+
 function renderDLSpots() {
   const grid = document.getElementById('dest-landing-grid');
   const empty = document.getElementById('dest-landing-empty');
   if (!grid) return;
+  const destAliases = (DEST_COUNTRY_MAP[dlState.dest] || [dlState.dest.toLowerCase()]);
   let spots = allSpots.filter(s => {
-    const country = (s.Country||'').toLowerCase();
-    const region  = (s.Region||'').toLowerCase();
-    const dest    = dlState.dest.toLowerCase();
-    const matchDest = country.includes(dest) || region.includes(dest) || dest.includes(country) || dest.includes(region);
+    const country = (s.Country||'').toLowerCase().trim();
+    const region  = (s.Region||'').toLowerCase().trim();
+    if (!country && !region) return false;
+    const matchDest = destAliases.some(alias =>
+      country === alias || country.includes(alias) || alias.includes(country) ||
+      region  === alias || region.includes(alias)  || alias.includes(region)
+    );
     if (!matchDest) return false;
     if (dlState.vibe.size) {
       const vibeVal = (s.Vibe || s.vibe || '');
@@ -8232,6 +8663,8 @@ function goToDestination(name) {
 
   showPage('dest-landing');
   renderDLSpots();
+  renderDestEditorial(name);
+  renderDestHighlights(name);
   window.scrollTo(0,0);
 }
 
@@ -8269,7 +8702,7 @@ const STORY_DATA = {
     photo: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1200&q=80&fit=crop',
     eyebrow: 'Amalfi Coast, Italy · June 2024',
     title: 'He told her it was just lunch. She had no idea about the lemon grove.',
-    meta: ['🪨 Cliff', '🔒 Private', '$$$$', 'Amalfi Coast'],
+    meta: ['🏔 Cliff', '🔒 Private', '$$$$', 'Amalfi Coast'],
     dest: 'Amalfi Coast',
     body: `<p>James had been planning for four months. He had dismissed a dozen ideas — a boat trip, a rooftop restaurant, a beach at sunset — before a local hotel owner mentioned a private terrace carved into the cliffside above Positano. It was invisible from the path below. Most people walk past without ever knowing it exists.</p>
 <p>He booked it in January for a June trip. He told no one except the hotel, the guitarist, and the photographer he had hired to be in position before they arrived.</p>
@@ -8668,7 +9101,7 @@ function filterAC(val) {
 function pickAC(value) {
   document.getElementById('search-main').value = value;
   document.getElementById('ac-main').style.display = 'none';
-  applySpotFilters();
+  // Just fills the field — user can add more filters before hitting Search
 }
 
 document.addEventListener('click', e => {
@@ -9955,11 +10388,13 @@ function submitHotelForm(e) {
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Preferred proposal date</label>
-      <input type="date" id="enq-proposal-date" class="enq-input">
+      <div id="enq-hotel-nights-hint" style="display:none;margin-bottom:8px;font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:var(--mid);letter-spacing:0.02em">Your hotel stay nights — click to select:</div>
+      <div id="enq-hotel-nights-chips" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+      <input type="date" id="enq-proposal-date" class="enq-input" style="cursor:pointer">
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Backup proposal date</label>
-      <input type="date" id="enq-backup-date" class="enq-input">
+      <input type="date" id="enq-backup-date" class="enq-input" style="cursor:pointer">
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Anything we should know?</label>
@@ -9983,7 +10418,7 @@ function submitHotelForm(e) {
   <div class="enq-success" id="enq-success" style="display:none">
     <div class="enq-success-icon">✦</div>
     <h3 class="enq-success-title">Enquiry received</h3>
-    <p class="enq-success-msg">We'll confirm availability and send a full itemised quote within 24 hours. Check your email — ours comes from <strong>hello@proposalspots.com</strong>.</p>
+    <p class="enq-success-msg">We'll confirm availability and send a full itemised quote within 24 hours. Check your email — ours comes from <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5ddd0d9d9daf5c5c7dac5dac6d4d9c6c5dac1c69bd6dad8">[email&#160;protected]</a></strong>.</p>
     <button class="enq-submit-btn" onclick="closeEnquiryModal()" style="margin-top:20px">Close</button>
   </div>
 
@@ -10044,11 +10479,4 @@ function submitHotelForm(e) {
     <p style="font-family:'Cormorant',serif; font-size:20px; font-weight:300; color:var(--ink);">Spot saved to your collection.</p>
     <p style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--mid); margin-top:8px; letter-spacing:0.04em;">Find it anytime in My Collection.</p>
     <button id="save-view-collection-btn" onclick="closeSaveModal(); openCollection();"
-      style="display:none; margin-top:20px; background:#1C1C1C; color:#F4F1EB; border:none; border-radius:40px; padding:12px 28px; font-family:'Jost',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;">
-      View My Collection →
-    </button>
-  </div>
-</div>
-
-</body>
-</html>
+      style="display:none; margin-top:20px; background:#1C1C1C; color:#F4F1EB; border:none; border-radius:40px; padding:12px 28px; font-family:'Jost',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.
