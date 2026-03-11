@@ -7464,19 +7464,8 @@ function openEnquiryModal() {
     const nights = Math.round((new Date(co2+'T00:00:00') - new Date(ci2+'T00:00:00')) / 86400000);
     if (enqHotelDates) enqHotelDates.innerHTML = '<strong>'+fmtS(ci2)+'</strong> → <strong>'+fmtS(co2)+'</strong> <span style="opacity:0.6;font-size:10px">('+nights+' night'+(nights!==1?'s':'')+')</span>';
     enqHotelSection.style.display = 'block';
-    // Navigate proposal calendar to checkin month
-    const d2 = new Date(ci2+'T00:00:00');
-    _enqCalYear = d2.getFullYear(); _enqCalMonth = d2.getMonth();
-    // Show legend
-    const legend = document.getElementById('enq-pcal-legend');
-    if (legend) legend.style.display = 'flex';
-    // Hide inline change calendar
-    const inline = document.getElementById('enq-hotel-cal-inline');
-    if (inline) inline.style.display = 'none';
   } else if (enqHotelSection) {
     enqHotelSection.style.display = 'none';
-    const legend = document.getElementById('enq-pcal-legend');
-    if (legend) legend.style.display = 'none';
   }
 
   // Package summary
@@ -7641,74 +7630,7 @@ function initEnqCal() {
   enqUpdateDateDisplay();
 }
 
-function renderEnqCal() {
-  const grid   = document.getElementById('enq-pcal-grid');
-  const monthEl = document.getElementById('enq-pcal-month');
-  if (!grid || !monthEl) return;
-
-  const ci = document.getElementById('sdp-checkin')?.value  || '';
-  const co = document.getElementById('sdp-checkout')?.value || '';
-  const hasHotel = !!(ci && co);
-
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const DOWS   = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  const today  = new Date(); today.setHours(0,0,0,0);
-
-  monthEl.textContent = `${MONTHS[_enqCalMonth]} ${_enqCalYear}`;
-
-  // Display is now handled by enqUpdateDateDisplay()
-
-  const firstDay = new Date(_enqCalYear, _enqCalMonth, 1).getDay();
-  const daysInMo = new Date(_enqCalYear, _enqCalMonth+1, 0).getDate();
-
-  let html = DOWS.map(d=>`<div class="enq-pcal-dow">${d}</div>`).join('');
-  for (let i=0;i<firstDay;i++) html += '<div class="enq-pcal-day enq-pcal-empty"></div>';
-
-  for (let d=1; d<=daysInMo; d++) {
-    const ds = _enqCalYear+'-'+String(_enqCalMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    const dt = new Date(ds+'T00:00:00');
-    let cls = 'enq-pcal-day';
-    let disabled = false;
-
-    if (dt < today) { cls += ' enq-pcal-disabled'; disabled = true; }
-
-    // If hotel is selected, restrict dates outside stay
-    if (!disabled && hasHotel && (ds < ci || ds > co)) {
-      cls += ' enq-pcal-outside'; disabled = true;
-    }
-
-    if (!disabled) {
-      // Hotel range highlighting
-      if (hasHotel) {
-        if (ds === ci) cls += ' enq-pcal-hotel-start';
-        else if (ds === co) cls += ' enq-pcal-hotel-end';
-        else if (ds > ci && ds < co) cls += ' enq-pcal-hotel-range';
-      }
-      // Selected dates (overlay on top of hotel range)
-      if (ds === _enqProp1) cls += ' enq-pcal-selected';
-      else if (ds === _enqProp2) cls += ' enq-pcal-selected-2';
-    }
-
-    html += `<div class="${cls}"${disabled?'':` onclick="enqCalSelect('${ds}')"`}>${d}</div>`;
-  }
-
-  grid.innerHTML = html;
-}
-
-function enqCalSelect(ds) {
-  // Single select — tap same date to deselect
-  if (ds === _enqProp1) {
-    _enqProp1 = '';
-  } else {
-    _enqProp1 = ds;
-  }
-  _enqProp2 = ''; // no backup
-  const p1 = document.getElementById('enq-proposal-date');
-  const p2 = document.getElementById('enq-backup-date');
-  if (p1) p1.value = _enqProp1;
-  if (p2) p2.value = '';
-  renderEnqCal(); enqUpdateDateDisplay();
-}
+// Calendar removed from enquiry form — date selection on spot page
 
 function enqUpdateDateDisplay() {
   const fmt = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
@@ -7730,11 +7652,7 @@ function enqUpdateDateDisplay() {
   }
 }
 
-function enqScrollToCal() {
-  // Scroll the proposal calendar into view
-  const cal = document.getElementById('enq-pcal-wrap');
-  if (cal) cal.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
+// enqScrollToCal removed — no calendar in form
 
 function enqClearProp1() {
   _enqProp1 = ''; _enqProp2 = '';
@@ -7751,14 +7669,7 @@ function enqClearProp2() {
   renderEnqCal(); enqUpdateDateDisplay();
 }
 
-function enqCalNav(dir) {
-  _enqCalMonth += dir;
-  if (_enqCalMonth < 0)  { _enqCalMonth=11; _enqCalYear--; }
-  if (_enqCalMonth > 11) { _enqCalMonth=0;  _enqCalYear++; }
-  renderEnqCal();
-}
-
-// ─── Inline hotel date change calendar on enquiry form ───
+// ─── Navigation helpers — close modal and return to spot page ───
 let _enqHCalYear  = new Date().getFullYear();
 let _enqHCalMonth = new Date().getMonth();
 let _enqHCalMode  = 'checkin'; // 'checkin' or 'checkout'
@@ -10673,20 +10584,9 @@ function submitHotelForm(e) {
       </div>
       <div class="enq-hotel-stay-row" id="enq-hotel-stay-row">
         <div class="enq-hotel-stay-dates" id="enq-hotel-stay-dates"></div>
-        <button class="enq-hotel-change-btn" onclick="showEnqHotelCalendar()" type="button">Change dates</button>
+        <button class="enq-hotel-change-btn" onclick="enqGoBackToHotelDates()" type="button">Change</button>
       </div>
-      <!-- Inline hotel date change calendar -->
-      <div id="enq-hotel-cal-inline" style="display:none; margin-top:10px;">
-        <div class="enq-pcal" style="border-color:rgba(100,149,237,0.3)">
-          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#4a6bb5;margin-bottom:8px;" id="enq-hcal-mode-label">Select check-in date</div>
-          <div class="enq-pcal-header">
-            <button class="enq-pcal-nav" onclick="enqHCalNav(-1)" type="button">&#8249;</button>
-            <span class="enq-pcal-month" id="enq-hcal-month"></span>
-            <button class="enq-pcal-nav" onclick="enqHCalNav(1)" type="button">&#8250;</button>
-          </div>
-          <div class="enq-pcal-grid" id="enq-hcal-grid"></div>
-        </div>
-      </div>
+
     </div>
 
     <!-- PROPOSAL DATES SECTION -->
@@ -10717,7 +10617,7 @@ function submitHotelForm(e) {
       <div class="enq-prop-date-row" id="enq-prop1-row">
         <div class="enq-prop-date-label">Proposal night</div>
         <div class="enq-prop-date-val" id="enq-prop1-display">Tap a date above to select</div>
-        <button class="enq-hotel-change-btn" id="enq-prop1-change" onclick="enqScrollToCal()" type="button" style="display:none">Change</button>
+        <button class="enq-hotel-change-btn" id="enq-prop1-change" onclick="enqGoBackToProposalDate()" type="button" style="display:none">Change</button>
         <button class="enq-prop-clear-btn" id="enq-prop1-clear" onclick="enqClearProp1()" type="button" style="display:none">✕</button>
       </div>
     </div>
