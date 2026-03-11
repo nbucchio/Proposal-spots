@@ -7659,14 +7659,14 @@ function enqClearProp1() {
   const p1 = document.getElementById('enq-proposal-date');
   const p2 = document.getElementById('enq-backup-date');
   if (p1) p1.value = ''; if (p2) p2.value = '';
-  renderEnqCal(); enqUpdateDateDisplay();
+  enqUpdateDateDisplay();
 }
 
 function enqClearProp2() {
   _enqProp2 = '';
   const p2 = document.getElementById('enq-backup-date');
   if (p2) p2.value = '';
-  renderEnqCal(); enqUpdateDateDisplay();
+  enqUpdateDateDisplay();
 }
 
 // ─── Navigation helpers — close modal and return to spot page ───
@@ -10589,37 +10589,13 @@ function submitHotelForm(e) {
 
     </div>
 
-    <!-- PROPOSAL DATES SECTION -->
+    <!-- PROPOSAL DATE SECTION -->
     <div class="enq-section-divider">
-      <span class="enq-section-label">Proposal Dates</span>
+      <span class="enq-section-label">Proposal Night</span>
     </div>
-
-    <!-- Calendar -->
-    <div class="enq-pcal-wrap" id="enq-pcal-wrap">
-      <div id="enq-hotel-notice" class="enq-hotel-notice" style="display:none"></div>
-      <div class="enq-pcal">
-        <div class="enq-pcal-header">
-          <button class="enq-pcal-nav" onclick="enqCalNav(-1)" type="button">&#8249;</button>
-          <span class="enq-pcal-month" id="enq-pcal-month"></span>
-          <button class="enq-pcal-nav" onclick="enqCalNav(1)" type="button">&#8250;</button>
-        </div>
-        <div class="enq-pcal-grid" id="enq-pcal-grid"></div>
-        <div class="enq-pcal-legend" id="enq-pcal-legend" style="display:none">
-          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:rgba(100,149,237,0.35)"></div>Hotel stay</div>
-          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:var(--accent)"></div>Preferred proposal</div>
-          <div class="enq-pcal-legend-item"><div class="enq-pcal-legend-dot" style="background:rgba(165,90,74,0.5)"></div>Backup proposal</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Selected proposal date display -->
-    <div class="enq-proposal-dates-display" id="enq-dates-display-wrap">
-      <div class="enq-prop-date-row" id="enq-prop1-row">
-        <div class="enq-prop-date-label">Proposal night</div>
-        <div class="enq-prop-date-val" id="enq-prop1-display">Tap a date above to select</div>
-        <button class="enq-hotel-change-btn" id="enq-prop1-change" onclick="enqGoBackToProposalDate()" type="button" style="display:none">Change</button>
-        <button class="enq-prop-clear-btn" id="enq-prop1-clear" onclick="enqClearProp1()" type="button" style="display:none">✕</button>
-      </div>
+    <div class="enq-hotel-stay-row" id="enq-prop-date-row">
+      <div class="enq-hotel-stay-dates" id="enq-prop1-display" style="color:var(--muted);font-style:italic">Not selected</div>
+      <button class="enq-hotel-change-btn" id="enq-prop1-change" onclick="enqGoBackToProposalDate()" type="button">Change</button>
     </div>
 
     <!-- Hidden inputs for form submission -->
