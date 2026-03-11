@@ -6413,7 +6413,7 @@ const state = {
 //  ─────────────────────────────────────────────────────────
 //  When you have your credentials, replace the three values
 //  below and set AIRTABLE_LIVE = true.
-//  That's the only change needed to go fully live.
+//  That\'s the only change needed to go fully live.
 // ═══════════════════════════════════════════════════════════
 const AIRTABLE_LIVE  = true;
 const AIRTABLE_BASE  = 'appN5GFcdPJvU1qff';
@@ -6673,7 +6673,7 @@ function renderSpots(spots) {
     if (countEl) countEl.style.display = 'none';
   } else {
     if (eyebrow) eyebrow.textContent = 'Hand-selected';
-    if (title) title.innerHTML = `Editor's <strong>Picks</strong>`;
+    if (title) title.innerHTML = `Editor\'s <strong>Picks</strong>`;
     if (countEl) {
       countEl.innerHTML = `<strong>${spots.length}</strong> spots`;
       countEl.style.display = '';
@@ -6759,7 +6759,7 @@ function openSpotDrawer(id) {
     planSection.style.display = 'none';
   }
 
-  // What's Included
+  // What\'s Included
   const includedSection = document.getElementById('sdp-included-section');
   const includedList    = document.getElementById('sdp-included-list');
   const packageIncludes = s['Package Includes'] || '';
@@ -6775,7 +6775,7 @@ function openSpotDrawer(id) {
     }
   }
 
-  // Price CTA (below What's Included, above vibes)
+  // Price CTA (below What\'s Included, above vibes)
   const priceCta  = document.getElementById('sdp-price-cta-section');
   const ctaAmount = document.getElementById('sdp-price-cta-amount');
   if (priceCta && ctaAmount) {
@@ -7911,7 +7911,7 @@ document.addEventListener('keydown', e => {
 let savedEmail   = localStorage.getItem('ps_email') || null;
 let savedSpotIds = JSON.parse(localStorage.getItem('ps_saved') || '[]');
 
-// Self-heal: after allSpots loads, remove any saved IDs that don't exist in Airtable
+// Self-heal: after allSpots loads, remove any saved IDs that don\'t exist in Airtable
 function purgeStaleSavedIds() {
   if (!allSpots.length) return;
   const validIds = new Set(allSpots.map(s => s.id));
@@ -8075,7 +8075,7 @@ function confirmSaveSpot() {
   document.getElementById('save-form').style.display    = 'none';
   // Update confirm message based on context
   const confirmMsg = document.querySelector('#save-confirm p:first-of-type');
-  let msg = pendingSaveId ? 'Spot saved to your collection.' : "You're on the list.";
+  let msg = pendingSaveId ? 'Spot saved to your collection.' : "You\'re on the list.";
   if (window._checklistPending) msg = 'Checklist sent to your email.';
   if (confirmMsg) confirmMsg.textContent = msg;
   // Show "View Collection" button if a spot was saved
@@ -8128,7 +8128,7 @@ const DEST_DATA = {
   },
   'Bali': {
     country: 'Indonesia', bg: 'linear-gradient(160deg,#0e1a08,#162410)', photo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&fit=crop',
-    sub: `Hidden waterfalls, ancient rice terraces at sunrise, jungle-wrapped temples, and private villas with infinity pools above the valley. Bali is the world's best-value luxury proposal destination.`,
+    sub: `Hidden waterfalls, ancient rice terraces at sunrise, jungle-wrapped temples, and private villas with infinity pools above the valley. Bali is the world\'s best-value luxury proposal destination.`,
     budgetKey: 'bali'
   },
   'Tulum': {
@@ -8153,12 +8153,12 @@ const DEST_DATA = {
   },
   'Algarve': {
     country: 'Portugal', bg: 'linear-gradient(160deg,#0a1018,#141e2a)', photo: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80&fit=crop',
-    sub: `Sea caves with natural skylights, sandstone sea arches glowing amber at sunset, and Atlantic cliffs that drop straight into impossibly clear water. Europe's best-value proposal coastline.`,
+    sub: `Sea caves with natural skylights, sandstone sea arches glowing amber at sunset, and Atlantic cliffs that drop straight into impossibly clear water. Europe\'s best-value proposal coastline.`,
     budgetKey: 'algarve'
   },
   'South of France': {
     country: 'France', bg: 'linear-gradient(160deg,#1a1430,#241e40)', photo: 'https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=900&q=80&fit=crop',
-    sub: `Lavender fields in full summer bloom, Côte d'Azur clifftop villages, ancient hilltop towns, and the light of Provence that painters have been chasing for three centuries.`,
+    sub: `Lavender fields in full summer bloom, Côte d\'Azur clifftop villages, ancient hilltop towns, and the light of Provence that painters have been chasing for three centuries.`,
     budgetKey: 'france'
   },
   'Switzerland': {
@@ -8177,31 +8177,31 @@ const DEST_DATA = {
 
 const DEST_HIGHLIGHTS_DATA = {
   'New York': {
-    intro: 'New York proposals succeed when they balance the city's incredible energy with genuine intimacy. Here's how to make the most of it.',
+    intro: 'New York proposals succeed when they balance the city\'s incredible energy with genuine intimacy. Here\'s how to make the most of it.',
     items: [
       { icon: '🌅', title: 'Time it for golden hour', body: 'The hour before sunset turns Manhattan gold. Brooklyn Bridge Park, the High Line at 14th St, and Dumbo are extraordinary in this light. Plan to arrive 45 minutes before.' },
-      { icon: '🌿', title: 'The Conservatory Garden', body: 'Central Park's hidden secret — a formal, gated garden on the Upper East Side that sees almost no tourists. The wisteria pergola in spring is one of the most romantic spots in the city.' },
-      { icon: '🍷', title: 'Dinner after, not before', body: 'Propose first, then celebrate. Book a table at a restaurant nearby for right after — Gramercy Tavern, Lilia, or Le Bernardin. She'll want to call everyone while you're still out.' },
-      { icon: '📸', title: 'Hire a photographer', body: 'NYC proposal photographers often work as "proposal ambush" specialists — they're hidden nearby, appear only for the moment, and disappear. Your one-line brief: she doesn't know they're there.' },
+      { icon: '🌿', title: 'The Conservatory Garden', body: 'Central Park\'s hidden secret — a formal, gated garden on the Upper East Side that sees almost no tourists. The wisteria pergola in spring is one of the most romantic spots in the city.' },
+      { icon: '🍷', title: 'Dinner after, not before', body: 'Propose first, then celebrate. Book a table at a restaurant nearby for right after — Gramercy Tavern, Lilia, or Le Bernardin. She\'ll want to call everyone while you\'re still out.' },
+      { icon: '📸', title: 'Hire a photographer', body: 'NYC proposal photographers often work as "proposal ambush" specialists — they\'re hidden nearby, appear only for the moment, and disappear. Your one-line brief: she doesn\'t know they\'re there.' },
       { icon: '🚁', title: 'Rooftop access', body: 'Several Manhattan buildings offer private rooftop access for proposals. The view of the skyline from a private terrace is different from any public spot — quieter, more deliberate, more personal.' },
-      { icon: '🌉', title: 'Brooklyn or Manhattan?', body: 'Brooklyn gives you Manhattan. Manhattan gives you a skyline that feels abstract from inside it. The best proposals we've seen happen from Brooklyn looking back — specifically Dumbo, Brooklyn Bridge Park Pier 1, or Transmitter Park in Greenpoint.' },
+      { icon: '🌉', title: 'Brooklyn or Manhattan?', body: 'Brooklyn gives you Manhattan. Manhattan gives you a skyline that feels abstract from inside it. The best proposals we\'ve seen happen from Brooklyn looking back — specifically Dumbo, Brooklyn Bridge Park Pier 1, or Transmitter Park in Greenpoint.' },
     ],
-    tip: 'Avoid Times Square, the Top of the Rock, and the Brooklyn Bridge walkway — all extraordinary in photographs, all impossible for a private proposal. The best New York proposals happen in the places tourists haven't found yet.'
+    tip: 'Avoid Times Square, the Top of the Rock, and the Brooklyn Bridge walkway — all extraordinary in photographs, all impossible for a private proposal. The best New York proposals happen in the places tourists haven\'t found yet.'
   },
   'Amalfi Coast': {
-    intro: 'The Amalfi Coast rewards those who move slowly and arrive early. Here's how to experience it the way locals do — and find the proposal moment only visitors who know miss.',
+    intro: 'The Amalfi Coast rewards those who move slowly and arrive early. Here\'s how to experience it the way locals do — and find the proposal moment only visitors who know miss.',
     items: [
       { icon: '🚤', title: 'Hire a private boat', body: 'The most extraordinary Amalfi Coast experiences happen from the water. A half-day private boat gives you sea cave access, swimming coves, and the coastline from an angle no tourist bus can reach.' },
       { icon: '🍋', title: 'Ravello over Positano', body: 'Positano is beautiful and crowded. Ravello — perched 350 metres above the sea — has gardens, silence, and the most dramatic valley views on the coast. The Villa Cimbrone gardens are extraordinary at 7am.' },
-      { icon: '🌅', title: 'Watch sunrise, not sunset', body: 'Sunset on the Amalfi Coast is famous — and shared with hundreds of others. Sunrise is yours alone. The light on the cliffs at 6:30am is warmer, quieter, and unlike anything you'll see at dusk.' },
-      { icon: '🍽', title: 'Book a private terrace dinner', body: 'Several Amalfi restaurants have private terrace tables that require advance booking and a small premium. Call, don't email. Mention the proposal. Italians understand these moments completely.' },
-      { icon: '🛵', title: 'The road to Praiano', body: 'The stretch of coast between Positano and Praiano has a series of small lay-bys with railings above the sea that most visitors drive past without stopping. They're private, they're extraordinary, and they require only the willingness to pull over.' },
-      { icon: '🏊', title: 'Emerald Grotto', body: 'Grotta dello Smeraldo — accessible only by boat or an elevator from the road — is a sea cave filled with eerie green light. It's one of the most surreal settings on the coast, and between tour boats it's nearly empty.' },
+      { icon: '🌅', title: 'Watch sunrise, not sunset', body: 'Sunset on the Amalfi Coast is famous — and shared with hundreds of others. Sunrise is yours alone. The light on the cliffs at 6:30am is warmer, quieter, and unlike anything you\'ll see at dusk.' },
+      { icon: '🍽', title: 'Book a private terrace dinner', body: 'Several Amalfi restaurants have private terrace tables that require advance booking and a small premium. Call, don\'t email. Mention the proposal. Italians understand these moments completely.' },
+      { icon: '🛵', title: 'The road to Praiano', body: 'The stretch of coast between Positano and Praiano has a series of small lay-bys with railings above the sea that most visitors drive past without stopping. They\'re private, they\'re extraordinary, and they require only the willingness to pull over.' },
+      { icon: '🏊', title: 'Emerald Grotto', body: 'Grotta dello Smeraldo — accessible only by boat or an elevator from the road — is a sea cave filled with eerie green light. It\'s one of the most surreal settings on the coast, and between tour boats it\'s nearly empty.' },
     ],
     tip: 'The Amalfi Coast is at its best in May and September — warm, clear, but without the July–August crowds that can make even the most private spots feel compromised.'
   },
   'Santorini': {
-    intro: 'Santorini is the most proposeable island on earth. It has one challenge: everyone knows it. Here's how to find the version of Santorini that's still yours.',
+    intro: 'Santorini is the most proposeable island on earth. It has one challenge: everyone knows it. Here\'s how to find the version of Santorini that\'s still yours.',
     items: [
       { icon: '🏛', title: 'Oia in the morning, not at sunset', body: 'The Oia castle at sunset has 4,000 tourists and 400 tripods. Oia at 7am has almost no one. The light from the rising sun on the white walls is equally extraordinary — and the caldera is entirely yours.' },
       { icon: '⛵', title: 'Caldera boat tour', body: 'A private catamaran on the caldera at sunset — away from the island entirely — is one of the most private proposal settings in Santorini. No crowd, no noise, just the caldera at golden hour from the water.' },
@@ -8216,10 +8216,10 @@ const DEST_HIGHLIGHTS_DATA = {
     intro: 'Bali works best when you slow down and go local. The island rewards early risers, people who leave the main roads, and anyone willing to arrive before the tour buses.',
     items: [
       { icon: '🌄', title: 'Mt Batur sunrise trek', body: 'A 2am departure, a 2-hour hike in darkness, and sunrise from the summit of an active volcano — one of the most extraordinary mornings available anywhere on earth. The crater views at dawn are incomprehensible.' },
-      { icon: '🌾', title: 'Tegallalang at 5:30am', body: 'The rice terraces are famous. What most visitors don't know: at 5:30am they're deserted. Layers of green descending into mist, near-complete silence, and photography that looks nothing like the midday shots everyone else takes.' },
+      { icon: '🌾', title: 'Tegallalang at 5:30am', body: 'The rice terraces are famous. What most visitors don\'t know: at 5:30am they\'re deserted. Layers of green descending into mist, near-complete silence, and photography that looks nothing like the midday shots everyone else takes.' },
       { icon: '🌊', title: 'Uluwatu temple at dusk', body: 'The Uluwatu temple perched on a 70-metre cliff above the Indian Ocean, with the Kecak fire dance performed at sunset — one of the most cinematic evenings available anywhere in Southeast Asia.' },
       { icon: '🏊', title: 'Nyang Nyang Beach', body: 'A 20-minute hike down steep steps leads to one of the least-visited beaches in south Bali. The combination of effort and isolation makes it a genuinely private setting — and the walk down is part of the experience.' },
-      { icon: '🛕', title: 'Pura Lempuyang gates', body: 'The "gates of heaven" with Mt Agung reflected in the pool below — the most photographed image in Bali, and for good reason. Arrive before 6am to have the gates to yourself. By 7am there's a queue.' },
+      { icon: '🛕', title: 'Pura Lempuyang gates', body: 'The "gates of heaven" with Mt Agung reflected in the pool below — the most photographed image in Bali, and for good reason. Arrive before 6am to have the gates to yourself. By 7am there\'s a queue.' },
       { icon: '🌿', title: 'Ubud Sacred Monkey Forest', body: 'Not for the proposal moment itself — but for the morning after. The forest at dawn, feeding monkeys in dappled jungle light, is one of those experiences that makes a trip feel genuinely unlike any other.' },
     ],
     tip: 'Hire a local guide for your proposal morning. Not a tourist guide — a local fixer who can arrange private rice terrace access, know which viewpoints are empty before 6am, and drive you without GPS anxiety. Most reputable villas can recommend someone.'
@@ -8229,32 +8229,32 @@ const DEST_HIGHLIGHTS_DATA = {
     items: [
       { icon: '🌅', title: 'Chase the sandbank', body: 'Ask your resort which sandbank appears at low tide and when. Book it specifically. Arriving at a temporary island — just the two of you and 200 metres of white sand above the ocean — is unlike any proposal experience on earth.' },
       { icon: '🤿', title: 'House reef snorkelling', body: 'The coral reefs directly off most resort jetties are extraordinary. Manta rays, sea turtles, reef sharks. A private snorkelling session at dawn — before the resort wakes up — is completely achievable and completely surreal.' },
-      { icon: '🚤', title: 'Dolphin cruise sunset', body: 'Almost every Maldives resort offers a sunset dolphin cruise. What most don't advertise: private versions for one couple can usually be arranged. The experience of watching spinner dolphins in a private boat at sunset is extraordinary.' },
+      { icon: '🚤', title: 'Dolphin cruise sunset', body: 'Almost every Maldives resort offers a sunset dolphin cruise. What most don\'t advertise: private versions for one couple can usually be arranged. The experience of watching spinner dolphins in a private boat at sunset is extraordinary.' },
       { icon: '🌙', title: 'Night fishing by starlight', body: 'Traditional Maldivian night fishing — by hand line, from a small boat, with a sky full of stars at 10pm — is one of the most romantic and unexpected evenings the islands offer. Most resorts can arrange this.' },
       { icon: '💆', title: 'Overwater bungalow ritual', body: 'Build the proposal around the villa. Morning coffee on the deck watching the lagoon. A day with nothing scheduled. The sandbank at low tide. The sunset from the dock. Let the island create the atmosphere — it will.' },
       { icon: '🍽', title: 'Private beach dinner', body: 'Every resort can arrange this. A single table on the beach, lit by candles and lanterns, with the sound of the Indian Ocean and the Milky Way above. Request the proposal dinner be on the beach, not the jetty — the difference in romance is significant.' },
     ],
-    tip: 'The Maldives works best when the resort knows it's a proposal trip. Tell them. They will quietly arrange small details — flowers at turndown, champagne on arrival, a discreet note from the chef — that collectively make the trip feel designed. Because it will be.'
+    tip: 'The Maldives works best when the resort knows it\'s a proposal trip. Tell them. They will quietly arrange small details — flowers at turndown, champagne on arrival, a discreet note from the chef — that collectively make the trip feel designed. Because it will be.'
   },
   'Tulum': {
-    intro: 'Tulum is now one of the most design-conscious destinations in the world. Here's how to experience it beyond the Instagram feed — and find the version that's still genuinely extraordinary.',
+    intro: 'Tulum is now one of the most design-conscious destinations in the world. Here\'s how to experience it beyond the Instagram feed — and find the version that\'s still genuinely extraordinary.',
     items: [
       { icon: '💧', title: 'Dos Ojos cenote', body: 'One of the most extraordinary underground experiences in the world — a network of connected cenotes with crystal water and surreal light through the surface. Private early-morning access is available and transforms the experience entirely.' },
       { icon: '🌅', title: 'Tulum beach at dawn', body: 'The Tulum beach at 5:30am — before the palapa bars set up and the DJs arrive — is deserted, dramatic, and extraordinary. The Maya ruins visible on the cliff above the beach at this hour look like a film set.' },
-      { icon: '🌴', title: 'Sian Ka'an biosphere', body: 'South of Tulum, the Sian Ka'an reserve is a UNESCO world heritage site. Private boat tours through the lagoons and mangroves — with no other people visible in any direction — is one of the most remote proposal experiences available in the Americas.' },
+      { icon: '🌴', title: 'Sian Ka\'an biosphere', body: 'South of Tulum, the Sian Ka\'an reserve is a UNESCO world heritage site. Private boat tours through the lagoons and mangroves — with no other people visible in any direction — is one of the most remote proposal experiences available in the Americas.' },
       { icon: '🦋', title: 'Cobá jungle ruins', body: 'The Cobá pyramid — the last climbable Mayan ruin in the Yucatán — rises above the jungle canopy to a view that extends to the horizon. The descent at sunset, with the jungle turning gold below, is extraordinary.' },
       { icon: '🍽', title: 'Hartwood for the celebration dinner', body: 'Hartwood — the legendary open-fire restaurant in the Tulum jungle — is worth the effort to book months in advance. An outdoor table in the jungle, lit by candles and wood smoke, for the dinner after the proposal.' },
       { icon: '🌿', title: 'Azulik for the atmosphere', body: 'The Azulik resort — treehouse villas above the jungle, no electronics, connected by wooden walkways — is one of the most extraordinary hotel environments in the world. Worth a visit even if not staying there.' },
     ],
-    tip: 'Tulum's best experiences require early rising and advance booking. The cenotes, the ruins, the best beach spots — all are best before 8am. The same places that feel transcendent at dawn feel like a theme park by 11am.'
+    tip: 'Tulum\'s best experiences require early rising and advance booking. The cenotes, the ruins, the best beach spots — all are best before 8am. The same places that feel transcendent at dawn feel like a theme park by 11am.'
   },
   'Costa Rica': {
-    intro: 'Costa Rica's extraordinary nature rewards those who are willing to get up early, accept some mud, and let the jungle do the work.',
+    intro: 'Costa Rica\'s extraordinary nature rewards those who are willing to get up early, accept some mud, and let the jungle do the work.',
     items: [
       { icon: '☁️', title: 'Monteverde cloud forest', body: 'The Monteverde reserve at dawn — the hanging bridges above the jungle in silence, mist rising from the canopy, the possibility of quetzals in the trees — is one of the most extraordinary natural experiences in Central America.' },
       { icon: '🌊', title: 'Playa Conchal', body: 'A beach made entirely of crushed seashells — white, fine, glittering. North of Tamarindo, with turquoise water and almost no development. One of the most beautiful and least-known beaches in the Pacific coast.' },
-      { icon: '🦜', title: 'Corcovado National Park', body: 'The Osa Peninsula's Corcovado is what National Geographic has called the most biologically intense place on earth. A private guided tour at dawn — tapirs, scarlet macaws, spider monkeys — is a proposal morning unlike anything else.' },
-      { icon: '🌋', title: 'Arenal volcano lava', body: 'At night, Arenal's lava flows visible from the base are a genuinely surreal experience. Hot springs at the volcano's base, with the glowing lava above — one of the most dramatic evening experiences in Central America.' },
+      { icon: '🦜', title: 'Corcovado National Park', body: 'The Osa Peninsula\'s Corcovado is what National Geographic has called the most biologically intense place on earth. A private guided tour at dawn — tapirs, scarlet macaws, spider monkeys — is a proposal morning unlike anything else.' },
+      { icon: '🌋', title: 'Arenal volcano lava', body: 'At night, Arenal\'s lava flows visible from the base are a genuinely surreal experience. Hot springs at the volcano\'s base, with the glowing lava above — one of the most dramatic evening experiences in Central America.' },
       { icon: '🏄', title: 'Santa Teresa', body: 'The Pacific surf town at the southern Nicoya Peninsula — remote enough to feel like a discovery, developed enough to have excellent food and accommodation. One of the few truly beautiful beach towns left in Costa Rica.' },
       { icon: '🌉', title: 'Hanging bridges at night', body: 'Several eco-lodges in Monteverde and the cloud forest offer private night bridge walks — the jungle alive with insects, frogs, and the occasional ocelot in a flashlight beam. Not for everyone. Completely extraordinary.' },
     ],
@@ -8267,17 +8267,17 @@ const DEST_HIGHLIGHTS_DATA = {
       { icon: '🏝', title: 'Ometepe at dawn', body: 'The ferry to Ometepe at 6am, arriving as the twin volcanos appear above the morning mist, is one of the great arrivals in Central American travel. The island has almost no tourists — which is entirely the point.' },
       { icon: '🚣', title: 'Lake Nicaragua kayak', body: 'Kayaking on Lake Nicaragua — the largest lake in Central America, with both freshwater sharks and the volcanic island of Ometepe visible — is an experience that exists almost nowhere else on earth.' },
       { icon: '🏛', title: 'Granada colonial streets', body: 'Granada — the most beautifully preserved colonial city in Central America — at sunset, when the locals are out and the light turns the painted facades gold, is one of the great evening walks in the Americas.' },
-      { icon: '🌊', title: 'The Pacific beaches', body: 'Nicaragua's Pacific coast — Popoyo, Playa Maderas — has some of the best uncrowded surf beaches in Central America. Almost completely undeveloped, dramatically beautiful, and rarely visited by non-surfers.' },
-      { icon: '⛺', title: 'Volcano boarding on Cerro Negro', body: 'Boarding down an active black volcano on a wooden board — one of the most unusual adventure experiences in Central America. Not the proposal itself, but the morning after. She'll remember it.' },
+      { icon: '🌊', title: 'The Pacific beaches', body: 'Nicaragua\'s Pacific coast — Popoyo, Playa Maderas — has some of the best uncrowded surf beaches in Central America. Almost completely undeveloped, dramatically beautiful, and rarely visited by non-surfers.' },
+      { icon: '⛺', title: 'Volcano boarding on Cerro Negro', body: 'Boarding down an active black volcano on a wooden board — one of the most unusual adventure experiences in Central America. Not the proposal itself, but the morning after. She\'ll remember it.' },
     ],
     tip: 'Nicaragua requires a different mindset to the rest of our destinations — things take longer, infrastructure is less reliable, and the unexpected is part of the experience. This is not a weakness. It is exactly why the proposals that happen here feel so different from anywhere else.'
   },
   'Algarve': {
-    intro: 'The Algarve is best explored by kayak, by rental car, and by simply stopping whenever the view demands it. Here's how to find the coast that the holiday brochures haven't reached yet.',
+    intro: 'The Algarve is best explored by kayak, by rental car, and by simply stopping whenever the view demands it. Here\'s how to find the coast that the holiday brochures haven\'t reached yet.',
     items: [
-      { icon: '🚣', title: 'Kayak the coast', body: 'The only way to access many of the Algarve's best spots is from the water. A kayak lets you enter sea caves, reach hidden beaches, and find coves that the cliff paths don't reach. Half-day private guided kayak is the single best activity on this coast.' },
+      { icon: '🚣', title: 'Kayak the coast', body: 'The only way to access many of the Algarve\'s best spots is from the water. A kayak lets you enter sea caves, reach hidden beaches, and find coves that the cliff paths don\'t reach. Half-day private guided kayak is the single best activity on this coast.' },
       { icon: '🌅', title: 'Ponta da Piedade at sunset', body: 'The sea arches at Ponta da Piedade — golden limestone stacks in shallow turquoise water — at the last hour of sunlight are the most extraordinary landscape on the Algarve. Boat access from Lagos gives you the full view.' },
-      { icon: '🏖', title: 'Praia da Marinha', body: 'Consistently rated one of the most beautiful small beaches in Europe. The walk down the cliff is steep, the beach is narrow, and on a weekday in May it's nearly yours. The rock formations are extraordinary.' },
+      { icon: '🏖', title: 'Praia da Marinha', body: 'Consistently rated one of the most beautiful small beaches in Europe. The walk down the cliff is steep, the beach is narrow, and on a weekday in May it\'s nearly yours. The rock formations are extraordinary.' },
       { icon: '🌊', title: 'Sagres and the Southwest', body: 'The southwestern tip of continental Europe — the Cabo de São Vicente lighthouse above sheer 50-metre cliffs — is one of the most dramatically positioned spots on the continent. At sunset, facing the Atlantic, it feels like the edge of the world.' },
       { icon: '🍽', title: 'The fish restaurants of Ferragudo', body: 'The village of Ferragudo — across the river from Portimão, accessible by small boat — has old-school fish restaurants on the quay that feel untouched by tourism. A long lunch here, watching the fishing boats, is one of the great Algarve meals.' },
       { icon: '🔦', title: 'Benagil after hours', body: 'The Benagil cave tour boats stop running at 5pm. After that, private kayak access into the cave — with the skylight turning the dome of the cave gold — is entirely achievable and entirely private.' },
@@ -8285,16 +8285,16 @@ const DEST_HIGHLIGHTS_DATA = {
     tip: 'The Algarve is best in May, June, and September. July and August turn the most-photographed beaches into car parks. The same beaches in shoulder season, with the same extraordinary light, feel like a private discovery.'
   },
   'South of France': {
-    intro: 'The South of France is deceptively vast — Provence, the Côte d'Azur, the Calanques, the Rhône Valley. Here's how to navigate it and find the moments that matter.',
+    intro: 'The South of France is deceptively vast — Provence, the Côte d\'Azur, the Calanques, the Rhône Valley. Here\'s how to navigate it and find the moments that matter.',
     items: [
-      { icon: '💜', title: 'Valensole lavender timing', body: 'The lavender peaks in Valensole in late June to mid-July. The exact peak shifts by a week or two each year — check the current year's reports. At 5:30am on a cloudless morning, before any other visitors, the scene is incomprehensible.' },
+      { icon: '💜', title: 'Valensole lavender timing', body: 'The lavender peaks in Valensole in late June to mid-July. The exact peak shifts by a week or two each year — check the current year\'s reports. At 5:30am on a cloudless morning, before any other visitors, the scene is incomprehensible.' },
       { icon: '🏰', title: 'Les Baux-de-Provence', body: 'The ruined hilltop citadel above Les Baux — with views across the Alpilles valley from 200 metres — is one of the most dramatic medieval sites in France. At golden hour in late spring, the stone turns copper and the valley goes gold.' },
       { icon: '🌊', title: 'The Calanques of Cassis', body: 'The fjord-like limestone inlets between Marseille and Cassis — some accessible only by boat — are extraordinary and almost unknown outside France. A private boat from Cassis port gives you access to deserted coves and crystal water.' },
       { icon: '🍷', title: 'The Luberon wine villages', body: 'Ménerbes, Bonnieux, Lacoste — the Luberon perched villages in the Vaucluse combine extraordinary views, lavender fields below, and wine cellars that have been producing since the 12th century. A self-drive day through these villages in late afternoon is one of the great Provence experiences.' },
-      { icon: '🎨', title: 'Aix-en-Provence morning market', body: 'The daily market in the old town of Aix — with Cézanne's café, the fountain squares, the plane tree avenues — at 8am on a Tuesday, when it's still locals buying bread, is one of the great European market experiences.' },
-      { icon: '🚂', title: 'The Gorges du Verdon', body: 'Europe's largest canyon — turquoise water 700 metres below, mule tracks along the rim, and a scale that makes the Grand Canyon feel familiar by comparison. The Route des Crêtes drive along the rim is one of the great road journeys in France.' },
+      { icon: '🎨', title: 'Aix-en-Provence morning market', body: 'The daily market in the old town of Aix — with Cézanne\'s café, the fountain squares, the plane tree avenues — at 8am on a Tuesday, when it\'s still locals buying bread, is one of the great European market experiences.' },
+      { icon: '🚂', title: 'The Gorges du Verdon', body: 'Europe\'s largest canyon — turquoise water 700 metres below, mule tracks along the rim, and a scale that makes the Grand Canyon feel familiar by comparison. The Route des Crêtes drive along the rim is one of the great road journeys in France.' },
     ],
-    tip: 'The South of France is best understood as several different destinations. Provence (lavender, hill towns, wine) and the Côte d'Azur (cliff villages, sea, yacht culture) require different itineraries. Choose one and do it well, rather than trying to cover both in a week.'
+    tip: 'The South of France is best understood as several different destinations. Provence (lavender, hill towns, wine) and the Côte d\'Azur (cliff villages, sea, yacht culture) require different itineraries. Choose one and do it well, rather than trying to cover both in a week.'
   },
   'Switzerland': {
     intro: 'Switzerland rewards those who go higher. The best of the Swiss Alps is above the treeline — the places where the silence is total and the scale becomes impossible to process.',
@@ -8303,7 +8303,7 @@ const DEST_HIGHLIGHTS_DATA = {
       { icon: '🌄', title: 'Grindelwald First at dawn', body: 'The First gondola opens at 8:30am. The mountain at this hour — before the day hikers arrive, with the morning cloud still in the valley — has a silence and a light that transforms the already extraordinary landscape.' },
       { icon: '🏔', title: 'Lauterbrunnen valley', body: 'The Lauterbrunnen valley — 72 waterfalls descending from 300-metre cliffs on both sides — is one of the most dramatic valley landscapes in Europe. The village at the base is almost impossibly picturesque. Most visitors pass through to Jungfraujoch; the valley itself rewards staying.' },
       { icon: '⛷', title: 'The Kleine Scheidegg saddle', body: 'The rail station between Grindelwald and Wengen — with the north face of the Eiger rising directly above — has a terrace restaurant from which the scale of the Alps becomes physically imposing. A quiet afternoon here, with the trains arriving from below, is unlike any other Alpine experience.' },
-      { icon: '🌊', title: 'Lake Brienz', body: 'The turquoise glacial lake east of Interlaken — bordered by 2,000-metre peaks and accessible by antique steam boat — is one of the most beautiful lakes in Switzerland and among the least crowded of the Bernese Oberland's attractions.' },
+      { icon: '🌊', title: 'Lake Brienz', body: 'The turquoise glacial lake east of Interlaken — bordered by 2,000-metre peaks and accessible by antique steam boat — is one of the most beautiful lakes in Switzerland and among the least crowded of the Bernese Oberland\'s attractions.' },
       { icon: '🌿', title: 'Bachalpsee alpine lake', body: 'A 1-hour hike above Grindelwald First leads to Bachalpsee — a small alpine lake that reflects the Schreckhorn in its surface. At dawn, with no other visitors, this is one of the most beautiful and private spots in the Bernese Oberland.' },
     ],
     tip: 'Swiss mountain transport — cable cars, rack railways, gondolas — requires advance booking in peak season (July–August). Plan the proposal logistics around transport schedules. First gondola of the day is always the right call: better light, no queues, and the mountain to yourselves.'
@@ -8355,12 +8355,12 @@ const DEST_EDITORIAL_DATA = {
   },
   'Amalfi Coast': {
     eyebrow: 'Campania · Italy',
-    headline: "Europe's most cinematic coastline. Some moments are inevitable here.",
+    headline: "Europe\'s most cinematic coastline. Some moments are inevitable here.",
     sub: 'The Amalfi Coast has been making people fall in love for centuries — the light, the limestone cliffs, the lemon groves, the sea. There is a reason proposals here feel like they were meant to happen.',
     cards: [
       { icon: '🍋', title: 'The lemon grove light', body: 'Late afternoon on the Amalfi Coast produces a quality of light photographers call unrepeatable — golden, diffuse, warm. The terraced lemon groves glow. Positano turns amber. The proposal almost takes care of itself.' },
       { icon: '🏔', title: 'Private cliffside terraces', body: "The most extraordinary proposal spots here are invisible from the path. Carved into the cliffside, draped in bougainvillea, they exist specifically for moments that demand privacy." },
-      { icon: '🚤', title: 'Boat-access only spots', body: "Several of our vetted locations are only accessible by boat — which means you are the only person who knows they exist. A local boatman, two hours, and a cove that doesn't appear on any map." },
+      { icon: '🚤', title: 'Boat-access only spots', body: "Several of our vetted locations are only accessible by boat — which means you are the only person who knows they exist. A local boatman, two hours, and a cove that doesn\'t appear on any map." },
     ],
     pull: 'The guitarist started playing around the corner and she thought it was for another table. When she turned to ask if we should move, I was already on one knee.',
     pullAttr: '— James, Positano'
@@ -8368,13 +8368,13 @@ const DEST_EDITORIAL_DATA = {
   'Santorini': {
     eyebrow: 'Cyclades · Greece',
     headline: 'The caldera at sunset. There is nothing else like it.',
-    sub: "Santorini is the most photographed proposal destination on earth. The challenge is not finding somewhere beautiful. It's finding somewhere private.",
+    sub: "Santorini is the most photographed proposal destination on earth. The challenge is not finding somewhere beautiful. It\'s finding somewhere private.",
     cards: [
-      { icon: '🌅', title: 'The caldera effect', body: "The Santorini caldera is one of the few places where the scenery is so overwhelming that she won't be thinking about anything else — until you get down on one knee." },
+      { icon: '🌅', title: 'The caldera effect', body: "The Santorini caldera is one of the few places where the scenery is so overwhelming that she won\'t be thinking about anything else — until you get down on one knee." },
       { icon: '🏛', title: 'Private villa terraces', body: 'The Oia castle at sunset has thousands of tourists. Our vetted spots are private terraces and villa rooftops with the same caldera view — with nobody else present.' },
       { icon: '📸', title: 'Legendary light', body: 'Santorini photographers call the hour before sunset "the window." Our spots are chosen specifically for how they read in this light. Plan around it.' },
     ],
-    pull: "She was wearing a dress she'd bought that morning from a small boutique in Oia. She had no idea I'd already arranged everything. Sometimes the details arrange themselves.",
+    pull: "She was wearing a dress she\'d bought that morning from a small boutique in Oia. She had no idea I\'d already arranged everything. Sometimes the details arrange themselves.",
     pullAttr: '— Tom, Oia'
   },
   'Bali': {
@@ -8383,7 +8383,7 @@ const DEST_EDITORIAL_DATA = {
     sub: 'Bali offers the highest value-for-money proposal experience in the world. But the real reason people propose in Bali is the quality of the feeling — something about the island makes it feel like the right place to ask.',
     cards: [
       { icon: '🌾', title: 'Rice terraces at sunrise', body: 'Tegallalang at 5:30am, before the tour groups arrive, is one of the most beautiful things you will ever see. Layers of emerald terraces descending into mist, almost complete silence.' },
-      { icon: '🏊', title: 'Infinity pool proposals', body: "Bali's private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally." },
+      { icon: '🏊', title: 'Infinity pool proposals', body: "Bali\'s private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally." },
       { icon: '🌊', title: 'Uluwatu at sunset', body: 'The Uluwatu clifftops at golden hour rival anything in Europe — hidden coves, crashing surf, and the kind of light that makes every photograph look like a film still.' },
     ],
     pull: 'He woke me at 4:30am. I was furious. Then I saw the rice terraces in the first light and understood completely.',
@@ -8407,7 +8407,7 @@ const DEST_EDITORIAL_DATA = {
     sub: 'Tulum has transformed from a backpacker stop into the most design-forward destination in the Americas. Private cenote access, open-air beds above the jungle, and Caribbean water the colour of gemstones.',
     cards: [
       { icon: '💧', title: 'Private cenote access', body: 'The cenotes — underground sinkholes filled with crystal freshwater — are extraordinary at dawn. Our vetted spots include private early-morning access before tour groups arrive at 9am.' },
-      { icon: '🌴', title: 'Jungle eco-lodges', body: "Tulum's design-conscious eco-lodges have turned the jungle into a luxury setting. Open-air bedrooms, outdoor showers, infinity pools above the canopy. The proposal setup is often the easiest part." },
+      { icon: '🌴', title: 'Jungle eco-lodges', body: "Tulum\'s design-conscious eco-lodges have turned the jungle into a luxury setting. Open-air bedrooms, outdoor showers, infinity pools above the canopy. The proposal setup is often the easiest part." },
       { icon: '🏖', title: 'Caribbean seclusion', body: 'North of Tulum, near-empty beaches remain accessible only by dirt road. Turquoise water, no facilities, no other people. Some of the best proposal photography in the Americas happens here.' },
     ],
     pull: 'We had private access to the cenote from 6am. By 9am it had 40 tourists. The timing was everything.',
@@ -8419,7 +8419,7 @@ const DEST_EDITORIAL_DATA = {
     sub: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forest hanging bridges, Pacific cliff proposals, and eco-lodges where the jungle comes to you.',
     cards: [
       { icon: '☁️', title: 'Cloud forest proposals', body: 'Monteverde at dawn, the suspension bridges above the canopy, howler monkeys in the distance and mist below your feet. Private early access (before 7am) means no tour groups — just the two of you above the jungle.' },
-      { icon: '🌊', title: 'Pacific hidden coves', body: "Costa Rica's Osa Peninsula has some of the least-visited coastline in Central America. Beaches accessible only by boat or a jungle hike — which guarantees you'll be entirely alone." },
+      { icon: '🌊', title: 'Pacific hidden coves', body: "Costa Rica\'s Osa Peninsula has some of the least-visited coastline in Central America. Beaches accessible only by boat or a jungle hike — which guarantees you\'ll be entirely alone." },
       { icon: '🌿', title: 'Eco-lodge magic', body: 'The best eco-lodges in Costa Rica have proposal setups perfected — candlelit jungle clearings, private hanging bridges, infinity pools above the rainforest. The nature does most of the work.' },
     ],
     pull: 'The hanging bridge was completely deserted at sunrise. We were above the cloud layer. It felt like we were the only two people alive.',
@@ -8431,7 +8431,7 @@ const DEST_EDITORIAL_DATA = {
     sub: 'Nicaragua is where the most adventurous proposals happen. Isla de Ometepe — accessible only by ferry, rising out of Lake Nicaragua with twin volcanos — is one of the most extraordinary and private places on earth.',
     cards: [
       { icon: '🌋', title: 'Ometepe island', body: 'Two volcanos rising from a freshwater lake, accessible only by ferry. The island has basic infrastructure and almost no tourists — which means the proposal feels genuinely private and adventurous.' },
-      { icon: '⛵', title: 'Boat-only access', body: "Several of Nicaragua's best coves are only reachable by boat — black sand, volcanic coastline, absolute silence. You won't see another person for hours. That's the entire appeal." },
+      { icon: '⛵', title: 'Boat-only access', body: "Several of Nicaragua\'s best coves are only reachable by boat — black sand, volcanic coastline, absolute silence. You won\'t see another person for hours. That\'s the entire appeal." },
       { icon: '🌅', title: 'Volcano sunrise', body: 'Watching the sun rise from above the cloud line on the slopes of Concepción volcano is one of the most dramatic proposal backdrops in the world. And almost no one has done it.' },
     ],
     pull: "Nobody we know has been to Nicaragua. Nobody had proposed there before us. That was exactly what I wanted.",
@@ -8439,24 +8439,24 @@ const DEST_EDITORIAL_DATA = {
   },
   'Algarve': {
     eyebrow: 'Portugal · Atlantic Coast',
-    headline: "Sea caves with natural skylights. Europe's best-value proposal coastline.",
+    headline: "Sea caves with natural skylights. Europe\'s best-value proposal coastline.",
     sub: 'The Algarve rivals the Amalfi Coast for sheer dramatic beauty — at roughly half the cost. Sandstone sea arches, grottos accessible by kayak, and Atlantic cliffs that turn copper at golden hour.',
     cards: [
       { icon: '🚣', title: 'Sea cave proposals', body: 'Benagil Cave — a sea cave with a natural skylight — is one of the most extraordinary proposal locations in Europe. After tour boats leave at 5pm, it becomes entirely private.' },
       { icon: '🏖', title: 'Hidden coves', body: 'The Algarve coastline is fractured with hidden coves accessible only by kayak or a steep cliff path. Most tourists stay at the main beaches. Ten minutes of effort puts you entirely alone.' },
-      { icon: '🌅', title: 'Copper hour light', body: "At golden hour the Algarve's sandstone cliffs turn the colour of copper. The Ponta da Piedade sea arches in this light make every photograph extraordinary." },
+      { icon: '🌅', title: 'Copper hour light', body: "At golden hour the Algarve\'s sandstone cliffs turn the colour of copper. The Ponta da Piedade sea arches in this light make every photograph extraordinary." },
     ],
     pull: 'We kayaked into Benagil after the last tour boat left. The light through the cave ceiling was extraordinary. She had no idea I had the ring.',
     pullAttr: '— Chris, Benagil'
   },
   'South of France': {
-    eyebrow: "Provence & Côte d'Azur · France",
+    eyebrow: "Provence & Côte d\'Azur · France",
     headline: 'Lavender fields in full bloom. The light that painters have been chasing for three centuries.',
-    sub: 'The South of France offers a romantic variety that no other European destination matches — lavender fields in July, Côte d'Azur clifftop villages, ancient hilltop towns with views across Provence.',
+    sub: 'The South of France offers a romantic variety that no other European destination matches — lavender fields in July, Côte d\'Azur clifftop villages, ancient hilltop towns with views across Provence.',
     cards: [
       { icon: '💜', title: 'Lavender in bloom', body: 'Valensole in late June and July: 30 square kilometres of lavender in full bloom. Early morning, before the tour buses arrive, it is entirely silent and extraordinary.' },
       { icon: '🏰', title: 'Perched villages', body: 'Les Baux-de-Provence, Gordes, Roussillon — hilltop villages with 360° views across the Provence landscape. Private terraces and the extraordinary evening light before sunset.' },
-      { icon: '🌊', title: "Côte d'Azur coves", body: 'The Calanques between Marseille and Cassis — fjord-like limestone inlets accessible only on foot or by boat — are some of the most dramatic and private coastline in Europe.' },
+      { icon: '🌊', title: "Côte d\'Azur coves", body: 'The Calanques between Marseille and Cassis — fjord-like limestone inlets accessible only on foot or by boat — are some of the most dramatic and private coastline in Europe.' },
     ],
     pull: 'She asked why we were getting up at 5am. I said we needed to beat the crowds. When she saw the lavender fields in the first light, she stopped asking questions.',
     pullAttr: '— Pierre, Valensole'
@@ -8505,12 +8505,12 @@ function renderDestEditorial(destName) {
 
 const DEST_BUDGET_DATA = {
   'santorini': { range: '$800 – $8,000+', tagline: 'The most photographed proposal backdrop on earth. Premium views command premium prices — but there are ways to do it beautifully without the most expensive options.', rows: [['Proposal spot access','Free – $150','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (3 nights, cave suite)','—','$900 – $3,000'],['Private sunset dinner','$150 – $400','$200 – $500'],['Flowers & champagne setup','$80 – $200','Often included'],], total: ['$530 – $1,550','$1,400 – $4,300+'], tip: 'Avoid the Oia castle at sunset — it has thousands of tourists and zero privacy. Our vetted spots include private terraces with the same caldera views, for the same or less.', dest: 'Santorini' },
-  'bali': { range: '$400 – $4,000+', tagline: 'The most value-for-money luxury proposal destination in the world. Private villa setups that would cost $5,000 in Europe can be arranged in Bali for under $1,000.', rows: [['Private access / guide','$30 – $100','Included'],['Photographer (2–3 hrs)','$150 – $450','$150 – $450'],['Hotel (3 nights, private villa)','—','$400 – $1,800'],['Private dinner setup','$80 – $200','$100 – $300'],['Flowers & décor','$30 – $120','Often included'],], total: ['$290 – $870','$650 – $2,550+'], tip: `Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don't skip this. The rice terrace light at sunrise is unrepeatable.`, dest: 'Bali' },
-  'maldives': { range: '$2,000 – $15,000+', tagline: 'The highest-cost destination on our list — and the one where every penny of it is visible. If your budget allows, this is the proposal that requires the least effort and delivers the most impact.', rows: [['Private beach / sandbank access','$200 – $600','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, water villa)','—','$1,500 – $8,000'],['Champagne & setup','$150 – $400','Often included'],['Seaplane transfer','—','$400 – $800'],], total: ['$750 – $1,900','$2,300 – $9,700+'], tip: `The sandbank proposals are spectacular but time-sensitive — accessible only 2–3 hours per day. Book through a resort concierge briefed in advance. We've vetted the properties that handle this best.`, dest: 'Maldives' },
+  'bali': { range: '$400 – $4,000+', tagline: 'The most value-for-money luxury proposal destination in the world. Private villa setups that would cost $5,000 in Europe can be arranged in Bali for under $1,000.', rows: [['Private access / guide','$30 – $100','Included'],['Photographer (2–3 hrs)','$150 – $450','$150 – $450'],['Hotel (3 nights, private villa)','—','$400 – $1,800'],['Private dinner setup','$80 – $200','$100 – $300'],['Flowers & décor','$30 – $120','Often included'],], total: ['$290 – $870','$650 – $2,550+'], tip: `Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don\'t skip this. The rice terrace light at sunrise is unrepeatable.`, dest: 'Bali' },
+  'maldives': { range: '$2,000 – $15,000+', tagline: 'The highest-cost destination on our list — and the one where every penny of it is visible. If your budget allows, this is the proposal that requires the least effort and delivers the most impact.', rows: [['Private beach / sandbank access','$200 – $600','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, water villa)','—','$1,500 – $8,000'],['Champagne & setup','$150 – $400','Often included'],['Seaplane transfer','—','$400 – $800'],], total: ['$750 – $1,900','$2,300 – $9,700+'], tip: `The sandbank proposals are spectacular but time-sensitive — accessible only 2–3 hours per day. Book through a resort concierge briefed in advance. We\'ve vetted the properties that handle this best.`, dest: 'Maldives' },
   'tulum': { range: '$500 – $5,000+', tagline: 'A destination that has transformed from a backpacker stop into one of the most sophisticated proposal markets in the Americas. Private cenote access and jungle eco-lodge proposals are its signature.', rows: [['Private cenote / guide','$60 – $200','Included'],['Photographer (2–3 hrs)','$200 – $600','$200 – $600'],['Hotel (3 nights, eco-lodge)','—','$600 – $2,400'],['Private dinner setup','$100 – $350','$150 – $400'],['Flowers & décor','$50 – $150','Often included'],], total: ['$410 – $1,300','$950 – $3,400+'], tip: 'Cenotes are magical but crowded by 9am. Private early-morning access (before 7am) costs a small premium and is entirely worth it. Several of our vetted spots include this as standard.', dest: 'Tulum' },
   'amalfi': { range: '$1,000 – $10,000+', tagline: 'The most cinematic coastline in Europe — with prices to match. But the secret is that the best proposal spots on the Amalfi Coast are private terraces that most visitors never find.', rows: [['Private terrace access','$100 – $300','Included'],['Photographer (2–3 hrs)','$300 – $800','$300 – $800'],['Hotel (3 nights, cliff villa)','—','$900 – $4,000'],['Private dinner','$200 – $600','$200 – $600'],['Flowers & champagne','$100 – $250','Often included'],], total: ['$700 – $1,950','$1,400 – $5,600+'], tip: 'The famous path from Positano to Praiano has dozens of hidden viewpoints. Arrive early to avoid tour groups. A local guide for €80 will show you spots no travel blog has ever mentioned.', dest: 'Amalfi Coast' },
-  'algarve': { range: '$300 – $3,000+', tagline: `Europe's best-value luxury proposal destination. The Atlantic coastline rivals the Amalfi Coast — at roughly half the price.`, rows: [['Kayak / boat rental','$40 – $120','Included'],['Photographer (2–3 hrs)','$200 – $500','$200 – $500'],['Hotel (3 nights, clifftop)','—','$400 – $1,500'],['Private dinner','$80 – $250','$100 – $300'],['Flowers & champagne','$40 – $100','Often included'],], total: ['$360 – $970','$700 – $2,300+'], tip: 'The Benagil Cave at golden hour (after tour boats leave) costs almost nothing and looks extraordinary. Golden hour kayak access is the move.', dest: 'Algarve' },
-  'france': { range: '$800 – $6,000+', tagline: `Lavender fields, the Côte d'Azur, hilltop villages, Provençal farmhouses. The South of France offers a level of romantic variety that no other European destination can match.`, rows: [['Private access / venue','$80 – $300','Included'],['Photographer (2–3 hrs)','$300 – $700','$300 – $700'],['Hotel (3 nights, mas/château)','—','$600 – $3,000'],['Private dinner','$150 – $500','$150 – $500'],['Flowers & setup','$80 – $200','Often included'],], total: ['$610 – $1,700','$1,150 – $4,200+'], tip: 'The lavender fields in Valensole peak in late June–July. Go early morning or late evening for golden light and no tour groups. Private farm access can usually be arranged through a local gîte.', dest: 'South of France' },
+  'algarve': { range: '$300 – $3,000+', tagline: `Europe\'s best-value luxury proposal destination. The Atlantic coastline rivals the Amalfi Coast — at roughly half the price.`, rows: [['Kayak / boat rental','$40 – $120','Included'],['Photographer (2–3 hrs)','$200 – $500','$200 – $500'],['Hotel (3 nights, clifftop)','—','$400 – $1,500'],['Private dinner','$80 – $250','$100 – $300'],['Flowers & champagne','$40 – $100','Often included'],], total: ['$360 – $970','$700 – $2,300+'], tip: 'The Benagil Cave at golden hour (after tour boats leave) costs almost nothing and looks extraordinary. Golden hour kayak access is the move.', dest: 'Algarve' },
+  'france': { range: '$800 – $6,000+', tagline: `Lavender fields, the Côte d\'Azur, hilltop villages, Provençal farmhouses. The South of France offers a level of romantic variety that no other European destination can match.`, rows: [['Private access / venue','$80 – $300','Included'],['Photographer (2–3 hrs)','$300 – $700','$300 – $700'],['Hotel (3 nights, mas/château)','—','$600 – $3,000'],['Private dinner','$150 – $500','$150 – $500'],['Flowers & setup','$80 – $200','Often included'],], total: ['$610 – $1,700','$1,150 – $4,200+'], tip: 'The lavender fields in Valensole peak in late June–July. Go early morning or late evening for golden light and no tour groups. Private farm access can usually be arranged through a local gîte.', dest: 'South of France' },
   'switzerland': { range: '$1,000 – $8,000+', tagline: 'The Alps provide the most dramatic natural proposal backdrops in Europe. Private cable car access and mountain restaurant reservations require advance planning — but deliver something unforgettable.', rows: [['Private cable car / guide','$100 – $400','Included'],['Photographer (2–3 hrs)','$400 – $900','$400 – $900'],['Hotel (3 nights, mountain lodge)','—','$700 – $3,000'],['Private mountain dinner','$200 – $600','$200 – $600'],['Setup & flowers','$100 – $250','Often included'],], total: ['$800 – $2,150','$1,400 – $4,500+'], tip: 'The best Swiss Alps spots are not in the guidebooks. The Bernese Oberland has dozens of accessible viewpoints that see almost no visitors. A local mountain guide is worth every franc.', dest: 'Switzerland' },
   'costa-rica': { range: '$400 – $4,000+', tagline: 'Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forests, Pacific cliffs, hidden beaches — at a fraction of the price of European equivalents.', rows: [['Private guide / access','$50 – $150','Included'],['Photographer (2–3 hrs)','$150 – $400','$150 – $400'],['Hotel (3 nights, eco-lodge)','—','$400 – $1,800'],['Private dinner','$80 – $250','$100 – $300'],['Setup & flowers','$40 – $120','Often included'],], total: ['$320 – $920','$690 – $2,500+'], tip: 'The Monteverde cloud forest hanging bridges are the most dramatic proposal setting in the country. Private early-access before 7am means no tour groups — just mist, jungle, and howler monkeys.', dest: 'Costa Rica' },
   'nicaragua': { range: '$200 – $2,000+', tagline: 'The last undiscovered destination on our list. Nicaragua offers extraordinary natural settings — twin volcanos, black sand beaches, colonial cities — at prices that make even budget-conscious proposals feel extraordinary.', rows: [['Private boat / guide','$40 – $150','Included'],['Photographer (2–3 hrs)','$100 – $300','$100 – $300'],['Hotel (3 nights, eco-lodge)','—','$200 – $800'],['Private dinner','$50 – $150','$80 – $200'],['Setup','$20 – $80','Often included'],], total: ['$210 – $680','$420 – $1,280+'], tip: 'Isla de Ometepe is accessible only by ferry and is one of the most beautiful and private proposal locations in the world. The island has almost no tourist infrastructure — which is entirely the point.', dest: 'Nicaragua' },
@@ -8574,7 +8574,7 @@ const DEST_COUNTRY_MAP = {
   'Costa Rica':      ['costa rica'],
   'Nicaragua':       ['nicaragua'],
   'Algarve':         ['portugal','algarve'],
-  'South of France': ['france','provence','south of france','côte d'azur','cote d'azur','nice'],
+  'South of France': ['france','provence','south of france','côte d\'azur','cote d\'azur','nice'],
   'Switzerland':     ['switzerland','swiss','alps','bernese','grindelwald','zurich','geneva'],
   'New York':        ['new york','usa','united states','nyc','manhattan','brooklyn'],
 };
@@ -8707,9 +8707,9 @@ const STORY_DATA = {
     body: `<p>James had been planning for four months. He had dismissed a dozen ideas — a boat trip, a rooftop restaurant, a beach at sunset — before a local hotel owner mentioned a private terrace carved into the cliffside above Positano. It was invisible from the path below. Most people walk past without ever knowing it exists.</p>
 <p>He booked it in January for a June trip. He told no one except the hotel, the guitarist, and the photographer he had hired to be in position before they arrived.</p>
 <div class="story-pull">"She thought the guitarist was playing for another table. She asked me if we should move so he had more room."</div>
-<p>Sarah had been told they were going for a late lunch. When they arrived at the terrace and she saw the table set with wildflowers — which James had picked himself that morning, getting up at six to find them before she woke — she assumed it was the hotel's standard decoration. When the guitarist began playing her favourite song around the corner, she thought it was a coincidence.</p>
-<p>James had timed everything to the minute. When she turned to ask why he'd gone so quiet, he was already on one knee.</p>
-<p>She said yes before he finished the sentence. They stayed at the table for three hours. The guitarist played until the sun went down. James says the lemon grove smelled extraordinary. Sarah says she doesn't remember the lemon grove at all.</p>`
+<p>Sarah had been told they were going for a late lunch. When they arrived at the terrace and she saw the table set with wildflowers — which James had picked himself that morning, getting up at six to find them before she woke — she assumed it was the hotel\'s standard decoration. When the guitarist began playing her favourite song around the corner, she thought it was a coincidence.</p>
+<p>James had timed everything to the minute. When she turned to ask why he\'d gone so quiet, he was already on one knee.</p>
+<p>She said yes before he finished the sentence. They stayed at the table for three hours. The guitarist played until the sun went down. James says the lemon grove smelled extraordinary. Sarah says she doesn\'t remember the lemon grove at all.</p>`
   },
   'bali-rice': {
     bg: 'linear-gradient(150deg,#0e1a08,#162410)',
@@ -8718,8 +8718,8 @@ const STORY_DATA = {
     title: 'He woke her at 4:30am. She was furious. Then she saw the rice terraces.',
     meta: ['🌿 Rice Terrace', '🔒 Private', '$$$', 'Bali'],
     dest: 'Bali',
-    body: `<p>Emma's exact words at 4:30am were, by her own account, unprintable. Marcus had shaken her awake, told her they needed to leave immediately, and handed her clothes without explanation. She describes her mood as "not ideal."</p>
-<p>What she didn't know was that Marcus had arranged private early-morning access to the Tegallalang rice terraces — the same terraces that draw hundreds of tourists by 8am, but at 5am belong entirely to the mist and the birds and whoever is there first.</p>
+    body: `<p>Emma\'s exact words at 4:30am were, by her own account, unprintable. Marcus had shaken her awake, told her they needed to leave immediately, and handed her clothes without explanation. She describes her mood as "not ideal."</p>
+<p>What she didn\'t know was that Marcus had arranged private early-morning access to the Tegallalang rice terraces — the same terraces that draw hundreds of tourists by 8am, but at 5am belong entirely to the mist and the birds and whoever is there first.</p>
 <div class="story-pull">"The terraces were completely still. The mist was rising from the valley. I forgot I was tired."</div>
 <p>He had also coordinated a small breakfast — fruit, coffee in a flask, a blanket — which the guesthouse owner had arranged the night before while Emma slept. He had carried it in a bag she assumed was just his camera equipment.</p>
 <p>The man they passed on the narrow path, who appeared to be photographing the sunrise, was in fact a photographer Marcus had hired. He had been in position for forty minutes, waiting in the dark.</p>
@@ -8747,8 +8747,8 @@ const STORY_DATA = {
     meta: ['🏛 Clifftop', '🔒 Private', '$$$$', 'Santorini'],
     dest: 'Santorini',
     body: `<p>The dress was black and gold, handmade on the island, spotted in a boutique in Oia on what Lexi thought was just a morning of wandering. She bought it on impulse. Her partner — who had arranged a private clifftop dinner for that evening, timed to the second of sunset, with a photographer in position below the terrace — had no idea she would walk in wearing it.</p>
-<p>He had planned the proposal for a different dress entirely. The black and gold was, in his words, "an upgrade I didn't deserve credit for."</p>
-<div class="story-pull">"She looked at me across the table and said she felt like she was in a film. I thought: that's the moment."</div>
+<p>He had planned the proposal for a different dress entirely. The black and gold was, in his words, "an upgrade I didn\'t deserve credit for."</p>
+<div class="story-pull">"She looked at me across the table and said she felt like she was in a film. I thought: that\'s the moment."</div>
 <p>The photographer, who had been told to pose as a tourist and stay at least thirty metres away, later admitted he had moved closer than instructed because the light on the terrace was too good to waste.</p>
 <p>He read her a letter. Eight minutes later, he got down on one knee. The Aegean turned pink behind them. She said yes before he finished the sentence, which he considers slightly unfair given the effort that had gone into the ending.</p>
 <p>They are still together. The dress is framed.</p>`
@@ -8761,7 +8761,7 @@ const STORY_DATA = {
     meta: ['🌿 Jungle', '🌉 Bridge', '$$', 'Costa Rica'],
     dest: 'Costa Rica',
     body: `<p>The private hanging bridge tour was booked as a "sunrise nature walk." Just the two of them and a local guide, starting before the cloud forest opened to regular visitors. Luca had briefed the guide three days earlier.</p>
-<p>The guide's instructions were simple: get them to the third bridge by 6:15am, then quietly disappear. He did both things.</p>
+<p>The guide\'s instructions were simple: get them to the third bridge by 6:15am, then quietly disappear. He did both things.</p>
 <div class="story-pull">"You could hear howler monkeys somewhere below us. The entire world was underneath that bridge."</div>
 <p>Standing on a suspension bridge in the mist, the jungle canopy spread out beneath them and the clouds moving through at eye level, Luca asked. Sofia laughed first. This is apparently a habit of hers in moments of high emotion.</p>
 <p>Then she cried. Then she said yes.</p>
@@ -8779,7 +8779,7 @@ const STORY_DATA = {
 <p>The answer was: otherworldly. Shafts of light through the cave ceiling, turquoise water with no current, a silence that made conversation feel inappropriate.</p>
 <div class="story-pull">"She opened the bag and went very still. Then she looked at me. Then back at the note. Then she started shaking."</div>
 <p>He had wrapped the ring in a handwritten note and placed it inside a small woven bag from the local market — the kind she collected from every trip. He handed it to her as they stood at the edge of the water. She assumed it was a trinket from the market.</p>
-<p>When she unfolded the note, her hands were shaking before she opened the box. He says she read the note three times before looking up. She doesn't remember reading it at all.</p>
+<p>When she unfolded the note, her hands were shaking before she opened the box. He says she read the note three times before looking up. She doesn\'t remember reading it at all.</p>
 <p>She says the cenote proposal was the most beautiful thing she has ever experienced. She means the proposal. He is fairly confident she also means the cenote.</p>`
   },
   'algarve': {
@@ -8806,11 +8806,11 @@ const STORY_DATA = {
     dest: 'South of France',
     body: `<p>Marc had been writing Isabelle letters since their second month together. Not sending them — just writing them, folding them, placing them in a small leather-bound book he kept in the bottom drawer of his desk. By July 2024, there were forty-one letters. She had no idea any of them existed.</p>
 <p>He arranged a sunset access to a lavender farm near Valensole — private, end of day, when the tour groups were gone and the fields smelled strongest. He told Isabelle a photographer friend wanted to do a portrait session. She wore a white dress, which she insists was a coincidence and which everyone who knows her considers implausible.</p>
-<div class="story-pull">"She read three letters in the field. She didn't finish the third. She just looked up."</div>
+<div class="story-pull">"She read three letters in the field. She didn\'t finish the third. She just looked up."</div>
 <p>When they reached the far edge of the field, Marc stopped walking and handed her the book. He told her what it was. She opened it.</p>
-<p>She read the first letter standing up. She read the second sitting down in the lavender. She started the third, stopped partway through, and looked up at him. She didn't need to read the rest.</p>
+<p>She read the first letter standing up. She read the second sitting down in the lavender. She started the third, stopped partway through, and looked up at him. She didn\'t need to read the rest.</p>
 <p>He proposed in the field as the sun went down over the hills. The photographer — who was a real friend, and had been briefed in advance — captured all of it from a distance, including the moment she sat down in the flowers and the moment she stood back up again.</p>
-<p>Isabelle says she has now read all forty-one letters. She says the forty-first is her favourite. Marc won't say what it says. He says she can tell people if she wants to.</p>`
+<p>Isabelle says she has now read all forty-one letters. She says the forty-first is her favourite. Marc won\'t say what it says. He says she can tell people if she wants to.</p>`
   },
   'switzerland': {
     bg: 'linear-gradient(150deg,#0c1420,#101e2e)',
@@ -8823,8 +8823,8 @@ const STORY_DATA = {
 <p>He had arranged private access at dusk. He told Claire they were going for dinner in the village. She spent the cable car ride convinced something was wrong with him because he kept looking out the window and not speaking.</p>
 <div class="story-pull">"There was no one else anywhere. The silence was the loudest thing I had ever experienced."</div>
 <p>When they stepped out onto the platform and she saw the Jungfrau in the last light — snowfields turning amber, the valley below in shadow, everything perfectly still — she said nothing for almost a minute. Oliver says it was the most peaceful sixty seconds of his life.</p>
-<p>Then he reached into his coat. She turned. He says she cried before he said a word. She says that's not possible and that he is misremembering the sequence of events. He says he has a very clear memory of this particular sequence of events.</p>
-<p>She discovered the engraved date on the inside of the band the following morning. He says the engraver had it done in three days. The jeweller, he notes, called it one of the better requests he'd received that year.</p>`
+<p>Then he reached into his coat. She turned. He says she cried before he said a word. She says that\'s not possible and that he is misremembering the sequence of events. He says he has a very clear memory of this particular sequence of events.</p>
+<p>She discovered the engraved date on the inside of the band the following morning. He says the engraver had it done in three days. The jeweller, he notes, called it one of the better requests he\'d received that year.</p>`
   },
   'nicaragua': {
     bg: 'linear-gradient(150deg,#10180a,#182008)',
@@ -8833,7 +8833,7 @@ const STORY_DATA = {
     title: 'No roads reach it. No tour boats stop there. She had absolutely no idea.',
     meta: ['🌋 Volcano', '🔒 Private', '$$', 'Nicaragua'],
     dest: 'Nicaragua',
-    body: `<p>Ryan arrived on Ometepe three days before Natalie. He had one task: find the place. He rented a bicycle, explored the island's unpaved roads, and eventually asked a fisherman who took him by boat around the far side — where the two volcanos meet the lake and the jungle comes down to a black sand cove with no road access, no boat traffic, and no other tourists.</p>
+    body: `<p>Ryan arrived on Ometepe three days before Natalie. He had one task: find the place. He rented a bicycle, explored the island\'s unpaved roads, and eventually asked a fisherman who took him by boat around the far side — where the two volcanos meet the lake and the jungle comes down to a black sand cove with no road access, no boat traffic, and no other tourists.</p>
 <p>He spent the next three days establishing whether the boatman would be willing to take them there at sunset. The boatman said yes. Ryan booked it.</p>
 <div class="story-pull">"When we came around the headland and she saw the cove for the first time — the two volcanos reflected in the water — she just said: oh."</div>
 <p>Natalie arrived on a Wednesday. Ryan told her they were going exploring. He did not tell her they were going by boat. He did not tell her where. She later said she would have asked more questions if she had known Nicaragua had places like that.</p>
@@ -8902,7 +8902,7 @@ function openCollection() {
 
   console.log('openCollection: savedSpotIds=', savedSpotIds, 'savedEmail=', savedEmail);
 
-  // No account — show sign up modal, don't navigate away from current page
+  // No account — show sign up modal, don\'t navigate away from current page
   if (!savedEmail) {
     openSignUpPrompt();
     return;
@@ -9178,7 +9178,7 @@ function submitJoin() {
     setTimeout(() => closeJoinModal(), 3500);
   })
   .catch(() => {
-    // Still show success to user — don't penalise them for network issues
+    // Still show success to user — don\'t penalise them for network issues
     document.getElementById('join-form').style.display = 'none';
     document.getElementById('join-confirm').style.display = 'block';
     setTimeout(() => closeJoinModal(), 3500);
@@ -9675,7 +9675,7 @@ function renderProposalDateStep() {
     const co = document.getElementById('sdp-checkout')?.value;
     chips.style.display = 'flex';
     cal.style.display   = 'none';
-    if (sub) sub.textContent = 'Choose which night(s) you'd like to propose';
+    if (sub) sub.textContent = 'Choose which night(s) you\'d like to propose';
 
     if (!ci || !co) {
       chips.innerHTML = '<p class="sdp-step-hint">Select your hotel dates above first</p>';
