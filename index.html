@@ -7446,7 +7446,7 @@ function openEnquiryModal() {
   const pd2val = document.getElementById('sdp-proposal-date-2')?.value || '';
   const chipSelected = [...document.querySelectorAll('#sdp-proposal-dates input:checked')].map(cb => cb.value);
   // Also check date chips (hotel mode)
-  const chipDates = [...document.querySelectorAll('#sdp-night-chips .night-chip.selected')].map(c => c.dataset.date).filter(Boolean);
+  const chipDates = [...document.querySelectorAll('#sdp-night-chips .sdp-night-chip.selected')].map(c => c.dataset && c.dataset.ds ? c.dataset.ds : '').filter(Boolean);
   const proposalDatePrefill = pd1val || chipSelected[0] || chipDates[0] || '';
   const enqPD = document.getElementById('enq-proposal-date');
   const enqBD = document.getElementById('enq-backup-date');
@@ -7454,6 +7454,7 @@ function openEnquiryModal() {
   if (enqBD) enqBD.value = ''; // no backup date
   _enqProp1 = proposalDatePrefill;
   _enqProp2 = '';
+  enqUpdateDateDisplay();
   // Show/hide hotel stay section
   const ci2 = document.getElementById('sdp-checkin')?.value || '';
   const co2 = document.getElementById('sdp-checkout')?.value || '';
@@ -7670,103 +7671,21 @@ function enqClearProp2() {
 }
 
 // ─── Navigation helpers — close modal and return to spot page ───
-let _enqHCalYear  = new Date().getFullYear();
-let _enqHCalMonth = new Date().getMonth();
-let _enqHCalMode  = 'checkin'; // 'checkin' or 'checkout'
-let _enqHCalCI    = '';
-let _enqHCalCO    = '';
-
-function showEnqHotelCalendar() {
-  const inline = document.getElementById('enq-hotel-cal-inline');
-  if (!inline) return;
-  const showing = inline.style.display !== 'none';
-  if (showing) { inline.style.display = 'none'; return; }
-  // Init from current values
-  const ci = document.getElementById('sdp-checkin')?.value || '';
-  const co = document.getElementById('sdp-checkout')?.value || '';
-  _enqHCalCI = ci; _enqHCalCO = co;
-  _enqHCalMode = 'checkin';
-  if (ci) { const d = new Date(ci+'T00:00:00'); _enqHCalYear=d.getFullYear(); _enqHCalMonth=d.getMonth(); }
-  else    { _enqHCalYear=new Date().getFullYear(); _enqHCalMonth=new Date().getMonth(); }
-  inline.style.display = 'block';
-  renderEnqHCal();
+function enqGoBackToHotelDates() {
+  closeEnquiryModal();
+  _rcalMode = 'checkin';
+  setTimeout(function() {
+    const ciBtn = document.getElementById('sdp-ci-btn');
+    if (ciBtn) { ciBtn.scrollIntoView({ behavior: 'smooth', block: 'center' }); ciBtn.click(); }
+  }, 200);
 }
 
-function enqHCalNav(dir) {
-  _enqHCalMonth += dir;
-  if (_enqHCalMonth < 0)  { _enqHCalMonth=11; _enqHCalYear--; }
-  if (_enqHCalMonth > 11) { _enqHCalMonth=0;  _enqHCalYear++; }
-  renderEnqHCal();
-}
-
-function renderEnqHCal() {
-  const grid     = document.getElementById('enq-hcal-grid');
-  const monthEl  = document.getElementById('enq-hcal-month');
-  const modeEl   = document.getElementById('enq-hcal-mode-label');
-  if (!grid || !monthEl) return;
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const DOWS   = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  const today  = new Date(); today.setHours(0,0,0,0);
-  monthEl.textContent = MONTHS[_enqHCalMonth] + ' ' + _enqHCalYear;
-  if (modeEl) modeEl.textContent = _enqHCalMode === 'checkin' ? 'Select check-in date' : 'Select check-out date';
-  const firstDay = new Date(_enqHCalYear, _enqHCalMonth, 1).getDay();
-  const daysInMo = new Date(_enqHCalYear, _enqHCalMonth+1, 0).getDate();
-  let html = DOWS.map(d => '<div class="enq-pcal-dow">'+d+'</div>').join('');
-  for (let i=0; i<firstDay; i++) html += '<div class="enq-pcal-day enq-pcal-empty"></div>';
-  for (let d=1; d<=daysInMo; d++) {
-    const ds = _enqHCalYear+'-'+String(_enqHCalMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    const dt = new Date(ds+'T00:00:00');
-    let cls = 'enq-pcal-day'; let disabled = false;
-    if (dt < today) { cls += ' enq-pcal-disabled'; disabled = true; }
-    if (!disabled && _enqHCalMode === 'checkout' && _enqHCalCI && ds <= _enqHCalCI) { cls += ' enq-pcal-disabled'; disabled = true; }
-    if (!disabled) {
-      if (ds === _enqHCalCI) cls += ' enq-pcal-hotel-start';
-      else if (ds === _enqHCalCO) cls += ' enq-pcal-hotel-end';
-      else if (_enqHCalCI && _enqHCalCO && ds > _enqHCalCI && ds < _enqHCalCO) cls += ' enq-pcal-hotel-range';
-    }
-    const hCalClick = disabled ? '' : ' onclick="enqHCalSelect(\'' + ds + '\')"';
-    html += '<div class="'+cls+'"' + hCalClick + '>'+d+'</div>';
-  }
-  grid.innerHTML = html;
-}
-
-function enqHCalSelect(ds) {
-  const fmt = s => new Date(s+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-  if (_enqHCalMode === 'checkin') {
-    _enqHCalCI = ds;
-    if (_enqHCalCO && _enqHCalCO <= ds) _enqHCalCO = '';
-    _enqHCalMode = 'checkout';
-    renderEnqHCal();
-  } else {
-    _enqHCalCO = ds;
-    // Save to sdp hidden inputs
-    const ciEl = document.getElementById('sdp-checkin');
-    const coEl = document.getElementById('sdp-checkout');
-    if (ciEl) ciEl.value = _enqHCalCI;
-    if (coEl) coEl.value = _enqHCalCO;
-    // Update the hotel stay display row
-    const enqHotelDates = document.getElementById('enq-hotel-stay-dates');
-    if (enqHotelDates && _enqHCalCI && _enqHCalCO) {
-      const nights = Math.round((new Date(_enqHCalCO+'T00:00:00') - new Date(_enqHCalCI+'T00:00:00')) / 86400000);
-      enqHotelDates.innerHTML = '<strong>'+fmt(_enqHCalCI)+'</strong> → <strong>'+fmt(_enqHCalCO)+'</strong> <span style="opacity:0.6;font-size:10px">('+nights+' night'+(nights!==1?'s':'')+')</span>';
-    }
-    // Clear proposal date if it is now outside the new range
-    if (_enqProp1 && (_enqProp1 < _enqHCalCI || _enqProp1 > _enqHCalCO)) {
-      _enqProp1 = ''; _enqProp2 = '';
-      const p1 = document.getElementById('enq-proposal-date');
-      const p2 = document.getElementById('enq-backup-date');
-      if (p1) p1.value = ''; if (p2) p2.value = '';
-      enqUpdateDateDisplay();
-    }
-    // Hide inline calendar, navigate proposal calendar to new date
-    document.getElementById('enq-hotel-cal-inline').style.display = 'none';
-    const d = new Date(_enqHCalCI+'T00:00:00');
-    _enqCalYear = d.getFullYear(); _enqCalMonth = d.getMonth();
-    renderEnqCal();
-    // Show legend
-    const legend = document.getElementById('enq-pcal-legend');
-    if (legend) legend.style.display = 'flex';
-  }
+function enqGoBackToProposalDate() {
+  closeEnquiryModal();
+  setTimeout(function() {
+    const chips = document.getElementById('sdp-night-chips');
+    if (chips) chips.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 200);
 }
 
 function openBookingDrawer() { openEnquiryModal(); }
