@@ -7446,8 +7446,8 @@ function openEnquiryModal() {
   const pd2val = document.getElementById('sdp-proposal-date-2')?.value || '';
   const chipSelected = [...document.querySelectorAll('#sdp-proposal-dates input:checked')].map(cb => cb.value);
   // Also check date chips (hotel mode)
-  const chipDates = [...document.querySelectorAll('#sdp-night-chips .sdp-night-chip.selected')].map(c => c.dataset && c.dataset.ds ? c.dataset.ds : '').filter(Boolean);
-  const proposalDatePrefill = pd1val || chipSelected[0] || chipDates[0] || '';
+  const chipDates = [...document.querySelectorAll('#sdp-night-chips .sdp-night-chip.selected')].map(c => c.dataset.ds || '').filter(Boolean);
+  const proposalDatePrefill = pd1val || chipSelected[0] || chipDates[0] || (selectedProposalDates && selectedProposalDates[0]) || '';
   const enqPD = document.getElementById('enq-proposal-date');
   const enqBD = document.getElementById('enq-backup-date');
   if (enqPD) enqPD.value = proposalDatePrefill;
@@ -9788,7 +9788,7 @@ function renderProposalDateStep() {
       const label = dayNames[cur.getDay()] + ', ' + monNames[cur.getMonth()] + ' ' + cur.getDate();
       const badge = i === 0 ? 'Arrival' : (i === nights - 1 ? 'Last night' : '');
       const sel   = selectedProposalDates.includes(ds);
-      html += `<div class="sdp-night-chip${sel?' selected':''}" onclick="toggleNightChip(this,'${ds}')">
+      html += `<div class="sdp-night-chip${sel?' selected':''}" data-ds="${ds}" onclick="toggleNightChip(this,'${ds}')">
         <span>${label}</span>
         ${badge ? `<span class="sdp-night-chip-badge">${badge}</span>` : ''}
       </div>`;
