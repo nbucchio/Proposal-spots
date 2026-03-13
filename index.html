@@ -4594,41 +4594,8 @@ footer {
 <body>
 
 <!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="nav-logo" onclick="showPage('home'); return false;">Proposal Spots</a>
-  <div class="nav-links">
-    <div class="nav-destinations-wrap">
-      <a href="#" class="nav-link-right nav-destinations-btn" onclick="toggleDestDropdown(); return false;">
-        Destinations
-        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
-      </a>
-      <div class="nav-dest-dropdown" id="nav-dest-dropdown">
-        <div class="nav-dest-grid">
-          <a onclick="goToDestination('Amalfi Coast'); return false;" href="#">Amalfi Coast <span>Italy</span></a>
-          <a onclick="goToDestination('Santorini'); return false;" href="#">Santorini <span>Greece</span></a>
-          <a onclick="goToDestination('Bali'); return false;" href="#">Bali <span>Indonesia</span></a>
-          <a onclick="goToDestination('Tulum'); return false;" href="#">Tulum <span>Mexico</span></a>
-          <a onclick="goToDestination('Maldives'); return false;" href="#">Maldives <span>Indian Ocean</span></a>
-          <a onclick="goToDestination('Costa Rica'); return false;" href="#">Costa Rica <span>Central America</span></a>
-          <a onclick="goToDestination('Nicaragua'); return false;" href="#">Nicaragua <span>Central America</span></a>
-          <a onclick="goToDestination('Algarve'); return false;" href="#">Algarve <span>Portugal</span></a>
-          <a onclick="goToDestination('South of France'); return false;" href="#">South of France <span>France</span></a>
-          <a onclick="goToDestination('Switzerland'); return false;" href="#">Switzerland <span>Alps</span></a>
-          <a onclick="goToDestination('New York'); return false;" href="#">New York <span>USA</span></a>
-        </div>
-        <div class="nav-dest-footer">
-          <a onclick="showPage('destinations'); return false;" href="#" style="color:#A55A4A;font-weight:500">View all destinations →</a>
-        </div>
-      </div>
-    </div>
-    <a href="#" id="nav-how-it-works" onclick="showPage('how-it-works'); return false;" class="nav-link-right">How It Works</a>
-    <a href="inspiration.html" class="nav-link-right">Inspiration</a>
-    <a href="#" id="nav-faq" onclick="goToFaq(); return false;" class="nav-link-right">FAQ</a>
-  </div>
-  <div class="nav-right">
-    <a href="#" id="nav-collection" onclick="event.preventDefault(); openCollection();" class="nav-cta nav-collection-link">♡ My Collection</a>
-  </div>
-</nav>
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
 
 <!-- ═══ HOME PAGE ═══ -->
 <div id="page-home" class="page active">
