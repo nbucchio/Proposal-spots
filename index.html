@@ -844,7 +844,7 @@ nav.scrolled {
 .mc-costarica{ background-image: url('https://images.unsplash.com/photo-1587450924794-1d88bd9df3c0?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center 50%; }
 .mc-bali     { background-image: url('https://images.unsplash.com/photo-1535968881874-0c39f1503640?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-maldives { background-image: url('https://images.unsplash.com/photo-1550031675-030918aff0e4?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
-.mc-algarve  { background-image: url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
+.mc-algarve  { background-image: url('https://images.unsplash.com/photo-1566988148642-343730e135bf?q=80&w=1170&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-france   { background-image: url('https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-swiss    { background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-nicaragua{ background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
@@ -4791,20 +4791,20 @@ footer {
       <a href="#" class="section-link" style="color:#A55A4A;font-weight:500" onclick="showPage('destinations'); return false;">All destinations →</a>
     </div>
     <div class="markets-grid" style="cursor:pointer">
-      <div class="market-card" onclick="goMarket('amalfi-coast')">
-        <div class="market-card-bg mc-amalfi"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Italy</span>
-          <span class="market-card-name">Amalfi Coast</span>
-          <span class="market-card-count">12 proposal spots</span>
-        </div>
-      </div>
       <div class="market-card" onclick="goMarket('santorini')">
         <div class="market-card-bg mc-santorini"></div>
         <div class="market-card-info">
           <span class="market-card-region">Greece</span>
           <span class="market-card-name">Santorini</span>
           <span class="market-card-count">8 spots</span>
+        </div>
+      </div>
+      <div class="market-card" onclick="goMarket('amalfi-coast')">
+        <div class="market-card-bg mc-amalfi"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Italy</span>
+          <span class="market-card-name">Amalfi Coast</span>
+          <span class="market-card-count">12 proposal spots</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('bali')">
@@ -5172,7 +5172,7 @@ footer {
         </div>
       </div>
       <div class="dest-card" onclick="goToDestination('Algarve')">
-        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80&fit=crop');background-size:cover;background-position:center"></div>
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1541323474343-589d15554a63?q=80&w=900&auto=format&fit=crop');background-size:cover;background-position:center"></div>
         <div class="dest-card-info">
           <span class="dest-card-country">Portugal</span>
           <h3 class="dest-card-name">Algarve</h3>
@@ -8259,7 +8259,7 @@ const DEST_DATA = {
     budgetKey: 'nicaragua'
   },
   'Algarve': {
-    country: 'Portugal', bg: 'linear-gradient(160deg,#0a1018,#141e2a)', photo: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80&fit=crop',
+    country: 'Portugal', bg: 'linear-gradient(160deg,#0a1018,#141e2a)', photo: 'https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop',
     sub: `Sea caves with natural skylights, sandstone sea arches glowing amber at sunset, and Atlantic cliffs that drop straight into impossibly clear water. Europe\'s best-value proposal coastline.`,
     budgetKey: 'algarve'
   },
@@ -8584,6 +8584,13 @@ const DEST_EDITORIAL_DATA = {
 
 // ─── DESTINATION PHOTO GALLERIES ───
 const DEST_GALLERY_DATA = {
+  'Algarve': [
+    { url: 'https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop', alt: 'Dramatic Atlantic coastline of the Algarve at golden hour' },
+    { url: 'https://images.unsplash.com/photo-1541323474343-589d15554a63?q=80&w=900&auto=format&fit=crop', alt: 'Sea arches and golden limestone cliffs, Algarve Portugal' },
+    { url: 'https://images.unsplash.com/photo-1535911061633-d2516c0023d4?q=80&w=900&auto=format&fit=crop', alt: 'Ponta da Piedade sea stacks glowing at sunset, Algarve' },
+    { url: 'https://images.unsplash.com/photo-1569406829354-eb0cc9e653e8?q=80&w=900&auto=format&fit=crop', alt: 'Hidden sea cave entrance, Benagil, Algarve' },
+    { url: 'https://images.unsplash.com/photo-1721241843687-fed85df281d1?q=80&w=1170&auto=format&fit=crop', alt: 'Cliffside coastal scenery, Algarve Portugal' }
+  ],
   'Bali': [
     { url: 'https://images.unsplash.com/photo-1612692379864-570256c9456b?q=80&w=1170&auto=format&fit=crop', alt: 'Jungle swing above Ubud rainforest canopy, Bali' },
     { url: 'https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop', alt: 'Lush Bali rice terraces in the morning light' },
