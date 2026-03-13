@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspiration — Proposal Spots</title>
+  <meta name="description" content="Real proposal stories from around the world. The moments that started with yes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F4F1EB;
+      --bg2:      #EDEAE2;
+      --bg3:      #E8E4DB;
+      --white:    #FDFCFA;
+      --ink:      #1C1C1C;
+      --ink2:     #2E2C2A;
+      --mid:      #6B6660;
+      --muted:    #9E9890;
+      --hairline: #D8D2C8;
+      --divider:  #E4E0D8;
+      --accent:   #8C7B64;
+    }
+
+    html {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(244,241,235,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--hairline);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 32px;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Jost', sans-serif;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      justify-self: start;
+    }
+    .nav-logo:hover { opacity: 0.7; transition: opacity 0.2s; }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover { color: var(--ink); background: var(--bg2); }
+    .nav-link.active { color: var(--ink); font-weight: 500; }
+    .nav-right {
+      justify-self: end;
+    }
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--hairline);
+      border-radius: 100px;
+      padding: 8px 16px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    /* ═══ SHARED PAGE COMPONENTS ═══ */
+    .pg-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+    .pg-dark-hero {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 72px;
+      overflow: hidden;
+    }
+    .pg-dark-hero-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .pg-dark-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 80px;
+      width: 100%;
+    }
+    .pg-dark-hero-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      color: #F4F1EB;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-top: 16px;
+    }
+    .pg-dark-hero-title em { font-style: italic; }
+    .pg-cta-strip {
+      background: var(--ink);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .pg-cta-strip-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 300;
+      color: var(--bg);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .pg-cta-strip-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(244,241,235,0.6);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+    .pg-cta-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--bg);
+      color: var(--ink);
+      border: none;
+      border-radius: 100px;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .pg-cta-btn:hover { background: var(--bg2); }
+
+    /* ═══ INSPIRATION PAGE ═══ */
+    .pg-inspiration { padding-top: 64px; background: var(--bg); }
+    .insp-hero-bg { background: linear-gradient(140deg, #141008 0%, #1e1810 40%, #2a2018 100%); }
+    .insp-intro { max-width: 640px; margin: 0 auto; padding: 72px 40px; text-align: center; border-bottom: 1px solid var(--divider); }
+    .insp-intro-text { font-family: 'Cormorant', serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 300; color: var(--mid); line-height: 1.7; letter-spacing: 0.01em; font-style: italic; }
+    .insp-stories { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .insp-story { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; border-bottom: 1px solid var(--divider); }
+    .insp-story.rev { direction: rtl; }
+    .insp-story.rev > * { direction: ltr; }
+    .insp-story-img { position: relative; overflow: hidden; min-height: 480px; }
+    .insp-story-img::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.22); transition: opacity 0.6s ease; pointer-events: none; z-index: 1; }
+    .insp-story:hover .insp-story-img::after { opacity: 0; }
+    .insp-story-img-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+    .insp-story:hover .insp-story-img-bg { transform: scale(1.04); }
+    .insp-story-loc { position: absolute; bottom: 20px; left: 20px; font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); background: rgba(0,0,0,0.28); padding: 5px 10px; backdrop-filter: blur(6px); z-index: 2; }
+    .insp-story-body { padding: 64px 60px; background: var(--white); display: flex; flex-direction: column; justify-content: center; }
+    .insp-story-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: #A55A4A; display: block; margin-bottom: 14px; }
+    .insp-story-title { font-family: 'Cormorant', serif; font-size: clamp(24px, 2.8vw, 34px); font-weight: 400; color: var(--ink); line-height: 1.2; margin-bottom: 22px; letter-spacing: 0.01em; }
+    .insp-story-text { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.95; letter-spacing: 0.02em; margin-bottom: 28px; }
+    .insp-read-more {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+      background: none; border: 1px solid var(--hairline); border-radius: 100px;
+      padding: 9px 18px; cursor: pointer; margin-top: 20px; transition: all 0.2s;
+    }
+    .insp-read-more:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .insp-story-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+    .insp-story-meta span { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.1em; color: var(--muted); border: 1px solid var(--hairline); padding: 4px 10px; }
+
+    /* ═══ STORY DETAIL PAGE ═══ */
+    #page-story { display: none; }
+    .pg-story { padding-top: 64px; background: var(--bg); min-height: 100vh; }
+    .story-back-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); background: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 10px 18px; cursor: pointer; margin: 32px 40px; transition: color 0.2s; }
+    .story-back-btn:hover { color: var(--ink); }
+    .story-hero { position: relative; min-height: 520px; display: flex; align-items: flex-end; padding-bottom: 64px; overflow: hidden; }
+    .story-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+    .story-hero-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; padding: 0 80px; width: 100%; }
+    .story-hero-title { font-family: 'Cormorant', serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 300; color: #F4F1EB; line-height: 1.1; margin-top: 14px; letter-spacing: -0.01em; }
+    .story-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .story-meta span { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.12em; color: rgba(244,241,235,0.6); border: 1px solid rgba(244,241,235,0.25); padding: 4px 10px; }
+    .story-body { max-width: 720px; margin: 0 auto; padding: 72px 40px; }
+    .story-body p { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.95; letter-spacing: 0.02em; margin-bottom: 24px; }
+    .story-pull { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.5vw, 26px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.5; border-left: 2px solid #A55A4A; padding: 8px 0 8px 24px; margin: 36px 0; letter-spacing: 0.01em; }
+    .story-footer { background: var(--ink); padding: 72px 40px; text-align: center; }
+    .story-footer-label { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(244,241,235,0.4); margin-bottom: 20px; display: block; }
+    .story-footer .pg-cta-btn { background: var(--bg); color: var(--ink); }
+    .story-footer .pg-cta-btn:hover { background: var(--bg2); }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 900px) {
+      .insp-story { grid-template-columns: 1fr; min-height: auto; }
+      .insp-story.rev { direction: ltr; }
+      .insp-story-img { min-height: 320px; }
+      .insp-story-body { padding: 40px 28px; }
+      .pg-dark-hero-content { padding: 0 28px; }
+      .story-hero-content { padding: 0 28px; }
+      .story-body { padding: 48px 28px; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .insp-stories { padding: 0 20px; }
+      .insp-intro { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="index.html" class="nav-logo">Proposal Spots</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="index.html#destinations" class="nav-link">Destinations</a>
+    <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+    <a href="inspiration.html" class="nav-link active">Inspiration</a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-cta">Find a Spot →</a>
+  </div>
+</nav>
+
+<!-- ═══ INSPIRATION PAGE ═══ -->
+<div id="page-inspiration">
+  <div class="pg-inspiration">
+
+    <!-- Hero -->
+    <div class="pg-dark-hero">
+      <div class="pg-dark-hero-bg insp-hero-bg"></div>
+      <div class="pg-dark-hero-content">
+        <span class="pg-eyebrow" style="color:rgba(165,90,74,0.8)">Real proposals. Real moments.</span>
+        <h1 class="pg-dark-hero-title">The stories that<br>started with <em>yes.</em></h1>
+      </div>
+    </div>
+
+    <!-- Intro -->
+    <div class="insp-intro">
+      <p class="insp-intro-text">"The best proposals are not performances. They are moments of perfect honesty — the right place, the right person, the right words. These are five of them."</p>
+    </div>
+
+    <!-- Stories -->
+    <div class="insp-stories">
+
+      <article class="insp-story" id="story-swiss-bridge">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1566759996874-04d713cc224a?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Swiss Alps · Switzerland</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Swiss Alps · September 2024</span>
+          <h2 class="insp-story-title">He stopped in the middle of the bridge. She thought he was looking at the view.</h2>
+          <p class="insp-story-text">Thomas had walked this bridge once before, two years earlier, alone. He remembered thinking: this is where you bring someone when you want everything else to disappear. The gorge below. The peaks above. The only sound is water and wind. When he brought Clara here in September, she was looking over the railing at the valley floor when he turned to face her. She didn't notice him drop to one knee until she turned around.</p>
+          <div class="insp-story-meta">
+            <span>🏔 Alpine</span><span>🔒 Private</span><span>$$$</span><span>Swiss Alps</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('swiss-bridge')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-dolomites">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1696889520848-2ec1ddefc297?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Dolomites · Italy</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Dolomites, Italy · August 2024</span>
+          <h2 class="insp-story-title">They had been coming here for thirty years. He finally asked on the last evening.</h2>
+          <p class="insp-story-text">Robert and Elise first visited the Dolomites when they were both in their late twenties — a walking holiday they almost did not take. They came back every few years after that. The mountains were theirs in the way that places become yours when you return enough times. This August, on the last evening of their trip, Robert asked her to marry him on the ridge they had walked together four times before. She said she had been waiting for him to ask since the second visit.</p>
+          <div class="insp-story-meta">
+            <span>⛰ Mountain</span><span>🌅 Sunset</span><span>$$$</span><span>Dolomites</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('dolomites')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-bali-temple">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://plus.unsplash.com/premium_photo-1661892226787-4e37afae9740?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Ubud · Bali, Indonesia</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Bali · March 2024</span>
+          <h2 class="insp-story-title">She had been wanting to come to Bali for five years. He made sure it was worth the wait.</h2>
+          <p class="insp-story-text">Priya had a list. Bali was at the top. When Aarav finally said they were going, she assumed it was just a holiday. He had been corresponding with a private villa coordinator in Ubud for eight weeks — arranging a candlelit terrace above the jungle at golden hour, with a local floral artist who had spent two days creating a path of frangipanis leading from the villa entrance. She saw the flowers and stopped walking. He was already down on one knee at the end of the path.</p>
+          <div class="insp-story-meta">
+            <span>🌺 Tropical</span><span>🔒 Private</span><span>$$$</span><span>Bali</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('bali-temple')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-tulum-jungle">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1550155888-430386a434b4?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Tulum · Mexico</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Tulum, Mexico · February 2024</span>
+          <h2 class="insp-story-title">She chose the destination. He arrived with a plan she knew nothing about.</h2>
+          <p class="insp-story-text">Valentina had chosen Tulum for their anniversary trip herself. What she did not know was that Diego had immediately called the eco-lodge she had chosen and begun planning with the owner. By the time she landed, there was already a private roof terrace reserved for their last evening, a local chef, and a small envelope tucked inside the dinner menu. She opened the envelope thinking it was a welcome note. It was a letter he had written on the plane.</p>
+          <div class="insp-story-meta">
+            <span>🌴 Jungle</span><span>🔒 Private</span><span>$$$</span><span>Tulum</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('tulum-jungle')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-nicaragua-beach">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1611070674042-3957c8a7f700?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Pacific Coast · Nicaragua</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Nicaragua · November 2024</span>
+          <h2 class="insp-story-title">Most people never make it this far. That was exactly the point.</h2>
+          <p class="insp-story-text">The surf break at the end of the road required three hours of unpaved track and a boat crossing to reach. Connor had been once before, years earlier, and had never forgotten it. Wild Pacific coastline, no hotels, no roads — just open ocean and an unbroken horizon. He told Maya they were going somewhere remote. He did not fully explain how remote. When they arrived at sunset and she saw the beach stretching empty in both directions, she laughed and called it ridiculous. Then she looked at him. He was already reaching into his bag.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Pacific</span><span>🔒 Remote</span><span>$$</span><span>Nicaragua</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('nicaragua-beach')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-costa-rica-waterfall">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://images.unsplash.com/flagged/photo-1579353920811-40f13606f8df?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Arenal · Costa Rica</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Costa Rica · April 2024</span>
+          <h2 class="insp-story-title">He planned for six months. The waterfall did the rest.</h2>
+          <p class="insp-story-text">Will had been in contact with a local guide near Arenal for half a year — researching the trails, the timing, the exact point where the forest opens onto the falls. He wanted no tourists, no noise, just the two of them and the sound of water. He told Camila they were doing a morning hike. She brought sunscreen and a light jacket. When the trail broke through the tree line and she saw the waterfall crashing into the pool below, she went completely still. He waited. Then he reached for her hand, turned her around, and went down on one knee in the mist.</p>
+          <div class="insp-story-meta">
+            <span>💧 Waterfall</span><span>🔒 Private</span><span>$$</span><span>Costa Rica</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('costa-rica-waterfall')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-maldives-overwater">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1615920292477-7ffd3935672c?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">South Malé Atoll · Maldives</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Maldives · January 2025</span>
+          <h2 class="insp-story-title">The Indian Ocean at their feet. She had no idea the champagne was already chilled.</h2>
+          <p class="insp-story-text">Finn had booked the overwater villa seven months in advance and said nothing. He spent the weeks before the trip in quiet coordination with the resort — arranging a private sunset deck setup, a bottle of champagne they had shared on their first anniversary, and a photographer who would arrive by kayak from the adjacent bungalow. Nadia thought the trip was a belated birthday present. When they stepped onto the deck at sunset and she saw the table set for two over open water, she turned to him. He was already on one knee with the ocean behind him.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Overwater</span><span>🔒 Private</span><span>$$$$</span><span>Maldives</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('maldives-overwater')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-santorini-caldera">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1738581505892-ae835e6f35d5?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Oia, Santorini · Greece</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Santorini · May 2024</span>
+          <h2 class="insp-story-title">The whole island was watching the sunset. Only she didn't see it coming.</h2>
+          <p class="insp-story-text">Every evening in Oia, the cliffside fills with people watching the sun drop behind the caldera. Alex had arranged a private terrace above the crowd — a small whitewashed platform belonging to a boutique hotel, accessible only to guests, looking directly over the rim. He had told Sophia they had a dinner reservation. When the last sliver of sun disappeared and the caldera turned violet, she exhaled and said it was the most beautiful thing she had ever seen. He said he agreed. Then he said her name. She turned. He was down on one knee with the whole sky behind him.</p>
+          <div class="insp-story-meta">
+            <span>🏛 Caldera</span><span>🔒 Private</span><span>$$$$</span><span>Santorini</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('santorini-caldera')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-portugal-cliffs">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Sintra · Portugal</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Portugal · October 2024</span>
+          <h2 class="insp-story-title">He had the ring in his pocket for three days. The right moment kept being the next one.</h2>
+          <p class="insp-story-text">Sam had brought the ring on the flight from London and spent two days in Lisbon waiting for the perfect moment that never quite arrived. On the third day they drove to Sintra and walked up through the palace grounds to the cliffs at Cabo da Roca, the westernmost point of mainland Europe. The wind was coming off the Atlantic and the light was the colour of old gold. Ana was standing at the very edge looking out at the ocean. He walked up beside her. She thought he was going to say something about the view. He said something else entirely.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Atlantic</span><span>👥 Light Crowd</span><span>$$</span><span>Portugal</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('portugal-cliffs')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-australia-coast">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1742358613913-71ffdfb07512?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Great Ocean Road · Victoria, Australia</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Australia · March 2025</span>
+          <h2 class="insp-story-title">She grew up an hour from here. He flew twelve thousand kilometres to ask.</h2>
+          <p class="insp-story-text">Jade had talked about the Great Ocean Road her whole life. When Tom said he had sorted a long weekend road trip, she assumed it was just a holiday. He had been planning for four months. He had a photographer booked to meet them at sunrise at the Twelve Apostles with one instruction: stay out of sight until it happens. Jade cried before he finished the question. Tom says the Southern Ocean was the loudest backdrop he has ever proposed against. She says she barely heard the waves.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Coastal</span><span>🌅 Sunrise</span><span>$$$</span><span>Australia</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('australia-coast')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-amalfi">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Positano, Amalfi Coast · Italy</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Amalfi Coast · June 2024</span>
+          <h2 class="insp-story-title">He told her it was just lunch. She had no idea about the lemon grove.</h2>
+          <p class="insp-story-text">James spent four months planning a proposal on the Amalfi Coast. He had been researching the best places to propose in Positano since February, quietly eliminating one idea after another. Then a local hotel owner told him about a private terrace above the cliffside — carved into the rock face, draped in lemon trees, invisible from the path below. He booked it. Told Sarah it was just a long lunch. When the guitarist started playing as they sat down, she thought it was a coincidence. When she turned to ask why he was so quiet, he was already on one knee.</p>
+          <div class="insp-story-meta">
+            <span>🏔 Cliff</span><span>🔒 Private</span><span>$$$$</span><span>Amalfi Coast</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('amalfi')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-bali-rice">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Tegallalang, Ubud · Bali</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Bali · February 2024</span>
+          <h2 class="insp-story-title">He woke her at 4:30am. She was furious. Then she saw the rice terraces.</h2>
+          <p class="insp-story-text">Emma made her feelings clear at 4:30am when Marcus shook her awake and said they needed to leave immediately. But he had arranged a private sunrise access to the Tegallalang rice terraces before the tourist crowds arrived — just them, a blanket, and a breakfast organised with the guesthouse the night before. The man they passed on the path and assumed was a local photographer was actually the photographer Marcus had hired. He had been in position for forty minutes. Emma still does not entirely forgive the early start. She says the photos are worth it.</p>
+          <div class="insp-story-meta">
+            <span>🌿 Jungle</span><span>🔒 Private</span><span>$$$</span><span>Bali</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('bali-rice')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-maldives">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">North Malé Atoll · Maldives</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Maldives · December 2023</span>
+          <h2 class="insp-story-title">The sandbank disappears at high tide. They had twenty minutes.</h2>
+          <p class="insp-story-text">Daniel and Camille were staying at a resort in the North Malé Atoll when a concierge — quietly briefed two weeks earlier — arranged a private seaplane transfer to a sandbank that exists for only a few hours each day before the Indian Ocean reclaims it. Daniel had the champagne chilling in a bucket at the water's edge, rose petals in a circle, and the exact time of sunset calculated to the minute. He dropped to one knee as the horizon turned gold. The water was already at their ankles when they finally broke the embrace. Camille says she would have stayed anyway.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Ocean</span><span>🔒 Private</span><span>$$$$</span><span>Maldives</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('maldives')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-santorini">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Oia, Santorini · Greece</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Santorini · August 2024</span>
+          <h2 class="insp-story-title">She bought the dress that morning. He had already planned everything around it.</h2>
+          <p class="insp-story-text">On the morning of what Lexi thought was their anniversary dinner, she spotted a black and gold dress in a small boutique in Oia — handmade on the island. She bought it on a whim. What she did not know was that her partner had already arranged a private clifftop dinner overlooking the caldera, timed to sunset, with a local photographer posing as a tourist on the terrace below. He read her a letter. Eight minutes later, he got down on one knee. The Aegean turned pink behind them. She said yes before he finished the sentence.</p>
+          <div class="insp-story-meta">
+            <span>🏙 Clifftop</span><span>🔒 Private</span><span>$$$$</span><span>Santorini</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('santorini')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-costa-rica">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)),url('https://plus.unsplash.com/premium_photo-1670020264568-a8adc2da5b61?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Monteverde Cloud Forest · Costa Rica</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Costa Rica · March 2024</span>
+          <h2 class="insp-story-title">Suspended in the mist, 150 metres above the jungle floor.</h2>
+          <p class="insp-story-text">Luca arranged an early-access private hanging bridge tour in Monteverde — just the two of them and a guide who had been instructed to quietly disappear at the right moment. Standing on a bridge suspended in the mist above the cloud forest canopy, howler monkeys audible below, the entire world out of reach, he asked. Sofia laughed first. Then cried. Then said yes eleven times on the walk back down, slightly louder each time. The guide — who was not quite as far away as instructed — heard eleven.</p>
+          <div class="insp-story-meta">
+            <span>🌿 Jungle</span><span>👥 Light Crowd</span><span>$$</span><span>Costa Rica</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('costa-rica')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-tulum">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Cenote Dos Ojos · Tulum, Mexico</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Tulum · April 2024</span>
+          <h2 class="insp-story-title">The cenote was empty at sunrise. He had arranged that too.</h2>
+          <p class="insp-story-text">Getting private access to a cenote near Tulum at 6am requires knowing the right person. Jake had been corresponding with a local guide for six weeks. No tourists, no crowds — just the two of them standing at the edge of a naturally lit underground pool, turquoise water glowing in the early light. He had wrapped the ring in a handwritten note and placed it inside a small woven bag from the market, which he handed her as if it was a gift from the trip. She thought it was a bracelet. When she unfolded the note, her hands started shaking before she even opened the box.</p>
+          <div class="insp-story-meta">
+            <span>💧 Cenote</span><span>🔒 Private</span><span>$$$</span><span>Tulum</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('tulum')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-algarve">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Benagil Sea Cave · Algarve, Portugal</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Algarve · September 2024</span>
+          <h2 class="insp-story-title">He kayaked into a hidden sea cave with a ring in a dry bag.</h2>
+          <p class="insp-story-text">Most visitors to the Benagil Cave arrive by boat with thirty other tourists. Ben arranged a private kayak at golden hour, when the tour boats are gone and the cave fills with horizontal evening light. He had the ring in a waterproof dry bag strapped to the bow. They paddled through the narrow entrance and emerged inside as the light poured through the natural skylight in the ceiling, turning the water gold. He stopped paddling, reached for the dry bag, and asked. The cave acoustics, she later noted, made the yes sound magnificent.</p>
+          <div class="insp-story-meta">
+            <span>🌊 Ocean</span><span>🔒 Private</span><span>$$</span><span>Algarve, Portugal</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('algarve')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-provence">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1733690438444-00438ef03aa7?q=80&w=800&auto=format&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Valensole Lavender Fields · Provence, France</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">South of France · July 2024</span>
+          <h2 class="insp-story-title">He had written her letters for three years. She didn't know until the lavender field.</h2>
+          <p class="insp-story-text">Marc had been writing letters to Isabelle for three years — not sending them, just writing them, placing them inside a small leather-bound book in his desk drawer. He arranged a private sunset access to a lavender farm near Valensole. He told her a photographer friend wanted to do a portrait session. When they reached the far edge of the field, he handed her the book. She read three letters before she understood what was happening. She did not need to read the fourth.</p>
+          <div class="insp-story-meta">
+            <span>🌾 Rural</span><span>🔒 Private</span><span>$$$</span><span>South of France</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('provence')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story" id="story-switzerland">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Bernese Oberland · Switzerland</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Switzerland · October 2024</span>
+          <h2 class="insp-story-title">A private cable car. Dusk. The Jungfrau. He had the date engraved inside.</h2>
+          <p class="insp-story-text">Oliver arranged a private cable car access in the Bernese Oberland at dusk — a spot known to locals but almost never found by visitors, with an unobstructed view of the Jungfrau as the last light hit the snowfields. He told Claire they were going for dinner in the village. When they stepped out onto the platform above the valley, the sun was setting behind the Eiger and there was nobody else anywhere. She describes the silence as the loudest thing she has ever experienced. He says she cried before he said a word.</p>
+          <div class="insp-story-meta">
+            <span>⛰ Mountain</span><span>🔒 Private</span><span>$$$$</span><span>Switzerland</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('switzerland')">Read the full story →</button>
+        </div>
+      </article>
+
+      <article class="insp-story rev" id="story-nicaragua">
+        <div class="insp-story-img">
+          <div class="insp-story-img-bg" style="background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800&q=75&fit=crop') center/cover"></div>
+          <div class="insp-story-loc">Isla de Ometepe · Nicaragua</div>
+        </div>
+        <div class="insp-story-body">
+          <span class="insp-story-eyebrow">Nicaragua · January 2024</span>
+          <h2 class="insp-story-title">No roads. No other tourists. Two volcanos. She had no idea.</h2>
+          <p class="insp-story-text">Ryan spent three days on Ometepe before Natalie arrived — meeting locals, learning the island, eventually finding a boatman willing to take them to a black sand cove accessible only by water, on the far side of the island where the two volcanos meet the lake. No roads reach it. No tour boats stop there. When the boat rounded the headland and they saw the cove — obsidian sand, a wall of jungle, two perfect volcanic peaks reflected in the water — she said it was the most beautiful place she had ever seen. He said he agreed. Then he reached into his bag.</p>
+          <div class="insp-story-meta">
+            <span>🌋 Volcano</span><span>🔒 Private</span><span>$$</span><span>Nicaragua</span>
+          </div>
+          <button class="insp-read-more" onclick="openStoryPage('nicaragua')">Read the full story →</button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="pg-cta-strip">
+      <p class="pg-eyebrow" style="text-align:center;color:rgba(244,241,235,0.4);margin-bottom:16px">Your story starts here</p>
+      <h2 class="pg-cta-strip-title">Find the place that<br>becomes your story.</h2>
+      <p class="pg-cta-strip-sub">Explore our curated collection of the world's finest proposal locations.</p>
+      <a href="index.html" class="pg-cta-btn" style="text-decoration:none;display:inline-block">Explore Proposal Spots →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ STORY DETAIL PAGE ═══ -->
+<div id="page-story">
+  <div class="pg-story">
+    <button class="story-back-btn" onclick="showPage('inspiration')">← Back to Stories</button>
+    <div class="story-hero">
+      <div class="story-hero-bg" id="story-hero-bg"></div>
+      <div class="story-hero-content">
+        <span class="pg-eyebrow" id="story-eyebrow" style="color:rgba(165,90,74,0.9)"></span>
+        <h1 class="story-hero-title" id="story-title"></h1>
+        <div class="story-meta" id="story-meta"></div>
+      </div>
+    </div>
+    <div class="story-body" id="story-body"></div>
+    <div class="story-footer">
+      <p class="story-footer-label">Find a spot like this</p>
+      <a href="index.html" class="pg-cta-btn" id="story-explore-btn" style="text-decoration:none;display:inline-block">Explore spots →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORY_DATA = {
+  'amalfi': {
+    bg: 'linear-gradient(150deg,#1a1208,#2a1e10)',
+    photo: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1200&q=80&fit=crop',
+    eyebrow: 'Amalfi Coast, Italy · June 2024',
+    title: 'He told her it was just lunch. She had no idea about the lemon grove.',
+    meta: ['🏔 Cliff', '🔒 Private', '$$$$', 'Amalfi Coast'],
+    dest: 'Amalfi Coast',
+    body: `<p>James had been planning for four months. He had dismissed a dozen ideas — a boat trip, a rooftop restaurant, a beach at sunset — before a local hotel owner mentioned a private terrace carved into the cliffside above Positano. It was invisible from the path below. Most people walk past without ever knowing it exists.</p>
+<p>He booked it in January for a June trip. He told no one except the hotel, the guitarist, and the photographer he had hired to be in position before they arrived.</p>
+<div class="story-pull">"She thought the guitarist was playing for another table. She asked me if we should move so he had more room."</div>
+<p>Sarah had been told they were going for a late lunch. When they arrived at the terrace and she saw the table set with wildflowers — which James had picked himself that morning, getting up at six to find them before she woke — she assumed it was the hotel's standard decoration. When the guitarist began playing her favourite song around the corner, she thought it was a coincidence.</p>
+<p>James had timed everything to the minute. When she turned to ask why he'd gone so quiet, he was already on one knee.</p>
+<p>She said yes before he finished the sentence. They stayed at the table for three hours. The guitarist played until the sun went down. James says the lemon grove smelled extraordinary. Sarah says she doesn't remember the lemon grove at all.</p>`
+  },
+  'bali-rice': {
+    bg: 'linear-gradient(150deg,#0e1a08,#162410)',
+    photo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&fit=crop',
+    eyebrow: 'Tegallalang, Ubud, Bali · February 2024',
+    title: 'He woke her at 4:30am. She was furious. Then she saw the rice terraces.',
+    meta: ['🌿 Rice Terrace', '🔒 Private', '$$$', 'Bali'],
+    dest: 'Bali',
+    body: `<p>Emma's exact words at 4:30am were, by her own account, unprintable. Marcus had shaken her awake, told her they needed to leave immediately, and handed her clothes without explanation. She describes her mood as "not ideal."</p>
+<p>What she didn't know was that Marcus had arranged private early-morning access to the Tegallalang rice terraces — the same terraces that draw hundreds of tourists by 8am, but at 5am belong entirely to the mist and the birds and whoever is there first.</p>
+<div class="story-pull">"The terraces were completely still. The mist was rising from the valley. I forgot I was tired."</div>
+<p>He had also coordinated a small breakfast — fruit, coffee in a flask, a blanket — which the guesthouse owner had arranged the night before while Emma slept. He had carried it in a bag she assumed was just his camera equipment.</p>
+<p>The man they passed on the narrow path, who appeared to be photographing the sunrise, was in fact a photographer Marcus had hired. He had been in position for forty minutes, waiting in the dark.</p>
+<p>Emma still maintains she did not fully forgive the 4:30am wakeup until approximately forty minutes after the proposal, when she saw the photographs. Marcus disagrees with this timeline. The photographer, who witnessed the whole thing, declines to comment.</p>`
+  },
+  'maldives': {
+    bg: 'linear-gradient(150deg,#06101a,#0c1a2a)',
+    photo: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1200&q=80&fit=crop',
+    eyebrow: 'North Malé Atoll, Maldives · December 2023',
+    title: 'The sandbank disappears at high tide. They had twenty minutes.',
+    meta: ['🌊 Ocean', '🔒 Private', '$$$$', 'Maldives'],
+    dest: 'Maldives',
+    body: `<p>The sandbank appears for approximately three hours per day, depending on the tide. At its widest, it is perhaps sixty metres long and eight metres across — a strip of white sand in the middle of the Indian Ocean, surrounded by water in every direction. By afternoon, it is gone.</p>
+<p>Daniel had been corresponding with the resort concierge for two weeks. He had the tide tables. He had the champagne requested, the rose petals arranged, the exact sunset time calculated to within a minute. The seaplane transfer had been booked as a "scenic excursion" so Camille would have no reason to suspect anything unusual.</p>
+<div class="story-pull">"The pilot landed and I saw the setup from the window. I already knew before we got off the plane."</div>
+<p>Camille, for the record, says she did not know until she stepped onto the sandbank. Daniel says the expression on her face as they descended from the aircraft suggests otherwise. They have agreed to disagree.</p>
+<p>He dropped to one knee as the sun hit the horizon. The champagne was chilling in a bucket at the waterline. The water was already at their ankles when they finally broke the embrace.</p>
+<p>They made it back to the seaplane with three minutes to spare before the tide returned. Camille says she would have stayed anyway. Daniel believes her.</p>`
+  },
+  'santorini': {
+    bg: 'linear-gradient(150deg,#12101e,#1c1a2e)',
+    photo: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80&fit=crop',
+    eyebrow: 'Oia, Santorini, Greece · August 2024',
+    title: 'She bought the dress that morning. He had planned everything around a different one.',
+    meta: ['🏛 Clifftop', '🔒 Private', '$$$$', 'Santorini'],
+    dest: 'Santorini',
+    body: `<p>The dress was black and gold, handmade on the island, spotted in a boutique in Oia on what Lexi thought was just a morning of wandering. She bought it on impulse. Her partner — who had arranged a private clifftop dinner for that evening, timed to the second of sunset, with a photographer in position below the terrace — had no idea she would walk in wearing it.</p>
+<p>He had planned the proposal for a different dress entirely. The black and gold was, in his words, "an upgrade I didn't deserve credit for."</p>
+<div class="story-pull">"She looked at me across the table and said she felt like she was in a film. I thought: that's the moment."</div>
+<p>The photographer, who had been told to pose as a tourist and stay at least thirty metres away, later admitted he had moved closer than instructed because the light on the terrace was too good to waste.</p>
+<p>He read her a letter. Eight minutes later, he got down on one knee. The Aegean turned pink behind them. She said yes before he finished the sentence, which he considers slightly unfair given the effort that had gone into the ending.</p>
+<p>They are still together. The dress is framed.</p>`
+  },
+  'costa-rica': {
+    bg: 'linear-gradient(150deg,#081408,#101e10)',
+    photo: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200&q=80&fit=crop',
+    eyebrow: 'Monteverde Cloud Forest, Costa Rica · March 2024',
+    title: 'Suspended in the mist. 150 metres above the jungle. She said yes eleven times.',
+    meta: ['🌿 Jungle', '🌉 Bridge', '$$', 'Costa Rica'],
+    dest: 'Costa Rica',
+    body: `<p>The private hanging bridge tour was booked as a "sunrise nature walk." Just the two of them and a local guide, starting before the cloud forest opened to regular visitors. Luca had briefed the guide three days earlier.</p>
+<p>The guide's instructions were simple: get them to the third bridge by 6:15am, then quietly disappear. He did both things.</p>
+<div class="story-pull">"You could hear howler monkeys somewhere below us. The entire world was underneath that bridge."</div>
+<p>Standing on a suspension bridge in the mist, the jungle canopy spread out beneath them and the clouds moving through at eye level, Luca asked. Sofia laughed first. This is apparently a habit of hers in moments of high emotion.</p>
+<p>Then she cried. Then she said yes.</p>
+<p>According to Luca, she said it eleven times on the walk back down, each repetition slightly louder than the last. Sofia maintains the number was four and that Luca has embellished. The guide — who had not gone as far as instructed and was still within earshot for most of the walk — has confirmed eleven.</p>
+<p>They visit Costa Rica every year. Sofia says it smells like the best moment of her life.</p>`
+  },
+  'tulum': {
+    bg: 'linear-gradient(150deg,#1a0e04,#241604)',
+    photo: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=1200&q=80&fit=crop',
+    eyebrow: 'Cenote Dos Ojos, Tulum, Mexico · April 2024',
+    title: 'The cenote was empty at sunrise. He had arranged that too.',
+    meta: ['💧 Cenote', '🔒 Private', '$$$', 'Tulum'],
+    dest: 'Tulum',
+    body: `<p>Getting private access to a cenote near Tulum before the tourists arrive requires knowing the right person. Jake had been corresponding with a local guide for six weeks. He arrived in Tulum three days before his girlfriend, used the time to confirm the access, walk the route, and test exactly what the light looked like inside the cave at 6am.</p>
+<p>The answer was: otherworldly. Shafts of light through the cave ceiling, turquoise water with no current, a silence that made conversation feel inappropriate.</p>
+<div class="story-pull">"She opened the bag and went very still. Then she looked at me. Then back at the note. Then she started shaking."</div>
+<p>He had wrapped the ring in a handwritten note and placed it inside a small woven bag from the local market — the kind she collected from every trip. He handed it to her as they stood at the edge of the water. She assumed it was a trinket from the market.</p>
+<p>When she unfolded the note, her hands were shaking before she opened the box. He says she read the note three times before looking up. She doesn't remember reading it at all.</p>
+<p>She says the cenote proposal was the most beautiful thing she has ever experienced. He is fairly confident she also means the cenote.</p>`
+  },
+  'algarve': {
+    bg: 'linear-gradient(150deg,#0a1018,#141e2a)',
+    photo: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=80&fit=crop',
+    eyebrow: 'Benagil Sea Cave, Algarve, Portugal · September 2024',
+    title: 'He kayaked into a hidden sea cave with a ring in a dry bag and a plan that nearly got waterlogged.',
+    meta: ['🌊 Sea Cave', '🔒 Private', '$$', 'Algarve'],
+    dest: 'Algarve',
+    body: `<p>The Benagil Cave in the Algarve is one of the most photographed places in Portugal. By midday it is crowded with tour boats and swimmers. At golden hour, after the last excursion has left, it is something else entirely.</p>
+<p>Ben rented a double kayak at 5:30pm, when the tour operators were packing up. He had the ring in a waterproof dry bag strapped to the bow of the kayak — a fact that caused him moderate anxiety for the entire paddle out, given that the swell was picking up.</p>
+<div class="story-pull">"The light through the ceiling of the cave was turning everything gold. I thought: if not now, when?"</div>
+<p>They paddled through the narrow entrance and emerged inside the cave as the evening light poured through the natural skylight in the ceiling — a circular opening in the rock above the water, throwing a column of gold into the sea.</p>
+<p>He stopped paddling. Reached for the dry bag. Opened it with hands that he insists were completely steady. She disputes this.</p>
+<p>The acoustics inside the cave, she later noted, made the yes sound magnificent. He suggests she exaggerated. She maintains she did not.</p>
+<p>They paddled back in the dark. He says it was the best paddle of his life. She says she barely remembers the paddle at all.</p>`
+  },
+  'provence': {
+    bg: 'linear-gradient(150deg,#1a1430,#241e40)',
+    photo: 'https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=1200&q=80&fit=crop',
+    eyebrow: 'Valensole, Provence, France · July 2024',
+    title: 'He had been writing her letters for three years. She found out in a lavender field.',
+    meta: ['🌾 Lavender Field', '🔒 Private', '$$$', 'South of France'],
+    dest: 'South of France',
+    body: `<p>Marc had been writing Isabelle letters since their second month together. Not sending them — just writing them, folding them, placing them in a small leather-bound book he kept in the bottom drawer of his desk. By July 2024, there were forty-one letters. She had no idea any of them existed.</p>
+<p>He arranged a sunset access to a lavender farm near Valensole — private, end of day, when the tour groups were gone and the fields smelled strongest. He told Isabelle a photographer friend wanted to do a portrait session. She wore a white dress, which she insists was a coincidence.</p>
+<div class="story-pull">"She read three letters in the field. She didn't finish the third. She just looked up."</div>
+<p>When they reached the far edge of the field, Marc stopped walking and handed her the book. He told her what it was. She opened it.</p>
+<p>She read the first letter standing up. She read the second sitting down in the lavender. She started the third, stopped partway through, and looked up at him. She didn't need to read the rest.</p>
+<p>He proposed in the field as the sun went down over the hills. Isabelle says she has now read all forty-one letters. She says the forty-first is her favourite. Marc won't say what it says. He says she can tell people if she wants to.</p>`
+  },
+  'switzerland': {
+    bg: 'linear-gradient(150deg,#0c1420,#101e2e)',
+    photo: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80&fit=crop',
+    eyebrow: 'Bernese Oberland, Switzerland · October 2024',
+    title: 'A private cable car. Dusk. The Jungfrau. He had the date engraved inside the band.',
+    meta: ['⛰ Alps', '🔒 Private', '$$$$', 'Switzerland'],
+    dest: 'Switzerland',
+    body: `<p>Oliver had researched the Bernese Oberland for four months before finding the spot: a cable car station above the valley that locals used but tourists almost never discovered, with an unobstructed view of the Jungfrau on one side and the Eiger on the other. No signage directing people to it. No entry in the guidebooks.</p>
+<p>He had arranged private access at dusk. He told Claire they were going for dinner in the village. She spent the cable car ride convinced something was wrong with him because he kept looking out the window and not speaking.</p>
+<div class="story-pull">"There was no one else anywhere. The silence was the loudest thing I had ever experienced."</div>
+<p>When they stepped out onto the platform and she saw the Jungfrau in the last light — snowfields turning amber, the valley below in shadow, everything perfectly still — she said nothing for almost a minute. Oliver says it was the most peaceful sixty seconds of his life.</p>
+<p>Then he reached into his coat. She turned. He says she cried before he said a word. She says that's not possible. He says he has a very clear memory of this particular sequence of events.</p>
+<p>She discovered the engraved date on the inside of the band the following morning. The jeweller, he notes, called it one of the better requests he'd received that year.</p>`
+  },
+  'nicaragua': {
+    bg: 'linear-gradient(150deg,#10180a,#182008)',
+    photo: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&q=80&fit=crop',
+    eyebrow: 'Isla de Ometepe, Nicaragua · January 2024',
+    title: 'No roads reach it. No tour boats stop there. She had absolutely no idea.',
+    meta: ['🌋 Volcano', '🔒 Private', '$$', 'Nicaragua'],
+    dest: 'Nicaragua',
+    body: `<p>Ryan arrived on Ometepe three days before Natalie. He had one task: find the place. He rented a bicycle, explored the island's unpaved roads, and eventually asked a fisherman who took him by boat around the far side — where the two volcanos meet the lake and the jungle comes down to a black sand cove with no road access, no boat traffic, and no other tourists.</p>
+<p>He spent the next three days establishing whether the boatman would be willing to take them there at sunset. The boatman said yes. Ryan booked it.</p>
+<div class="story-pull">"When we came around the headland and she saw the cove for the first time — the two volcanos reflected in the water — she just said: oh."</div>
+<p>Natalie arrived on a Wednesday. Ryan told her they were going exploring. When the wooden boat rounded the headland and the cove opened up — obsidian sand, a wall of jungle, the twin peaks of Concepción and Maderas reflected perfectly in the still water — Natalie said nothing. Just: oh.</p>
+<p>He asked her to marry him as the sun went behind the western peak. She said yes before the light was gone. The boatman gave them forty minutes before starting the engine. Ryan says forty minutes was not nearly enough. Natalie agrees.</p>`
+  },
+  'costa-rica-waterfall': {
+    bg: 'linear-gradient(150deg,#081408,#101e10)',
+    photo: 'https://images.unsplash.com/flagged/photo-1579353920811-40f13606f8df?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Arenal, Costa Rica · April 2024',
+    title: 'He planned for six months. The waterfall did the rest.',
+    meta: ['💧 Waterfall', '🔒 Private', '$$', 'Costa Rica'],
+    dest: 'Costa Rica',
+    body: `<p>Will had been in contact with a local guide near Arenal for six months before Camila ever knew anything was being planned. He wanted one specific thing: a waterfall with no other tourists, reachable by trail, at a time of day when the light came through the canopy at the right angle.</p>
+<p>He told Camila they were doing a morning hike. She packed sunscreen and a light jacket, which he noted was exactly right and felt slightly guilty about.</p>
+<div class="story-pull">"When the trail opened up and she saw the waterfall for the first time, she stopped walking completely. She just stood there."</div>
+<p>The falls dropped into a wide natural pool, surrounded on three sides by cloud forest. The mist from the base caught the early light and turned everything soft. The guide had stepped off the path well before they arrived.</p>
+<p>Will waited. When Camila walked to the edge and turned to say something about the light, he was already down on one knee.</p>
+<p>She said later that she had been completely silent for about thirty seconds after he asked. She was not aware of this. He was very aware of this.</p>
+<p>They swam in the pool after. He had not planned that part. It turned out to be the best part.</p>`
+  },
+  'maldives-overwater': {
+    bg: 'linear-gradient(150deg,#06101a,#0c1a2a)',
+    photo: 'https://images.unsplash.com/photo-1615920292477-7ffd3935672c?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'South Male Atoll, Maldives · January 2025',
+    title: 'The Indian Ocean at their feet. She had no idea the champagne was already chilled.',
+    meta: ['🌊 Overwater', '🔒 Private', '$$$$', 'Maldives'],
+    dest: 'Maldives',
+    body: `<p>Finn had booked the overwater villa seven months in advance, at a resort in the South Male Atoll he had researched for three weeks. He chose it for one reason: the deck faced due west, unobstructed, with open ocean to the horizon and nothing between the railing and the sunset.</p>
+<p>Nadia thought the trip was a belated birthday present. She spent the long-haul flight reading a novel. He spent it reviewing notes he had exchanged with the resort concierge over the preceding months.</p>
+<div class="story-pull">"She stepped onto the deck and went completely still. I had about four seconds before she turned around."</div>
+<p>The concierge had arranged everything for their first evening: a small table set for two at the very edge of the deck, the champagne they had shared on their first anniversary chilling in a bucket at the railing, and a photographer who had arrived by kayak from the adjacent bungalow.</p>
+<p>Nadia walked out ahead of him, saw the setup, and stopped dead at the threshold. She turned slowly. He was already on one knee behind her, the Indian Ocean spread out to the horizon.</p>
+<p>She said yes immediately and then asked how long he had been planning it. He said seven months. She said that explained a lot of things she had found confusing. He asked what things. She said she would tell him after the honeymoon.</p>`
+  },
+  'santorini-caldera': {
+    bg: 'linear-gradient(150deg,#12101e,#1c1a2e)',
+    photo: 'https://images.unsplash.com/photo-1738581505892-ae835e6f35d5?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Oia, Santorini, Greece · May 2024',
+    title: 'The whole island was watching the sunset. Only she did not see it coming.',
+    meta: ['🏛 Caldera', '🔒 Private', '$$$$', 'Santorini'],
+    dest: 'Santorini',
+    body: `<p>Every evening in Oia, the cliffside fills with people. Hundreds of them, lining the walls and terraces, watching the sun drop behind the caldera rim. Alex had decided months earlier that this was not a limitation — it was cover.</p>
+<p>He had arranged a private terrace above the public viewing area: a small whitewashed platform belonging to a boutique hotel, accessible only to guests, with an unobstructed line of sight directly over the caldera. He told Sophia they had a dinner reservation.</p>
+<div class="story-pull">"She exhaled when the sun went down and said it was the most beautiful thing she had ever seen. I said I agreed. Then I said her name."</div>
+<p>Alex had been carrying the ring for three weeks — through Paris, through Athens, through two days in Santorini waiting for the right evening. He had almost asked twice before. Both times something had held him back.</p>
+<p>When Sophia turned her head at the sound of her name, he was on one knee. She said later that she did not process what she was seeing for a full two seconds. He says her expression in those two seconds is the thing he will remember longest.</p>
+<p>The crowd below on the public walkway began to applaud. Alex had not planned that part. He considers it the best unplanned detail of the entire evening.</p>`
+  },
+  'portugal-cliffs': {
+    bg: 'linear-gradient(150deg,#0a1018,#141e2a)',
+    photo: 'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Sintra and Cabo da Roca, Portugal · October 2024',
+    title: 'He had the ring in his pocket for three days. The right moment kept being the next one.',
+    meta: ['🌊 Atlantic', '👥 Light Crowd', '$$', 'Portugal'],
+    dest: 'Portugal',
+    body: `<p>Sam had flown from London with the ring already packed. The first evening in Lisbon, he had almost asked at a rooftop bar in Alfama. Too many people at adjacent tables. The second day, walking through Belem at sunset, he had reached into his pocket and then stopped. Not quite.</p>
+<p>On the third day they drove out to Sintra and walked up through the palace grounds to Cabo da Roca — the westernmost point of continental Europe, where the continent simply stops and the ocean takes over.</p>
+<div class="story-pull">"She was standing at the very edge looking out at the Atlantic. She said something about how strange it was to be at the end of Europe. Then she went quiet."</div>
+<p>The light in October in Portugal has a particular quality: low and warm, the shadows long, everything slightly amber. When Ana walked to the edge and stood looking west, the wind coming off the ocean and the light turning her hair gold, Sam understood that this was the moment.</p>
+<p>He walked up beside her. She thought he was going to say something about the view. He said something else entirely.</p>
+<p>She turned. He was already down on one knee on the pale stone, the Atlantic and the whole sky behind him. She said yes and then laughed and then said yes again and then started crying, in that order, very quickly.</p>`
+  },
+  'australia-coast': {
+    bg: 'linear-gradient(150deg,#0a1018,#101824)',
+    photo: 'https://images.unsplash.com/photo-1742358613913-71ffdfb07512?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Great Ocean Road, Victoria, Australia · March 2025',
+    title: 'She grew up an hour from here. He flew twelve thousand kilometres to ask.',
+    meta: ['🌊 Coastal', '🌅 Sunrise', '$$$', 'Australia'],
+    dest: 'Australia',
+    body: `<p>Jade had talked about the Great Ocean Road since the first month they were together — the drive her family had done when she was twelve, the limestone stacks rising from the Southern Ocean, the way she had pressed her face against the car window and decided the world was enormous and worth exploring.</p>
+<p>Four months before the trip, Tom began planning. He booked flights to Melbourne, arranged a hire car, and found a photographer based in Warrnambool who specialised in sunrise shoots at the Twelve Apostles. His one instruction: stay out of sight until it is over.</p>
+<div class="story-pull">"She grew up near here. She knew this place. And she still had no idea."</div>
+<p>They arrived at the Twelve Apostles viewpoint before sunrise, in the dark. The sky was deep blue and the stacks were silhouettes against the pale horizon. Jade stood at the railing and watched the light come. When the sun cleared the cliff line and the ocean turned gold, she exhaled and said she had forgotten how big it was.</p>
+<p>Tom waited for one more moment — the instant the light hit the nearest stack full on and turned it amber. Then he turned, reached into his jacket, and went down on one knee.</p>
+<p>Jade cried before he finished the question. He considers this the greatest compliment he has ever received. She says it was not a compliment, she was just overwhelmed. He says that is the same thing.</p>`
+  },
+  'swiss-bridge': {
+    bg: 'linear-gradient(150deg,#0c1420,#101e2e)',
+    photo: 'https://images.unsplash.com/photo-1566759996874-04d713cc224a?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Swiss Alps, Switzerland · September 2024',
+    title: 'He stopped in the middle of the bridge. She thought he was looking at the view.',
+    meta: ['🏔 Alpine', '🔒 Private', '$$$', 'Swiss Alps'],
+    dest: 'Switzerland',
+    body: `<p>Thomas had walked this bridge once before, two years earlier, on a solo hiking trip through the Swiss Alps. He remembered standing at the midpoint and thinking: this is where you bring someone when you want everything else to disappear. The gorge below. The peaks above. No road noise, no crowds — just the sound of the river and the wind moving through the pines.</p>
+<p>He filed it away. Then he met Clara.</p>
+<p>He spent eight months planning the right moment to return. He booked a small mountain guesthouse nearby, arranged a late-morning start so the bridge would be theirs before the day walkers arrived, and told her they were doing an easy trail.</p>
+<div class="story-pull">"She was leaning over the railing, looking down at the water. I turned to face her. She had no idea."</div>
+<p>Clara was looking over the railing at the valley floor when Thomas turned. He dropped to one knee on the wooden planks. She didn't notice until she turned around. She later said the view made her gasp, and then she turned and gasped again for a completely different reason.</p>
+<p>A hiker appeared at the far end of the bridge approximately forty seconds after she said yes. Thomas considers the timing one of the great quiet victories of his life.</p>
+<p>They are getting married in Switzerland. Clara says the venue has to have a view. Thomas says that was always going to be the rule.</p>`
+  },
+  'dolomites': {
+    bg: 'linear-gradient(150deg,#161008,#201808)',
+    photo: 'https://images.unsplash.com/photo-1696889520848-2ec1ddefc297?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Dolomites, Italy · August 2024',
+    title: 'They had been coming here for thirty years. He finally asked on the last evening.',
+    meta: ['⛰ Mountain', '🌅 Sunset', '$$$', 'Dolomites'],
+    dest: 'Dolomites',
+    body: `<p>Robert and Elise first came to the Dolomites in their late twenties — a walking holiday they nearly did not take, booked on a whim after a longer trip fell through. They spent a week in a small village in the Val Gardena, walked every trail they could find, and left agreeing they would come back.</p>
+<p>They did come back. Seven more times over thirty years. The Dolomites were theirs in the way that a place becomes yours when you return to it long enough.</p>
+<div class="story-pull">"I knew this was the place. I think I had always known. I just kept finding reasons to wait one more year."</div>
+<p>This August, on the last evening of their eighth trip, Robert took Elise back to the ridge they had first walked together three decades earlier. The light was the same — that particular late-summer gold that turns the pale rock faces amber and makes the valley below look like something from a painting.</p>
+<p>He asked her to marry him as the sun went behind the western ridge.</p>
+<p>She said she had been waiting for him to ask since the second visit. He said he wished she had mentioned that earlier. She said she thought it was obvious. He says it was not obvious. This is, by all accounts, a very familiar dynamic for the two of them.</p>
+<p>The Dolomites remain their favourite place in the world. They are going back for the honeymoon.</p>`
+  },
+  'bali-temple': {
+    bg: 'linear-gradient(150deg,#0e1a08,#162410)',
+    photo: 'https://plus.unsplash.com/premium_photo-1661892226787-4e37afae9740?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Ubud, Bali, Indonesia · March 2024',
+    title: 'She had been wanting to come to Bali for five years. He made sure it was worth the wait.',
+    meta: ['🌺 Tropical', '🔒 Private', '$$$', 'Bali'],
+    dest: 'Bali',
+    body: `<p>Priya had kept a travel list since university. Bali was always near the top. When Aarav said they were finally going, she assumed it was a holiday. She started researching immediately. She was planning their itinerary on the flight over when he closed her laptop gently and said he had already taken care of the last evening.</p>
+<p>Aarav had been in contact with a private villa coordinator in Ubud for eight weeks. He had arranged a candlelit terrace above the jungle canopy at golden hour, with a local floral artist who had spent two days creating a path of fresh frangipanis from the villa entrance through the garden.</p>
+<div class="story-pull">"She stopped walking when she saw the flowers. The path went all the way to the terrace. I was already at the end of it."</div>
+<p>Priya stopped walking when she turned the corner and saw the path. She looked at him. He nodded. She looked back at the flowers. He had already moved to the end of the path and was on one knee by the time she reached him.</p>
+<p>She cried before she arrived. He considers this the best possible outcome. She says she had suspected something since he closed her laptop. He says that is a revision of history.</p>
+<p>Bali, she notes, was exactly what she had always imagined. The proposal, she says, she had not imagined at all. Which was, of course, the entire point.</p>`
+  },
+  'tulum-jungle': {
+    bg: 'linear-gradient(150deg,#1a0e04,#241604)',
+    photo: 'https://images.unsplash.com/photo-1550155888-430386a434b4?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Tulum, Mexico · February 2024',
+    title: 'She chose the destination. He arrived with a plan she knew nothing about.',
+    meta: ['🌴 Jungle', '🔒 Private', '$$$', 'Tulum'],
+    dest: 'Tulum',
+    body: `<p>Valentina found the eco-lodge on a travel blog and had the flights booked before the end of the week. She had been talking about Tulum for two years. The morning she booked the flights, Diego called the lodge.</p>
+<p>He spent the next six weeks in quiet correspondence with the owner — arranging a private rooftop terrace for their last evening, a local chef, candles, and one other thing: a small cream envelope, to be placed inside the dinner menu before they arrived.</p>
+<div class="story-pull">"She opened the envelope thinking it was a welcome note from the hotel. I watched her start to read it. Her face changed completely."</div>
+<p>Valentina opened the envelope as they sat down to dinner on the final night. She assumed it was a welcome card. She began to read. Her expression changed partway through the first paragraph.</p>
+<p>Diego had written the letter on the plane. He had rewritten it four times. The version she received was the fifth draft.</p>
+<p>She looked up from the letter. He was already standing. She said she already knew what was coming and that it did not make the moment any less extraordinary. He says that is the nicest thing anyone has ever said to him.</p>`
+  },
+  'nicaragua-beach': {
+    bg: 'linear-gradient(150deg,#10180a,#182008)',
+    photo: 'https://images.unsplash.com/photo-1611070674042-3957c8a7f700?q=80&w=1200&auto=format&fit=crop',
+    eyebrow: 'Pacific Coast, Nicaragua · November 2024',
+    title: 'Most people never make it this far. That was exactly the point.',
+    meta: ['🌊 Pacific', '🔒 Remote', '$$', 'Nicaragua'],
+    dest: 'Nicaragua',
+    body: `<p>Connor had found the beach on his first trip to Nicaragua, years before he met Maya. Three hours of unpaved track through the jungle, a river crossing, then a short boat ride. No hotels. No tour operators. Just a long curve of black volcanic sand, the Pacific breaking in long clean sets, and a horizon with nothing between you and Hawaii.</p>
+<p>He had thought about it often in the years since. Filed it in the part of his mind labelled: someday, with the right person.</p>
+<div class="story-pull">"She said it was ridiculous. Completely ridiculous. Then she looked at me and I saw that she understood."</div>
+<p>When he told Maya they were going somewhere remote, she asked how remote. He said fairly remote. She packed accordingly, which he considers impressive given that she had no real information to go on.</p>
+<p>They arrived at the beach at sunset. The light was coming from behind the tree line, turning the black sand deep purple at the waterline. There was no one else anywhere. Maya stood at the edge of the water for a long moment, and then turned and laughed and said it was completely ridiculous that a place like this existed.</p>
+<p>Connor said he agreed. Then he reached into his bag.</p>
+<p>She said yes with her feet still in the water. He says the Pacific Coast of Nicaragua is the most underrated proposal destination in the world. She says she is somewhat biased toward agreeing with this assessment.</p>`
+  }
+};
+
+function showPage(id) {
+  document.getElementById('page-inspiration').style.display = (id === 'inspiration') ? 'block' : 'none';
+  document.getElementById('page-story').style.display = (id === 'story') ? 'block' : 'none';
+  window.scrollTo(0, 0);
+}
+
+function openStoryPage(key) {
+  const story = STORY_DATA[key];
+  if (!story) return;
+  const heroBg = document.getElementById('story-hero-bg');
+  if (story.photo) {
+    heroBg.style.background = `linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.55)), url('${story.photo}') center/cover`;
+  } else {
+    heroBg.style.background = story.bg;
+  }
+  document.getElementById('story-eyebrow').textContent = story.eyebrow;
+  document.getElementById('story-title').textContent = story.title;
+  document.getElementById('story-meta').innerHTML = story.meta.map(m => `<span>${m}</span>`).join('');
+  document.getElementById('story-body').innerHTML = story.body;
+  const exploreBtn = document.getElementById('story-explore-btn');
+  if (exploreBtn) {
+    exploreBtn.textContent = `Explore ${story.dest} spots →`;
+    exploreBtn.href = 'index.html';
+  }
+  showPage('story');
+}
+
+// Show inspiration page by default
+showPage('inspiration');
+</script>
+</body>
+</html>
