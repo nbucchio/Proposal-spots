@@ -1907,8 +1907,8 @@ footer {
 .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
 .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
 .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
-.dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; transition: opacity 0.3s ease; }
-.dest-gallery-lightbox.open { opacity: 1; }
+.dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
 .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
 @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
 @media(max-width:480px) { .dest-gallery-masonry { columns: 1; } }
