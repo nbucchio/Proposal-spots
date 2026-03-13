@@ -841,7 +841,7 @@ nav.scrolled {
 .mc-amalfi   { background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-santorini{ background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-tulum    { background-image: url('https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
-.mc-costarica{ background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=900&q=80&fit=crop'); background-size: cover; background-position: center 60%; }
+.mc-costarica{ background-image: url('https://images.unsplash.com/photo-1587450924794-1d88bd9df3c0?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center 50%; }
 .mc-bali     { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-maldives { background-image: url('https://images.unsplash.com/photo-1550031675-030918aff0e4?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-algarve  { background-image: url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
@@ -5154,7 +5154,7 @@ footer {
         </div>
       </div>
       <div class="dest-card" onclick="goToDestination('Costa Rica')">
-        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=900&q=80&fit=crop');background-size:cover;background-position:center 60%"></div>
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1587450924794-1d88bd9df3c0?q=80&w=1471&auto=format&fit=crop');background-size:cover;background-position:center 50%"></div>
         <div class="dest-card-info">
           <span class="dest-card-country">Central America</span>
           <h3 class="dest-card-name">Costa Rica</h3>
@@ -6344,7 +6344,7 @@ footer {
     <div class="about-founder">
       <div class="about-founder-inner">
         <div class="about-founder-img-wrap">
-          <div class="about-founder-img-placeholder">Nicholas Bucchio</div>
+          <img class="about-founder-img" src="https://images.unsplash.com/photo-1773395120059-e9ad71e68171?q=80&w=800&auto=format&fit=crop" alt="A proposal moment at golden hour with volcano backdrop" style="object-position:center top;">
         </div>
         <div class="about-founder-text">
           <span class="about-founder-label">The founder</span>
@@ -8244,12 +8244,12 @@ const DEST_DATA = {
     budgetKey: 'tulum'
   },
   'Maldives': {
-    country: 'Indian Ocean', bg: 'linear-gradient(160deg,#021a1a,#042e2e)', photo: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1470&auto=format&fit=crop',
+    country: 'Indian Ocean', bg: 'linear-gradient(160deg,#021a1a,#042e2e)', photo: 'https://images.unsplash.com/photo-1503125210483-8b1d12bccdbe?q=80&w=1470&auto=format&fit=crop',
     sub: 'Private overwater villas, sandbanks that appear at low tide and disappear by afternoon, and a level of natural privacy that no other destination can match. The Maldives is the ultimate proposal destination.',
     budgetKey: 'maldives'
   },
   'Costa Rica': {
-    country: 'Central America', bg: 'linear-gradient(160deg,#081408,#101e10)', photo: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=900&q=80&fit=crop',
+    country: 'Central America', bg: 'linear-gradient(160deg,#081408,#101e10)', photo: 'https://images.unsplash.com/photo-1542130875-b759edb1e1a1?q=80&w=1199&auto=format&fit=crop',
     sub: 'Cloud forests suspended in mist, hanging bridges above the jungle canopy, hidden Pacific coves, and a biodiversity that makes every proposal feel like a David Attenborough scene.',
     budgetKey: 'costa-rica'
   },
@@ -8595,6 +8595,12 @@ const DEST_GALLERY_DATA = {
     { url: 'https://images.unsplash.com/photo-1672841828482-45faa4c70e50?q=80&w=1470&auto=format&fit=crop', alt: 'Palm tree at golden hour, Maldives' },
     { url: 'https://images.unsplash.com/photo-1750848299202-a95856df3be7?q=80&w=1471&auto=format&fit=crop', alt: 'Bridge over crystal clear Maldives water' },
     { url: 'https://images.unsplash.com/photo-1612900631807-6e32af134ff7?q=80&w=1074&auto=format&fit=crop', alt: 'Lush tropical landscape, Maldives' }
+  ],
+  'Costa Rica': [
+    { url: 'https://images.unsplash.com/photo-1519177827-eaba5b224092?q=80&w=1074&auto=format&fit=crop', alt: 'Lush tropical waterfall, Costa Rica' },
+    { url: 'https://images.unsplash.com/photo-1580094333632-438bdc04f79f?q=80&w=1170&auto=format&fit=crop', alt: 'Pacific coast at golden hour, Costa Rica' },
+    { url: 'https://images.unsplash.com/photo-1643460898106-3c917e60ae38?q=80&w=1170&auto=format&fit=crop', alt: 'Jungle eco-lodge terrace, Costa Rica' },
+    { url: 'https://images.unsplash.com/photo-1622596448281-9a2919a964e4?w=500&auto=format&fit=crop&q=60', alt: 'Tropical landscape at sunset, Costa Rica' }
   ]
 };
 
