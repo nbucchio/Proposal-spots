@@ -848,6 +848,7 @@ nav.scrolled {
 .mc-france   { background-image: url('https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-swiss    { background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
 .mc-nicaragua{ background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=900&q=80&fit=crop'); background-size: cover; background-position: center; }
+.mc-new-york  { background-image: url('https://images.unsplash.com/photo-1698027030876-8ef160b2181e?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-fiji     { background: #162c26; }
 
 /* ─────────────────────────────────────
@@ -5198,7 +5199,7 @@ footer {
         </div>
       </div>
       <div class="dest-card" onclick="goToDestination('New York')">
-        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=900&q=80&fit=crop');background-size:cover;background-position:center top"></div>
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1527267207156-3372670819dc?q=80&w=900&auto=format&fit=crop');background-size:cover;background-position:center"></div>
         <div class="dest-card-info">
           <span class="dest-card-country">USA</span>
           <h3 class="dest-card-name">New York</h3>
@@ -8243,7 +8244,7 @@ const DEST_DATA = {
     budgetKey: 'tulum'
   },
   'Maldives': {
-    country: 'Indian Ocean', bg: 'linear-gradient(160deg,#06101a,#0c1a2a)', photo: 'https://images.unsplash.com/photo-1503125210483-8b1d12bccdbe?q=80&w=1470&auto=format&fit=crop',
+    country: 'Indian Ocean', bg: 'linear-gradient(160deg,#021a1a,#042e2e)', photo: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1470&auto=format&fit=crop',
     sub: 'Private overwater villas, sandbanks that appear at low tide and disappear by afternoon, and a level of natural privacy that no other destination can match. The Maldives is the ultimate proposal destination.',
     budgetKey: 'maldives'
   },
@@ -8273,7 +8274,7 @@ const DEST_DATA = {
     budgetKey: 'switzerland'
   },
   'New York': {
-    country: 'USA', bg: 'linear-gradient(160deg,#08080e,#10101c)', photo: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=900&q=80&fit=crop',
+    country: 'USA', bg: 'linear-gradient(160deg,#0e0a06,#1a1208)', photo: 'https://images.unsplash.com/photo-1631729779674-1f369e1116b4?q=80&w=1470&auto=format&fit=crop',
     sub: 'Rooftop terraces above the Manhattan skyline, hidden garden courtyards in Brooklyn, the High Line at golden hour, and Central Park at dawn. New York proposals are cinematic by default — the city does half the work.',
     budgetKey: 'new-york'
   }
@@ -8583,6 +8584,12 @@ const DEST_EDITORIAL_DATA = {
 
 // ─── DESTINATION PHOTO GALLERIES ───
 const DEST_GALLERY_DATA = {
+  'New York': [
+    { url: 'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop', alt: 'Manhattan skyline at night, New York' },
+    { url: 'https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop', alt: 'New York City rooftop view at dusk' },
+    { url: 'https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop', alt: 'Romantic bokeh lights, New York evening' },
+    { url: 'https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop', alt: 'Twinkling city lights at golden hour, New York' }
+  ],
   'Maldives': [
     { url: 'https://images.unsplash.com/photo-1642313941064-beb140f6054f?q=80&w=1470&auto=format&fit=crop', alt: 'Private dock leading to the ocean, Maldives' },
     { url: 'https://images.unsplash.com/photo-1672841828482-45faa4c70e50?q=80&w=1470&auto=format&fit=crop', alt: 'Palm tree at golden hour, Maldives' },
