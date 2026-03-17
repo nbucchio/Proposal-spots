@@ -85,28 +85,23 @@ nav {
   background: linear-gradient(to top, rgba(28,28,28,0.8) 0%, rgba(28,28,28,0.2) 40%, transparent 100%);
 }
 
-.sdp-back, .sdp-heart-btn {
-  position: absolute;
-  top: 80px;
-  z-index: 100;
-  background: rgba(253,252,250,0.95);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  color: var(--ink);
-  transition: background 0.2s;
+.sdp-back {
+  position: absolute; top: 100px; left: 40px;
+  font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(244,241,235,0.9); background: rgba(28,28,28,0.32);
+  border: 1px solid rgba(244,241,235,0.2); border-radius: 100px;
+  padding: 8px 18px 8px 14px; cursor: pointer; backdrop-filter: blur(10px);
+  transition: background 0.2s; display: flex; align-items: center; gap: 7px; z-index: 2;
 }
-
-.sdp-back { left: 24px; gap: 6px; }
-.sdp-heart-btn { right: 24px; font-size: 18px; }
-.sdp-back:hover, .sdp-heart-btn:hover { background: var(--white); }
+.sdp-back:hover { background: rgba(28,28,28,0.55); }
+.sdp-heart-btn {
+  position: absolute; top: 80px; right: 24px; z-index: 100;
+  background: rgba(253,252,250,0.95); border: none; border-radius: 50%;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s;
+}
+.sdp-heart-btn:hover { background: var(--white); }
 
 .sdp-hero-bottom {
   position: relative;
@@ -1746,6 +1741,13 @@ function populateSpot(s) {
 
   // Save UI
   updateSaveUI(s.id);
+  // Init proposal date step
+  hotelStepOn=false; selectedProposalDates=[]; calViewYear=new Date().getFullYear(); calViewMonth=new Date().getMonth();
+  const _tt=document.getElementById('sdp-toggle-track'); if(_tt)_tt.classList.remove('on');
+  const _hd=document.getElementById('sdp-hotel-dates'); if(_hd)_hd.style.display='none';
+  const _ci=document.getElementById('sdp-checkin'); const _co=document.getElementById('sdp-checkout');
+  if(_ci)_ci.value=''; if(_co)_co.value='';
+  setTimeout(renderProposalDateStep,50);
 }
 
 function showNotFound() {
@@ -1910,17 +1912,19 @@ function toggleHotelStep() {
   hotelStepOn = !hotelStepOn;
   const track = document.getElementById('sdp-toggle-track');
   const dates = document.getElementById('sdp-hotel-dates');
-  const miniCal = document.getElementById('sdp-mini-cal');
-  const nightChips = document.getElementById('sdp-night-chips');
-
   if (track) track.classList.toggle('on', hotelStepOn);
   if (dates) dates.style.display = hotelStepOn ? '' : 'none';
-  if (hotelStepOn) {
-    renderProposalDateStep();
-  } else {
-    if (miniCal) miniCal.style.display = '';
-    if (nightChips) nightChips.style.display = 'none';
+  if (!hotelStepOn) {
+    const ci = document.getElementById('sdp-checkin');
+    const co = document.getElementById('sdp-checkout');
+    const nd = document.getElementById('sdp-nights-display');
+    if (ci) ci.value = '';
+    if (co) co.value = '';
+    if (nd) nd.style.display = 'none';
   }
+  selectedProposalDates = [];
+  renderProposalDateStep();
+  updateSelectionSummary();
 }
 
 // ─────────────────────────────────────────────────────────
@@ -2040,61 +2044,81 @@ function rcalHoverEnd() {
 //  PROPOSAL DATE STEP
 // ─────────────────────────────────────────────────────────
 function renderProposalDateStep() {
-  const miniCalEl = document.getElementById('sdp-mini-cal');
-  const gridEl = document.getElementById('sdp-mini-cal-grid');
-  if (!miniCalEl || !gridEl) return;
-
-  const ci = document.getElementById('sdp-checkin')?.value || '';
-  const co = document.getElementById('sdp-checkout')?.value || '';
-
-  if (hotelStepOn && ci && co) {
-    // Show night chips from hotel stay
-    const nightChipsEl = document.getElementById('sdp-night-chips');
-    if (nightChipsEl) {
-      const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
-      let html = '';
-      let cursor = new Date(ci + 'T00:00:00');
-      const end = new Date(co + 'T00:00:00');
-      while (cursor < end) {
-        const ds = cursor.toISOString().split('T')[0];
-        const isSelected = selectedProposalDates.includes(ds);
-        html += `<div class="sdp-night-chip${isSelected ? ' selected' : ''}" data-ds="${ds}" onclick="toggleProposalNight('${ds}')">${fmt(ds)}</div>`;
-        cursor.setDate(cursor.getDate() + 1);
-      }
-      nightChipsEl.innerHTML = html;
-      nightChipsEl.style.display = 'flex';
+  const chips = document.getElementById('sdp-night-chips');
+  const cal   = document.getElementById('sdp-mini-cal');
+  const sub   = document.getElementById('sdp-step4-sub');
+  if (!chips || !cal) return;
+  if (hotelStepOn) {
+    const ci = document.getElementById('sdp-checkin')?.value;
+    const co = document.getElementById('sdp-checkout')?.value;
+    chips.style.display = 'flex'; cal.style.display = 'none';
+    if (sub) sub.textContent = "Choose which night(s) you'd like to propose";
+    if (!ci || !co) { chips.innerHTML = '<p class="sdp-step-hint">Select your hotel dates above first</p>'; return; }
+    const checkIn = new Date(ci+'T00:00:00'), checkOut = new Date(co+'T00:00:00');
+    const dayN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const monN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const nts = Math.round((checkOut - checkIn) / 86400000);
+    let html = '', cur = new Date(checkIn);
+    for (let i = 0; i < nts; i++) {
+      const ds = cur.toISOString().split('T')[0];
+      const lbl = dayN[cur.getDay()] + ', ' + monN[cur.getMonth()] + ' ' + cur.getDate();
+      const bdg = i===0?'Arrival':(i===nts-1?'Last night':'');
+      const sel = selectedProposalDates.includes(ds);
+      html += '<div class="sdp-night-chip'+(sel?' selected':'')+'" data-ds="'+ds+'" onclick="toggleNightChip(this,\''+ds+'\')"><span>'+lbl+'</span>'+(bdg?'<span class="sdp-night-chip-badge">'+bdg+'</span>':'')+'</div>';
+      cur.setDate(cur.getDate()+1);
     }
-    miniCalEl.style.display = 'none';
+    chips.innerHTML = html;
   } else {
-    // Show mini calendar
-    const DOWS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    let html = '<div style="display:flex;flex-direction:column;gap:4px">';
-    html += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:8px">';
-    DOWS.forEach(d => { html += `<div style="text-align:center;font-size:10px;color:var(--muted);padding:4px 0">${d}</div>`; });
-    const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
-    const daysInMo = new Date(calViewYear, calViewMonth + 1, 0).getDate();
-    for (let i = 0; i < firstDay; i++) html += '<div></div>';
-    for (let d = 1; d <= daysInMo; d++) {
-      const ds = calViewYear + '-' + String(calViewMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-      const isSelected = selectedProposalDates.includes(ds);
-      html += `<div class="sdp-mini-cal-day${isSelected ? ' selected' : ''}" onclick="toggleProposalNight('${ds}')">${d}</div>`;
-    }
-    html += '</div></div>';
-    gridEl.innerHTML = html;
-    miniCalEl.style.display = '';
+    chips.style.display = 'none'; cal.style.display = '';
+    if (sub) sub.textContent = 'Pick your preferred night — select a backup too if you have one';
+    renderMiniCal();
   }
 }
 
-function toggleProposalNight(ds) {
-  const idx = selectedProposalDates.indexOf(ds);
-  if (idx >= 0) {
-    selectedProposalDates.splice(idx, 1);
-  } else {
-    selectedProposalDates = [ds];
+function renderMiniCal() {
+  const grid = document.getElementById('sdp-mini-cal-grid');
+  if (!grid) return;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const yr = calViewYear, mo = calViewMonth;
+  const mN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const firstDay = new Date(yr,mo,1).getDay(), dim = new Date(yr,mo+1,0).getDate();
+  let html = '<div class="sdp-mini-cal-nav"><button onclick="calNav(-1)">&#8249;</button><span class="sdp-mini-cal-month">'+mN[mo]+' '+yr+'</span><button onclick="calNav(1)">&#8250;</button></div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{html+='<div class="sdp-cal-day-head">'+d+'</div>';});
+  for(let i=0;i<firstDay;i++) html+='<div class="sdp-cal-day empty"></div>';
+  for(let d=1;d<=dim;d++){
+    const ds=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const past=new Date(yr,mo,d)<today, sel=selectedProposalDates.includes(ds);
+    html+='<div class="sdp-cal-day'+(past?' past':'')+(sel?' selected':'')+'" onclick="'+(past?'':"calSelectDay('"+ds+"')")+'">'+ d+'</div>';
   }
-  document.getElementById('sdp-proposal-date-1').value = selectedProposalDates[0] || '';
-  document.getElementById('sdp-proposal-date-2').value = selectedProposalDates[1] || '';
-  renderProposalDateStep();
+  html+='</div>';
+  const sd=document.getElementById('sdp-mini-cal-selected'), sv=document.getElementById('sdp-mini-cal-sel-val');
+  if(sd&&sv){if(selectedProposalDates.length){const fmt=ds=>new Date(ds+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});sv.textContent=selectedProposalDates.map((ds,i)=>(i===1?'Backup: ':'')+fmt(ds)).join(' · ');sd.style.display='';}else{sd.style.display='none';}}
+  grid.innerHTML=html;
+}
+
+function calNav(dir){calViewMonth+=dir;if(calViewMonth<0){calViewMonth=11;calViewYear--;}if(calViewMonth>11){calViewMonth=0;calViewYear++;}renderMiniCal();}
+
+function calSelectDay(ds){
+  const idx=selectedProposalDates.indexOf(ds);
+  if(idx>-1){selectedProposalDates.splice(idx,1);}else if(selectedProposalDates.length<2){selectedProposalDates.push(ds);}
+  syncProposalDateInputs(); renderMiniCal(); updateSelectionSummary();
+}
+
+function toggleNightChip(el,dateStr){
+  const chips=document.querySelectorAll('#sdp-night-chips .sdp-night-chip');
+  chips.forEach(c=>c.classList.remove('selected')); selectedProposalDates=[];
+  const was=el.dataset.wasSelected==='true';
+  if(!was){el.classList.add('selected');selectedProposalDates=[dateStr];}
+  chips.forEach(c=>{c.dataset.wasSelected='false';});
+  if(selectedProposalDates.length)el.dataset.wasSelected='true';
+  syncProposalDateInputs(); updateSelectionSummary();
+}
+
+function syncProposalDateInputs(){
+  const i1=document.getElementById('sdp-proposal-date-1'),i2=document.getElementById('sdp-proposal-date-2');
+  if(i1)i1.value=selectedProposalDates[0]||''; if(i2)i2.value=selectedProposalDates[1]||'';
+}
+
   updateSelectionSummary();
 }
 
@@ -2184,6 +2208,16 @@ function openEnquiryModal() {
     enqHotelSection.style.display = 'none';
   }
 
+  // Dynamic add-ons from current spot
+  const _addSec=document.getElementById('enq-addons-section'), _addList=document.getElementById('enq-addons-list');
+  const _spot=currentSpot, _addons=_spot?.['Add-ons']||[], _pt=_spot?.['Add-on Prices']||'';
+  const _pm={}; _pt.split('\n').forEach(l=>{const p=l.split('|').map(s=>s.trim());if(p.length===2){_pm[p[0]]=p[1];_pm[p[0].toLowerCase()]=p[1];}});
+  const _ai=Array.isArray(_addons)?_addons:_addons.split(/[|·,]/).map(s=>s.trim()).filter(Boolean);
+  if(_addSec&&_addList&&_ai.length){
+    _addList.innerHTML=_ai.map(item=>{const price=_pm[item]||_pm[item.toLowerCase()];const pl=price?'<span class="enq-addon-price">'+(price==='TBD'?'Price TBD':'+'+price)+'</span>':'';return'<label class="enq-addon-check"><input type="checkbox" value="'+item+'"><span>'+item+'</span>'+pl+'</label>';}).join('');
+    _addSec.style.display='';
+  } else if(_addSec){_addSec.style.display='none';}
+
   // Pre-fill email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
 
@@ -2213,6 +2247,7 @@ async function submitEnquiry() {
     return;
   }
 
+  const addons=[...document.querySelectorAll('#enq-addons-list input:checked')].map(cb=>cb.value);
   const data = {
     spotName: document.getElementById('sdp-name')?.textContent || '',
     firstName: first,
@@ -2226,6 +2261,7 @@ async function submitEnquiry() {
     proposalDate: document.getElementById('enq-proposal-date')?.value || '',
     backupDate: document.getElementById('enq-backup-date')?.value || '',
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
+    addons: addons,
   };
 
   try {
