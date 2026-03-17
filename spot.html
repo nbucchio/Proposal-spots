@@ -1,697 +1,2305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Proposal Spot — Proposal Spots</title>
+<meta id="page-description" name="description" content="Discover this stunning proposal location at Proposal Spots.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Dynamic — overwritten by JS once data loads -->
-  <title>Proposal Spot | Proposal Spots</title>
-  <meta name="description" content="A curated proposal location from Proposal Spots.">
+:root {
+  --bg:       #F4F1EB;
+  --bg2:      #EDEAE2;
+  --bg3:      #E8E4DB;
+  --white:    #FDFCFA;
+  --ink:      #1C1C1C;
+  --ink2:     #2E2C2A;
+  --mid:      #6B6660;
+  --muted:    #9E9890;
+  --hairline: #D8D2C8;
+  --divider:  #E4E0D8;
+  --accent:   #8C7B64;
+  --accent2:  #B5A48C;
+  --shadow:   rgba(28,28,28,0.06);
+}
 
-  <!-- Open Graph (populated dynamically) -->
-  <meta property="og:type"        content="website">
-  <meta property="og:site_name"   content="Proposal Spots">
-  <meta property="og:title"       content="">
-  <meta property="og:description" content="">
-  <meta property="og:image"       content="">
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-  <!-- Canonical (populated dynamically) -->
-  <link rel="canonical" href="">
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  height: 52px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 8px 0 24px;
+  background: rgba(253,252,250,0.97);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(216,210,200,0.7);
+  border-radius: 100px;
+  width: calc(100% - 48px);
+  max-width: 860px;
+  box-shadow: 0 2px 20px rgba(28,28,28,0.07), 0 1px 4px rgba(28,28,28,0.04);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
 
-  <!--
-    BASE HREF: nav.js uses relative hrefs like "index.html".
-    This makes them resolve from / even though this file is in /spots/.
-  -->
-  <base href="/">
+.sdp-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  <!-- Google Fonts — same as index.html -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+.sdp-hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
 
-  <style>
-    /* ── Design tokens — mirror of index.html :root ─────────────────── */
-    :root {
-      --bg:       #F4F1EB;
-      --bg2:      #EDEAE2;
-      --bg3:      #E8E4DB;
-      --white:    #FDFCFA;
-      --ink:      #1C1C1C;
-      --ink2:     #2E2C2A;
-      --mid:      #6B6660;
-      --muted:    #9E9890;
-      --hairline: #D8D2C8;
-      --divider:  #E4E0D8;
-      --accent:   #8C7B64;
-      --accent2:  #B5A48C;
-      --shadow:   rgba(28,28,28,0.06);
-    }
+.sdp-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Jost', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      overflow-x: hidden;
-    }
+.sdp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(28,28,28,0.8) 0%, rgba(28,28,28,0.2) 40%, transparent 100%);
+}
 
-    /* ── Loading state ───────────────────────────────────────────────── */
-    #sp-loading {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-    }
-    .sp-spinner {
-      width: 30px; height: 30px;
-      border: 2px solid var(--hairline);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: sp-spin 0.8s linear infinite;
-    }
-    @keyframes sp-spin { to { transform: rotate(360deg); } }
-    .sp-loading-label {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+.sdp-back, .sdp-heart-btn {
+  position: absolute;
+  top: 80px;
+  z-index: 100;
+  background: rgba(253,252,250,0.95);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  color: var(--ink);
+  transition: background 0.2s;
+}
 
-    /* ── Not-found state ─────────────────────────────────────────────── */
-    #sp-not-found {
-      display: none;
-      min-height: 100vh;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 80px 32px;
-      text-align: center;
-    }
-    #sp-not-found h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px; font-weight: 400; color: var(--mid);
-    }
-    #sp-not-found p  { font-size: 13px; font-weight: 300; color: var(--muted); }
-    #sp-not-found a  {
-      margin-top: 8px; font-size: 11px; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent); text-decoration: none;
-    }
-    #sp-not-found a:hover { opacity: 0.7; }
+.sdp-back { left: 24px; gap: 6px; }
+.sdp-heart-btn { right: 24px; font-size: 18px; }
+.sdp-back:hover, .sdp-heart-btn:hover { background: var(--white); }
 
-    /* ── Main content ────────────────────────────────────────────────── */
-    #sp-content { display: none; }
+.sdp-hero-bottom {
+  position: relative;
+  z-index: 50;
+  padding: 40px 40px 60px;
+  max-width: 100%;
+}
 
-    /* ── Hero ────────────────────────────────────────────────────────── */
-    .sp-hero {
-      position: relative;
-      height: 78vh; min-height: 500px; max-height: 720px;
-      overflow: hidden; background: var(--bg3);
-    }
-    .sp-hero-img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-    }
-    .sp-hero-gradient {
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.08) 0%,
-        rgba(0,0,0,0.04) 25%,
-        rgba(0,0,0,0.30) 60%,
-        rgba(0,0,0,0.72) 100%
-      );
-    }
-    .sp-hero-content {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 0 48px 56px;
-      max-width: 900px; margin: 0 auto;
-    }
-    .sp-badge {
-      display: none;
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.28);
-      backdrop-filter: blur(10px);
-      border-radius: 100px; padding: 5px 13px; margin-bottom: 14px;
-    }
-    .sp-location {
-      font-size: 11px; font-weight: 400;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.72); margin-bottom: 10px;
-    }
-    .sp-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(34px, 5.5vw, 58px); font-weight: 400;
-      color: var(--white); line-height: 1.08; margin-bottom: 16px;
-    }
-    .sp-line-summary {
-      font-size: 14px; font-weight: 300; line-height: 1.65;
-      color: rgba(255,255,255,0.82); max-width: 560px;
-    }
+.sdp-hero-loc {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(253,252,250,0.7);
+  display: block;
+  margin-bottom: 12px;
+}
 
-    /* ── Top bar (back button) ────────────────────────────────────────── */
-    .sp-topbar {
-      padding: 104px 48px 0;
-      max-width: 900px; margin: 0 auto;
-    }
-    .sp-back {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 11px; font-weight: 400;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--mid); cursor: pointer;
-      background: none; border: none; padding: 8px 0;
-      transition: color 0.18s;
-    }
-    .sp-back:hover { color: var(--ink); }
-    .sp-back svg { transition: transform 0.18s; }
-    .sp-back:hover svg { transform: translateX(-3px); }
+.sdp-hero-name {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
 
-    /* ── Body wrapper ─────────────────────────────────────────────────── */
-    .sp-body { max-width: 900px; margin: 0 auto; padding: 0 48px; }
+.sdp-line-summary {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(253,252,250,0.85);
+  line-height: 1.6;
+  max-width: 600px;
+}
 
-    /* ── Stats strip ──────────────────────────────────────────────────── */
-    .sp-stats {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      background: var(--hairline); border: 1px solid var(--hairline);
-      border-radius: 14px; overflow: hidden; gap: 1px; margin: 36px 0;
-    }
-    .sp-stat {
-      background: var(--white); padding: 18px 20px 16px;
-      display: flex; flex-direction: column; gap: 5px;
-    }
-    .sp-stat-label {
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
-    }
-    .sp-stat-val { font-size: 13px; font-weight: 400; color: var(--ink); line-height: 1.4; }
+.sdp-hero-badge {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  background: rgba(28,28,28,0.6);
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  z-index: 50;
+}
 
-    /* ── Sections ─────────────────────────────────────────────────────── */
-    .sp-section { padding: 36px 0; border-top: 1px solid var(--divider); }
-    .sp-section-label {
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 16px;
-    }
-    .sp-body-text {
-      font-size: 14px; font-weight: 300;
-      line-height: 1.78; color: var(--ink2);
-    }
+.sdp-vibe-strip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 20px 40px;
+  background: var(--white);
+  border-bottom: 1px solid var(--hairline);
+}
 
-    /* ── Vibe tags ────────────────────────────────────────────────────── */
-    .sp-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
-    .sp-tag {
-      font-size: 11px; font-weight: 400; letter-spacing: 0.05em;
-      color: var(--mid); background: var(--bg2);
-      border: 1px solid var(--hairline); border-radius: 100px; padding: 5px 13px;
-    }
+.sdp-vibe-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
 
-    /* ── Proposal plan steps ──────────────────────────────────────────── */
-    .sp-steps { display: flex; flex-direction: column; gap: 20px; }
-    .sp-step  { display: flex; gap: 16px; align-items: flex-start; }
-    .sp-step-num {
-      flex-shrink: 0; width: 28px; height: 28px;
-      border-radius: 50%; background: var(--bg2);
-      border: 1px solid var(--hairline);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px; font-weight: 500; color: var(--mid); margin-top: 1px;
-    }
-    .sp-step-content { flex: 1; }
-    .sp-step-title {
-      display: block; font-size: 13.5px; font-weight: 500;
-      color: var(--ink); margin-bottom: 4px;
-    }
-    .sp-step-body {
-      font-size: 13px; font-weight: 300;
-      line-height: 1.7; color: var(--ink2);
-    }
+.sdp-vibe-chip.hotel-tag {
+  background: rgba(100,149,237,0.08);
+  cursor: pointer;
+}
 
-    /* ── Gallery ──────────────────────────────────────────────────────── */
-    .sp-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
-    .sp-gallery img {
-      width: 100%; aspect-ratio: 4/3; object-fit: cover;
-      border-radius: 8px; background: var(--bg2);
-      cursor: zoom-in; transition: opacity 0.2s;
-    }
-    .sp-gallery img:hover { opacity: 0.88; }
-    .sp-gallery img:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+.sdp-chip-icon { font-size: 16px; }
+.sdp-chip-text { display: flex; flex-direction: column; gap: 2px; }
+.sdp-chip-lbl { font-size: 8px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.sdp-chip-val { font-family: 'Cormorant', serif; font-size: 14px; color: var(--ink); }
 
-    /* ── Map link ─────────────────────────────────────────────────────── */
-    .sp-map-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
-      color: var(--accent); text-decoration: none; margin-top: 14px;
-      transition: color 0.18s;
-    }
-    .sp-map-link:hover { color: var(--ink); }
+.sdp-body {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
 
-    /* ── Info cards (photographer / hotel) ───────────────────────────── */
-    .sp-info-card {
-      background: var(--white); border: 1px solid var(--hairline);
-      border-radius: 14px; padding: 18px 22px;
-      display: flex; align-items: center; gap: 16px; margin-top: 14px;
-    }
-    .sp-info-card-icon  { font-size: 22px; flex-shrink: 0; }
-    .sp-info-card-label {
-      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 4px;
-    }
-    .sp-info-card-value { font-size: 14px; font-weight: 500; color: var(--ink); }
-    .sp-info-card-arrow { margin-left: auto; font-size: 16px; color: var(--accent2); }
+.sdp-main { }
+.sdp-sidebar { position: sticky; top: 120px; height: fit-content; }
 
-    /* ── CTA block ────────────────────────────────────────────────────── */
-    .sp-cta {
-      background: var(--ink); border-radius: 20px;
-      padding: 52px 44px; text-align: center; margin: 48px 0 60px;
-    }
-    .sp-cta-label {
-      font-size: 9px; font-weight: 500; letter-spacing: 0.24em;
-      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px;
-    }
-    .sp-cta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(26px, 4vw, 36px); font-weight: 300;
-      color: var(--white); line-height: 1.2; margin-bottom: 10px;
-    }
-    .sp-cta-sub {
-      font-size: 13px; font-weight: 300; line-height: 1.65;
-      color: rgba(255,255,255,0.55);
-      max-width: 440px; margin: 0 auto 28px;
-    }
-    .sp-cta-btn {
-      display: inline-block;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--ink); background: var(--white);
-      border-radius: 100px; padding: 14px 34px;
-      text-decoration: none; transition: background 0.2s, transform 0.15s;
-    }
-    .sp-cta-btn:hover { background: var(--accent2); transform: scale(1.02); }
+.sdp-gallery {
+  margin-bottom: 52px;
+  position: relative;
+}
 
-    /* ── Mobile ───────────────────────────────────────────────────────── */
-    @media (max-width: 700px) {
-      .sp-hero-content { padding: 0 24px 44px; }
-      .sp-topbar       { padding: 100px 20px 0; }
-      .sp-body         { padding: 0 20px; }
-      .sp-stats        { grid-template-columns: repeat(2, 1fr); }
-      .sp-gallery      { grid-template-columns: repeat(2, 1fr); }
-      .sp-gallery img:first-child { grid-column: span 2; }
-      .sp-cta          { padding: 36px 24px; }
-    }
-  </style>
+.sdp-gallery-viewer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: var(--bg2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sdp-gallery-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sdp-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(28,28,28,0.5);
+  border: none;
+  color: white;
+  font-size: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.sdp-gallery-arrow:hover { background: rgba(28,28,28,0.85); }
+.sdp-gallery-arrow.prev { left: 12px; }
+.sdp-gallery-arrow.next { right: 12px; }
+
+.sdp-gallery-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.sdp-gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(244,241,235,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sdp-gallery-dot.active { background: rgba(244,241,235,0.95); }
+
+.sdp-gallery-count {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(244,241,235,0.7);
+  background: rgba(28,28,28,0.5);
+  backdrop-filter: blur(6px);
+  padding: 4px 10px;
+  border-radius: 100px;
+  z-index: 2;
+}
+
+.sdp-about {
+  margin-bottom: 48px;
+}
+
+.sdp-about-text {
+  font-family: 'Cormorant', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+}
+
+.sdp-included {
+  margin-bottom: 48px;
+}
+
+.sdp-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.sdp-included-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sdp-included-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.sdp-included-tick { color: #A55A4A; font-weight: 500; }
+
+.sdp-access-txt {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.8;
+}
+
+.sdp-concierge-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.sdp-concierge-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.sdp-concierge-price-block {
+  margin-bottom: 16px;
+}
+
+.sdp-concierge-price {
+  font-family: 'Cormorant', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.sdp-concierge-from {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.sdp-concierge-note {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-top: 6px;
+  letter-spacing: 0.03em;
+}
+
+.sdp-concierge-hotel-tag {
+  background: rgba(100,149,237,0.08);
+  border: 1px solid rgba(100,149,237,0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: #4a6bb5;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.sdp-hotel-link { font-weight: 500; }
+
+.sdp-concierge-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sdp-booking-step {
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 16px;
+  background: var(--bg);
+}
+
+.sdp-step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  user-select: none;
+}
+
+.sdp-step-num {
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--accent2);
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.sdp-step-title {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+
+.sdp-step-sub {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.sdp-hotel-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.sdp-toggle-track {
+  width: 36px;
+  height: 20px;
+  background: var(--hairline);
+  border-radius: 100px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.sdp-toggle-track.on { background: #A55A4A; }
+
+.sdp-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.sdp-toggle-track.on .sdp-toggle-thumb { transform: translateX(16px); }
+
+.sdp-hotel-dates {
+  margin-top: 12px;
+}
+
+.sdp-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sdp-date-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+
+.sdp-date-btn:hover, .sdp-date-btn.active { border-color: var(--accent); }
+
+.sdp-date-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sdp-date-val {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.rcal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.rcal-nav { background:none; border:none; cursor:pointer; font-size:16px; color:var(--mid); padding:4px 8px; }
+.rcal-nav:hover { color:var(--ink); }
+.rcal-month { font-family:'Jost',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); }
+.rcal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.rcal-dow { font-family:'Jost',sans-serif; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); text-align:center; padding:4px 0 6px; }
+.rcal-day {
+  font-family:'Jost',sans-serif; font-size:12px; text-align:center;
+  padding:7px 2px; border-radius:6px; cursor:pointer; color:var(--ink);
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.rcal-day:hover:not(.rcal-day-disabled):not(.rcal-day-empty) { background: var(--bg3); }
+.rcal-day-disabled { color: var(--hairline); cursor: default; pointer-events:none; }
+.rcal-day-empty { cursor: default; }
+.rcal-day-checkin { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
+.rcal-day-checkout { background: var(--accent) !important; color: white !important; border-radius: 0 6px 6px 0; }
+.rcal-day-inrange { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
+.rcal-day-hover-range { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
+.rcal-day-hover-checkout { background: rgba(165,90,74,0.25) !important; border-radius: 0 6px 6px 0; }
+.rcal-day-checkin.rcal-day-checkout { border-radius: 6px !important; }
+
+.sdp-nights-display {
+  margin-top: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: var(--mid);
+  font-style: italic;
+  padding: 8px;
+  background: var(--bg2);
+  border-radius: 6px;
+}
+
+.sdp-night-chip {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  margin: 4px;
+}
+
+.sdp-night-chip.selected {
+  background: #A55A4A;
+  color: white;
+  border-color: #A55A4A;
+}
+
+.sdp-mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.sdp-mini-cal-day {
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: var(--ink);
+  transition: background 0.1s;
+}
+
+.sdp-mini-cal-day:hover { background: var(--bg3); }
+.sdp-mini-cal-day.selected { background: #A55A4A; color: white; }
+
+.sdp-selection-summary {
+  border-top: 1px solid var(--hairline);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.sdp-selection-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.sdp-selection-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: var(--mid);
+  margin-bottom: 6px;
+}
+
+.sdp-selection-dot {
+  width: 4px;
+  height: 4px;
+  background: #A55A4A;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sdp-btn-primary, .sdp-btn-secondary {
+  width: 100%;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sdp-btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.sdp-btn-primary:hover {
+  background: #A55A4A;
+}
+
+.sdp-btn-secondary {
+  background: none;
+  color: var(--mid);
+  border: 1px solid var(--hairline);
+}
+
+.sdp-btn-secondary:hover {
+  border-color: #A55A4A;
+  color: #A55A4A;
+}
+
+.sdp-trust-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 2;
+  text-align: center;
+  margin-top: 12px;
+  letter-spacing: 0.03em;
+}
+
+.sdp-hotel-block {
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  padding: 12px 14px;
+  margin-top: 16px;
+}
+
+.sdp-hotel-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sdp-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--hairline);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 500;
+}
+
+.sdp-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.sdp-bar-from {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.sdp-bar-price {
+  font-family: 'Cormorant', serif;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.sdp-bar-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  color: var(--muted);
+  display: block;
+}
+
+.sdp-bar-save {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 8px;
+}
+
+.sdp-bar-save.saved { color: #A55A4A; }
+
+.sdp-bar-btn {
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.sdp-bar-btn:hover { background: #A55A4A; }
+
+.sdp-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,6,0.94);
+  z-index: 30000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sdp-lightbox.open { display: flex; }
+.sdp-lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 6px; cursor: default; }
+
+.sdp-lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(28,28,28,0.5);
+  border: none;
+  color: white;
+  font-size: 36px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+  line-height: 1;
+}
+
+.sdp-lightbox-arrow:hover { background: rgba(28,28,28,0.85); }
+.sdp-lightbox-prev { left: 24px; }
+.sdp-lightbox-next { right: 24px; }
+
+.sdp-lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em;
+}
+
+.sdp-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: rgba(244,241,235,0.7);
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.enq-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,12,8,0.6);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(4px);
+}
+
+.enq-overlay.open { opacity: 1; pointer-events: all; }
+
+.enq-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  width: min(580px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  padding: 40px;
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+}
+
+.enq-modal.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%, -50%);
+}
+
+.enq-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+
+.enq-close:hover { background: var(--bg2); color: var(--ink); }
+
+.enq-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #A55A4A;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.enq-title {
+  font-family: 'Cormorant', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.enq-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.7;
+  margin: 0 0 24px;
+}
+
+.enq-summary {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+}
+
+.enq-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.enq-summary-row:last-child { border-bottom: none; }
+
+.enq-sum-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.enq-sum-val {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.enq-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.enq-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.enq-form-field { margin-bottom: 0; }
+
+.enq-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.enq-input, .enq-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.enq-input:focus, .enq-textarea:focus {
+  border-color: #A55A4A;
+}
+
+.enq-textarea { resize: vertical; }
+
+.enq-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 12px;
+}
+
+.enq-section-divider::before, .enq-section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.enq-section-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.enq-hotel-stay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(100,149,237,0.07);
+  border: 1px solid rgba(100,149,237,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+}
+
+.enq-hotel-stay-dates {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #4a6bb5;
+  line-height: 1.5;
+}
+
+.enq-hotel-change-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.enq-hotel-change-btn:hover { color: var(--ink); }
+
+.enq-addons {
+  margin: 24px 0 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+}
+
+.enq-addons-label {
+  display: block;
+  font-family: 'Cormorant', serif;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: #A55A4A;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.enq-addons-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+
+.enq-addon-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink2);
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.enq-addon-check input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #A55A4A;
+  flex-shrink: 0;
+}
+
+.enq-addon-price {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.enq-submit-btn {
+  width: 100%;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 24px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.enq-submit-btn:hover { background: #A55A4A; transform: translateY(-1px); }
+.enq-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.enq-legal {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.enq-success { text-align: center; padding: 20px 0; }
+
+.enq-success-icon {
+  font-size: 32px;
+  color: #A55A4A;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.enq-success-title {
+  font-family: 'Cormorant', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.enq-success-msg {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 100;
+}
+
+.loading-spinner-text {
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+  color: var(--mid);
+  font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+  .sdp-body { grid-template-columns: 1fr; }
+  .sdp-sidebar { position: relative; top: auto; }
+}
+
+@media (max-width: 768px) {
+  nav { max-width: 90vw; }
+  .sdp-hero { height: 50vh; }
+  .sdp-hero-bottom { padding: 30px 20px 40px; }
+  .sdp-back { left: 16px; }
+  .sdp-heart-btn { right: 16px; }
+  .sdp-vibe-strip { padding: 16px 20px; }
+  .sdp-body { padding: 24px 20px 100px; }
+  .sdp-hero-name { font-size: clamp(24px, 5vw, 40px); }
+}
+</style>
 </head>
 <body>
 
-  <!-- Nav injected by nav.js -->
-  <div id="nav-placeholder"></div>
+<div id="nav-placeholder"></div>
+<script src="/nav.js"></script>
 
-  <!-- Loading -->
-  <div id="sp-loading">
-    <div class="sp-spinner"></div>
-    <span class="sp-loading-label">Loading…</span>
+<div class="sdp-wrap">
+  <!-- Loading state -->
+  <div id="loading-spinner" class="loading-spinner" style="display: none;">
+    <div class="loading-spinner-text">Loading...</div>
   </div>
 
-  <!-- Not found -->
-  <div id="sp-not-found">
-    <h1>Spot not found</h1>
-    <p>This spot may have moved or no longer exists.</p>
-    <a href="/">← Browse all spots</a>
+  <!-- Not found state -->
+  <div id="not-found-state" style="display: none; padding: 80px 40px; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1 style="font-family: 'Cormorant', serif; font-size: 32px; color: var(--ink); margin-bottom: 12px;">Spot Not Found</h1>
+    <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: var(--mid); margin-bottom: 24px;">The proposal spot you're looking for couldn't be found.</p>
+    <button onclick="window.location.href = '/'" style="background: var(--ink); color: var(--bg); font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; border: none; border-radius: 8px; padding: 12px 24px; cursor: pointer;">Back Home</button>
   </div>
 
-  <!-- Main content (shown after load) -->
-  <div id="sp-content">
-
-    <div class="sp-hero">
-      <img id="sp-hero-img" class="sp-hero-img" src="" alt="" loading="eager">
-      <div class="sp-hero-gradient"></div>
-      <div class="sp-hero-content">
-        <div id="sp-badge"        class="sp-badge"></div>
-        <div id="sp-location"     class="sp-location"></div>
-        <h1  id="sp-name"         class="sp-name"></h1>
-        <p   id="sp-line-summary" class="sp-line-summary"></p>
-      </div>
-    </div>
-
-    <div class="sp-topbar">
-      <button class="sp-back" onclick="spGoBack()">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"
-             stroke="currentColor" stroke-width="1.6">
-          <path d="M10 3L5 8l5 5"/>
-        </svg>
+  <!-- Spot content -->
+  <div id="spot-content" style="display: none;">
+    <!-- Hero -->
+    <div class="sdp-hero">
+      <div class="sdp-hero-bg" id="sdp-hero-bg"></div>
+      <div class="sdp-hero-overlay"></div>
+      <button class="sdp-back" id="sdp-back-btn" onclick="goBack()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 2L4 7l5 5"/></svg>
         Back
       </button>
+      <div class="sdp-hero-badge" id="sdp-badge" style="display:none"></div>
+      <button class="sdp-heart-btn" id="sdp-heart-btn" onclick="toggleSaveSpot(event)">♡</button>
+      <div class="sdp-hero-bottom">
+        <span class="sdp-hero-loc" id="sdp-loc"></span>
+        <h1 class="sdp-hero-name" id="sdp-name"></h1>
+        <p class="sdp-line-summary" id="sdp-line-summary"></p>
+      </div>
     </div>
 
-    <div class="sp-body">
-
-      <!-- Stats -->
-      <div class="sp-stats">
-        <div class="sp-stat">
-          <span class="sp-stat-label">Budget</span>
-          <span id="sp-budget"  class="sp-stat-val">—</span>
-        </div>
-        <div class="sp-stat">
-          <span class="sp-stat-label">Privacy</span>
-          <span id="sp-privacy" class="sp-stat-val">—</span>
-        </div>
-        <div class="sp-stat">
-          <span class="sp-stat-label">Access</span>
-          <span id="sp-effort"  class="sp-stat-val">—</span>
-        </div>
-        <div class="sp-stat">
-          <span class="sp-stat-label">Best Time</span>
-          <span id="sp-time"    class="sp-stat-val">—</span>
+    <!-- Vibe strip -->
+    <div class="sdp-vibe-strip" id="sdp-vibe-strip">
+      <div class="sdp-vibe-chip">
+        <span class="sdp-chip-icon">💰</span>
+        <div class="sdp-chip-text">
+          <span class="sdp-chip-lbl">Budget</span>
+          <span class="sdp-chip-val" id="sdp-budget">—</span>
         </div>
       </div>
-
-      <!-- About -->
-      <div class="sp-section">
-        <p class="sp-section-label">About This Spot</p>
-        <p id="sp-full-summary" class="sp-body-text"></p>
-        <div id="sp-tags" class="sp-tags"></div>
+      <div class="sdp-vibe-chip">
+        <span class="sdp-chip-icon">🔒</span>
+        <div class="sdp-chip-text">
+          <span class="sdp-chip-lbl">Privacy</span>
+          <span class="sdp-chip-val" id="sdp-privacy">—</span>
+        </div>
       </div>
-
-      <!-- Proposal plan -->
-      <div class="sp-section" id="sp-plan-section" style="display:none">
-        <p class="sp-section-label">Proposal Plan</p>
-        <div id="sp-steps" class="sp-steps"></div>
+      <div class="sdp-vibe-chip">
+        <span class="sdp-chip-icon">🌤</span>
+        <div class="sdp-chip-text">
+          <span class="sdp-chip-lbl">Best time</span>
+          <span class="sdp-chip-val" id="sdp-time">—</span>
+        </div>
       </div>
-
-      <!-- Gallery -->
-      <div class="sp-section" id="sp-gallery-section" style="display:none">
-        <p class="sp-section-label">Gallery</p>
-        <div id="sp-gallery" class="sp-gallery"></div>
+      <div class="sdp-vibe-chip">
+        <span class="sdp-chip-icon">🥾</span>
+        <div class="sdp-chip-text">
+          <span class="sdp-chip-lbl">Access</span>
+          <span class="sdp-chip-val" id="sdp-effort">—</span>
+        </div>
       </div>
-
-      <!-- Getting there -->
-      <div class="sp-section" id="sp-access-section" style="display:none">
-        <p class="sp-section-label">Getting There</p>
-        <p id="sp-access" class="sp-body-text"></p>
-        <a id="sp-map-link" class="sp-map-link" href="#" target="_blank"
-           rel="noopener noreferrer" style="display:none">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          View on Google Maps
-        </a>
+      <div class="sdp-vibe-chip hotel-tag" id="sdp-hotel-chip" style="display:none;cursor:pointer" onclick="showHotelInfo()">
+        <span class="sdp-chip-icon">🏨</span>
+        <div class="sdp-chip-text">
+          <span class="sdp-chip-lbl">On-site hotel</span>
+          <span class="sdp-chip-val">Available — learn more ↗</span>
+        </div>
       </div>
+    </div>
 
-      <!-- Photographer -->
-      <div class="sp-section" id="sp-photo-section" style="display:none">
-        <p class="sp-section-label">Recommended Photographer</p>
-        <div class="sp-info-card">
-          <span class="sp-info-card-icon">📸</span>
-          <div>
-            <div class="sp-info-card-label">Our Pick for This Location</div>
-            <div id="sp-photographer" class="sp-info-card-value"></div>
+    <!-- Body -->
+    <div class="sdp-body">
+      <!-- Left -->
+      <div class="sdp-main">
+        <!-- Gallery -->
+        <div class="sdp-gallery" id="sdp-gallery-section" style="display:none">
+          <div class="sdp-gallery-viewer" id="sdp-gallery-viewer">
+            <img class="sdp-gallery-main-img" id="sdp-gallery-main" src="" alt="Proposal experience">
+            <div class="sdp-gallery-arrow prev" onclick="event.stopPropagation(); galleryPrev()">&#8249;</div>
+            <div class="sdp-gallery-arrow next" onclick="event.stopPropagation(); galleryNext()">&#8250;</div>
+            <div class="sdp-gallery-dots" id="sdp-gallery-dots"></div>
+            <div class="sdp-gallery-count" id="sdp-gallery-count"></div>
           </div>
         </div>
-      </div>
 
-      <!-- Hotel -->
-      <div class="sp-section" id="sp-hotel-section" style="display:none">
-        <p class="sp-section-label">Where to Stay</p>
-        <div class="sp-info-card">
-          <span class="sp-info-card-icon">🏨</span>
-          <div>
-            <div class="sp-info-card-label">Our Recommendation</div>
-            <div id="sp-hotel" class="sp-info-card-value"></div>
-          </div>
-          <span class="sp-info-card-arrow">→</span>
+        <!-- About -->
+        <div class="sdp-about">
+          <p class="sdp-about-text" id="sdp-full-summary"></p>
+        </div>
+
+        <!-- What's included -->
+        <div class="sdp-included" id="sdp-included-section" style="display:none">
+          <span class="sdp-lbl">What's included</span>
+          <ul class="sdp-included-list" id="sdp-included-list"></ul>
+        </div>
+
+        <!-- Access -->
+        <div id="sdp-access-block" style="display:none;margin-bottom:52px">
+          <span class="sdp-lbl">Getting there</span>
+          <p class="sdp-access-txt" id="sdp-access"></p>
         </div>
       </div>
 
-      <!-- CTA -->
-      <div class="sp-cta">
-        <p class="sp-cta-label">Ready to Propose?</p>
-        <h2 class="sp-cta-title">Make it unforgettable</h2>
-        <p class="sp-cta-sub">
-          Get personalised guidance, photographer recommendations,
-          and booking support for this exact location.
-        </p>
-        <a id="sp-enquiry-btn" class="sp-cta-btn"
-           href="mailto:hello@proposalspots.com">
-          Enquire About This Spot →
-        </a>
-      </div>
-
-    </div><!-- /.sp-body -->
-  </div><!-- /#sp-content -->
-
-  <!-- nav.js — /nav.js resolves correctly because of <base href="/"> -->
-  <script src="/nav.js"></script>
-
-  <script>
-    // ─────────────────────────────────────────────────────────────────
-    //  NO CREDENTIALS NEEDED HERE.
-    //  All Airtable calls go through /api/spots (the Vercel serverless
-    //  function in api/spots.js), exactly as index.html does.
-    //  The AIRTABLE_TOKEN stays server-side, never in the browser.
-    // ─────────────────────────────────────────────────────────────────
-
-    // ── Slug helpers ──────────────────────────────────────────────────
-    //  toSlug() must match the identical function added to index.html
-    //  (see index-drawer-snippet.js) so that URLs stay consistent.
-    function toSlug(name) {
-      return (name || '')
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-    }
-
-    function getSlugFromURL() {
-      const parts = window.location.pathname.split('/').filter(Boolean);
-      return parts[parts.length - 1] || '';
-    }
-
-    // ── Back button ───────────────────────────────────────────────────
-    //  Returns to the previous page if it was our own site,
-    //  otherwise falls back to the homepage.
-    function spGoBack() {
-      try {
-        const ref = document.referrer;
-        if (ref && new URL(ref).hostname === window.location.hostname) {
-          history.back();
-        } else {
-          window.location.href = '/';
-        }
-      } catch (e) {
-        window.location.href = '/';
-      }
-    }
-
-    // ── Parse proposal plan steps ─────────────────────────────────────
-    //  Handles the tab-indented format Airtable returns:
-    //    "1.\tStep title\n\t  body text\n2.\tNext step…"
-    function parseSteps(raw) {
-      if (!raw) return [];
-      const chunks = raw.split(/\n(?=\s*\d+[\.\t])/);
-      return chunks.map(chunk => {
-        const lines = chunk.trim().split('\n');
-        const title = lines[0].replace(/^\s*\d+[\.\t\s]+/, '').trim();
-        const body  = lines.slice(1).map(l => l.replace(/^\s+/, '')).join(' ').trim();
-        return { title, body };
-      }).filter(s => s.title);
-    }
-
-    // ── Safety: escape before inserting as HTML ───────────────────────
-    function esc(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // ── Meta tag helper ───────────────────────────────────────────────
-    function setMeta(attr, val, content) {
-      let el = document.querySelector(`meta[${attr}="${val}"]`);
-      if (!el) {
-        el = document.createElement('meta');
-        el.setAttribute(attr, val);
-        document.head.appendChild(el);
-      }
-      el.content = content;
-    }
-
-    // ── UI state helpers ──────────────────────────────────────────────
-    function showLoading()  {
-      document.getElementById('sp-loading').style.display   = 'flex';
-      document.getElementById('sp-content').style.display   = 'none';
-      document.getElementById('sp-not-found').style.display = 'none';
-    }
-    function showContent()  {
-      document.getElementById('sp-loading').style.display   = 'none';
-      document.getElementById('sp-content').style.display   = 'block';
-      document.getElementById('sp-not-found').style.display = 'none';
-    }
-    function showNotFound() {
-      document.getElementById('sp-loading').style.display   = 'none';
-      document.getElementById('sp-content').style.display   = 'none';
-      document.getElementById('sp-not-found').style.display = 'flex';
-    }
-
-    // ── Render ────────────────────────────────────────────────────────
-    function renderSpot(fields) {
-      var _cp = fields['Cover Photo'] || []; var _coverUrl = _cp[0] ? (_cp[0].thumbnails && _cp[0].thumbnails.large ? _cp[0].thumbnails.large.url : _cp[0].url) : '';
-      const name    = (fields['Name']    || '').trim();
-      const region  =  fields['Region / Town']  || '';
-      const country =  fields['Country'] || '';
-
-      // SEO metadata
-      const pageTitle = `${name} — Proposal Spot in ${region}${country ? ', ' + country : ''} | Proposal Spots`;
-      const pageDesc  = fields['Line Summary']
-        || `Discover ${name}, a curated proposal location in ${region}${country ? ', ' + country : ''}.`;
-
-      document.title = pageTitle;
-      document.querySelector('meta[name="description"]').content = pageDesc;
-      document.querySelector('link[rel="canonical"]').href = window.location.href;
-      setMeta('property', 'og:title',       pageTitle);
-      setMeta('property', 'og:description', pageDesc);
-      setMeta('property', 'og:url',         window.location.href);
-      if (_coverUrl) setMeta('property', 'og:image', _coverUrl);
-
-      // Hero
-      const heroImg = document.getElementById('sp-hero-img');
-      if (_coverUrl) {
-        heroImg.src = _coverUrl;
-        heroImg.alt = name;
-      } else {
-        heroImg.style.display = 'none';
-      }
-
-      const badgeEl = document.getElementById('sp-badge');
-      if (fields['badge']) {
-        badgeEl.textContent   = fields['badge'];
-        badgeEl.style.display = 'inline-block';
-      }
-
-      document.getElementById('sp-location').textContent =
-        [region, country].filter(Boolean).join(' · ').toUpperCase();
-      document.getElementById('sp-name').textContent         = name;
-      document.getElementById('sp-line-summary').textContent = fields['Line Summary'] || '';
-
-      // Stats
-      document.getElementById('sp-budget').textContent  = fields['Budget']          || '—';
-      document.getElementById('sp-privacy').textContent = fields['Privacy']         || '—';
-      document.getElementById('sp-effort').textContent  = fields['Access & Effort'] || '—';
-      const bt = fields['Best Time'];
-      document.getElementById('sp-time').textContent =
-        Array.isArray(bt) ? bt.join(', ') : (bt || '—');
-
-      // Full summary
-      document.getElementById('sp-full-summary').textContent =
-        fields['Full Summary'] || fields['Line Summary'] || '';
-
-      // Vibe tags
-      const tagVals = [fields['Vibe'], fields['Vibe Secondary'], fields['Other Vibe']].filter(Boolean);
-      if (tagVals.length) {
-        document.getElementById('sp-tags').innerHTML =
-          tagVals.map(t => `<span class="sp-tag">${esc(t)}</span>`).join('');
-      }
-
-      // Proposal plan
-      const planRaw = fields['Proposal Plan Steps'];
-      if (planRaw) {
-        const steps = parseSteps(planRaw);
-        if (steps.length) {
-          document.getElementById('sp-steps').innerHTML = steps.map((s, i) => `
-            <div class="sp-step">
-              <div class="sp-step-num">${i + 1}</div>
-              <div class="sp-step-content">
-                ${s.title ? `<span class="sp-step-title">${esc(s.title)}</span>` : ''}
-                ${s.body  ? `<span class="sp-step-body">${esc(s.body)}</span>`   : ''}
+      <!-- Right sidebar -->
+      <div class="sdp-sidebar">
+        <div class="sdp-concierge-card">
+          <!-- Price signal -->
+          <div class="sdp-concierge-top">
+            <span class="sdp-concierge-eyebrow">Proposal Package</span>
+            <div class="sdp-concierge-price-block">
+              <div style="display:flex;align-items:baseline;gap:6px">
+                <span class="sdp-concierge-from">from</span>
+                <span class="sdp-concierge-price" id="sdp-concierge-price">—</span>
               </div>
-            </div>`).join('');
-          document.getElementById('sp-plan-section').style.display = 'block';
-        }
-      }
+              <span class="sdp-concierge-note">No payment until you approve your quote</span>
+            </div>
+            <div class="sdp-concierge-hotel-tag" id="sdp-concierge-hotel-tag" style="display:none" onclick="showHotelInfo()">
+              <span style="font-size:13px">🏨</span>
+              <span>On-site hotel available — <span class="sdp-hotel-link">learn how it works</span></span>
+            </div>
+          </div>
 
-      // Gallery
-      const gallery = fields['Gallery Photos'];
-      if (gallery && gallery.length > 0) {
-        document.getElementById('sp-gallery').innerHTML =
-          gallery.map((url, i) =>
-            `<img src="${esc(url)}" alt="${esc(name)} photo ${i + 1}" loading="lazy">`
-          ).join('');
-        document.getElementById('sp-gallery-section').style.display = 'block';
-      }
+          <div class="sdp-concierge-body">
+            <!-- Step 1 -->
+            <div class="sdp-booking-step" id="sdp-step-1">
+              <div class="sdp-step-header">
+                <span class="sdp-step-num">01</span>
+                <div>
+                  <span class="sdp-step-title">The Moment</span>
+                  <span class="sdp-step-sub">Everything taken care of, so you just show up</span>
+                </div>
+              </div>
+              <div id="sdp-moment-addons-list" style="display:none"></div>
+            </div>
 
-      // Getting there
-      const accessText = fields['Access Details'];
-      const mapsLink   = fields['Google Maps Link'];
-      if (accessText || mapsLink) {
-        if (accessText) document.getElementById('sp-access').textContent = accessText;
-        if (mapsLink) {
-          const mapEl = document.getElementById('sp-map-link');
-          mapEl.href = mapsLink;
-          mapEl.style.display = 'inline-flex';
-        }
-        document.getElementById('sp-access-section').style.display = 'block';
-      }
+            <!-- Step 2: Hotel toggle -->
+            <div class="sdp-booking-step" id="sdp-step-2">
+              <div class="sdp-step-header" onclick="toggleHotelStep()" style="cursor:pointer;user-select:none">
+                <span class="sdp-step-num">02</span>
+                <div>
+                  <span class="sdp-step-title">Add a hotel stay?</span>
+                  <span class="sdp-step-sub">Include hotel nights in your enquiry</span>
+                </div>
+                <div class="sdp-hotel-toggle" id="sdp-hotel-toggle">
+                  <div class="sdp-toggle-track" id="sdp-toggle-track">
+                    <div class="sdp-toggle-thumb"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Hotel dates -->
+              <div id="sdp-hotel-dates" style="display:none;margin-top:12px">
+                <input type="hidden" id="sdp-checkin">
+                <input type="hidden" id="sdp-checkout">
+                <div class="sdp-date-row">
+                  <div class="sdp-date-btn" id="sdp-ci-btn" onclick="openRangeCal('checkin')">
+                    <span class="sdp-date-lbl">Check in</span>
+                    <span class="sdp-date-val" id="sdp-ci-val">Select date</span>
+                  </div>
+                  <div class="sdp-date-btn" id="sdp-co-btn" onclick="openRangeCal('checkout')">
+                    <span class="sdp-date-lbl">Check out</span>
+                    <span class="sdp-date-val" id="sdp-co-val">Select date</span>
+                  </div>
+                </div>
+                <div id="sdp-range-cal" style="display:none;margin-top:10px;background:var(--white);border:1px solid var(--hairline);border-radius:12px;padding:16px;"></div>
+                <div class="sdp-nights-display" id="sdp-nights-display" style="display:none"></div>
+              </div>
+            </div>
 
-      // Photographer
-      const photographer = fields['Recommended Photographer'];
-      if (photographer) {
-        document.getElementById('sp-photographer').textContent = photographer;
-        document.getElementById('sp-photo-section').style.display = 'block';
-      }
+            <!-- Step 3: Proposal date -->
+            <div class="sdp-booking-step" id="sdp-step-4">
+              <div class="sdp-step-header">
+                <span class="sdp-step-num" id="sdp-step4-num">03</span>
+                <div>
+                  <span class="sdp-step-title">When would you like to propose?</span>
+                  <span class="sdp-step-sub" id="sdp-step4-sub">Select your preferred night</span>
+                </div>
+              </div>
+              <div id="sdp-night-chips" style="display:none;display:flex;flex-direction:column;gap:6px"></div>
+              <div id="sdp-mini-cal" style="display:none">
+                <div class="sdp-mini-cal-grid" id="sdp-mini-cal-grid"></div>
+                <div class="sdp-mini-cal-selected" id="sdp-mini-cal-selected" style="display:none">
+                  <span class="sdp-mini-cal-sel-lbl">Selected:</span>
+                  <span id="sdp-mini-cal-sel-val"></span>
+                </div>
+              </div>
+              <input type="hidden" id="sdp-proposal-date-1">
+              <input type="hidden" id="sdp-proposal-date-2">
+            </div>
 
-      // Hotel / venue
-      const hotel = fields['Linked Hotel / Venue'];
-      if (hotel) {
-        document.getElementById('sp-hotel').textContent = hotel;
-        document.getElementById('sp-hotel-section').style.display = 'block';
-      }
+            <!-- Selection summary -->
+            <div class="sdp-selection-summary" id="sdp-pricing-block" style="display:none">
+              <span class="sdp-selection-title">Your selection</span>
+              <div id="sdp-selection-items"></div>
+            </div>
 
-      // Enquiry CTA — pre-fill email subject with spot name
-      document.getElementById('sp-enquiry-btn').href =
-        `mailto:hello@proposalspots.com?subject=${encodeURIComponent('Proposal Enquiry: ' + name)}`;
+            <!-- CTAs -->
+            <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
+            <button class="sdp-btn-secondary" id="sdp-save-btn" onclick="toggleSaveSpot(event)" style="margin-top:10px">
+              <span id="sdp-save-icon">♡</span> Save this Spot
+            </button>
+            <p class="sdp-trust-note">
+              ✦ No payment until you've approved your full quote
+            </p>
 
-      showContent();
+            <!-- Hotel revealed -->
+            <div id="sdp-hotel-block" style="display:none;margin-top:16px;padding:12px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--hairline)">
+              <span class="sdp-hotel-lbl">Curated Hotel & Venue</span>
+              <div style="font-family:'Jost',sans-serif;font-size:11px;font-weight:300;color:var(--muted);letter-spacing:0.04em;font-style:italic;margin-top:3px">
+                Revealed after booking confirmation
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom bar -->
+<div class="sdp-bottom-bar" id="sdp-bottom-bar" style="display:none">
+  <div class="sdp-bar-left">
+    <span class="sdp-bar-from">Proposal from</span>
+    <span class="sdp-bar-price" id="sdp-bar-price">—</span>
+    <span class="sdp-bar-note">No payment until you approve your quote</span>
+  </div>
+  <button class="sdp-bar-save" id="sdp-bar-save" onclick="toggleSaveSpot(event)" title="Save">♡</button>
+  <button class="sdp-bar-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
+</div>
+
+<!-- Lightbox -->
+<div class="sdp-lightbox" id="sdp-lightbox" onclick="closeLightbox()">
+  <button class="sdp-lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="sdp-lightbox-arrow sdp-lightbox-prev" onclick="event.stopPropagation(); lightboxPrev()">&#8249;</button>
+  <img id="sdp-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <button class="sdp-lightbox-arrow sdp-lightbox-next" onclick="event.stopPropagation(); lightboxNext()">&#8250;</button>
+  <div class="sdp-lightbox-counter" id="sdp-lightbox-counter"></div>
+</div>
+
+<!-- Hotel info modal -->
+<div class="enq-overlay" id="hotel-info-overlay" onclick="closeHotelInfo()"></div>
+<div class="enq-modal" id="hotel-info-modal">
+  <button class="enq-close" onclick="closeHotelInfo()">✕</button>
+  <div class="enq-header">
+    <span class="enq-eyebrow">On-site Hotel</span>
+    <h2 class="enq-title">How the hotel works</h2>
+    <p class="enq-sub">Your proposal and your stay, handled together.</p>
+  </div>
+  <div style="padding: 0 4px 8px">
+    <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:28px">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:rgba(165,90,74,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#A55A4A;font-weight:500">1</div>
+        <div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;letter-spacing:0.02em">Enquire for your proposal</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--mid);line-height:1.65;letter-spacing:0.01em">Submit your enquiry as normal. When prompted whether you'd also like a hotel, simply select yes.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:rgba(165,90,74,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#A55A4A;font-weight:500">2</div>
+        <div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;letter-spacing:0.02em">We respond within 24 hours</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--mid);line-height:1.65;letter-spacing:0.01em">Our team sends you a full quote showing two options — proposal only, and proposal with hotel — so you can choose freely.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:rgba(165,90,74,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#A55A4A;font-weight:500">3</div>
+        <div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;letter-spacing:0.02em">Full hotel details included</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--mid);line-height:1.65;letter-spacing:0.01em">Your quote includes the hotel name, room options, availability, and exact pricing for your dates. No guesswork.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:rgba(165,90,74,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#A55A4A;font-weight:500">4</div>
+        <div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;letter-spacing:0.02em">You decide, then confirm</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--mid);line-height:1.65;letter-spacing:0.01em">No payment until you've approved your full quote.</div>
+        </div>
+      </div>
+    </div>
+    <button class="enq-submit-btn" onclick="closeHotelInfo(); openEnquiryModal()">Start Your Enquiry →</button>
+  </div>
+</div>
+
+<!-- Enquiry modal -->
+<div class="enq-overlay" id="enq-overlay" onclick="closeEnquiryModal()"></div>
+<div class="enq-modal" id="enq-modal">
+  <button class="enq-close" onclick="closeEnquiryModal()">✕</button>
+  <div class="enq-header">
+    <span class="enq-eyebrow">Request this Proposal</span>
+    <h2 class="enq-title" id="enq-spot-name">Request your proposal</h2>
+    <p class="enq-sub">We'll review your enquiry and get back to you within 24 hours with a full itemised quote. No payment until you've approved everything.</p>
+  </div>
+
+  <!-- Summary -->
+  <div class="enq-summary" id="enq-summary" style="display:none">
+    <div class="enq-summary-row" id="enq-sum-hotel" style="display:none">
+      <span class="enq-sum-lbl">Hotel</span>
+      <span class="enq-sum-val" id="enq-sum-hotel-name"></span>
+    </div>
+    <div class="enq-summary-row" id="enq-sum-dates" style="display:none">
+      <span class="enq-sum-lbl">Stay</span>
+      <span class="enq-sum-val" id="enq-sum-dates-val"></span>
+    </div>
+    <div class="enq-summary-row" id="enq-sum-nights" style="display:none">
+      <span class="enq-sum-lbl">Proposal night</span>
+      <span class="enq-sum-val" id="enq-sum-nights-val"></span>
+    </div>
+    <div class="enq-summary-row" id="enq-sum-package" style="display:none">
+      <span class="enq-sum-lbl">Package</span>
+      <span class="enq-sum-val" id="enq-sum-package-val"></span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="enq-form" id="enq-form">
+    <div class="enq-form-row">
+      <div class="enq-form-field">
+        <label class="enq-label">First name *</label>
+        <input type="text" id="enq-first" class="enq-input" placeholder="James">
+      </div>
+      <div class="enq-form-field">
+        <label class="enq-label">Last name *</label>
+        <input type="text" id="enq-last" class="enq-input" placeholder="Chen">
+      </div>
+    </div>
+    <div class="enq-form-field">
+      <label class="enq-label">Email *</label>
+      <input type="email" id="enq-email" class="enq-input" placeholder="james@example.com">
+    </div>
+    <div class="enq-form-field">
+      <label class="enq-label">Phone / WhatsApp *</label>
+      <input type="tel" id="enq-phone" class="enq-input" placeholder="+1 555 000 0000">
+    </div>
+    <div class="enq-form-field">
+      <label class="enq-label">Partner's first name</label>
+      <input type="text" id="enq-partner" class="enq-input" placeholder="Sofia">
+    </div>
+    <div class="enq-form-field">
+      <label class="enq-label">Your country</label>
+      <input type="text" id="enq-country" class="enq-input" placeholder="e.g. United States">
+    </div>
+
+    <!-- Hotel stay section -->
+    <div id="enq-hotel-stay-section" style="display:none">
+      <div class="enq-section-divider">
+        <span class="enq-section-label">Your Hotel Stay</span>
+      </div>
+      <div class="enq-hotel-stay-row" id="enq-hotel-stay-row">
+        <div class="enq-hotel-stay-dates" id="enq-hotel-stay-dates"></div>
+        <button class="enq-hotel-change-btn" onclick="openRangeCal('checkin')" type="button">Change</button>
+      </div>
+    </div>
+
+    <!-- Proposal date section -->
+    <div class="enq-section-divider">
+      <span class="enq-section-label">Proposal Night</span>
+    </div>
+    <div class="enq-hotel-stay-row" id="enq-prop-date-row">
+      <div class="enq-hotel-stay-dates" id="enq-prop1-display" style="color:var(--muted);font-style:italic">Not selected</div>
+      <button class="enq-hotel-change-btn" id="enq-prop1-change" type="button">Change</button>
+    </div>
+
+    <input type="date" id="enq-proposal-date" style="display:none">
+    <input type="date" id="enq-backup-date" style="display:none">
+
+    <div class="enq-form-field">
+      <label class="enq-label">Anything we should know?</label>
+      <textarea id="enq-notes" class="enq-textarea" rows="3" placeholder="Special requests, dietary needs, how you met, anything that makes this moment more personal..."></textarea>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="enq-addons" id="enq-addons-section" style="display:none">
+      <span class="enq-addons-label">Add to your moment</span>
+      <p class="enq-addons-note">These are optional. Select anything that feels right and we'll include it in your quote — no commitment yet.</p>
+      <div id="enq-addons-list"></div>
+    </div>
+
+    <button class="enq-submit-btn" id="enq-submit" onclick="submitEnquiry()">
+      Send Enquiry →
+    </button>
+    <p class="enq-legal">By submitting you agree to be contacted by Proposal Spots regarding your enquiry. We do not share your details.</p>
+  </div>
+
+  <!-- Success -->
+  <div class="enq-success" id="enq-success" style="display:none">
+    <div class="enq-success-icon">✦</div>
+    <h3 class="enq-success-title">Enquiry received</h3>
+    <p class="enq-success-msg">We'll confirm availability and send a full itemised quote within 24 hours. Check your email for confirmation.</p>
+    <button class="enq-submit-btn" onclick="closeEnquiryModal()" style="margin-top:20px">Close</button>
+  </div>
+</div>
+
+<script>
+// ────────────────────────────────────────────────────────
+//  GLOBALS
+// ─────────────────────────────────────────────────────────
+let currentSpotId = null;
+let allSpots = [];
+let currentSpot = null;
+let selectedPackage = 'hotel';
+let photographerAddonActive = false;
+let hotelStepOn = false;
+let selectedProposalDates = [];
+let currentSpotPricing = { moment: 0, hotelPerNight: 0, photographer: 0, photoNote: '', peakMonths: [], lowMonths: [], peakMult: 1.3, lowMult: 0.85, hasPricing: false };
+
+let calViewYear = new Date().getFullYear();
+let calViewMonth = new Date().getMonth();
+let _rcalMode = 'checkin';
+let _rcalYear = new Date().getFullYear();
+let _rcalMonth = new Date().getMonth();
+let _enqProp1 = '';
+let _enqProp2 = '';
+let _galleryIndex = 0;
+let _galleryPhotos = [];
+let _lightboxIndex = 0;
+let savedSpotIds = JSON.parse(localStorage.getItem('savedSpotIds') || '[]');
+let savedEmail = localStorage.getItem('savedEmail') || '';
+
+// ─────────────────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────────────────
+async function initPage() {
+  // Get slug from pathname
+  const pathname = window.location.pathname;
+  const match = pathname.match(/\/spots\/([^\/]+)/);
+  const slug = match ? match[1] : null;
+
+  if (!slug) {
+    showNotFound();
+    return;
+  }
+
+  // Show loading
+  document.getElementById('loading-spinner').style.display = 'block';
+
+  // Fetch spots
+  try {
+    const response = await fetch('/api/spots');
+    if (!response.ok) throw new Error('API error');
+    const data = await response.json();
+    allSpots = data.records.map(r => mapSpotFromAirtable(r));
+  } catch (err) {
+    console.error('Fetch failed:', err);
+    showNotFound();
+    return;
+  }
+
+  // Find spot by slug
+  const spotSlug = slug.toLowerCase();
+  const spot = allSpots.find(s => toSlug(s.Name) === spotSlug);
+
+  if (!spot) {
+    showNotFound();
+    return;
+  }
+
+  // Load spot
+  currentSpot = spot;
+  currentSpotId = spot.id;
+  document.getElementById('loading-spinner').style.display = 'none';
+  document.getElementById('spot-content').style.display = '';
+
+  // Populate page
+  populateSpot(spot);
+
+  // Update SEO
+  document.title = spot.Name + ' — Proposal Spots';
+  document.getElementById('page-description').content = spot['Line Summary'] || spot['Full Summary'] || '';
+}
+
+function mapSpotFromAirtable(r) {
+  const f = r.fields;
+  const rawPrivacy = f['Privacy'] || '';
+  const privacy = rawPrivacy.includes('Private') ? 'Private'
+    : rawPrivacy.includes('Light') ? 'Light Crowd'
+    : rawPrivacy.includes('Moderate') ? 'Moderate Crowd'
+    : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
+    : rawPrivacy;
+
+  const rawBudget = f['Budget'] || '';
+  const budget = rawBudget === 'Free' ? 'Free'
+    : rawBudget === 'Moderate' ? '$$'
+    : rawBudget === 'Expensive' ? '$$$'
+    : rawBudget === 'Luxury' ? '$$$$'
+    : rawBudget;
+
+  const bestTime = Array.isArray(f['Best Time'])
+    ? f['Best Time']
+    : (f['Best Time'] ? [f['Best Time']] : []);
+
+  return {
+    id: r.id,
+    Name: f['Spot Name'] || f['Name'] || '',
+    Country: f['Country'] || '',
+    Region: f['Region / Town'] || f['Region'] || '',
+    Privacy: privacy,
+    Budget: budget,
+    'Best Time': bestTime,
+    'Access & Effort': f['Access & Effort'] || '',
+    'Access Details': f[ f['Access Details'] || '',
+    'Line Summary': f['Line Summary'] || '',
+    'Full Summary': f['Full Summary'] || '',
+    'Cover Photo': f['Cover Photo']?.[0]?.url || null,
+    'Gallery Photos': (f['Gallery Photos'] || []),
+    'Price Moment': f['Price Moment'] || null,
+    'Price Hotel Per Night': f['Price Hotel Per Night'] || null,
+    'Price Photographer': f['Price Photographer'] || null,
+    'Photographer Note': f['Photographer Note'] || '',
+    'Package Includes': f['Package Includes'] || '',
+    'Linked Hotel / Venue': f['Linked Hotel / Venue'] || '',
+    badge: f['Badge'] || null,
+    'Add-ons': Array.isArray(f['Add-ons']) ? f['Add-ons'] : (f['Add-ons'] ? f['Add-ons'].split(/[|·,]/).map(s=>s.trim()).filter(Boolean) : []),
+    'Add-on Prices': f['Add-on Prices'] || '',
+    'Peak Months': f['Peak Months'] || '',
+    'Low Months': f['Low Months'] || '',
+    'Peak Multiplier': f['Peak Multiplier'] || 1.3,
+    'Low Multiplier': f['Low Multiplier'] || 0.85,
+  };
+}
+
+function toSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function populateSpot(s) {
+  // Hero
+  const bg = document.getElementById('sdp-hero-bg');
+  if (s['Cover Photo']) {
+    bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
+    bg.style.backgroundSize = 'cover';
+    bg.style.backgroundPosition = 'center';
+  }
+
+  if (s.badge) {
+    document.getElementById('sdp-badge').textContent = s.badge;
+    document.getElementById('sdp-badge').style.display = '';
+  }
+
+  document.getElementById('sdp-loc').textContent = `${s.Region || ''} · ${s.Country || ''}`;
+  document.getElementById('sdp-name').textContent = s.Name;
+  document.getElementById('sdp-line-summary').textContent = s['Line Summary'] || '';
+
+  // Stats
+  document.getElementById('sdp-budget').textContent = s.Budget || '—';
+  document.getElementById('sdp-privacy').textContent = s.Privacy || '—';
+  document.getElementById('sdp-effort').textContent = s['Access & Effort'] || '—';
+  const times = Array.isArray(s['Best Time']) ? s['Best Time'].join(', ') : (s['Best Time'] || '—');
+  document.getElementById('sdp-time').textContent = times;
+
+  // About
+  document.getElementById('sdp-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
+
+  // What's included
+  const includedSection = document.getElementById('sdp-included-section');
+  const includedList = document.getElementById('sdp-included-list');
+  const packageIncludes = s['Package Includes'] || '';
+  if (packageIncludes) {
+    const items = packageIncludes.split('·').map(i => i.trim()).filter(Boolean);
+    includedList.innerHTML = items.map(item => `<li class="sdp-included-item"><span class="sdp-included-tick">✓</span><span>${item}</span></li>`).join('');
+    includedSection.style.display = '';
+  } else {
+    includedSection.style.display = 'none';
+  }
+
+  // Access
+  const accessBlock = document.getElementById('sdp-access-block');
+  if (s['Access Details']) {
+    document.getElementById('sdp-access').textContent = s['Access Details'];
+    accessBlock.style.display = '';
+  } else {
+    accessBlock.style.display = 'none';
+  }
+
+  // Hotel chip
+  const hasHotel = !!(s['Linked Hotel / Venue'] || s['Price Hotel Per Night']);
+  document.getElementById('sdp-hotel-chip').style.display = hasHotel ? '' : 'none';
+  document.getElementById('sdp-concierge-hotel-tag').style.display = hasHotel ? '' : 'none';
+
+  // Price
+  document.getElementById('sdp-concierge-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+  document.getElementById('sdp-bar-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+
+  // Gallery
+  renderGallery(s['Gallery Photos'] || []);
+
+  // Pricing
+  loadSpotPricing(s);
+
+  // Save UI
+  updateSaveUI(s.id);
+}
+
+function showNotFound() {
+  document.getElementById('loading-spinner').style.display = 'none';
+  document.getElementById('not-found-state').style.display = 'flex';
+}
+
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/';
+  }
+}
+
+// ─────────────────────────────────────────────────────────
+//  GALLERY
+// ─────────────────────────────────────────────────────────
+function renderGallery(photos) {
+  _galleryPhotos = photos;
+  _galleryIndex = 0;
+
+  if (!photos || photos.length === 0) {
+    document.getElementById('sdp-gallery-section').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('sdp-gallery-section').style.display = '';
+  renderGalleryFrame();
+}
+
+function renderGalleryFrame() {
+  const photo = _galleryPhotos[_galleryIndex];
+  if (!photo) return;
+
+  document.getElementById('sdp-gallery-main').src = photo.url || '';
+  document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
+
+  // Dots
+  const dotsEl = document.getElementById('sdp-gallery-dots');
+  dotsEl.innerHTML = _galleryPhotos.map((_, i) =>
+    `<div class="sdp-gallery-dot${i === _galleryIndex ? ' active' : ''}" onclick="galleryGoto(${i})"></div>`
+  ).join('');
+}
+
+function galleryPrev() {
+  _galleryIndex = (_galleryIndex - 1 + _galleryPhotos.length) % _galleryPhotos.length;
+  renderGalleryFrame();
+}
+
+function galleryNext() {
+  _galleryIndex = (_galleryIndex + 1) % _galleryPhotos.length;
+  renderGalleryFrame();
+}
+
+function galleryGoto(i) {
+  _galleryIndex = i;
+  renderGalleryFrame();
+}
+
+// ─────────────────────────────────────────────────────────
+//  LIGHTBOX
+// ─────────────────────────────────────────────────────────
+function openLightbox(index) {
+  _lightboxIndex = index;
+  const photo = _galleryPhotos[index];
+  if (!photo) return;
+
+  document.getElementById('sdp-lightbox-img').src = photo.url || '';
+  document.getElementById('sdp-lightbox-counter').textContent = (index + 1) + ' / ' + _galleryPhotos.length;
+  document.getElementById('sdp-lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('sdp-lightbox').classList.remove('open');
+}
+
+function lightboxPrev() {
+  _lightboxIndex = (_lightboxIndex - 1 + _galleryPhotos.length) % _galleryPhotos.length;
+  openLightbox(_lightboxIndex);
+}
+
+function lightboxNext() {
+  _lightboxIndex = (_lightboxIndex + 1) % _galleryPhotos.length;
+  openLightbox(_lightboxIndex);
+}
+
+// ─────────────────────────────────────────────────────────
+//  BOOKING - PRICING
+// ─────────────────────────────────────────────────────────
+function loadSpotPricing(s) {
+  const parseMths = str => (str || '').split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n));
+  currentSpotPricing = {
+    moment: s['Price Moment'] || null,
+    hotelPerNight: s['Price Hotel Per Night'] || null,
+    photographer: s['Price Photographer'] || null,
+    photoNote: s['Photographer Note'] || '2hr coverage · edited photos included',
+    peakMonths: parseMths(s['Peak Months']),
+    lowMonths: parseMths(s['Low Months']),
+    peakMult: s['Peak Multiplier'] || 1.3,
+    lowMult: s['Low Multiplier'] || 0.85,
+    hasPricing: !!(s['Price Moment'] || s['Price Hotel Per Night'])
+  };
+  selectedPackage = 'hotel';
+  photographerAddonActive = false;
+  renderPackages(null);
+}
+
+function getSeasonForMonth(month) {
+  if (currentSpotPricing.peakMonths.includes(month)) return 'peak';
+  if (currentSpotPricing.lowMonths.includes(month)) return 'low';
+  return 'mid';
+}
+
+function getMultiplierForSeason(season) {
+  if (season === 'peak') return currentSpotPricing.peakMult;
+  if (season === 'low') return currentSpotPricing.lowMult;
+  return 1;
+}
+
+function formatPrice(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function renderPackages(season) {
+  updateSelectionSummary();
+}
+
+function updateSelectionSummary() {
+  const block = document.getElementById('sdp-pricing-block');
+  const items = document.getElementById('sdp-selection-items');
+  if (!block || !items) return;
+
+  const lines = [];
+  const pkgLabel = selectedPackage === 'hotel' ? 'The Moment + Hotel stay' : 'The Moment';
+  lines.push(pkgLabel);
+
+  const ci = document.getElementById('sdp-checkin')?.value;
+  const co = document.getElementById('sdp-checkout')?.value;
+  if (selectedPackage === 'hotel' && ci && co) {
+    const nights = Math.round((new Date(co + 'T00:00:00') - new Date(ci + 'T00:00:00')) / 86400000);
+    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    lines.push(fmt(ci) + ' – ' + fmt(co) + ' · ' + nights + ' night' + (nights !== 1 ? 's' : ''));
+  }
+
+  if (photographerAddonActive) lines.push('Photographer add-on');
+
+  const pd1 = document.getElementById('sdp-proposal-date-1')?.value;
+  const pd2 = document.getElementById('sdp-proposal-date-2')?.value;
+  const fmt = d => d ? new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : null;
+  if (pd1) lines.push('Proposal: ' + fmt(pd1));
+  if (pd2) lines.push('Backup: ' + fmt(pd2));
+
+  items.innerHTML = lines.map(l => `<div class="sdp-selection-item"><span class="sdp-selection-dot"></span><span>${l}</span></div>`).join('');
+  block.style.display = lines.length ? '' : 'none';
+}
+
+// ─────────────────────────────────────────────────────────
+//  HOTEL STEP TOGGLE
+// ─────────────────────────────────────────────────────────
+function toggleHotelStep() {
+  hotelStepOn = !hotelStepOn;
+  const track = document.getElementById('sdp-toggle-track');
+  const dates = document.getElementById('sdp-hotel-dates');
+  const miniCal = document.getElementById('sdp-mini-cal');
+  const nightChips = document.getElementById('sdp-night-chips');
+
+  if (track) track.classList.toggle('on', hotelStepOn);
+  if (dates) dates.style.display = hotelStepOn ? '' : 'none';
+  if (hotelStepOn) {
+    renderProposalDateStep();
+  } else {
+    if (miniCal) miniCal.style.display = '';
+    if (nightChips) nightChips.style.display = 'none';
+  }
+}
+
+// ─────────────────────────────────────────────────────────
+//  RANGE CALENDAR
+// ─────────────────────────────────────────────────────────
+function openRangeCal(mode) {
+  _rcalMode = mode;
+  const cal = document.getElementById('sdp-range-cal');
+  if (!cal) return;
+  cal.style.display = 'block';
+  const ci = document.getElementById('sdp-checkin')?.value;
+  if (ci) {
+    const d = new Date(ci + 'T00:00:00');
+    _rcalYear = d.getFullYear();
+    _rcalMonth = d.getMonth();
+  } else {
+    _rcalYear = new Date().getFullYear();
+    _rcalMonth = new Date().getMonth();
+  }
+  renderRangeCal();
+}
+
+function closeRangeCal() {
+  const cal = document.getElementById('sdp-range-cal');
+  if (cal) cal.style.display = 'none';
+}
+
+function renderRangeCal() {
+  const cal = document.getElementById('sdp-range-cal');
+  if (!cal) return;
+  const ci = document.getElementById('sdp-checkin')?.value || '';
+  const co = document.getElementById('sdp-checkout')?.value || '';
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DOWS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const modeLabel = _rcalMode === 'checkin' ? 'Select check-in date' : 'Select check-out date';
+  const firstDay = new Date(_rcalYear, _rcalMonth, 1).getDay();
+  const daysInMo = new Date(_rcalYear, _rcalMonth + 1, 0).getDate();
+  let cells = '';
+  DOWS.forEach(d => { cells += `<div class="rcal-dow">${d}</div>`; });
+  for (let i = 0; i < firstDay; i++) cells += '<div class="rcal-day rcal-day-empty"></div>';
+  for (let d = 1; d <= daysInMo; d++) {
+    const ds = _rcalYear + '-' + String(_rcalMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const dt = new Date(ds + 'T00:00:00');
+    let cls = 'rcal-day';
+    let disabled = false;
+    if (dt < today) { cls += ' rcal-day-disabled'; disabled = true; }
+    if (_rcalMode === 'checkout' && ci && ds <= ci) { cls += ' rcal-day-disabled'; disabled = true; }
+    if (!disabled) {
+      if (ds === ci) cls += ' rcal-day-checkin';
+      if (ds === co) cls += ' rcal-day-checkout';
+      if (ci && co && ds > ci && ds < co) cls += ' rcal-day-inrange';
     }
+    const hoverAttrs = disabled ? '' : ` onclick="rcalSelectDay('${ds}')" onmouseenter="rcalHover('${ds}')" onmouseleave="rcalHoverEnd()"`;
+    cells += `<div class="${cls}" data-ds="${ds}"${hoverAttrs}>${d}</div>`;
+  }
+  cal.innerHTML = `
+    <div class="rcal-mode-label">${modeLabel}</div>
+    <div class="rcal-header">
+      <button class="rcal-nav" onclick="rcalNav(-1)">‹</button>
+      <span class="rcal-month">${MONTHS[_rcalMonth]} ${_rcalYear}</span>
+      <button class="rcal-nav" onclick="rcalNav(1)">›</button>
+    </div>
+    <div class="rcal-grid">${cells}</div>`;
+  document.getElementById('sdp-ci-btn')?.classList.toggle('active', _rcalMode === 'checkin');
+  document.getElementById('sdp-co-btn')?.classList.toggle('active', _rcalMode === 'checkout');
+}
 
-    // ── Fetch & match ─────────────────────────────────────────────────
-    //  Calls the same /api/spots endpoint that index.html uses.
-    //  Finds the matching record by comparing the URL slug to a
-    //  slugified version of each spot's Name field.
-    async function loadSpot() {
-      const slug = getSlugFromURL();
-      if (!slug) { showNotFound(); return; }
+function rcalNav(dir) {
+  _rcalMonth += dir;
+  if (_rcalMonth < 0) { _rcalMonth = 11; _rcalYear--; }
+  if (_rcalMonth > 11) { _rcalMonth = 0; _rcalYear++; }
+  renderRangeCal();
+}
 
-      try {
-        const resp = await fetch('/api/spots');
-        if (!resp.ok) throw new Error(`/api/spots returned ${resp.status}`);
-        const data = await resp.json();
+function rcalSelectDay(ds) {
+  const ciEl = document.getElementById('sdp-checkin');
+  const coEl = document.getElementById('sdp-checkout');
+  const ciValEl = document.getElementById('sdp-ci-val');
+  const coValEl = document.getElementById('sdp-co-val');
+  const fmt = s => new Date(s + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  if (_rcalMode === 'checkin') {
+    ciEl.value = ds;
+    if (ciValEl) ciValEl.textContent = fmt(ds);
+    if (coEl.value && coEl.value <= ds) { coEl.value = ''; if (coValEl) coValEl.textContent = 'Select date'; }
+    _rcalMode = 'checkout';
+    renderRangeCal();
+  } else {
+    coEl.value = ds;
+    if (coValEl) coValEl.textContent = fmt(ds);
+    closeRangeCal();
+    renderProposalDateStep();
+    updateSelectionSummary();
+  }
+}
 
-        const record = (data.records || []).find(r =>
-          toSlug(r.fields['Spot Name'] || r.fields['Name']) === slug
-        );
+function rcalHover(ds) {
+  if (_rcalMode !== 'checkout') return;
+  const ci = document.getElementById('sdp-checkin')?.value;
+  if (!ci) return;
+  document.querySelectorAll('#sdp-range-cal .rcal-day').forEach(el => {
+    const d = el.dataset.ds;
+    if (!d) return;
+    el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout');
+    if (d > ci && d < ds) el.classList.add('rcal-day-hover-range');
+    if (d === ds) el.classList.add('rcal-day-hover-checkout');
+  });
+}
 
-        if (!record) { showNotFound(); return; }
-        renderSpot(record.fields);
+function rcalHoverEnd() {
+  document.querySelectorAll('#sdp-range-cal .rcal-day-hover-range, #sdp-range-cal .rcal-day-hover-checkout')
+    .forEach(el => el.classList.remove('rcal-day-hover-range', 'rcal-day-hover-checkout'));
+}
 
-      } catch (err) {
-        console.error('[spot.html] Failed to load spot:', err);
-        showNotFound();
+// ─────────────────────────────────────────────────────────
+//  PROPOSAL DATE STEP
+// ─────────────────────────────────────────────────────────
+function renderProposalDateStep() {
+  const miniCalEl = document.getElementById('sdp-mini-cal');
+  const gridEl = document.getElementById('sdp-mini-cal-grid');
+  if (!miniCalEl || !gridEl) return;
+
+  const ci = document.getElementById('sdp-checkin')?.value || '';
+  const co = document.getElementById('sdp-checkout')?.value || '';
+
+  if (hotelStepOn && ci && co) {
+    // Show night chips from hotel stay
+    const nightChipsEl = document.getElementById('sdp-night-chips');
+    if (nightChipsEl) {
+      const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+      let html = '';
+      let cursor = new Date(ci + 'T00:00:00');
+      const end = new Date(co + 'T00:00:00');
+      while (cursor < end) {
+        const ds = cursor.toISOString().split('T')[0];
+        const isSelected = selectedProposalDates.includes(ds);
+        html += `<div class="sdp-night-chip${isSelected ? ' selected' : ''}" data-ds="${ds}" onclick="toggleProposalNight('${ds}')">${fmt(ds)}</div>`;
+        cursor.setDate(cursor.getDate() + 1);
       }
+      nightChipsEl.innerHTML = html;
+      nightChipsEl.style.display = 'flex';
     }
+    miniCalEl.style.display = 'none';
+  } else {
+    // Show mini calendar
+    const DOWS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    let html = '<div style="display:flex;flex-direction:column;gap:4px">';
+    html += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:8px">';
+    DOWS.forEach(d => { html += `<div style="text-align:center;font-size:10px;color:var(--muted);padding:4px 0">${d}</div>`; });
+    const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
+    const daysInMo = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+    for (let i = 0; i < firstDay; i++) html += '<div></div>';
+    for (let d = 1; d <= daysInMo; d++) {
+      const ds = calViewYear + '-' + String(calViewMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+      const isSelected = selectedProposalDates.includes(ds);
+      html += `<div class="sdp-mini-cal-day${isSelected ? ' selected' : ''}" onclick="toggleProposalNight('${ds}')">${d}</div>`;
+    }
+    html += '</div></div>';
+    gridEl.innerHTML = html;
+    miniCalEl.style.display = '';
+  }
+}
 
-    showLoading();
-    loadSpot();
-  </script>
+function toggleProposalNight(ds) {
+  const idx = selectedProposalDates.indexOf(ds);
+  if (idx >= 0) {
+    selectedProposalDates.splice(idx, 1);
+  } else {
+    selectedProposalDates = [ds];
+  }
+  document.getElementById('sdp-proposal-date-1').value = selectedProposalDates[0] || '';
+  document.getElementById('sdp-proposal-date-2').value = selectedProposalDates[1] || '';
+  renderProposalDateStep();
+  updateSelectionSummary();
+}
+
+// ─────────────────────────────────────────────────────────
+//  SAVE
+// ─────────────────────────────────────────────────────────
+function isSpotSaved(id) {
+  return savedSpotIds.includes(id);
+}
+
+function toggleSaveSpot(evt) {
+  if (evt) evt.stopPropagation();
+  if (!currentSpot) return;
+  const id = currentSpot.id;
+  const isSaved = isSpotSaved(id);
+  if (isSaved) {
+    savedSpotIds = savedSpotIds.filter(x => x !== id);
+  } else {
+    savedSpotIds.push(id);
+  }
+  localStorage.setItem('savedSpotIds', JSON.stringify(savedSpotIds));
+  updateSaveUI(id);
+}
+
+function updateSaveUI(id) {
+  const isSaved = isSpotSaved(id);
+  const heartBtn = document.getElementById('sdp-heart-btn');
+  const saveBtn = document.getElementById('sdp-save-btn');
+  const saveIcon = document.getElementById('sdp-save-icon');
+  const barSaveBtn = document.getElementById('sdp-bar-save');
+
+  if (heartBtn) { heartBtn.textContent = isSaved ? '♥' : '♡'; heartBtn.style.color = isSaved ? '#A55A4A' : ''; }
+  if (saveIcon) saveIcon.textContent = isSaved ? '♥' : '♡';
+  if (saveBtn) saveBtn.style.color = isSaved ? '#A55A4A' : '';
+  if (barSaveBtn) { barSaveBtn.textContent = isSaved ? '♥' : '♡'; barSaveBtn.style.color = isSaved ? '#A55A4A' : ''; }
+}
+
+// ─────────────────────────────────────────────────────────
+//  ENQUIRY
+// ─────────────────────────────────────────────────────────
+function openEnquiryModal() {
+  const spotName = document.getElementById('sdp-name')?.textContent || '';
+  document.getElementById('enq-spot-name').textContent = spotName || 'Request your proposal';
+
+  // Summary
+  const ci = document.getElementById('sdp-checkin')?.value;
+  const co = document.getElementById('sdp-checkout')?.value;
+  const sumEl = document.getElementById('enq-summary');
+  const sumHotel = document.getElementById('enq-sum-hotel');
+  const sumDates = document.getElementById('enq-sum-dates');
+  const sumNights = document.getElementById('enq-sum-nights');
+
+  if (ci && co) {
+    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    document.getElementById('enq-sum-dates-val').textContent = fmt(ci) + ' → ' + fmt(co);
+    sumDates.style.display = '';
+    sumEl.style.display = '';
+  } else {
+    sumDates.style.display = 'none';
+  }
+
+  const pd1 = document.getElementById('sdp-proposal-date-1')?.value;
+  if (pd1) {
+    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    document.getElementById('enq-sum-nights-val').textContent = fmt(pd1);
+    sumNights.style.display = '';
+    sumEl.style.display = '';
+  } else {
+    sumNights.style.display = 'none';
+  }
+
+  // Pre-fill dates
+  document.getElementById('enq-proposal-date').value = pd1 || '';
+  document.getElementById('enq-backup-date').value = '';
+  _enqProp1 = pd1 || '';
+  _enqProp2 = '';
+
+  // Hotel section
+  const enqHotelSection = document.getElementById('enq-hotel-stay-section');
+  const enqHotelDates = document.getElementById('enq-hotel-stay-dates');
+  if (ci && co && enqHotelSection) {
+    const nights = Math.round((new Date(co + 'T00:00:00') - new Date(ci + 'T00:00:00')) / 86400000);
+    const fmtS = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    if (enqHotelDates) enqHotelDates.innerHTML = '<strong>' + fmtS(ci) + '</strong> → <strong>' + fmtS(co) + '</strong> <span style="opacity:0.6;font-size:10px">(' + nights + ' night' + (nights !== 1 ? 's' : '') + ')</span>';
+    enqHotelSection.style.display = '';
+  } else if (enqHotelSection) {
+    enqHotelSection.style.display = 'none';
+  }
+
+  // Pre-fill email
+  if (savedEmail) document.getElementById('enq-email').value = savedEmail;
+
+  // Show form
+  document.getElementById('enq-success').style.display = 'none';
+  document.getElementById('enq-form').style.display = '';
+
+  document.getElementById('enq-overlay').classList.add('open');
+  document.getElementById('enq-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEnquiryModal() {
+  document.getElementById('enq-overlay').classList.remove('open');
+  document.getElementById('enq-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitEnquiry() {
+  const first = document.getElementById('enq-first')?.value?.trim();
+  const last = document.getElementById('enq-last')?.value?.trim();
+  const email = document.getElementById('enq-email')?.value?.trim();
+  const phone = document.getElementById('enq-phone')?.value?.trim();
+
+  if (!first || !last || !email || !phone) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const data = {
+    spotName: document.getElementById('sdp-name')?.textContent || '',
+    firstName: first,
+    lastName: last,
+    email: email,
+    phone: phone,
+    partner: document.getElementById('enq-partner')?.value?.trim() || '',
+    country: document.getElementById('enq-country')?.value?.trim() || '',
+    hotelCheckin: document.getElementById('sdp-checkin')?.value || '',
+    hotelCheckout: document.getElementById('sdp-checkout')?.value || '',
+    proposalDate: document.getElementById('enq-proposal-date')?.value || '',
+    backupDate: document.getElementById('enq-backup-date')?.value || '',
+    notes: document.getElementById('enq-notes')?.value?.trim() || '',
+  };
+
+  try {
+    const response = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      savedEmail = email;
+      localStorage.setItem('savedEmail', email);
+      document.getElementById('enq-form').style.display = 'none';
+      document.getElementById('enq-success').style.display = '';
+    } else {
+      alert('Error submitting enquiry. Please try again.');
+    }
+  } catch (err) {
+    console.error('Enquiry submit error:', err);
+    alert('Network error. Please try again.');
+  }
+}
+
+function showHotelInfo() {
+  document.getElementById('hotel-info-overlay').classList.add('open');
+  document.getElementById('hotel-info-modal').classList.add('open');
+}
+
+function closeHotelInfo() {
+  document.getElementById('hotel-info-overlay').classList.remove('open');
+  document.getElementById('hotel-info-modal').classList.remove('open');
+}
+
+// Init on load
+window.addEventListener('DOMContentLoaded', initPage);
+</script>
 
 </body>
 </html>
