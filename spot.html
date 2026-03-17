@@ -160,43 +160,24 @@ nav {
   z-index: 50;
 }
 
-.sdp-vibe-strip {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding: 20px 40px;
-  background: var(--white);
-  border-bottom: 1px solid var(--hairline);
-}
-
-.sdp-vibe-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: var(--bg);
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.sdp-vibe-chip.hotel-tag {
-  background: rgba(100,149,237,0.08);
-  cursor: pointer;
-}
-
-.sdp-chip-icon { font-size: 16px; }
-.sdp-chip-text { display: flex; flex-direction: column; gap: 2px; }
-.sdp-chip-lbl { font-size: 8px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-.sdp-chip-val { font-family: 'Cormorant', serif; font-size: 14px; color: var(--ink); }
+.sdp-vibe-strip { display: flex; align-items: stretch; background: var(--white); border-bottom: 1px solid var(--hairline); }
+.sdp-vibe-chip { display: flex; align-items: center; gap: 10px; padding: 18px 24px; border-right: 1px solid var(--hairline); flex: 1; min-width: 0; }
+.sdp-vibe-chip:last-child { border-right: none; }
+.sdp-chip-icon { font-size: 12px; opacity: 0.65; }
+.sdp-chip-text { display: flex; flex-direction: column; gap: 3px; }
+.sdp-chip-lbl { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.sdp-chip-val { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink); letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sdp-vibe-chip.hotel-tag .sdp-chip-val { color: #A55A4A; }
 
 .sdp-body {
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 40px;
-  padding: 40px;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
+  padding: 64px 40px 160px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 64px;
+  align-items: start;
 }
 
 .sdp-main { }
@@ -284,16 +265,13 @@ nav {
 }
 
 .sdp-about {
-  margin-bottom: 48px;
+  margin-bottom: 72px;
 }
 
 .sdp-about-text {
   font-family: 'Cormorant', serif;
-  font-size: 20px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.75;
-  letter-spacing: 0.02em;
+  font-size: 23px; font-weight: 300;
+  color: var(--ink); line-height: 1.8;
 }
 
 .sdp-included {
@@ -341,30 +319,33 @@ nav {
 .sdp-concierge-card {
   background: var(--white);
   border: 1px solid var(--hairline);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: sticky;
+  top: 88px;
 }
+.sdp-concierge-top { padding: 24px 28px 20px; border-bottom: 1px solid var(--hairline); }
 
 .sdp-concierge-eyebrow {
   font-family: 'Jost', sans-serif;
   font-size: 8px;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: block;
-  margin-bottom: 8px;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 14px;
 }
 
 .sdp-concierge-price-block {
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .sdp-concierge-price {
   font-family: 'Cormorant', serif;
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--ink);
+  font-size: 42px; font-weight: 300;
+  color: var(--ink); line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .sdp-concierge-from {
@@ -375,66 +356,47 @@ nav {
 }
 
 .sdp-concierge-note {
-  display: block;
   font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 300;
-  margin-top: 6px;
-  letter-spacing: 0.03em;
+  font-size: 10px; font-weight: 300;
+  color: var(--muted); letter-spacing: 0.06em;
+  white-space: nowrap;
 }
 
 .sdp-concierge-hotel-tag {
-  background: rgba(100,149,237,0.08);
-  border: 1px solid rgba(100,149,237,0.2);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 16px;
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  color: #4a6bb5;
-  line-height: 1.6;
-  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 14px; padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--hairline); border-radius: 10px;
+  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300;
+  letter-spacing: 0.01em; color: var(--ink); cursor: pointer; transition: border-color 0.15s;
 }
+.sdp-concierge-hotel-tag:hover { border-color: var(--mid); }
+.sdp-hotel-link { color: #A55A4A; text-decoration: underline; text-underline-offset: 2px; }
 
-.sdp-hotel-link { font-weight: 500; }
+.sdp-concierge-body { padding: 24px 28px 28px; }
 
-.sdp-concierge-body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.sdp-booking-step {
-  border: 1px solid var(--hairline);
-  border-radius: 10px;
-  padding: 16px;
-  background: var(--bg);
-}
+.sdp-booking-step { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--divider); }
+.sdp-booking-step:last-of-type { border-bottom: none; }
 
 .sdp-step-header {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  user-select: none;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
 .sdp-step-num {
   font-family: 'Cormorant', serif;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--accent2);
-  line-height: 1.2;
+  font-size: 28px; font-weight: 300;
+  color: var(--hairline); line-height: 1;
   flex-shrink: 0;
 }
 
 .sdp-step-title {
   display: block;
   font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink);
-  letter-spacing: 0.04em;
   margin-bottom: 3px;
 }
 
