@@ -1,200 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- SEO titles/descriptions filled dynamically by JS -->
-  <title>Proposal Spots</title>
-  <meta name="description" content="" />
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
-  <meta property="og:image" content="" />
-  <meta property="og:type" content="article" />
-  <link rel="canonical" href="" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fix relative URLs in nav.js when served from /spots/:slug -->
-  <base href="/" />
+  <!-- Dynamic — overwritten by JS once data loads -->
+  <title>Proposal Spot | Proposal Spots</title>
+  <meta name="description" content="A curated proposal location from Proposal Spots.">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Open Graph (populated dynamically) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Proposal Spots">
+  <meta property="og:title"       content="">
+  <meta property="og:description" content="">
+  <meta property="og:image"       content="">
+
+  <!-- Canonical (populated dynamically) -->
+  <link rel="canonical" href="">
+
+  <!--
+    BASE HREF: nav.js uses relative hrefs like "index.html".
+    This makes them resolve from / even though this file is in /spots/.
+  -->
+  <base href="/">
+
+  <!-- Google Fonts — same as index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ── Design tokens — mirror of index.html :root ─────────────────── */
     :root {
-      --bg:       #FDFCFA;
-      --bg2:      #F7F5F0;
-      --bg3:      #EDEAE2;
-      --white:    #FFFFFF;
+      --bg:       #F4F1EB;
+      --bg2:      #EDEAE2;
+      --bg3:      #E8E4DB;
+      --white:    #FDFCFA;
       --ink:      #1C1C1C;
-      --ink2:     #3A3530;
+      --ink2:     #2E2C2A;
       --mid:      #6B6660;
       --muted:    #9E9890;
       --hairline: #D8D2C8;
-      --divider:  #EAE6DE;
-      --accent:   #A55A4A;
-      --accent2:  #8C7B64;
-      --shadow:   rgba(28,28,28,0.07);
+      --divider:  #E4E0D8;
+      --accent:   #8C7B64;
+      --accent2:  #B5A48C;
+      --shadow:   rgba(28,28,28,0.06);
     }
 
-    html, body { background: var(--bg); color: var(--ink); font-family: 'Jost', sans-serif; }
-
-    /* ── Loading / Error states ── */
-    #sp-loading, #sp-error {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 60vh;
-      font-family: 'Jost', sans-serif; font-size: 14px; color: var(--mid);
-      letter-spacing: 0.06em;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
     }
-    #sp-error { color: var(--accent); }
 
-    /* ── Hero ── */
+    /* ── Loading state ───────────────────────────────────────────────── */
+    #sp-loading {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .sp-spinner {
+      width: 30px; height: 30px;
+      border: 2px solid var(--hairline);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: sp-spin 0.8s linear infinite;
+    }
+    @keyframes sp-spin { to { transform: rotate(360deg); } }
+    .sp-loading-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Not-found state ─────────────────────────────────────────────── */
+    #sp-not-found {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    #sp-not-found h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 400; color: var(--mid);
+    }
+    #sp-not-found p  { font-size: 13px; font-weight: 300; color: var(--muted); }
+    #sp-not-found a  {
+      margin-top: 8px; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    #sp-not-found a:hover { opacity: 0.7; }
+
+    /* ── Main content ────────────────────────────────────────────────── */
+    #sp-content { display: none; }
+
+    /* ── Hero ────────────────────────────────────────────────────────── */
     .sp-hero {
-      width: 100%; height: 72vh; min-height: 420px; max-height: 700px;
-      position: relative; overflow: hidden;
-      background: var(--bg3);
-      margin-top: 88px; /* clear fixed nav */
+      position: relative;
+      height: 78vh; min-height: 500px; max-height: 720px;
+      overflow: hidden; background: var(--bg3);
     }
-    .sp-hero img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .sp-hero-overlay {
+    .sp-hero-img {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.38) 100%);
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
     }
-    .sp-hero-caption {
-      position: absolute; bottom: 40px; left: 50%;
-      transform: translateX(-50%);
-      text-align: center; color: #fff; width: 100%; padding: 0 24px;
+    .sp-hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.04) 25%,
+        rgba(0,0,0,0.30) 60%,
+        rgba(0,0,0,0.72) 100%
+      );
     }
-    .sp-hero-caption .sp-eyebrow {
-      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8;
-      margin-bottom: 10px;
+    .sp-hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 48px 56px;
+      max-width: 900px; margin: 0 auto;
     }
-    .sp-hero-caption h1 {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 400; line-height: 1.1; color: #fff;
+    .sp-badge {
+      display: none;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.28);
+      backdrop-filter: blur(10px);
+      border-radius: 100px; padding: 5px 13px; margin-bottom: 14px;
     }
-    .sp-hero-back {
-      position: absolute; top: 20px; left: 28px;
-      background: rgba(253,252,250,0.92); backdrop-filter: blur(12px);
-      border: 1px solid rgba(216,210,200,0.6); border-radius: 100px;
-      padding: 8px 18px 8px 14px;
-      font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.06em;
-      color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 6px;
-      cursor: pointer; transition: background 0.2s;
+    .sp-location {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.72); margin-bottom: 10px;
     }
-    .sp-hero-back:hover { background: rgba(253,252,250,1); }
+    .sp-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5.5vw, 58px); font-weight: 400;
+      color: var(--white); line-height: 1.08; margin-bottom: 16px;
+    }
+    .sp-line-summary {
+      font-size: 14px; font-weight: 300; line-height: 1.65;
+      color: rgba(255,255,255,0.82); max-width: 560px;
+    }
 
-    /* ── Page body ── */
-    .sp-body {
-      max-width: 860px; margin: 0 auto; padding: 56px 24px 80px;
+    /* ── Top bar (back button) ────────────────────────────────────────── */
+    .sp-topbar {
+      padding: 104px 48px 0;
+      max-width: 900px; margin: 0 auto;
     }
+    .sp-back {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid); cursor: pointer;
+      background: none; border: none; padding: 8px 0;
+      transition: color 0.18s;
+    }
+    .sp-back:hover { color: var(--ink); }
+    .sp-back svg { transition: transform 0.18s; }
+    .sp-back:hover svg { transform: translateX(-3px); }
 
-    /* ── Meta strip ── */
-    .sp-meta-strip {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
-    }
-    .sp-tag {
-      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      background: var(--bg3); color: var(--mid);
-      border-radius: 100px; padding: 5px 14px;
-    }
-    .sp-tag.accent { background: #F5EDE9; color: var(--accent); }
+    /* ── Body wrapper ─────────────────────────────────────────────────── */
+    .sp-body { max-width: 900px; margin: 0 auto; padding: 0 48px; }
 
-    /* ── Section heading ── */
-    .sp-section { margin-bottom: 48px; }
+    /* ── Stats strip ──────────────────────────────────────────────────── */
+    .sp-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--hairline); border: 1px solid var(--hairline);
+      border-radius: 14px; overflow: hidden; gap: 1px; margin: 36px 0;
+    }
+    .sp-stat {
+      background: var(--white); padding: 18px 20px 16px;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .sp-stat-label {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    }
+    .sp-stat-val { font-size: 13px; font-weight: 400; color: var(--ink); line-height: 1.4; }
+
+    /* ── Sections ─────────────────────────────────────────────────────── */
+    .sp-section { padding: 36px 0; border-top: 1px solid var(--divider); }
     .sp-section-label {
-      font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 14px;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
     }
-    .sp-section p {
-      font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
-      line-height: 1.75; color: var(--ink2);
+    .sp-body-text {
+      font-size: 14px; font-weight: 300;
+      line-height: 1.78; color: var(--ink2);
     }
 
-    /* ── Proposal plan steps ── */
-    .sp-steps { list-style: none; }
-    .sp-step {
-      display: flex; gap: 20px; padding: 20px 0;
-      border-bottom: 1px solid var(--divider);
+    /* ── Vibe tags ────────────────────────────────────────────────────── */
+    .sp-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .sp-tag {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.05em;
+      color: var(--mid); background: var(--bg2);
+      border: 1px solid var(--hairline); border-radius: 100px; padding: 5px 13px;
     }
-    .sp-step:last-child { border-bottom: none; }
+
+    /* ── Proposal plan steps ──────────────────────────────────────────── */
+    .sp-steps { display: flex; flex-direction: column; gap: 20px; }
+    .sp-step  { display: flex; gap: 16px; align-items: flex-start; }
     .sp-step-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300;
-      color: var(--muted); min-width: 28px; padding-top: 2px;
+      flex-shrink: 0; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--bg2);
+      border: 1px solid var(--hairline);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-weight: 500; color: var(--mid); margin-top: 1px;
     }
-    .sp-step-text {
-      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    .sp-step-content { flex: 1; }
+    .sp-step-title {
+      display: block; font-size: 13.5px; font-weight: 500;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .sp-step-body {
+      font-size: 13px; font-weight: 300;
       line-height: 1.7; color: var(--ink2);
     }
 
-    /* ── Detail grid ── */
-    .sp-details-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1px; background: var(--hairline);
-      border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
-    }
-    .sp-detail-cell {
-      background: var(--bg); padding: 18px 20px;
-    }
-    .sp-detail-label {
-      font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500;
-      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .sp-detail-value {
-      font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400;
-      color: var(--ink);
-    }
-
-    /* ── Gallery ── */
-    .sp-gallery {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px; margin-top: 16px;
-    }
+    /* ── Gallery ──────────────────────────────────────────────────────── */
+    .sp-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
     .sp-gallery img {
       width: 100%; aspect-ratio: 4/3; object-fit: cover;
-      border-radius: 8px; display: block;
+      border-radius: 8px; background: var(--bg2);
+      cursor: zoom-in; transition: opacity 0.2s;
     }
+    .sp-gallery img:hover { opacity: 0.88; }
+    .sp-gallery img:first-child { grid-column: span 2; aspect-ratio: 16/9; }
 
-    /* ── CTA ── */
-    .sp-cta-block {
-      background: var(--bg2); border: 1px solid var(--hairline);
-      border-radius: 16px; padding: 40px; text-align: center; margin-top: 56px;
+    /* ── Map link ─────────────────────────────────────────────────────── */
+    .sp-map-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
+      color: var(--accent); text-decoration: none; margin-top: 14px;
+      transition: color 0.18s;
     }
-    .sp-cta-block h2 {
-      font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400;
-      margin-bottom: 12px;
+    .sp-map-link:hover { color: var(--ink); }
+
+    /* ── Info cards (photographer / hotel) ───────────────────────────── */
+    .sp-info-card {
+      background: var(--white); border: 1px solid var(--hairline);
+      border-radius: 14px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 16px; margin-top: 14px;
     }
-    .sp-cta-block p {
-      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
-      color: var(--mid); margin-bottom: 28px; line-height: 1.6;
+    .sp-info-card-icon  { font-size: 22px; flex-shrink: 0; }
+    .sp-info-card-label {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 4px;
+    }
+    .sp-info-card-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .sp-info-card-arrow { margin-left: auto; font-size: 16px; color: var(--accent2); }
+
+    /* ── CTA block ────────────────────────────────────────────────────── */
+    .sp-cta {
+      background: var(--ink); border-radius: 20px;
+      padding: 52px 44px; text-align: center; margin: 48px 0 60px;
+    }
+    .sp-cta-label {
+      font-size: 9px; font-weight: 500; letter-spacing: 0.24em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px;
+    }
+    .sp-cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 4vw, 36px); font-weight: 300;
+      color: var(--white); line-height: 1.2; margin-bottom: 10px;
+    }
+    .sp-cta-sub {
+      font-size: 13px; font-weight: 300; line-height: 1.65;
+      color: rgba(255,255,255,0.55);
+      max-width: 440px; margin: 0 auto 28px;
     }
     .sp-cta-btn {
       display: inline-block;
-      font-family: 'Jost', sans-serif; font-size: 10.5px; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      background: var(--ink); color: #FDFCFA;
-      border-radius: 100px; padding: 14px 32px;
-      text-decoration: none; transition: background 0.2s;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); background: var(--white);
+      border-radius: 100px; padding: 14px 34px;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
     }
-    .sp-cta-btn:hover { background: var(--accent2); }
+    .sp-cta-btn:hover { background: var(--accent2); transform: scale(1.02); }
 
-    /* ── Divider ── */
-    .sp-divider {
-      border: none; border-top: 1px solid var(--divider); margin: 48px 0;
-    }
-
-    @media (max-width: 600px) {
-      .sp-hero { height: 55vh; margin-top: 80px; }
-      .sp-body { padding: 36px 18px 60px; }
-      .sp-cta-block { padding: 28px 20px; }
+    /* ── Mobile ───────────────────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .sp-hero-content { padding: 0 24px 44px; }
+      .sp-topbar       { padding: 100px 20px 0; }
+      .sp-body         { padding: 0 20px; }
+      .sp-stats        { grid-template-columns: repeat(2, 1fr); }
+      .sp-gallery      { grid-template-columns: repeat(2, 1fr); }
+      .sp-gallery img:first-child { grid-column: span 2; }
+      .sp-cta          { padding: 36px 24px; }
     }
   </style>
 </head>
@@ -202,255 +313,384 @@
 
   <!-- Nav injected by nav.js -->
   <div id="nav-placeholder"></div>
-  <script src="/nav.js"></script>
 
-  <!-- Loading state -->
-  <div id="sp-loading">Loading&hellip;</div>
+  <!-- Loading -->
+  <div id="sp-loading">
+    <div class="sp-spinner"></div>
+    <span class="sp-loading-label">Loading…</span>
+  </div>
 
-  <!-- Error state (hidden until needed) -->
-  <div id="sp-error" style="display:none;"></div>
+  <!-- Not found -->
+  <div id="sp-not-found">
+    <h1>Spot not found</h1>
+    <p>This spot may have moved or no longer exists.</p>
+    <a href="/">← Browse all spots</a>
+  </div>
 
-  <!-- Spot content (hidden until data loads) -->
-  <div id="sp-content" style="display:none;">
+  <!-- Main content (shown after load) -->
+  <div id="sp-content">
 
-    <!-- Hero -->
     <div class="sp-hero">
-      <img id="sp-hero-img" src="" alt="" />
-      <div class="sp-hero-overlay"></div>
-      <div class="sp-hero-caption">
-        <div class="sp-eyebrow">Proposal Spot</div>
-        <h1 id="sp-name"></h1>
+      <img id="sp-hero-img" class="sp-hero-img" src="" alt="" loading="eager">
+      <div class="sp-hero-gradient"></div>
+      <div class="sp-hero-content">
+        <div id="sp-badge"        class="sp-badge"></div>
+        <div id="sp-location"     class="sp-location"></div>
+        <h1  id="sp-name"         class="sp-name"></h1>
+        <p   id="sp-line-summary" class="sp-line-summary"></p>
       </div>
-      <a class="sp-hero-back" onclick="spGoBack(); return false;" href="/">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2L4 7l5 5"/></svg>
-        All Spots
-      </a>
     </div>
 
-    <!-- Body -->
+    <div class="sp-topbar">
+      <button class="sp-back" onclick="spGoBack()">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"
+             stroke="currentColor" stroke-width="1.6">
+          <path d="M10 3L5 8l5 5"/>
+        </svg>
+        Back
+      </button>
+    </div>
+
     <div class="sp-body">
 
-      <!-- Tags -->
-      <div class="sp-meta-strip" id="sp-tags"></div>
+      <!-- Stats -->
+      <div class="sp-stats">
+        <div class="sp-stat">
+          <span class="sp-stat-label">Budget</span>
+          <span id="sp-budget"  class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Privacy</span>
+          <span id="sp-privacy" class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Access</span>
+          <span id="sp-effort"  class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Best Time</span>
+          <span id="sp-time"    class="sp-stat-val">—</span>
+        </div>
+      </div>
 
-      <!-- Summary -->
+      <!-- About -->
       <div class="sp-section">
-        <div class="sp-section-label">About this spot</div>
-        <p id="sp-summary"></p>
+        <p class="sp-section-label">About This Spot</p>
+        <p id="sp-full-summary" class="sp-body-text"></p>
+        <div id="sp-tags" class="sp-tags"></div>
       </div>
 
-      <hr class="sp-divider" />
-
-      <!-- Proposal Plan -->
-      <div class="sp-section" id="sp-plan-section">
-        <div class="sp-section-label">Proposal Plan</div>
-        <ol class="sp-steps" id="sp-steps"></ol>
+      <!-- Proposal plan -->
+      <div class="sp-section" id="sp-plan-section" style="display:none">
+        <p class="sp-section-label">Proposal Plan</p>
+        <div id="sp-steps" class="sp-steps"></div>
       </div>
 
-      <hr class="sp-divider" />
-
-      <!-- Details grid -->
-      <div class="sp-section">
-        <div class="sp-section-label">Details at a glance</div>
-        <div class="sp-details-grid" id="sp-details"></div>
+      <!-- Gallery -->
+      <div class="sp-section" id="sp-gallery-section" style="display:none">
+        <p class="sp-section-label">Gallery</p>
+        <div id="sp-gallery" class="sp-gallery"></div>
       </div>
 
-      <!-- Gallery (only shown if photos exist) -->
-      <div class="sp-section" id="sp-gallery-section" style="display:none;">
-        <hr class="sp-divider" />
-        <div class="sp-section-label">Gallery</div>
-        <div class="sp-gallery" id="sp-gallery"></div>
+      <!-- Getting there -->
+      <div class="sp-section" id="sp-access-section" style="display:none">
+        <p class="sp-section-label">Getting There</p>
+        <p id="sp-access" class="sp-body-text"></p>
+        <a id="sp-map-link" class="sp-map-link" href="#" target="_blank"
+           rel="noopener noreferrer" style="display:none">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          View on Google Maps
+        </a>
+      </div>
+
+      <!-- Photographer -->
+      <div class="sp-section" id="sp-photo-section" style="display:none">
+        <p class="sp-section-label">Recommended Photographer</p>
+        <div class="sp-info-card">
+          <span class="sp-info-card-icon">📸</span>
+          <div>
+            <div class="sp-info-card-label">Our Pick for This Location</div>
+            <div id="sp-photographer" class="sp-info-card-value"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel -->
+      <div class="sp-section" id="sp-hotel-section" style="display:none">
+        <p class="sp-section-label">Where to Stay</p>
+        <div class="sp-info-card">
+          <span class="sp-info-card-icon">🏨</span>
+          <div>
+            <div class="sp-info-card-label">Our Recommendation</div>
+            <div id="sp-hotel" class="sp-info-card-value"></div>
+          </div>
+          <span class="sp-info-card-arrow">→</span>
+        </div>
       </div>
 
       <!-- CTA -->
-      <div class="sp-cta-block">
-        <h2>Ready to make it happen?</h2>
-        <p>We'll help you plan every detail — from the perfect moment to the best local photographer.</p>
-        <a href="/#enquire" class="sp-cta-btn">Plan My Proposal &rarr;</a>
+      <div class="sp-cta">
+        <p class="sp-cta-label">Ready to Propose?</p>
+        <h2 class="sp-cta-title">Make it unforgettable</h2>
+        <p class="sp-cta-sub">
+          Get personalised guidance, photographer recommendations,
+          and booking support for this exact location.
+        </p>
+        <a id="sp-enquiry-btn" class="sp-cta-btn"
+           href="mailto:hello@proposalspots.com">
+          Enquire About This Spot →
+        </a>
       </div>
 
     </div><!-- /.sp-body -->
   </div><!-- /#sp-content -->
 
-  <script>
-  (function () {
+  <!-- nav.js — /nav.js resolves correctly because of <base href="/"> -->
+  <script src="/nav.js"></script>
 
-    // ── Slug helpers ──────────────────────────────────────────────────────────
-    function toSlug(str) {
-      return (str || '').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
+  <script>
+    // ─────────────────────────────────────────────────────────────────
+    //  NO CREDENTIALS NEEDED HERE.
+    //  All Airtable calls go through /api/spots (the Vercel serverless
+    //  function in api/spots.js), exactly as index.html does.
+    //  The AIRTABLE_TOKEN stays server-side, never in the browser.
+    // ─────────────────────────────────────────────────────────────────
+
+    // ── Slug helpers ──────────────────────────────────────────────────
+    //  toSlug() must match the identical function added to index.html
+    //  (see index-drawer-snippet.js) so that URLs stay consistent.
+    function toSlug(name) {
+      return (name || '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
     }
 
     function getSlugFromURL() {
-      // Matches /spots/<slug>
-      var m = window.location.pathname.match(/\/spots\/([^/?#]+)/);
-      return m ? m[1] : null;
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      return parts[parts.length - 1] || '';
     }
 
-    // ── Back navigation ───────────────────────────────────────────────────────
-    window.spGoBack = function () {
-      if (document.referrer && document.referrer.includes(window.location.hostname)) {
-        history.back();
-      } else {
+    // ── Back button ───────────────────────────────────────────────────
+    //  Returns to the previous page if it was our own site,
+    //  otherwise falls back to the homepage.
+    function spGoBack() {
+      try {
+        const ref = document.referrer;
+        if (ref && new URL(ref).hostname === window.location.hostname) {
+          history.back();
+        } else {
+          window.location.href = '/';
+        }
+      } catch (e) {
         window.location.href = '/';
       }
-    };
-
-    // ── Meta helpers ──────────────────────────────────────────────────────────
-    function setMeta(attr, val, content) {
-      var el = document.querySelector('meta[' + attr + '="' + val + '"]');
-      if (el) el.setAttribute('content', content);
     }
 
-    // ── Parse proposal plan steps ─────────────────────────────────────────────
+    // ── Parse proposal plan steps ─────────────────────────────────────
+    //  Handles the tab-indented format Airtable returns:
+    //    "1.\tStep title\n\t  body text\n2.\tNext step…"
     function parseSteps(raw) {
       if (!raw) return [];
-      // Support numbered lines: "1. Step text" or "Step text" separated by newlines
-      return raw.split('\n')
-        .map(function (l) { return l.replace(/^\d+[\.\)]\s*/, '').trim(); })
-        .filter(Boolean);
+      const chunks = raw.split(/\n(?=\s*\d+[\.\t])/);
+      return chunks.map(chunk => {
+        const lines = chunk.trim().split('\n');
+        const title = lines[0].replace(/^\s*\d+[\.\t\s]+/, '').trim();
+        const body  = lines.slice(1).map(l => l.replace(/^\s+/, '')).join(' ').trim();
+        return { title, body };
+      }).filter(s => s.title);
     }
 
-    // ── Render spot ───────────────────────────────────────────────────────────
+    // ── Safety: escape before inserting as HTML ───────────────────────
+    function esc(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ── Meta tag helper ───────────────────────────────────────────────
+    function setMeta(attr, val, content) {
+      let el = document.querySelector(`meta[${attr}="${val}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, val);
+        document.head.appendChild(el);
+      }
+      el.content = content;
+    }
+
+    // ── UI state helpers ──────────────────────────────────────────────
+    function showLoading()  {
+      document.getElementById('sp-loading').style.display   = 'flex';
+      document.getElementById('sp-content').style.display   = 'none';
+      document.getElementById('sp-not-found').style.display = 'none';
+    }
+    function showContent()  {
+      document.getElementById('sp-loading').style.display   = 'none';
+      document.getElementById('sp-content').style.display   = 'block';
+      document.getElementById('sp-not-found').style.display = 'none';
+    }
+    function showNotFound() {
+      document.getElementById('sp-loading').style.display   = 'none';
+      document.getElementById('sp-content').style.display   = 'none';
+      document.getElementById('sp-not-found').style.display = 'flex';
+    }
+
+    // ── Render ────────────────────────────────────────────────────────
     function renderSpot(fields) {
-      // Cover photo — Airtable returns an array of attachment objects
-      var coverPhotoArr = fields['Cover Photo'] || [];
-      var coverUrl = coverPhotoArr[0]
-        ? (coverPhotoArr[0].thumbnails && coverPhotoArr[0].thumbnails.large
-            ? coverPhotoArr[0].thumbnails.large.url
-            : coverPhotoArr[0].url)
-        : '';
+      var _cp = fields['Cover Photo'] || []; var _coverUrl = _cp[0] ? (_cp[0].thumbnails && _cp[0].thumbnails.large ? _cp[0].thumbnails.large.url : _cp[0].url) : '';
+      const name    = (fields['Name']    || '').trim();
+      const region  =  fields['Region / Town']  || '';
+      const country =  fields['Country'] || '';
 
-      // Name & location — use 'Spot Name' (display name) with 'Name' as fallback
-      var name    = fields['Spot Name'] || fields['Name'] || '';
-      var region  = fields['Region / Town'] || '';
-      var country = fields['Country'] || '';
-      var loc     = [region, country].filter(Boolean).join(', ');
+      // SEO metadata
+      const pageTitle = `${name} — Proposal Spot in ${region}${country ? ', ' + country : ''} | Proposal Spots`;
+      const pageDesc  = fields['Line Summary']
+        || `Discover ${name}, a curated proposal location in ${region}${country ? ', ' + country : ''}.`;
 
-      // SEO
-      document.title = name + (loc ? ' \u2014 Proposal Spot in ' + loc : '') + ' | Proposal Spots';
-      var desc = fields['Line Summary'] || '';
-      setMeta('name', 'description', desc);
-      setMeta('property', 'og:title', name);
-      setMeta('property', 'og:description', desc);
-      if (coverUrl) setMeta('property', 'og:image', coverUrl);
-      var canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) canonical.href = window.location.href;
+      document.title = pageTitle;
+      document.querySelector('meta[name="description"]').content = pageDesc;
+      document.querySelector('link[rel="canonical"]').href = window.location.href;
+      setMeta('property', 'og:title',       pageTitle);
+      setMeta('property', 'og:description', pageDesc);
+      setMeta('property', 'og:url',         window.location.href);
+      if (_coverUrl) setMeta('property', 'og:image', _coverUrl);
 
       // Hero
-      var heroImg = document.getElementById('sp-hero-img');
-      if (coverUrl) { heroImg.src = coverUrl; heroImg.alt = name; }
-      else { heroImg.parentElement.style.background = 'var(--bg3)'; heroImg.style.display = 'none'; }
-
-      document.getElementById('sp-name').textContent = name;
-
-      // Tags
-      var tagsEl = document.getElementById('sp-tags');
-      var vibes = [fields['Vibe'], fields['Vibe Secondary']].filter(Boolean);
-      var tagData = vibes.concat([
-        fields['Privacy'] ? 'Privacy: ' + fields['Privacy'] : '',
-        fields['Budget']  ? fields['Budget'] : ''
-      ]).filter(Boolean);
-      tagsEl.innerHTML = tagData.map(function (t) {
-        var isAccent = vibes.indexOf(t) > -1;
-        return '<span class="sp-tag' + (isAccent ? ' accent' : '') + '">' + t + '</span>';
-      }).join('');
-
-      // Summary
-      document.getElementById('sp-summary').textContent =
-        fields['Full Summary'] || fields['Line Summary'] || '';
-
-      // Proposal plan
-      var steps = parseSteps(fields['Proposal Plan Steps']);
-      var stepsEl = document.getElementById('sp-steps');
-      if (steps.length) {
-        stepsEl.innerHTML = steps.map(function (s, i) {
-          return '<li class="sp-step">'
-            + '<span class="sp-step-num">' + (i + 1) + '</span>'
-            + '<span class="sp-step-text">' + s + '</span>'
-            + '</li>';
-        }).join('');
+      const heroImg = document.getElementById('sp-hero-img');
+      if (_coverUrl) {
+        heroImg.src = _coverUrl;
+        heroImg.alt = name;
       } else {
-        document.getElementById('sp-plan-section').style.display = 'none';
-        // also hide the divider before it
-        var dividers = document.querySelectorAll('.sp-divider');
-        if (dividers[0]) dividers[0].style.display = 'none';
+        heroImg.style.display = 'none';
       }
 
-      // Details grid
-      var detailsEl = document.getElementById('sp-details');
-      var bestTime = Array.isArray(fields['Best Time'])
-        ? fields['Best Time'].join(', ')
-        : (fields['Best Time'] || '');
-      var detailPairs = [
-        ['Location',        loc],
-        ['Vibe',            vibes.join(' · ')],
-        ['Privacy',         fields['Privacy']],
-        ['Budget',          fields['Budget']],
-        ['Best Time',       bestTime],
-        ['Access & Effort', fields['Access & Effort']],
-      ].filter(function (p) { return p[1]; });
-      detailsEl.innerHTML = detailPairs.map(function (p) {
-        return '<div class="sp-detail-cell">'
-          + '<div class="sp-detail-label">' + p[0] + '</div>'
-          + '<div class="sp-detail-value">' + p[1] + '</div>'
-          + '</div>';
-      }).join('');
+      const badgeEl = document.getElementById('sp-badge');
+      if (fields['badge']) {
+        badgeEl.textContent   = fields['badge'];
+        badgeEl.style.display = 'inline-block';
+      }
 
-      // Gallery — Airtable attachment arrays
-      var galleryArr = fields['Gallery Photos'] || [];
-      if (galleryArr.length) {
-        var galleryEl = document.getElementById('sp-gallery');
-        galleryEl.innerHTML = galleryArr.map(function (photo) {
-          var src = (photo.thumbnails && photo.thumbnails.large)
-            ? photo.thumbnails.large.url : photo.url;
-          return '<img src="' + src + '" alt="' + name + '" loading="lazy" />';
-        }).join('');
+      document.getElementById('sp-location').textContent =
+        [region, country].filter(Boolean).join(' · ').toUpperCase();
+      document.getElementById('sp-name').textContent         = name;
+      document.getElementById('sp-line-summary').textContent = fields['Line Summary'] || '';
+
+      // Stats
+      document.getElementById('sp-budget').textContent  = fields['Budget']          || '—';
+      document.getElementById('sp-privacy').textContent = fields['Privacy']         || '—';
+      document.getElementById('sp-effort').textContent  = fields['Access & Effort'] || '—';
+      const bt = fields['Best Time'];
+      document.getElementById('sp-time').textContent =
+        Array.isArray(bt) ? bt.join(', ') : (bt || '—');
+
+      // Full summary
+      document.getElementById('sp-full-summary').textContent =
+        fields['Full Summary'] || fields['Line Summary'] || '';
+
+      // Vibe tags
+      const tagVals = [fields['Vibe'], fields['Vibe Secondary'], fields['Other Vibe']].filter(Boolean);
+      if (tagVals.length) {
+        document.getElementById('sp-tags').innerHTML =
+          tagVals.map(t => `<span class="sp-tag">${esc(t)}</span>`).join('');
+      }
+
+      // Proposal plan
+      const planRaw = fields['Proposal Plan Steps'];
+      if (planRaw) {
+        const steps = parseSteps(planRaw);
+        if (steps.length) {
+          document.getElementById('sp-steps').innerHTML = steps.map((s, i) => `
+            <div class="sp-step">
+              <div class="sp-step-num">${i + 1}</div>
+              <div class="sp-step-content">
+                ${s.title ? `<span class="sp-step-title">${esc(s.title)}</span>` : ''}
+                ${s.body  ? `<span class="sp-step-body">${esc(s.body)}</span>`   : ''}
+              </div>
+            </div>`).join('');
+          document.getElementById('sp-plan-section').style.display = 'block';
+        }
+      }
+
+      // Gallery
+      const gallery = fields['Gallery Photos'];
+      if (gallery && gallery.length > 0) {
+        document.getElementById('sp-gallery').innerHTML =
+          gallery.map((url, i) =>
+            `<img src="${esc(url)}" alt="${esc(name)} photo ${i + 1}" loading="lazy">`
+          ).join('');
         document.getElementById('sp-gallery-section').style.display = 'block';
       }
 
-      // Show content
-      document.getElementById('sp-loading').style.display = 'none';
-      document.getElementById('sp-content').style.display = 'block';
-    }
-
-    // ── Load spot from API ────────────────────────────────────────────────────
-    function loadSpot() {
-      var slug = getSlugFromURL();
-      if (!slug) {
-        document.getElementById('sp-loading').style.display = 'none';
-        document.getElementById('sp-error').style.display = 'flex';
-        document.getElementById('sp-error').textContent = 'No spot found at this URL.';
-        return;
+      // Getting there
+      const accessText = fields['Access Details'];
+      const mapsLink   = fields['Google Maps Link'];
+      if (accessText || mapsLink) {
+        if (accessText) document.getElementById('sp-access').textContent = accessText;
+        if (mapsLink) {
+          const mapEl = document.getElementById('sp-map-link');
+          mapEl.href = mapsLink;
+          mapEl.style.display = 'inline-flex';
+        }
+        document.getElementById('sp-access-section').style.display = 'block';
       }
 
-      fetch('/api/spots')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          var record = (data.records || []).find(function (r) {
-            return toSlug(r.fields['Spot Name'] || r.fields['Name']) === slug;
-          });
-          if (!record) {
-            document.getElementById('sp-loading').style.display = 'none';
-            document.getElementById('sp-error').style.display = 'flex';
-            document.getElementById('sp-error').textContent = 'Spot \u201c' + slug + '\u201d not found.';
-            return;
-          }
-          renderSpot(record.fields);
-        })
-        .catch(function (err) {
-          document.getElementById('sp-loading').style.display = 'none';
-          document.getElementById('sp-error').style.display = 'flex';
-          document.getElementById('sp-error').textContent = 'Could not load spot data. Please try again.';
-          console.error(err);
-        });
+      // Photographer
+      const photographer = fields['Recommended Photographer'];
+      if (photographer) {
+        document.getElementById('sp-photographer').textContent = photographer;
+        document.getElementById('sp-photo-section').style.display = 'block';
+      }
+
+      // Hotel / venue
+      const hotel = fields['Linked Hotel / Venue'];
+      if (hotel) {
+        document.getElementById('sp-hotel').textContent = hotel;
+        document.getElementById('sp-hotel-section').style.display = 'block';
+      }
+
+      // Enquiry CTA — pre-fill email subject with spot name
+      document.getElementById('sp-enquiry-btn').href =
+        `mailto:hello@proposalspots.com?subject=${encodeURIComponent('Proposal Enquiry: ' + name)}`;
+
+      showContent();
     }
 
-    loadSpot();
+    // ── Fetch & match ─────────────────────────────────────────────────
+    //  Calls the same /api/spots endpoint that index.html uses.
+    //  Finds the matching record by comparing the URL slug to a
+    //  slugified version of each spot's Name field.
+    async function loadSpot() {
+      const slug = getSlugFromURL();
+      if (!slug) { showNotFound(); return; }
 
-  })();
+      try {
+        const resp = await fetch('/api/spots');
+        if (!resp.ok) throw new Error(`/api/spots returned ${resp.status}`);
+        const data = await resp.json();
+
+        const record = (data.records || []).find(r =>
+          toSlug(r.fields['Spot Name'] || r.fields['Name']) === slug
+        );
+
+        if (!record) { showNotFound(); return; }
+        renderSpot(record.fields);
+
+      } catch (err) {
+        console.error('[spot.html] Failed to load spot:', err);
+        showNotFound();
+      }
+    }
+
+    showLoading();
+    loadSpot();
   </script>
 
 </body>
