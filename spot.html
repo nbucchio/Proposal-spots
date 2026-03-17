@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO titles/descriptions filled dynamically by JS -->
   <title>Proposal Spots</title>
   <meta name="description" content="" />
   <meta property="og:title" content="" />
@@ -10,41 +11,68 @@
   <meta property="og:image" content="" />
   <meta property="og:type" content="article" />
   <link rel="canonical" href="" />
+
+  <!-- Fix relative URLs in nav.js when served from /spots/:slug -->
   <base href="/" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #FDFCFA; --bg2: #F7F5F0; --bg3: #EDEAE2; --white: #FFFFFF;
-      --ink: #1C1C1C; --ink2: #3A3530; --mid: #6B6660; --muted: #9E9890;
-      --hairline: #D8D2C8; --divider: #EAE6DE; --accent: #A55A4A; --accent2: #8C7B64;
-      --shadow: rgba(28,28,28,0.07);
+      --bg:       #FDFCFA;
+      --bg2:      #F7F5F0;
+      --bg3:      #EDEAE2;
+      --white:    #FFFFFF;
+      --ink:      #1C1C1C;
+      --ink2:     #3A3530;
+      --mid:      #6B6660;
+      --muted:    #9E9890;
+      --hairline: #D8D2C8;
+      --divider:  #EAE6DE;
+      --accent:   #A55A4A;
+      --accent2:  #8C7B64;
+      --shadow:   rgba(28,28,28,0.07);
     }
+
     html, body { background: var(--bg); color: var(--ink); font-family: 'Jost', sans-serif; }
+
+    /* ── Loading / Error states ── */
     #sp-loading, #sp-error {
       display: flex; align-items: center; justify-content: center;
-      min-height: 60vh; font-family: 'Jost', sans-serif; font-size: 14px;
-      color: var(--mid); letter-spacing: 0.06em;
+      min-height: 60vh;
+      font-family: 'Jost', sans-serif; font-size: 14px; color: var(--mid);
+      letter-spacing: 0.06em;
     }
     #sp-error { color: var(--accent); }
+
+    /* ── Hero ── */
     .sp-hero {
       width: 100%; height: 72vh; min-height: 420px; max-height: 700px;
-      position: relative; overflow: hidden; background: var(--bg3); margin-top: 88px;
+      position: relative; overflow: hidden;
+      background: var(--bg3);
+      margin-top: 88px; /* clear fixed nav */
     }
-    .sp-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sp-hero img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
     .sp-hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.38) 100%);
     }
     .sp-hero-caption {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
       text-align: center; color: #fff; width: 100%; padding: 0 24px;
     }
     .sp-hero-caption .sp-eyebrow {
       font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8;
+      margin-bottom: 10px;
     }
     .sp-hero-caption h1 {
       font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
@@ -54,52 +82,115 @@
       position: absolute; top: 20px; left: 28px;
       background: rgba(253,252,250,0.92); backdrop-filter: blur(12px);
       border: 1px solid rgba(216,210,200,0.6); border-radius: 100px;
-      padding: 8px 18px 8px 14px; font-family: 'Jost', sans-serif;
-      font-size: 11px; letter-spacing: 0.06em; color: var(--ink);
-      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      padding: 8px 18px 8px 14px;
+      font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+      color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 6px;
       cursor: pointer; transition: background 0.2s;
     }
     .sp-hero-back:hover { background: rgba(253,252,250,1); }
-    .sp-body { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
-    .sp-meta-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+
+    /* ── Page body ── */
+    .sp-body {
+      max-width: 860px; margin: 0 auto; padding: 56px 24px 80px;
+    }
+
+    /* ── Meta strip ── */
+    .sp-meta-strip {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+    }
     .sp-tag {
       font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
-      background: var(--bg3); color: var(--mid); border-radius: 100px; padding: 5px 14px;
+      background: var(--bg3); color: var(--mid);
+      border-radius: 100px; padding: 5px 14px;
     }
     .sp-tag.accent { background: #F5EDE9; color: var(--accent); }
+
+    /* ── Section heading ── */
     .sp-section { margin-bottom: 48px; }
     .sp-section-label {
       font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 14px;
     }
     .sp-section p {
       font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
       line-height: 1.75; color: var(--ink2);
     }
+
+    /* ── Proposal plan steps ── */
     .sp-steps { list-style: none; }
-    .sp-step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--divider); }
+    .sp-step {
+      display: flex; gap: 20px; padding: 20px 0;
+      border-bottom: 1px solid var(--divider);
+    }
     .sp-step:last-child { border-bottom: none; }
     .sp-step-num {
       font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300;
       color: var(--muted); min-width: 28px; padding-top: 2px;
     }
-    .sp-step-text { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--ink2); }
+    .sp-step-text {
+      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+      line-height: 1.7; color: var(--ink2);
+    }
+
+    /* ── Detail grid ── */
     .sp-details-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
+      gap: 1px; background: var(--hairline);
+      border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
     }
-    .sp-detail-cell { background: var(--bg); padding: 18px 20px; }
-    .sp-detail-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .sp-detail-value { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink); }
-    .sp-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
-    .sp-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; display: block; }
-    .sp-cta-block { background: var(--bg2); border: 1px solid var(--hairline); border-radius: 16px; padding: 40px; text-align: center; margin-top: 56px; }
-    .sp-cta-block h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 12px; }
-    .sp-cta-block p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); margin-bottom: 28px; line-height: 1.6; }
-    .sp-cta-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; background: var(--ink); color: #FDFCFA; border-radius: 100px; padding: 14px 32px; text-decoration: none; transition: background 0.2s; }
+    .sp-detail-cell {
+      background: var(--bg); padding: 18px 20px;
+    }
+    .sp-detail-label {
+      font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .sp-detail-value {
+      font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ── Gallery ── */
+    .sp-gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px; margin-top: 16px;
+    }
+    .sp-gallery img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: 8px; display: block;
+    }
+
+    /* ── CTA ── */
+    .sp-cta-block {
+      background: var(--bg2); border: 1px solid var(--hairline);
+      border-radius: 16px; padding: 40px; text-align: center; margin-top: 56px;
+    }
+    .sp-cta-block h2 {
+      font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .sp-cta-block p {
+      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+      color: var(--mid); margin-bottom: 28px; line-height: 1.6;
+    }
+    .sp-cta-btn {
+      display: inline-block;
+      font-family: 'Jost', sans-serif; font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: var(--ink); color: #FDFCFA;
+      border-radius: 100px; padding: 14px 32px;
+      text-decoration: none; transition: background 0.2s;
+    }
     .sp-cta-btn:hover { background: var(--accent2); }
-    .sp-divider { border: none; border-top: 1px solid var(--divider); margin: 48px 0; }
+
+    /* ── Divider ── */
+    .sp-divider {
+      border: none; border-top: 1px solid var(--divider); margin: 48px 0;
+    }
+
     @media (max-width: 600px) {
       .sp-hero { height: 55vh; margin-top: 80px; }
       .sp-body { padding: 36px 18px 60px; }
@@ -108,63 +199,97 @@
   </style>
 </head>
 <body>
+
+  <!-- Nav injected by nav.js -->
   <div id="nav-placeholder"></div>
-  <script src="/nav.js"><\/script>
-  <div id="sp-loading">Loading&hellip;<\/div>
-  <div id="sp-error" style="display:none;"><\/div>
+  <script src="/nav.js"></script>
+
+  <!-- Loading state -->
+  <div id="sp-loading">Loading&hellip;</div>
+
+  <!-- Error state (hidden until needed) -->
+  <div id="sp-error" style="display:none;"></div>
+
+  <!-- Spot content (hidden until data loads) -->
   <div id="sp-content" style="display:none;">
+
+    <!-- Hero -->
     <div class="sp-hero">
       <img id="sp-hero-img" src="" alt="" />
-      <div class="sp-hero-overlay"><\/div>
+      <div class="sp-hero-overlay"></div>
       <div class="sp-hero-caption">
-        <div class="sp-eyebrow">Proposal Spot<\/div>
-        <h1 id="sp-name"><\/h1>
-      <\/div>
+        <div class="sp-eyebrow">Proposal Spot</div>
+        <h1 id="sp-name"></h1>
+      </div>
       <a class="sp-hero-back" onclick="spGoBack(); return false;" href="/">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2L4 7l5 5"\/>\<\/svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2L4 7l5 5"/></svg>
         All Spots
-      <\/a>
-    <\/div>
+      </a>
+    </div>
+
+    <!-- Body -->
     <div class="sp-body">
-      <div class="sp-meta-strip" id="sp-tags"><\/div>
+
+      <!-- Tags -->
+      <div class="sp-meta-strip" id="sp-tags"></div>
+
+      <!-- Summary -->
       <div class="sp-section">
-        <div class="sp-section-label">About this spot<\/div>
-        <p id="sp-summary"><\/p>
-      <\/div>
+        <div class="sp-section-label">About this spot</div>
+        <p id="sp-summary"></p>
+      </div>
+
       <hr class="sp-divider" />
+
+      <!-- Proposal Plan -->
       <div class="sp-section" id="sp-plan-section">
-        <div class="sp-section-label">Proposal Plan<\/div>
-        <ol class="sp-steps" id="sp-steps"><\/ol>
-      <\/div>
+        <div class="sp-section-label">Proposal Plan</div>
+        <ol class="sp-steps" id="sp-steps"></ol>
+      </div>
+
       <hr class="sp-divider" />
+
+      <!-- Details grid -->
       <div class="sp-section">
-        <div class="sp-section-label">Details at a glance<\/div>
-        <div class="sp-details-grid" id="sp-details"><\/div>
-      <\/div>
+        <div class="sp-section-label">Details at a glance</div>
+        <div class="sp-details-grid" id="sp-details"></div>
+      </div>
+
+      <!-- Gallery (only shown if photos exist) -->
       <div class="sp-section" id="sp-gallery-section" style="display:none;">
         <hr class="sp-divider" />
-        <div class="sp-section-label">Gallery<\/div>
-        <div class="sp-gallery" id="sp-gallery"><\/div>
-      <\/div>
+        <div class="sp-section-label">Gallery</div>
+        <div class="sp-gallery" id="sp-gallery"></div>
+      </div>
+
+      <!-- CTA -->
       <div class="sp-cta-block">
-        <h2>Ready to make it happen?<\/h2>
-        <p>We\u2019ll help you plan every detail \u2014 from the perfect moment to the best local photographer.<\/p>
-        <a href="/#enquire" class="sp-cta-btn">Plan My Proposal &rarr;<\/a>
-      <\/div>
-    <\/div>
-  <\/div>
+        <h2>Ready to make it happen?</h2>
+        <p>We'll help you plan every detail — from the perfect moment to the best local photographer.</p>
+        <a href="/#enquire" class="sp-cta-btn">Plan My Proposal &rarr;</a>
+      </div>
+
+    </div><!-- /.sp-body -->
+  </div><!-- /#sp-content -->
+
   <script>
   (function () {
+
+    // ── Slug helpers ──────────────────────────────────────────────────────────
     function toSlug(str) {
       return (str || '').toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
     }
+
     function getSlugFromURL() {
-      var m = window.location.pathname.match(/\/spots\/([^\/?#]+)/);
+      // Matches /spots/<slug>
+      var m = window.location.pathname.match(/\/spots\/([^/?#]+)/);
       return m ? m[1] : null;
     }
+
+    // ── Back navigation ───────────────────────────────────────────────────────
     window.spGoBack = function () {
       if (document.referrer && document.referrer.includes(window.location.hostname)) {
         history.back();
@@ -172,28 +297,39 @@
         window.location.href = '/';
       }
     };
+
+    // ── Meta helpers ──────────────────────────────────────────────────────────
     function setMeta(attr, val, content) {
       var el = document.querySelector('meta[' + attr + '="' + val + '"]');
       if (el) el.setAttribute('content', content);
     }
+
+    // ── Parse proposal plan steps ─────────────────────────────────────────────
     function parseSteps(raw) {
       if (!raw) return [];
+      // Support numbered lines: "1. Step text" or "Step text" separated by newlines
       return raw.split('\n')
         .map(function (l) { return l.replace(/^\d+[\.\)]\s*/, '').trim(); })
         .filter(Boolean);
     }
+
+    // ── Render spot ───────────────────────────────────────────────────────────
     function renderSpot(fields) {
+      // Cover photo — Airtable returns an array of attachment objects
       var coverPhotoArr = fields['Cover Photo'] || [];
       var coverUrl = coverPhotoArr[0]
         ? (coverPhotoArr[0].thumbnails && coverPhotoArr[0].thumbnails.large
             ? coverPhotoArr[0].thumbnails.large.url
             : coverPhotoArr[0].url)
         : '';
-      // Use Spot Name (display name) with Name as fallback
+
+      // Name & location — use 'Spot Name' (display name) with 'Name' as fallback
       var name    = fields['Spot Name'] || fields['Name'] || '';
       var region  = fields['Region / Town'] || '';
       var country = fields['Country'] || '';
       var loc     = [region, country].filter(Boolean).join(', ');
+
+      // SEO
       document.title = name + (loc ? ' \u2014 Proposal Spot in ' + loc : '') + ' | Proposal Spots';
       var desc = fields['Line Summary'] || '';
       setMeta('name', 'description', desc);
@@ -202,10 +338,15 @@
       if (coverUrl) setMeta('property', 'og:image', coverUrl);
       var canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) canonical.href = window.location.href;
+
+      // Hero
       var heroImg = document.getElementById('sp-hero-img');
       if (coverUrl) { heroImg.src = coverUrl; heroImg.alt = name; }
       else { heroImg.parentElement.style.background = 'var(--bg3)'; heroImg.style.display = 'none'; }
+
       document.getElementById('sp-name').textContent = name;
+
+      // Tags
       var tagsEl = document.getElementById('sp-tags');
       var vibes = [fields['Vibe'], fields['Vibe Secondary']].filter(Boolean);
       var tagData = vibes.concat([
@@ -214,45 +355,68 @@
       ]).filter(Boolean);
       tagsEl.innerHTML = tagData.map(function (t) {
         var isAccent = vibes.indexOf(t) > -1;
-        return '<span class="sp-tag' + (isAccent ? ' accent' : '') + '">' + t + '<\/span>';
+        return '<span class="sp-tag' + (isAccent ? ' accent' : '') + '">' + t + '</span>';
       }).join('');
-      document.getElementById('sp-summary').textContent = fields['Full Summary'] || fields['Line Summary'] || '';
+
+      // Summary
+      document.getElementById('sp-summary').textContent =
+        fields['Full Summary'] || fields['Line Summary'] || '';
+
+      // Proposal plan
       var steps = parseSteps(fields['Proposal Plan Steps']);
       var stepsEl = document.getElementById('sp-steps');
       if (steps.length) {
         stepsEl.innerHTML = steps.map(function (s, i) {
-          return '<li class="sp-step"><span class="sp-step-num">' + (i + 1) + '<\/span><span class="sp-step-text">' + s + '<\/span><\/li>';
+          return '<li class="sp-step">'
+            + '<span class="sp-step-num">' + (i + 1) + '</span>'
+            + '<span class="sp-step-text">' + s + '</span>'
+            + '</li>';
         }).join('');
       } else {
         document.getElementById('sp-plan-section').style.display = 'none';
+        // also hide the divider before it
         var dividers = document.querySelectorAll('.sp-divider');
         if (dividers[0]) dividers[0].style.display = 'none';
       }
+
+      // Details grid
       var detailsEl = document.getElementById('sp-details');
-      var bestTime = Array.isArray(fields['Best Time']) ? fields['Best Time'].join(', ') : (fields['Best Time'] || '');
+      var bestTime = Array.isArray(fields['Best Time'])
+        ? fields['Best Time'].join(', ')
+        : (fields['Best Time'] || '');
       var detailPairs = [
-        ['Location', loc],
-        ['Vibe', vibes.join(' \u00b7 ')],
-        ['Privacy', fields['Privacy']],
-        ['Budget', fields['Budget']],
-        ['Best Time', bestTime],
-        ['Access & Effort', fields['Access & Effort']]
+        ['Location',        loc],
+        ['Vibe',            vibes.join(' · ')],
+        ['Privacy',         fields['Privacy']],
+        ['Budget',          fields['Budget']],
+        ['Best Time',       bestTime],
+        ['Access & Effort', fields['Access & Effort']],
       ].filter(function (p) { return p[1]; });
       detailsEl.innerHTML = detailPairs.map(function (p) {
-        return '<div class="sp-detail-cell"><div class="sp-detail-label">' + p[0] + '<\/div><div class="sp-detail-value">' + p[1] + '<\/div><\/div>';
+        return '<div class="sp-detail-cell">'
+          + '<div class="sp-detail-label">' + p[0] + '</div>'
+          + '<div class="sp-detail-value">' + p[1] + '</div>'
+          + '</div>';
       }).join('');
+
+      // Gallery — Airtable attachment arrays
       var galleryArr = fields['Gallery Photos'] || [];
       if (galleryArr.length) {
         var galleryEl = document.getElementById('sp-gallery');
         galleryEl.innerHTML = galleryArr.map(function (photo) {
-          var src = (photo.thumbnails && photo.thumbnails.large) ? photo.thumbnails.large.url : photo.url;
+          var src = (photo.thumbnails && photo.thumbnails.large)
+            ? photo.thumbnails.large.url : photo.url;
           return '<img src="' + src + '" alt="' + name + '" loading="lazy" />';
         }).join('');
         document.getElementById('sp-gallery-section').style.display = 'block';
       }
+
+      // Show content
       document.getElementById('sp-loading').style.display = 'none';
       document.getElementById('sp-content').style.display = 'block';
     }
+
+    // ── Load spot from API ────────────────────────────────────────────────────
     function loadSpot() {
       var slug = getSlugFromURL();
       if (!slug) {
@@ -261,17 +425,17 @@
         document.getElementById('sp-error').textContent = 'No spot found at this URL.';
         return;
       }
+
       fetch('/api/spots')
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          // Match by Spot Name first, then fall back to Name
           var record = (data.records || []).find(function (r) {
             return toSlug(r.fields['Spot Name'] || r.fields['Name']) === slug;
           });
           if (!record) {
             document.getElementById('sp-loading').style.display = 'none';
             document.getElementById('sp-error').style.display = 'flex';
-            document.getElementById('sp-error').textContent = 'Spot not found.';
+            document.getElementById('sp-error').textContent = 'Spot \u201c' + slug + '\u201d not found.';
             return;
           }
           renderSpot(record.fields);
@@ -279,11 +443,15 @@
         .catch(function (err) {
           document.getElementById('sp-loading').style.display = 'none';
           document.getElementById('sp-error').style.display = 'flex';
-          document.getElementById('sp-error').textContent = 'Could not load spot data.';
+          document.getElementById('sp-error').textContent = 'Could not load spot data. Please try again.';
+          console.error(err);
         });
     }
+
     loadSpot();
+
   })();
-  <\/script>
+  </script>
+
 </body>
-  </html>
+</html>
