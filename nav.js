@@ -146,36 +146,34 @@
   ].join('\n');
   document.head.appendChild(style);
 
-  // ── 2. Detect page ──────────────────────────────────────────────────────────
+  // ── 2. Detect page ────────────────────────────────────────────────────────────
   var path = window.location.pathname;
   var isIndex = path === '/' || path.endsWith('index.html');
   var isInspiration = path.endsWith('inspiration.html');
 
-  // ── 3. Build nav HTML ───────────────────────────────────────────────────────
-  var logoHref  = isIndex ? '#' : 'index.html';
+  // ── 3. Build nav HTML ─────────────────────────────────────────────────────────
+  var logoHref = isIndex ? '#' : 'index.html';
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
-    ['Amalfi Coast',    'Italy'],
-    ['Santorini',       'Greece'],
-    ['Bali',            'Indonesia'],
-    ['Tulum',           'Mexico'],
-    ['Maldives',        'Indian Ocean'],
-    ['Costa Rica',      'Central America'],
-    ['Nicaragua',       'Central America'],
-    ['Algarve',         'Portugal'],
+    ['Amalfi Coast', 'Italy'],
+    ['Santorini', 'Greece'],
+    ['Bali', 'Indonesia'],
+    ['Tulum', 'Mexico'],
+    ['Maldives', 'Indian Ocean'],
+    ['Costa Rica', 'Central America'],
+    ['Nicaragua', 'Central America'],
+    ['Algarve', 'Portugal'],
     ['South of France', 'France'],
-    ['Switzerland',     'Alps'],
-    ['New York',        'USA']
+    ['Switzerland', 'Alps'],
+    ['New York', 'USA']
   ];
 
   var destItems = destinations.map(function (d) {
     if (isIndex) {
-      return '<a onclick="goToDestination(\'' + d[0] + '\'); return false;" href="#">' +
-             d[0] + ' <span>' + d[1] + '</span></a>';
+      return '<a onclick="goToDestination(\'' + d[0] + '\'); return false;" href="#">' + d[0] + ' <span>' + d[1] + '</span></a>';
     }
-    return '<a href="index.html?dest=' + encodeURIComponent(d[0]) + '">' +
-           d[0] + ' <span>' + d[1] + '</span></a>';
+    return '<a href="index.html?dest=' + encodeURIComponent(d[0]) + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
   }).join('');
 
   var viewAllDest = isIndex
@@ -217,13 +215,13 @@
     '</div>' +
     '<div class="nav-right">' + collectionBtn + '</div>';
 
-  // ── 4. Replace placeholder ──────────────────────────────────────────────────
+  // ── 4. Replace placeholder ────────────────────────────────────────────────────
   var placeholder = document.getElementById('nav-placeholder');
   if (placeholder) {
     placeholder.parentNode.replaceChild(nav, placeholder);
   }
 
-  // ── 5. Scroll effect ────────────────────────────────────────────────────────
+  // ── 5. Scroll effect ──────────────────────────────────────────────────────────
   window.addEventListener('scroll', function () {
     if (window.scrollY > 10) {
       nav.classList.add('scrolled');
@@ -232,7 +230,7 @@
     }
   });
 
-  // ── 6. Dropdown toggle (only define if index.html has not already) ──────────
+  // ── 6. Dropdown toggle (only define if index.html has not already) ────────────
   if (typeof window.toggleDestDropdown === 'undefined') {
     window.toggleDestDropdown = function () {
       var dd = document.getElementById('nav-dest-dropdown');
@@ -248,5 +246,12 @@
     if (wrap && wrap.contains(e.target)) return;
     dd.classList.remove('open');
   });
+
+  // ── 7. Load spot-links.js on homepage (Phase 1 spot page links) ───────────────
+  if (isIndex) {
+    var spotLinksEl = document.createElement('script');
+    spotLinksEl.src = '/spot-links.js';
+    document.body.appendChild(spotLinksEl);
+  }
 
 })();
