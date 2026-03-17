@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Dynamic — overwritten by JS once data loads -->
+  <title>Proposal Spot | Proposal Spots</title>
+  <meta name="description" content="A curated proposal location from Proposal Spots.">
+
+  <!-- Open Graph (populated dynamically) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Proposal Spots">
+  <meta property="og:title"       content="">
+  <meta property="og:description" content="">
+  <meta property="og:image"       content="">
+
+  <!-- Canonical (populated dynamically) -->
+  <link rel="canonical" href="">
+
+  <!--
+    BASE HREF: nav.js uses relative hrefs like "index.html".
+    This makes them resolve from / even though this file is in /spots/.
+  -->
+  <base href="/">
+
+  <!-- Google Fonts — same as index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Design tokens — mirror of index.html :root ─────────────────── */
+    :root {
+      --bg:       #F4F1EB;
+      --bg2:      #EDEAE2;
+      --bg3:      #E8E4DB;
+      --white:    #FDFCFA;
+      --ink:      #1C1C1C;
+      --ink2:     #2E2C2A;
+      --mid:      #6B6660;
+      --muted:    #9E9890;
+      --hairline: #D8D2C8;
+      --divider:  #E4E0D8;
+      --accent:   #8C7B64;
+      --accent2:  #B5A48C;
+      --shadow:   rgba(28,28,28,0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* ── Loading state ───────────────────────────────────────────────── */
+    #sp-loading {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .sp-spinner {
+      width: 30px; height: 30px;
+      border: 2px solid var(--hairline);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: sp-spin 0.8s linear infinite;
+    }
+    @keyframes sp-spin { to { transform: rotate(360deg); } }
+    .sp-loading-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Not-found state ─────────────────────────────────────────────── */
+    #sp-not-found {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    #sp-not-found h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 400; color: var(--mid);
+    }
+    #sp-not-found p  { font-size: 13px; font-weight: 300; color: var(--muted); }
+    #sp-not-found a  {
+      margin-top: 8px; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    #sp-not-found a:hover { opacity: 0.7; }
+
+    /* ── Main content ────────────────────────────────────────────────── */
+    #sp-content { display: none; }
+
+    /* ── Hero ────────────────────────────────────────────────────────── */
+    .sp-hero {
+      position: relative;
+      height: 78vh; min-height: 500px; max-height: 720px;
+      overflow: hidden; background: var(--bg3);
+    }
+    .sp-hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+    }
+    .sp-hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.04) 25%,
+        rgba(0,0,0,0.30) 60%,
+        rgba(0,0,0,0.72) 100%
+      );
+    }
+    .sp-hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 48px 56px;
+      max-width: 900px; margin: 0 auto;
+    }
+    .sp-badge {
+      display: none;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.28);
+      backdrop-filter: blur(10px);
+      border-radius: 100px; padding: 5px 13px; margin-bottom: 14px;
+    }
+    .sp-location {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.72); margin-bottom: 10px;
+    }
+    .sp-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5.5vw, 58px); font-weight: 400;
+      color: var(--white); line-height: 1.08; margin-bottom: 16px;
+    }
+    .sp-line-summary {
+      font-size: 14px; font-weight: 300; line-height: 1.65;
+      color: rgba(255,255,255,0.82); max-width: 560px;
+    }
+
+    /* ── Top bar (back button) ────────────────────────────────────────── */
+    .sp-topbar {
+      padding: 104px 48px 0;
+      max-width: 900px; margin: 0 auto;
+    }
+    .sp-back {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid); cursor: pointer;
+      background: none; border: none; padding: 8px 0;
+      transition: color 0.18s;
+    }
+    .sp-back:hover { color: var(--ink); }
+    .sp-back svg { transition: transform 0.18s; }
+    .sp-back:hover svg { transform: translateX(-3px); }
+
+    /* ── Body wrapper ─────────────────────────────────────────────────── */
+    .sp-body { max-width: 900px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── Stats strip ──────────────────────────────────────────────────── */
+    .sp-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--hairline); border: 1px solid var(--hairline);
+      border-radius: 14px; overflow: hidden; gap: 1px; margin: 36px 0;
+    }
+    .sp-stat {
+      background: var(--white); padding: 18px 20px 16px;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .sp-stat-label {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    }
+    .sp-stat-val { font-size: 13px; font-weight: 400; color: var(--ink); line-height: 1.4; }
+
+    /* ── Sections ─────────────────────────────────────────────────────── */
+    .sp-section { padding: 36px 0; border-top: 1px solid var(--divider); }
+    .sp-section-label {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    .sp-body-text {
+      font-size: 14px; font-weight: 300;
+      line-height: 1.78; color: var(--ink2);
+    }
+
+    /* ── Vibe tags ────────────────────────────────────────────────────── */
+    .sp-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .sp-tag {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.05em;
+      color: var(--mid); background: var(--bg2);
+      border: 1px solid var(--hairline); border-radius: 100px; padding: 5px 13px;
+    }
+
+    /* ── Proposal plan steps ──────────────────────────────────────────── */
+    .sp-steps { display: flex; flex-direction: column; gap: 20px; }
+    .sp-step  { display: flex; gap: 16px; align-items: flex-start; }
+    .sp-step-num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--bg2);
+      border: 1px solid var(--hairline);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-weight: 500; color: var(--mid); margin-top: 1px;
+    }
+    .sp-step-content { flex: 1; }
+    .sp-step-title {
+      display: block; font-size: 13.5px; font-weight: 500;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .sp-step-body {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.7; color: var(--ink2);
+    }
+
+    /* ── Gallery ──────────────────────────────────────────────────────── */
+    .sp-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
+    .sp-gallery img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: 8px; background: var(--bg2);
+      cursor: zoom-in; transition: opacity 0.2s;
+    }
+    .sp-gallery img:hover { opacity: 0.88; }
+    .sp-gallery img:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+
+    /* ── Map link ─────────────────────────────────────────────────────── */
+    .sp-map-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
+      color: var(--accent); text-decoration: none; margin-top: 14px;
+      transition: color 0.18s;
+    }
+    .sp-map-link:hover { color: var(--ink); }
+
+    /* ── Info cards (photographer / hotel) ───────────────────────────── */
+    .sp-info-card {
+      background: var(--white); border: 1px solid var(--hairline);
+      border-radius: 14px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 16px; margin-top: 14px;
+    }
+    .sp-info-card-icon  { font-size: 22px; flex-shrink: 0; }
+    .sp-info-card-label {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 4px;
+    }
+    .sp-info-card-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .sp-info-card-arrow { margin-left: auto; font-size: 16px; color: var(--accent2); }
+
+    /* ── CTA block ────────────────────────────────────────────────────── */
+    .sp-cta {
+      background: var(--ink); border-radius: 20px;
+      padding: 52px 44px; text-align: center; margin: 48px 0 60px;
+    }
+    .sp-cta-label {
+      font-size: 9px; font-weight: 500; letter-spacing: 0.24em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px;
+    }
+    .sp-cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 4vw, 36px); font-weight: 300;
+      color: var(--white); line-height: 1.2; margin-bottom: 10px;
+    }
+    .sp-cta-sub {
+      font-size: 13px; font-weight: 300; line-height: 1.65;
+      color: rgba(255,255,255,0.55);
+      max-width: 440px; margin: 0 auto 28px;
+    }
+    .sp-cta-btn {
+      display: inline-block;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); background: var(--white);
+      border-radius: 100px; padding: 14px 34px;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .sp-cta-btn:hover { background: var(--accent2); transform: scale(1.02); }
+
+    /* ── Mobile ───────────────────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .sp-hero-content { padding: 0 24px 44px; }
+      .sp-topbar       { padding: 100px 20px 0; }
+      .sp-body         { padding: 0 20px; }
+      .sp-stats        { grid-template-columns: repeat(2, 1fr); }
+      .sp-gallery      { grid-template-columns: repeat(2, 1fr); }
+      .sp-gallery img:first-child { grid-column: span 2; }
+      .sp-cta          { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav injected by nav.js -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Loading -->
+  <div id="sp-loading">
+    <div class="sp-spinner"></div>
+    <span class="sp-loading-label">Loading…</span>
+  </div>
+
+  <!-- Not found -->
+  <div id="sp-not-found">
+    <h1>Spot not found</h1>
+    <p>This spot may have moved or no longer exists.</p>
+    <a href="/">← Browse all spots</a>
+  </div>
+
+  <!-- Main content (shown after load) -->
+  <div id="sp-content">
+
+    <div class="sp-hero">
+      <img id="sp-hero-img" class="sp-hero-img" src="" alt="" loading="eager">
+      <div class="sp-hero-gradient"></div>
+      <div class="sp-hero-content">
+        <div id="sp-badge"        class="sp-badge"></div>
+        <div id="sp-location"     class="sp-location"></div>
+        <h1  id="sp-name"         class="sp-name"></h1>
+        <p   id="sp-line-summary" class="sp-line-summary"></p>
+      </div>
+    </div>
+
+    <div class="sp-topbar">
+      <button class="sp-back" onclick="spGoBack()">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"
+             stroke="currentColor" stroke-width="1.6">
+          <path d="M10 3L5 8l5 5"/>
+        </svg>
+        Back
+      </button>
+    </div>
+
+    <div class="sp-body">
+
+      <!-- Stats -->
+      <div class="sp-stats">
+        <div class="sp-stat">
+          <span class="sp-stat-label">Budget</span>
+          <span id="sp-budget"  class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Privacy</span>
+          <span id="sp-privacy" class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Access</span>
+          <span id="sp-effort"  class="sp-stat-val">—</span>
+        </div>
+        <div class="sp-stat">
+          <span class="sp-stat-label">Best Time</span>
+          <span id="sp-time"    class="sp-stat-val">—</span>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="sp-section">
+        <p class="sp-section-label">About This Spot</p>
+        <p id="sp-full-summary" class="sp-body-text"></p>
+        <div id="sp-tags" class="sp-tags"></div>
+      </div>
+
+      <!-- Proposal plan -->
+      <div class="sp-section" id="sp-plan-section" style="display:none">
+        <p class="sp-section-label">Proposal Plan</p>
+        <div id="sp-steps" class="sp-steps"></div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="sp-section" id="sp-gallery-section" style="display:none">
+        <p class="sp-section-label">Gallery</p>
+        <div id="sp-gallery" class="sp-gallery"></div>
+      </div>
+
+      <!-- Getting there -->
+      <div class="sp-section" id="sp-access-section" style="display:none">
+        <p class="sp-section-label">Getting There</p>
+        <p id="sp-access" class="sp-body-text"></p>
+        <a id="sp-map-link" class="sp-map-link" href="#" target="_blank"
+           rel="noopener noreferrer" style="display:none">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          View on Google Maps
+        </a>
+      </div>
+
+      <!-- Photographer -->
+      <div class="sp-section" id="sp-photo-section" style="display:none">
+        <p class="sp-section-label">Recommended Photographer</p>
+        <div class="sp-info-card">
+          <span class="sp-info-card-icon">📸</span>
+          <div>
+            <div class="sp-info-card-label">Our Pick for This Location</div>
+            <div id="sp-photographer" class="sp-info-card-value"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel -->
+      <div class="sp-section" id="sp-hotel-section" style="display:none">
+        <p class="sp-section-label">Where to Stay</p>
+        <div class="sp-info-card">
+          <span class="sp-info-card-icon">🏨</span>
+          <div>
+            <div class="sp-info-card-label">Our Recommendation</div>
+            <div id="sp-hotel" class="sp-info-card-value"></div>
+          </div>
+          <span class="sp-info-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="sp-cta">
+        <p class="sp-cta-label">Ready to Propose?</p>
+        <h2 class="sp-cta-title">Make it unforgettable</h2>
+        <p class="sp-cta-sub">
+          Get personalised guidance, photographer recommendations,
+          and booking support for this exact location.
+        </p>
+        <a id="sp-enquiry-btn" class="sp-cta-btn"
+           href="mailto:hello@proposalspots.com">
+          Enquire About This Spot →
+        </a>
+      </div>
+
+    </div><!-- /.sp-body -->
+  </div><!-- /#sp-content -->
+
+  <!-- nav.js — /nav.js resolves correctly because of <base href="/"> -->
+  <script src="/nav.js"></script>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────────
+    //  NO CREDENTIALS NEEDED HERE.
+    //  All Airtable calls go through /api/spots (the Vercel serverless
+    //  function in api/spots.js), exactly as index.html does.
+    //  The AIRTABLE_TOKEN stays server-side, never in the browser.
+    // ─────────────────────────────────────────────────────────────────
+
+    // ── Slug helpers ──────────────────────────────────────────────────
+    //  toSlug() must match the identical function added to index.html
+    //  (see index-drawer-snippet.js) so that URLs stay consistent.
+    function toSlug(name) {
+      return (name || '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    function getSlugFromURL() {
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      return parts[parts.length - 1] || '';
+    }
+
+    // ── Back button ───────────────────────────────────────────────────
+    //  Returns to the previous page if it was our own site,
+    //  otherwise falls back to the homepage.
+    function spGoBack() {
+      try {
+        const ref = document.referrer;
+        if (ref && new URL(ref).hostname === window.location.hostname) {
+          history.back();
+        } else {
+          window.location.href = '/';
+        }
+      } catch (e) {
+        window.location.href = '/';
+      }
+    }
+
+    // ── Parse proposal plan steps ─────────────────────────────────────
+    //  Handles the tab-indented format Airtable returns:
+    //    "1.\tStep title\n\t  body text\n2.\tNext step…"
+    function parseSteps(raw) {
+      if (!raw) return [];
+      const chunks = raw.split(/\n(?=\s*\d+[\.\t])/);
+      return chunks.map(chunk => {
+        const lines = chunk.trim().split('\n');
+        const title = lines[0].replace(/^\s*\d+[\.\t\s]+/, '').trim();
+        const body  = lines.slice(1).map(l => l.replace(/^\s+/, '')).join(' ').trim();
+        return { title, body };
+      }).filter(s => s.title);
+    }
+
+    // ── Safety: escape before inserting as HTML ───────────────────────
+    function esc(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ── Meta tag helper ───────────────────────────────────────────────
+    function setMeta(attr, val, content) {
+      let el = document.querySelector(`meta[${attr}="${val}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, val);
+        document.head.appendChild(el);
+      }
+      el.content = content;
+    }
+
+    // ── UI state helpers ──────────────────────────────────────────────
+    function showLoading()  {
+      document.getElementById('sp-loading').style.display   = 'flex';
+      document.getElementById('sp-content').style.display   = 'none';
+      document.getElementById('sp-not-found').style.display = 'none';
+    }
+    function showContent()  {
+      document.getElementById('sp-loading').style.display   = 'none';
+      document.getElementById('sp-content').style.display   = 'block';
+      document.getElementById('sp-not-found').style.display = 'none';
+    }
+    function showNotFound() {
+      document.getElementById('sp-loading').style.display   = 'none';
+      document.getElementById('sp-content').style.display   = 'none';
+      document.getElementById('sp-not-found').style.display = 'flex';
+    }
+
+    // ── Render ────────────────────────────────────────────────────────
+    function renderSpot(fields) {
+      const name    = (fields['Name']    || '').trim();
+      const region  =  fields['Region']  || '';
+      const country =  fields['Country'] || '';
+
+      // SEO metadata
+      const pageTitle = `${name} — Proposal Spot in ${region}${country ? ', ' + country : ''} | Proposal Spots`;
+      const pageDesc  = fields['Line Summary']
+        || `Discover ${name}, a curated proposal location in ${region}${country ? ', ' + country : ''}.`;
+
+      document.title = pageTitle;
+      document.querySelector('meta[name="description"]').content = pageDesc;
+      document.querySelector('link[rel="canonical"]').href = window.location.href;
+      setMeta('property', 'og:title',       pageTitle);
+      setMeta('property', 'og:description', pageDesc);
+      setMeta('property', 'og:url',         window.location.href);
+      if (fields['Cover Photo']) setMeta('property', 'og:image', fields['Cover Photo']);
+
+      // Hero
+      const heroImg = document.getElementById('sp-hero-img');
+      if (fields['Cover Photo']) {
+        heroImg.src = fields['Cover Photo'];
+        heroImg.alt = name;
+      } else {
+        heroImg.style.display = 'none';
+      }
+
+      const badgeEl = document.getElementById('sp-badge');
+      if (fields['badge']) {
+        badgeEl.textContent   = fields['badge'];
+        badgeEl.style.display = 'inline-block';
+      }
+
+      document.getElementById('sp-location').textContent =
+        [region, country].filter(Boolean).join(' · ').toUpperCase();
+      document.getElementById('sp-name').textContent         = name;
+      document.getElementById('sp-line-summary').textContent = fields['Line Summary'] || '';
+
+      // Stats
+      document.getElementById('sp-budget').textContent  = fields['Budget']          || '—';
+      document.getElementById('sp-privacy').textContent = fields['Privacy']         || '—';
+      document.getElementById('sp-effort').textContent  = fields['Access & Effort'] || '—';
+      const bt = fields['Best Time'];
+      document.getElementById('sp-time').textContent =
+        Array.isArray(bt) ? bt.join(', ') : (bt || '—');
+
+      // Full summary
+      document.getElementById('sp-full-summary').textContent =
+        fields['Full Summary'] || fields['Line Summary'] || '';
+
+      // Vibe tags
+      const tagVals = [fields['Vibe'], fields['Vibe Secondary'], fields['Other Vibe']].filter(Boolean);
+      if (tagVals.length) {
+        document.getElementById('sp-tags').innerHTML =
+          tagVals.map(t => `<span class="sp-tag">${esc(t)}</span>`).join('');
+      }
+
+      // Proposal plan
+      const planRaw = fields['Proposal Plan Steps'];
+      if (planRaw) {
+        const steps = parseSteps(planRaw);
+        if (steps.length) {
+          document.getElementById('sp-steps').innerHTML = steps.map((s, i) => `
+            <div class="sp-step">
+              <div class="sp-step-num">${i + 1}</div>
+              <div class="sp-step-content">
+                ${s.title ? `<span class="sp-step-title">${esc(s.title)}</span>` : ''}
+                ${s.body  ? `<span class="sp-step-body">${esc(s.body)}</span>`   : ''}
+              </div>
+            </div>`).join('');
+          document.getElementById('sp-plan-section').style.display = 'block';
+        }
+      }
+
+      // Gallery
+      const gallery = fields['Gallery Photos'];
+      if (gallery && gallery.length > 0) {
+        document.getElementById('sp-gallery').innerHTML =
+          gallery.map((url, i) =>
+            `<img src="${esc(url)}" alt="${esc(name)} photo ${i + 1}" loading="lazy">`
+          ).join('');
+        document.getElementById('sp-gallery-section').style.display = 'block';
+      }
+
+      // Getting there
+      const accessText = fields['Access Details'];
+      const mapsLink   = fields['Google Maps Link'];
+      if (accessText || mapsLink) {
+        if (accessText) document.getElementById('sp-access').textContent = accessText;
+        if (mapsLink) {
+          const mapEl = document.getElementById('sp-map-link');
+          mapEl.href = mapsLink;
+          mapEl.style.display = 'inline-flex';
+        }
+        document.getElementById('sp-access-section').style.display = 'block';
+      }
+
+      // Photographer
+      const photographer = fields['Recommended Photographer'];
+      if (photographer) {
+        document.getElementById('sp-photographer').textContent = photographer;
+        document.getElementById('sp-photo-section').style.display = 'block';
+      }
+
+      // Hotel / venue
+      const hotel = fields['Linked Hotel / Venue'];
+      if (hotel) {
+        document.getElementById('sp-hotel').textContent = hotel;
+        document.getElementById('sp-hotel-section').style.display = 'block';
+      }
+
+      // Enquiry CTA — pre-fill email subject with spot name
+      document.getElementById('sp-enquiry-btn').href =
+        `mailto:hello@proposalspots.com?subject=${encodeURIComponent('Proposal Enquiry: ' + name)}`;
+
+      showContent();
+    }
+
+    // ── Fetch & match ─────────────────────────────────────────────────
+    //  Calls the same /api/spots endpoint that index.html uses.
+    //  Finds the matching record by comparing the URL slug to a
+    //  slugified version of each spot's Name field.
+    async function loadSpot() {
+      const slug = getSlugFromURL();
+      if (!slug) { showNotFound(); return; }
+
+      try {
+        const resp = await fetch('/api/spots');
+        if (!resp.ok) throw new Error(`/api/spots returned ${resp.status}`);
+        const data = await resp.json();
+
+        const record = (data.records || []).find(r =>
+          toSlug(r.fields['Name']) === slug
+        );
+
+        if (!record) { showNotFound(); return; }
+        renderSpot(record.fields);
+
+      } catch (err) {
+        console.error('[spot.html] Failed to load spot:', err);
+        showNotFound();
+      }
+    }
+
+    showLoading();
+    loadSpot();
+  </script>
+
+</body>
+</html>
