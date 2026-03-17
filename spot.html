@@ -1201,7 +1201,7 @@ nav {
   </div>
 
   <!-- Not found state -->
-  <div id="not-found-state" style="display: none; padding: 80px 40px; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  <div id="not-found-state" style="display: none; padding: 80px 40px; text-align: center; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center;">
     <h1 style="font-family: 'Cormorant', serif; font-size: 32px; color: var(--ink); margin-bottom: 12px;">Spot Not Found</h1>
     <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: var(--mid); margin-bottom: 24px;">The proposal spot you're looking for couldn't be found.</p>
     <button onclick="window.location.href = '/'" style="background: var(--ink); color: var(--bg); font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; border: none; border-radius: 8px; padding: 12px 24px; cursor: pointer;">Back Home</button>
@@ -1693,7 +1693,7 @@ function mapSpotFromAirtable(r) {
     Budget: budget,
     'Best Time': bestTime,
     'Access & Effort': f['Access & Effort'] || '',
-    'Access Details': f[ f['Access Details'] || '',
+    'Access Details': f['Access Details'] || '',
     'Line Summary': f['Line Summary'] || '',
     'Full Summary': f['Full Summary'] || '',
     'Cover Photo': f['Cover Photo']?.[0]?.url || null,
