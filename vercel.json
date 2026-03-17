@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/spots/:slug",  "destination": "/spots/spot.html" },
+    { "source": "/spots/:slug", "destination": "/spot.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
