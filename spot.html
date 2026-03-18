@@ -1891,7 +1891,7 @@ function lightboxNext() {
 //  BOOKING - PRICING
 // ─────────────────────────────────────────────────────────
 function loadSpotPricing(s) {
-  const parseMths = str => (str || '').split(',').map(x => parseInt(x.trim()trim())).filter(n => !isNaN(n));
+  const parseMths = str => (str || '').split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n));
   currentSpotPricing = {
     moment: s['Price Moment'] || null,
     hotelPerNight: s['Price Hotel Per Night'] || null,
