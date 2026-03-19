@@ -6,6 +6,8 @@
 <title id="page-title">Proposal Spot — Proposal Spots</title>
 <meta id="page-description" name="description" content="Discover this stunning proposal location at Proposal Spots.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -313,6 +315,35 @@ nav {
   margin-bottom: 48px;
 }
 
+.sdp-map-section {
+  margin-bottom: 48px;
+}
+.sdp-map-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+@media (min-width: 768px) { .sdp-map-wrap { height: 360px; } }
+.sdp-map-el {
+  width: 100%;
+  height: 100%;
+  filter: blur(4px);
+  pointer-events: none;
+  transform: scale(1.08);
+}
+.sdp-map-caption {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: 8px;
+  text-align: center;
+}
+
 .sdp-lbl {
   font-family: 'Jost', sans-serif;
   font-size: 8px;
@@ -539,6 +570,7 @@ nav {
 .rcal-day:hover:not(.rcal-day-disabled):not(.rcal-day-empty) { background: var(--bg3); }
 .rcal-day-disabled { color: var(--hairline); cursor: default; pointer-events:none; }
 .rcal-day-empty { cursor: default; }
+.sdp-step-hint { font-family: 'Cormorant', serif; font-size: 14px; font-weight: 300; color: var(--muted); letter-spacing: 0.02em; margin: 0; line-height: 1.6; font-style: italic; }
 .rcal-day-checkin { background: var(--accent) !important; color: white !important; border-radius: 6px 0 0 6px; }
 .rcal-day-checkout { background: var(--accent) !important; color: white !important; border-radius: 0 6px 6px 0; }
 .rcal-day-inrange { background: rgba(165,90,74,0.12) !important; border-radius: 0; }
@@ -1327,6 +1359,15 @@ nav {
           <p class="sdp-about-text" id="sdp-full-summary"></p>
         </div>
 
+        <!-- Map -->
+        <div class="sdp-map-section" id="sdp-map-section" style="display:none">
+          <span class="sdp-lbl">General area</span>
+          <div class="sdp-map-wrap">
+            <div class="sdp-map-el" id="sdp-map-el"></div>
+          </div>
+          <p class="sdp-map-caption">Exact location shared after enquiry confirmation</p>
+        </div>
+
         <!-- What's included -->
         <div class="sdp-included" id="sdp-included-section" style="display:none">
           <span class="sdp-lbl">What's included</span>
@@ -1832,6 +1873,9 @@ function populateSpot(s) {
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
 
+  // Map
+  renderSpotMap(s['Google Maps Link'] || '');
+
   // Pricing
   loadSpotPricing(s);
 
@@ -1870,6 +1914,49 @@ function goBack() {
 // ─────────────────────────────────────────────────────────
 //  GALLERY
 // ─────────────────────────────────────────────────────────
+let _spotMap = null;
+
+function renderSpotMap(mapsUrl) {
+  const section = document.getElementById('sdp-map-section');
+  const el = document.getElementById('sdp-map-el');
+  if (!section || !el) return;
+
+  if (!mapsUrl) {
+    section.style.display = 'none';
+    return;
+  }
+
+  // Parse lat/lng from Google Maps URL
+  let lat = null, lng = null;
+  const atMatch = mapsUrl.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  const qMatch  = mapsUrl.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  const llMatch = mapsUrl.match(/ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (atMatch) { lat = parseFloat(atMatch[1]); lng = parseFloat(atMatch[2]); }
+  else if (qMatch) { lat = parseFloat(qMatch[1]); lng = parseFloat(qMatch[2]); }
+  else if (llMatch) { lat = parseFloat(llMatch[1]); lng = parseFloat(llMatch[2]); }
+
+  if (!lat || !lng) { section.style.display = 'none'; return; }
+
+  section.style.display = '';
+
+  if (_spotMap) { _spotMap.remove(); _spotMap = null; }
+
+  _spotMap = L.map(el, {
+    center: [lat, lng],
+    zoom: 11,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    dragging: false,
+    touchZoom: false,
+    attributionControl: false
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(_spotMap);
+}
+
 function renderGallery(photos) {
   _galleryPhotos = photos;
   _galleryIndex = 0;
@@ -2078,8 +2165,8 @@ function renderRangeCal() {
     let disabled = false;
     if (dt < today) { cls += ' rcal-day-disabled'; disabled = true; }
     if (_rcalMode === 'checkout' && ci && ds <= ci) { cls += ' rcal-day-disabled'; disabled = true; }
+    if (ds === ci) cls += ' rcal-day-checkin';
     if (!disabled) {
-      if (ds === ci) cls += ' rcal-day-checkin';
       if (ds === co) cls += ' rcal-day-checkout';
       if (ci && co && ds > ci && ds < co) cls += ' rcal-day-inrange';
     }

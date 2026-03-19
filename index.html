@@ -3089,8 +3089,8 @@ footer {
   letter-spacing: 0.02em;
 }
 .sdp-step-hint {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px; font-weight: 300;
+  font-family: 'Cormorant', serif;
+  font-size: 14px; font-weight: 300;
   color: var(--muted); letter-spacing: 0.02em;
   margin: 0; line-height: 1.6;
   font-style: italic;
@@ -3329,8 +3329,8 @@ footer {
   letter-spacing: 0.02em;
 }
 .sdp-step-hint {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px; font-weight: 300;
+  font-family: 'Cormorant', serif;
+  font-size: 14px; font-weight: 300;
   color: var(--muted); letter-spacing: 0.02em;
   margin: 0; line-height: 1.6;
   font-style: italic;
@@ -6954,8 +6954,8 @@ function renderRangeCal() {
     let cls = 'rcal-day'; let disabled = false;
     if (dt < today) { cls += ' rcal-day-disabled'; disabled = true; }
     if (_rcalMode === 'checkout' && ci && ds <= ci) { cls += ' rcal-day-disabled'; disabled = true; }
+    if (ds === ci) cls += ' rcal-day-checkin';
     if (!disabled) {
-      if (ds === ci) cls += ' rcal-day-checkin';
       if (ds === co) cls += ' rcal-day-checkout';
       if (ci && co && ds > ci && ds < co) cls += ' rcal-day-inrange';
     }
