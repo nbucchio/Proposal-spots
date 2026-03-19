@@ -7,50 +7,51 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const BASE  = 'appN5GFcdPJvU1qff';
-  const TABLE = 'Bookings';
+  const TABLE = 'tblqGbBHi9WmimksG';
   const TOKEN = process.env.AIRTABLE_TOKEN;
 
   if (!TOKEN) return res.status(500).json({ error: 'Missing AIRTABLE_TOKEN' });
 
   const {
-    spotName, firstName, lastName, email, phone,
+    spotId, firstName, lastName, email, phone, contactPreference,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons,
+    proposalDate, notes, addons,
   } = req.body || {};
 
-  if (!firstName || !lastName || !email || !phone) {
+  if (!firstName || !lastName || !email || !phone || !contactPreference) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  const fields = {
+    'Customer First Name': firstName,
+    'Customer Last Name':  lastName,
+    'Customer Email':      email,
+    'Customer Phone':      phone,
+    'Contact Preference':  contactPreference,
+    'Partner Name':        partner || '',
+    'Customer Country':    country || '',
+    'Special Requests':    notes || '',
+    'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
+    'Source':              'Website',
+  };
+
+  if (spotId) fields['Linked Spot'] = [spotId];
+  if (hotelCheckin)  fields['Check In']       = hotelCheckin;
+  if (hotelCheckout) fields['Check Out']      = hotelCheckout;
+  if (proposalDate)  fields['Proposal Night'] = proposalDate;
+  if (hotelCheckin)  fields['Package Selected'] = 'Moment + Hotel';
+  else               fields['Package Selected'] = 'Moment';
+
   try {
     const response = await fetch(
-      `https://api.airtable.com/v0/${BASE}/${encodeURIComponent(TABLE)}`,
+      `https://api.airtable.com/v0/${BASE}/${TABLE}`,
       {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          records: [{
-            fields: {
-              'Spot Name':      spotName || '',
-              'First Name':     firstName,
-              'Last Name':      lastName,
-              'Email':          email,
-              'Phone':          phone,
-              'Partner':        partner || '',
-              'Country':        country || '',
-              'Hotel Check-in': hotelCheckin || '',
-              'Hotel Check-out':hotelCheckout || '',
-              'Proposal Date':  proposalDate || '',
-              'Backup Date':    backupDate || '',
-              'Notes':          notes || '',
-              'Add-ons':        Array.isArray(addons) ? addons.join(', ') : (addons || ''),
-              'Submitted At':   new Date().toISOString(),
-            },
-          }],
-        }),
+        body: JSON.stringify({ records: [{ fields }] }),
       }
     );
 

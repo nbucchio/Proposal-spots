@@ -1135,6 +1135,33 @@ nav {
 .enq-submit-btn:hover { background: #A55A4A; transform: translateY(-1px); }
 .enq-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+.enq-contact-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.enq-chip {
+  flex: 1;
+  min-width: 80px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--mid);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.enq-chip:hover { border-color: var(--accent2); color: var(--ink); }
+.enq-chip.selected { border-color: #A55A4A; color: #A55A4A; background: rgba(165,90,74,0.06); }
+
 .enq-legal {
   font-family: 'Jost', sans-serif;
   font-size: 10px;
@@ -1539,8 +1566,16 @@ nav {
       <input type="email" id="enq-email" class="enq-input" placeholder="james@example.com">
     </div>
     <div class="enq-form-field">
-      <label class="enq-label">Phone / WhatsApp *</label>
+      <label class="enq-label">Phone Number (WhatsApp or SMS) *</label>
       <input type="tel" id="enq-phone" class="enq-input" placeholder="+1 555 000 0000">
+    </div>
+    <div class="enq-form-field">
+      <label class="enq-label">Preferred contact method *</label>
+      <div class="enq-contact-chips" id="enq-contact-chips">
+        <button type="button" class="enq-chip" data-value="Email" onclick="selectContactChip(this)">Email</button>
+        <button type="button" class="enq-chip" data-value="WhatsApp" onclick="selectContactChip(this)">WhatsApp</button>
+        <button type="button" class="enq-chip" data-value="Text" onclick="selectContactChip(this)">Text</button>
+      </div>
     </div>
     <div class="enq-form-field">
       <label class="enq-label">Partner's first name</label>
@@ -2395,31 +2430,37 @@ function closeEnquiryModal() {
   document.body.style.overflow = '';
 }
 
+function selectContactChip(el) {
+  document.querySelectorAll('#enq-contact-chips .enq-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
 async function submitEnquiry() {
   const first = document.getElementById('enq-first')?.value?.trim();
   const last = document.getElementById('enq-last')?.value?.trim();
   const email = document.getElementById('enq-email')?.value?.trim();
   const phone = document.getElementById('enq-phone')?.value?.trim();
+  const contactPref = document.querySelector('#enq-contact-chips .enq-chip.selected')?.dataset?.value || '';
 
-  if (!first || !last || !email || !phone) {
-    alert('Please fill in all required fields.');
+  if (!first || !last || !email || !phone || !contactPref) {
+    alert('Please fill in all required fields, including your preferred contact method.');
     return;
   }
 
   const addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => cb.value);
 
   const data = {
-    spotName: document.getElementById('sdp-name')?.textContent || '',
+    spotId: currentSpot?.id || '',
     firstName: first,
     lastName: last,
     email: email,
     phone: phone,
+    contactPreference: contactPref,
     partner: document.getElementById('enq-partner')?.value?.trim() || '',
     country: document.getElementById('enq-country')?.value?.trim() || '',
     hotelCheckin: document.getElementById('sdp-checkin')?.value || '',
     hotelCheckout: document.getElementById('sdp-checkout')?.value || '',
     proposalDate: document.getElementById('enq-proposal-date')?.value || '',
-    backupDate: document.getElementById('enq-backup-date')?.value || '',
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
   };
