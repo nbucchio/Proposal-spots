@@ -56,6 +56,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const err = await response.json();
+      console.error('Airtable error:', response.status, JSON.stringify(err));
       return res.status(response.status).json(err);
     }
 

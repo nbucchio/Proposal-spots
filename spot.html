@@ -1782,8 +1782,8 @@ function populateSpot(s) {
     accessBlock.style.display = 'none';
   }
 
-  // Hotel chip
-  const hasHotel = !!(s['Linked Hotel / Venue'] || s['Price Hotel Per Night']);
+  // Hotel chip — only show hotel step if a hotel/venue is actually linked
+  const hasHotel = !!(s['Linked Hotel / Venue']);
   document.getElementById('sdp-hotel-chip').style.display = hasHotel ? '' : 'none';
   document.getElementById('sdp-concierge-hotel-tag').style.display = hasHotel ? '' : 'none';
   // Hide hotel step entirely for "Just the Moment" spots
@@ -2348,18 +2348,25 @@ function openEnquiryModal() {
   const spotAddons    = spot?.['Add-ons'] || [];
   const priceText     = spot?.['Add-on Prices'] || '';
   const priceMap = {};
-  priceText.split('\n').forEach(line => {
-    const parts = line.split('|').map(s => s.trim());
-    if (parts.length === 2) {
-      priceMap[parts[0]] = parts[1];
-      priceMap[parts[0].toLowerCase()] = parts[1];
+  priceText.split(/\r?\n/).forEach(line => {
+    // Try multiple separators: |  :  –  -
+    const separatorMatch = line.match(/^(.+?)\s*[|:–-]\s*(.+)$/);
+    if (separatorMatch) {
+      const key = separatorMatch[1].trim();
+      const val = separatorMatch[2].trim();
+      priceMap[key] = val;
+      priceMap[key.toLowerCase()] = val;
     }
   });
   const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
   if (addonsSection && addonsList && addonItems.length) {
     addonsList.innerHTML = addonItems.map(item => {
-      const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
-      const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price TBD' : '+' + price}</span>` : '';
+      const key = item.trim();
+      const price = priceMap[key] || priceMap[key.toLowerCase()];
+      const isTbd = !price || price.toUpperCase() === 'TBD';
+      const priceLabel = isTbd
+        ? `<span class="enq-addon-price">Price TBD</span>`
+        : `<span class="enq-addon-price">+${price}</span>`;
       return `<label class="enq-addon-check">
         <input type="checkbox" value="${item}">
         <span>${item}</span>${priceLabel}
