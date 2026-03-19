@@ -6324,7 +6324,7 @@ async function fetchFromAirtable() {
         'Price Photographer':     f['Price Photographer']      || null,
         'Package Includes':       f['Package Includes']        || '',
         'Hotel Area Rate':        f['Hotel Area Rate']         || null,
-        'Add-ons':                Array.isArray(f['Add-ons']) ? f['Add-ons'] : (f['Add-ons'] ? f['Add-ons'].split(/[|·,]/).map(s=>s.trim()).filter(Boolean) : []),
+        'Add-ons':                Array.isArray(f['Add-ons']) ? f['Add-ons'] : (f['Add-ons'] ? f['Add-ons'].split(/[|·,\n]/).map(s=>s.trim()).filter(Boolean) : []),
         'Add-on Prices':          f['Add-on Prices'] || '',
         'Photographer Note':     f['Photographer Note']       || '',
         'Peak Months':           f['Peak Months']             || '',
@@ -7487,10 +7487,13 @@ async function submitEnquiry() {
   const addonPriceMap = {};
   addonPriceText.split('\n').forEach(line => {
     const parts = line.split('|').map(s => s.trim());
-    if (parts.length === 2) addonPriceMap[parts[0]] = parts[1];
+    if (parts.length === 2) {
+      addonPriceMap[parts[0]] = parts[1];
+      addonPriceMap[parts[0].toLowerCase()] = parts[1];
+    }
   });
   const addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
-    const price = addonPriceMap[cb.value];
+    const price = addonPriceMap[cb.value] || addonPriceMap[cb.value.toLowerCase()] || addonPriceMap[cb.value.trim()] || addonPriceMap[cb.value.trim().toLowerCase()];
     return price ? `${cb.value} (${price})` : cb.value;
   });
   if (photographerAddonActive && !addons.some(a => a.startsWith('Photographer'))) {
@@ -8602,12 +8605,15 @@ function showSearchDestDropdown(val) {
   if (!dd) return;
   if (!val || val.length === 0) {
     dd.classList.add('open');
+    document.querySelector('.filter-pills-row')?.style.setProperty('visibility', 'hidden');
   } else {
     dd.classList.remove('open');
+    document.querySelector('.filter-pills-row')?.style.setProperty('visibility', 'visible');
   }
 }
 function hideSearchDestDropdown() {
   document.getElementById('search-dest-dropdown')?.classList.remove('open');
+  document.querySelector('.filter-pills-row')?.style.setProperty('visibility', 'visible');
 }
 function pickSearchDest(name) {
   const input = document.getElementById('search-main');
