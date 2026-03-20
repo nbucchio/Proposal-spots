@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal Stories — Proposal Spots</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #F4F1EB;
+  --bg2:      #EDEAE2;
+  --bg3:      #E8E4DB;
+  --white:    #FDFCFA;
+  --ink:      #1C1C1C;
+  --ink2:     #2E2C2A;
+  --mid:      #6B6660;
+  --muted:    #9E9890;
+  --hairline: #D8D2C8;
+  --divider:  #E4E0D8;
+  --accent:   #8C7B64;
+  --accent2:  #B5A48C;
+  --shadow:   rgba(28,28,28,0.06);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Page header ── */
+.page-header {
+  padding: 120px 2rem 3rem;
+  max-width: 860px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--divider);
+}
+
+.page-header-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  font-family: 'Cormorant', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.page-header-sub {
+  font-size: 0.9rem;
+  color: var(--mid);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* ── Stories list ── */
+.stories-list {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.story-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--divider);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.story-row:hover {
+  background: var(--bg2);
+  margin: 0 -2rem;
+  padding: 2rem;
+}
+
+.story-row-main {}
+
+.story-dest {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.story-title {
+  font-family: 'Cormorant', serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.story-row:hover .story-title {
+  color: var(--ink2);
+}
+
+.story-arrow {
+  font-size: 0.85rem;
+  color: var(--accent);
+  white-space: nowrap;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* ── Footer ── */
+.page-footer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-eyebrow">Proposal Stories</div>
+  <h1>Real proposals.<br>Real places.</h1>
+  <p class="page-header-sub">Twenty stories from around the world — each one planned in secret, remembered forever.</p>
+</div>
+
+<div class="stories-list">
+
+  <a class="story-row" href="/stories/?story=amalfi-coast-lemon-grove-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Amalfi Coast</div>
+      <div class="story-title">He told her it was just lunch. She had no idea about the lemon grove.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=bali-rice-terraces-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Bali</div>
+      <div class="story-title">He woke her at 4:30am. She was furious. Then she saw the rice terraces.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=maldives-sandbank-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Maldives</div>
+      <div class="story-title">The sandbank disappears at high tide. They had twenty minutes.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=santorini-cliffside-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Santorini</div>
+      <div class="story-title">She bought the dress that morning. He had planned everything around a different one.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=costa-rica-jungle-bridge-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Costa Rica</div>
+      <div class="story-title">Suspended in the mist. 150 metres above the jungle. She said yes eleven times.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=tulum-cenote-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Tulum</div>
+      <div class="story-title">The cenote was empty at sunrise. He had arranged that too.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=algarve-sea-cave-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Algarve</div>
+      <div class="story-title">He kayaked into a hidden sea cave with a ring in a dry bag and a plan that nearly got waterlogged.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=provence-lavender-field-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">South of France</div>
+      <div class="story-title">He had been writing her letters for three years. She found out in a lavender field.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=switzerland-alpine-cable-car-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Switzerland</div>
+      <div class="story-title">A private cable car. Dusk. The Jungfrau. He had the date engraved inside the band.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=nicaragua-volcano-cove-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Nicaragua</div>
+      <div class="story-title">No roads reach it. No tour boats stop there. She had absolutely no idea.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=costa-rica-waterfall-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Costa Rica</div>
+      <div class="story-title">He planned for six months. The waterfall did the rest.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=maldives-overwater-villa-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Maldives</div>
+      <div class="story-title">The Indian Ocean at their feet. She had no idea the champagne was already chilled.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=santorini-caldera-sunset-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Santorini</div>
+      <div class="story-title">The whole island was watching the sunset. Only she did not see it coming.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=portugal-atlantic-cliffs-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Portugal</div>
+      <div class="story-title">He had the ring in his pocket for three days. The right moment kept being the next one.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=australia-great-ocean-road-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Australia</div>
+      <div class="story-title">She grew up an hour from here. He flew twelve thousand kilometres to ask.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=swiss-alps-bridge-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Switzerland</div>
+      <div class="story-title">He stopped in the middle of the bridge. She thought he was looking at the view.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=dolomites-mountain-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Dolomites</div>
+      <div class="story-title">They had been coming here for thirty years. He finally asked on the last evening.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=bali-jungle-villa-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Bali</div>
+      <div class="story-title">She had been wanting to come to Bali for five years. He made sure it was worth the wait.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=tulum-jungle-rooftop-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Tulum</div>
+      <div class="story-title">She chose the destination. He arrived with a plan she knew nothing about.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+  <a class="story-row" href="/stories/?story=nicaragua-pacific-beach-proposal">
+    <div class="story-row-main">
+      <div class="story-dest">Nicaragua</div>
+      <div class="story-title">Most people never make it this far. That was exactly the point.</div>
+    </div>
+    <span class="story-arrow">Read →</span>
+  </a>
+
+</div>
+
+<div class="page-footer">
+  Proposal Spots · A curated archive of proposal locations
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
