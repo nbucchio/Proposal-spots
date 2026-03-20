@@ -453,6 +453,13 @@ nav {
   color: var(--muted); display: block;
   letter-spacing: 0.02em;
 }
+.sdp-step-hint {
+  font-family: 'Cormorant', serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0; padding: 8px 0;
+}
 
 .sdp-hotel-toggle {
   margin-left: auto;
@@ -2043,8 +2050,8 @@ function renderRangeCal() {
     let disabled = false;
     if (dt < today) { cls += ' rcal-day-disabled'; disabled = true; }
     if (_rcalMode === 'checkout' && ci && ds <= ci) { cls += ' rcal-day-disabled'; disabled = true; }
+    if (ds === ci) cls += ' rcal-day-checkin';
     if (!disabled) {
-      if (ds === ci) cls += ' rcal-day-checkin';
       if (ds === co) cls += ' rcal-day-checkout';
       if (ci && co && ds > ci && ds < co) cls += ' rcal-day-inrange';
     }

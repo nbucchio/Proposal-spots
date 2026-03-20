@@ -148,11 +148,12 @@
 
   // ── 2. Detect page ────────────────────────────────────────────────────────────
   var path = window.location.pathname;
-  var isIndex = path === '/' || path.endsWith('index.html');
-  var isInspiration = path.endsWith('inspiration.html');
+  var isIndex = path === '/' || path === '/index.html';
+  var isInspiration = path === '/inspiration.html' || path.endsWith('inspiration.html');
+  var isStoriesSection = path.startsWith('/stories') || path.endsWith('stories.html');
 
   // ── 3. Build nav HTML ─────────────────────────────────────────────────────────
-  var logoHref = isIndex ? '#' : 'index.html';
+  var logoHref = isIndex ? '#' : '/';
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
@@ -173,26 +174,26 @@
     if (isIndex) {
       return '<a onclick="goToDestination(\'' + d[0] + '\'); return false;" href="#">' + d[0] + ' <span>' + d[1] + '</span></a>';
     }
-    return '<a href="index.html?dest=' + encodeURIComponent(d[0]) + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
+    return '<a href="/?dest=' + encodeURIComponent(d[0]) + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
   }).join('');
 
   var viewAllDest = isIndex
     ? '<a onclick="showPage(\'destinations\'); return false;" href="#" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>'
-    : '<a href="index.html#destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
+    : '<a href="/#destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
 
   var howItWorksLink = isIndex
     ? '<a href="#" id="nav-how-it-works" onclick="showPage(\'how-it-works\'); return false;" class="nav-link-right">How It Works</a>'
-    : '<a href="index.html#how-it-works" class="nav-link-right">How It Works</a>';
+    : '<a href="/#how-it-works" class="nav-link-right">How It Works</a>';
 
   var faqLink = isIndex
     ? '<a href="#" id="nav-faq" onclick="goToFaq(); return false;" class="nav-link-right">FAQ</a>'
-    : '<a href="index.html#faq" class="nav-link-right">FAQ</a>';
+    : '<a href="/#faq" class="nav-link-right">FAQ</a>';
 
-  var inspirationClass = 'nav-link-right' + (isInspiration ? ' nav-active' : '');
+  var inspirationClass = 'nav-link-right' + ((isInspiration || isStoriesSection) ? ' nav-active' : '');
 
   var collectionBtn = isIndex
     ? '<a href="#" id="nav-collection" onclick="event.preventDefault(); openCollection();" class="nav-cta nav-collection-link">\u2661 My Collection</a>'
-    : '<a href="index.html" class="nav-cta">Find a Spot \u2192</a>';
+    : '<a href="/" class="nav-cta">Find a Spot \u2192</a>';
 
   var nav = document.createElement('nav');
   nav.id = 'navbar';
@@ -210,7 +211,7 @@
         '</div>' +
       '</div>' +
       howItWorksLink +
-      '<a href="inspiration.html" class="' + inspirationClass + '">Inspiration</a>' +
+      '<a href="/inspiration.html" class="' + inspirationClass + '">Inspiration</a>' +
       faqLink +
     '</div>' +
     '<div class="nav-right">' + collectionBtn + '</div>';
