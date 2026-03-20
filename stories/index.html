@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story — Proposal Spots</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0a;
+      color: #e8e0d0;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 3rem 2rem;
+      background: linear-gradient(150deg, #1a1208, #2a1e10);
+    }
+    .hero-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #b09070;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Cormorant', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.2;
+      color: #f5efe5;
+      margin-bottom: 1rem;
+    }
+    .dest-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c8a878;
+      border: 1px solid rgba(200,168,120,0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+    }
+    .body {
+      max-width: 720px;
+      margin: 3rem auto;
+      padding: 0 2rem 4rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #c8c0b0;
+    }
+    .body p { margin-bottom: 1.5rem; }
+    .not-found {
+      max-width: 720px;
+      margin: 6rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .not-found h1 {
+      font-family: 'Cormorant', serif;
+      font-size: 2rem;
+      color: #f5efe5;
+      margin-bottom: 1rem;
+    }
+    .not-found a {
+      color: #c8a878;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="../nav.js"></script>
+  <script>
+    const STORY_DATA = {
+      'amalfi': {
+        eyebrow: 'Amalfi Coast, Italy · June 2024',
+        title: 'He told her it was just lunch. She had no idea about the lemon grove.',
+        dest: 'Amalfi Coast',
+        photo: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1200&q=80&fit=crop',
+        body: `<p>James had been planning for four months. He had dismissed a dozen ideas — a boat trip, a rooftop restaurant, a beach at sunset — before a local hotel owner mentioned a private terrace carved into the cliffside above Positano. It was invisible from the path below. Most people walk past without ever knowing it exists.</p><p>He booked it in January for a June trip. He told no one except the hotel, the guitarist, and the photographer he had hired to be in position before they arrived.</p><p>Sarah had been told they were going for a late lunch. When they arrived at the terrace and she saw the table set with wildflowers — which James had picked himself that morning, getting up at six to find them before she woke — she assumed it was the hotel's standard decoration.</p><p>James had timed everything to the minute. When she turned to ask why he'd gone so quiet, he was already on one knee. She said yes before he finished the sentence.</p>`
+      },
+      'bali-rice': {
+        eyebrow: 'Tegallalang, Ubud, Bali · February 2024',
+        title: 'He woke her at 4:30am. She was furious. Then she saw the rice terraces.',
+        dest: 'Bali',
+        photo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&fit=crop',
+        body: `<p>Emma's exact words at 4:30am were, by her own account, unprintable. Marcus had shaken her awake, told her they needed to leave immediately, and handed her clothes without explanation. She describes her mood as "not ideal."</p><p>What she didn't know was that Marcus had arranged private early-morning access to the Tegallalang rice terraces — the same terraces that draw hundreds of tourists by 8am, but at 5am belong entirely to the mist and the birds and whoever is there first.</p><p>Emma still maintains she did not fully forgive the 4:30am wakeup until approximately forty minutes after the proposal, when she saw the photographs. Marcus disagrees with this timeline.</p>`
+      },
+      'maldives': {
+        eyebrow: 'North Malé Atoll, Maldives · December 2023',
+        title: 'The sandbank disappears at high tide. They had twenty minutes.',
+        dest: 'Maldives',
+        photo: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1200&q=80&fit=crop',
+        body: `<p>The sandbank appears for approximately three hours per day, depending on the tide. At its widest, it is perhaps sixty metres long and eight metres across — a strip of white sand in the middle of the Indian Ocean, surrounded by water in every direction.</p><p>Daniel had been corresponding with the resort concierge for two weeks. He had the tide tables. He had the champagne requested, the rose petals arranged, the exact sunset time calculated to within a minute.</p><p>He dropped to one knee as the sun hit the horizon. The water was already at their ankles when they finally broke the embrace. They made it back to the seaplane with three minutes to spare.</p>`
+      },
+      'santorini': {
+        eyebrow: 'Oia, Santorini, Greece · August 2024',
+        title: 'She bought the dress that morning. He had planned everything around a different one.',
+        dest: 'Santorini',
+        photo: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80&fit=crop',
+        body: `<p>The dress was black and gold, handmade on the island, spotted in a boutique in Oia on what Lexi thought was just a morning of wandering. Her partner had arranged a private clifftop dinner for that evening, timed to the second of sunset, with a photographer in position below the terrace.</p><p>He had planned the proposal for a different dress entirely. The black and gold was, in his words, "an upgrade I didn't deserve credit for."</p><p>He read her a letter. Eight minutes later, he got down on one knee. The Aegean turned pink behind them. They are still together. The dress is framed.</p>`
+      },
+      'costa-rica': {
+        eyebrow: 'Monteverde Cloud Forest, Costa Rica · March 2024',
+        title: 'Suspended in the mist. 150 metres above the jungle. She said yes eleven times.',
+        dest: 'Costa Rica',
+        photo: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200&q=80&fit=crop',
+        body: `<p>The private hanging bridge tour was booked as a "sunrise nature walk." Just the two of them and a local guide, starting before the cloud forest opened to regular visitors.</p><p>Standing on a suspension bridge in the mist, the jungle canopy spread out beneath them and the clouds moving through at eye level, Luca asked. Sofia laughed first. Then she cried. Then she said yes.</p><p>According to Luca, she said it eleven times on the walk back down. Sofia maintains the number was four. The guide has confirmed eleven.</p>`
+      },
+      'tulum': {
+        eyebrow: 'Cenote Dos Ojos, Tulum, Mexico · April 2024',
+        title: 'The cenote was empty at sunrise. He had arranged that too.',
+        dest: 'Tulum',
+        photo: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=1200&q=80&fit=crop',
+        body: `<p>Getting private access to a cenote near Tulum before the tourists arrive requires knowing the right person. Jake had been corresponding with a local guide for six weeks.</p><p>He had wrapped the ring in a handwritten note and placed it inside a small woven bag from the local market. She assumed it was a trinket. When she unfolded the note, her hands were shaking before she opened the box.</p><p>She says the cenote proposal was the most beautiful thing she has ever experienced. He is fairly confident she also means the cenote.</p>`
+      },
+      'algarve': {
+        eyebrow: 'Benagil Sea Cave, Algarve, Portugal · September 2024',
+        title: 'He kayaked into a hidden sea cave with a ring in a dry bag and a plan that nearly got waterlogged.',
+        dest: 'Algarve',
+        photo: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=80&fit=crop',
+        body: `<p>The Benagil Cave is accessible only by water. Most visitors arrive on tourist boats and see it from a distance. Getting inside — actually standing on the small beach inside the cave — requires a kayak, good timing, and a willingness to get wet.</p><p>The ring, wrapped in waterproof cloth and placed in a dry bag he had tested twice in the bath at home, survived the journey intact. The plan, as he would later admit, had a few moments of uncertainty near the cave entrance.</p><p>She said yes inside the cave, the light coming through the hole in the ceiling, the Atlantic framing the exit. He considers this the best decision of his life. She considers the dry bag a romantic detail that took her some time to appreciate.</p>`
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('story');
+    const story = key && STORY_DATA[key];
+    const app = document.getElementById('app');
+
+    if (story) {
+      document.title = story.dest + ' Proposal Story — Proposal Spots';
+      app.innerHTML = `
+        <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)), url('${story.photo}') center/cover;">
+          <div class="hero-inner">
+            <div class="eyebrow">${story.eyebrow}</div>
+            <h1>${story.title}</h1>
+            <span class="dest-tag">${story.dest}</span>
+          </div>
+        </div>
+        <div class="body">${story.body}</div>
+      `;
+    } else {
+      app.innerHTML = `
+        <div class="not-found">
+          <h1>Story not found</h1>
+          <p><a href="../index.html">← Back to Proposal Spots</a></p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
