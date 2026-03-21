@@ -118,14 +118,36 @@
       text-decoration: none;
     }
 
+    .story-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      background: none;
+      border: 1px solid var(--hairline);
+      border-radius: 100px;
+      padding: 10px 18px;
+      text-decoration: none;
+      margin: 32px 40px;
+      display: inline-flex;
+      transition: color 0.2s;
+    }
+    .story-back-btn:hover { color: var(--ink); }
+
     @media (max-width: 900px) {
       .hero { min-height: 360px; padding-bottom: 40px; }
       .hero-inner { padding: 0 28px; }
       .body { padding: 48px 28px; }
+      .story-back-btn { margin: 24px 28px; }
     }
   </style>
 </head>
 <body>
+  <div id="nav-placeholder"></div>
   <div id="app"></div>
 
   <script src="../nav.js"></script>
@@ -281,6 +303,7 @@
     if (story) {
       document.title = story.dest + ' Proposal Story — Proposal Spots';
       app.innerHTML = `
+        <a class="story-back-btn" href="/inspiration.html">← All Stories</a>
         <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)), url('${story.photo}') center/cover;">
           <div class="hero-inner">
             <div class="eyebrow">${story.eyebrow}</div>
@@ -294,7 +317,7 @@
       app.innerHTML = `
         <div class="not-found">
           <h1>Story not found</h1>
-          <p><a href="../index.html">← Back to Proposal Spots</a></p>
+          <p><a class="story-back-btn" href="/inspiration.html" style="margin: 1.5rem auto 0;">← All Stories</a></p>
         </div>
       `;
     }
