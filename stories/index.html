@@ -7,76 +7,121 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F4F1EB;
+      --bg2:      #EDEAE2;
+      --white:    #FDFCFA;
+      --ink:      #1C1C1C;
+      --mid:      #6B6660;
+      --muted:    #9E9890;
+      --hairline: #D8D2C8;
+      --accent:   #8C7B64;
+    }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
     body {
-      background: #0a0a0a;
-      color: #e8e0d0;
+      background: var(--bg);
+      color: var(--ink);
       font-family: 'Jost', sans-serif;
       font-weight: 300;
       min-height: 100vh;
+      padding-top: 64px;
     }
+
     .hero {
       position: relative;
-      min-height: 60vh;
+      min-height: 520px;
       display: flex;
       align-items: flex-end;
-      padding: 3rem 2rem;
-      background: linear-gradient(150deg, #1a1208, #2a1e10);
+      padding-bottom: 64px;
+      overflow: hidden;
     }
+
     .hero-inner {
-      max-width: 720px;
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
       margin: 0 auto;
+      padding: 0 80px;
       width: 100%;
     }
+
     .eyebrow {
       font-family: 'Jost', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: #b09070;
-      margin-bottom: 1rem;
+      color: rgba(165,90,74,0.8);
+      display: block;
+      margin-bottom: 14px;
     }
+
     h1 {
       font-family: 'Cormorant', serif;
-      font-weight: 400;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.2;
-      color: #f5efe5;
-      margin-bottom: 1rem;
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 300;
+      color: #F4F1EB;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
     }
+
     .dest-tag {
       display: inline-block;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #c8a878;
-      border: 1px solid rgba(200,168,120,0.3);
-      padding: 0.3rem 0.8rem;
-      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: rgba(244,241,235,0.6);
+      border: 1px solid rgba(244,241,235,0.25);
+      padding: 4px 10px;
     }
+
     .body {
       max-width: 720px;
-      margin: 3rem auto;
-      padding: 0 2rem 4rem;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #c8c0b0;
+      margin: 0 auto;
+      padding: 72px 40px;
     }
-    .body p { margin-bottom: 1.5rem; }
+
+    .body p {
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+
     .not-found {
       max-width: 720px;
       margin: 6rem auto;
-      padding: 0 2rem;
+      padding: 0 40px;
       text-align: center;
     }
+
     .not-found h1 {
       font-family: 'Cormorant', serif;
       font-size: 2rem;
-      color: #f5efe5;
+      font-weight: 300;
+      color: var(--ink);
       margin-bottom: 1rem;
     }
+
     .not-found a {
-      color: #c8a878;
+      color: var(--accent);
       text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero { min-height: 360px; padding-bottom: 40px; }
+      .hero-inner { padding: 0 28px; }
+      .body { padding: 48px 28px; }
     }
   </style>
 </head>
