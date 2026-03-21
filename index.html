@@ -8607,7 +8607,8 @@ function showSearchDestDropdown(val) {
   }
 }
 function hideSearchDestDropdown() {
-  document.getElementById('search-dest-dropdown')?.classList.remove('open');
+  const dd = document.getElementById('search-dest-dropdown');
+  if (dd) dd.classList.remove('open');
 }
 function pickSearchDest(name) {
   const input = document.getElementById('search-main');
@@ -8615,8 +8616,10 @@ function pickSearchDest(name) {
   hideSearchDestDropdown();
   goToDestination(name);
 }
-// Hide search dropdown on outside click
-document.addEventListener('click', (e) => {
+// Hide search dropdown on outside click — use mousedown so the listener
+// fires before focus is given to the input, preventing the race condition
+// where the same click both opens (via onfocus) and closes (via click) the dropdown.
+document.addEventListener('mousedown', (e) => {
   const bar = document.querySelector('.search-bar-wrap');
   if (bar && !bar.contains(e.target)) hideSearchDestDropdown();
 });

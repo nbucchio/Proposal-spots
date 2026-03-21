@@ -118,31 +118,28 @@
       text-decoration: none;
     }
 
-    .story-back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Jost', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
+    .story-back {
       background: none;
-      border: 1px solid var(--hairline);
-      border-radius: 100px;
-      padding: 10px 18px;
-      text-decoration: none;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      opacity: 0.5;
+      cursor: pointer;
+      padding: 0;
       margin: 32px 40px;
-      display: inline-flex;
-      transition: color 0.2s;
+      display: block;
+      text-decoration: none;
+      transition: opacity 0.2s;
     }
-    .story-back-btn:hover { color: var(--ink); }
+    .story-back:hover { opacity: 1; }
 
     @media (max-width: 900px) {
       .hero { min-height: 360px; padding-bottom: 40px; }
       .hero-inner { padding: 0 28px; }
       .body { padding: 48px 28px; }
-      .story-back-btn { margin: 24px 28px; }
+      .story-back { margin: 24px 28px; }
     }
   </style>
 </head>
@@ -303,7 +300,7 @@
     if (story) {
       document.title = story.dest + ' Proposal Story — Proposal Spots';
       app.innerHTML = `
-        <a class="story-back-btn" href="/inspiration.html">← All Stories</a>
+        <button class="story-back" onclick="location.href='../inspiration.html'">← Back to Stories</button>
         <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.6)), url('${story.photo}') center/cover;">
           <div class="hero-inner">
             <div class="eyebrow">${story.eyebrow}</div>
