@@ -8599,15 +8599,23 @@ function goToDestination(name) {
 // ─── SEARCH DESTINATION DROPDOWN ───
 function showSearchDestDropdown(val) {
   const dd = document.getElementById('search-dest-dropdown');
+  const container = document.querySelector('.search-container');
   if (!dd) return;
   if (!val || val.length === 0) {
     dd.classList.add('open');
+    requestAnimationFrame(() => {
+      if (container) container.style.paddingBottom = (dd.offsetHeight + 16) + 'px';
+    });
   } else {
     dd.classList.remove('open');
+    if (container) container.style.paddingBottom = '';
   }
 }
 function hideSearchDestDropdown() {
-  document.getElementById('search-dest-dropdown')?.classList.remove('open');
+  const dd = document.getElementById('search-dest-dropdown');
+  if (dd) dd.classList.remove('open');
+  const container = document.querySelector('.search-container');
+  if (container) container.style.paddingBottom = '';
 }
 function pickSearchDest(name) {
   const input = document.getElementById('search-main');
