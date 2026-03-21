@@ -136,16 +136,13 @@ nav.scrolled {
 
 /* Search destination dropdown */
 .search-dest-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  width: 100%;
+  margin-top: 8px;
   background: var(--white);
   border: 1px solid var(--hairline);
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 16px 48px rgba(28,28,28,0.12);
-  z-index: 8000;
   display: none;
 }
 .search-dest-dropdown.open { display: block; }
@@ -1683,16 +1680,13 @@ footer {
 
 /* Search destination dropdown */
 .search-dest-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  width: 100%;
+  margin-top: 8px;
   background: var(--white);
   border: 1px solid var(--hairline);
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 16px 48px rgba(28,28,28,0.12);
-  z-index: 8000;
   display: none;
 }
 .search-dest-dropdown.open { display: block; }
@@ -4643,22 +4637,6 @@ footer {
             >
           </div>
           <div class="autocomplete" id="ac-main"></div>
-          <div class="search-dest-dropdown" id="search-dest-dropdown">
-            <div class="search-dest-heading">Browse all destinations</div>
-            <div class="search-dest-chips">
-              <div class="search-dest-chip" onclick="pickSearchDest('Amalfi Coast')">Amalfi Coast</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Santorini')">Santorini</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Bali')">Bali</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Tulum')">Tulum</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Maldives')">Maldives</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Costa Rica')">Costa Rica</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Nicaragua')">Nicaragua</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Algarve')">Algarve</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('South of France')">South of France</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Switzerland')">Switzerland</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('New York')">New York</div>
-            </div>
-          </div>
         </div>
         <div class="search-divider"></div>
         <button class="search-btn" onclick="doSearch()">
@@ -4667,6 +4645,23 @@ footer {
           </svg>
           Search
         </button>
+      </div>
+
+      <div class="search-dest-dropdown" id="search-dest-dropdown">
+        <div class="search-dest-heading">Browse all destinations</div>
+        <div class="search-dest-chips">
+          <div class="search-dest-chip" onclick="pickSearchDest('Amalfi Coast')">Amalfi Coast</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Santorini')">Santorini</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Bali')">Bali</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Tulum')">Tulum</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Maldives')">Maldives</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Costa Rica')">Costa Rica</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Nicaragua')">Nicaragua</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Algarve')">Algarve</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('South of France')">South of France</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('Switzerland')">Switzerland</div>
+          <div class="search-dest-chip" onclick="pickSearchDest('New York')">New York</div>
+        </div>
       </div>
 
       <!-- FILTER PILLS -->
@@ -8599,23 +8594,15 @@ function goToDestination(name) {
 // ─── SEARCH DESTINATION DROPDOWN ───
 function showSearchDestDropdown(val) {
   const dd = document.getElementById('search-dest-dropdown');
-  const container = document.querySelector('.search-container');
   if (!dd) return;
   if (!val || val.length === 0) {
     dd.classList.add('open');
-    requestAnimationFrame(() => {
-      if (container) container.style.paddingBottom = (dd.offsetHeight + 16) + 'px';
-    });
   } else {
     dd.classList.remove('open');
-    if (container) container.style.paddingBottom = '';
   }
 }
 function hideSearchDestDropdown() {
-  const dd = document.getElementById('search-dest-dropdown');
-  if (dd) dd.classList.remove('open');
-  const container = document.querySelector('.search-container');
-  if (container) container.style.paddingBottom = '';
+  document.getElementById('search-dest-dropdown')?.classList.remove('open');
 }
 function pickSearchDest(name) {
   const input = document.getElementById('search-main');
