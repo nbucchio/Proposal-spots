@@ -4621,6 +4621,8 @@ footer {
 }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
 
@@ -9737,6 +9739,29 @@ function submitHotelForm(e) {
   e.preventDefault();
   document.getElementById('hf-form').style.display = 'none';
   document.getElementById('hf-confirm').style.display = 'block';
+}
+
+// ─────────────────────────────────────────────────────────
+//  SPOT MAP
+// ─────────────────────────────────────────────────────────
+var _spotMapInstance = null;
+function initSpotMap(lat, lng) {
+  if (_spotMapInstance) {
+    _spotMapInstance.remove();
+    _spotMapInstance = null;
+  }
+  _spotMapInstance = L.map('spot-map', {
+    zoomControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    touchZoom: false,
+    keyboard: false,
+    tap: false
+  }).setView([lat, lng], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(_spotMapInstance);
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
