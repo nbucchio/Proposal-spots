@@ -8614,7 +8614,6 @@ function pickSearchDest(name) {
   const input = document.getElementById('search-main');
   if (input) input.value = name;
   hideSearchDestDropdown();
-  goToDestination(name);
 }
 // Hide search dropdown on outside click — use mousedown so the listener
 // fires before focus is given to the input, preventing the race condition
