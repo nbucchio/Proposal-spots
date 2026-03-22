@@ -2958,6 +2958,37 @@ footer {
   color: var(--ink); line-height: 1.8;
 }
 
+/* Map section */
+.spot-map-wrapper {
+  margin-bottom: 52px;
+}
+.spot-map-container {
+  width: 100%;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.spot-map-container #spot-map {
+  filter: blur(4px);
+  pointer-events: none;
+}
+.spot-map-caption {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  opacity: 0.5;
+  text-align: center;
+  margin: 10px 0 0;
+}
+@media (min-width: 768px) {
+  .spot-map-container {
+    height: 360px;
+  }
+}
+
 /* Plan steps */
 .sdp-plan { margin-bottom: 72px; }
 .sdp-step {
@@ -9807,6 +9838,14 @@ function submitHotelForm(e) {
           <div class="sdp-gallery-dots" id="sdp-gallery-dots"></div>
           <div class="sdp-gallery-count" id="sdp-gallery-count"></div>
         </div>
+      </div>
+
+      <!-- Map — blurred location preview -->
+      <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
+        <div class="spot-map-container">
+          <div id="spot-map" style="width:100%; height:280px;"></div>
+        </div>
+        <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
       </div>
 
       <!-- About — large Cormorant, sets the mood -->
