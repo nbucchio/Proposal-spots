@@ -9773,18 +9773,20 @@ function initSpotMap(lat, lng) {
     _spotMapInstance.remove();
     _spotMapInstance = null;
   }
-  _spotMapInstance = L.map('spot-map', {
-    zoomControl: false,
-    dragging: false,
-    scrollWheelZoom: false,
-    doubleClickZoom: false,
-    touchZoom: false,
-    keyboard: false,
-    tap: false
-  }).setView([lat, lng], 11);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(_spotMapInstance);
+  setTimeout(function() {
+    _spotMapInstance = L.map('spot-map', {
+      zoomControl: false,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      touchZoom: false,
+      keyboard: false,
+      tap: false
+    }).setView([lat, lng], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(_spotMapInstance);
+  }, 50);
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
@@ -9891,7 +9893,7 @@ function initSpotMap(lat, lng) {
       <!-- Map — blurred location preview -->
       <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
         <div class="spot-map-container">
-          <div id="spot-map" style="width:100%; height:280px;"></div>
+          <div id="spot-map" style="width:100%; height:100%;"></div>
         </div>
         <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
       </div>
