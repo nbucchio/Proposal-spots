@@ -2631,7 +2631,16 @@ async function submitEnquiry() {
     return;
   }
 
-  const addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => cb.value);
+  const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
+  const _addonPriceMap = {};
+  _addonPriceText.split('\n').forEach(line => {
+    const parts = line.split('|').map(s => s.trim());
+    if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
+  });
+  const addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
+    const price = _addonPriceMap[cb.value];
+    return price ? `${cb.value} (${price})` : cb.value;
+  });
 
   const data = {
     spotName: document.getElementById('sdp-name')?.textContent || '',
