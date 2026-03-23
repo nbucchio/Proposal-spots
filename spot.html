@@ -77,6 +77,7 @@ nav {
   inset: 0;
   background-size: cover;
   background-position: center;
+  filter: brightness(1.08) saturate(1.15);
 }
 
 .sdp-hero-overlay {
@@ -329,24 +330,54 @@ nav {
   margin-bottom: 12px;
 }
 
-.sdp-included-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.sdp-included-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.sdp-incl-label {
   font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--ink);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 14px;
 }
 
-.sdp-included-tick { color: #A55A4A; font-weight: 500; }
+.sdp-incl-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 0.5px solid var(--hairline);
+}
+
+.sdp-incl-row:last-of-type { border-bottom: none; }
+
+.sdp-incl-num {
+  font-family: 'Cormorant', serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  flex-shrink: 0;
+  min-width: 22px;
+  line-height: 1.3;
+}
+
+.sdp-incl-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.sdp-incl-bridge {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 14px;
+  line-height: 1.6;
+}
 
 .sdp-access-txt {
   font-family: 'Jost', sans-serif;
@@ -354,6 +385,48 @@ nav {
   font-weight: 300;
   color: var(--mid);
   line-height: 1.8;
+}
+
+.sdp-access-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--hairline);
+}
+
+.sdp-access-row:last-of-type { border-bottom: none; }
+
+.sdp-access-row-tag {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.sdp-access-row-dash {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.sdp-access-row-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.sdp-access-row-full {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.5;
 }
 
 .sdp-concierge-card {
@@ -1157,6 +1230,55 @@ nav {
   line-height: 1.6;
 }
 
+.enq-photo-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+}
+
+.enq-photo-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.enq-photo-pill {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--mid);
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.enq-photo-pill:hover { border-color: var(--accent); color: var(--ink); }
+.enq-photo-pill.selected { border-color: var(--accent); color: var(--ink); background: rgba(140,123,100,0.06); }
+
+.enq-photo-expand {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.enq-photo-expand.open { max-height: 200px; }
+
+.enq-photo-sub-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.enq-photo-note {
+  margin-top: 10px;
+}
+
 .enq-success { text-align: center; padding: 20px 0; }
 
 .enq-success-icon {
@@ -1256,35 +1378,38 @@ nav {
     <!-- Vibe strip -->
     <div class="sdp-vibe-strip" id="sdp-vibe-strip">
       <div class="sdp-vibe-chip">
-        <span class="sdp-chip-icon">💰</span>
+        <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Budget</span>
           <span class="sdp-chip-val" id="sdp-budget">—</span>
         </div>
       </div>
       <div class="sdp-vibe-chip">
-        <span class="sdp-chip-icon">🔒</span>
+        <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Privacy</span>
           <span class="sdp-chip-val" id="sdp-privacy">—</span>
         </div>
       </div>
       <div class="sdp-vibe-chip">
-        <span class="sdp-chip-icon">🌤</span>
+        <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Best time</span>
           <span class="sdp-chip-val" id="sdp-time">—</span>
         </div>
       </div>
       <div class="sdp-vibe-chip">
-        <span class="sdp-chip-icon">🥾</span>
+        <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Access</span>
           <span class="sdp-chip-val" id="sdp-effort">—</span>
         </div>
       </div>
       <div class="sdp-vibe-chip hotel-tag" id="sdp-hotel-chip" style="display:none;cursor:pointer" onclick="showHotelInfo()">
-        <span class="sdp-chip-icon">🏨</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:0.65">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">On-site hotel</span>
           <span class="sdp-chip-val">Available — learn more ↗</span>
@@ -1314,14 +1439,15 @@ nav {
 
         <!-- What's included -->
         <div class="sdp-included" id="sdp-included-section" style="display:none">
-          <span class="sdp-lbl">What's included</span>
-          <ul class="sdp-included-list" id="sdp-included-list"></ul>
+          <span class="sdp-incl-label">What's included</span>
+          <div id="sdp-included-list"></div>
+          <p class="sdp-incl-bridge">When you enquire, your concierge will guide you through photography, dinner, and any other additions.</p>
         </div>
 
         <!-- Access -->
         <div id="sdp-access-block" style="display:none;margin-bottom:52px">
           <span class="sdp-lbl">Getting there</span>
-          <p class="sdp-access-txt" id="sdp-access"></p>
+          <div id="sdp-access"></div>
         </div>
 
         <!-- Map — Google Maps embed, bottom of page -->
@@ -1427,10 +1553,7 @@ nav {
             </div>
 
             <!-- CTAs -->
-            <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
-            <button class="sdp-btn-secondary" id="sdp-save-btn" onclick="toggleSaveSpot(event)" style="margin-top:10px">
-              <span id="sdp-save-icon">♡</span> Save this Spot
-            </button>
+            <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan This Proposal →</button>
             <p class="sdp-trust-note">
               ✦ No payment until you've approved your full quote
             </p>
@@ -1457,7 +1580,7 @@ nav {
     <span class="sdp-bar-note">No payment until you approve your quote</span>
   </div>
   <button class="sdp-bar-save" id="sdp-bar-save" onclick="toggleSaveSpot(event)" title="Save">♡</button>
-  <button class="sdp-bar-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
+  <button class="sdp-bar-btn" onclick="openEnquiryModal()">Plan This Proposal →</button>
 </div>
 
 <!-- Lightbox -->
@@ -1607,6 +1730,27 @@ nav {
       <div id="enq-addons-list"></div>
     </div>
 
+    <!-- Photography quote -->
+    <div class="enq-photo-section">
+      <div class="enq-section-divider">
+        <span class="enq-section-label">Would you like a photography quote?</span>
+      </div>
+      <div class="enq-photo-pills">
+        <button type="button" class="enq-photo-pill" id="enq-photo-no" onclick="enqPhotoToggle('no')">No</button>
+        <button type="button" class="enq-photo-pill" id="enq-photo-yes" onclick="enqPhotoToggle('yes')">Yes</button>
+      </div>
+      <div class="enq-photo-expand" id="enq-photo-expand">
+        <div class="enq-photo-sub-pills" id="enq-photo-sub-pills">
+          <button type="button" class="enq-photo-pill" onclick="enqPhotoSubPill(this)">Photo only</button>
+          <button type="button" class="enq-photo-pill" onclick="enqPhotoSubPill(this)">Photo + Video</button>
+          <button type="button" class="enq-photo-pill" onclick="enqPhotoSubPill(this)">Not sure yet</button>
+        </div>
+        <div class="enq-photo-note">
+          <input type="text" class="enq-input" id="enq-photo-notes" placeholder="Anything else? e.g. duration, style, specific moments...">
+        </div>
+      </div>
+    </div>
+
     <button class="enq-submit-btn" id="enq-submit" onclick="submitEnquiry()">
       Send Enquiry →
     </button>
@@ -1740,6 +1884,7 @@ function mapSpotFromAirtable(r) {
     'Price Photographer': f['Price Photographer'] || null,
     'Photographer Note': f['Photographer Note'] || '',
     'Package Includes': f['Package Includes'] || '',
+    'Included Items': f['Included Items'] || '',
     'Linked Hotel / Venue': f['Linked Hotel / Venue'] || '',
     badge: f['Badge'] || null,
     'Add-ons': Array.isArray(f['Add-ons']) ? f['Add-ons'] : (f['Add-ons'] ? f['Add-ons'].split(/[|·,]/).map(s=>s.trim()).filter(Boolean) : []),
@@ -1786,10 +1931,13 @@ function populateSpot(s) {
   // What's included
   const includedSection = document.getElementById('sdp-included-section');
   const includedList = document.getElementById('sdp-included-list');
-  const packageIncludes = s['Package Includes'] || '';
-  if (packageIncludes) {
-    const items = packageIncludes.split('·').map(i => i.trim()).filter(Boolean);
-    includedList.innerHTML = items.map(item => `<li class="sdp-included-item"><span class="sdp-included-tick">✓</span><span>${item}</span></li>`).join('');
+  const includedItems = s['Included Items'] || '';
+  if (includedItems) {
+    const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
+    includedList.innerHTML = lines.map((line, i) => {
+      const num = String(i + 1).padStart(2, '0');
+      return '<div class="sdp-incl-row"><span class="sdp-incl-num">' + num + '</span><span class="sdp-incl-text">' + line + '</span></div>';
+    }).join('');
     includedSection.style.display = '';
   } else {
     includedSection.style.display = 'none';
@@ -1798,7 +1946,17 @@ function populateSpot(s) {
   // Access
   const accessBlock = document.getElementById('sdp-access-block');
   if (s['Access Details']) {
-    document.getElementById('sdp-access').textContent = s['Access Details'];
+    const accessEl = document.getElementById('sdp-access');
+    const lines = s['Access Details'].split('\n').map(l => l.trim()).filter(Boolean);
+    accessEl.innerHTML = lines.map(line => {
+      const sepIdx = line.indexOf(' \u2014 ');
+      if (sepIdx !== -1) {
+        const tag = line.slice(0, sepIdx);
+        const desc = line.slice(sepIdx + 3);
+        return '<div class="sdp-access-row"><span class="sdp-access-row-tag">' + tag + '</span><span class="sdp-access-row-dash">\u2014</span><span class="sdp-access-row-desc">' + desc + '</span></div>';
+      }
+      return '<div class="sdp-access-row"><span class="sdp-access-row-full">' + line + '</span></div>';
+    }).join('');
     accessBlock.style.display = '';
   } else {
     accessBlock.style.display = 'none';
@@ -2441,6 +2599,13 @@ function openEnquiryModal() {
   // Pre-fill email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
 
+  // Reset photo quote to default No
+  enqPhotoToggle('no');
+  var subPills = document.querySelectorAll('#enq-photo-sub-pills .enq-photo-pill');
+  subPills.forEach(function(p) { p.classList.remove('selected'); });
+  var photoNotesEl = document.getElementById('enq-photo-notes');
+  if (photoNotesEl) photoNotesEl.value = '';
+
   // Show form
   document.getElementById('enq-success').style.display = 'none';
   document.getElementById('enq-form').style.display = '';
@@ -2483,6 +2648,7 @@ async function submitEnquiry() {
     backupDate: document.getElementById('enq-backup-date')?.value || '',
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
+    photographyQuote: getPhotoQuoteValue(),
   };
 
   try {
@@ -2537,6 +2703,43 @@ function enqChangeProposalDate() {
   if (step3) {
     setTimeout(() => step3.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
   }
+}
+
+// ─────────────────────────────────────────────────────────
+//  PHOTOGRAPHY QUOTE TOGGLE
+// ─────────────────────────────────────────────────────────
+function enqPhotoToggle(choice) {
+  var yesBtn = document.getElementById('enq-photo-yes');
+  var noBtn  = document.getElementById('enq-photo-no');
+  var expand = document.getElementById('enq-photo-expand');
+  if (!yesBtn || !noBtn || !expand) return;
+  if (choice === 'yes') {
+    yesBtn.classList.add('selected');
+    noBtn.classList.remove('selected');
+    expand.classList.add('open');
+  } else {
+    noBtn.classList.add('selected');
+    yesBtn.classList.remove('selected');
+    expand.classList.remove('open');
+  }
+}
+
+function enqPhotoSubPill(el) {
+  var pills = document.querySelectorAll('#enq-photo-sub-pills .enq-photo-pill');
+  pills.forEach(function(p) { p.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function getPhotoQuoteValue() {
+  var yesBtn = document.getElementById('enq-photo-yes');
+  if (!yesBtn || !yesBtn.classList.contains('selected')) return 'No';
+  var selected = document.querySelector('#enq-photo-sub-pills .enq-photo-pill.selected');
+  var pill = selected ? selected.textContent.trim() : '';
+  var notes = (document.getElementById('enq-photo-notes')?.value || '').trim();
+  var result = 'Yes';
+  if (pill) result += ' \u2014 ' + pill;
+  if (notes) result += ' \u2014 ' + notes;
+  return result;
 }
 
 // Init on load
