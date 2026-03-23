@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons,
+    proposalDate, backupDate, notes, addons, photographyQuote,
   } = req.body || {};
 
   if (!firstName || !lastName || !email || !phone) {
@@ -41,13 +41,14 @@ export default async function handler(req, res) {
               'Phone':          phone,
               'Partner':        partner || '',
               'Country':        country || '',
-              'Hotel Check-in': hotelCheckin || '',
-              'Hotel Check-out':hotelCheckout || '',
-              'Proposal Date':  proposalDate || '',
-              'Backup Date':    backupDate || '',
-              'Notes':          notes || '',
-              'Add-ons':        Array.isArray(addons) ? addons.join(', ') : (addons || ''),
-              'Submitted At':   new Date().toISOString(),
+              ...(hotelCheckin  ? { 'Hotel Check-in':  hotelCheckin  } : {}),
+              ...(hotelCheckout ? { 'Hotel Check-out': hotelCheckout } : {}),
+              ...(proposalDate  ? { 'Proposal Date':   proposalDate  } : {}),
+              ...(backupDate    ? { 'Backup Date':      backupDate    } : {}),
+              'Notes':                    notes || '',
+              'Add-ons':                  Array.isArray(addons) ? addons.join(', ') : (addons || ''),
+              'Photography Quote Request': photographyQuote || '',
+              'Submitted At':             new Date().toISOString(),
             },
           }],
         }),
