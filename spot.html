@@ -6,6 +6,8 @@
 <title id="page-title">Proposal Spot — Proposal Spots</title>
 <meta id="page-description" name="description" content="Discover this stunning proposal location at Proposal Spots.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -301,6 +303,11 @@ nav {
   border-radius: 100px;
   z-index: 2;
 }
+
+.spot-map-wrapper { margin-bottom: 48px; }
+.spot-map-container { position: relative; width: 100%; height: 260px; border-radius: 12px; overflow: hidden; }
+.spot-map-container #spot-map { width: 100%; height: 100%; }
+.spot-map-caption { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); letter-spacing: 0.04em; margin-top: 10px; text-align: center; }
 
 .sdp-about { margin-bottom: 72px; }
 .sdp-about-text {
@@ -1302,6 +1309,15 @@ nav {
           </div>
         </div>
 
+        <!-- Map — blurred location preview -->
+        <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
+          <div class="spot-map-container">
+            <div id="spot-map" style="width:100%; height:100%;"></div>
+            <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
+          </div>
+          <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
+        </div>
+
         <!-- About -->
         <div class="sdp-about">
           <p class="sdp-about-text" id="sdp-full-summary"></p>
@@ -1720,6 +1736,7 @@ function mapSpotFromAirtable(r) {
     'Full Summary': f['Full Summary'] || '',
     'Cover Photo': f['Cover Photo']?.[0]?.url || null,
     'Gallery Photos': (f['Gallery Photos'] || []),
+    'Google Maps Link': f['Google Maps Link'] || '',
     'Price Moment': f['Price Moment'] || null,
     'Price Hotel Per Night': f['Price Hotel Per Night'] || null,
     'Price Photographer': f['Price Photographer'] || null,
@@ -1804,6 +1821,27 @@ function populateSpot(s) {
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
 
+  // Map
+  var mapSection = document.getElementById('spot-map-section');
+  var mapDebug   = document.getElementById('spot-map-debug');
+  if (mapSection) {
+    var rawMapUrl = s['Google Maps Link'] || '';
+    var mapsCoords = parseGoogleMapsCoords(rawMapUrl);
+    if (mapsCoords) {
+      mapSection.style.display = '';
+      if (mapDebug) mapDebug.style.display = 'none';
+      initSpotMap(mapsCoords.lat, mapsCoords.lng);
+    } else {
+      mapSection.style.display = '';
+      if (mapDebug) {
+        mapDebug.style.display = '';
+        mapDebug.textContent = rawMapUrl
+          ? 'Map field found but URL not recognised: ' + rawMapUrl
+          : 'No Google Maps Link in this record.';
+      }
+    }
+  }
+
   // Pricing
   loadSpotPricing(s);
 
@@ -1882,6 +1920,46 @@ function galleryNext() {
 function galleryGoto(i) {
   _galleryIndex = i;
   renderGalleryFrame();
+}
+
+// ─────────────────────────────────────────────────────────
+//  SPOT MAP
+// ─────────────────────────────────────────────────────────
+function parseGoogleMapsCoords(url) {
+  if (!url) return null;
+  var atMatch = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (atMatch) return { lat: parseFloat(atMatch[1]), lng: parseFloat(atMatch[2]) };
+  var qMatch = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (qMatch) return { lat: parseFloat(qMatch[1]), lng: parseFloat(qMatch[2]) };
+  var llMatch = url.match(/[?&]ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (llMatch) return { lat: parseFloat(llMatch[1]), lng: parseFloat(llMatch[2]) };
+  var queryMatch = url.match(/[?&]query=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (queryMatch) return { lat: parseFloat(queryMatch[1]), lng: parseFloat(queryMatch[2]) };
+  var destMatch = url.match(/[?&]destination=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (destMatch) return { lat: parseFloat(destMatch[1]), lng: parseFloat(destMatch[2]) };
+  return null;
+}
+
+var _spotMapInstance = null;
+function initSpotMap(lat, lng) {
+  if (_spotMapInstance) {
+    try { _spotMapInstance.remove(); } catch(e) {}
+    _spotMapInstance = null;
+  }
+  requestAnimationFrame(function() {
+    setTimeout(function() {
+      try {
+        _spotMapInstance = L.map('spot-map', {
+          zoomControl: false, dragging: false, scrollWheelZoom: false,
+          doubleClickZoom: false, touchZoom: false, keyboard: false, tap: false
+        }).setView([lat, lng], 11);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(_spotMapInstance);
+        _spotMapInstance.invalidateSize();
+      } catch(e) { console.warn('[Map] L.map() error:', e); }
+    }, 200);
+  });
 }
 
 // ───────────────────────────────────────────────────────
