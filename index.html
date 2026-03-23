@@ -8673,7 +8673,7 @@ function pickSearchDest(name) {
   const input = document.getElementById('search-main');
   if (input) input.value = name;
   hideSearchDestDropdown();
-  goToDestination(name);
+  // Don't auto-navigate — let user add more filters then hit Search
 }
 // Hide search dropdown on outside click — use mousedown so the listener
 // fires before focus is given to the input, preventing the race condition
@@ -9703,6 +9703,14 @@ function showPage(pageId) {
       pageHistory.push(currentId);
       if (pageHistory.length > 20) pageHistory.shift();
     }
+  }
+
+  // Clear search input when returning to home so it doesn't persist
+  if (pageId === 'home') {
+    const searchInput = document.getElementById('search-main');
+    if (searchInput) searchInput.value = '';
+    const ac = document.getElementById('ac-main');
+    if (ac) ac.style.display = 'none';
   }
 
   // Hide all pages
