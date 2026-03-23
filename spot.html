@@ -2663,7 +2663,9 @@ async function submitEnquiry() {
       document.getElementById('enq-form').style.display = 'none';
       document.getElementById('enq-success').style.display = '';
     } else {
-      alert('Error submitting enquiry. Please try again.');
+      const errData = await response.json().catch(() => ({}));
+      console.error('Enquiry API error:', response.status, errData);
+      alert('Error submitting enquiry. Please try again.\n\nDetails: ' + (errData.error?.message || errData.error || JSON.stringify(errData)));
     }
   } catch (err) {
     console.error('Enquiry submit error:', err);
