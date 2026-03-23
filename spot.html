@@ -6,8 +6,6 @@
 <title id="page-title">Proposal Spot — Proposal Spots</title>
 <meta id="page-description" name="description" content="Discover this stunning proposal location at Proposal Spots.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -306,8 +304,8 @@ nav {
 
 .spot-map-wrapper { margin-bottom: 48px; }
 .spot-map-container { position: relative; width: 100%; height: 260px; border-radius: 12px; overflow: hidden; }
-.spot-map-container #spot-map { width: 100%; height: 100%; }
 .spot-map-caption { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); letter-spacing: 0.04em; margin-top: 10px; text-align: center; }
+@media (min-width: 768px) { .spot-map-container { height: 360px; } }
 
 .sdp-about { margin-bottom: 72px; }
 .sdp-about-text {
@@ -1309,15 +1307,6 @@ nav {
           </div>
         </div>
 
-        <!-- Map — blurred location preview -->
-        <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
-          <div class="spot-map-container">
-            <div id="spot-map" style="width:100%; height:100%;"></div>
-            <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
-          </div>
-          <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
-        </div>
-
         <!-- About -->
         <div class="sdp-about">
           <p class="sdp-about-text" id="sdp-full-summary"></p>
@@ -1333,6 +1322,15 @@ nav {
         <div id="sdp-access-block" style="display:none;margin-bottom:52px">
           <span class="sdp-lbl">Getting there</span>
           <p class="sdp-access-txt" id="sdp-access"></p>
+        </div>
+
+        <!-- Map — Google Maps embed, bottom of page -->
+        <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
+          <div class="spot-map-container">
+            <iframe id="spot-map-iframe" src="" style="width:100%;height:100%;border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
+          </div>
+          <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
         </div>
       </div>
 
@@ -1940,26 +1938,11 @@ function parseGoogleMapsCoords(url) {
   return null;
 }
 
-var _spotMapInstance = null;
 function initSpotMap(lat, lng) {
-  if (_spotMapInstance) {
-    try { _spotMapInstance.remove(); } catch(e) {}
-    _spotMapInstance = null;
+  var iframe = document.getElementById('spot-map-iframe');
+  if (iframe) {
+    iframe.src = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=13&output=embed';
   }
-  requestAnimationFrame(function() {
-    setTimeout(function() {
-      try {
-        _spotMapInstance = L.map('spot-map', {
-          zoomControl: false, dragging: false, scrollWheelZoom: false,
-          doubleClickZoom: false, touchZoom: false, keyboard: false, tap: false
-        }).setView([lat, lng], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(_spotMapInstance);
-        _spotMapInstance.invalidateSize();
-      } catch(e) { console.warn('[Map] L.map() error:', e); }
-    }, 200);
-  });
 }
 
 // ───────────────────────────────────────────────────────

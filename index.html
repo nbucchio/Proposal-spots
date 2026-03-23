@@ -4622,8 +4622,6 @@ footer {
 }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
 
@@ -9793,34 +9791,11 @@ function parseGoogleMapsCoords(url) {
   return null;
 }
 
-var _spotMapInstance = null;
 function initSpotMap(lat, lng) {
-  if (_spotMapInstance) {
-    try { _spotMapInstance.remove(); } catch(e) { console.warn('[Map] remove() error:', e); }
-    _spotMapInstance = null;
+  var iframe = document.getElementById('spot-map-iframe');
+  if (iframe) {
+    iframe.src = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=13&output=embed';
   }
-  // rAF ensures the container is in the paint tree; 200ms gives layout time to settle
-  requestAnimationFrame(function() {
-    setTimeout(function() {
-      try {
-        _spotMapInstance = L.map('spot-map', {
-          zoomControl: false,
-          dragging: false,
-          scrollWheelZoom: false,
-          doubleClickZoom: false,
-          touchZoom: false,
-          keyboard: false,
-          tap: false
-        }).setView([lat, lng], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(_spotMapInstance);
-        _spotMapInstance.invalidateSize();
-      } catch(e) {
-        console.warn('[Map] L.map() error:', e);
-      }
-    }, 200);
-  });
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
@@ -9924,15 +9899,6 @@ function initSpotMap(lat, lng) {
         </div>
       </div>
 
-      <!-- Map — blurred location preview -->
-      <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
-        <div class="spot-map-container">
-          <div id="spot-map" style="width:100%; height:100%;"></div>
-          <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
-        </div>
-        <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
-      </div>
-
       <!-- About — large Cormorant, sets the mood -->
       <div class="sdp-about">
         <p class="sdp-about-text" id="sdp-full-summary"></p>
@@ -9950,6 +9916,15 @@ function initSpotMap(lat, lng) {
       <div id="sdp-access-block" style="display:none;margin-bottom:52px">
         <span class="sdp-lbl">Getting there</span>
         <p class="sdp-access-txt" id="sdp-access"></p>
+      </div>
+
+      <!-- Map — Google Maps embed, bottom of page -->
+      <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
+        <div class="spot-map-container">
+          <iframe id="spot-map-iframe" src="" style="width:100%;height:100%;border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
+        </div>
+        <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
       </div>
 
     </div><!-- end sdp-main -->
