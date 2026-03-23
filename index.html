@@ -6285,6 +6285,9 @@ async function fetchFromAirtable() {
     }
 
     console.log(`✓ Airtable: loaded ${data.records.length} spots`);
+    if (data.records.length) {
+      console.log('Airtable field names:', Object.keys(data.records[0].fields).sort().join(', '));
+    }
 
     return data.records.map(r => {
       const f = r.fields;
@@ -6659,7 +6662,10 @@ function openSpotDrawer(id) {
   // Map — show if Google Maps Link has parseable coordinates
   var mapSection = document.getElementById('spot-map-section');
   if (mapSection) {
-    var mapsCoords = parseGoogleMapsCoords(s['Google Maps Link'] || '');
+    var rawMapUrl = s['Google Maps Link'] || '';
+    console.log('[Map] Google Maps Link value:', rawMapUrl || '(empty)');
+    var mapsCoords = parseGoogleMapsCoords(rawMapUrl);
+    console.log('[Map] Parsed coords:', mapsCoords);
     if (mapsCoords) {
       mapSection.style.display = '';
       initSpotMap(mapsCoords.lat, mapsCoords.lng);
@@ -9770,23 +9776,31 @@ function parseGoogleMapsCoords(url) {
 var _spotMapInstance = null;
 function initSpotMap(lat, lng) {
   if (_spotMapInstance) {
-    _spotMapInstance.remove();
+    try { _spotMapInstance.remove(); } catch(e) { console.warn('[Map] remove() error:', e); }
     _spotMapInstance = null;
   }
-  setTimeout(function() {
-    _spotMapInstance = L.map('spot-map', {
-      zoomControl: false,
-      dragging: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      touchZoom: false,
-      keyboard: false,
-      tap: false
-    }).setView([lat, lng], 11);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(_spotMapInstance);
-  }, 50);
+  // rAF ensures the container is in the paint tree; 200ms gives layout time to settle
+  requestAnimationFrame(function() {
+    setTimeout(function() {
+      try {
+        _spotMapInstance = L.map('spot-map', {
+          zoomControl: false,
+          dragging: false,
+          scrollWheelZoom: false,
+          doubleClickZoom: false,
+          touchZoom: false,
+          keyboard: false,
+          tap: false
+        }).setView([lat, lng], 11);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(_spotMapInstance);
+        _spotMapInstance.invalidateSize();
+      } catch(e) {
+        console.warn('[Map] L.map() error:', e);
+      }
+    }, 200);
+  });
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
