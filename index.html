@@ -2963,6 +2963,7 @@ footer {
   margin-bottom: 52px;
 }
 .spot-map-container {
+  position: relative;
   width: 100%;
   height: 280px;
   border-radius: 16px;
@@ -6661,6 +6662,7 @@ function openSpotDrawer(id) {
 
   // Map — show if Google Maps Link has parseable coordinates
   var mapSection = document.getElementById('spot-map-section');
+  var mapDebug  = document.getElementById('spot-map-debug');
   if (mapSection) {
     var rawMapUrl = s['Google Maps Link'] || '';
     console.log('[Map] Google Maps Link value:', rawMapUrl || '(empty)');
@@ -6668,9 +6670,17 @@ function openSpotDrawer(id) {
     console.log('[Map] Parsed coords:', mapsCoords);
     if (mapsCoords) {
       mapSection.style.display = '';
+      if (mapDebug) mapDebug.style.display = 'none';
       initSpotMap(mapsCoords.lat, mapsCoords.lng);
     } else {
-      mapSection.style.display = 'none';
+      // Show section with a visible status so no DevTools needed
+      mapSection.style.display = '';
+      if (mapDebug) {
+        mapDebug.style.display = '';
+        mapDebug.textContent = rawMapUrl
+          ? 'Map field found but URL not recognised: ' + rawMapUrl
+          : 'No Google Maps Link in this record.';
+      }
     }
   }
 
@@ -9764,12 +9774,22 @@ function submitHotelForm(e) {
 // ─────────────────────────────────────────────────────────
 function parseGoogleMapsCoords(url) {
   if (!url) return null;
-  // Format: @lat,lng,zoom  e.g. @40.7128,-74.0060,15z
+  // Format: @lat,lng  e.g. google.com/maps/@40.7128,-74.0060,15z  or  /place/Name/@lat,lng
   var atMatch = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (atMatch) return { lat: parseFloat(atMatch[1]), lng: parseFloat(atMatch[2]) };
-  // Format: ?q=lat,lng  e.g. ?q=40.7128,-74.0060
+  // Format: ?q=lat,lng or &q=lat,lng  e.g. ?q=40.7128,-74.0060
   var qMatch = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (qMatch) return { lat: parseFloat(qMatch[1]), lng: parseFloat(qMatch[2]) };
+  // Format: ll=lat,lng  e.g. maps.google.com/?ll=40.7128,-74.0060
+  var llMatch = url.match(/[?&]ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (llMatch) return { lat: parseFloat(llMatch[1]), lng: parseFloat(llMatch[2]) };
+  // Format: query=lat,lng  e.g. /maps/search/?api=1&query=40.7128,-74.0060
+  var queryMatch = url.match(/[?&]query=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (queryMatch) return { lat: parseFloat(queryMatch[1]), lng: parseFloat(queryMatch[2]) };
+  // Format: destination=lat,lng  e.g. /maps/dir/?destination=40.7128,-74.0060
+  var destMatch = url.match(/[?&]destination=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  if (destMatch) return { lat: parseFloat(destMatch[1]), lng: parseFloat(destMatch[2]) };
+  // Short URLs (maps.app.goo.gl, goo.gl/maps) cannot be resolved client-side — return null
   return null;
 }
 
@@ -9908,6 +9928,7 @@ function initSpotMap(lat, lng) {
       <div id="spot-map-section" class="spot-map-wrapper" style="display:none;">
         <div class="spot-map-container">
           <div id="spot-map" style="width:100%; height:100%;"></div>
+          <p id="spot-map-debug" style="display:none; position:absolute; inset:0; margin:0; padding:20px; background:var(--bg2); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.6; word-break:break-all;"></p>
         </div>
         <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
       </div>
