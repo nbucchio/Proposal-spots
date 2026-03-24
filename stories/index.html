@@ -292,8 +292,7 @@
       }
     };
 
-    const params = new URLSearchParams(window.location.search);
-    const key = params.get('story');
+    const key = window.location.pathname.split('/').filter(Boolean).pop();
     const story = key && STORY_DATA[key];
     const app = document.getElementById('app');
 
