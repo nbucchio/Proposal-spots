@@ -2026,6 +2026,7 @@ function populateSpot(s) {
   // Must run AFTER the reset block above so it isn't undone
   const requiresStay = !!(s['Requires Stay']);
   if (requiresStay && step2El) {
+    step2El.style.display = '';  // force visible even if hasHotel is false
     const stepHeader = step2El.querySelector('.sdp-step-header');
     const hotelToggle = document.getElementById('sdp-hotel-toggle');
     const rsHotelDates = document.getElementById('sdp-hotel-dates');
