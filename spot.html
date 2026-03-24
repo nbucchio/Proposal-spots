@@ -1974,25 +1974,6 @@ function populateSpot(s) {
   const step2El = document.getElementById('sdp-step-2');
   if (step2El) step2El.style.display = hasHotel ? '' : 'none';
 
-  // Requires Stay — lock hotel step open when field is true
-  const requiresStay = !!(s['Requires Stay']);
-  if (requiresStay && step2El) {
-    const stepHeader = step2El.querySelector('.sdp-step-header');
-    const hotelToggle = document.getElementById('sdp-hotel-toggle');
-    const hotelDates = document.getElementById('sdp-hotel-dates');
-    const stepTitle = step2El.querySelector('.sdp-step-title');
-    const stepSub = step2El.querySelector('.sdp-step-sub');
-    if (hotelToggle) hotelToggle.style.display = 'none';
-    if (stepTitle) stepTitle.textContent = 'A hotel stay at this property is required';
-    if (stepSub) stepSub.textContent = 'We will assist you with your booking — just select your dates below';
-    if (hotelDates) hotelDates.style.display = '';
-    if (stepHeader) {
-      stepHeader.removeAttribute('onclick');
-      stepHeader.style.cursor = 'default';
-    }
-    hotelStepOn = true;
-  }
-
   // Price
   document.getElementById('sdp-concierge-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
   document.getElementById('sdp-bar-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
@@ -2040,6 +2021,27 @@ function populateSpot(s) {
   const co = document.getElementById('sdp-checkout');
   if (ci) ci.value = '';
   if (co) co.value = '';
+
+  // Requires Stay — lock hotel step open when field is true
+  // Must run AFTER the reset block above so it isn't undone
+  const requiresStay = !!(s['Requires Stay']);
+  if (requiresStay && step2El) {
+    const stepHeader = step2El.querySelector('.sdp-step-header');
+    const hotelToggle = document.getElementById('sdp-hotel-toggle');
+    const rsHotelDates = document.getElementById('sdp-hotel-dates');
+    const stepTitle = step2El.querySelector('.sdp-step-title');
+    const stepSub = step2El.querySelector('.sdp-step-sub');
+    if (hotelToggle) hotelToggle.style.display = 'none';
+    if (stepTitle) stepTitle.textContent = 'A hotel stay at this property is required';
+    if (stepSub) stepSub.textContent = 'We will assist you with your booking — just select your dates below';
+    if (rsHotelDates) rsHotelDates.style.display = '';
+    if (stepHeader) {
+      stepHeader.removeAttribute('onclick');
+      stepHeader.style.cursor = 'default';
+    }
+    hotelStepOn = true;
+  }
+
   setTimeout(renderProposalDateStep, 50);
 }
 
