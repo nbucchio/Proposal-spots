@@ -8640,7 +8640,7 @@ function goToDestination(name) {
     'Switzerland':     'switzerland',
   };
   const slug = nameToSlug[name];
-  if (slug) {
+  if (slug && window.location.pathname !== '/destinations/' + slug) {
     window.location.href = '/destinations/' + slug;
     return;
   }
@@ -9848,6 +9848,28 @@ function initSpotMap(lat, lng) {
     iframe.src = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=13&output=embed';
   }
 }
+
+// ─── URL-BASED DESTINATION ROUTING ───
+// When loaded at /destinations/santorini etc., auto-show that destination
+// using the exact same design as goToDestination() — no separate file needed.
+(function() {
+  var m = window.location.pathname.match(/^\/destinations\/([^\/]+)/);
+  if (!m) return;
+  var slugMap = {
+    'amalfi-coast':    'Amalfi Coast',
+    'santorini':       'Santorini',
+    'bali':            'Bali',
+    'tulum':           'Tulum',
+    'maldives':        'Maldives',
+    'costa-rica':      'Costa Rica',
+    'nicaragua':       'Nicaragua',
+    'portugal':        'Portugal',
+    'south-of-france': 'South of France',
+    'switzerland':     'Switzerland',
+  };
+  var name = slugMap[m[1]];
+  if (name) goToDestination(name);
+})();
 </script>
 <!-- JOIN THE LIST MODAL -->
 <div id="join-overlay" style="display:none; position:fixed; inset:0; background:rgba(28,28,28,0.5); z-index:20000; opacity:0; transition:opacity 0.3s ease;" onclick="closeJoinModal()"></div>
