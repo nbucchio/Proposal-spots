@@ -285,6 +285,226 @@ body {
   .dest-h1 { font-size: 30px; }
   .spots-grid { grid-template-columns: 1fr; }
 }
+
+/* ─────────────────────────────────────
+   SPOT DRAWER
+───────────────────────────────────── */
+.spot-drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(28,28,28,0.45);
+  z-index: 19998;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+.spot-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+.spot-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 100%;
+  max-width: 560px;
+  background: var(--white);
+  z-index: 19999;
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.spot-drawer.open { transform: translateX(0); }
+
+.sd-hero {
+  position: relative;
+  height: 320px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sd-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+.sd-hero:hover .sd-hero-bg { transform: scale(1.03); }
+.sd-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,28,28,0.6) 0%, transparent 50%);
+}
+.sd-hero-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 36px; height: 36px;
+  background: rgba(253,252,250,0.92);
+  border: none; border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--ink);
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.sd-hero-close:hover { background: var(--white); }
+.sd-hero-badge {
+  position: absolute; top: 20px; left: 20px;
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--white);
+  background: rgba(28,28,28,0.55);
+  padding: 5px 12px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+}
+.sd-hero-location {
+  position: absolute; bottom: 20px; left: 24px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(253,252,250,0.85);
+}
+.sd-body {
+  padding: 32px 32px 48px;
+  flex: 1;
+}
+.sd-region {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: #A55A4A;
+  margin-bottom: 10px;
+  display: block;
+}
+.sd-name {
+  font-family: 'Cormorant', serif;
+  font-size: 30px; font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+}
+.sd-summary {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--mid);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  margin-bottom: 28px;
+}
+.sd-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.sd-stat {
+  flex: 1;
+  padding: 14px 16px;
+  border-right: 1px solid var(--divider);
+  text-align: center;
+}
+.sd-stat:last-child { border-right: none; }
+.sd-stat-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 5px;
+}
+.sd-stat-val {
+  font-family: 'Cormorant', serif;
+  font-size: 17px; font-weight: 400;
+  color: var(--ink);
+}
+.sd-section {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--divider);
+}
+.sd-section:last-of-type { border-bottom: none; }
+.sd-section-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 500;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: block;
+}
+.sd-section p {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--mid);
+  line-height: 1.8;
+}
+.sd-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.sd-tag {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--ink2);
+  background: var(--bg2);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+.sd-cta-row {
+  display: flex; gap: 12px;
+  margin-top: 32px;
+}
+.sd-cta-primary {
+  flex: 1;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  border: none; border-radius: 100px;
+  padding: 15px 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sd-cta-primary:hover { background: var(--accent); }
+.sd-cta-secondary {
+  background: none;
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.sd-cta-secondary:hover { border-color: var(--ink); }
+.sd-photographer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border-radius: 4px;
+  padding: 12px 16px;
+}
+.sd-photographer-icon { font-size: 16px; flex-shrink: 0; }
+.sd-photographer-info { flex: 1; }
+.sd-photographer-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 2px;
+}
+.sd-photographer-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 400;
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  .spot-drawer { max-width: 100%; }
+  .sd-hero { height: 260px; }
+  .sd-body { padding: 24px 20px 40px; }
+  .sd-name { font-size: 26px; }
+}
 </style>
 </head>
 <body>
@@ -564,10 +784,86 @@ function buildCardPriceRow(s) {
 }
 
 // ─────────────────────────────────────────────────────────
-//  OPEN SPOT — navigate to spot detail page
+//  SPOT DRAWER
 // ─────────────────────────────────────────────────────────
+let allSpots = [];
+let currentSpotId = null;
+
 function openSpotDrawer(id) {
-  window.location.href = '/spots/' + id;
+  const s = allSpots.find(x => x.id === id);
+  if (!s) { window.location.href = '/spots/' + id; return; }
+
+  currentSpotId = id;
+
+  // Hero
+  const bg = document.getElementById('sd-hero-bg');
+  if (s['Cover Photo']) {
+    bg.style.backgroundImage = 'url(\'' + s['Cover Photo'] + '\')';
+    bg.style.backgroundSize = 'cover';
+    bg.style.backgroundPosition = 'center';
+  } else {
+    bg.style.background = s.coverGradient || 'var(--bg3)';
+  }
+
+  const badge = document.getElementById('sd-badge');
+  if (s.badge) { badge.textContent = s.badge; badge.style.display = ''; }
+  else { badge.style.display = 'none'; }
+
+  document.getElementById('sd-location').textContent = (s.Region ? s.Region + ' · ' : '') + (s.Country || '');
+  document.getElementById('sd-region').textContent = s.Region || s.Country || '';
+  document.getElementById('sd-name').textContent = s.Name;
+  document.getElementById('sd-summary').textContent = s['Line Summary'] || '';
+
+  // Stats
+  document.getElementById('sd-budget').textContent  = s.Budget || '—';
+  document.getElementById('sd-privacy').textContent = s.Privacy || '—';
+  document.getElementById('sd-effort').textContent  = s['Access & Effort'] || '—';
+  const times = Array.isArray(s['Best Time']) ? s['Best Time'].join(', ') : (s['Best Time'] || '—');
+  document.getElementById('sd-time').textContent = times;
+
+  // About
+  document.getElementById('sd-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
+
+  // Access
+  const accessSection = document.getElementById('sd-access-section');
+  if (s['Access Details']) {
+    document.getElementById('sd-access').textContent = s['Access Details'];
+    accessSection.style.display = '';
+  } else {
+    accessSection.style.display = 'none';
+  }
+
+  // Tags
+  const tagsSection = document.getElementById('sd-tags-section');
+  const tagsEl = document.getElementById('sd-tags');
+  const vibes = [s.Vibe, s['Vibe Secondary']].concat(s['Vibe Secondary All'] || []).concat(s['Other Vibe'] || [])
+    .filter((v, i, a) => v && a.indexOf(v) === i);
+  if (vibes.length) {
+    tagsEl.innerHTML = vibes.map(v => '<span class="sd-tag">' + v + '</span>').join('');
+    tagsSection.style.display = '';
+  } else {
+    tagsSection.style.display = 'none';
+  }
+
+  // Photographer
+  const photoSection = document.getElementById('sd-photo-section');
+  if (s['Recommended Photographer']) {
+    document.getElementById('sd-photographer').textContent = s['Recommended Photographer'];
+    photoSection.style.display = '';
+  } else {
+    photoSection.style.display = 'none';
+  }
+
+  // Open drawer
+  document.getElementById('spot-overlay').classList.add('open');
+  document.getElementById('spot-drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSpotDrawer() {
+  document.getElementById('spot-overlay').classList.remove('open');
+  document.getElementById('spot-drawer').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function toggleSaveSpot(e, id) {
@@ -651,7 +947,7 @@ async function init() {
       </div>
     </div>`;
 
-  const allSpots = await fetchSpots();
+  allSpots = await fetchSpots();
   const filtered = filterByDestination(allSpots, destName);
 
   const grid = document.getElementById('dest-grid');
@@ -669,6 +965,67 @@ async function init() {
 
 init();
 </script>
+
+
+<div class="spot-drawer-overlay" id="spot-overlay" onclick="closeSpotDrawer()"></div>
+<div class="spot-drawer" id="spot-drawer">
+  <div class="sd-hero" id="sd-hero">
+    <div class="sd-hero-bg" id="sd-hero-bg"></div>
+    <div class="sd-hero-overlay"></div>
+    <button class="sd-hero-close" onclick="closeSpotDrawer()">✕</button>
+    <div class="sd-hero-badge" id="sd-badge"></div>
+    <div class="sd-hero-location" id="sd-location"></div>
+  </div>
+  <div class="sd-body">
+    <span class="sd-region" id="sd-region"></span>
+    <h2 class="sd-name" id="sd-name"></h2>
+    <p class="sd-summary" id="sd-summary"></p>
+    <div class="sd-stats">
+      <div class="sd-stat">
+        <span class="sd-stat-label">Budget</span>
+        <span class="sd-stat-val" id="sd-budget"></span>
+      </div>
+      <div class="sd-stat">
+        <span class="sd-stat-label">Privacy</span>
+        <span class="sd-stat-val" id="sd-privacy"></span>
+      </div>
+      <div class="sd-stat">
+        <span class="sd-stat-label">Access</span>
+        <span class="sd-stat-val" id="sd-effort"></span>
+      </div>
+      <div class="sd-stat">
+        <span class="sd-stat-label">Best Time</span>
+        <span class="sd-stat-val" id="sd-time"></span>
+      </div>
+    </div>
+    <div class="sd-section">
+      <span class="sd-section-title">About this spot</span>
+      <p id="sd-full-summary"></p>
+    </div>
+    <div class="sd-section" id="sd-access-section">
+      <span class="sd-section-title">Getting There</span>
+      <p id="sd-access"></p>
+    </div>
+    <div class="sd-section" id="sd-tags-section">
+      <span class="sd-section-title">Vibe</span>
+      <div class="sd-tags" id="sd-tags"></div>
+    </div>
+    <div class="sd-section" id="sd-photo-section">
+      <span class="sd-section-title">Recommended Photographer</span>
+      <div class="sd-photographer">
+        <div class="sd-photographer-icon">📸</div>
+        <div class="sd-photographer-info">
+          <span class="sd-photographer-label">Our pick for this location</span>
+          <span class="sd-photographer-name" id="sd-photographer"></span>
+        </div>
+      </div>
+    </div>
+    <div class="sd-cta-row">
+      <button class="sd-cta-primary" id="sd-book-btn" onclick="window.location.href='/spots/'+currentSpotId">View Full Spot →</button>
+      <button class="sd-cta-secondary" onclick="closeSpotDrawer()">Close</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
