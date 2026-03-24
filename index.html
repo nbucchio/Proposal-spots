@@ -6390,6 +6390,7 @@ async function fetchFromAirtable() {
         'Low Months':            f['Low Months']              || '',
         'Peak Multiplier':       f['Peak Multiplier']         || 1.3,
         'Low Multiplier':        f['Low Multiplier']          || 0.85,
+        'Requires Stay':         !!(f['Requires Stay']),
       };
     });
   } catch (err) {
@@ -6762,6 +6763,26 @@ function openSpotDrawer(id) {
   const hasHotel = !!(s['Linked Hotel / Venue'] || s['Price Hotel Per Night'] || s['Hotel Area Rate']);
   if (concHotelTag) concHotelTag.style.display = hasHotel ? '' : 'none';
   if (vibeStripHotelChip) vibeStripHotelChip.style.display = hasHotel ? '' : 'none';
+
+  // Requires Stay — lock hotel step open when field is true
+  const requiresStay = !!(s['Requires Stay']);
+  const step2El = document.getElementById('sdp-step-2');
+  if (requiresStay && step2El) {
+    const stepHeader = step2El.querySelector('.sdp-step-header');
+    const hotelToggle = document.getElementById('sdp-hotel-toggle');
+    const hotelDates = document.getElementById('sdp-hotel-dates');
+    const stepTitle = step2El.querySelector('.sdp-step-title');
+    const stepSub = step2El.querySelector('.sdp-step-sub');
+    if (hotelToggle) hotelToggle.style.display = 'none';
+    if (stepTitle) stepTitle.textContent = 'A hotel stay at this property is required';
+    if (stepSub) stepSub.textContent = 'We will assist you with your booking — just select your dates below';
+    if (hotelDates) hotelDates.style.display = '';
+    if (stepHeader) {
+      stepHeader.removeAttribute('onclick');
+      stepHeader.style.cursor = 'default';
+    }
+    hotelStepOn = true;
+  }
 
   // ── Bottom bar
   const bar = document.getElementById('sdp-bottom-bar');

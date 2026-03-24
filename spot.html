@@ -1845,6 +1845,10 @@ async function initPage() {
 
 function mapSpotFromAirtable(r) {
   const f = r.fields;
+  // DEBUG — remove after confirming field name
+  if (f['Requires Stay'] !== undefined || Object.keys(f).some(k => k.toLowerCase().includes('stay'))) {
+    console.log('[DEBUG] Requires Stay raw value:', f['Requires Stay'], '| All field keys:', Object.keys(f));
+  }
   const rawPrivacy = f['Privacy'] || '';
   const privacy = rawPrivacy.includes('Private') ? 'Private'
     : rawPrivacy.includes('Light') ? 'Light Crowd'
