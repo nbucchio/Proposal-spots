@@ -1952,6 +1952,7 @@ function mapSpotFromAirtable(r) {
     'Package Includes': f['Package Includes'] || '',
     'Included Items': f['Included Items'] || '',
     'Linked Hotel / Venue': f['Linked Hotel / Venue'] || '',
+    'Linked Hotel IDs': Array.isArray(f['Linked Hotel / Venue']) ? f['Linked Hotel / Venue'] : [],
     badge: f['Badge'] || null,
     'Add-ons': Array.isArray(f['Add-ons']) ? f['Add-ons'] : (f['Add-ons'] ? f['Add-ons'].split(/[|·,]/).map(s=>s.trim()).filter(Boolean) : []),
     'Add-on Prices': f['Add-on Prices'] || '',
@@ -2749,6 +2750,8 @@ async function submitEnquiry() {
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     photographyQuote: getPhotoQuoteValue(),
+    spotId: currentSpotId,
+    hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
   };
 
   try {
