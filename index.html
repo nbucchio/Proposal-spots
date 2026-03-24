@@ -8626,6 +8626,25 @@ function renderDLSpots() {
 }
 
 function goToDestination(name) {
+  // Navigate to the dedicated destination page
+  const nameToSlug = {
+    'Amalfi Coast':    'amalfi-coast',
+    'Santorini':       'santorini',
+    'Bali':            'bali',
+    'Tulum':           'tulum',
+    'Maldives':        'maldives',
+    'Costa Rica':      'costa-rica',
+    'Nicaragua':       'nicaragua',
+    'Portugal':        'portugal',
+    'South of France': 'south-of-france',
+    'Switzerland':     'switzerland',
+  };
+  const slug = nameToSlug[name];
+  if (slug) {
+    window.location.href = '/destinations/' + slug;
+    return;
+  }
+
   document.getElementById('nav-dest-dropdown')?.classList.remove('open');
   hideSearchDestDropdown();
 
