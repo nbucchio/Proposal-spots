@@ -16,6 +16,7 @@ export default async function handler(req, res) {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
     proposalDate, backupDate, notes, addons, photographyQuote,
+    spotId, hotelIds,
   } = req.body || {};
 
   if (!firstName || !lastName || !email || !phone) {
@@ -46,6 +47,8 @@ export default async function handler(req, res) {
               'Special Requests':    notes || '',
               'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
               ...(photographyQuote && photographyQuote !== 'No' ? { 'Photography Quote Request': photographyQuote } : {}),
+              ...(spotId ? { 'Linked Spot': [spotId] } : {}),
+              ...(Array.isArray(hotelIds) && hotelIds.length ? { 'Linked Hotel': hotelIds } : {}),
               'Source':              'Website',
               'Internal Notes':      [
                 spotName  ? `Spot: ${spotName}`        : '',

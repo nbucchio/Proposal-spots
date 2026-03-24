@@ -6375,6 +6375,7 @@ async function fetchFromAirtable() {
         'Recommended Photographer': f['Recommended Photographer'] || '',
         'Google Maps Link':      f['Google Maps Link']        || '',
         'Linked Hotel / Venue':  f['Linked Hotel / Venue']    || '',
+        'Linked Hotel IDs':      Array.isArray(f['Linked Hotel / Venue']) ? f['Linked Hotel / Venue'] : [],
         Published:               true,
         badge:                   f['Badge']                   || null,
         coverGradient:           f['Cover Gradient']          || 'linear-gradient(160deg,#28342c,#1e2835)',
@@ -6596,6 +6597,7 @@ function openSpotDrawer(id) {
   else { badge.style.display = 'none'; }
 
   currentSpotId = id;
+  currentHotelIds = s['Linked Hotel IDs'] || [];
   document.getElementById('sdp-loc').textContent  = `${s.Region || ''} · ${s.Country || ''}`;
   document.getElementById('sdp-name').textContent = s.Name;
 
@@ -6751,6 +6753,7 @@ function openSpotDrawer(id) {
 
   // Track current spot and update save UI
   currentSpotId = s.id;
+  currentHotelIds = s['Linked Hotel IDs'] || [];
   updateSaveUI(s.id);
 
   // ── Concierge card: price
@@ -7633,6 +7636,9 @@ async function submitEnquiry() {
   // Linked Spot record — critical for knowing which spot this enquiry is about
   if (currentSpotId) fields['Linked Spot'] = [currentSpotId];
 
+  // Linked Hotel — populated when the spot has an associated hotel
+  if (currentHotelIds.length) fields['Linked Hotel'] = currentHotelIds;
+
   // Add-ons Selected — new field you added
   if (addons.length) fields['Add-ons Selected'] = addons.join(', ');
 
@@ -8014,6 +8020,7 @@ function confirmSaveSpot() {
 //  MY COLLECTION PAGE
 // ─────────────────────────────────────────────────────────
 let currentSpotId = null;
+let currentHotelIds = [];
 
 // ─── NAV DESTINATIONS DROPDOWN ───
 function toggleDestDropdown() {
@@ -9163,7 +9170,7 @@ function getFilteredSpots() {
 
   // Intent filter — 'stay' shows only spots with a linked hotel
   if (currentIntent === 'stay') {
-    filtered = filtered.filter(s => s['Linked Hotel / Venue'] && s['Linked Hotel / Venue'].trim() !== '');
+    filtered = filtered.filter(s => (s['Linked Hotel IDs'] || []).length > 0 || (typeof s['Linked Hotel / Venue'] === 'string' && s['Linked Hotel / Venue'].trim() !== ''));
   }
 
 
