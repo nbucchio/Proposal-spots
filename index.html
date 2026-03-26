@@ -6371,6 +6371,9 @@ async function fetchFromAirtable() {
         'Full Summary':          f['Full Summary']            || '',
         'Proposal Plan Steps':   f['Proposal Plan Steps']     || '',
         'Cover Photo':           f['Cover Photo']?.[0]?.url   || null,
+        'Spot Card Photo':       f['Spot Card Photo']?.[0]?.url || null,
+        'Hero Position':         f['Hero Position']           || 'center center',
+        'Card Position':         f['Card Position']           || 'center center',
         'Gallery Photos':        (f['Gallery Photos'] || []),
         'Recommended Photographer': f['Recommended Photographer'] || '',
         'Google Maps Link':      f['Google Maps Link']        || '',
@@ -6472,8 +6475,9 @@ const privacyEmojiMap = {
 };
 
 function buildSpotCard(s) {
-  const imgStyle = s['Cover Photo']
-    ? `background-image:url('${s['Cover Photo']}');background-size:cover;background-position:center;`
+  const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+  const imgStyle = cardPhoto
+    ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
     : `background:${s.coverGradient || 'var(--bg3)'};`;
   const badge    = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
   const saved    = (typeof savedSpotIds !== 'undefined') && savedSpotIds.includes(s.id);
@@ -6585,7 +6589,7 @@ function openSpotDrawer(id) {
   if (s['Cover Photo']) {
     bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
     bg.style.backgroundSize = 'cover';
-    bg.style.backgroundPosition = 'center';
+    bg.style.backgroundPosition = s['Hero Position'] || 'center center';
     setTimeout(() => bg.classList.add('loaded'), 100);
   } else {
     bg.style.background = s.coverGradient || 'var(--bg3)';
@@ -8851,8 +8855,9 @@ function renderCollection() {
 
   // Build cards HTML
   const cardsHtml = spots.map(s => {
-    const imgStyle = s['Cover Photo']
-      ? `background-image:url('${s['Cover Photo']}');background-size:cover;background-position:center;`
+    const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+    const imgStyle = cardPhoto
+      ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
       : `background:#e8e2d9;`;
     const hook     = s['Hook'] || s['Line Summary'] || '';
     const price    = s['Moment Price'] || s['Price'] || '';

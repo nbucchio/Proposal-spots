@@ -1943,6 +1943,9 @@ function mapSpotFromAirtable(r) {
     'Line Summary': f['Line Summary'] || '',
     'Full Summary': f['Full Summary'] || '',
     'Cover Photo': f['Cover Photo']?.[0]?.url || null,
+    'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || null,
+    'Hero Position': f['Hero Position'] || 'center center',
+    'Card Position': f['Card Position'] || 'center center',
     'Gallery Photos': (f['Gallery Photos'] || []),
     'Google Maps Link': f['Google Maps Link'] || '',
     'Price Moment': f['Price Moment'] || null,
@@ -1974,7 +1977,7 @@ function populateSpot(s) {
   if (s['Cover Photo']) {
     bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
     bg.style.backgroundSize = 'cover';
-    bg.style.backgroundPosition = 'center';
+    bg.style.backgroundPosition = s['Hero Position'] || 'center center';
   }
 
   if (s.badge) {
