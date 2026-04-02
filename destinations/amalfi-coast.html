@@ -740,11 +740,51 @@
       try {
         const res = await fetch('/api/spots');
         const data = await res.json();
-        allSpots = (data.records || data.spots || []).map(r => r.fields ? { id: r.id, ...r.fields } : r);
+        const records = data.records || data.spots || data || [];
+        allSpots = records.map(r => {
+          const f = r.fields || r;
+          const id = r.id || r.Slug || '';
+          const rawPrivacy = f['Privacy'] || '';
+          const privacy = rawPrivacy.includes('Private') ? 'Private'
+            : rawPrivacy.includes('Light') ? 'Light Crowd'
+            : rawPrivacy.includes('Moderate') ? 'Moderate Crowd'
+            : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
+            : rawPrivacy;
+          const rawBudget = f['Budget'] || '';
+          const budget = rawBudget === 'Free' ? 'Free'
+            : rawBudget === 'Moderate' ? '$$'
+            : rawBudget === 'Expensive' ? '$$$'
+            : rawBudget === 'Luxury' ? '$$$$'
+            : rawBudget;
+          const bestTime = Array.isArray(f['Best Time'])
+            ? f['Best Time']
+            : (f['Best Time'] ? [f['Best Time']] : []);
+          return {
+            id,
+            Slug:              f['Slug'] || f['slug'] || id,
+            Name:              f['Spot Name'] || f['Name'] || '',
+            Country:           f['Country'] || '',
+            Region:            f['Region / Town'] || f['Region'] || '',
+            Vibe:              f['Vibe'] || '',
+            Privacy:           privacy,
+            Budget:            budget,
+            'Best Time':       bestTime,
+            'Line Summary':    f['Line Summary'] || '',
+            'Cover Photo':     f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null,
+            'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null,
+            'Hero Position':   f['Hero Position'] || 'center center',
+            'Card Position':   f['Card Position'] || 'center center',
+            badge:             f['Badge'] || null,
+            coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
+            'Price Moment':    f['Price Moment'] || null,
+            'Access & Effort': f['Access & Effort'] || '',
+          };
+        });
         renderSpots();
       } catch (e) {
         console.error('Failed to fetch spots:', e);
-        document.getElementById('dest-landing-grid').innerHTML = '<p style="color:var(--mid);font-size:13px;padding:20px">Unable to load spots right now.</p>';
+        document.getElementById('dest-landing-grid').innerHTML =
+          '<p style="color:var(--mid);font-size:13px;padding:20px">Unable to load spots right now.</p>';
       }
     }
 
