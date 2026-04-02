@@ -201,7 +201,7 @@
     '<a href="' + logoHref + '" class="nav-logo"' + logoClick + '>Proposal Spots</a>' +
     '<div class="nav-links">' +
       '<div class="nav-destinations-wrap">' +
-        '<a href="#" class="nav-link-right nav-destinations-btn" onclick="toggleDestDropdown(); return false;">' +
+        '<a href="/destinations" class="nav-link-right nav-destinations-btn" onclick="toggleDestDropdown(); return false;">' +
           'Destinations ' +
           '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
         '</a>' +
