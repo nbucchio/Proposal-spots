@@ -63,6 +63,7 @@
     '  z-index: 9000;',
     '}',
     '.nav-dest-dropdown.open { display: block; }',
+    '.nav-destinations-wrap:hover .nav-dest-dropdown { display: block; }',
     '.nav-dest-grid {',
     '  display: grid;',
     '  grid-template-columns: 1fr 1fr;',
