@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Destinations — Curated Spots Worldwide | Proposal Spots</title>
+  <meta name="description" content="Explore curated proposal destinations worldwide. From Santorini to the Amalfi Coast, Bali to the Maldives — discover the perfect place to propose.">
+  <meta property="og:title" content="Proposal Destinations — Curated Spots Worldwide | Proposal Spots">
+  <meta property="og:description" content="Every destination chosen because that's where the most discerning travellers propose. Curated spots for an unforgettable engagement.">
+  <link rel="canonical" href="https://www.proposalspots.com/destinations">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="/nav.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f1eb;
+      --white: #ffffff;
+      --ink: #1a1612;
+      --mid: #6b6560;
+      --muted: #9e9992;
+      --hairline: rgba(26,22,18,0.1);
+      --accent: #a55a4a;
+    }
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+    #nav-root { position: relative; z-index: 100; }
+
+    .pg-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── EXACT CSS FROM index.html ── */
+    .pg-destinations { padding-bottom: 80px; }
+    .dest-hero { text-align: center; padding: 80px 40px 48px; max-width: 700px; margin: 0 auto; }
+    .dest-hero-title { font-family: 'Cormorant', serif; font-size: clamp(36px,5vw,60px); font-weight: 300; color: var(--ink); margin-bottom: 16px; }
+    .dest-hero-title em { font-style: italic; }
+    .dest-hero-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.8; }
+    .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
+    .dest-card { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; display: block; color: inherit; }
+    .dest-card:hover { box-shadow: 0 8px 32px rgba(28,28,28,0.1); transform: translateY(-2px); }
+    .dest-card-img { height: 160px; background-size: cover; background-position: center; }
+    .dest-card-info { padding: 20px; }
+    .dest-card-country { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+    .dest-card-name { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .dest-card-line { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 12px; }
+    .dest-card-cta { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A55A4A; }
+    .dest-budget-section { max-width: 1100px; margin: 0 auto; padding: 0 40px 60px; }
+    .dest-budget-header { text-align: center; margin-bottom: 40px; }
+    .dest-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
+    .dest-budget-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.8; max-width: 600px; margin: 0 auto; }
+    .dest-budget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .dest-budget-card { background: var(--white); border: 1px solid var(--hairline); border-radius: 12px; padding: 24px; cursor: pointer; transition: border-color 0.2s; text-decoration: none; display: block; color: inherit; }
+    .dest-budget-card:hover { border-color: var(--ink); }
+    .dest-budget-card-dest { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--ink); margin-bottom: 8px; }
+    .dest-budget-card-range { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .dest-budget-card-line { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); line-height: 1.6; margin-bottom: 12px; }
+    .dest-budget-cta { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #A55A4A; }
+
+    .dest-budget-footer { text-align: center; margin-top: 32px; }
+    .pg-cta-btn {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .pg-cta-btn:hover { opacity: 0.8; }
+
+    @media (max-width: 768px) {
+      .dest-hero { padding: 60px 24px 40px; }
+      .dest-grid { padding: 0 20px 40px; gap: 16px; }
+      .dest-budget-section { padding: 0 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-root"></div>
+
+  <div class="pg-destinations">
+
+    <div class="dest-hero">
+      <span class="pg-eyebrow" style="display:block;text-align:center;margin-bottom:16px">Where do you want to ask?</span>
+      <h1 class="dest-hero-title">Our <em>Destinations</em></h1>
+      <p class="dest-hero-sub">Every market we cover was chosen because that's where the most discerning travellers propose. These are the places people plan around, save for, and remember forever.</p>
+    </div>
+
+    <div class="dest-grid">
+
+      <a class="dest-card" href="/destinations/amalfi-coast">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1583855282680-6dbdc69b0932?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Italy</span>
+          <h2 class="dest-card-name">Amalfi Coast</h2>
+          <p class="dest-card-line">Clifftop terraces, lemon groves, and ocean views that make everything feel inevitable.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/santorini">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1534695215921-52f8a19e7909?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Greece</span>
+          <h2 class="dest-card-name">Santorini</h2>
+          <p class="dest-card-line">The caldera at sunset. Blue domes. The Aegean turning gold. Nothing more needs to be said.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/bali">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1535968881874-0c39f1503640?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Indonesia</span>
+          <h2 class="dest-card-name">Bali</h2>
+          <p class="dest-card-line">Rice terraces at sunrise, hidden temples, and waterfalls that feel like the edge of the world.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/tulum">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1522258493909-bf27c8ebd64a?q=80&w=655&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Mexico</span>
+          <h2 class="dest-card-name">Tulum</h2>
+          <p class="dest-card-line">Cenotes, jungle-wrapped ruins, and Caribbean water the colour of gemstones.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/maldives">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1550031675-030918aff0e4?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Indian Ocean</span>
+          <h2 class="dest-card-name">Maldives</h2>
+          <p class="dest-card-line">Private sandbanks that disappear at high tide. Overwater villas. Absolute, total privacy.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/costa-rica">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1587450924794-1d88bd9df3c0?q=80&w=1471&auto=format&fit=crop');background-position:center 50%"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Central America</span>
+          <h2 class="dest-card-name">Costa Rica</h2>
+          <p class="dest-card-line">Cloud forests, hanging bridges, and a country where the jungle feels like a living thing.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/nicaragua">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1624256852056-f48987387a3c?q=80&w=687&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Central America</span>
+          <h2 class="dest-card-name">Nicaragua</h2>
+          <p class="dest-card-line">Twin volcanos, black sand coves, and an island that almost nobody has found yet.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/portugal">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1541323474343-589d15554a63?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Portugal</span>
+          <h2 class="dest-card-name">Algarve</h2>
+          <p class="dest-card-line">Sea caves, sandstone arches, and Atlantic cliffs that glow amber at sunset.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/south-of-france">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1609971757431-439cf7b4141b?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">France</span>
+          <h2 class="dest-card-name">South of France</h2>
+          <p class="dest-card-line">Lavender fields, Côte d'Azur coastline, and the kind of light painters have chased for centuries.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/switzerland">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1549897007-4f31afbfc362?q=80&w=1230&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">Alps</span>
+          <h2 class="dest-card-name">Switzerland</h2>
+          <p class="dest-card-line">Cable cars at dusk, Jungfrau at golden hour, and a silence that costs nothing but feels priceless.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+      <a class="dest-card" href="/destinations/new-york">
+        <div class="dest-card-img" style="background-image:url('https://images.unsplash.com/photo-1527267207156-3372670819dc?q=80&w=900&auto=format&fit=crop')"></div>
+        <div class="dest-card-info">
+          <span class="dest-card-country">USA</span>
+          <h2 class="dest-card-name">New York</h2>
+          <p class="dest-card-line">Skyline rooftops, secret garden terraces, and a city that makes every proposal feel like the opening scene of something great.</p>
+          <span class="dest-card-cta">Explore spots →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Budget Section -->
+    <div class="dest-budget-section">
+      <div class="dest-budget-header">
+        <span class="pg-eyebrow" style="display:block;text-align:center;margin-bottom:16px">Plan with clarity</span>
+        <h2 class="dest-budget-title">Proposal Budget Guides</h2>
+        <p class="dest-budget-sub">What does a proposal actually cost in each destination? We break it down honestly — from the moment itself to the hotel, the photographer, and the extras nobody tells you about.</p>
+      </div>
+      <div class="dest-budget-grid">
+
+        <a class="dest-budget-card" href="/destinations/santorini">
+          <div class="dest-budget-card-dest">Santorini, Greece</div>
+          <div class="dest-budget-card-range">$800 — $8,000+</div>
+          <p class="dest-budget-card-line">From a clifftop moment to a full villa proposal package</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+        <a class="dest-budget-card" href="/destinations/bali">
+          <div class="dest-budget-card-dest">Bali, Indonesia</div>
+          <div class="dest-budget-card-range">$400 — $4,000+</div>
+          <p class="dest-budget-card-line">One of the most affordable luxury proposal destinations on earth</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+        <a class="dest-budget-card" href="/destinations/maldives">
+          <div class="dest-budget-card-dest">Maldives</div>
+          <div class="dest-budget-card-range">$2,000 — $15,000+</div>
+          <p class="dest-budget-card-line">When only total privacy and total luxury will do</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+        <a class="dest-budget-card" href="/destinations/tulum">
+          <div class="dest-budget-card-dest">Tulum, Mexico</div>
+          <div class="dest-budget-card-range">$500 — $5,000+</div>
+          <p class="dest-budget-card-line">Cenotes, jungle eco-lodges, and a booming proposal scene</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+        <a class="dest-budget-card" href="/destinations/amalfi-coast">
+          <div class="dest-budget-card-dest">Amalfi Coast, Italy</div>
+          <div class="dest-budget-card-range">$1,000 — $10,000+</div>
+          <p class="dest-budget-card-line">The most cinematic coastline in Europe — with prices to match</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+        <a class="dest-budget-card" href="/destinations/portugal">
+          <div class="dest-budget-card-dest">Algarve, Portugal</div>
+          <div class="dest-budget-card-range">$300 — $3,000+</div>
+          <p class="dest-budget-card-line">Europe's best-value luxury proposal destination</p>
+          <span class="dest-budget-cta">View breakdown →</span>
+        </a>
+
+      </div>
+      <div class="dest-budget-footer">
+        <a href="/budget-guide" class="pg-cta-btn">View Full Budget Guide →</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
