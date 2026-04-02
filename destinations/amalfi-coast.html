@@ -801,7 +801,7 @@
       try {
         const res = await fetch('/api/spots');
         const data = await res.json();
-        allSpots = data.spots || data.records || data || [];
+        allSpots = (data.records || data.spots || []).map(r => r.fields ? { id: r.id, ...r.fields } : r);
         renderSpots();
       } catch (e) {
         console.error('Failed to fetch spots:', e);
