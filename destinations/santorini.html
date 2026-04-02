@@ -197,80 +197,26 @@
 
     /* ── SPOTS GRID ── */
     .dest-landing-spots-wrap { padding: 32px 48px; }
-    .spots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    .spot-card {
-      background: #fff;
-      border-radius: var(--card-radius);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: 1px solid var(--hairline);
-    }
-    .spot-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-    .spot-card-img { position: relative; height: 240px; overflow: hidden; }
-    .img-bg {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.4s;
-    }
+    .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+    .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; transition: opacity 0.2s; }
+    .spot-card:hover { opacity: 0.93; }
+    .spot-card-img { aspect-ratio: 3/4; min-height: 320px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
+    .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
     .spot-card:hover .img-bg { transform: scale(1.04); }
-    .spot-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 16px;
-    }
-    .spot-card-market {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(244,241,235,0.7);
-      margin-bottom: 4px;
-    }
-    .spot-card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: #f4f1eb;
-      line-height: 1.2;
-    }
-    .spot-card-hook {
-      font-size: 11px;
-      color: rgba(244,241,235,0.65);
-      line-height: 1.5;
-      margin-top: 2px;
-    }
-    .spot-card-body { padding: 14px 16px 12px; }
-    .spot-card-budget-new { font-size: 11px; font-weight: 400; letter-spacing: 0.06em; color: var(--mid); }
-    .spot-card-meta-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-    .spot-card-badge {
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: 1px solid var(--hairline);
-      border-radius: 10px;
-      padding: 3px 8px;
-      color: var(--mid);
-    }
+    .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
+    .spot-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 18px 18px; z-index: 1; }
+    .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
+    .spot-save { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; background: rgba(253,252,250,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(253,252,250,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: rgba(244,241,235,0.85); z-index: 2; cursor: pointer; transition: background 0.15s; }
+    .spot-save:hover { background: rgba(253,252,250,0.28); }
+    .spot-card-market { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,241,235,0.5); display: block; margin-bottom: 5px; }
+    .spot-card-name { font-family: 'Cormorant', serif; font-size: 21px; font-weight: 400; color: #fdfcfa; line-height: 1.15; letter-spacing: 0.01em; margin-bottom: 7px; }
+    .spot-card-hook { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.68); line-height: 1.5; letter-spacing: 0.01em; font-style: italic; }
+    .spot-card-body { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px 12px; }
+    .spot-card-budget-new { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.02em; }
+    .spot-card-meta-tags { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .spot-card-meta-tag { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 300; color: var(--muted); letter-spacing: 0.01em; }
     .results-empty { text-align: center; padding: 60px 20px; color: var(--mid); }
-    .spots-loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--mid);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+    .spots-loading { text-align: center; padding: 60px 20px; color: var(--mid); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
 
     /* ── EDITORIAL ── */
     .dest-editorial { background: #1e1c18; color: #f4f1eb; padding: 80px 0; }
@@ -703,33 +649,38 @@
       renderSpots();
     }
 
-    const privacyEmojiMap = { 'Private': '🔒', 'Light Crowd': '👥', 'Moderate Crowd': '👥👥', 'Everyone Will See': '👥👥👥' };
-
+    const privacyEmojiMap = {
+      'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥'
+    };
     function buildSpotCard(s) {
-      const slug = s.Slug || s.slug || '';
-      const name = s.Name || s.name || '';
-      const hook = s.Hook || s.hook || s.Description || '';
-      const market = [s.Region || s.region || '', s.Country || s.country || ''].filter(Boolean).join(' · ').toUpperCase();
-      const photo = s.Photo || s.photo || s['Hero Photo'] || '';
-      const budget = s.Budget || s.budget || '';
-      const privacy = s.Privacy || s.privacy || '';
-      const vibe = s.Vibe || s.vibe || '';
-      const privacyEmoji = privacyEmojiMap[privacy] || '';
+      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+      const imgStyle = cardPhoto
+        ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
+        : `background:${s.coverGradient || '#1e2835'};`;
+      const badge = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
+      const privacy = s.Privacy || '';
+      const privEmoji = privacyEmojiMap[privacy] || '';
+      const bestTime = Array.isArray(s['Best Time']) ? s['Best Time'][0] : (s['Best Time'] || '');
+      const hook = s['Hook'] || s['Line Summary'] || '';
+      const price = s['Price Moment'] || s['Moment Price'] || '';
+      const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
+      const slug = s.Slug || s.slug || s.id || '';
       return `
-        <div class="spot-card" onclick="window.location='/spots/${slug}'">
+        <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
           <div class="spot-card-img">
-            <div class="img-bg" style="background-image:url('${photo}')"></div>
+            <div class="img-bg" style="${imgStyle}"></div>
+            ${badge}
             <div class="spot-card-overlay">
-              <span class="spot-card-market">${market}</span>
-              <div class="spot-card-name">${name}</div>
-              <div class="spot-card-hook">${hook}</div>
+              <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
+              <div class="spot-card-name">${s.Name || ''}</div>
+              ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
             </div>
           </div>
           <div class="spot-card-body">
-            <div class="spot-card-budget-new">${budget}</div>
+            <span class="spot-card-budget-new">${priceStr}</span>
             <div class="spot-card-meta-tags">
-              ${vibe ? `<span class="spot-card-badge">${vibe}</span>` : ''}
-              ${privacy ? `<span class="spot-card-badge">${privacyEmoji} ${privacy}</span>` : ''}
+              ${privEmoji ? `<span class="spot-card-meta-tag">${privEmoji}</span>` : ''}
+              ${bestTime ? `<span class="spot-card-meta-tag">· ${bestTime}</span>` : ''}
             </div>
           </div>
         </div>`;
@@ -755,7 +706,7 @@
       if (!grid) return;
       let spots = allSpots.filter(s => {
         const country = (s.Country || s.country || '').toLowerCase().trim();
-        const region  = (s.Region  || s.region  || '').toLowerCase().trim();
+        const region = (s['Region / Town'] || s.Region || '').toLowerCase().trim();
         if (!country && !region) return false;
         const matchDest = DEST_ALIASES.some(alias =>
           country === alias || country.includes(alias) || alias.includes(country) ||
