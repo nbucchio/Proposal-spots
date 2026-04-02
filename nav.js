@@ -157,29 +157,24 @@
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
-    ['Amalfi Coast', 'Italy'],
-    ['Santorini', 'Greece'],
-    ['Bali', 'Indonesia'],
-    ['Tulum', 'Mexico'],
-    ['Maldives', 'Indian Ocean'],
-    ['Costa Rica', 'Central America'],
-    ['Nicaragua', 'Central America'],
-    ['Algarve', 'Portugal'],
-    ['South of France', 'France'],
-    ['Switzerland', 'Alps'],
-    ['New York', 'USA']
+    ['Amalfi Coast', 'Italy', 'amalfi-coast'],
+    ['Santorini', 'Greece', 'santorini'],
+    ['Bali', 'Indonesia', 'bali'],
+    ['Tulum', 'Mexico', 'tulum'],
+    ['Maldives', 'Indian Ocean', 'maldives'],
+    ['Costa Rica', 'Central America', 'costa-rica'],
+    ['Nicaragua', 'Central America', 'nicaragua'],
+    ['Algarve', 'Portugal', 'portugal'],
+    ['South of France', 'France', 'south-of-france'],
+    ['Switzerland', 'Alps', 'switzerland'],
+    ['New York', 'USA', 'new-york']
   ];
 
   var destItems = destinations.map(function (d) {
-    if (isIndex) {
-      return '<a onclick="goToDestination(\'' + d[0] + '\'); return false;" href="#">' + d[0] + ' <span>' + d[1] + '</span></a>';
-    }
-    return '<a href="/?dest=' + encodeURIComponent(d[0]) + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
+    return '<a href="/destinations/' + d[2] + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
   }).join('');
 
-  var viewAllDest = isIndex
-    ? '<a onclick="showPage(\'destinations\'); return false;" href="#" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>'
-    : '<a href="/#destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
+  var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
 
   var howItWorksLink = isIndex
     ? '<a href="#" id="nav-how-it-works" onclick="showPage(\'how-it-works\'); return false;" class="nav-link-right">How It Works</a>'
@@ -201,7 +196,7 @@
     '<a href="' + logoHref + '" class="nav-logo"' + logoClick + '>Proposal Spots</a>' +
     '<div class="nav-links">' +
       '<div class="nav-destinations-wrap">' +
-        '<a href="/destinations" class="nav-link-right nav-destinations-btn" onclick="toggleDestDropdown(); return false;">' +
+        '<a href="/destinations" class="nav-link-right nav-destinations-btn">' +
           'Destinations ' +
           '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
         '</a>' +
