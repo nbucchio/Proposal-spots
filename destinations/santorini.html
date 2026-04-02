@@ -361,7 +361,7 @@
     }
 
     /* ── GALLERY — exact CSS from index.html ── */
-    .dest-gallery { padding: 60px 40px; }
+    .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow {
       display: block;
       font-size: 10px;
@@ -741,7 +741,7 @@
       try {
         const res = await fetch('/api/spots');
         const data = await res.json();
-        allSpots = data.spots || data.records || data || [];
+        allSpots = (data.records || data.spots || []).map(r => r.fields ? { id: r.id, ...r.fields } : r);
         renderSpots();
       } catch (e) {
         console.error('Failed to fetch spots:', e);
