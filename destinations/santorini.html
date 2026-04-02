@@ -200,7 +200,7 @@
     .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
     .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; transition: opacity 0.2s; }
     .spot-card:hover { opacity: 0.93; }
-    .spot-card-img { aspect-ratio: 3/4; min-height: 320px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
+    .spot-card-img { aspect-ratio: 4/5; min-height: 220px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
     .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
     .spot-card:hover .img-bg { transform: scale(1.04); }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
@@ -663,8 +663,8 @@
       const bestTime = Array.isArray(s['Best Time']) ? s['Best Time'][0] : (s['Best Time'] || '');
       const hook = s['Hook'] || s['Line Summary'] || '';
       const price = s['Price Moment'] || s['Moment Price'] || '';
-      const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
-      const slug = s.Slug || s.slug || s.id || '';
+      const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
+      const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
       return `
         <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
           <div class="spot-card-img">
@@ -718,6 +718,7 @@
             Country:           f['Country'] || '',
             Region:            f['Region / Town'] || f['Region'] || '',
             Vibe:              f['Vibe'] || '',
+            'Secondary Vibe':  f['Secondary Vibe'] || f['Vibe 2'] || '',
             Privacy:           privacy,
             Budget:            budget,
             'Best Time':       bestTime,
@@ -754,7 +755,8 @@
         );
         if (!matchDest) return false;
         if (dlState.vibe.size) {
-          if (![...dlState.vibe].some(v => (s.Vibe||s.vibe||'').includes(v))) return false;
+          const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
+          if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
         }
         if (dlState.privacy.size) {
           if (![...dlState.privacy].some(v => (s.Privacy||s.privacy||'').includes(v))) return false;
