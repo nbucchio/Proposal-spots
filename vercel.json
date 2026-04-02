@@ -1,14 +1,13 @@
 {
-    "rewrites": [
-      { "source": "/sitemap.xml", "destination": "/api/sitemap" },
-      { "source": "/robots.txt", "destination": "/robots.txt" },
-      { "source": "/spots/:slug", "destination": "/spot.html" },
-      { "source": "/stories/:slug", "destination": "/stories/index.html" },
-      { "source": "/destinations", "destination": "/destinations/index.html" },
-      { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
-      { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
-      { "source": "/((?!api).*)", "destination": "/index.html" }
-    ]
-  }
-
-
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/spots/:slug", "destination": "/spot.html" },
+    { "source": "/stories/:slug", "destination": "/stories/index.html" },
+    { "source": "/destinations", "destination": "/destinations.html" },
+    { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
+    { "source": "/destinations/santorini", "destination": "/destinations/santorini.html" },
+    { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
+    { "source": "/((?!api).*)", "destination": "/index.html" }
+  ]
+}
