@@ -7,6 +7,7 @@
     { "source": "/destinations", "destination": "/destinations.html" },
     { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
     { "source": "/destinations/santorini", "destination": "/destinations/santorini.html" },
+    { "source": "/destinations/bali", "destination": "/destinations/bali.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
