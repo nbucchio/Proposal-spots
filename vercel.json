@@ -8,6 +8,14 @@
     { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
     { "source": "/destinations/santorini", "destination": "/destinations/santorini.html" },
     { "source": "/destinations/bali", "destination": "/destinations/bali.html" },
+    { "source": "/destinations/tulum", "destination": "/destinations/tulum.html" },
+    { "source": "/destinations/maldives", "destination": "/destinations/maldives.html" },
+    { "source": "/destinations/switzerland", "destination": "/destinations/switzerland.html" },
+    { "source": "/destinations/costa-rica", "destination": "/destinations/costa-rica.html" },
+    { "source": "/destinations/nicaragua", "destination": "/destinations/nicaragua.html" },
+    { "source": "/destinations/portugal", "destination": "/destinations/portugal.html" },
+    { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
+    { "source": "/destinations/new-york", "destination": "/destinations/new-york.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
