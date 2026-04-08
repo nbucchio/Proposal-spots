@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propose in New York — Curated Proposal Spots</title>
+  <meta name="description" content="Discover the most romantic proposal spots in New York. Rooftop terraces above the Manhattan skyline, hidden garden courtyards in Brooklyn, the High Line at golden hour, and Central Park at dawn.">
+  <meta property="og:title" content="Propose in New York — Curated Proposal Spots">
+  <meta property="og:description" content="Rooftop terraces above the Manhattan skyline, hidden garden courtyards in Brooklyn, the High Line at golden hour, and Central Park at dawn.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631729779674-1f369e1116b4?q=80&w=1470&auto=format&fit=crop">
+  <link rel="canonical" href="https://www.proposalspots.com/destinations/new-york">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="/nav.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f1eb;
+      --bg2: #EDEAE2;
+      --bg3: #E8E4DB;
+      --white: #FDFCFA;
+      --ink: #1a1612;
+      --ink2: #2E2C2A;
+      --mid: #6b6560;
+      --muted: #9E9890;
+      --hairline: rgba(26,22,18,0.1);
+      --divider: #E4E0D8;
+      --accent: #a55a4a;
+    }
+    html { font-size: 16px; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+    #nav-root { position: relative; z-index: 100; }
+
+    .pg-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: #A55A4A; display: block; margin-bottom: 18px; }
+
+    .story-back-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,241,235,0.7); background: none; border: 1px solid rgba(244,241,235,0.2); border-radius: 100px; padding: 10px 18px; cursor: pointer; margin: 32px 40px; transition: color 0.2s; text-decoration: none; position: absolute; top: 60px; left: 0; z-index: 10; }
+    .story-back-btn:hover { color: var(--white); border-color: rgba(244,241,235,0.5); }
+
+    .dest-landing-hero { position: relative; min-height: 60vh; display: flex; align-items: flex-end; overflow: hidden; background-size: cover !important; background-position: center !important; background-image: url('https://images.unsplash.com/photo-1631729779674-1f369e1116b4?q=80&w=1470&auto=format&fit=crop'); }
+    .dest-landing-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,10,6,0.65) 0%, rgba(14,10,6,0.18) 50%, rgba(14,10,6,0.28) 100%); z-index: 1; }
+    .dest-landing-hero-content { position: relative; z-index: 2; padding: 80px 60px; max-width: 700px; }
+    .dest-landing-title { font-family: 'Cormorant', serif; font-size: clamp(42px, 7vw, 80px); font-weight: 300; color: var(--bg); line-height: 1.0; margin-bottom: 16px; }
+    .dest-landing-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: rgba(244,241,235,0.65); line-height: 1.8; max-width: 500px; }
+
+    .dest-landing-body { padding: 0 40px; max-width: 1200px; margin: 0 auto; }
+    .dest-landing-filter-bar { position: sticky; top: 72px; z-index: 100; background: var(--bg); padding: 20px 0; border-bottom: 1px solid var(--hairline); margin-bottom: 40px; }
+    .dest-landing-spots-wrap { min-height: 300px; }
+    .results-topbar { position: sticky; top: 80px; z-index: 500; background: rgba(244,241,235,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--divider); padding: 18px 40px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .results-topbar-left { display: flex; align-items: center; justify-content: center; gap: 10px; flex: 1; flex-wrap: wrap; }
+    .results-filter-pill { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; color: var(--mid); background: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .results-filter-pill:hover { color: var(--ink); border-color: var(--ink); }
+    .results-filter-pill.active { color: var(--ink); background: var(--bg2); border-color: var(--ink); font-weight: 500; }
+    .results-filter-pill .pill-count { background: var(--ink); color: var(--white); border-radius: 100px; font-size: 9px; padding: 1px 6px; font-weight: 500; }
+    .results-clear { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 7px 0; transition: color 0.2s; margin-left: auto; }
+    .results-clear:hover { color: var(--ink); }
+    .results-panel-wrap { position: relative; }
+    .results-inline-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: var(--white); border: 1px solid var(--hairline); border-radius: 12px; padding: 20px; min-width: 280px; z-index: 600; box-shadow: 0 8px 32px rgba(28,28,28,0.1); }
+    .results-inline-panel.open { display: block; }
+    .results-inline-panel .inline-panel-label { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: block; }
+    .results-inline-panel .inline-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter-tag { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 8px 16px; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .filter-tag:hover { border-color: var(--ink); color: var(--ink); }
+    .filter-tag.selected { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    .results-empty { text-align: center; padding: 80px 0; }
+    .results-empty p { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--mid); margin-bottom: 20px; }
+    .spots-loading { text-align: center; padding: 60px 20px; color: var(--mid); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+    .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; transition: opacity 0.2s; }
+    .spot-card:hover { opacity: 0.93; }
+    .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
+    .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
+    .spot-card:hover .img-bg { transform: scale(1.04); }
+    .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
+    .spot-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 18px 18px; z-index: 1; }
+    .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
+    .spot-card-market { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,241,235,0.5); display: block; margin-bottom: 5px; }
+    .spot-card-name { font-family: 'Cormorant', serif; font-size: 21px; font-weight: 400; color: #fdfcfa; line-height: 1.15; letter-spacing: 0.01em; margin-bottom: 7px; }
+    .spot-card-hook { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.68); line-height: 1.5; letter-spacing: 0.01em; font-style: italic; }
+    .spot-card-body { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px 12px; }
+    .spot-card-budget-new { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.02em; }
+    .spot-card-meta-tags { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .spot-card-meta-tag { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 300; color: var(--muted); letter-spacing: 0.01em; }
+
+    .dest-editorial { background: var(--ink2); padding: 80px 40px; }
+    .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
+    .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
+    .dest-editorial-headline { font-family:'Cormorant',serif; font-size:clamp(30px,4.5vw,54px); font-weight:300; color:var(--bg); line-height:1.1; text-align:center; margin-bottom:18px; }
+    .dest-editorial-sub { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:rgba(244,241,235,0.55); line-height:1.85; text-align:center; max-width:620px; margin:0 auto 60px; }
+    .dest-editorial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(244,241,235,0.08); margin-bottom:60px; }
+    @media(max-width:768px){ .dest-editorial-grid { grid-template-columns:1fr; } }
+    .dest-editorial-card { background:rgba(20,20,22,0.7); padding:36px 30px; }
+    .dest-editorial-icon { font-size:20px; margin-bottom:14px; display:block; }
+    .dest-editorial-card-title { font-family:'Cormorant',serif; font-size:21px; font-weight:400; color:var(--bg); margin-bottom:10px; line-height:1.2; }
+    .dest-editorial-card-body { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:rgba(244,241,235,0.5); line-height:1.82; }
+    .dest-editorial-pull { border-left:2px solid #A55A4A; padding-left:28px; max-width:660px; margin:0 auto; }
+    .dest-editorial-pull-text { font-family:'Cormorant',serif; font-size:clamp(19px,2.2vw,26px); font-weight:300; font-style:italic; color:rgba(244,241,235,0.82); line-height:1.5; margin-bottom:14px; }
+    .dest-editorial-pull-attr { font-family:'Jost',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,241,235,0.3); }
+    @media(max-width:640px){ .dest-editorial { padding:60px 24px; } }
+
+    .dest-highlights { background: var(--white); padding: 80px 40px 60px; border-top: 1px solid var(--hairline); }
+    .dest-highlights-inner { max-width: 1000px; margin: 0 auto; }
+    .dest-highlights-header { text-align: center; margin-bottom: 56px; }
+    .dest-highlights-title { font-family:'Cormorant',serif; font-size:clamp(28px,4vw,46px); font-weight:300; color:var(--ink); line-height:1.15; margin-bottom:16px; }
+    .dest-highlights-sub { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--mid); line-height:1.8; max-width:520px; margin:0 auto; }
+    .dest-highlights-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-bottom:52px; }
+    @media(max-width:768px){ .dest-highlights-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:480px){ .dest-highlights-grid { grid-template-columns:1fr; } }
+    .dest-hl-item { border-top: 1px solid var(--hairline); padding-top: 20px; }
+    .dest-hl-icon { font-size: 18px; margin-bottom: 10px; display:block; }
+    .dest-hl-title { font-family:'Cormorant',serif; font-size:18px; font-weight:400; color:var(--ink); margin-bottom:8px; line-height:1.2; }
+    .dest-hl-body { font-family:'Jost',sans-serif; font-size:11.5px; font-weight:300; color:var(--mid); line-height:1.78; }
+    .dest-highlights-tip { background: rgba(165,90,74,0.06); border-left: 2px solid #A55A4A; padding: 24px 28px; max-width:680px; margin:0 auto; }
+    .dest-highlights-tip-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:8px; }
+    .dest-highlights-tip-text { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.8; }
+    @media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
+
+    .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+    .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
+    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
+    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
+    .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+    @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
+    @media(max-width: 480px) { .dest-gallery-masonry { columns: 1; } }
+
+    .dest-landing-budget { max-width: 960px; margin: 80px auto 0; padding: 0 40px 80px; }
+    .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
+    .dest-landing-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
+    .dest-landing-budget-sub { font-size: 14px; color: var(--mid); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+    .budget-dest-block { max-width: 840px; margin: 0 auto; }
+    .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+    .budget-dest-name { font-family: 'Cormorant', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 300; margin-bottom: 8px; }
+    .budget-dest-tagline { font-size: 13px; line-height: 1.65; color: var(--mid); max-width: 500px; }
+    .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .budget-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+    .budget-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 14px 20px; border-bottom: 1px solid var(--hairline); font-size: 13px; gap: 12px; }
+    .budget-row:last-child { border-bottom: none; }
+    .budget-row-head { background: rgba(26,22,18,0.04); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
+    .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
+    .budget-tip { font-size: 13px; line-height: 1.7; color: var(--ink); padding: 16px 20px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; }
+    .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+    .pg-cta-btn:hover { opacity: 0.8; }
+
+    @media(max-width:640px) {
+      .dest-landing-hero-content { padding: 60px 24px; }
+      .dest-landing-body { padding: 0 20px; }
+      .dest-landing-budget { padding: 0 20px 60px; }
+      .story-back-btn { margin: 20px; top: 40px; }
+      .budget-dest-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-root"></div>
+
+  <div class="dest-landing-hero">
+    <a href="/destinations" class="story-back-btn">← All Destinations</a>
+    <div class="dest-landing-hero-content">
+      <span class="pg-eyebrow">USA</span>
+      <h1 class="dest-landing-title">New York</h1>
+      <p class="dest-landing-sub">Rooftop terraces above the Manhattan skyline, hidden garden courtyards in Brooklyn, the High Line at golden hour, and Central Park at dawn. New York proposals are cinematic by default — the city does half the work.</p>
+    </div>
+  </div>
+
+  <div class="dest-landing-body">
+    <div class="results-topbar dest-landing-filter-bar">
+      <div class="results-topbar-left">
+        <div class="results-panel-wrap">
+          <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')">
+            Vibe <span class="pill-count" id="dlvibe-count" style="display:none"></span>
+          </button>
+          <div class="results-inline-panel" id="dl-vibe-panel">
+            <span class="inline-panel-label">Select all that apply</span>
+            <div class="inline-tags">
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">🏖 Beach</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','City')">🏙 City</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Jungle')">🌿 Jungle</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Boat')">⛵ Boat</div>
+            </div>
+          </div>
+        </div>
+        <div class="results-panel-wrap">
+          <button class="results-filter-pill" id="dlpill-privacy" onclick="toggleDLPanel('dl-privacy-panel','dlpill-privacy')">
+            Privacy <span class="pill-count" id="dlprivacy-count" style="display:none"></span>
+          </button>
+          <div class="results-inline-panel" id="dl-privacy-panel">
+            <span class="inline-panel-label">Select all that apply</span>
+            <div class="inline-tags">
+              <div class="filter-tag" onclick="toggleDLTag(this,'privacy','Private')">🔒 Private — No crowds</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'privacy','Light Crowd')">👥 Light Crowd</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'privacy','Moderate Crowd')">👥👥 Moderate Crowd</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'privacy','Everyone Will See')">👥👥👥 Everyone Will See</div>
+            </div>
+          </div>
+        </div>
+        <div class="results-panel-wrap">
+          <button class="results-filter-pill" id="dlpill-budget" onclick="toggleDLPanel('dl-budget-panel','dlpill-budget')">
+            Budget <span class="pill-count" id="dlbudget-count" style="display:none"></span>
+          </button>
+          <div class="results-inline-panel" id="dl-budget-panel">
+            <span class="inline-panel-label">Select all that apply</span>
+            <div class="inline-tags">
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$')">$ Free / Low</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$')">$$ Moderate</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$$')">$$$ Expensive</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$$$')">$$$$ Luxury</div>
+            </div>
+          </div>
+        </div>
+        <button class="results-filter-pill" onclick="clearDLFilters()">⚙ All Filters</button>
+      </div>
+      <button class="results-clear" onclick="clearDLFilters()">Clear all</button>
+    </div>
+
+    <div class="dest-landing-spots-wrap">
+      <div id="dest-landing-grid" class="spots-grid">
+        <div class="spots-loading">Loading spots…</div>
+      </div>
+      <div class="results-empty" id="dest-landing-empty" style="display:none">
+        <p>No spots match your filters.</p>
+        <button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;margin-top:16px;">Clear Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dest-editorial">
+    <div class="dest-editorial-inner">
+      <span class="dest-editorial-eyebrow">New York City · USA</span>
+      <h2 class="dest-editorial-headline">The most cinematic city on earth. It does half the work for you.</h2>
+      <p class="dest-editorial-sub">Eight million people, and somehow a hundred places where it feels like just the two of you. The skyline at golden hour, a rooftop above the noise, a hidden garden nobody else found.</p>
+      <div class="dest-editorial-grid">
+        <div class="dest-editorial-card">
+          <span class="dest-editorial-icon">🌆</span>
+          <div class="dest-editorial-card-title">The skyline effect</div>
+          <p class="dest-editorial-card-body">No backdrop on earth communicates scale and ambition like the Manhattan skyline. Brooklyn Bridge Park, Dumbo, and the High Line at sunset turn the city into your photographer.</p>
+        </div>
+        <div class="dest-editorial-card">
+          <span class="dest-editorial-icon">🌿</span>
+          <div class="dest-editorial-card-title">Secret gardens</div>
+          <p class="dest-editorial-card-body">Central Park has 843 acres. Most visitors see the same five landmarks. Our spots are the hidden meadows, private terraces, and rose gardens that feel miles from the city — and minutes from anywhere.</p>
+        </div>
+        <div class="dest-editorial-card">
+          <span class="dest-editorial-icon">🔒</span>
+          <div class="dest-editorial-card-title">Private inside public</div>
+          <p class="dest-editorial-card-body">New York seems impossible to escape — until you know where to look. Rooftop terraces, private dining rooms, and waterfront spots that give you Manhattan without the crowds.</p>
+        </div>
+      </div>
+      <div class="dest-editorial-pull">
+        <p class="dest-editorial-pull-text">"She thought we were just getting dinner in Brooklyn. When we turned the corner and she saw the Manhattan skyline reflected in the water, she stopped walking."</p>
+        <span class="dest-editorial-pull-attr">— Marcus, Brooklyn Bridge Park</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dest-highlights">
+    <div class="dest-highlights-inner">
+      <div class="dest-highlights-header">
+        <span class="pg-eyebrow" style="text-align:center">Make the most of it</span>
+        <h2 class="dest-highlights-title">Experiencing New York</h2>
+        <p class="dest-highlights-sub">New York proposals succeed when they balance the city's incredible energy with genuine intimacy. Here's how to make the most of it.</p>
+      </div>
+      <div class="dest-highlights-grid">
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🌅</span>
+          <div class="dest-hl-title">Time it for golden hour</div>
+          <p class="dest-hl-body">The hour before sunset turns Manhattan gold. Brooklyn Bridge Park, the High Line at 14th St, and Dumbo are extraordinary in this light. Plan to arrive 45 minutes before.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🌿</span>
+          <div class="dest-hl-title">The Conservatory Garden</div>
+          <p class="dest-hl-body">Central Park's hidden secret — a formal, gated garden on the Upper East Side that sees almost no tourists. The wisteria pergola in spring is one of the most romantic spots in the city.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🍷</span>
+          <div class="dest-hl-title">Dinner after, not before</div>
+          <p class="dest-hl-body">Propose first, then celebrate. Book a table at a restaurant nearby for right after — Gramercy Tavern, Lilia, or Le Bernardin. She'll want to call everyone while you're still out.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">📸</span>
+          <div class="dest-hl-title">Hire a photographer</div>
+          <p class="dest-hl-body">NYC proposal photographers often work as "proposal ambush" specialists — they're hidden nearby, appear only for the moment, and disappear. Your one-line brief: she doesn't know they're there.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🚁</span>
+          <div class="dest-hl-title">Rooftop access</div>
+          <p class="dest-hl-body">Several Manhattan buildings offer private rooftop access for proposals. The view of the skyline from a private terrace is different from any public spot — quieter, more deliberate, more personal.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🌉</span>
+          <div class="dest-hl-title">Brooklyn or Manhattan?</div>
+          <p class="dest-hl-body">Brooklyn gives you Manhattan. Manhattan gives you a skyline that feels abstract from inside it. The best proposals we've seen happen from Brooklyn looking back — specifically Dumbo, Brooklyn Bridge Park Pier 1, or Transmitter Park in Greenpoint.</p>
+        </div>
+      </div>
+      <div class="dest-highlights-tip">
+        <span class="dest-highlights-tip-label">Proposal Spots tip</span>
+        <p class="dest-highlights-tip-text">Avoid Times Square, the Top of the Rock, and the Brooklyn Bridge walkway — all extraordinary in photographs, all impossible for a private proposal. The best New York proposals happen in the places tourists haven't found yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dest-gallery">
+    <span class="dest-gallery-eyebrow">The setting</span>
+    <div class="dest-gallery-masonry">
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop" alt="Manhattan skyline at night, New York" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop" alt="New York City rooftop view at dusk" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop" alt="Romantic bokeh lights, New York evening" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop" alt="Twinkling city lights at golden hour, New York" loading="lazy">
+      </a>
+    </div>
+    <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
+      <img id="gallery-lightbox-img" src="" alt="">
+    </div>
+  </div>
+
+  <div class="dest-landing-budget">
+    <div class="dest-landing-budget-header">
+      <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
+      <h2 class="dest-landing-budget-title">What a Proposal in New York Actually Costs</h2>
+      <p class="dest-landing-budget-sub">What a proposal actually costs here — broken down honestly, category by category. No surprises.</p>
+    </div>
+    <div class="budget-dest-block">
+      <div class="budget-dest-header">
+        <div>
+          <h3 class="budget-dest-name">New York</h3>
+          <p class="budget-dest-tagline">New York proposals are cinematic by default — the city does half the work. The skyline, the light off the water at golden hour, the secret gardens inside one of the most photographed cities on earth. The key is finding the spots that feel private inside the most public city in the world.</p>
+        </div>
+        <div class="budget-dest-range-badge">$400 – $5,000+</div>
+      </div>
+      <div class="budget-table">
+        <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
+        <div class="budget-row"><span>Proposal spot access</span><span>Free – $200</span><span>Included</span></div>
+        <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$300 – $800</span><span>$300 – $800</span></div>
+        <div class="budget-row"><span>Hotel (2 nights, Manhattan)</span><span>—</span><span>$400 – $2,000</span></div>
+        <div class="budget-row"><span>Private dinner reservation</span><span>$100 – $400</span><span>$150 – $500</span></div>
+        <div class="budget-row"><span>Flowers &amp; champagne setup</span><span>$80 – $200</span><span>Often included</span></div>
+        <div class="budget-row budget-row-total"><span>Estimated total</span><span>$480 – $1,600</span><span>$850 – $3,500+</span></div>
+      </div>
+      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Central Park is the most proposed-in place in the world — which means it can feel ordinary. Our vetted NYC spots include private rooftop terraces, hidden garden spaces, and waterfront locations that give you the skyline without the crowd. Golden hour from Brooklyn Bridge Park is free and extraordinary.</p>
+    </div>
+    <div style="text-align:center">
+      <a href="/destinations#budgets" class="pg-cta-btn">See All Destination Budgets →</a>
+    </div>
+  </div>
+
+  <script>
+    const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
+    const DEST_ALIASES = ['new york','usa','united states','nyc','manhattan','brooklyn'];
+
+    function toggleDLPanel(panelId, pillId) {
+      document.querySelectorAll('.results-inline-panel').forEach(p => {
+        if (p.id !== panelId) p.classList.remove('open');
+      });
+      document.getElementById(panelId)?.classList.toggle('open');
+    }
+    function toggleDLTag(el, type, val) {
+      el.classList.toggle('selected');
+      if (dlState[type].has(val)) dlState[type].delete(val); else dlState[type].add(val);
+      const countEl = document.getElementById(`dl${type}-count`);
+      if (countEl) { countEl.textContent = dlState[type].size || ''; countEl.style.display = dlState[type].size ? 'inline' : 'none'; }
+      document.getElementById(`dlpill-${type}`)?.classList.toggle('active', dlState[type].size > 0);
+      renderSpots();
+    }
+    function clearDLFilters() {
+      dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
+      ['dlvibe-count','dlprivacy-count','dlbudget-count'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.textContent = ''; el.style.display = 'none'; }
+      });
+      ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => {
+        document.getElementById(id)?.classList.remove('active');
+      });
+      renderSpots();
+    }
+
+    const privacyEmojiMap = {
+      'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥'
+    };
+    function buildSpotCard(s) {
+      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+      const imgStyle = cardPhoto
+        ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
+        : `background:${s.coverGradient || '#1e2835'};`;
+      const badge = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
+      const privacy = s.Privacy || '';
+      const privEmoji = privacyEmojiMap[privacy] || '';
+      const bestTime = Array.isArray(s['Best Time']) ? s['Best Time'][0] : (s['Best Time'] || '');
+      const hook = s['Hook'] || s['Line Summary'] || '';
+      const price = s['Price Moment'] || s['Moment Price'] || '';
+      const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
+      const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
+      return `
+        <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
+          <div class="spot-card-img">
+            <div class="img-bg" style="${imgStyle}"></div>
+            ${badge}
+            <div class="spot-card-overlay">
+              <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
+              <div class="spot-card-name">${s.Name || ''}</div>
+              ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
+            </div>
+          </div>
+          <div class="spot-card-body">
+            <span class="spot-card-budget-new">${priceStr}</span>
+            <div class="spot-card-meta-tags">
+              ${privEmoji ? `<span class="spot-card-meta-tag">${privEmoji}</span>` : ''}
+              ${bestTime ? `<span class="spot-card-meta-tag">· ${bestTime}</span>` : ''}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    let allSpots = [];
+
+    async function fetchSpots() {
+      try {
+        const res = await fetch('/api/spots');
+        const data = await res.json();
+        const records = data.records || data.spots || data || [];
+        allSpots = records.map(r => {
+          const f = r.fields || r;
+          const id = r.id || r.Slug || '';
+          const rawPrivacy = f['Privacy'] || '';
+          const privacy = rawPrivacy.includes('Private') ? 'Private'
+            : rawPrivacy.includes('Light') ? 'Light Crowd'
+            : rawPrivacy.includes('Moderate') ? 'Moderate Crowd'
+            : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
+            : rawPrivacy;
+          const rawBudget = f['Budget'] || '';
+          const budget = rawBudget === 'Free' ? 'Free'
+            : rawBudget === 'Moderate' ? '$$'
+            : rawBudget === 'Expensive' ? '$$$'
+            : rawBudget === 'Luxury' ? '$$$$'
+            : rawBudget;
+          const bestTime = Array.isArray(f['Best Time'])
+            ? f['Best Time']
+            : (f['Best Time'] ? [f['Best Time']] : []);
+          return {
+            id,
+            Slug:              f['Slug'] || f['slug'] || id,
+            Name:              f['Spot Name'] || f['Name'] || '',
+            Country:           f['Country'] || '',
+            Region:            f['Region / Town'] || f['Region'] || '',
+            Vibe:              f['Vibe'] || '',
+            'Secondary Vibe':  f['Secondary Vibe'] || f['Vibe 2'] || '',
+            Privacy:           privacy,
+            Budget:            budget,
+            'Best Time':       bestTime,
+            'Line Summary':    f['Line Summary'] || '',
+            'Cover Photo':     f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null,
+            'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null,
+            'Hero Position':   f['Hero Position'] || 'center center',
+            'Card Position':   f['Card Position'] || 'center center',
+            badge:             f['Badge'] || null,
+            coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
+            'Price Moment':    f['Price Moment'] || null,
+            'Access & Effort': f['Access & Effort'] || '',
+          };
+        });
+        renderSpots();
+      } catch (e) {
+        console.error('Failed to fetch spots:', e);
+        document.getElementById('dest-landing-grid').innerHTML =
+          '<p style="color:var(--mid);font-size:13px;padding:20px">Unable to load spots right now.</p>';
+      }
+    }
+
+    function renderSpots() {
+      const grid = document.getElementById('dest-landing-grid');
+      const empty = document.getElementById('dest-landing-empty');
+      if (!grid) return;
+      let spots = allSpots.filter(s => {
+        const country = (s.Country || s.country || '').toLowerCase().trim();
+        const region = (s['Region / Town'] || s.Region || '').toLowerCase().trim();
+        if (!country && !region) return false;
+        const matchDest = DEST_ALIASES.some(alias =>
+          country === alias || country.includes(alias) || alias.includes(country) ||
+          region  === alias || region.includes(alias)  || alias.includes(region)
+        );
+        if (!matchDest) return false;
+        if (dlState.vibe.size) {
+          const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
+          if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
+        }
+        if (dlState.privacy.size) {
+          if (![...dlState.privacy].some(v => (s.Privacy||s.privacy||'').includes(v))) return false;
+        }
+        if (dlState.budget.size) {
+          if (![...dlState.budget].some(v => (s.Budget||s.budget||'').includes(v))) return false;
+        }
+        return true;
+      });
+      if (spots.length === 0) {
+        grid.innerHTML = ''; grid.style.display = 'none'; empty.style.display = 'block'; return;
+      }
+      grid.style.display = ''; empty.style.display = 'none';
+      grid.innerHTML = spots.map(s => buildSpotCard(s)).join('');
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.results-panel-wrap')) {
+        document.querySelectorAll('.results-inline-panel').forEach(p => p.classList.remove('open'));
+      }
+    });
+
+    function openLightbox(src) {
+      document.getElementById('gallery-lightbox-img').src = src;
+      document.getElementById('gallery-lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('gallery-lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    fetchSpots();
+  </script>
+</body>
+</html>
