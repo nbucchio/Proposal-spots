@@ -17,6 +17,18 @@
     { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
     { "source": "/destinations/new-york", "destination": "/destinations/new-york.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
+    { "source": "/budget", "destination": "/budget/index.html" },
+    { "source": "/budget/amalfi-coast", "destination": "/budget/amalfi-coast.html" },
+    { "source": "/budget/santorini", "destination": "/budget/santorini.html" },
+    { "source": "/budget/bali", "destination": "/budget/bali.html" },
+    { "source": "/budget/tulum", "destination": "/budget/tulum.html" },
+    { "source": "/budget/maldives", "destination": "/budget/maldives.html" },
+    { "source": "/budget/switzerland", "destination": "/budget/switzerland.html" },
+    { "source": "/budget/costa-rica", "destination": "/budget/costa-rica.html" },
+    { "source": "/budget/nicaragua", "destination": "/budget/nicaragua.html" },
+    { "source": "/budget/algarve", "destination": "/budget/algarve.html" },
+    { "source": "/budget/south-of-france", "destination": "/budget/south-of-france.html" },
+    { "source": "/budget/new-york", "destination": "/budget/new-york.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
