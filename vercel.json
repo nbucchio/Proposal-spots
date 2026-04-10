@@ -17,6 +17,7 @@
     { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
     { "source": "/destinations/new-york", "destination": "/destinations/new-york.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
+    { "source": "/checklist", "destination": "/checklist.html" },
     { "source": "/budget-guide", "destination": "/budget-guide.html" },
     { "source": "/budget/santorini", "destination": "/budget/santorini.html" },
     { "source": "/budget/bali", "destination": "/budget/bali.html" },
