@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Budget Guide — What Does a Destination Proposal Actually Cost?</title>
+  <meta name="description" content="Honest cost breakdowns for destination proposals across 11 locations — from Santorini to Nicaragua. What you'll actually spend, category by category.">
+  <link rel="canonical" href="https://www.proposalspots.com/budget">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="/nav.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f1eb;
+      --bg2: #EDEAE2;
+      --bg3: #E8E4DB;
+      --white: #FDFCFA;
+      --ink: #1a1612;
+      --ink2: #2E2C2A;
+      --mid: #6b6560;
+      --muted: #9E9890;
+      --hairline: rgba(26,22,18,0.1);
+      --divider: #E4E0D8;
+      --accent: #a55a4a;
+    }
+    html { font-size: 16px; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+    #nav-placeholder { position: relative; z-index: 100; }
+
+    /* ── PAGE HEADER ── */
+    .budget-hub-header { padding: 160px 40px 80px; text-align: center; border-bottom: 1px solid var(--hairline); }
+    .pg-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .budget-hub-title { font-family: 'Cormorant', serif; font-size: clamp(32px, 6vw, 64px); font-weight: 300; line-height: 1.05; letter-spacing: 0.02em; color: var(--ink); margin-bottom: 20px; }
+    .budget-hub-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--mid); max-width: 520px; margin: 0 auto; }
+
+    /* ── DESTINATION GRID ── */
+    .budget-hub-body { max-width: 1100px; margin: 0 auto; padding: 80px 40px 100px; }
+    .budget-hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; margin-bottom: 64px; }
+    .budget-hub-card { background: var(--bg); padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; transition: background 0.18s; }
+    .budget-hub-card:hover { background: var(--bg2); }
+    .budget-hub-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .budget-hub-dest { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--ink); line-height: 1.15; }
+    .budget-hub-country { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .budget-hub-range { font-family: 'Cormorant', serif; font-size: 13px; font-weight: 400; color: var(--bg); background: var(--ink); padding: 5px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .budget-hub-tagline { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.7; flex: 1; }
+    .budget-hub-link { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.18s; margin-top: auto; }
+    .budget-hub-link:hover { opacity: 0.7; }
+
+    /* ── BOTTOM CTA ── */
+    .budget-hub-cta { text-align: center; padding: 48px 40px; background: var(--bg2); border-radius: 12px; }
+    .budget-hub-cta-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 14px; }
+    .budget-hub-cta-title { font-family: 'Cormorant', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 300; color: var(--ink); margin-bottom: 10px; }
+    .budget-hub-cta-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
+    .budget-hub-cta-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-decoration: none; border: 1px solid rgba(165,90,74,0.35); border-radius: 100px; padding: 13px 28px; transition: border-color 0.18s; }
+    .budget-hub-cta-btn:hover { border-color: var(--accent); }
+
+    @media (max-width: 860px) {
+      .budget-hub-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .budget-hub-header { padding: 120px 24px 60px; }
+      .budget-hub-body { padding: 60px 24px 80px; }
+      .budget-hub-grid { grid-template-columns: 1fr; }
+      .budget-hub-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <div class="budget-hub-header">
+    <span class="pg-eyebrow">Plan with clarity</span>
+    <h1 class="budget-hub-title">What Does a Destination Proposal Actually Cost?</h1>
+    <p class="budget-hub-sub">Honest, category-by-category cost breakdowns for every destination we cover — from what drives prices up to what can be done beautifully on a lower budget.</p>
+  </div>
+
+  <div class="budget-hub-body">
+    <div class="budget-hub-grid">
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Santorini</div>
+            <div class="budget-hub-country">Greece</div>
+          </div>
+          <span class="budget-hub-range">$800 – $8,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The most photographed proposal backdrop on earth. Premium views command premium prices — but the caldera view itself is free.</p>
+        <a href="/budget/santorini" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Bali</div>
+            <div class="budget-hub-country">Indonesia</div>
+          </div>
+          <span class="budget-hub-range">$400 – $4,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The most value-dense destination on this list. Private villa setups that cost $5,000 in Europe can be arranged for under $1,000.</p>
+        <a href="/budget/bali" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Amalfi Coast</div>
+            <div class="budget-hub-country">Italy</div>
+          </div>
+          <span class="budget-hub-range">$1,000 – $10,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The most cinematic coastline in Europe — with prices to match. The best spots are private terraces most visitors never find.</p>
+        <a href="/budget/amalfi-coast" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Maldives</div>
+            <div class="budget-hub-country">Indian Ocean</div>
+          </div>
+          <span class="budget-hub-range">$2,000 – $15,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The highest-cost destination on this list — and the one where every penny is visible. If the budget allows, nothing else compares.</p>
+        <a href="/budget/maldives" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Tulum</div>
+            <div class="budget-hub-country">Mexico</div>
+          </div>
+          <span class="budget-hub-range">$500 – $5,000+</span>
+        </div>
+        <p class="budget-hub-tagline">Boutique eco-lodges at European prices — but the cenotes themselves cost almost nothing to access, and they're extraordinary.</p>
+        <a href="/budget/tulum" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Costa Rica</div>
+            <div class="budget-hub-country">Central America</div>
+          </div>
+          <span class="budget-hub-range">$400 – $4,000+</span>
+        </div>
+        <p class="budget-hub-tagline">Cloud forests, Pacific cliffs, hidden beaches — dramatic and private settings at a fraction of European prices.</p>
+        <a href="/budget/costa-rica" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Nicaragua</div>
+            <div class="budget-hub-country">Central America</div>
+          </div>
+          <span class="budget-hub-range">$200 – $2,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The most affordable destination on this list. Twin volcanos, crater lakes, colonial cities — almost entirely undiscovered.</p>
+        <a href="/budget/nicaragua" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Algarve</div>
+            <div class="budget-hub-country">Portugal</div>
+          </div>
+          <span class="budget-hub-range">$300 – $3,000+</span>
+        </div>
+        <p class="budget-hub-tagline">Europe's best-value luxury proposal destination. Sea caves and sandstone cliffs that rival the Amalfi Coast at half the price.</p>
+        <a href="/budget/algarve" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">South of France</div>
+            <div class="budget-hub-country">France</div>
+          </div>
+          <span class="budget-hub-range">$800 – $6,000+</span>
+        </div>
+        <p class="budget-hub-tagline">Lavender fields, hilltop villages, the Côte d'Azur. The most romantically varied destination in Europe — and the lavender is free.</p>
+        <a href="/budget/south-of-france" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">Switzerland</div>
+            <div class="budget-hub-country">Alps</div>
+          </div>
+          <span class="budget-hub-range">$1,000 – $8,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The most dramatic natural backdrops in Europe. High baseline costs — but many of the best spots are accessible by hiking, not cable car.</p>
+        <a href="/budget/switzerland" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+      <div class="budget-hub-card">
+        <div class="budget-hub-card-top">
+          <div>
+            <div class="budget-hub-dest">New York</div>
+            <div class="budget-hub-country">USA</div>
+          </div>
+          <span class="budget-hub-range">$400 – $5,000+</span>
+        </div>
+        <p class="budget-hub-tagline">The city does half the work. Hotels are expensive, but the best proposal locations — Brooklyn Bridge Park, the High Line — are free.</p>
+        <a href="/budget/new-york" class="budget-hub-link">Full cost breakdown →</a>
+      </div>
+
+    </div>
+
+    <div class="budget-hub-cta">
+      <span class="budget-hub-cta-label">Free resource</span>
+      <div class="budget-hub-cta-title">Don't forget the checklist</div>
+      <p class="budget-hub-cta-sub">Budgeting is only part of the plan. The free proposal checklist covers everything else — timing, logistics, the ring, the photographer brief.</p>
+      <a href="/checklist" class="budget-hub-cta-btn">Download the free proposal checklist →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
