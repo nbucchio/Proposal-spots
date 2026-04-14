@@ -158,6 +158,7 @@
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
+    ['Italy', 'Europe', 'italy'],
     ['Amalfi Coast', 'Italy', 'amalfi-coast'],
     ['Santorini', 'Greece', 'santorini'],
     ['Bali', 'Indonesia', 'bali'],
