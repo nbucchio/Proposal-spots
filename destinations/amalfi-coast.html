@@ -144,7 +144,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Amalfi Coast good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Amalfi Coast is one of the most cinematic backdrops for a proposal in the world — terraced cliffs, turquoise water, and the scent of lemon groves. The key challenge is logistics: the coast is narrow, boats run on their own schedule, and crowds concentrate at the same viewpoints."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot on the Amalfi Coast?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Privately arranged boat positions on the water offer the most seclusion — you get the full cliff face of Positano or Ravello without sharing it with anyone. Alternatively, boutique hotel terraces in Ravello sit above the crowds with panoramic views and minimal foot traffic."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book an Amalfi Coast proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "6–8 weeks minimum, and longer for peak summer (June–August). Private boat charters and the best terrace restaurants fill early. If you're planning for July, book everything as soon as your travel is confirmed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose on the Amalfi Coast?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "May and September are ideal — warm light, manageable crowds, and the full Mediterranean colour palette. July and August are beautiful but extremely busy. October can be surprisingly clear with almost no tourists and extraordinary golden light."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="nav-root"></div>
@@ -301,6 +361,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">The Amalfi Coast is the most cinematic coastline in Europe. Logistics are the thing nobody talks about.</h2>
+      <p class="dest-expert-body">The Amalfi Coast is the most cinematic coastline in Europe, but logistics are the thing nobody talks about. The coast is narrow, the roads are single-file, and the boat taxis run on their own schedule. Every spot we list accounts for this — you'll know exactly when to be where, and how to get there without stress on the most important day.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is the Amalfi Coast good for proposals?</summary>
+        <p class="dest-faq-answer">The Amalfi Coast is one of the most cinematic backdrops for a proposal in the world — terraced cliffs, turquoise water, and the scent of lemon groves. The key challenge is logistics: the coast is narrow, boats run on their own schedule, and crowds concentrate at the same viewpoints.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot on the Amalfi Coast?</summary>
+        <p class="dest-faq-answer">Privately arranged boat positions on the water offer the most seclusion — you get the full cliff face of Positano or Ravello without sharing it with anyone. Alternatively, boutique hotel terraces in Ravello sit above the crowds with panoramic views and minimal foot traffic.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book an Amalfi Coast proposal?</summary>
+        <p class="dest-faq-answer">6–8 weeks minimum, and longer for peak summer (June–August). Private boat charters and the best terrace restaurants fill early. If you're planning for July, book everything as soon as your travel is confirmed.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose on the Amalfi Coast?</summary>
+        <p class="dest-faq-answer">May and September are ideal — warm light, manageable crowds, and the full Mediterranean colour palette. July and August are beautiful but extremely busy. October can be surprisingly clear with almost no tourists and extraordinary golden light.</p>
+      </details>
+    </div>
+  </section>
 
   <!-- GALLERY -->
   <div class="dest-gallery">

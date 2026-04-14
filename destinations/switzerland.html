@@ -134,7 +134,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Switzerland good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Switzerland is exceptional for proposals at altitude — the scale of the alpine landscape creates a sense of occasion that is hard to manufacture anywhere else. The Jungfrau, Grindelwald, and the Engadine ridge lines offer viewpoints where the moment feels both intimate and enormous."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in Switzerland?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cable car platforms above Grindelwald and the ridge lines of the Engadine offer the most dramatic elevated settings. For genuine seclusion, mountain hut approaches where you're the only guests at altitude — arranged through the right guide — are extraordinary and genuinely private."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a Switzerland proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "6–8 weeks minimum for peak summer (July–August), when mountain platforms, cable cars, and alpine restaurants are at full capacity. The best mountain guides and photographers in the Jungfrau region book well ahead. Off-season (May–June and September–October) allows for shorter lead times."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in Switzerland?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Late June through mid-September for alpine proposals — accessible, clear, and photographically extraordinary at golden hour. September is ideal: the summer crowds have thinned, the mountain huts are still open, and the light has a particular warmth that summer midday doesn't offer."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="nav-root"></div>
@@ -279,6 +339,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">Switzerland proposals almost always involve altitude, and that's exactly right.</h2>
+      <p class="dest-expert-body">Switzerland proposals almost always involve altitude, and that's exactly right. The Jungfrau at golden hour, the cable car platforms above Grindelwald, the ridge lines of the Engadine — these are locations where the scale of the landscape makes the moment feel inevitable. Book well ahead for peak summer; the best mountain platforms have limited access slots.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is Switzerland good for proposals?</summary>
+        <p class="dest-faq-answer">Switzerland is exceptional for proposals at altitude — the scale of the alpine landscape creates a sense of occasion that is hard to manufacture anywhere else. The Jungfrau, Grindelwald, and the Engadine ridge lines offer viewpoints where the moment feels both intimate and enormous.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in Switzerland?</summary>
+        <p class="dest-faq-answer">Cable car platforms above Grindelwald and the ridge lines of the Engadine offer the most dramatic elevated settings. For genuine seclusion, mountain hut approaches where you're the only guests at altitude — arranged through the right guide — are extraordinary and genuinely private.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a Switzerland proposal?</summary>
+        <p class="dest-faq-answer">6–8 weeks minimum for peak summer (July–August), when mountain platforms, cable cars, and alpine restaurants are at full capacity. The best mountain guides and photographers in the Jungfrau region book well ahead. Off-season (May–June and September–October) allows for shorter lead times.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in Switzerland?</summary>
+        <p class="dest-faq-answer">Late June through mid-September for alpine proposals — accessible, clear, and photographically extraordinary at golden hour. September is ideal: the summer crowds have thinned, the mountain huts are still open, and the light has a particular warmth that summer midday doesn't offer.</p>
+      </details>
+    </div>
+  </section>
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>

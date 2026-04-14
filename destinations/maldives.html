@@ -134,7 +134,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Maldives good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Maldives is the easiest proposal destination on this list — the scenery does all the heavy lifting. A private sandbank, the Indian Ocean horizon, and nothing else for miles creates a setting that is almost impossible to photograph badly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in the Maldives?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A private sandbank proposal — arranged through your resort concierge — gives you complete seclusion. Just the two of you, a champagne setup, and an uninterrupted 360-degree horizon. This is the Maldives proposal format that photographers most often call their best work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a Maldives proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "4–6 weeks is typically enough, but sandbank bookings are time-sensitive and tide-dependent. Contact the resort concierge as soon as you know your dates — the best resorts can arrange everything, but they need lead time to coordinate weather, tide windows, and photographer availability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in the Maldives?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "November through April is the dry season and the best window — clear skies, flat ocean, and the extraordinary light that makes Maldives photography so consistent. May through October brings more cloud cover. December is peak season; book well ahead."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="nav-root"></div>
@@ -279,6 +339,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">The Maldives requires the least effort and delivers the most impact of any proposal destination on this list.</h2>
+      <p class="dest-expert-body">The Maldives requires the least effort and delivers the most impact of any proposal destination on this list. The private sandbank proposals are the best we've seen anywhere — just you, the Indian Ocean, and nothing else for miles. The one thing to know: sandbank access is tidal and time-sensitive. Book through a resort concierge who has done this before.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is the Maldives good for proposals?</summary>
+        <p class="dest-faq-answer">The Maldives is the easiest proposal destination on this list — the scenery does all the heavy lifting. A private sandbank, the Indian Ocean horizon, and nothing else for miles creates a setting that is almost impossible to photograph badly.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in the Maldives?</summary>
+        <p class="dest-faq-answer">A private sandbank proposal — arranged through your resort concierge — gives you complete seclusion. Just the two of you, a champagne setup, and an uninterrupted 360-degree horizon. This is the Maldives proposal format that photographers most often call their best work.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a Maldives proposal?</summary>
+        <p class="dest-faq-answer">4–6 weeks is typically enough, but sandbank bookings are time-sensitive and tide-dependent. Contact the resort concierge as soon as you know your dates — the best resorts can arrange everything, but they need lead time to coordinate weather, tide windows, and photographer availability.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in the Maldives?</summary>
+        <p class="dest-faq-answer">November through April is the dry season and the best window — clear skies, flat ocean, and the extraordinary light that makes Maldives photography so consistent. May through October brings more cloud cover. December is peak season; book well ahead.</p>
+      </details>
+    </div>
+  </section>
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>

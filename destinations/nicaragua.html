@@ -153,7 +153,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Nicaragua good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nicaragua is the most underrated proposal destination on our list. Ometepe Island — twin volcanoes rising from a freshwater lake — offers a visual scale and natural privacy that destinations charging ten times more struggle to match. The infrastructure is simpler, but that's exactly what makes private access genuinely private."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in Nicaragua?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ometepe Island's black sand coves and volcano-framing viewpoints offer seclusion that is almost impossible to replicate elsewhere. Because the destination is off the mainstream tourist circuit, private access to extraordinary viewpoints requires only local knowledge — not a significant premium."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a Nicaragua proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "3–5 weeks is generally sufficient, as Nicaragua operates at a slower pace than more crowded destinations. The best local guides and photographers on Ometepe are a small, tight-knit community — connect with them through our curated list or a trusted local contact."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in Nicaragua?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "November through April is the dry season and the most reliable window for outdoor proposals. The lake and volcano views are clearest in the dry months. December and January offer particularly extraordinary light on Ometepe at the hour before sunset."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -308,6 +368,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">Nicaragua is the most underestimated proposal destination on our list.</h2>
+      <p class="dest-expert-body">Nicaragua is the most underestimated proposal destination on our list. Twin volcanoes rising from a freshwater lake, black sand coves, and an island that almost nobody has found yet — Ometepe offers the kind of once-in-a-lifetime visual that Santorini charges ten times more for. The infrastructure is simpler, which means private access is genuinely private.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is Nicaragua good for proposals?</summary>
+        <p class="dest-faq-answer">Nicaragua is the most underrated proposal destination on our list. Ometepe Island — twin volcanoes rising from a freshwater lake — offers a visual scale and natural privacy that destinations charging ten times more struggle to match. The infrastructure is simpler, but that's exactly what makes private access genuinely private.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in Nicaragua?</summary>
+        <p class="dest-faq-answer">Ometepe Island's black sand coves and volcano-framing viewpoints offer seclusion that is almost impossible to replicate elsewhere. Because the destination is off the mainstream tourist circuit, private access to extraordinary viewpoints requires only local knowledge — not a significant premium.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a Nicaragua proposal?</summary>
+        <p class="dest-faq-answer">3–5 weeks is generally sufficient, as Nicaragua operates at a slower pace than more crowded destinations. The best local guides and photographers on Ometepe are a small, tight-knit community — connect with them through our curated list or a trusted local contact.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in Nicaragua?</summary>
+        <p class="dest-faq-answer">November through April is the dry season and the most reliable window for outdoor proposals. The lake and volcano views are clearest in the dry months. December and January offer particularly extraordinary light on Ometepe at the hour before sunset.</p>
+      </details>
+    </div>
+  </section>
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>
