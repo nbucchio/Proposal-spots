@@ -45,7 +45,7 @@
     .results-topbar-left { display: flex; align-items: center; justify-content: center; gap: 10px; flex: 1; flex-wrap: wrap; }
     .results-filter-pill { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; color: var(--mid); background: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
     .results-filter-pill:hover { color: var(--ink); border-color: var(--ink); }
-    .results-filter-pill.active { color: var(--ink); background: var(--bg2); border-color: var(--ink); font-weight: 500; }
+    .results-filter-pill.active { color: var(--accent); border-color: var(--accent); font-weight: 400; }
     .results-filter-pill .pill-count { background: var(--ink); color: var(--white); border-radius: 100px; font-size: 9px; padding: 1px 6px; font-weight: 500; }
     .results-clear { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 7px 0; transition: color 0.2s; margin-left: auto; }
     .results-clear:hover { color: var(--ink); }
@@ -224,8 +224,25 @@
     <div class="results-topbar dest-landing-filter-bar">
       <div class="results-topbar-left">
         <div class="results-panel-wrap">
+          <button class="results-filter-pill" id="dlpill-region" onclick="toggleDLPanel('dl-region-panel','dlpill-region')">
+            <span id="dlregion-label">Region</span>
+          </button>
+          <div class="results-inline-panel" id="dl-region-panel">
+            <span class="inline-panel-label">Select all that apply</span>
+            <div class="inline-tags">
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Amalfi Coast')">🏖 Amalfi Coast</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Lake Como')">🏔 Lake Como</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Tuscany')">🌿 Tuscany</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Rome')">🏛 Rome</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Sicily')">🌊 Sicily</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Portofino')">⛵ Portofino</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Milan')">🏙 Milan</div>
+            </div>
+          </div>
+        </div>
+        <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')">
-            Vibe <span class="pill-count" id="dlvibe-count" style="display:none"></span>
+            <span id="dlvibe-label">Vibe</span>
           </button>
           <div class="results-inline-panel" id="dl-vibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -243,7 +260,7 @@
         </div>
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-privacy" onclick="toggleDLPanel('dl-privacy-panel','dlpill-privacy')">
-            Privacy <span class="pill-count" id="dlprivacy-count" style="display:none"></span>
+            <span id="dlprivacy-label">Privacy</span>
           </button>
           <div class="results-inline-panel" id="dl-privacy-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -257,7 +274,7 @@
         </div>
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-budget" onclick="toggleDLPanel('dl-budget-panel','dlpill-budget')">
-            Budget <span class="pill-count" id="dlbudget-count" style="display:none"></span>
+            <span id="dlbudget-label">Budget</span>
           </button>
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -269,7 +286,6 @@
             </div>
           </div>
         </div>
-        <button class="results-filter-pill" onclick="clearDLFilters()">⚙ All Filters</button>
       </div>
       <button class="results-clear" onclick="clearDLFilters()">Clear all</button>
     </div>
@@ -446,8 +462,41 @@
   </div>
 
   <script>
-    const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
+    const dlState = { region: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
     const DEST_ALIASES = ['italy','amalfi','positano','ravello','praiano','campania'];
+
+    const DL_PILL_LABELS = {
+      region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan' } },
+      vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Boat': 'Boat' } },
+      privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
+      budget:  { label: 'Budget',  names: { '$': 'Free / Low', '$$': 'Moderate', '$$$': 'Expensive', '$$$$': 'Luxury' } }
+    };
+
+    const REGION_KEYWORDS = {
+      'Amalfi Coast': ['amalfi', 'positano', 'ravello', 'praiano', 'campania'],
+      'Lake Como':    ['como', 'lake como'],
+      'Tuscany':      ['tuscany', 'toscana', 'florence', 'firenze', 'siena'],
+      'Rome':         ['rome', 'roma', 'lazio'],
+      'Sicily':       ['sicily', 'sicilia', 'palermo', 'taormina'],
+      'Portofino':    ['portofino', 'liguria', 'cinque terre'],
+      'Milan':        ['milan', 'milano', 'lombardy']
+    };
+
+    function updatePillLabel(type) {
+      var cfg = DL_PILL_LABELS[type];
+      var sel = Array.from(dlState[type]);
+      var pillEl = document.getElementById('dlpill-' + type);
+      var labelEl = document.getElementById('dl' + type + '-label');
+      if (!pillEl || !labelEl || !cfg) return;
+      if (sel.length === 0) {
+        labelEl.textContent = cfg.label;
+        pillEl.classList.remove('active');
+      } else {
+        var names = sel.map(function(v) { return cfg.names[v] || v; }).join(', ');
+        labelEl.textContent = cfg.label + ' \u00b7 ' + names;
+        pillEl.classList.add('active');
+      }
+    }
 
     function toggleDLPanel(panelId, pillId) {
       document.querySelectorAll('.results-inline-panel').forEach(p => {
@@ -458,21 +507,13 @@
     function toggleDLTag(el, type, val) {
       el.classList.toggle('selected');
       if (dlState[type].has(val)) dlState[type].delete(val); else dlState[type].add(val);
-      const countEl = document.getElementById(`dl${type}-count`);
-      if (countEl) { countEl.textContent = dlState[type].size || ''; countEl.style.display = dlState[type].size ? 'inline' : 'none'; }
-      document.getElementById(`dlpill-${type}`)?.classList.toggle('active', dlState[type].size > 0);
+      updatePillLabel(type);
       renderSpots();
     }
     function clearDLFilters() {
-      dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
+      dlState.region.clear(); dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
-      ['dlvibe-count','dlprivacy-count','dlbudget-count'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) { el.textContent = ''; el.style.display = 'none'; }
-      });
-      ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => {
-        document.getElementById(id)?.classList.remove('active');
-      });
+      ['region', 'vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
       renderSpots();
     }
 
@@ -577,6 +618,13 @@
           region === alias || region.includes(alias) || alias.includes(region)
         );
         if (!match) return false;
+        if (dlState.region.size) {
+          const regionStr = (s.Region || '').toLowerCase();
+          if (![...dlState.region].some(v => {
+            const kws = REGION_KEYWORDS[v] || [v.toLowerCase()];
+            return kws.some(kw => regionStr.includes(kw));
+          })) return false;
+        }
         if (dlState.vibe.size) {
           const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
           if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
