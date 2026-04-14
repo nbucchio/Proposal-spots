@@ -153,7 +153,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the South of France good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The South of France offers two completely different proposal experiences in one region: the Côte d'Azur for drama and glamour, and inland Provence for intimacy, lavender fields, and extraordinary photographic light. Choosing between them depends entirely on the kind of moment you're planning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in the South of France?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The lavender plateaux of the Luberon in late June and early July, before the tourist season peaks, offer intimate seclusion with extraordinary photography. The light is soft, the scale is vast, and the colour palette is unlike anything else in Europe. Our vetted Luberon spots are accessible only with a local contact."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a South of France proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "6–8 weeks minimum for Côte d'Azur proposals — the best private yacht charters and terrace restaurants fill early. For Provence and the Luberon, 4–5 weeks is generally sufficient outside of peak lavender season (late June through mid-July)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in the South of France?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Late May, June, and September. Late June through mid-July in Provence coincides with lavender season — extraordinary, but plan ahead. September on the coast offers the same water temperature and light as August with significantly fewer visitors and more genuine hospitality."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -308,6 +368,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">The South of France is a proposal destination in two completely different modes. Most people default to the coast.</h2>
+      <p class="dest-expert-body">The South of France is a proposal destination in two completely different modes: the Côte d'Azur for drama and luxury, and the inland Provence for intimacy and light. Most people default to the coast. The lavender-and-limestone light of Luberon is quieter, more personal, and photographically extraordinary in a way that doesn't look like everyone else's.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is the South of France good for proposals?</summary>
+        <p class="dest-faq-answer">The South of France offers two completely different proposal experiences in one region: the Côte d'Azur for drama and glamour, and inland Provence for intimacy, lavender fields, and extraordinary photographic light. Choosing between them depends entirely on the kind of moment you're planning.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in the South of France?</summary>
+        <p class="dest-faq-answer">The lavender plateaux of the Luberon in late June and early July, before the tourist season peaks, offer intimate seclusion with extraordinary photography. The light is soft, the scale is vast, and the colour palette is unlike anything else in Europe. Our vetted Luberon spots are accessible only with a local contact.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a South of France proposal?</summary>
+        <p class="dest-faq-answer">6–8 weeks minimum for Côte d'Azur proposals — the best private yacht charters and terrace restaurants fill early. For Provence and the Luberon, 4–5 weeks is generally sufficient outside of peak lavender season (late June through mid-July).</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in the South of France?</summary>
+        <p class="dest-faq-answer">Late May, June, and September. Late June through mid-July in Provence coincides with lavender season — extraordinary, but plan ahead. September on the coast offers the same water temperature and light as August with significantly fewer visitors and more genuine hospitality.</p>
+      </details>
+    </div>
+  </section>
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>

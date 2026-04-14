@@ -134,7 +134,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Tulum good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tulum has matured into one of the most sophisticated proposal markets in the Americas. The combination of cenotes, jungle eco-resorts, and Caribbean coastline gives you a range of settings that feel genuinely unlike anywhere else."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in Tulum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Private early-morning cenote access before 7am is the most extraordinary and exclusive option — ancient, crystalline, and completely secluded before the tour groups arrive. Several of our vetted Tulum listings include this as standard. The cenote light at that hour is unlike anything else."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a Tulum proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "4–6 weeks is generally sufficient, but early-morning private cenote access and the best jungle villa photographers can book ahead during high season (December–March). If you're planning over the holidays or spring break, add extra lead time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in Tulum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "November through April — Mexico's dry season — is the ideal window. The humidity drops, the jungle light is extraordinary, and cenote conditions are perfect. December through March is peak season; earlier in the window or late April gives you the same conditions with fewer visitors."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="nav-root"></div>
@@ -279,6 +339,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">Tulum has transformed from a backpacker stop to one of the most sophisticated proposal markets in the Americas.</h2>
+      <p class="dest-expert-body">Tulum has transformed from a backpacker stop to one of the most sophisticated proposal markets in the Americas. The cenote proposals are Tulum's signature — ancient, private, and unlike anything else. The crowd arrives by 9am. Private early-morning access before 7am costs a small premium and is entirely worth it. Several of our spots include this as standard.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is Tulum good for proposals?</summary>
+        <p class="dest-faq-answer">Tulum has matured into one of the most sophisticated proposal markets in the Americas. The combination of cenotes, jungle eco-resorts, and Caribbean coastline gives you a range of settings that feel genuinely unlike anywhere else.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in Tulum?</summary>
+        <p class="dest-faq-answer">Private early-morning cenote access before 7am is the most extraordinary and exclusive option — ancient, crystalline, and completely secluded before the tour groups arrive. Several of our vetted Tulum listings include this as standard. The cenote light at that hour is unlike anything else.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a Tulum proposal?</summary>
+        <p class="dest-faq-answer">4–6 weeks is generally sufficient, but early-morning private cenote access and the best jungle villa photographers can book ahead during high season (December–March). If you're planning over the holidays or spring break, add extra lead time.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in Tulum?</summary>
+        <p class="dest-faq-answer">November through April — Mexico's dry season — is the ideal window. The humidity drops, the jungle light is extraordinary, and cenote conditions are perfect. December through March is peak season; earlier in the window or late April gives you the same conditions with fewer visitors.</p>
+      </details>
+    </div>
+  </section>
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>

@@ -144,7 +144,67 @@
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
+
+    /* ── EXPERT TAKE ── */
+    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
+    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
+    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+
+    /* ── FAQ ── */
+    .dest-faq { padding: 0 40px 80px; background: var(--bg); }
+    .dest-faq-inner { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--hairline); padding-top: 40px; }
+    .dest-faq-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 32px; }
+    .dest-faq details { border-bottom: 1px solid var(--hairline); }
+    .dest-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .dest-faq summary::-webkit-details-marker { display: none; }
+    .dest-faq summary::after { content: '+'; font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .dest-faq details[open] summary::after { transform: rotate(45deg); }
+    .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Bali good for proposals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bali is one of the best-value proposal destinations in the world. Private villa setups, exceptional local photographers, and genuine hospitality make it extraordinary at a fraction of what you'd pay in Europe. The key is choosing spots away from the temple crowds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the most private proposal spot in Bali?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Private infinity pool villa terraces in Ubud and Seminyak offer the most intimate settings. A villa with a rice terrace or jungle valley view gives you complete seclusion with Bali's extraordinary light as a backdrop."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a Bali proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "4–6 weeks is comfortable for most Bali proposals. The best villa photographers and luxury resort concierges can book up during high season (July–August and December). We recommend confirming your key vendors as soon as your flights are locked."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time of year to propose in Bali?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "April through June, and September through October — Bali's dry season. The light is extraordinary, humidity is manageable, and the crowds are thinner than in peak summer. Avoid December through February for outdoor proposals as the rainy season can be unpredictable."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="nav-root"></div>
@@ -301,6 +361,36 @@
       </div>
     </div>
   </div>
+
+  <section class="dest-expert-take">
+    <div class="dest-expert-take-inner">
+      <span class="dest-expert-label">Our Take</span>
+      <h2 class="dest-expert-h2">Bali is the most value-for-money luxury proposal destination in the world. Most people propose in the wrong place.</h2>
+      <p class="dest-expert-body">Bali is the most value-for-money luxury proposal destination in the world. A private villa sunset setup that costs $5,000 in Europe costs $800 here — with better photography and more attentive service. The mistake most people make is proposing at a famous temple, surrounded by tour groups. Our spots are the ones only residents and return visitors know about.</p>
+    </div>
+  </section>
+
+  <section class="dest-faq">
+    <div class="dest-faq-inner">
+      <span class="dest-faq-label">Questions &amp; Answers</span>
+      <details>
+        <summary>Is Bali good for proposals?</summary>
+        <p class="dest-faq-answer">Bali is one of the best-value proposal destinations in the world. Private villa setups, exceptional local photographers, and genuine hospitality make it extraordinary at a fraction of what you'd pay in Europe. The key is choosing spots away from the temple crowds.</p>
+      </details>
+      <details>
+        <summary>What is the most private proposal spot in Bali?</summary>
+        <p class="dest-faq-answer">Private infinity pool villa terraces in Ubud and Seminyak offer the most intimate settings. A villa with a rice terrace or jungle valley view gives you complete seclusion with Bali's extraordinary light as a backdrop.</p>
+      </details>
+      <details>
+        <summary>How far in advance should I book a Bali proposal?</summary>
+        <p class="dest-faq-answer">4–6 weeks is comfortable for most Bali proposals. The best villa photographers and luxury resort concierges can book up during high season (July–August and December). We recommend confirming your key vendors as soon as your flights are locked.</p>
+      </details>
+      <details>
+        <summary>What is the best time of year to propose in Bali?</summary>
+        <p class="dest-faq-answer">April through June, and September through October — Bali's dry season. The light is extraordinary, humidity is manageable, and the crowds are thinner than in peak summer. Avoid December through February for outdoor proposals as the rainy season can be unpredictable.</p>
+      </details>
+    </div>
+  </section>
 
   <!-- GALLERY -->
   <div class="dest-gallery">
