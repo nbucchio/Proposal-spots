@@ -178,9 +178,7 @@
 
   var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
 
-  var howItWorksLink = isIndex
-    ? '<a href="#" id="nav-how-it-works" onclick="showPage(\'how-it-works\'); return false;" class="nav-link-right">How It Works</a>'
-    : '<a href="/how-it-works" class="nav-link-right">How It Works</a>';
+  var howItWorksLink = '<a href="/how-it-works" class="nav-link-right">How It Works</a>';
 
   var faqLink = isIndex
     ? '<a href="#" id="nav-faq" onclick="goToFaq(); return false;" class="nav-link-right">FAQ</a>'
