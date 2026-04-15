@@ -251,10 +251,14 @@
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Volcano')">🌋 Volcano</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','City')">🏙 City</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Jungle')">🌿 Jungle</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Rural')">🌾 Rural</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Boat')">⛵ Boat</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Hiking')">🥾 Hiking</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Luxury')">✨ Luxury</div>
             </div>
           </div>
         </div>
@@ -677,7 +681,7 @@
 
     const DL_PILL_LABELS = {
       region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan' } },
-      vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Boat': 'Boat' } },
+      vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat', 'Hiking': 'Hiking', 'Luxury': 'Luxury' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
       budget:  { label: 'Budget',  names: { '$': 'Free / Low', '$$': 'Moderate', '$$$': 'Expensive', '$$$$': 'Luxury' } }
     };
@@ -780,10 +784,10 @@
             : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
             : rawPrivacy;
           const rawBudget = f['Budget'] || '';
-          const budget = rawBudget === 'Free' ? 'Free'
+          const budget = rawBudget === 'Free' ? '$'
             : rawBudget === 'Moderate' ? '$$'
             : rawBudget === 'Expensive' ? '$$$'
-            : rawBudget === 'Luxury' ? '$$$$'
+            : (rawBudget === 'Luxury' || rawBudget === 'High-End Luxury') ? '$$$$'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return {
@@ -829,18 +833,20 @@
         );
         if (!match) return false;
         if (dlState.region.size) {
-          const regionStr = (s.Region || '').toLowerCase();
+          const regionStr = (Array.isArray(s.Region) ? s.Region.join(' ') : (s.Region || '')).toLowerCase();
           if (![...dlState.region].some(v => {
-            const kws = REGION_KEYWORDS[v] || [v.toLowerCase()];
-            return kws.some(kw => regionStr.includes(kw));
+            const kws = REGION_KEYWORDS[v] || [];
+            return kws.some(kw => regionStr.includes(kw)) || regionStr.includes(v.toLowerCase());
           })) return false;
         }
         if (dlState.vibe.size) {
-          const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
+          const toArr = val => Array.isArray(val) ? val : (val ? [val] : []);
+          const vibeArr = [...toArr(s.Vibe), ...toArr(s['Secondary Vibe'])];
+          const vibeStr = vibeArr.join(' ');
           if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
         }
         if (dlState.privacy.size && ![...dlState.privacy].some(v => (s.Privacy||'').includes(v))) return false;
-        if (dlState.budget.size && ![...dlState.budget].some(v => (s.Budget||'').includes(v))) return false;
+        if (dlState.budget.size && ![...dlState.budget].some(v => (s.Budget||'') === v)) return false;
         return true;
       });
       if (spots.length === 0) {
