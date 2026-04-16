@@ -91,10 +91,11 @@
     .spot-card-market { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,241,235,0.5); display: block; margin-bottom: 5px; }
     .spot-card-name { font-family: 'Cormorant', serif; font-size: 21px; font-weight: 400; color: #fdfcfa; line-height: 1.15; letter-spacing: 0.01em; margin-bottom: 7px; }
     .spot-card-hook { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.68); line-height: 1.5; letter-spacing: 0.01em; font-style: italic; }
-    .spot-card-body { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px 12px; }
-    .spot-card-budget-new { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.02em; }
-    .spot-card-meta-tags { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-    .spot-card-meta-tag { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 300; color: var(--muted); letter-spacing: 0.01em; }
+    .spot-card-body { display: flex; align-items: center; height: 38px; }
+    .spot-card-strip-item { display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1; min-width: 0; }
+    .spot-card-strip-icon { flex-shrink: 0; color: rgba(28,28,28,0.6); }
+    .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     .results-empty { text-align: center; padding: 60px 20px; color: var(--mid); }
     .spots-loading { text-align: center; padding: 60px 20px; color: var(--mid); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
 
@@ -561,7 +562,7 @@
       const badge = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
       const privacy = s.Privacy || '';
       const privEmoji = privacyEmojiMap[privacy] || '';
-      const bestTime = Array.isArray(s['Best Time']) ? s['Best Time'][0] : (s['Best Time'] || '');
+      const vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || '');
       const hook = s['Hook'] || s['Line Summary'] || '';
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
@@ -578,10 +579,27 @@
             </div>
           </div>
           <div class="spot-card-body">
-            <span class="spot-card-budget-new">${priceStr}</span>
-            <div class="spot-card-meta-tags">
-              ${privEmoji ? `<span class="spot-card-meta-tag">${privEmoji}</span>` : ''}
-              ${bestTime ? `<span class="spot-card-meta-tag">· ${bestTime}</span>` : ''}
+            <div class="spot-card-strip-item">
+              <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span class="spot-card-strip-text">${privacy}</span>
+            </div>
+            <div class="spot-card-strip-divider"></div>
+            <div class="spot-card-strip-item">
+              <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path>
+              </svg>
+              <span class="spot-card-strip-text">${s.Budget || ''}</span>
+            </div>
+            <div class="spot-card-strip-divider"></div>
+            <div class="spot-card-strip-item">
+              <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+              <span class="spot-card-strip-text">${vibe}</span>
             </div>
           </div>
         </div>`;
