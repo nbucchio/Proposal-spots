@@ -317,28 +317,49 @@ nav.scrolled {
 }
 
 /* ─────────────────────────────────────
-   HERO — LIGHT EDITORIAL
+   HERO — FULL-BLEED EDITORIAL
 ───────────────────────────────────── */
 .hero {
   min-height: 100vh;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=80&w=1170&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 120px 40px 80px;
+  padding: 120px 5% 80px;
   position: relative;
   overflow: visible;
   z-index: 10;
   isolation: isolate;
 }
 
-/* Thin rule above/below eyebrow */
+/* Directional gradient wash — lifts text off image, invisible when working */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 35%, rgba(245, 240, 232, 0.35) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Bottom scroll transition — hero dissolves into destination grid */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 60%, #f5f0e8 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Thin rule — hidden in full-bleed layout */
 .hero-rule {
-  width: 40px; height: 1px;
-  background: var(--accent2);
-  margin: 0 auto 24px;
-  animation: fadeUp 0.8s ease both;
+  display: none;
 }
 .hero-headline {
   animation: fadeUp 0.8s 0.06s ease both;
@@ -346,28 +367,30 @@ nav.scrolled {
 }
 
 .hero-content {
-  text-align: center;
-  max-width: 680px;
+  text-align: left;
+  max-width: 520px;
+  position: relative;
+  z-index: 1;
 }
 .hero-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #A55A4A;
+  color: rgba(28, 28, 28, 0.6);
   display: block;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 }
 
 .hero-title {
   font-family: 'Cormorant', serif;
-  font-size: clamp(44px, 5.5vw, 72px);
+  font-size: clamp(58px, 4.4vw, 64px);
   font-weight: 300;
   line-height: 1.1;
   color: var(--ink);
   letter-spacing: 0.01em;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 /* Weight contrast — no italic, no color shift */
 .hero-title strong {
@@ -384,7 +407,8 @@ nav.scrolled {
   letter-spacing: 0.1em;
   color: var(--muted);
   text-transform: uppercase;
-  margin-bottom: 52px;
+  margin-bottom: 0;
+  margin-top: 20px;
   line-height: 1.6;
 }
 
@@ -1750,7 +1774,10 @@ footer {
 }
 
 .nav-links { display: none; }
-  .hero { padding: 96px 20px 64px; }
+  .hero { padding: 96px 20px 64px; align-items: center; background-position: 30% center; }
+  .hero-content { max-width: 100%; text-align: center; }
+  .hero-title { font-size: clamp(40px, 9vw, 52px); }
+  .intent-toggle { justify-content: center; }
   .hero-stats { gap: 28px; }
   .section { padding: 64px 20px; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2503,8 +2530,9 @@ footer {
   display: flex;
   align-items: center;
   gap: 16px;
-  justify-content: center;
-  margin-bottom: 28px;
+  justify-content: flex-start;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 .intent-opt {
   font-family: 'Jost', sans-serif;
@@ -4660,22 +4688,10 @@ footer {
 <section class="hero">
   <div class="hero-rule"></div>
   <div class="hero-content">
-    <span class="hero-eyebrow">A curated archive of proposal locations</span>
+    <span class="hero-eyebrow">A Curated World of Proposal Settings</span>
     <h1 class="hero-title">
       Find the perfect place<br>to <strong>propose.</strong>
     </h1>
-    <p class="hero-sub">11 destinations &nbsp;·&nbsp; 140+ vetted spots &nbsp;·&nbsp; Expertly curated</p>
-
-    <!-- INTENT TOGGLE -->
-    <div class="intent-toggle">
-      <button class="intent-opt active" id="intent-moment" onclick="setIntent('moment')">
-        Just the Moment
-      </button>
-      <span class="intent-sep">·</span>
-      <button class="intent-opt" id="intent-stay" onclick="setIntent('stay')">
-        Moment + Hotel Stay
-      </button>
-    </div>
 
     <!-- SEARCH -->
     <div class="search-container">
@@ -4818,6 +4834,19 @@ footer {
       <div class="active-tags-row" id="active-tags"></div>
       </div><!-- end search-container-inner -->
     </div><!-- end search-container -->
+
+    <!-- INTENT TOGGLE -->
+    <div class="intent-toggle">
+      <button class="intent-opt active" id="intent-moment" onclick="setIntent('moment')">
+        Just the Moment
+      </button>
+      <span class="intent-sep">·</span>
+      <button class="intent-opt" id="intent-stay" onclick="setIntent('stay')">
+        Moment + Hotel Stay
+      </button>
+    </div>
+
+    <p class="hero-sub">11 destinations &nbsp;·&nbsp; 140+ vetted spots &nbsp;·&nbsp; Expertly curated</p>
   </div>
 
   <!-- STATS -->
