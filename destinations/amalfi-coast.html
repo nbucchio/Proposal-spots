@@ -549,7 +549,6 @@
           const budget = rawBudget === 'Free' ? 'Free'
             : rawBudget === 'Moderate' ? '$$'
             : rawBudget === 'Expensive' ? '$$$'
-            : rawBudget === 'Luxury' ? '$$$$'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return {
