@@ -6558,7 +6558,7 @@ function buildSpotCard(s) {
   const saved    = (typeof savedSpotIds !== 'undefined') && savedSpotIds.includes(s.id);
   const privacy  = s.Privacy || '';
   const privEmoji = privacyEmojiMap[privacy] || '';
-  const bestTime = s['Best Time'] || s['Best Time of Day'] || '';
+  const vibe     = Array.isArray(s['Vibe']) ? s['Vibe'][0] : (s['Vibe'] || '');
   const hook     = s['Hook'] || s['Line Summary'] || '';
   const price    = s['Moment Price'] || s['Price'] || '';
   const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
@@ -6592,18 +6592,11 @@ function buildSpotCard(s) {
         </div>
         <div class="spot-card-strip-divider"></div>
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7.01" y2="7"></line>
           </svg>
-          <span class="spot-card-strip-text">${bestTime}</span>
+          <span class="spot-card-strip-text">${vibe}</span>
         </div>
       </div>
     </div>`;
