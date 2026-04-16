@@ -134,48 +134,117 @@ nav.scrolled {
 }
 .nav-dest-footer a:hover { color: var(--ink); }
 
-/* Search destination dropdown */
-.search-dest-dropdown {
+/* ─────────────────────────────────────
+   SEGMENTED SEARCH BAR
+───────────────────────────────────── */
+.ssb-wrap {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  z-index: 10000;
+  overflow: visible;
+  min-height: 66px;
+}
+.ssb-segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  cursor: pointer;
+  border-radius: 100px;
+  position: relative;
+  transition: background 0.15s;
+  user-select: none;
+  min-width: 0;
+}
+.ssb-segment:hover,
+.ssb-segment.open {
+  background: var(--bg2);
+}
+.ssb-seg-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ssb-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.ssb-value {
+  font-family: 'Cormorant', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ssb-value.placeholder {
+  color: var(--hairline);
+  font-weight: 300;
+}
+.ssb-div {
+  width: 1px;
+  background: var(--divider);
+  align-self: stretch;
+  margin: 14px 0;
+  flex-shrink: 0;
+}
+.ssb-btn {
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: 100px;
+  padding: 0 30px;
+  margin: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.ssb-btn:hover { background: var(--accent); }
+.ssb-dropdown {
+  display: none;
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   left: 0;
-  right: 0;
+  min-width: 230px;
   background: var(--white);
   border: 1px solid var(--hairline);
   border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 16px 48px rgba(28,28,28,0.12);
-  z-index: 8000;
-  display: none;
+  padding: 8px 0;
+  z-index: 11000;
+  box-shadow: 0 16px 48px rgba(28,28,28,0.10);
 }
-.search-dest-dropdown.open { display: block; }
-.search-dest-heading {
+.ssb-dropdown.open { display: block; }
+.ssb-dd-item {
   font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.search-dest-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.search-dest-chip {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 300;
   color: var(--ink);
-  background: var(--bg2);
-  border: 1px solid var(--hairline);
-  border-radius: 100px;
-  padding: 7px 14px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  transition: background 0.12s;
+  white-space: nowrap;
 }
-.search-dest-chip:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ssb-dd-item:hover { background: var(--bg2); }
+.ssb-dd-item.selected { color: var(--accent); font-weight: 400; }
 
 .nav-links {
   display: flex;
@@ -332,86 +401,6 @@ nav.scrolled {
   animation: fadeUp 0.8s 0.12s ease both;
 }
 
-.search-bar-wrap {
-  background: var(--white);
-  border: 1px solid var(--hairline);
-  display: flex;
-  align-items: stretch;
-  position: relative;
-  z-index: 10000;
-}
-
-.search-input-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 14px;
-  position: relative;
-}
-
-.search-icon {
-  color: var(--hairline);
-  flex-shrink: 0;
-  display: flex; align-items: center;
-  pointer-events: none;
-}
-.search-icon svg { width: 15px; height: 15px; stroke-width: 1.5; }
-
-.search-input-inner {
-  flex: 1;
-  padding: 16px 0;
-}
-.search-input-inner label {
-  display: block;
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-.search-input-inner input {
-  display: block;
-  width: 100%;
-  background: none;
-  border: none;
-  outline: none;
-  font-family: 'Cormorant', serif;
-  font-size: 17px;
-  font-weight: 400;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-}
-.search-input-inner input::placeholder {
-  color: var(--hairline);
-  font-weight: 300;
-}
-
-.search-divider {
-  width: 1px;
-  background: var(--divider);
-  align-self: stretch;
-  flex-shrink: 0;
-}
-
-.search-btn {
-  flex-shrink: 0;
-  background: var(--ink);
-  color: var(--bg);
-  border: none;
-  padding: 0 28px;
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
-  transition: background 0.2s;
-}
-.search-btn:hover { background: var(--accent); }
-.search-btn svg { width: 13px; height: 13px; }
 
 /* Autocomplete */
 .autocomplete {
@@ -1727,48 +1716,38 @@ footer {
 }
 .nav-dest-footer a:hover { color: var(--ink); }
 
-/* Search destination dropdown */
-.search-dest-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background: var(--white);
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 16px 48px rgba(28,28,28,0.12);
-  z-index: 8000;
-  display: none;
+/* Mobile segmented search bar */
+.ssb-wrap {
+  flex-direction: column;
+  border-radius: 20px;
+  min-height: auto;
 }
-.search-dest-dropdown.open { display: block; }
-.search-dest-heading {
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
+.ssb-segment {
+  border-radius: 20px;
+  padding: 14px 20px;
+  width: 100%;
 }
-.search-dest-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.ssb-div {
+  width: auto;
+  height: 1px;
+  margin: 0 16px;
 }
-.search-dest-chip {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--ink);
-  background: var(--bg2);
-  border: 1px solid var(--hairline);
-  border-radius: 100px;
-  padding: 7px 14px;
-  cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.04em;
+.ssb-btn {
+  margin: 8px 12px 12px;
+  padding: 16px 28px;
+  text-align: center;
+  display: block;
+  width: calc(100% - 24px);
 }
-.search-dest-chip:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ssb-dropdown {
+  position: static;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--divider);
+  padding: 4px 0 8px;
+  min-width: 0;
+}
 
 .nav-links { display: none; }
   .hero { padding: 96px 20px 64px; }
@@ -1781,7 +1760,6 @@ footer {
   .seo-inner { grid-template-columns: 1fr; gap: 40px; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
-  .search-btn { padding: 0 18px; }
   .filter-pills-row { overflow-x: auto; scrollbar-width: none; }
   .filter-pills-row::-webkit-scrollbar { display: none; }
 }
@@ -4702,49 +4680,80 @@ footer {
     <!-- SEARCH -->
     <div class="search-container">
       <div class="search-container-inner">
-      <div class="search-bar-wrap">
-        <div class="search-input-wrap">
-          <div class="search-icon">
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
-              <circle cx="9" cy="9" r="6"/><path d="M15 15l3 3" stroke-linecap="round"/>
-            </svg>
+      <!-- Hidden inputs kept for backwards-compat with existing JS -->
+      <input type="hidden" id="search-main" value="">
+      <div id="ac-main" style="display:none"></div>
+
+      <!-- SEGMENTED SEARCH BAR -->
+      <div class="ssb-wrap" id="ssb-wrap">
+
+        <!-- Destination -->
+        <div class="ssb-segment" id="ssb-dest-seg" onclick="ssbToggle('dest')">
+          <div class="ssb-seg-inner">
+            <span class="ssb-label">Destination</span>
+            <span class="ssb-value placeholder" id="ssb-dest-val">Any Destination</span>
           </div>
-          <div class="search-input-inner">
-            <label>Where do you want to propose?</label>
-            <input
-              type="text"
-              id="search-main"
-              placeholder="Country · Region · City"
-              autocomplete="off"
-              oninput="filterAC(this.value); showSearchDestDropdown(this.value)"
-              onfocus="showSearchDestDropdown(this.value)"
-            >
-          </div>
-          <div class="autocomplete" id="ac-main"></div>
-          <div class="search-dest-dropdown" id="search-dest-dropdown">
-            <div class="search-dest-heading">Browse all destinations</div>
-            <div class="search-dest-chips">
-              <div class="search-dest-chip" onclick="pickSearchDest('Amalfi Coast')">Amalfi Coast</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Santorini')">Santorini</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Bali')">Bali</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Tulum')">Tulum</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Maldives')">Maldives</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Costa Rica')">Costa Rica</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Nicaragua')">Nicaragua</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Algarve')">Algarve</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('South of France')">South of France</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('Switzerland')">Switzerland</div>
-              <div class="search-dest-chip" onclick="pickSearchDest('New York')">New York</div>
-            </div>
+          <div class="ssb-dropdown" id="ssb-dest-dd" onclick="event.stopPropagation()">
+            <div class="ssb-dd-item" data-slug="" onclick="ssbPickDest('','Any Destination')">Any Destination</div>
+            <div class="ssb-dd-item" data-slug="amalfi-coast" onclick="ssbPickDest('amalfi-coast','Amalfi Coast — Italy')">Amalfi Coast — Italy</div>
+            <div class="ssb-dd-item" data-slug="bali" onclick="ssbPickDest('bali','Bali — Indonesia')">Bali — Indonesia</div>
+            <div class="ssb-dd-item" data-slug="lake-como" onclick="ssbPickDest('lake-como','Lake Como — Italy')">Lake Como — Italy</div>
+            <div class="ssb-dd-item" data-slug="maldives" onclick="ssbPickDest('maldives','Maldives — Maldives')">Maldives — Maldives</div>
+            <div class="ssb-dd-item" data-slug="milan" onclick="ssbPickDest('milan','Milan — Italy')">Milan — Italy</div>
+            <div class="ssb-dd-item" data-slug="nicaragua" onclick="ssbPickDest('nicaragua','Nicaragua — Nicaragua')">Nicaragua — Nicaragua</div>
+            <div class="ssb-dd-item" data-slug="portugal" onclick="ssbPickDest('portugal','Portugal — Portugal')">Portugal — Portugal</div>
+            <div class="ssb-dd-item" data-slug="santorini" onclick="ssbPickDest('santorini','Santorini — Greece')">Santorini — Greece</div>
+            <div class="ssb-dd-item" data-slug="south-of-france" onclick="ssbPickDest('south-of-france','South of France — France')">South of France — France</div>
+            <div class="ssb-dd-item" data-slug="switzerland" onclick="ssbPickDest('switzerland','Switzerland — Switzerland')">Switzerland — Switzerland</div>
+            <div class="ssb-dd-item" data-slug="tulum" onclick="ssbPickDest('tulum','Tulum — Mexico')">Tulum — Mexico</div>
           </div>
         </div>
-        <div class="search-divider"></div>
-        <button class="search-btn" onclick="doSearch()">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="9" cy="9" r="6"/><path d="M15 15l3 3" stroke-linecap="round"/>
-          </svg>
-          Search
-        </button>
+
+        <div class="ssb-div"></div>
+
+        <!-- Vibe -->
+        <div class="ssb-segment" id="ssb-vibe-seg" onclick="ssbToggle('vibe')">
+          <div class="ssb-seg-inner">
+            <span class="ssb-label">Vibe</span>
+            <span class="ssb-value placeholder" id="ssb-vibe-val">Any Vibe</span>
+          </div>
+          <div class="ssb-dropdown" id="ssb-vibe-dd" onclick="event.stopPropagation()">
+            <div class="ssb-dd-item" data-slug="" onclick="ssbPickVibe('','Any Vibe')">Any Vibe</div>
+            <div class="ssb-dd-item" data-slug="beach" onclick="ssbPickVibe('beach','Beach')">Beach</div>
+            <div class="ssb-dd-item" data-slug="mountain" onclick="ssbPickVibe('mountain','Mountain')">Mountain</div>
+            <div class="ssb-dd-item" data-slug="cliff" onclick="ssbPickVibe('cliff','Cliff')">Cliff</div>
+            <div class="ssb-dd-item" data-slug="lake" onclick="ssbPickVibe('lake','Lake')">Lake</div>
+            <div class="ssb-dd-item" data-slug="volcano" onclick="ssbPickVibe('volcano','Volcano')">Volcano</div>
+            <div class="ssb-dd-item" data-slug="ocean" onclick="ssbPickVibe('ocean','Ocean')">Ocean</div>
+            <div class="ssb-dd-item" data-slug="city" onclick="ssbPickVibe('city','City')">City</div>
+            <div class="ssb-dd-item" data-slug="jungle" onclick="ssbPickVibe('jungle','Jungle')">Jungle</div>
+            <div class="ssb-dd-item" data-slug="luxury" onclick="ssbPickVibe('luxury','Luxury')">Luxury</div>
+            <div class="ssb-dd-item" data-slug="hiking" onclick="ssbPickVibe('hiking','Hiking')">Hiking</div>
+            <div class="ssb-dd-item" data-slug="rural" onclick="ssbPickVibe('rural','Rural')">Rural</div>
+            <div class="ssb-dd-item" data-slug="boat" onclick="ssbPickVibe('boat','Boat')">Boat</div>
+            <div class="ssb-dd-item" data-slug="desert" onclick="ssbPickVibe('desert','Desert')">Desert</div>
+          </div>
+        </div>
+
+        <div class="ssb-div"></div>
+
+        <!-- Budget -->
+        <div class="ssb-segment" id="ssb-budget-seg" onclick="ssbToggle('budget')">
+          <div class="ssb-seg-inner">
+            <span class="ssb-label">Budget</span>
+            <span class="ssb-value placeholder" id="ssb-budget-val">Any Budget</span>
+          </div>
+          <div class="ssb-dropdown" id="ssb-budget-dd" onclick="event.stopPropagation()">
+            <div class="ssb-dd-item" data-slug="" onclick="ssbPickBudget('','Any Budget')">Any Budget</div>
+            <div class="ssb-dd-item" data-slug="affordable" onclick="ssbPickBudget('affordable','$ Affordable')">$ Affordable</div>
+            <div class="ssb-dd-item" data-slug="premium" onclick="ssbPickBudget('premium','$$ Premium')">$$ Premium</div>
+            <div class="ssb-dd-item" data-slug="luxury" onclick="ssbPickBudget('luxury','$$$ Luxury')">$$$ Luxury</div>
+          </div>
+        </div>
+
+        <!-- Search button -->
+        <button class="ssb-btn" onclick="doSSBSearch()">Search &rarr;</button>
+
       </div>
 
       <!-- FILTER PILLS -->
@@ -9193,6 +9202,150 @@ function doSearch() {
 document.getElementById('search-main').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
+
+// ── Segmented Search Bar ────────────────────────
+var _ssbState = { destination: '', vibe: '', budget: '' };
+
+function ssbToggle(seg) {
+  var segs = ['dest', 'vibe', 'budget'];
+  segs.forEach(function(s) {
+    var segEl = document.getElementById('ssb-' + s + '-seg');
+    var dd    = document.getElementById('ssb-' + s + '-dd');
+    if (!segEl || !dd) return;
+    if (s === seg) {
+      var isOpen = segEl.classList.contains('open');
+      segEl.classList.toggle('open', !isOpen);
+      dd.classList.toggle('open', !isOpen);
+    } else {
+      segEl.classList.remove('open');
+      dd.classList.remove('open');
+    }
+  });
+}
+
+function ssbCloseAll() {
+  ['dest', 'vibe', 'budget'].forEach(function(s) {
+    document.getElementById('ssb-' + s + '-seg')?.classList.remove('open');
+    document.getElementById('ssb-' + s + '-dd')?.classList.remove('open');
+  });
+}
+
+function ssbPickDest(slug, label) {
+  _ssbState.destination = slug;
+  var val = document.getElementById('ssb-dest-val');
+  if (val) {
+    val.textContent = label;
+    val.classList.toggle('placeholder', !slug);
+  }
+  document.querySelectorAll('#ssb-dest-dd .ssb-dd-item').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.slug === slug);
+  });
+  ssbCloseAll();
+}
+
+function ssbPickVibe(slug, label) {
+  _ssbState.vibe = slug;
+  var val = document.getElementById('ssb-vibe-val');
+  if (val) {
+    val.textContent = label;
+    val.classList.toggle('placeholder', !slug);
+  }
+  document.querySelectorAll('#ssb-vibe-dd .ssb-dd-item').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.slug === slug);
+  });
+  ssbCloseAll();
+}
+
+function ssbPickBudget(slug, label) {
+  _ssbState.budget = slug;
+  var val = document.getElementById('ssb-budget-val');
+  if (val) {
+    val.textContent = label;
+    val.classList.toggle('placeholder', !slug);
+  }
+  document.querySelectorAll('#ssb-budget-dd .ssb-dd-item').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.slug === slug);
+  });
+  ssbCloseAll();
+}
+
+function doSSBSearch() {
+  var params = new URLSearchParams();
+  if (_ssbState.destination) params.set('destination', _ssbState.destination);
+  if (_ssbState.vibe)        params.set('vibe',        _ssbState.vibe);
+  if (_ssbState.budget)      params.set('budget',      _ssbState.budget);
+  var qs = params.toString();
+  window.location.href = '/search' + (qs ? '?' + qs : '');
+}
+
+// Close SSB dropdowns on outside click
+document.addEventListener('mousedown', function(e) {
+  var wrap = document.getElementById('ssb-wrap');
+  if (wrap && !wrap.contains(e.target)) ssbCloseAll();
+});
+
+// ── /search page initialisation ─────────────────
+// Reads URL params when landing on /search and seeds
+// the existing filter state before showing results.
+function initSearchPage() {
+  if (window.location.pathname !== '/search') return;
+  var params = new URLSearchParams(window.location.search);
+
+  var DEST_MAP = {
+    'amalfi-coast':    'Amalfi Coast',
+    'bali':            'Bali',
+    'lake-como':       'Lake Como',
+    'maldives':        'Maldives',
+    'milan':           'Milan',
+    'nicaragua':       'Nicaragua',
+    'portugal':        'Portugal',
+    'santorini':       'Santorini',
+    'south-of-france': 'South of France',
+    'switzerland':     'Switzerland',
+    'tulum':           'Tulum'
+  };
+
+  var BUDGET_MAP = {
+    'affordable': '$$',
+    'premium':    '$$$',
+    'luxury':     '$$$$'
+  };
+
+  var destSlug   = params.get('destination') || '';
+  var vibeSlug   = params.get('vibe')        || '';
+  var budgetSlug = params.get('budget')      || '';
+
+  // Destination — feeds the text-search path in getFilteredSpots
+  if (destSlug && DEST_MAP[destSlug]) {
+    var inp = document.getElementById('search-main');
+    if (inp) inp.value = DEST_MAP[destSlug];
+  }
+
+  // Vibe — capitalise first letter and add to state.vibe Set
+  if (vibeSlug) {
+    var vibeVal = vibeSlug.charAt(0).toUpperCase() + vibeSlug.slice(1);
+    state.vibe.add(vibeVal);
+  }
+
+  // Budget — map slug to the value getFilteredSpots understands
+  if (budgetSlug && BUDGET_MAP[budgetSlug]) {
+    state.budget.add(BUDGET_MAP[budgetSlug]);
+  }
+
+  // Wait for Airtable data then show results
+  function tryShow() {
+    if (allSpots.length > 0) {
+      showPage('results');
+      syncResultsPills();
+      renderResultsPage();
+      window.scrollTo(0, 0);
+    } else {
+      setTimeout(tryShow, 200);
+    }
+  }
+  tryShow();
+}
+initSearchPage();
 
 // ── Results page render ─────────────────────────
 function renderResultsPage() {
