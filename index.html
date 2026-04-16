@@ -6400,7 +6400,6 @@ async function fetchFromAirtable() {
       const budget = rawBudget === 'Free' ? 'Free'
         : rawBudget === 'Moderate' ? '$$'
         : rawBudget === 'Expensive' ? '$$$'
-        : rawBudget === 'Luxury' ? '$$$$'
         : rawBudget;
 
       // Vibe Secondary — multi-select, filter out non-vibe values like "Luxury"

@@ -838,7 +838,6 @@
           const budget = rawBudget === 'Free' ? '$'
             : rawBudget === 'Moderate' ? '$$'
             : rawBudget === 'Expensive' ? '$$$'
-            : (rawBudget === 'Luxury' || rawBudget === 'High-End Luxury') ? '$$$$'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return {
@@ -884,7 +883,7 @@
         );
         if (!match) return false;
         if (dlState.region.size) {
-          const regionStr = (s.Region || '').toLowerCase();
+          const regionStr = ((s.Region || '') + ' ' + (s.Country || '')).toLowerCase();
           if (![...dlState.region].some(v => {
             const kws = REGION_KEYWORDS[v] || [v.toLowerCase()];
             return kws.some(kw => regionStr.includes(kw));

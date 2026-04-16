@@ -471,7 +471,7 @@
           const rawPrivacy = f['Privacy'] || '';
           const privacy = rawPrivacy.includes('Private') ? 'Private' : rawPrivacy.includes('Light') ? 'Light Crowd' : rawPrivacy.includes('Moderate') ? 'Moderate Crowd' : rawPrivacy.includes('Everyone') ? 'Everyone Will See' : rawPrivacy;
           const rawBudget = f['Budget'] || '';
-          const budget = rawBudget === 'Free' ? 'Free' : rawBudget === 'Moderate' ? '$$' : rawBudget === 'Expensive' ? '$$$' : rawBudget === 'Luxury' ? '$$$$' : rawBudget;
+          const budget = rawBudget === 'Free' ? 'Free' : rawBudget === 'Moderate' ? '$$' : rawBudget === 'Expensive' ? '$$$' : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return { id, Slug: f['Slug'] || f['slug'] || id, Name: f['Spot Name'] || f['Name'] || '', Country: f['Country'] || '', Region: f['Region / Town'] || f['Region'] || '', Vibe: f['Vibe'] || '', 'Secondary Vibe': f['Secondary Vibe'] || '', Privacy: privacy, Budget: budget, 'Best Time': bestTime, 'Line Summary': f['Line Summary'] || '', 'Cover Photo': f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null, 'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Hero Position': f['Hero Position'] || 'center center', 'Card Position': f['Card Position'] || 'center center', badge: f['Badge'] || null, coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)', 'Price Moment': f['Price Moment'] || null };
         });
