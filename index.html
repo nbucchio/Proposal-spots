@@ -322,14 +322,14 @@ nav.scrolled {
 .hero {
   min-height: 100vh;
   background-color: var(--bg);
-  background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=80&w=1170&auto=format&fit=crop');
+  background-image: url('leo_visions-hqUkno6qO9Q-unsplash.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
-  padding: 120px 5% 80px;
+  padding: 120px 5% 80px 45%;
   position: relative;
   overflow: visible;
   z-index: 10;
@@ -352,7 +352,7 @@ nav.scrolled {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 100%;
-  background: linear-gradient(to bottom, transparent 60%, #f5f0e8 100%);
+  background: linear-gradient(to bottom, transparent 85%, #f5f0e8 100%);
   z-index: 0;
   pointer-events: none;
 }
@@ -378,7 +378,7 @@ nav.scrolled {
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(28, 28, 28, 0.6);
+  color: var(--accent);
   display: block;
   margin-bottom: 1.5rem;
 }
@@ -1778,7 +1778,6 @@ footer {
   .hero-content { max-width: 100%; text-align: center; }
   .hero-title { font-size: clamp(40px, 9vw, 52px); }
   .intent-toggle { justify-content: center; }
-  .hero-stats { gap: 28px; }
   .section { padding: 64px 20px; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
   .market-card:first-child { min-height: 280px; }
@@ -2531,8 +2530,8 @@ footer {
   align-items: center;
   gap: 16px;
   justify-content: flex-start;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 .intent-opt {
   font-family: 'Jost', sans-serif;
@@ -2540,7 +2539,7 @@ footer {
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   background: none;
   border: none;
   cursor: pointer;
@@ -4700,6 +4699,17 @@ footer {
       <input type="hidden" id="search-main" value="">
       <div id="ac-main" style="display:none"></div>
 
+      <!-- INTENT TOGGLE — sits flush above search bar -->
+      <div class="intent-toggle">
+        <button class="intent-opt active" id="intent-moment" onclick="setIntent('moment')">
+          Just the Moment
+        </button>
+        <span class="intent-sep">·</span>
+        <button class="intent-opt" id="intent-stay" onclick="setIntent('stay')">
+          Moment + Hotel Stay
+        </button>
+      </div>
+
       <!-- SEGMENTED SEARCH BAR -->
       <div class="ssb-wrap" id="ssb-wrap">
 
@@ -4772,99 +4782,10 @@ footer {
 
       </div>
 
-      <!-- FILTER PILLS -->
-      <div class="filter-pills-row">
-
-        <button class="pill-btn" id="pill-vibe" onclick="toggleInlinePanel('vibe-panel', 'pill-vibe')">
-          Vibe
-          <span class="pill-count" id="vibe-count" style="display:none">0</span>
-          <svg class="pill-chevron" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg>
-        </button>
-
-        <button class="pill-btn" id="pill-privacy" onclick="toggleInlinePanel('privacy-panel', 'pill-privacy')">
-          Privacy
-          <span class="pill-count" id="privacy-count" style="display:none">0</span>
-          <svg class="pill-chevron" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg>
-        </button>
-
-        <button class="pill-btn" id="pill-filters" onclick="openPanel()">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6">
-            <line x1="1" y1="2.5" x2="11" y2="2.5"/>
-            <line x1="1" y1="6"   x2="11" y2="6"/>
-            <line x1="1" y1="9.5" x2="11" y2="9.5"/>
-            <circle cx="4"  cy="2.5" r="1.2" fill="currentColor" stroke="none"/>
-            <circle cx="8"  cy="6"   r="1.2" fill="currentColor" stroke="none"/>
-            <circle cx="5"  cy="9.5" r="1.2" fill="currentColor" stroke="none"/>
-          </svg>
-          All Filters
-          <span class="pill-count" id="filter-count" style="display:none">0</span>
-        </button>
-
-      </div>
-
-      <!-- VIBE INLINE PANEL -->
-      <div class="inline-panel" id="vibe-panel">
-        <div class="inline-panel-label">Select all that apply</div>
-        <div class="inline-tags">
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Beach')">🏖 Beach</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Mountain')">⛰ Mountain</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Cliff')">🏔 Cliff</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Lake')">🏞 Lake</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Volcano')">🌋 Volcano</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Ocean')">🌊 Ocean</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','City')">🏙 City</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Jungle')">🌿 Jungle</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Rural')">🌾 Rural</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'vibe','Boat')">⛵ Boat</div>
-        </div>
-      </div>
-
-      <!-- PRIVACY INLINE PANEL -->
-      <div class="inline-panel" id="privacy-panel">
-        <div class="inline-panel-label">Select all that apply</div>
-        <div class="inline-tags">
-          <div class="filter-tag" onclick="toggleInlineTag(this,'privacy','Private')">🔒 Private — No crowds</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'privacy','Light Crowd')">👥 Light Crowd</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'privacy','Moderate Crowd')">👥👥 Moderate Crowd</div>
-          <div class="filter-tag" onclick="toggleInlineTag(this,'privacy','Everyone Will See')">👥👥👥 Everyone Will See</div>
-        </div>
-      </div>
-
       <!-- ACTIVE TAGS -->
       <div class="active-tags-row" id="active-tags"></div>
       </div><!-- end search-container-inner -->
     </div><!-- end search-container -->
-
-    <!-- INTENT TOGGLE -->
-    <div class="intent-toggle">
-      <button class="intent-opt active" id="intent-moment" onclick="setIntent('moment')">
-        Just the Moment
-      </button>
-      <span class="intent-sep">·</span>
-      <button class="intent-opt" id="intent-stay" onclick="setIntent('stay')">
-        Moment + Hotel Stay
-      </button>
-    </div>
-
-    <p class="hero-sub">11 destinations &nbsp;·&nbsp; 140+ vetted spots &nbsp;·&nbsp; Expertly curated</p>
-  </div>
-
-  <!-- STATS -->
-  <div class="hero-stats" id="hero-stats">
-    <div class="hero-stat">
-      <span class="hero-stat-num">11</span>
-      <span class="hero-stat-label">Destinations</span>
-    </div>
-    <div class="hero-stat-div"></div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">140+</span>
-      <span class="hero-stat-label">Curated Spots</span>
-    </div>
-    <div class="hero-stat-div"></div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">100%</span>
-      <span class="hero-stat-label">Expert Vetted</span>
-    </div>
   </div>
 </section>
 
