@@ -282,10 +282,9 @@
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$')">$ Free / Low</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$')">$$ Moderate</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$$')">$$$ Expensive</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','$$$$')">$$$$ Luxury</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
             </div>
           </div>
         </div>
@@ -718,7 +717,7 @@
       region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan' } },
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-      budget:  { label: 'Budget',  names: { '$': 'Free / Low', '$$': 'Moderate', '$$$': 'Expensive', '$$$$': 'Luxury' } }
+      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
     };
 
     const REGION_KEYWORDS = {
