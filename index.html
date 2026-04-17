@@ -4699,17 +4699,6 @@ footer {
       <input type="hidden" id="search-main" value="">
       <div id="ac-main" style="display:none"></div>
 
-      <!-- INTENT TOGGLE — sits flush above search bar -->
-      <div class="intent-toggle">
-        <button class="intent-opt active" id="intent-moment" onclick="setIntent('moment')">
-          Just the Moment
-        </button>
-        <span class="intent-sep">·</span>
-        <button class="intent-opt" id="intent-stay" onclick="setIntent('stay')">
-          Moment + Hotel Stay
-        </button>
-      </div>
-
       <!-- SEGMENTED SEARCH BAR -->
       <div class="ssb-wrap" id="ssb-wrap">
 
@@ -4805,15 +4794,13 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">Greece</span>
           <span class="market-card-name">Santorini</span>
-          <span class="market-card-count">8 spots</span>
         </div>
       </div>
-      <div class="market-card" onclick="goMarket('amalfi-coast')">
+      <div class="market-card" onclick="window.location.href='/destinations/italy'">
         <div class="market-card-bg mc-amalfi"></div>
         <div class="market-card-info">
-          <span class="market-card-region">Italy</span>
-          <span class="market-card-name">Amalfi Coast</span>
-          <span class="market-card-count">12 proposal spots</span>
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Italy</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('bali')">
@@ -4821,7 +4808,6 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">Indonesia</span>
           <span class="market-card-name">Bali</span>
-          <span class="market-card-count">10 spots</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('tulum')">
@@ -4829,7 +4815,6 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">Mexico</span>
           <span class="market-card-name">Tulum</span>
-          <span class="market-card-count">9 spots</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('costa-rica')">
@@ -4837,7 +4822,6 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">Central America</span>
           <span class="market-card-name">Costa Rica</span>
-          <span class="market-card-count">6 spots</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('maldives')">
@@ -4845,7 +4829,6 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">Indian Ocean</span>
           <span class="market-card-name">Maldives</span>
-          <span class="market-card-count">7 spots</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('south-of-france')">
@@ -4853,7 +4836,6 @@ footer {
         <div class="market-card-info">
           <span class="market-card-region">France</span>
           <span class="market-card-name">South of France</span>
-          <span class="market-card-count">11 spots</span>
         </div>
       </div>
     </div>
