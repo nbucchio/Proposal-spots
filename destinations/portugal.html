@@ -277,7 +277,6 @@
             </div>
           </div>
         </div>
-        <button class="results-filter-pill" onclick="clearDLFilters()">⚙ All Filters</button>
       </div>
       <button class="results-clear" onclick="clearDLFilters()">Clear all</button>
     </div>
@@ -289,6 +288,12 @@
       <div class="results-empty" id="dest-landing-empty" style="display:none">
         <p>No spots match your filters.</p>
         <button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;margin-top:16px;">Clear Filters</button>
+      </div>
+      <div id="dest-landing-coming-soon" style="display:none;text-align:center;padding:100px 20px 80px;">
+        <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#A55A4A;display:block;margin-bottom:24px;">Coming Soon</span>
+        <p style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,46px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:16px;">We're curating something<br><em>extraordinary</em> here.</p>
+        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.8;max-width:460px;margin:0 auto 36px;">Our editors are on the ground, vetting only the spots worth proposing at. This destination opens soon.</p>
+        <a href="/destinations" style="display:inline-block;background:var(--ink);color:var(--bg);font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;padding:14px 36px;border-radius:24px;text-decoration:none;">Explore All Destinations</a>
       </div>
     </div>
   </div>
@@ -448,8 +453,9 @@
       </div>
       <p class="budget-tip"><strong>Proposal Spots tip:</strong> The Benagil Cave at golden hour — after tour boats leave — costs almost nothing and looks extraordinary. Golden hour kayak access is the move.</p>
     </div>
-    <div style="text-align:center">
-      <a href="/budget-guide" class="pg-cta-btn">See All Destination Budgets →</a>
+    <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
+      <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Portugal proposal spot →</a>
+      <a href="/budget-guide" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
     </div>
   </div>
 
@@ -595,16 +601,27 @@
     function renderSpots() {
       const grid = document.getElementById('dest-landing-grid');
       const empty = document.getElementById('dest-landing-empty');
+      const comingSoon = document.getElementById('dest-landing-coming-soon');
       if (!grid) return;
-      let spots = allSpots.filter(s => {
+      const destSpots = allSpots.filter(s => {
         const country = (s.Country || s.country || '').toLowerCase().trim();
         const region = (s['Region / Town'] || s.Region || '').toLowerCase().trim();
         if (!country && !region) return false;
-        const matchDest = DEST_ALIASES.some(alias =>
+        return DEST_ALIASES.some(alias =>
           country === alias || country.includes(alias) || alias.includes(country) ||
           region  === alias || region.includes(alias)  || alias.includes(region)
         );
-        if (!matchDest) return false;
+      });
+      if (destSpots.length === 0) {
+        grid.innerHTML = ''; grid.style.display = 'none';
+        if (empty) empty.style.display = 'none';
+        if (comingSoon) comingSoon.style.display = 'block';
+        const filterBar = document.querySelector('.dest-landing-filter-bar');
+        if (filterBar) filterBar.style.display = 'none';
+        return;
+      }
+      if (comingSoon) comingSoon.style.display = 'none';
+      let spots = destSpots.filter(s => {
         if (dlState.vibe.size) {
           const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
           if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;

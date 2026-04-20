@@ -4789,13 +4789,6 @@ footer {
       <a href="#" class="section-link" style="color:#A55A4A;font-weight:500" onclick="showPage('destinations'); return false;">All destinations →</a>
     </div>
     <div class="markets-grid" style="cursor:pointer">
-      <div class="market-card" onclick="goMarket('santorini')">
-        <div class="market-card-bg mc-santorini"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Greece</span>
-          <span class="market-card-name">Santorini</span>
-        </div>
-      </div>
       <div class="market-card" onclick="window.location.href='/destinations/italy'">
         <div class="market-card-bg mc-amalfi"></div>
         <div class="market-card-info">
@@ -4803,11 +4796,18 @@ footer {
           <span class="market-card-name">Italy</span>
         </div>
       </div>
-      <div class="market-card" onclick="goMarket('bali')">
-        <div class="market-card-bg mc-bali"></div>
+      <div class="market-card" onclick="goMarket('santorini')">
+        <div class="market-card-bg mc-santorini"></div>
         <div class="market-card-info">
-          <span class="market-card-region">Indonesia</span>
-          <span class="market-card-name">Bali</span>
+          <span class="market-card-region">Greece</span>
+          <span class="market-card-name">Santorini</span>
+        </div>
+      </div>
+      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
+        <div class="market-card-bg mc-algarve"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Portugal</span>
+          <span class="market-card-name">Algarve</span>
         </div>
       </div>
       <div class="market-card" onclick="goMarket('tulum')">
@@ -9167,7 +9167,7 @@ function ssbPickDest(slug, label) {
   var val = document.getElementById('ssb-dest-val');
   if (val) {
     val.textContent = label;
-    val.classList.toggle('placeholder', !slug);
+    val.classList.remove('placeholder');
   }
   document.querySelectorAll('#ssb-dest-dd .ssb-dd-item').forEach(function(el) {
     el.classList.toggle('selected', el.dataset.slug === slug);
@@ -9180,7 +9180,7 @@ function ssbPickVibe(slug, label) {
   var val = document.getElementById('ssb-vibe-val');
   if (val) {
     val.textContent = label;
-    val.classList.toggle('placeholder', !slug);
+    val.classList.remove('placeholder');
   }
   document.querySelectorAll('#ssb-vibe-dd .ssb-dd-item').forEach(function(el) {
     el.classList.toggle('selected', el.dataset.slug === slug);
@@ -9193,7 +9193,7 @@ function ssbPickBudget(slug, label) {
   var val = document.getElementById('ssb-budget-val');
   if (val) {
     val.textContent = label;
-    val.classList.toggle('placeholder', !slug);
+    val.classList.remove('placeholder');
   }
   document.querySelectorAll('#ssb-budget-dd .ssb-dd-item').forEach(function(el) {
     el.classList.toggle('selected', el.dataset.slug === slug);
