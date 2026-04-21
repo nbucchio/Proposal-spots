@@ -2567,6 +2567,13 @@ function updateSelectionSummary() {
   if (pd1) lines.push('Proposal: ' + fmt(pd1));
   if (pd2) lines.push('Backup: ' + fmt(pd2));
 
+  document.querySelectorAll('#sdp-tier-addons input:checked').forEach(cb => {
+    const row = cb.closest('.sdp-tier-addon-row');
+    const priceEl = row ? row.querySelector('.sdp-tier-addon-price') : null;
+    const priceText = priceEl ? ' ' + priceEl.textContent.trim() : '';
+    lines.push(cb.value + priceText);
+  });
+
   items.innerHTML = lines.map(l => `<div class="sdp-selection-item"><span class="sdp-selection-dot"></span><span>${l}</span></div>`).join('');
   block.style.display = lines.length ? '' : 'none';
 }
@@ -3310,7 +3317,7 @@ function _renderTierAddons(spot) {
         : '+' + a.price;
     }
     return '<label class="sdp-tier-addon-row">' +
-      '<input type="checkbox" value="' + a.name + '">' +
+      '<input type="checkbox" value="' + a.name + '" onchange="updateSelectionSummary()">' +
       '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
       (pLabel ? '<span class="sdp-tier-addon-price">' + pLabel + '</span>' : '') +
     '</label>';
