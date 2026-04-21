@@ -3047,7 +3047,10 @@ async function submitEnquiry() {
   let addons = [];
   if (isTieredSubmit) {
     // Collect addons selected in the listing-page sidebar enhance step
-    addons = [...document.querySelectorAll('#sdp-tier-addons input:checked')].map(cb => cb.value);
+    addons = [...document.querySelectorAll('#sdp-tier-addons input:checked')].map(cb => {
+      const price = cb.dataset.price;
+      return price ? `${cb.value} (${price})` : cb.value;
+    });
   } else {
     const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
     const _addonPriceMap = {};
@@ -3076,6 +3079,7 @@ async function submitEnquiry() {
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
+    pricingModel: currentSpot?.['Pricing Model'] || 'Single Price',
     contactPreference: getContactPreference(),
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
@@ -3311,13 +3315,19 @@ function _renderTierAddons(spot) {
   stepEnhance.style.display = '';
   container.innerHTML = visible.map(function(a) {
     var pLabel = '';
+    var pAttr = '';
     if (a.price !== null && a.price !== undefined) {
-      pLabel = typeof a.price === 'number'
-        ? '+$' + Math.round(a.price).toLocaleString()
-        : '+' + a.price;
+      if (typeof a.price === 'number') {
+        pLabel = '+$' + Math.round(a.price).toLocaleString();
+        pAttr  = '$' + Math.round(a.price).toLocaleString();
+      } else {
+        var ps = String(a.price);
+        pLabel = '+' + ps;
+        pAttr  = ps.startsWith('$') ? ps : '$' + ps;
+      }
     }
     return '<label class="sdp-tier-addon-row">' +
-      '<input type="checkbox" value="' + a.name + '" onchange="updateSelectionSummary()">' +
+      '<input type="checkbox" value="' + a.name + '" ' + (pAttr ? 'data-price="' + pAttr + '" ' : '') + 'onchange="updateSelectionSummary()">' +
       '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
       (pLabel ? '<span class="sdp-tier-addon-price">' + pLabel + '</span>' : '') +
     '</label>';
