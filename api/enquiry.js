@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons, contactPreference, photographyQuote,
+    proposalDate, backupDate, notes, addons, selectedTier, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
 
@@ -52,8 +52,9 @@ export default async function handler(req, res) {
               ...(Array.isArray(hotelIds) && hotelIds.length ? { 'Linked Hotel': hotelIds } : {}),
               'Source':              'Website',
               'Internal Notes':      [
-                spotName  ? `Spot: ${spotName}`        : '',
-                backupDate ? `Backup Date: ${backupDate}` : '',
+                spotName     ? `Spot: ${spotName}`           : '',
+                selectedTier ? `Package: ${selectedTier}`    : '',
+                backupDate   ? `Backup Date: ${backupDate}`  : '',
               ].filter(Boolean).join('\n') || '',
             },
           }],
