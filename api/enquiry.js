@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons, photographyQuote,
+    proposalDate, backupDate, notes, addons, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
 
@@ -44,6 +44,7 @@ export default async function handler(req, res) {
               ...(hotelCheckin  ? { 'Check In':       hotelCheckin  } : {}),
               ...(hotelCheckout ? { 'Check Out':      hotelCheckout } : {}),
               ...(proposalDate  ? { 'Proposal Night': proposalDate  } : {}),
+              ...(contactPreference ? { 'Contact Preference': contactPreference } : {}),
               'Special Requests':    notes || '',
               'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
               ...(photographyQuote && photographyQuote !== 'No' ? { 'Photography Quote Request': photographyQuote } : {}),

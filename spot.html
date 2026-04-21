@@ -1750,6 +1750,13 @@ nav {
       </div>
     </div>
     <div class="enq-form-field">
+      <label class="enq-label">Preferred contact</label>
+      <div class="enq-photo-pills">
+        <button type="button" class="enq-photo-pill" id="enq-contact-email" onclick="enqContactToggle('email')">Email</button>
+        <button type="button" class="enq-photo-pill" id="enq-contact-whatsapp" onclick="enqContactToggle('whatsapp')">WhatsApp</button>
+      </div>
+    </div>
+    <div class="enq-form-field">
       <label class="enq-label">Partner's first name</label>
       <input type="text" id="enq-partner" class="enq-input" placeholder="Sofia">
     </div>
@@ -2271,15 +2278,14 @@ function updateSelectionSummary() {
   if (!block || !items) return;
 
   const lines = [];
-  const pkgLabel = selectedPackage === 'hotel' ? 'The Moment + Hotel stay' : 'The Moment';
-  lines.push(pkgLabel);
+  lines.push('The Moment');
 
   const ci = document.getElementById('sdp-checkin')?.value;
   const co = document.getElementById('sdp-checkout')?.value;
-  if (selectedPackage === 'hotel' && ci && co) {
+  if (ci && co) {
     const nights = Math.round((new Date(co + 'T00:00:00') - new Date(ci + 'T00:00:00')) / 86400000);
     const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    lines.push(fmt(ci) + ' – ' + fmt(co) + ' · ' + nights + ' night' + (nights !== 1 ? 's' : ''));
+    lines.push('Hotel: ' + fmt(ci) + ' – ' + fmt(co) + ' · ' + nights + ' night' + (nights !== 1 ? 's' : ''));
   }
 
   if (photographerAddonActive) lines.push('Photographer add-on');
@@ -2693,6 +2699,10 @@ function openEnquiryModal() {
   // Pre-fill email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
 
+  // Reset contact preference
+  document.getElementById('enq-contact-email')?.classList.remove('selected');
+  document.getElementById('enq-contact-whatsapp')?.classList.remove('selected');
+
   // Reset photo quote to default No
   enqPhotoToggle('no');
   var subPills = document.querySelectorAll('#enq-photo-sub-pills .enq-photo-pill');
@@ -2753,6 +2763,7 @@ async function submitEnquiry() {
     backupDate: document.getElementById('enq-backup-date')?.value || '',
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
+    contactPreference: getContactPreference(),
     photographyQuote: getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
@@ -2831,6 +2842,17 @@ function enqPhotoToggle(choice) {
     yesBtn.classList.remove('selected');
     expand.classList.remove('open');
   }
+}
+
+function enqContactToggle(val) {
+  document.getElementById('enq-contact-email').classList.toggle('selected', val === 'email');
+  document.getElementById('enq-contact-whatsapp').classList.toggle('selected', val === 'whatsapp');
+}
+
+function getContactPreference() {
+  if (document.getElementById('enq-contact-email')?.classList.contains('selected')) return 'Email';
+  if (document.getElementById('enq-contact-whatsapp')?.classList.contains('selected')) return 'WhatsApp';
+  return '';
 }
 
 function enqPhotoSubPill(el) {
