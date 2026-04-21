@@ -2245,6 +2245,9 @@ function populateSpot(s) {
   const tieredSection = document.getElementById('sdp-tiered-section');
   const isTiered = s['Pricing Model'] === 'Tiered' && s.packages && s.packages.length > 0;
 
+  // Temporary debug — remove once confirmed working
+  console.log('[Tiered debug] Pricing Model:', JSON.stringify(s['Pricing Model']), '| packages length:', (s.packages || []).length, '| packages:', s.packages);
+
   if (isTiered) {
     // Tiered: show packages block, hide standard included section
     includedSection.style.display = 'none';
