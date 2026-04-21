@@ -33,39 +33,50 @@ export default async function handler(req, res) {
       offset = data.offset || null;
     } while (offset);
 
-    // Fetch active packages from the Packages table, sorted by Sort Order asc
+    // Fetch all packages (no server-side filter/sort — done in JS below for resilience)
     const packagesBySpot = {};
     try {
       let allPackages = [];
       let pkgOffset = null;
-      const pkgFormula = encodeURIComponent(`{Is Active}=1`);
 
       do {
-        const pkgUrl = `https://api.airtable.com/v0/${BASE}/Packages?filterByFormula=${pkgFormula}&sort%5B0%5D%5Bfield%5D=Sort+Order&sort%5B0%5D%5Bdirection%5D=asc&pageSize=100${pkgOffset ? '&offset=' + encodeURIComponent(pkgOffset) : ''}`;
+        const pkgUrl = `https://api.airtable.com/v0/${BASE}/Packages?pageSize=100${pkgOffset ? '&offset=' + encodeURIComponent(pkgOffset) : ''}`;
         const pkgResp = await fetch(pkgUrl, {
           headers: { Authorization: `Bearer ${TOKEN}` }
         });
-        if (!pkgResp.ok) break;
+
+        if (!pkgResp.ok) {
+          const pkgErr = await pkgResp.json().catch(() => ({}));
+          console.error('[spots] Packages fetch failed:', pkgResp.status, JSON.stringify(pkgErr));
+          break;
+        }
+
         const pkgData = await pkgResp.json();
         allPackages = allPackages.concat(pkgData.records || []);
         pkgOffset = pkgData.offset || null;
       } while (pkgOffset);
 
-      allPackages.forEach(pkg => {
-        const spotIds = Array.isArray(pkg.fields['Spot']) ? pkg.fields['Spot'] : [];
-        spotIds.forEach(spotId => {
-          if (!packagesBySpot[spotId]) packagesBySpot[spotId] = [];
-          packagesBySpot[spotId].push({
-            'Tier Name':  pkg.fields['Tier Name']  || '',
-            'Price':      pkg.fields['Price']       || null,
-            'Includes':   pkg.fields['Includes']    || '',
-            'Sort Order': pkg.fields['Sort Order']  || 0,
-            'Is Active':  pkg.fields['Is Active']   || false,
+      console.log('[spots] Packages fetched:', allPackages.length);
+
+      // Keep only active packages, sort by Sort Order, group by linked spot ID
+      allPackages
+        .filter(pkg => pkg.fields['Is Active'])
+        .sort((a, b) => ((a.fields['Sort Order'] || 0) - (b.fields['Sort Order'] || 0)))
+        .forEach(pkg => {
+          const spotIds = Array.isArray(pkg.fields['Spot']) ? pkg.fields['Spot'] : [];
+          spotIds.forEach(spotId => {
+            if (!packagesBySpot[spotId]) packagesBySpot[spotId] = [];
+            packagesBySpot[spotId].push({
+              'Tier Name':  pkg.fields['Tier Name']  || '',
+              'Price':      pkg.fields['Price']       || null,
+              'Includes':   pkg.fields['Includes']    || '',
+              'Sort Order': pkg.fields['Sort Order']  || 0,
+              'Is Active':  pkg.fields['Is Active']   || false,
+            });
           });
         });
-      });
     } catch (pkgErr) {
-      // Packages fetch failed — continue without packages
+      console.error('[spots] Packages fetch exception:', pkgErr.message);
     }
 
     // Attach packages array to each spot record
