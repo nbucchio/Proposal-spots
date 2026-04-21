@@ -12,6 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Fetch all published spots
     const formula = encodeURIComponent(`{Status}="Published"`);
     let allRecords = [];
     let offset = null;
@@ -32,7 +33,48 @@ export default async function handler(req, res) {
       offset = data.offset || null;
     } while (offset);
 
-    res.status(200).json({ records: allRecords });
+    // Fetch active packages from the Packages table, sorted by Sort Order asc
+    const packagesBySpot = {};
+    try {
+      let allPackages = [];
+      let pkgOffset = null;
+      const pkgFormula = encodeURIComponent(`{Is Active}=1`);
+
+      do {
+        const pkgUrl = `https://api.airtable.com/v0/${BASE}/Packages?filterByFormula=${pkgFormula}&sort%5B0%5D%5Bfield%5D=Sort+Order&sort%5B0%5D%5Bdirection%5D=asc&pageSize=100${pkgOffset ? '&offset=' + encodeURIComponent(pkgOffset) : ''}`;
+        const pkgResp = await fetch(pkgUrl, {
+          headers: { Authorization: `Bearer ${TOKEN}` }
+        });
+        if (!pkgResp.ok) break;
+        const pkgData = await pkgResp.json();
+        allPackages = allPackages.concat(pkgData.records || []);
+        pkgOffset = pkgData.offset || null;
+      } while (pkgOffset);
+
+      allPackages.forEach(pkg => {
+        const spotIds = Array.isArray(pkg.fields['Spot']) ? pkg.fields['Spot'] : [];
+        spotIds.forEach(spotId => {
+          if (!packagesBySpot[spotId]) packagesBySpot[spotId] = [];
+          packagesBySpot[spotId].push({
+            'Tier Name':  pkg.fields['Tier Name']  || '',
+            'Price':      pkg.fields['Price']       || null,
+            'Includes':   pkg.fields['Includes']    || '',
+            'Sort Order': pkg.fields['Sort Order']  || 0,
+            'Is Active':  pkg.fields['Is Active']   || false,
+          });
+        });
+      });
+    } catch (pkgErr) {
+      // Packages fetch failed — continue without packages
+    }
+
+    // Attach packages array to each spot record
+    const records = allRecords.map(record => ({
+      ...record,
+      packages: packagesBySpot[record.id] || [],
+    }));
+
+    res.status(200).json({ records });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
