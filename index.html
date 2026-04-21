@@ -5697,11 +5697,6 @@ footer {
           </div>
         </div>
 
-        <!-- All Filters pill -->
-        <button class="results-filter-pill" id="rpill-all" onclick="openPanel()">
-          ⚙ All Filters
-          <span class="pill-count" id="rfilter-count" style="display:none"></span>
-        </button>
 
       </div>
       <button class="results-clear" onclick="clearAllFilters(); renderResultsPage()">Clear all</button>
@@ -9425,11 +9420,9 @@ function syncResultsPills() {
   const vEl = document.getElementById('rpill-vibe');
   const pEl = document.getElementById('rpill-privacy');
   const cEl = document.getElementById('rpill-country');
-  const fEl = document.getElementById('rpill-all');
   const vcEl = document.getElementById('rvibe-count');
   const pcEl = document.getElementById('rprivacy-count');
   const ccEl = document.getElementById('rcountry-count');
-  const fcEl = document.getElementById('rfilter-count');
 
   if (vEl)  vEl.classList.toggle('active', state.vibe.size > 0);
   if (vcEl) { vcEl.style.display = state.vibe.size > 0 ? '' : 'none'; vcEl.textContent = state.vibe.size; }
@@ -9438,9 +9431,6 @@ function syncResultsPills() {
   const cs = state.country?.size || 0;
   if (cEl)  cEl.classList.toggle('active', cs > 0);
   if (ccEl) { ccEl.style.display = cs > 0 ? '' : 'none'; ccEl.textContent = cs; }
-  const total = state.budget.size + state.food.size + state.time.size + state.effort.size + (state.toggles.heels ? 1 : 0);
-  if (fEl)  fEl.classList.toggle('active', total > 0);
-  if (fcEl) { fcEl.style.display = total > 0 ? '' : 'none'; fcEl.textContent = total; }
   syncResultsTagSelectedStates();
 }
 
@@ -9472,7 +9462,7 @@ function syncResultsTagSelectedStates() {
 document.addEventListener('click', e => {
   // Results page panels
   if (document.getElementById('page-results')?.classList.contains('active')) {
-    if (!e.target.closest('#page-results .results-panel-wrap') && !e.target.closest('#rpill-all')) {
+    if (!e.target.closest('#page-results .results-panel-wrap')) {
       document.querySelectorAll('#page-results .results-inline-panel').forEach(p => p.classList.remove('open'));
     }
   }
