@@ -1393,7 +1393,7 @@ nav {
   position: relative;
 }
 .sdp-tier-row:last-child { border-bottom: none; }
-.sdp-tier-row-popular { border-top: 2px solid #c9a96e; }
+.sdp-tier-row-popular { border-top: 2px solid var(--accent); }
 .sdp-tier-left {
   background: #eee8dc;
   padding: 20px 16px;
@@ -1429,7 +1429,7 @@ nav {
 }
 .sdp-tier-popular-badge {
   display: inline-block;
-  background: #c9a96e;
+  background: var(--accent);
   color: #f5f0e8;
   font-family: 'Jost', sans-serif;
   font-size: 9px;
@@ -1456,7 +1456,7 @@ nav {
 .sdp-tier-dot {
   width: 4px;
   height: 4px;
-  background: #c9a96e;
+  background: var(--accent);
   border-radius: 50%;
   flex-shrink: 0;
   margin-top: 6px;
@@ -1491,7 +1491,7 @@ nav {
   margin-bottom: 6px;
 }
 .sdp-tier-sel-row:last-child { margin-bottom: 0; }
-.sdp-tier-sel-row.selected { border: 2px solid #c9a96e; }
+.sdp-tier-sel-row.selected { border: 2px solid var(--accent); }
 .sdp-tier-sel-dot {
   width: 14px;
   height: 14px;
@@ -1504,8 +1504,8 @@ nav {
   transition: background 0.15s, border-color 0.15s;
 }
 .sdp-tier-sel-row.selected .sdp-tier-sel-dot {
-  background: #c9a96e;
-  border-color: #c9a96e;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 .sdp-tier-sel-dot-inner {
   width: 5px;
@@ -1543,7 +1543,7 @@ nav {
   width: 14px;
   height: 14px;
   cursor: pointer;
-  accent-color: #c9a96e;
+  accent-color: var(--accent);
   flex-shrink: 0;
 }
 .sdp-tier-addon-name {
@@ -2023,7 +2023,7 @@ nav {
     </div>
 
     <!-- Photography quote -->
-    <div class="enq-photo-section">
+    <div class="enq-photo-section" id="enq-photo-section">
       <div class="enq-section-divider">
         <span class="enq-section-label">Would you like a photography quote?</span>
       </div>
@@ -2953,33 +2953,42 @@ function openEnquiryModal() {
     enqHotelSection.style.display = 'none';
   }
 
-  // Dynamic add-ons from current spot
+  // Dynamic add-ons from current spot (hidden for tiered pricing — already selected in sidebar)
   const addonsSection = document.getElementById('enq-addons-section');
   const addonsList    = document.getElementById('enq-addons-list');
-  const spot          = currentSpot;
-  const spotAddons    = spot?.['Add-ons'] || [];
-  const priceText     = spot?.['Add-on Prices'] || '';
-  const priceMap = {};
-  priceText.split('\n').forEach(line => {
-    const parts = line.split('|').map(s => s.trim());
-    if (parts.length === 2) {
-      priceMap[parts[0]] = parts[1];
-      priceMap[parts[0].toLowerCase()] = parts[1];
+  const photoSection  = document.getElementById('enq-photo-section');
+  const isTieredEnq   = !!(currentSpot?.['Pricing Model'] === 'Tiered' && currentSpot?.packages?.length);
+
+  if (isTieredEnq) {
+    if (addonsSection) addonsSection.style.display = 'none';
+    if (photoSection)  photoSection.style.display  = 'none';
+  } else {
+    if (photoSection) photoSection.style.display = '';
+    const spot      = currentSpot;
+    const spotAddons = spot?.['Add-ons'] || [];
+    const priceText  = spot?.['Add-on Prices'] || '';
+    const priceMap = {};
+    priceText.split('\n').forEach(line => {
+      const parts = line.split('|').map(s => s.trim());
+      if (parts.length === 2) {
+        priceMap[parts[0]] = parts[1];
+        priceMap[parts[0].toLowerCase()] = parts[1];
+      }
+    });
+    const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
+    if (addonsSection && addonsList && addonItems.length) {
+      addonsList.innerHTML = addonItems.map(item => {
+        const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
+        const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price TBD' : '+' + price}</span>` : '';
+        return `<label class="enq-addon-check">
+          <input type="checkbox" value="${item}">
+          <span>${item}</span>${priceLabel}
+        </label>`;
+      }).join('');
+      addonsSection.style.display = '';
+    } else if (addonsSection) {
+      addonsSection.style.display = 'none';
     }
-  });
-  const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
-  if (addonsSection && addonsList && addonItems.length) {
-    addonsList.innerHTML = addonItems.map(item => {
-      const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
-      const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price TBD' : '+' + price}</span>` : '';
-      return `<label class="enq-addon-check">
-        <input type="checkbox" value="${item}">
-        <span>${item}</span>${priceLabel}
-      </label>`;
-    }).join('');
-    addonsSection.style.display = '';
-  } else if (addonsSection) {
-    addonsSection.style.display = 'none';
   }
 
   // Pre-fill email
@@ -3024,16 +3033,26 @@ async function submitEnquiry() {
     return;
   }
 
-  const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
-  const _addonPriceMap = {};
-  _addonPriceText.split('\n').forEach(line => {
-    const parts = line.split('|').map(s => s.trim());
-    if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
-  });
-  const addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
-    const price = _addonPriceMap[cb.value];
-    return price ? `${cb.value} (${price})` : cb.value;
-  });
+  const isTieredSubmit  = !!(currentSpot?.['Pricing Model'] === 'Tiered' && currentSpot?.packages?.length);
+  const selectedTierPkg = isTieredSubmit ? (currentSpot.packages[_tieredSelectedIdx] || null) : null;
+  const selectedTierName = selectedTierPkg ? selectedTierPkg['Tier Name'] : null;
+
+  let addons = [];
+  if (isTieredSubmit) {
+    // Collect addons selected in the listing-page sidebar enhance step
+    addons = [...document.querySelectorAll('#sdp-tier-addons input:checked')].map(cb => cb.value);
+  } else {
+    const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
+    const _addonPriceMap = {};
+    _addonPriceText.split('\n').forEach(line => {
+      const parts = line.split('|').map(s => s.trim());
+      if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
+    });
+    addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
+      const price = _addonPriceMap[cb.value];
+      return price ? `${cb.value} (${price})` : cb.value;
+    });
+  }
 
   const data = {
     spotName: document.getElementById('sdp-name')?.textContent || '',
@@ -3049,8 +3068,9 @@ async function submitEnquiry() {
     backupDate: document.getElementById('enq-backup-date')?.value || '',
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
+    selectedTier: selectedTierName,
     contactPreference: getContactPreference(),
-    photographyQuote: getPhotoQuoteValue(),
+    photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
   };
@@ -3230,26 +3250,53 @@ function _updatePriceFromTier(packages) {
 }
 
 function _renderTierAddons(spot) {
-  var packages   = spot.packages || [];
-  var pkg        = packages[_tieredSelectedIdx];
+  var packages    = spot.packages || [];
   var stepEnhance = document.getElementById('sdp-step-enhance');
   var container   = document.getElementById('sdp-tier-addons');
   if (!stepEnhance || !container) return;
 
-  // Collect Addon 1/2/3 definitions
+  // Collect addon definitions from Addon 1/2/3 fields first
   var addonDefs = [];
   for (var i = 1; i <= 3; i++) {
-    var name  = spot['Addon ' + i + ' Name'];
-    var price = spot['Addon ' + i + ' Price'];
-    if (name) addonDefs.push({ name: name, price: price });
+    var aName  = spot['Addon ' + i + ' Name'];
+    var aPrice = spot['Addon ' + i + ' Price'];
+    if (aName) addonDefs.push({ name: aName.trim(), price: aPrice });
+  }
+  // Fall back to standard Add-ons field if no Addon N fields defined
+  if (!addonDefs.length) {
+    var rawAddons = spot['Add-ons'] || [];
+    var addonNames = Array.isArray(rawAddons) ? rawAddons : String(rawAddons).split(/[|·,]/).map(function(s) { return s.trim(); }).filter(Boolean);
+    var priceText = spot['Add-on Prices'] || '';
+    var priceMap = {};
+    priceText.split('\n').forEach(function(line) {
+      var parts = line.split('|').map(function(s) { return s.trim(); });
+      if (parts.length === 2) priceMap[parts[0].toLowerCase()] = parts[1];
+    });
+    addonNames.forEach(function(n) {
+      addonDefs.push({ name: n, price: priceMap[n.toLowerCase()] || null });
+    });
   }
 
   if (!addonDefs.length) { stepEnhance.style.display = 'none'; return; }
 
-  // Filter out add-ons already included in the selected tier
-  var tierIncludes = pkg ? (pkg['Includes'] || '').toLowerCase() : '';
+  // Build cumulative includes from ALL tiers up to and including the selected one
+  // (each tier's Includes may only list new items, so we must accumulate)
+  var cumulativeIncludes = [];
+  for (var j = 0; j <= _tieredSelectedIdx; j++) {
+    if (packages[j]) {
+      (packages[j]['Includes'] || '').split(',').forEach(function(item) {
+        var t = item.trim().toLowerCase();
+        if (t) cumulativeIncludes.push(t);
+      });
+    }
+  }
+
+  // Filter out addons already included in any tier up to the selected one
   var visible = addonDefs.filter(function(a) {
-    return !tierIncludes.includes(a.name.toLowerCase());
+    var addonLower = a.name.toLowerCase();
+    return !cumulativeIncludes.some(function(inc) {
+      return inc === addonLower || inc.includes(addonLower) || addonLower.includes(inc);
+    });
   });
 
   if (!visible.length) { stepEnhance.style.display = 'none'; return; }
