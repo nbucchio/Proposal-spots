@@ -1369,6 +1369,197 @@ nav {
   .sdp-body { padding: 24px 20px 100px; }
   .sdp-hero-name { font-size: clamp(24px, 5vw, 40px); }
 }
+
+/* ── Tiered Pricing — Left Panel ─────────────────────── */
+.sdp-tier-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #9a8f7e;
+  display: block;
+  margin-bottom: 14px;
+}
+.sdp-tier-block {
+  border: 1px solid #d9d2c4;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.sdp-tier-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  border-bottom: 1px solid #d9d2c4;
+  position: relative;
+}
+.sdp-tier-row:last-child { border-bottom: none; }
+.sdp-tier-row-popular { border-top: 2px solid #c9a96e; }
+.sdp-tier-left {
+  background: #eee8dc;
+  padding: 20px 16px;
+  border-right: 1px solid #d9d2c4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sdp-tier-right {
+  background: #f5f0e8;
+  padding: 20px 16px;
+}
+.sdp-tier-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #9a8f7e;
+}
+.sdp-tier-price {
+  font-family: 'Cormorant', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: #1a1a18;
+  line-height: 1.1;
+}
+.sdp-tier-per {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #9a8f7e;
+}
+.sdp-tier-popular-badge {
+  display: inline-block;
+  background: #c9a96e;
+  color: #f5f0e8;
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  align-self: flex-start;
+}
+.sdp-tier-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #1a1a18;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.sdp-tier-item:last-child { margin-bottom: 0; }
+.sdp-tier-dot {
+  width: 4px;
+  height: 4px;
+  background: #c9a96e;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.sdp-tier-plus-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  font-style: italic;
+  color: #9a8f7e;
+  margin-bottom: 8px;
+}
+.sdp-tier-footnote {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  font-style: italic;
+  color: #9a8f7e;
+  margin-top: 12px;
+}
+
+/* ── Tiered Pricing — Right Panel selector ───────────── */
+.sdp-tier-sel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 0.5px solid var(--hairline);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  margin-bottom: 6px;
+}
+.sdp-tier-sel-row:last-child { margin-bottom: 0; }
+.sdp-tier-sel-row.selected { border: 2px solid #c9a96e; }
+.sdp-tier-sel-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.sdp-tier-sel-row.selected .sdp-tier-sel-dot {
+  background: #c9a96e;
+  border-color: #c9a96e;
+}
+.sdp-tier-sel-dot-inner {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f5f0e8;
+  display: none;
+}
+.sdp-tier-sel-row.selected .sdp-tier-sel-dot-inner { display: block; }
+.sdp-tier-sel-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink);
+  flex: 1;
+}
+.sdp-tier-sel-price {
+  font-family: 'Cormorant', serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+/* ── Tiered Pricing — Right Panel add-ons step ───────── */
+.sdp-tier-addon-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--hairline);
+  cursor: pointer;
+}
+.sdp-tier-addon-row:last-child { border-bottom: none; }
+.sdp-tier-addon-row input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #c9a96e;
+  flex-shrink: 0;
+}
+.sdp-tier-addon-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+  flex: 1;
+}
+.sdp-tier-addon-price {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1470,6 +1661,13 @@ nav {
           <p class="sdp-about-text" id="sdp-full-summary"></p>
         </div>
 
+        <!-- Tiered packages section — only for Pricing Model = Tiered -->
+        <div id="sdp-tiered-section" style="display:none;margin-bottom:48px">
+          <span class="sdp-tier-label">Proposal Packages</span>
+          <div id="sdp-tier-block" class="sdp-tier-block"></div>
+          <p class="sdp-tier-footnote">Photography and videography available as add-ons at enquiry.</p>
+        </div>
+
         <!-- What's included -->
         <div class="sdp-included" id="sdp-included-section" style="display:none">
           <span class="sdp-incl-label">What's included</span>
@@ -1513,7 +1711,19 @@ nav {
           </div>
 
           <div class="sdp-concierge-body">
-            <!-- Step 1 -->
+            <!-- Tiered: Step 01 — Select your package (hidden for Single Price) -->
+            <div class="sdp-booking-step" id="sdp-step-tier" style="display:none">
+              <div class="sdp-step-header">
+                <span class="sdp-step-num">01</span>
+                <div>
+                  <span class="sdp-step-title">Select your package</span>
+                  <span class="sdp-step-sub">Choose the experience that feels right</span>
+                </div>
+              </div>
+              <div id="sdp-tier-selector"></div>
+            </div>
+
+            <!-- Step 1 (Single Price only) -->
             <div class="sdp-booking-step" id="sdp-step-1">
               <div class="sdp-step-header">
                 <span class="sdp-step-num">01</span>
@@ -1577,6 +1787,18 @@ nav {
               </div>
               <input type="hidden" id="sdp-proposal-date-1">
               <input type="hidden" id="sdp-proposal-date-2">
+            </div>
+
+            <!-- Tiered: Step 04 — Enhance your experience (hidden for Single Price) -->
+            <div class="sdp-booking-step" id="sdp-step-enhance" style="display:none">
+              <div class="sdp-step-header">
+                <span class="sdp-step-num">04</span>
+                <div>
+                  <span class="sdp-step-title">Enhance your experience</span>
+                  <span class="sdp-step-sub">Optional add-ons for your proposal</span>
+                </div>
+              </div>
+              <div id="sdp-tier-addons"></div>
             </div>
 
             <!-- Selection summary -->
@@ -1849,6 +2071,8 @@ let hotelStepOn = false;
 let selectedProposalDates = [];
 let currentSpotPricing = { moment: 0, hotelPerNight: 0, photographer: 0, photoNote: '', peakMonths: [], lowMonths: [], peakMult: 1.3, lowMult: 0.85, hasPricing: false };
 
+let _tieredSelectedIdx = 1;
+
 let calViewYear = new Date().getFullYear();
 let calViewMonth = new Date().getMonth();
 let _rcalMode = 'checkin';
@@ -1972,6 +2196,14 @@ function mapSpotFromAirtable(r) {
     'Peak Multiplier': f['Peak Multiplier'] || 1.3,
     'Low Multiplier': f['Low Multiplier'] || 0.85,
     'Requires Stay': !!(f['Requires Stay']),
+    'Pricing Model': f['Pricing Model'] || 'Single Price',
+    'Addon 1 Name': f['Addon 1 Name'] || null,
+    'Addon 1 Price': f['Addon 1 Price'] || null,
+    'Addon 2 Name': f['Addon 2 Name'] || null,
+    'Addon 2 Price': f['Addon 2 Price'] || null,
+    'Addon 3 Name': f['Addon 3 Name'] || null,
+    'Addon 3 Price': f['Addon 3 Price'] || null,
+    packages: r.packages || [],
   };
 }
 
@@ -2007,19 +2239,30 @@ function populateSpot(s) {
   // About
   document.getElementById('sdp-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
 
-  // What's included
+  // What's included vs Tiered packages
   const includedSection = document.getElementById('sdp-included-section');
   const includedList = document.getElementById('sdp-included-list');
-  const includedItems = s['Included Items'] || '';
-  if (includedItems) {
-    const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
-    includedList.innerHTML = lines.map((line, i) => {
-      const num = String(i + 1).padStart(2, '0');
-      return '<div class="sdp-incl-row"><span class="sdp-incl-num">' + num + '</span><span class="sdp-incl-text">' + line + '</span></div>';
-    }).join('');
-    includedSection.style.display = '';
-  } else {
+  const tieredSection = document.getElementById('sdp-tiered-section');
+  const isTiered = s['Pricing Model'] === 'Tiered' && s.packages && s.packages.length > 0;
+
+  if (isTiered) {
+    // Tiered: show packages block, hide standard included section
     includedSection.style.display = 'none';
+    renderTieredPackages(s.packages);
+  } else {
+    // Single Price: standard included list, hide tiered section
+    tieredSection.style.display = 'none';
+    const includedItems = s['Included Items'] || '';
+    if (includedItems) {
+      const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
+      includedList.innerHTML = lines.map((line, i) => {
+        const num = String(i + 1).padStart(2, '0');
+        return '<div class="sdp-incl-row"><span class="sdp-incl-num">' + num + '</span><span class="sdp-incl-text">' + line + '</span></div>';
+      }).join('');
+      includedSection.style.display = '';
+    } else {
+      includedSection.style.display = 'none';
+    }
   }
 
   // Access
@@ -2116,6 +2359,24 @@ function populateSpot(s) {
       stepHeader.style.cursor = 'default';
     }
     hotelStepOn = true;
+  }
+
+  // Tiered right panel setup — completely separate from Single Price path
+  const stepTierEl = document.getElementById('sdp-step-tier');
+  const step1El    = document.getElementById('sdp-step-1');
+  const stepEnhEl  = document.getElementById('sdp-step-enhance');
+  if (isTiered) {
+    if (step1El)   step1El.style.display   = 'none';
+    if (stepTierEl) stepTierEl.style.display = '';
+    if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
+    _tieredSelectedIdx = Math.min(1, s.packages.length - 1);
+    _renderTierSelectorHTML(s.packages);
+    _renderTierAddons(s);
+    _updatePriceFromTier(s.packages);
+  } else {
+    if (stepTierEl) stepTierEl.style.display = 'none';
+    if (step1El)   step1El.style.display   = '';
+    if (stepEnhEl) stepEnhEl.style.display  = 'none';
   }
 
   setTimeout(renderProposalDateStep, 50);
@@ -2278,7 +2539,16 @@ function updateSelectionSummary() {
   if (!block || !items) return;
 
   const lines = [];
-  lines.push('The Moment');
+  // Tiered: show selected package name + price; Single Price: show "The Moment"
+  if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
+    const pkg = currentSpot.packages[_tieredSelectedIdx];
+    if (pkg) {
+      const priceSuffix = pkg['Price'] ? ' — $' + Math.round(pkg['Price']).toLocaleString() : '';
+      lines.push(pkg['Tier Name'] + priceSuffix);
+    }
+  } else {
+    lines.push('The Moment');
+  }
 
   const ci = document.getElementById('sdp-checkin')?.value;
   const co = document.getElementById('sdp-checkout')?.value;
@@ -2633,6 +2903,21 @@ function openEnquiryModal() {
     sumNights.style.display = 'none';
   }
 
+  // Package (Tiered spots only)
+  const sumPackage    = document.getElementById('enq-sum-package');
+  const sumPackageVal = document.getElementById('enq-sum-package-val');
+  if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
+    const pkg = currentSpot.packages[_tieredSelectedIdx];
+    if (pkg && sumPackage && sumPackageVal) {
+      const priceSuffix = pkg['Price'] ? ' ($' + Math.round(pkg['Price']).toLocaleString() + ')' : '';
+      sumPackageVal.textContent = pkg['Tier Name'] + priceSuffix;
+      sumPackage.style.display = '';
+      sumEl.style.display = '';
+    }
+  } else if (sumPackage) {
+    sumPackage.style.display = 'none';
+  }
+
   // Update the proposal date row in the form
   const propDisplay = document.getElementById('enq-prop1-display');
   if (propDisplay) {
@@ -2871,6 +3156,127 @@ function getPhotoQuoteValue() {
   if (pill) result += ' \u2014 ' + pill;
   if (notes) result += ' \u2014 ' + notes;
   return result;
+}
+
+// ─────────────────────────────────────────────────────────
+//  TIERED PRICING — LEFT PANEL
+// ─────────────────────────────────────────────────────────
+function renderTieredPackages(packages) {
+  const section = document.getElementById('sdp-tiered-section');
+  const block   = document.getElementById('sdp-tier-block');
+  if (!section || !block) return;
+  section.style.display = '';
+
+  block.innerHTML = packages.map(function(pkg, i) {
+    var prevPkg   = i > 0 ? packages[i - 1] : null;
+    var allItems  = (pkg['Includes'] || '').split(',').map(function(x) { return x.trim(); }).filter(Boolean);
+    var prevItems = prevPkg ? (prevPkg['Includes'] || '').split(',').map(function(x) { return x.trim(); }).filter(Boolean) : [];
+    var newItems  = i === 0 ? allItems : allItems.filter(function(item) {
+      return !prevItems.some(function(p) { return p.toLowerCase() === item.toLowerCase(); });
+    });
+
+    var price         = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    var isPopular     = (pkg['Tier Name'] || '').toLowerCase() === 'romantic';
+    var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
+    var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
+    var plusNote      = (i > 0 && prevPkg)
+      ? '<p class="sdp-tier-plus-note">Everything in ' + prevPkg['Tier Name'] + ', plus:</p>'
+      : '';
+    var itemsHtml = newItems.map(function(item) {
+      return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + item + '</span></div>';
+    }).join('');
+
+    return '<div class="sdp-tier-row' + popularClass + '">' +
+      '<div class="sdp-tier-left">' +
+        popularBadge +
+        '<span class="sdp-tier-name">' + pkg['Tier Name'] + '</span>' +
+        '<span class="sdp-tier-price">' + price + '</span>' +
+        '<span class="sdp-tier-per">per experience</span>' +
+      '</div>' +
+      '<div class="sdp-tier-right">' +
+        plusNote +
+        itemsHtml +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+//  TIERED PRICING — RIGHT PANEL
+// ─────────────────────────────────────────────────────────
+function _renderTierSelectorHTML(packages) {
+  var container = document.getElementById('sdp-tier-selector');
+  if (!container) return;
+  container.innerHTML = packages.map(function(pkg, i) {
+    var sel   = (i === _tieredSelectedIdx);
+    var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    return '<div class="sdp-tier-sel-row' + (sel ? ' selected' : '') + '" onclick="selectTier(' + i + ')">' +
+      '<div class="sdp-tier-sel-dot"><div class="sdp-tier-sel-dot-inner"></div></div>' +
+      '<span class="sdp-tier-sel-name">' + pkg['Tier Name'] + '</span>' +
+      '<span class="sdp-tier-sel-price">' + price + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+function _updatePriceFromTier(packages) {
+  var pkg   = packages[_tieredSelectedIdx];
+  if (!pkg) return;
+  var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+  var priceEl    = document.getElementById('sdp-concierge-price');
+  var barPriceEl = document.getElementById('sdp-bar-price');
+  if (priceEl)    priceEl.textContent    = price;
+  if (barPriceEl) barPriceEl.textContent = price;
+}
+
+function _renderTierAddons(spot) {
+  var packages   = spot.packages || [];
+  var pkg        = packages[_tieredSelectedIdx];
+  var stepEnhance = document.getElementById('sdp-step-enhance');
+  var container   = document.getElementById('sdp-tier-addons');
+  if (!stepEnhance || !container) return;
+
+  // Collect Addon 1/2/3 definitions
+  var addonDefs = [];
+  for (var i = 1; i <= 3; i++) {
+    var name  = spot['Addon ' + i + ' Name'];
+    var price = spot['Addon ' + i + ' Price'];
+    if (name) addonDefs.push({ name: name, price: price });
+  }
+
+  if (!addonDefs.length) { stepEnhance.style.display = 'none'; return; }
+
+  // Filter out add-ons already included in the selected tier
+  var tierIncludes = pkg ? (pkg['Includes'] || '').toLowerCase() : '';
+  var visible = addonDefs.filter(function(a) {
+    return !tierIncludes.includes(a.name.toLowerCase());
+  });
+
+  if (!visible.length) { stepEnhance.style.display = 'none'; return; }
+
+  stepEnhance.style.display = '';
+  container.innerHTML = visible.map(function(a) {
+    var pLabel = '';
+    if (a.price !== null && a.price !== undefined) {
+      pLabel = typeof a.price === 'number'
+        ? '+$' + Math.round(a.price).toLocaleString()
+        : '+' + a.price;
+    }
+    return '<label class="sdp-tier-addon-row">' +
+      '<input type="checkbox" value="' + a.name + '">' +
+      '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
+      (pLabel ? '<span class="sdp-tier-addon-price">' + pLabel + '</span>' : '') +
+    '</label>';
+  }).join('');
+}
+
+function selectTier(idx) {
+  _tieredSelectedIdx = idx;
+  if (!currentSpot) return;
+  var packages = currentSpot.packages || [];
+  _renderTierSelectorHTML(packages);
+  _renderTierAddons(currentSpot);
+  _updatePriceFromTier(packages);
+  updateSelectionSummary();
 }
 
 // Init on load
