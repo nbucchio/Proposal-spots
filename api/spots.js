@@ -59,17 +59,18 @@ export default async function handler(req, res) {
       console.log('[spots] Packages fetched:', allPackages.length);
 
       // Keep only active packages, sort by Sort Order, group by linked spot ID
+      // Note: Airtable field names have trailing spaces — "Spot ", "Price ", "Includes "
       allPackages
         .filter(pkg => pkg.fields['Is Active'])
         .sort((a, b) => ((a.fields['Sort Order'] || 0) - (b.fields['Sort Order'] || 0)))
         .forEach(pkg => {
-          const spotIds = Array.isArray(pkg.fields['Spot']) ? pkg.fields['Spot'] : [];
+          const spotIds = Array.isArray(pkg.fields['Spot ']) ? pkg.fields['Spot '] : [];
           spotIds.forEach(spotId => {
             if (!packagesBySpot[spotId]) packagesBySpot[spotId] = [];
             packagesBySpot[spotId].push({
-              'Tier Name':  pkg.fields['Tier Name']  || '',
-              'Price':      pkg.fields['Price']       || null,
-              'Includes':   pkg.fields['Includes']    || '',
+              'Tier Name':  pkg.fields['Tier Name']   || '',
+              'Price':      pkg.fields['Price ']      || null,
+              'Includes':   pkg.fields['Includes ']   || '',
               'Sort Order': pkg.fields['Sort Order']  || 0,
               'Is Active':  pkg.fields['Is Active']   || false,
             });
