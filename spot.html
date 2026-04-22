@@ -1368,6 +1368,29 @@ nav {
   .sdp-vibe-strip { padding: 16px 20px; }
   .sdp-body { padding: 24px 20px 100px; }
   .sdp-hero-name { font-size: clamp(24px, 5vw, 40px); }
+  /* Vibe strip: horizontal scroll so chips never compress below readable width */
+  .sdp-vibe-strip { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; padding: 0; }
+  .sdp-vibe-strip::-webkit-scrollbar { display: none; }
+  .sdp-vibe-chip { min-width: 120px; flex-shrink: 0; padding: 16px 18px; }
+  /* Gallery viewer shorter on mobile */
+  .sdp-gallery-viewer { height: 260px; }
+  /* About text: reduce from 23px editorial size */
+  .sdp-about-text { font-size: 18px; }
+  /* Enquiry form: single column on mobile */
+  .enq-form-row { grid-template-columns: 1fr; }
+  /* Bottom CTA bar: ensure 44px tap target */
+  .sdp-bar-btn { min-height: 44px; padding: 14px 20px; }
+}
+
+@media (max-width: 480px) {
+  .sdp-hero { height: 44vh; }
+  /* Tiered pricing: stack left/right panels vertically */
+  .sdp-tier-row { grid-template-columns: 1fr; }
+  .sdp-tier-left { border-right: none; border-bottom: 1px solid var(--hairline); }
+  /* Enquiry modal: reduce padding on small screens */
+  .enq-modal { padding: 28px 20px; }
+  /* Vibe chips: smaller padding on very small screens */
+  .sdp-vibe-chip { min-width: 100px; padding: 14px 14px; }
 }
 
 /* ── Tiered Pricing — Left Panel ─────────────────────── */
