@@ -1,12 +1,13 @@
 /*
- * mobile.css — Destination page mobile responsiveness
+ * mobile.css — Shared mobile responsiveness
  *
- * Add this link tag to each destination page AFTER the closing </style> tag,
- * before </head>:
+ * Add this link tag to each page that needs it, AFTER the closing </style>
+ * tag, before </head>:
  *
  *   <link rel="stylesheet" href="/mobile.css">
  *
  * Pages to update:
+ *   spot.html
  *   destinations/amalfi-coast.html
  *   destinations/bali.html
  *   destinations/costa-rica.html
@@ -128,5 +129,97 @@ img {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPOT DETAIL PAGE (spot.html)
+   These rules apply when mobile.css is linked from spot.html
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── Two-column body: sidebar flows full-width below content ── */
+  .sdp-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sdp-sidebar {
+    width: 100%;
+  }
+
+  /* Remove sticky from booking card — sidebar flows in the document */
+  .sdp-concierge-card {
+    position: relative;
+    top: auto;
+  }
+
+  /* ── Gallery dots: expand tap target without changing appearance ── */
+  .sdp-gallery-dot {
+    width: 10px;
+    height: 10px;
+    padding: 10px;
+    box-sizing: content-box;
+  }
+
+  /* ── CTA button: full width and minimum 52px height ── */
+  .sdp-btn-primary {
+    min-height: 52px;
+  }
+
+  /* Bottom sticky CTA bar: ensure it's visible on mobile ── */
+  .sdp-bar-btn {
+    min-height: 52px;
+    padding: 14px 20px;
+  }
+
+  /* ── Getting There: stack transport-mode label above description ── */
+  .sdp-access-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .sdp-access-row-tag {
+    min-width: unset;
+  }
+
+  .sdp-access-row-dash {
+    display: none;
+  }
+
+  /* ── Add-on rows: 44px minimum tap target ── */
+  .sdp-tier-addon-row {
+    min-height: 44px;
+    padding: 10px 0;
+    align-items: center;
+  }
+
+  .enq-addon-check {
+    min-height: 44px;
+    padding: 8px 0;
+  }
+
+  /* ── Key body text: 14px minimum on mobile ── */
+  .sdp-incl-text,
+  .sdp-access-row-desc,
+  .sdp-access-row-full {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ── Tier rows: stack left name/price panel above right items list ── */
+  .sdp-tier-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sdp-tier-left {
+    border-right: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* ── Enquiry modal: tighter padding ── */
+  .enq-modal {
+    padding: 28px 20px;
   }
 }
