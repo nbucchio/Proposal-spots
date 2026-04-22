@@ -53,6 +53,11 @@
     justify-content: flex-start;
     flex-wrap: nowrap;
     gap: 8px;
+    /* Remove backdrop-filter on mobile — WebKit traps position:fixed children
+       inside backdrop-filter stacking contexts, breaking panel dropdowns on iOS */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(244,241,235,0.99);
   }
 
   .results-topbar::-webkit-scrollbar {
@@ -81,12 +86,12 @@
     align-items: center;
   }
 
-  /* Inline filter panels: full width on mobile */
+  /* Inline filter panels: full width on mobile, appear below sticky filter bar */
   .results-inline-panel {
     position: fixed;
     left: 16px;
     right: 16px;
-    top: 130px;
+    top: 160px;
     min-width: unset;
     width: auto;
     z-index: 700;
@@ -308,5 +313,20 @@ img {
   /* ── Body wrapper: tightest padding at narrow viewports ── */
   .dest-landing-body {
     padding: 0 16px;
+  }
+
+  /* ── Spot cards: unified card so strip feels attached to image ── */
+  .spot-card {
+    background: #FDFCFA;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(28,28,28,0.07);
+    border: 1px solid rgba(26,22,18,0.1);
+  }
+  .spot-card-img { border-radius: 0; }
+  .spot-card-body {
+    background: #FDFCFA;
+    padding: 0 12px;
+    border-top: 1px solid rgba(26,22,18,0.08);
   }
 }

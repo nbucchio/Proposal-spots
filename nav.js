@@ -120,6 +120,7 @@
     '  justify-content: flex-end;',
     '  align-items: center;',
     '  gap: 2px;',
+    '  position: relative;',
     '}',
     '.nav-cta {',
     '  font-family: "Jost", sans-serif;',
@@ -139,10 +140,75 @@
     '  display: inline-block;',
     '}',
     '.nav-cta:hover { background: #8C7B64; transform: scale(1.02); }',
+    /* ── Hamburger button (hidden on desktop) ── */
+    '.nav-hamburger {',
+    '  display: none;',
+    '  align-items: center;',
+    '  justify-content: center;',
+    '  width: 36px;',
+    '  height: 36px;',
+    '  background: none;',
+    '  border: 1px solid rgba(216,210,200,0.8);',
+    '  border-radius: 8px;',
+    '  cursor: pointer;',
+    '  color: #1C1C1C;',
+    '  transition: background 0.15s;',
+    '  flex-shrink: 0;',
+    '}',
+    '.nav-hamburger:hover { background: #EDEAE2; }',
+    /* ── Mobile dropdown menu ── */
+    '.nav-mobile-menu {',
+    '  display: none;',
+    '  position: absolute;',
+    '  top: calc(100% + 10px);',
+    '  right: 0;',
+    '  background: #FDFCFA;',
+    '  border: 1px solid #D8D2C8;',
+    '  border-radius: 14px;',
+    '  padding: 8px;',
+    '  min-width: 210px;',
+    '  box-shadow: 0 16px 48px rgba(28,28,28,0.12);',
+    '  z-index: 9500;',
+    '}',
+    '.nav-mobile-menu.open { display: block; }',
+    '.nav-mobile-link {',
+    '  display: block;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 13px;',
+    '  font-weight: 400;',
+    '  color: #1C1C1C;',
+    '  text-decoration: none;',
+    '  padding: 12px 14px;',
+    '  border-radius: 8px;',
+    '  transition: background 0.15s;',
+    '  letter-spacing: 0.02em;',
+    '}',
+    '.nav-mobile-link:hover { background: #EDEAE2; }',
+    '.nav-mobile-divider { height: 1px; background: #E4E0D8; margin: 6px 6px; }',
+    '.nav-mobile-cta-link {',
+    '  display: block;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 10.5px;',
+    '  font-weight: 500;',
+    '  letter-spacing: 0.14em;',
+    '  text-transform: uppercase;',
+    '  color: #FDFCFA !important;',
+    '  background: #1C1C1C;',
+    '  border-radius: 100px;',
+    '  padding: 12px 18px;',
+    '  text-decoration: none;',
+    '  text-align: center;',
+    '  margin: 4px 4px 2px;',
+    '  transition: background 0.2s;',
+    '}',
+    '.nav-mobile-cta-link:hover { background: #8C7B64; }',
     '@media (max-width: 680px) {',
-    '  nav#navbar { padding: 0 6px 0 18px; }',
-    '  .nav-link-right { padding: 7px 10px; font-size: 10px; }',
-    '  .nav-cta { padding: 9px 16px; font-size: 10px; }',
+    '  nav#navbar { padding: 0 8px 0 18px; }',
+    '  .nav-link-right:not(.nav-destinations-btn) { display: none; }',
+    '  .nav-cta { display: none; }',
+    '  .nav-hamburger { display: flex; }',
+    '  .nav-dest-dropdown { min-width: 280px; left: 0; transform: none; }',
+    '  .nav-dest-grid { grid-template-columns: 1fr; }',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -175,7 +241,7 @@
     return '<a href="/destinations/' + d[2] + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
   }).join('');
 
-  var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations \u2192</a>';
+  var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations →</a>';
 
   var howItWorksLink = '<a href="/how-it-works" class="nav-link-right">How It Works</a>';
 
@@ -186,8 +252,24 @@
   var inspirationClass = 'nav-link-right' + ((isInspiration || isStoriesSection) ? ' nav-active' : '');
 
   var collectionBtn = isIndex
-    ? '<a href="#" id="nav-collection" onclick="event.preventDefault(); openCollection();" class="nav-cta nav-collection-link">\u2661 My Collection</a>'
-    : '<a href="/" class="nav-cta">Find a Spot \u2192</a>';
+    ? '<a href="#" id="nav-collection" onclick="event.preventDefault(); openCollection();" class="nav-cta nav-collection-link">♡ My Collection</a>'
+    : '<a href="/" class="nav-cta">Find a Spot →</a>';
+
+  // Mobile menu links
+  var mobileFaqLink = isIndex
+    ? '<a href="#" onclick="goToFaq(); closeNavMobile(); return false;" class="nav-mobile-link">FAQ</a>'
+    : '<a href="/#faq" class="nav-mobile-link">FAQ</a>';
+
+  var mobileCtaLink = isIndex
+    ? '<a href="#" onclick="event.preventDefault(); openCollection(); closeNavMobile();" class="nav-mobile-cta-link">♡ My Collection</a>'
+    : '<a href="/" class="nav-mobile-cta-link">Find a Spot →</a>';
+
+  var hamburgerSvg =
+    '<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<line x1="0" y1="1" x2="16" y2="1" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>' +
+    '<line x1="0" y1="6" x2="16" y2="6" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>' +
+    '<line x1="0" y1="11" x2="16" y2="11" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</svg>';
 
   var nav = document.createElement('nav');
   nav.id = 'navbar';
@@ -208,12 +290,26 @@
       '<a href="/inspiration.html" class="' + inspirationClass + '">Inspiration</a>' +
       faqLink +
     '</div>' +
-    '<div class="nav-right">' + collectionBtn + '</div>';
+    '<div class="nav-right">' +
+      collectionBtn +
+      '<button class="nav-hamburger" id="nav-hamburger" onclick="toggleNavMobile(event)" aria-label="Menu">' +
+        hamburgerSvg +
+      '</button>' +
+      '<div class="nav-mobile-menu" id="nav-mobile-menu">' +
+        '<a href="/how-it-works" class="nav-mobile-link">How It Works</a>' +
+        '<a href="/inspiration.html" class="nav-mobile-link">Inspiration</a>' +
+        mobileFaqLink +
+        '<div class="nav-mobile-divider"></div>' +
+        mobileCtaLink +
+      '</div>' +
+    '</div>';
 
   // ── 4. Replace placeholder ────────────────────────────────────────────────────
-  var placeholder = document.getElementById('nav-placeholder');
+  var placeholder = document.getElementById('nav-placeholder') || document.getElementById('nav-root');
   if (placeholder) {
     placeholder.parentNode.replaceChild(nav, placeholder);
+  } else {
+    document.body.insertBefore(nav, document.body.firstChild);
   }
 
   // ── 5. Scroll effect ──────────────────────────────────────────────────────────
@@ -233,16 +329,37 @@
     };
   }
 
-  // Close dropdown when clicking outside
+  // ── 7. Mobile menu toggle ─────────────────────────────────────────────────────
+  window.toggleNavMobile = function (e) {
+    if (e) e.stopPropagation();
+    var menu = document.getElementById('nav-mobile-menu');
+    if (menu) menu.classList.toggle('open');
+  };
+
+  window.closeNavMobile = function () {
+    var menu = document.getElementById('nav-mobile-menu');
+    if (menu) menu.classList.remove('open');
+  };
+
+  // Close dropdowns when clicking outside
   document.addEventListener('click', function (e) {
+    // Close destinations dropdown
     var dd = document.getElementById('nav-dest-dropdown');
-    if (!dd) return;
-    var wrap = document.querySelector('.nav-destinations-wrap');
-    if (wrap && wrap.contains(e.target)) return;
-    dd.classList.remove('open');
+    if (dd) {
+      var wrap = document.querySelector('.nav-destinations-wrap');
+      if (!wrap || !wrap.contains(e.target)) {
+        dd.classList.remove('open');
+      }
+    }
+    // Close mobile menu
+    var menu = document.getElementById('nav-mobile-menu');
+    var hamburger = document.getElementById('nav-hamburger');
+    if (menu && !menu.contains(e.target) && hamburger && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
   });
 
-  // ── 7. Load spot-links.js on homepage (Phase 1 spot page links) ───────────────
+  // ── 8. Load spot-links.js on homepage (Phase 1 spot page links) ───────────────
   if (isIndex) {
     var spotLinksEl = document.createElement('script');
     spotLinksEl.src = '/spot-links.js';
