@@ -1689,7 +1689,6 @@ nav {
         <div id="sdp-tiered-section" style="display:none;margin-bottom:48px">
           <span class="sdp-tier-label">Proposal Packages</span>
           <div id="sdp-tier-block" class="sdp-tier-block"></div>
-          <p class="sdp-tier-footnote">Photography and videography available as add-ons at enquiry.</p>
         </div>
 
         <!-- What's included -->
@@ -2310,7 +2309,7 @@ function populateSpot(s) {
   }
 
   // Hotel chip
-  const hasHotel = !!(s['Linked Hotel / Venue'] || s['Price Hotel Per Night']);
+  const hasHotel = !!(s['Linked Hotel / Venue']);
   document.getElementById('sdp-hotel-chip').style.display = hasHotel ? '' : 'none';
   document.getElementById('sdp-concierge-hotel-tag').style.display = hasHotel ? '' : 'none';
   // Hide hotel step entirely for "Just the Moment" spots
