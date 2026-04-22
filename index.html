@@ -1688,58 +1688,11 @@ footer {
   nav { padding: 0 8px 0 18px; width: calc(100% - 32px); }
   .nav-destinations-wrap { position: relative; }
 .nav-destinations-btn { display:flex; align-items:center; gap:5px; }
+/* Nav destination dropdown: cap width to viewport on mobile */
 .nav-dest-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--white);
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  padding: 20px;
-  min-width: 420px;
-  box-shadow: 0 16px 48px rgba(28,28,28,0.12);
-  z-index: 9000;
+  min-width: min(420px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
 }
-.nav-dest-dropdown.open { display: block; }
-.nav-dest-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-}
-.nav-dest-grid a {
-  font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--ink);
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.15s;
-}
-.nav-dest-grid a:hover { background: var(--bg2); }
-.nav-dest-grid a span { color: var(--muted); font-size: 10px; font-weight: 300; }
-.nav-dest-footer {
-  border-top: 1px solid var(--hairline);
-  margin-top: 12px;
-  padding-top: 12px;
-  text-align: center;
-}
-.nav-dest-footer a {
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mid);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.nav-dest-footer a:hover { color: var(--ink); }
 
 /* Mobile segmented search bar */
 .ssb-wrap {
@@ -1797,6 +1750,9 @@ footer {
   .pill-btn { min-height: 44px; }
   /* Nav CTA minimum touch height */
   .nav-cta { min-height: 40px; display: inline-flex; align-items: center; }
+  /* Hero stats: wrap to prevent horizontal overflow on narrow screens */
+  .hero-stats { flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 32px; }
+  .hero-stat-div { display: none; }
 }
 @media (max-width: 480px) {
   .markets-grid { grid-template-columns: 1fr; }
@@ -1813,6 +1769,8 @@ footer {
   /* Tighter hero padding on smallest screens */
   .hero { padding: 88px 16px 56px; }
   .hero-title { font-size: clamp(34px, 9vw, 48px); }
+  /* Nav destination dropdown: single column on tiny screens */
+  .nav-dest-grid { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════════════════════════
