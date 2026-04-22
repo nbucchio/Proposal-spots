@@ -6819,13 +6819,14 @@ function openSpotDrawer(id) {
   // ── Concierge card: hotel tag
   const concHotelTag = document.getElementById('sdp-concierge-hotel-tag');
   const vibeStripHotelChip = document.getElementById('sdp-hotel-chip');
-  const hasHotel = !!(s['Linked Hotel / Venue'] || s['Price Hotel Per Night'] || s['Hotel Area Rate']);
+  const hasHotel = !!(s['Linked Hotel / Venue']);
   if (concHotelTag) concHotelTag.style.display = hasHotel ? '' : 'none';
   if (vibeStripHotelChip) vibeStripHotelChip.style.display = hasHotel ? '' : 'none';
 
   // Requires Stay — lock hotel step open when field is true
   const requiresStay = !!(s['Requires Stay']);
   const step2El = document.getElementById('sdp-step-2');
+  if (step2El) step2El.style.display = hasHotel ? '' : 'none';
   if (requiresStay && step2El) {
     const stepHeader = step2El.querySelector('.sdp-step-header');
     const hotelToggle = document.getElementById('sdp-hotel-toggle');
