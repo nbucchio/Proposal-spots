@@ -172,6 +172,21 @@ img {
     padding: 14px 20px;
   }
 
+  /* ── Back button and heart button: 44px minimum tap targets ── */
+  .sdp-back {
+    min-height: 44px;
+  }
+
+  .sdp-heart-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* ── Hero summary line: min 14px on dark background ── */
+  .sdp-line-summary {
+    font-size: 14px;
+  }
+
   /* ── Getting There: stack transport-mode label above description ── */
   .sdp-access-row {
     flex-direction: column;
@@ -221,5 +236,77 @@ img {
   /* ── Enquiry modal: tighter padding ── */
   .enq-modal {
     padding: 28px 20px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESTINATION LANDING PAGES
+   These rules apply when mobile.css is linked from destination pages
+   (destinations/bali.html, destinations/santorini.html, etc.)
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── Hero content: reduce padding to prevent text crowding image edges ── */
+  .dest-landing-hero-content {
+    padding: 60px 24px;
+  }
+
+  /* ── Body wrapper: 20px horizontal padding across full mobile range ── */
+  .dest-landing-body {
+    padding: 0 20px;
+  }
+
+  /* ── Budget section: reduce horizontal padding for mobile ── */
+  .dest-landing-budget {
+    padding: 0 20px 60px;
+    margin-top: 48px;
+  }
+
+  /* ── Back button: ensure 44px minimum tap target ── */
+  .story-back-btn {
+    min-height: 44px;
+  }
+
+  /* ── Highlight body text: enforce 14px minimum ── */
+  .dest-hl-body {
+    font-size: 14px;
+  }
+
+  /* ── FAQ answers: enforce 14px minimum ── */
+  .dest-faq-answer {
+    font-size: 14px;
+  }
+
+  /* ── Expert take body: comfortable long-form reading size ── */
+  .dest-expert-body {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  /* ── Spot card strip text: readable on two-column card grid ── */
+  .spot-card-strip-text {
+    font-size: 12px;
+  }
+
+  /* ── Destination sub text on hero: ensure min 14px ── */
+  .dest-landing-sub {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ── Hero: allow shorter min-height on very small screens ── */
+  .dest-landing-hero {
+    min-height: 50vh;
+  }
+
+  /* ── Hero content: tighter padding on smallest screens ── */
+  .dest-landing-hero-content {
+    padding: 48px 20px;
+  }
+
+  /* ── Body wrapper: tightest padding at narrow viewports ── */
+  .dest-landing-body {
+    padding: 0 16px;
   }
 }
