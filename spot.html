@@ -2206,6 +2206,7 @@ function mapSpotFromAirtable(r) {
     'Line Summary': f['Line Summary'] || '',
     'Full Summary': f['Full Summary'] || '',
     'Cover Photo': f['Cover Photo']?.[0]?.url || (typeof f['Cover Photo'] === 'string' ? f['Cover Photo'] : null),
+    'Cover Photo Is Video': !!(f['Cover Photo']?.[0]?.filename?.toLowerCase().endsWith('.m3u8')) || (typeof f['Cover Photo'] === 'string' && (f['Cover Photo'].includes('.m3u8') || f['Cover Photo'].includes('cloudflarestream.com'))),
     'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || null,
     'Hero Position': f['Hero Position'] || 'center center',
     'Card Position': f['Card Position'] || 'center center',
@@ -2247,7 +2248,7 @@ function populateSpot(s) {
   const bg = document.getElementById('sdp-hero-bg');
   if (s['Cover Photo']) {
     const url = s['Cover Photo'];
-    if (url.includes('.m3u8') || url.includes('cloudflarestream.com')) {
+    if (s['Cover Photo Is Video']) {
       const vid = document.createElement('video');
       vid.autoplay = true;
       vid.loop = true;
