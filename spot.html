@@ -1492,12 +1492,21 @@ nav {
   margin-top: 6px;
 }
 .sdp-tier-plus-note {
+  display: block;
+  width: fit-content;
   font-family: 'Jost', sans-serif;
   font-size: 11px;
-  font-weight: 300;
-  font-style: italic;
-  color: #9a8f7e;
-  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--mid);
+  background: var(--bg2);
+  border: 0.5px solid var(--hairline);
+  border-radius: 100px;
+  padding: 3px 8px;
+  margin-bottom: 10px;
+}
+.sdp-tier-pill-check {
+  color: #7a9b72;
+  margin-right: 3px;
 }
 .sdp-tier-footnote {
   font-family: 'Jost', sans-serif;
@@ -3259,7 +3268,7 @@ function renderTieredPackages(packages) {
     var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
     var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
     var plusNote      = (i > 0 && prevPkg)
-      ? '<p class="sdp-tier-plus-note">Everything in ' + prevPkg['Tier Name'] + ', plus:</p>'
+      ? '<span class="sdp-tier-plus-note"><span class="sdp-tier-pill-check">✓</span>Includes everything in ' + prevPkg['Tier Name'] + '</span>'
       : '';
     var itemsHtml = newItems.map(function(item) {
       return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + item + '</span></div>';
