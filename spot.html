@@ -2205,8 +2205,8 @@ function mapSpotFromAirtable(r) {
     'Access Details': f['Access Details'] || '',
     'Line Summary': f['Line Summary'] || '',
     'Full Summary': f['Full Summary'] || '',
-    'Cover Photo': f['Cover Photo']?.[0]?.url || (typeof f['Cover Photo'] === 'string' ? f['Cover Photo'] : null),
-    'Cover Photo Is Video': !!(f['Cover Photo']?.[0]?.filename?.toLowerCase().endsWith('.m3u8')) || (typeof f['Cover Photo'] === 'string' && (f['Cover Photo'].includes('.m3u8') || f['Cover Photo'].includes('cloudflarestream.com'))),
+    'Cover Photo': f['Cover Photo']?.[0]?.url || null,
+    'Cover Video': f['Cover Video'] || null,
     'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || null,
     'Hero Position': f['Hero Position'] || 'center center',
     'Card Position': f['Card Position'] || 'center center',
@@ -2246,28 +2246,25 @@ function toSlug(name) {
 function populateSpot(s) {
   // Hero
   const bg = document.getElementById('sdp-hero-bg');
-  if (s['Cover Photo']) {
-    const url = s['Cover Photo'];
-    if (s['Cover Photo Is Video']) {
-      const vid = document.createElement('video');
-      vid.autoplay = true;
-      vid.loop = true;
-      vid.muted = true;
-      vid.playsInline = true;
-      vid.style.objectPosition = s['Hero Position'] || 'center center';
-      bg.appendChild(vid);
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(vid);
-      } else if (vid.canPlayType('application/vnd.apple.mpegurl')) {
-        vid.src = url;
-      }
-    } else {
-      bg.style.backgroundImage = `url('${url}')`;
-      bg.style.backgroundSize = 'cover';
-      bg.style.backgroundPosition = s['Hero Position'] || 'center center';
+  if (s['Cover Video']) {
+    const vid = document.createElement('video');
+    vid.autoplay = true;
+    vid.loop = true;
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.style.objectPosition = s['Hero Position'] || 'center center';
+    bg.appendChild(vid);
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(s['Cover Video']);
+      hls.attachMedia(vid);
+    } else if (vid.canPlayType('application/vnd.apple.mpegurl')) {
+      vid.src = s['Cover Video'];
     }
+  } else if (s['Cover Photo']) {
+    bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
+    bg.style.backgroundSize = 'cover';
+    bg.style.backgroundPosition = s['Hero Position'] || 'center center';
   }
 
   if (s.badge) {
