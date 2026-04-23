@@ -215,7 +215,7 @@
     <div class="results-topbar dest-landing-filter-bar">
       <div class="results-topbar-left">
         <div class="results-panel-wrap">
-          <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')">Vibe <span class="pill-count" id="dlvibe-count" style="display:none"></span></button>
+          <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')"><span id="dlvibe-label">Vibe</span></button>
           <div class="results-inline-panel" id="dl-vibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
@@ -231,7 +231,7 @@
           </div>
         </div>
         <div class="results-panel-wrap">
-          <button class="results-filter-pill" id="dlpill-privacy" onclick="toggleDLPanel('dl-privacy-panel','dlpill-privacy')">Privacy <span class="pill-count" id="dlprivacy-count" style="display:none"></span></button>
+          <button class="results-filter-pill" id="dlpill-privacy" onclick="toggleDLPanel('dl-privacy-panel','dlpill-privacy')"><span id="dlprivacy-label">Privacy</span></button>
           <div class="results-inline-panel" id="dl-privacy-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
@@ -243,7 +243,7 @@
           </div>
         </div>
         <div class="results-panel-wrap">
-          <button class="results-filter-pill" id="dlpill-budget" onclick="toggleDLPanel('dl-budget-panel','dlpill-budget')">Budget <span class="pill-count" id="dlbudget-count" style="display:none"></span></button>
+          <button class="results-filter-pill" id="dlpill-budget" onclick="toggleDLPanel('dl-budget-panel','dlpill-budget')"><span id="dlbudget-label">Budget</span></button>
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
@@ -436,8 +436,38 @@
     const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
     const DEST_ALIASES = ['switzerland','swiss','alps','bernese','grindelwald','zurich','geneva'];
     function toggleDLPanel(panelId, pillId) { document.querySelectorAll('.results-inline-panel').forEach(p => { if (p.id !== panelId) p.classList.remove('open'); }); document.getElementById(panelId)?.classList.toggle('open'); }
-    function toggleDLTag(el, type, val) { el.classList.toggle('selected'); if (dlState[type].has(val)) dlState[type].delete(val); else dlState[type].add(val); const countEl = document.getElementById(`dl${type}-count`); if (countEl) { countEl.textContent = dlState[type].size || ''; countEl.style.display = dlState[type].size ? 'inline' : 'none'; } document.getElementById(`dlpill-${type}`)?.classList.toggle('active', dlState[type].size > 0); renderSpots(); }
-    function clearDLFilters() { dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear(); document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected')); ['dlvibe-count','dlprivacy-count','dlbudget-count'].forEach(id => { const el = document.getElementById(id); if (el) { el.textContent = ''; el.style.display = 'none'; } }); ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => { document.getElementById(id)?.classList.remove('active'); }); renderSpots(); }
+    const DL_PILL_LABELS = {
+      vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
+      privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
+      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+    };
+    function updatePillLabel(type) {
+      var cfg = DL_PILL_LABELS[type];
+      var sel = Array.from(dlState[type]);
+      var pillEl = document.getElementById('dlpill-' + type);
+      var labelEl = document.getElementById('dl' + type + '-label');
+      if (!pillEl || !labelEl || !cfg) return;
+      if (sel.length === 0) {
+        labelEl.textContent = cfg.label;
+        pillEl.classList.remove('active');
+      } else {
+        var names = sel.map(function(v) { return cfg.names[v] || v; }).join(', ');
+        labelEl.textContent = cfg.label + ' · ' + names;
+        pillEl.classList.add('active');
+      }
+    }
+    function toggleDLTag(el, type, val) {
+      el.classList.toggle('selected');
+      if (dlState[type].has(val)) dlState[type].delete(val); else dlState[type].add(val);
+      updatePillLabel(type);
+      renderSpots();
+    }
+    function clearDLFilters() {
+      dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
+      ['vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
+      renderSpots();
+    }
     const privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
     function buildSpotCard(s) { const cardPhoto = s['Spot Card Photo'] || s['Cover Photo']; const imgStyle = cardPhoto ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};` : `background:${s.coverGradient || '#1e2835'};`; const badge = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : ''; const vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || ''); const hook = s['Hook'] || s['Line Summary'] || ''; const price = s['Price Moment'] || s['Moment Price'] || ''; const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : ''); const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || ''; return `<div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer"><div class="spot-card-img"><div class="img-bg" style="${imgStyle}"></div>${badge}<div class="spot-card-overlay"><span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span><div class="spot-card-name">${s.Name || ''}</div>${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}</div></div><div class="spot-card-body"><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="spot-card-strip-text">${s.Privacy || ''}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path></svg><span class="spot-card-strip-text">${s.Budget || ''}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg><span class="spot-card-strip-text">${vibe}</span></div></div></div>`; }
     let allSpots = [];

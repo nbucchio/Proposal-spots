@@ -302,7 +302,7 @@
       <div class="results-topbar-left">
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')">
-            Vibe <span class="pill-count" id="dlvibe-count" style="display:none"></span>
+            <span id="dlvibe-label">Vibe</span>
           </button>
           <div class="results-inline-panel" id="dl-vibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -320,7 +320,7 @@
         </div>
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-privacy" onclick="toggleDLPanel('dl-privacy-panel','dlpill-privacy')">
-            Privacy <span class="pill-count" id="dlprivacy-count" style="display:none"></span>
+            <span id="dlprivacy-label">Privacy</span>
           </button>
           <div class="results-inline-panel" id="dl-privacy-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -334,7 +334,7 @@
         </div>
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-budget" onclick="toggleDLPanel('dl-budget-panel','dlpill-budget')">
-            Budget <span class="pill-count" id="dlbudget-count" style="display:none"></span>
+            <span id="dlbudget-label">Budget</span>
           </button>
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -537,24 +537,36 @@
       });
       document.getElementById(panelId)?.classList.toggle('open');
     }
+    const DL_PILL_LABELS = {
+      vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
+      privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
+      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+    };
+    function updatePillLabel(type) {
+      var cfg = DL_PILL_LABELS[type];
+      var sel = Array.from(dlState[type]);
+      var pillEl = document.getElementById('dlpill-' + type);
+      var labelEl = document.getElementById('dl' + type + '-label');
+      if (!pillEl || !labelEl || !cfg) return;
+      if (sel.length === 0) {
+        labelEl.textContent = cfg.label;
+        pillEl.classList.remove('active');
+      } else {
+        var names = sel.map(function(v) { return cfg.names[v] || v; }).join(', ');
+        labelEl.textContent = cfg.label + ' · ' + names;
+        pillEl.classList.add('active');
+      }
+    }
     function toggleDLTag(el, type, val) {
       el.classList.toggle('selected');
       if (dlState[type].has(val)) dlState[type].delete(val); else dlState[type].add(val);
-      const countEl = document.getElementById(`dl${type}-count`);
-      if (countEl) { countEl.textContent = dlState[type].size || ''; countEl.style.display = dlState[type].size ? 'inline' : 'none'; }
-      document.getElementById(`dlpill-${type}`)?.classList.toggle('active', dlState[type].size > 0);
+      updatePillLabel(type);
       renderSpots();
     }
     function clearDLFilters() {
       dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
-      ['dlvibe-count','dlprivacy-count','dlbudget-count'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) { el.textContent = ''; el.style.display = 'none'; }
-      });
-      ['dlpill-vibe','dlpill-privacy','dlpill-budget'].forEach(id => {
-        document.getElementById(id)?.classList.remove('active');
-      });
+      ['vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
       renderSpots();
     }
 
