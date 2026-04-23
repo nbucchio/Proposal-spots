@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="/nav.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -545,12 +545,17 @@
     (function() {
       var video = document.getElementById('hero-video');
       var src = 'https://customer-lwpmkapmpw6y8ahx.cloudflarestream.com/aeeaf020c6eee74687b336e4f1b9d40b/manifest/video.m3u8';
-      if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-      } else if (window.Hls && Hls.isSupported()) {
-        var hls = new Hls();
+      if (window.Hls && Hls.isSupported()) {
+        var hls = new Hls({ capLevelToPlayerSize: false, startLevel: -1 });
         hls.loadSource(src);
         hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+          hls.currentLevel = data.levels.length - 1;
+          video.play().catch(function(){});
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = src;
+        video.play().catch(function(){});
       }
     })();
     fetchSpots();
