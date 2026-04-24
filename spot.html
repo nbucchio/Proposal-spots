@@ -2244,6 +2244,8 @@ function mapSpotFromAirtable(r) {
     'Addon 2 Price': f['Addon 2 Price'] || null,
     'Addon 3 Name': f['Addon 3 Name'] || null,
     'Addon 3 Price': f['Addon 3 Price'] || null,
+    'Addon 4 Name': f['Addon 4 Name'] || null,
+    'Addon 4 Price': f['Addon 4 Price'] || null,
     packages: r.packages || [],
   };
 }
@@ -3325,9 +3327,9 @@ function _renderTierAddons(spot) {
   var container   = document.getElementById('sdp-tier-addons');
   if (!stepEnhance || !container) return;
 
-  // Collect addon definitions from Addon 1/2/3 fields first
+  // Collect addon definitions from Addon 1/2/3/4 fields first
   var addonDefs = [];
-  for (var i = 1; i <= 3; i++) {
+  for (var i = 1; i <= 4; i++) {
     var aName  = spot['Addon ' + i + ' Name'];
     var aPrice = spot['Addon ' + i + ' Price'];
     if (aName) addonDefs.push({ name: aName.trim(), price: aPrice });
