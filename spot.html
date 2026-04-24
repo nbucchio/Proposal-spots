@@ -3267,8 +3267,8 @@ function renderTieredPackages(packages) {
     var isPopular     = (pkg['Tier Name'] || '').toLowerCase() === 'romantic';
     var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
     var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
-    var plusNote      = (i > 0 && prevPkg)
-      ? '<span class="sdp-tier-plus-note"><span class="sdp-tier-pill-check">✓</span>Includes everything in ' + prevPkg['Tier Name'] + '</span>'
+    var plusNote      = (i > 0 && packages[0])
+      ? '<span class="sdp-tier-plus-note"><span class="sdp-tier-pill-check">✓</span>Includes everything in ' + packages[0]['Tier Name'] + '</span>'
       : '';
     var itemsHtml = newItems.map(function(item) {
       return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + item + '</span></div>';
