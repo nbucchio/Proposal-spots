@@ -6705,6 +6705,57 @@ function buildSpotCard(s) {
     </div>`;
 }
 
+function buildSpotCardLinked(s) {
+  const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
+  const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+  const imgStyle = cardPhoto
+    ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
+    : `background:${s.coverGradient || 'var(--bg3)'};`;
+  const badge   = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
+  const saved   = (typeof savedSpotIds !== 'undefined') && savedSpotIds.includes(s.id);
+  const privacy = s.Privacy || '';
+  const vibe    = Array.isArray(s['Vibe']) ? s['Vibe'][0] : (s['Vibe'] || '');
+  const hook    = s['Hook'] || s['Line Summary'] || '';
+
+  return `
+    <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
+      <div class="spot-card-img">
+        <div class="img-bg" style="${imgStyle}"></div>
+        ${badge}
+        <div class="spot-save${saved?' saved':''}" data-spot-id="${s.id}" onclick="toggleSaveSpot(event,'${s.id}')">♡</div>
+        <div class="spot-card-overlay">
+          <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
+          <div class="spot-card-name">${s.Name}</div>
+          ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
+        </div>
+      </div>
+      <div class="spot-card-body">
+        <div class="spot-card-strip-item">
+          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span class="spot-card-strip-text">${privacy}</span>
+        </div>
+        <div class="spot-card-strip-divider"></div>
+        <div class="spot-card-strip-item">
+          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path>
+          </svg>
+          <span class="spot-card-strip-text">${s.Budget || ''}</span>
+        </div>
+        <div class="spot-card-strip-divider"></div>
+        <div class="spot-card-strip-item">
+          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+          </svg>
+          <span class="spot-card-strip-text">${vibe}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
 function buildCardPriceRow(s) {
   const moment = s['Price Moment'];
   const hotelNightly = s['Price Hotel Per Night'] || s['Hotel Area Rate'];
@@ -9513,7 +9564,7 @@ function renderResultsPage() {
   const privacyEmoji = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
 
   if (grid) {
-    grid.innerHTML = filtered.map(s => buildSpotCard(s)).join('');
+    grid.innerHTML = filtered.map(s => buildSpotCardLinked(s)).join('');
   }
 }
 
