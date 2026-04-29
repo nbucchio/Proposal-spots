@@ -362,6 +362,10 @@ nav.scrolled {
 .hero-rule {
   display: none;
 }
+/* Mobile-only wordmark — hidden on desktop */
+.hero-mobile-wordmark {
+  display: none;
+}
 .hero-headline {
   animation: fadeUp 0.8s 0.06s ease both;
   margin-bottom: 36px;
@@ -1699,11 +1703,13 @@ footer {
   flex-direction: column;
   border-radius: 20px;
   min-height: auto;
+  box-shadow: 0 4px 24px rgba(28,28,28,0.10), 0 1px 4px rgba(28,28,28,0.06);
 }
 .ssb-segment {
   border-radius: 20px;
-  padding: 14px 20px;
+  padding: 16px 20px;
   width: 100%;
+  min-height: 60px;
 }
 .ssb-div {
   width: auto;
@@ -1711,11 +1717,15 @@ footer {
   margin: 0 16px;
 }
 .ssb-btn {
-  margin: 8px 12px 12px;
-  padding: 16px 28px;
+  margin: 8px 12px 14px;
+  padding: 18px 28px;
   text-align: center;
   display: block;
   width: calc(100% - 24px);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  min-height: 56px;
+  border-radius: 100px;
 }
 .ssb-dropdown {
   position: static;
@@ -1726,11 +1736,69 @@ footer {
   padding: 4px 0 8px;
   min-width: 0;
 }
+/* Task 4: Larger dropdown items for mobile tap targets */
+.ssb-dd-item {
+  font-size: 16px;
+  padding: 14px 20px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+/* Task 4: SSB label readable on mobile */
+.ssb-label { font-size: 10px; }
+.ssb-value { font-size: 17px; }
 
 .nav-links { display: none; }
-  .hero { padding: 96px 20px 64px; align-items: center; background-position: 30% center; }
-  .hero-content { max-width: 100%; text-align: center; }
-  .hero-title { font-size: clamp(40px, 9vw, 52px); }
+
+  /* ── TASK 1: Mobile hero — brand-first, no photo background ── */
+  .hero {
+    background-image: none !important;
+    background-color: var(--bg);
+    padding: 108px 24px 56px;
+    min-height: auto;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .hero::before, .hero::after { display: none; }
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* Wordmark at top */
+  .hero-mobile-wordmark {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 28px;
+    order: 0;
+  }
+  /* Brand line (subtitle) in clay, order: below wordmark */
+  .hero-eyebrow {
+    font-size: 13px;
+    color: #A55A4A;
+    letter-spacing: 0.14em;
+    margin-bottom: 0;
+    order: 2;
+    margin-top: 12px;
+  }
+  /* Headline */
+  .hero-title {
+    font-size: clamp(34px, 9vw, 48px);
+    margin-bottom: 0;
+    order: 1;
+  }
+  /* Search bar */
+  .search-container { width: 100%; order: 3; margin-top: 28px; }
+  /* Hide stats — keep it clean on mobile */
+  .hero-stats { display: none; }
+
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1744,15 +1812,10 @@ footer {
   .filter-pills-row::-webkit-scrollbar { display: none; }
   /* Footer padding scaled for mobile */
   footer { padding: 40px 24px 32px; }
-  /* Ensure search bar never overflows */
-  .search-container { width: 100%; }
   /* Filter pill tap targets meet 44px minimum */
-  .pill-btn { min-height: 44px; }
+  .pill-btn { min-height: 48px; font-size: 15px; }
   /* Nav CTA minimum touch height */
   .nav-cta { min-height: 40px; display: inline-flex; align-items: center; }
-  /* Hero stats: wrap to prevent horizontal overflow on narrow screens */
-  .hero-stats { flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 32px; }
-  .hero-stat-div { display: none; }
 }
 @media (max-width: 480px) {
   .spots-grid { grid-template-columns: 1fr; }
@@ -1768,8 +1831,8 @@ footer {
   /* Section padding at 40px per mobile spec */
   .section { padding: 40px 16px; }
   /* Tighter hero padding on smallest screens */
-  .hero { padding: 88px 16px 56px; }
-  .hero-title { font-size: clamp(34px, 9vw, 48px); }
+  .hero { padding: 96px 16px 48px; }
+  .hero-title { font-size: clamp(32px, 9vw, 44px); }
   /* Nav destination dropdown: single column on tiny screens */
   .nav-dest-grid { grid-template-columns: 1fr; }
   /* Spot cards: unified card appearance so strip feels attached */
@@ -2807,6 +2870,14 @@ footer {
     min-width: unset;
     width: auto;
     z-index: 700;
+  }
+  /* Ensure filter tags inside inline panels have 48px tap targets on mobile */
+  .results-inline-panel .filter-tag {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    padding: 10px 16px;
   }
   .results-header { padding: 28px 20px 16px; }
   .results-grid-wrap { padding: 0 20px 60px; }
@@ -4713,6 +4784,7 @@ footer {
 <section class="hero">
   <div class="hero-rule"></div>
   <div class="hero-content">
+    <div class="hero-mobile-wordmark">Proposal Spots</div>
     <span class="hero-eyebrow">A Curated World of Proposal Settings</span>
     <h1 class="hero-title">
       Find the perfect place<br>to <strong>propose.</strong>
@@ -5659,8 +5731,7 @@ footer {
         <!-- Vibe pill -->
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="rpill-vibe" onclick="toggleResultsPanel('rvibe-panel','rpill-vibe')">
-            Vibe
-            <span class="pill-count" id="rvibe-count" style="display:none"></span>
+            <span id="rvibe-label">Vibe</span>
           </button>
           <div class="results-inline-panel" id="rvibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -5682,8 +5753,7 @@ footer {
         <!-- Privacy pill -->
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="rpill-privacy" onclick="toggleResultsPanel('rprivacy-panel','rpill-privacy')">
-            Privacy
-            <span class="pill-count" id="rprivacy-count" style="display:none"></span>
+            <span id="rprivacy-label">Privacy</span>
           </button>
           <div class="results-inline-panel" id="rprivacy-panel">
             <span class="inline-panel-label">Select all that apply</span>
@@ -5699,8 +5769,7 @@ footer {
         <!-- Country pill -->
         <div class="results-panel-wrap">
           <button class="results-filter-pill" id="rpill-country" onclick="toggleResultsPanel('rcountry-panel','rpill-country')">
-            Country
-            <span class="pill-count" id="rcountry-count" style="display:none"></span>
+            <span id="rcountry-label">Country</span>
           </button>
           <div class="results-inline-panel" id="rcountry-panel">
             <span class="inline-panel-label">Select destination</span>
@@ -9455,20 +9524,39 @@ function toggleResultsFilter(el, cat, val) {
 
 // ── Sync pill active states on results page ─────
 function syncResultsPills() {
-  const vEl = document.getElementById('rpill-vibe');
-  const pEl = document.getElementById('rpill-privacy');
-  const cEl = document.getElementById('rpill-country');
-  const vcEl = document.getElementById('rvibe-count');
-  const pcEl = document.getElementById('rprivacy-count');
-  const ccEl = document.getElementById('rcountry-count');
+  const vEl  = document.getElementById('rpill-vibe');
+  const pEl  = document.getElementById('rpill-privacy');
+  const cEl  = document.getElementById('rpill-country');
+  const vLbl = document.getElementById('rvibe-label');
+  const pLbl = document.getElementById('rprivacy-label');
+  const cLbl = document.getElementById('rcountry-label');
 
-  if (vEl)  vEl.classList.toggle('active', state.vibe.size > 0);
-  if (vcEl) { vcEl.style.display = state.vibe.size > 0 ? '' : 'none'; vcEl.textContent = state.vibe.size; }
-  if (pEl)  pEl.classList.toggle('active', state.privacy.size > 0);
-  if (pcEl) { pcEl.style.display = state.privacy.size > 0 ? '' : 'none'; pcEl.textContent = state.privacy.size; }
+  // Vibe pill
+  if (vEl) vEl.classList.toggle('active', state.vibe.size > 0);
+  if (vLbl) {
+    vLbl.textContent = state.vibe.size > 0
+      ? 'Vibe · ' + [...state.vibe].join(', ')
+      : 'Vibe';
+  }
+
+  // Privacy pill
+  if (pEl) pEl.classList.toggle('active', state.privacy.size > 0);
+  if (pLbl) {
+    const privacyShort = { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate', 'Everyone Will See': 'Public' };
+    pLbl.textContent = state.privacy.size > 0
+      ? 'Privacy · ' + [...state.privacy].map(v => privacyShort[v] || v).join(', ')
+      : 'Privacy';
+  }
+
+  // Country pill
   const cs = state.country?.size || 0;
-  if (cEl)  cEl.classList.toggle('active', cs > 0);
-  if (ccEl) { ccEl.style.display = cs > 0 ? '' : 'none'; ccEl.textContent = cs; }
+  if (cEl) cEl.classList.toggle('active', cs > 0);
+  if (cLbl) {
+    cLbl.textContent = cs > 0
+      ? 'Country · ' + [...state.country].join(', ')
+      : 'Country';
+  }
+
   syncResultsTagSelectedStates();
 }
 
@@ -9607,9 +9695,8 @@ function updateFilterCount() {
           + Object.values(state.toggles).filter(Boolean).length;
   const pill = document.getElementById('pill-filters');
   const cnt  = document.getElementById('filter-count');
-  pill.classList.toggle('active', n > 0);
-  cnt.style.display = n > 0 ? '' : 'none';
-  if (n > 0) cnt.textContent = n;
+  if (pill) pill.classList.toggle('active', n > 0);
+  if (cnt) { cnt.style.display = n > 0 ? '' : 'none'; if (n > 0) cnt.textContent = n; }
 }
 function applyFilters() {
   closePanel();
@@ -9629,10 +9716,7 @@ function renderActiveTags() {
     document.querySelectorAll('#vibe-panel .filter-tag').forEach(e => {
       if (e.textContent.trim().replace(/^.\s/,'') === v || e.textContent.includes(v)) e.classList.remove('selected');
     });
-    const cnt = document.getElementById('vibe-count');
-    document.getElementById('pill-vibe').classList.toggle('active', state.vibe.size > 0);
-    cnt.style.display = state.vibe.size > 0 ? '' : 'none';
-    if (state.vibe.size > 0) cnt.textContent = state.vibe.size;
+    document.getElementById('pill-vibe')?.classList.toggle('active', state.vibe.size > 0);
     renderActiveTags(); applySpotFilters();
   }}));
 
@@ -9641,10 +9725,7 @@ function renderActiveTags() {
     document.querySelectorAll('#privacy-panel .filter-tag').forEach(e => {
       if (e.textContent.includes(v)) e.classList.remove('selected');
     });
-    const cnt = document.getElementById('privacy-count');
-    document.getElementById('pill-privacy').classList.toggle('active', state.privacy.size > 0);
-    cnt.style.display = state.privacy.size > 0 ? '' : 'none';
-    if (state.privacy.size > 0) cnt.textContent = state.privacy.size;
+    document.getElementById('pill-privacy')?.classList.toggle('active', state.privacy.size > 0);
     renderActiveTags(); applySpotFilters();
   }}));
 
@@ -9698,10 +9779,8 @@ function clearAllFilters() {
   });
   document.querySelectorAll('.filter-tag, .filter-radio').forEach(e => e.classList.remove('selected'));
   document.getElementById('active-tags').innerHTML = '';
-  document.getElementById('pill-vibe').classList.remove('active');
-  document.getElementById('pill-privacy').classList.remove('active');
-  document.getElementById('vibe-count').style.display = 'none';
-  document.getElementById('privacy-count').style.display = 'none';
+  document.getElementById('pill-vibe')?.classList.remove('active');
+  document.getElementById('pill-privacy')?.classList.remove('active');
   document.getElementById('search-main').value = '';
   updateFilterCount();
   syncResultsPills();
