@@ -68,11 +68,12 @@ export default async function handler(req, res) {
           spotIds.forEach(spotId => {
             if (!packagesBySpot[spotId]) packagesBySpot[spotId] = [];
             packagesBySpot[spotId].push({
-              'Tier Name':  pkg.fields['Tier Name']   || '',
-              'Price':      pkg.fields['Price ']      || null,
-              'Includes':   pkg.fields['Includes ']   || '',
-              'Sort Order': pkg.fields['Sort Order']  || 0,
-              'Is Active':  pkg.fields['Is Active']   || false,
+              'Tier Name':       pkg.fields['Tier Name']       || '',
+              'Price':           pkg.fields['Price ']          || null,
+              'Includes':        pkg.fields['Includes ']       || '',
+              'Included Addons': pkg.fields['Included Addons'] || '',
+              'Sort Order':      pkg.fields['Sort Order']      || 0,
+              'Is Active':       pkg.fields['Is Active']       || false,
             });
           });
         });

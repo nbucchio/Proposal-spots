@@ -3351,11 +3351,17 @@ function _renderTierAddons(spot) {
 
   if (!addonDefs.length) { stepEnhance.style.display = 'none'; return; }
 
-  // Build cumulative includes from ALL tiers up to and including the selected one
-  // (each tier's Includes may only list new items, so we must accumulate)
+  // Build cumulative set of included addon names from ALL tiers up to and including
+  // the selected one. Uses "Included Addons" (explicit addon-name list) and falls
+  // back to matching against the general "Includes" content.
+  var includedAddonNames = [];
   var cumulativeIncludes = [];
   for (var j = 0; j <= _tieredSelectedIdx; j++) {
     if (packages[j]) {
+      (packages[j]['Included Addons'] || '').split(',').forEach(function(item) {
+        var t = item.trim().toLowerCase();
+        if (t) includedAddonNames.push(t);
+      });
       (packages[j]['Includes'] || '').split(',').forEach(function(item) {
         var t = item.trim().toLowerCase();
         if (t) cumulativeIncludes.push(t);
@@ -3363,9 +3369,12 @@ function _renderTierAddons(spot) {
     }
   }
 
-  // Filter out addons already included in any tier up to the selected one
+  // Filter out addons already included in any tier up to the selected one.
+  // An addon is hidden if its name appears in the explicit "Included Addons" list,
+  // or if it matches (exactly or as substring) any item in the general Includes text.
   var visible = addonDefs.filter(function(a) {
     var addonLower = a.name.toLowerCase();
+    if (includedAddonNames.some(function(n) { return n === addonLower; })) return false;
     return !cumulativeIncludes.some(function(inc) {
       return inc === addonLower || inc.includes(addonLower);
     });
