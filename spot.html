@@ -1846,7 +1846,7 @@ nav {
 
       <!-- Right sidebar -->
       <div class="sdp-sidebar">
-        <div class="sdp-concierge-card">
+        <div class="sdp-concierge-card" id="sdp-concierge-card">
           <!-- Price signal -->
           <div class="sdp-concierge-top">
             <span class="sdp-concierge-eyebrow">Proposal Package</span>
@@ -3574,11 +3574,13 @@ function selectMobileTier(idx) {
   });
   // Sync to sidebar selector and pricing
   selectTier(idx);
-  // Scroll to the booking / enquiry section
-  var concierge = document.getElementById('sdp-concierge-card');
-  if (concierge) {
-    concierge.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  // Scroll to the booking / enquiry section after re-render settles
+  setTimeout(function() {
+    var concierge = document.getElementById('sdp-concierge-card');
+    if (concierge) {
+      concierge.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 0);
 }
 
 // Init on load
