@@ -2499,6 +2499,27 @@ function galleryGoto(i) {
   renderGalleryFrame();
 }
 
+(function() {
+  var _touchStartX = 0, _touchStartY = 0;
+  function onTouchStart(e) {
+    _touchStartX = e.touches[0].clientX;
+    _touchStartY = e.touches[0].clientY;
+  }
+  function onTouchEnd(e) {
+    if (window.innerWidth > 768) return;
+    var dx = e.changedTouches[0].clientX - _touchStartX;
+    var dy = e.changedTouches[0].clientY - _touchStartY;
+    if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy)) return;
+    if (dx < 0) galleryNext(); else galleryPrev();
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var el = document.getElementById('sdp-gallery-viewer');
+    if (!el) return;
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchend', onTouchEnd, { passive: true });
+  });
+})();
+
 // ─────────────────────────────────────────────────────────
 //  SPOT MAP
 // ─────────────────────────────────────────────────────────
