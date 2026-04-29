@@ -1599,6 +1599,175 @@ nav {
   color: var(--muted);
   flex-shrink: 0;
 }
+
+/* ── Mobile tier card scaffolding (hidden on desktop) ────── */
+.sdp-tier-left-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.sdp-mob-radio,
+.sdp-mob-divider,
+.sdp-mob-popular-badge { display: none; }
+
+/* ── Mobile Package Bar (hidden on desktop) ──────────────── */
+.sdp-mob-pkg-bar {
+  display: none;
+}
+
+/* ── Mobile Tier Cards ≤ 767px ────────────────────────────── */
+@media (max-width: 767px) {
+
+  /* Outer container becomes a simple flex column of cards */
+  .sdp-tier-block {
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Each tier row becomes a self-contained card */
+  .sdp-tier-row {
+    display: block;
+    grid-template-columns: none;
+    border-radius: 10px;
+    border: 1px solid #e0d9cf;
+    border-bottom: 1px solid #e0d9cf;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  /* Per-tier warm background tints */
+  .sdp-tier-row:nth-child(1) { background: #f5f0e8; }
+  .sdp-tier-row:nth-child(2) { background: #ede5d8; }
+  .sdp-tier-row:nth-child(3) { background: #e4d9c8; }
+
+  /* Selected state — gold border, radio filled */
+  .sdp-tier-row.mob-selected {
+    border: 1.5px solid #c9a96e;
+  }
+
+  /* Header area: radio + name/price side by side */
+  .sdp-tier-left {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    background: transparent;
+    border-right: none;
+    border-bottom: none;
+    padding: 16px 16px 0;
+  }
+
+  /* Items panel below divider */
+  .sdp-tier-right {
+    background: transparent;
+    padding: 0 16px 16px;
+  }
+
+  /* Radio circle */
+  .sdp-mob-radio {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #c8bfb3;
+    flex-shrink: 0;
+    margin-top: 3px;
+    background: transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .sdp-tier-row.mob-selected .sdp-mob-radio {
+    background: #c9a96e;
+    border-color: #c9a96e;
+  }
+
+  /* Thin divider between header and items */
+  .sdp-mob-divider {
+    display: block;
+    height: 1px;
+    background: #d9d2c4;
+    margin: 12px 16px;
+  }
+
+  /* Most Popular pill — mobile only */
+  .sdp-mob-popular-badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    color: #c9a96e;
+    background: rgba(201, 169, 110, 0.12);
+    border-radius: 20px;
+    padding: 2px 8px;
+    align-self: flex-start;
+    margin-top: 1px;
+  }
+
+  /* Hide desktop popular badge on mobile */
+  .sdp-tier-popular-badge { display: none; }
+
+  /* Remove the desktop popular top-border accent on mobile */
+  .sdp-tier-row-popular { border-top: none; }
+
+  /* ── Sticky mobile package CTA bar ──────────────────────── */
+  .sdp-mob-pkg-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a18;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 501;
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sdp-mob-pkg-bar.active {
+    transform: translateY(0);
+  }
+
+  .sdp-mob-pkg-bar-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.6);
+    letter-spacing: 0.03em;
+  }
+
+  .sdp-mob-pkg-bar-label strong {
+    font-weight: 400;
+    color: #f5f0e8;
+  }
+
+  .sdp-mob-pkg-bar-btn {
+    background: none;
+    border: 1px solid rgba(245, 240, 232, 0.4);
+    border-radius: 6px;
+    color: #f5f0e8;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 44px;
+    transition: border-color 0.15s;
+  }
+}
 </style>
 <link rel="stylesheet" href="/mobile.css">
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
@@ -1865,6 +2034,12 @@ nav {
       </div>
     </div>
   </div>
+</div>
+
+<!-- Mobile package selection sticky bar (mobile only, shown via JS) -->
+<div id="sdp-mob-pkg-bar" class="sdp-mob-pkg-bar">
+  <span class="sdp-mob-pkg-bar-label">Selected: <strong id="sdp-mob-pkg-bar-name"></strong></span>
+  <button class="sdp-mob-pkg-bar-btn" onclick="mobPkgContinue()">Continue →</button>
 </div>
 
 <!-- Bottom bar -->
@@ -2432,6 +2607,8 @@ function populateSpot(s) {
     _renderTierSelectorHTML(s.packages);
     _renderTierAddons(s);
     _updatePriceFromTier(s.packages);
+    _updateMobileStickyBar();
+    _initMobilePkgBar();
   } else {
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
@@ -3300,13 +3477,22 @@ function renderTieredPackages(packages) {
       return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + item + '</span></div>';
     }).join('');
 
-    return '<div class="sdp-tier-row' + popularClass + '">' +
+    // Mobile-only elements — hidden on desktop via CSS
+    var mobSelectedClass  = (i === _tieredSelectedIdx) ? ' mob-selected' : '';
+    var mobPopularBadge   = (i === 1) ? '<span class="sdp-mob-popular-badge">Most Popular</span>' : '';
+
+    return '<div class="sdp-tier-row' + popularClass + mobSelectedClass + '" data-tier-idx="' + i + '" onclick="selectMobileTier(' + i + ')">' +
       '<div class="sdp-tier-left">' +
-        popularBadge +
-        '<span class="sdp-tier-name">' + pkg['Tier Name'] + '</span>' +
-        '<span class="sdp-tier-price">' + price + '</span>' +
-        '<span class="sdp-tier-per">per experience</span>' +
+        '<span class="sdp-mob-radio"></span>' +
+        '<div class="sdp-tier-left-info">' +
+          popularBadge +
+          '<span class="sdp-tier-name">' + pkg['Tier Name'] + '</span>' +
+          mobPopularBadge +
+          '<span class="sdp-tier-price">' + price + '</span>' +
+          '<span class="sdp-tier-per">per experience</span>' +
+        '</div>' +
       '</div>' +
+      '<div class="sdp-mob-divider"></div>' +
       '<div class="sdp-tier-right">' +
         plusNote +
         itemsHtml +
@@ -3433,6 +3619,72 @@ function selectTier(idx) {
   _renderTierAddons(currentSpot);
   _updatePriceFromTier(packages);
   updateSelectionSummary();
+}
+
+// ─────────────────────────────────────────────────────────
+//  MOBILE PACKAGE CARDS
+// ─────────────────────────────────────────────────────────
+function selectMobileTier(idx) {
+  // No-op on desktop — click handler exists in HTML but is suppressed here
+  if (window.innerWidth >= 768) return;
+  // Update visual state of mobile cards
+  var rows = document.querySelectorAll('#sdp-tier-block .sdp-tier-row');
+  rows.forEach(function(row, i) {
+    if (i === idx) {
+      row.classList.add('mob-selected');
+    } else {
+      row.classList.remove('mob-selected');
+    }
+  });
+  // Sync to sidebar selector and pricing
+  selectTier(idx);
+  // Update sticky bar label
+  _updateMobileStickyBar();
+}
+
+function _updateMobileStickyBar() {
+  var nameEl = document.getElementById('sdp-mob-pkg-bar-name');
+  if (!nameEl || !currentSpot || !currentSpot.packages) return;
+  var pkg = currentSpot.packages[_tieredSelectedIdx];
+  if (pkg) nameEl.textContent = pkg['Tier Name'];
+}
+
+function _initMobilePkgBar() {
+  var bar      = document.getElementById('sdp-mob-pkg-bar');
+  var section  = document.getElementById('sdp-tiered-section');
+  var concierge = document.getElementById('sdp-concierge-card');
+  if (!bar || !section) return;
+
+  function updateBarVisibility() {
+    if (window.innerWidth >= 768) { bar.classList.remove('active'); return; }
+    var secRect  = section.getBoundingClientRect();
+    // Section has entered the viewport (top has scrolled into view)
+    var sectionVisible = secRect.top < window.innerHeight * 0.92;
+    // Booking card reached — hide bar so user can interact with the form
+    var bookingReached = concierge
+      ? concierge.getBoundingClientRect().top < window.innerHeight * 0.65
+      : false;
+    if (sectionVisible && !bookingReached) {
+      bar.classList.add('active');
+    } else {
+      bar.classList.remove('active');
+    }
+  }
+
+  window.addEventListener('scroll', updateBarVisibility, { passive: true });
+  window.addEventListener('resize', updateBarVisibility);
+  updateBarVisibility();
+}
+
+function mobPkgContinue() {
+  var concierge = document.getElementById('sdp-concierge-card');
+  if (concierge) {
+    concierge.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  // Ensure sidebar selector reflects the current mobile selection
+  if (currentSpot && currentSpot.packages) {
+    selectTier(_tieredSelectedIdx);
+  }
 }
 
 // Init on load
