@@ -203,12 +203,25 @@
     '}',
     '.nav-mobile-cta-link:hover { background: #8C7B64; }',
     '@media (max-width: 680px) {',
-    '  nav#navbar { padding: 0 8px 0 18px; }',
+    '  nav#navbar { padding: 0 12px; }',
+    '  .nav-logo { font-size: 9px; letter-spacing: 0.2em; }',
     '  .nav-link-right:not(.nav-destinations-btn) { display: none; }',
+    '  .nav-destinations-btn { font-size: 12px; padding: 7px 10px; }',
     '  .nav-cta { display: none; }',
     '  .nav-hamburger { display: flex; }',
-    '  .nav-dest-dropdown { min-width: 280px; left: 0; transform: none; }',
-    '  .nav-dest-grid { grid-template-columns: 1fr; }',
+    '  .nav-dest-dropdown {',
+    '    position: fixed;',
+    '    left: 16px;',
+    '    right: 16px;',
+    '    top: 82px;',
+    '    min-width: unset;',
+    '    transform: none;',
+    '    max-height: 70vh;',
+    '    overflow-y: auto;',
+    '    border-radius: 16px;',
+    '  }',
+    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
+    '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 13px; padding: 12px; }',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -296,6 +309,7 @@
         hamburgerSvg +
       '</button>' +
       '<div class="nav-mobile-menu" id="nav-mobile-menu">' +
+        '<a href="/destinations" class="nav-mobile-link">Destinations</a>' +
         '<a href="/how-it-works" class="nav-mobile-link">How It Works</a>' +
         '<a href="/inspiration.html" class="nav-mobile-link">Inspiration</a>' +
         mobileFaqLink +
