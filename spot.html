@@ -2072,6 +2072,10 @@ nav {
       <span class="enq-sum-lbl">Package</span>
       <span class="enq-sum-val" id="enq-sum-package-val"></span>
     </div>
+    <div class="enq-summary-row" id="enq-sum-addons" style="display:none">
+      <span class="enq-sum-lbl">Add-ons</span>
+      <span class="enq-sum-val" id="enq-sum-addons-val"></span>
+    </div>
   </div>
 
   <!-- Form -->
@@ -3116,6 +3120,22 @@ function openEnquiryModal() {
     }
   } else if (sumPackage) {
     sumPackage.style.display = 'none';
+  }
+
+  // Add-ons selected in the sidebar (Tiered spots)
+  const sumAddons    = document.getElementById('enq-sum-addons');
+  const sumAddonsVal = document.getElementById('enq-sum-addons-val');
+  if (sumAddons && sumAddonsVal) {
+    const checkedAddons = [...document.querySelectorAll('#sdp-tier-addons input:checked')].map(cb => cb.value);
+    if (checkedAddons.length) {
+      sumAddonsVal.innerHTML = checkedAddons.map(name =>
+        '<span style="display:block;font-size:11px;color:var(--muted)">&#10003; ' + name + '</span>'
+      ).join('');
+      sumAddons.style.display = '';
+      sumEl.style.display = '';
+    } else {
+      sumAddons.style.display = 'none';
+    }
   }
 
   // Update the proposal date row in the form
