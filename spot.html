@@ -3367,7 +3367,7 @@ function _renderTierAddons(spot) {
   var visible = addonDefs.filter(function(a) {
     var addonLower = a.name.toLowerCase();
     return !cumulativeIncludes.some(function(inc) {
-      return inc === addonLower || inc.includes(addonLower) || addonLower.includes(inc);
+      return inc === addonLower || inc.includes(addonLower);
     });
   });
 
