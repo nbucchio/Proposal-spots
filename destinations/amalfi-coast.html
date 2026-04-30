@@ -601,6 +601,7 @@
     }
 
     function renderSpots() {
+      const savedScrollY = window.scrollY;
       const grid = document.getElementById('dest-landing-grid');
       const empty = document.getElementById('dest-landing-empty');
       const comingSoon = document.getElementById('dest-landing-coming-soon');
@@ -632,11 +633,15 @@
         if (dlState.budget.size && ![...dlState.budget].some(v => (s.Budget||'').includes(v))) return false;
         return true;
       });
+      grid.style.display = '';
+      if (empty) empty.style.display = 'none';
       if (spots.length === 0) {
-        grid.innerHTML = ''; grid.style.display = 'none'; empty.style.display = 'block'; return;
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 0;"><p style="font-family:\'Cormorant\',serif;font-size:22px;font-weight:300;color:var(--mid);margin-bottom:20px;">No spots match these filters.</p><button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:\'Jost\',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;border-radius:100px;">Clear Filters</button></div>';
+        window.scrollTo(0, savedScrollY);
+        return;
       }
-      grid.style.display = ''; empty.style.display = 'none';
       grid.innerHTML = spots.map(s => buildSpotCard(s)).join('');
+      window.scrollTo(0, savedScrollY);
     }
 
     document.addEventListener('click', e => {
