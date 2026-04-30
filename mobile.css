@@ -250,6 +250,11 @@ img {
    (destinations/bali.html, destinations/santorini.html, etc.)
 ═══════════════════════════════════════════════════════════ */
 
+/* Prevent browser scroll-anchor adjustments when grid content changes on filter */
+.dest-landing-spots-wrap {
+  overflow-anchor: none;
+}
+
 @media (max-width: 768px) {
   /* ── Hero content: reduce padding to prevent text crowding image edges ── */
   .dest-landing-hero-content {
