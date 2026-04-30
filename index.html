@@ -377,7 +377,6 @@ nav.scrolled {
   position: relative;
   z-index: 1;
 }
-.mobile-markets { display: none; }
 .hero-eyebrow {
   font-family: 'Jost', sans-serif;
   font-size: 13px;
@@ -1783,9 +1782,6 @@ footer {
     margin-bottom: 28px;
     order: 0;
   }
-  /* Browse-by-destination: show mobile copy, hide desktop copy */
-  .mobile-markets { display: block; }
-  .desktop-markets { display: none; }
   /* Subtitle styling on mobile */
   .hero-eyebrow {
     font-size: 12px;
@@ -4884,8 +4880,8 @@ footer {
   </div>
 </section>
 
-<!-- FEATURED MARKETS — mobile only, shown right after hero -->
-<div class="section-wrap mobile-markets">
+<!-- FEATURED MARKETS -->
+<div class="section-wrap">
   <div class="section">
     <div class="section-header">
       <div class="section-meta">
@@ -5195,70 +5191,6 @@ footer {
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURED MARKETS -->
-<div class="section-wrap desktop-markets">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-meta">
-        <span class="section-eyebrow">Browse by destination</span>
-        <h2 class="section-title">Featured <strong>Markets</strong></h2>
-      </div>
-      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
-    </div>
-    <div class="markets-grid" style="cursor:pointer">
-      <div class="market-card" onclick="window.location.href='/destinations/italy'">
-        <div class="market-card-bg mc-amalfi"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Italy</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('santorini')">
-        <div class="market-card-bg mc-santorini"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Greece</span>
-          <span class="market-card-name">Santorini</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
-        <div class="market-card-bg mc-algarve"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Portugal</span>
-          <span class="market-card-name">Algarve</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('tulum')">
-        <div class="market-card-bg mc-tulum"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Mexico</span>
-          <span class="market-card-name">Tulum</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('costa-rica')">
-        <div class="market-card-bg mc-costarica"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Central America</span>
-          <span class="market-card-name">Costa Rica</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('maldives')">
-        <div class="market-card-bg mc-maldives"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Indian Ocean</span>
-          <span class="market-card-name">Maldives</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('south-of-france')">
-        <div class="market-card-bg mc-france"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">France</span>
-          <span class="market-card-name">South of France</span>
-        </div>
       </div>
     </div>
   </div>
