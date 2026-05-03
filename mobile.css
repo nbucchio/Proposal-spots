@@ -76,6 +76,10 @@
     min-height: 44px;
     padding: 10px 16px;
     font-size: 12px;
+    /* Prevent iOS from treating pill taps as horizontal scroll gestures
+       on the overflow-x:auto topbar — this is the root cause of pills
+       becoming unresponsive after filter labels grow and the bar overflows */
+    touch-action: manipulation;
   }
 
   .results-clear {
@@ -84,6 +88,7 @@
     min-height: 44px;
     display: flex;
     align-items: center;
+    touch-action: manipulation;
   }
 
   /* Inline filter panels: full width on mobile, appear below sticky filter bar */
@@ -134,6 +139,7 @@ img {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    touch-action: manipulation;
   }
 }
 
