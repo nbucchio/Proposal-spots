@@ -4781,6 +4781,7 @@ footer {
 }
 
 </style>
+<script src="/panel-position.js" defer></script>
 </head>
 <body>
 
@@ -6440,9 +6441,8 @@ async function fetchFromAirtable() {
         : rawPrivacy;
 
       const rawBudget = f['Budget'] || '';
-      const budget = rawBudget === 'Free' ? 'Free'
-        : rawBudget === 'Moderate' ? '$$'
-        : rawBudget === 'Expensive' ? '$$$'
+      const budget = rawBudget === 'Moderate' ? 'Premium'
+        : rawBudget === 'Expensive' ? 'Luxury'
         : rawBudget;
 
       // Vibe Secondary — multi-select, filter out non-vibe values like "Luxury"
