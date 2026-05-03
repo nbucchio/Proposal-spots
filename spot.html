@@ -2383,11 +2383,17 @@ function populateSpot(s) {
     vid.style.objectPosition = s['Hero Position'] || 'center center';
     bg.appendChild(vid);
     if (Hls.isSupported()) {
-      const hls = new Hls();
+      const hls = new Hls({ lowLatencyMode: false });
       hls.loadSource(s['Cover Video']);
       hls.attachMedia(vid);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        vid.play().catch(function() {});
+      });
     } else if (vid.canPlayType('application/vnd.apple.mpegurl')) {
       vid.src = s['Cover Video'];
+      vid.addEventListener('loadedmetadata', function() {
+        vid.play().catch(function() {});
+      }, { once: true });
     }
   } else if (s['Cover Photo']) {
     bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
