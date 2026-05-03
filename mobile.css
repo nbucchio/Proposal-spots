@@ -134,6 +134,11 @@ img {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    touch-action: manipulation;
+  }
+  .results-filter-pill,
+  .results-clear {
+    touch-action: manipulation;
   }
 }
 
