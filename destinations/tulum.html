@@ -553,16 +553,17 @@
       var video = document.getElementById('hero-video');
       var src = 'https://customer-lwpmkapmpw6y8ahx.cloudflarestream.com/aeeaf020c6eee74687b336e4f1b9d40b/manifest/video.m3u8';
       if (window.Hls && Hls.isSupported()) {
-        var hls = new Hls({ capLevelToPlayerSize: false, startLevel: -1 });
+        var hls = new Hls({ lowLatencyMode: false });
         hls.loadSource(src);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
-          hls.currentLevel = data.levels.length - 1;
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
           video.play().catch(function(){});
         });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = src;
-        video.play().catch(function(){});
+        video.addEventListener('loadedmetadata', function() {
+          video.play().catch(function(){});
+        }, { once: true });
       }
     })();
     fetchSpots();
