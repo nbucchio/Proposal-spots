@@ -381,23 +381,37 @@
   }
 
   // ── 9. Mobile: fix filter pill taps in overflow-x:auto filter bars ────────────
-  // On iOS, once an overflow-x:auto container becomes scrollable the browser
-  // treats every touchstart inside it as a potential scroll gesture and may
-  // swallow the click.  Calling preventDefault() on touchstart stops that
-  // detection; we then fire the button's own onclick from touchend instead.
+  // iOS/Android: once an overflow-x:auto container is scrollable the browser
+  // intercepts touchstart as a potential scroll gesture and may swallow clicks.
+  // Fix: preventDefault on touchstart kills scroll detection; touchend fires
+  // onclick manually.  We also null-out onclick momentarily so any synthetic
+  // click that still fires (seen on some Android builds) is a no-op instead of
+  // double-toggling the panel.  Same treatment for filter-tag divs inside panels
+  // which remain DOM-children of the overflow container even when position:fixed.
   (function() {
-    function applyFilterPillTouchFix() {
-      document.querySelectorAll('.results-filter-pill, .results-clear').forEach(function(btn) {
-        if (btn._touchFixed) return;
-        btn._touchFixed = true;
-        btn.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-        }, { passive: false });
-        btn.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          if (typeof btn.onclick === 'function') btn.onclick();
-        });
+    function fixEl(btn) {
+      if (btn._touchFixed) return;
+      btn._touchFixed = true;
+      var active = false;
+      btn.addEventListener('touchstart', function(e) {
+        active = true;
+        e.preventDefault();
+      }, { passive: false });
+      btn.addEventListener('touchcancel', function() { active = false; });
+      btn.addEventListener('touchend', function(e) {
+        if (!active) return;
+        active = false;
+        e.preventDefault();
+        var saved = btn.onclick;
+        btn.onclick = null;                      // block any synthetic click
+        if (typeof saved === 'function') saved.call(btn, e);
+        setTimeout(function() { btn.onclick = saved; }, 0); // restore after click window
       });
+    }
+    function applyFilterPillTouchFix() {
+      document.querySelectorAll(
+        '.results-filter-pill, .results-clear, .results-inline-panel .filter-tag'
+      ).forEach(fixEl);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', applyFilterPillTouchFix);
