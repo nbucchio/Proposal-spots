@@ -380,4 +380,30 @@
     document.body.appendChild(spotLinksEl);
   }
 
+  // ── 9. Mobile: fix filter pill taps in overflow-x:auto filter bars ────────────
+  // On iOS, once an overflow-x:auto container becomes scrollable the browser
+  // treats every touchstart inside it as a potential scroll gesture and may
+  // swallow the click.  Calling preventDefault() on touchstart stops that
+  // detection; we then fire the button's own onclick from touchend instead.
+  (function() {
+    function applyFilterPillTouchFix() {
+      document.querySelectorAll('.results-filter-pill, .results-clear').forEach(function(btn) {
+        if (btn._touchFixed) return;
+        btn._touchFixed = true;
+        btn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+        }, { passive: false });
+        btn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          if (typeof btn.onclick === 'function') btn.onclick();
+        });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyFilterPillTouchFix);
+    } else {
+      applyFilterPillTouchFix();
+    }
+  })();
+
 })();

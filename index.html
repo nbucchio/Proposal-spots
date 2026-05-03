@@ -2867,7 +2867,8 @@ footer {
     display: flex;
     align-items: center;
   }
-  #page-results .results-inline-panel {
+  #page-results .results-inline-panel,
+  #page-dest-landing .results-inline-panel {
     position: fixed;
     left: 16px;
     right: 16px;
@@ -2883,6 +2884,11 @@ footer {
     align-items: center;
     font-size: 13px;
     padding: 10px 16px;
+    touch-action: manipulation;
+  }
+  .results-filter-pill,
+  .results-clear {
+    touch-action: manipulation;
   }
   .results-header { padding: 28px 20px 16px; }
   .results-grid-wrap { padding: 0 20px 60px; }
