@@ -239,7 +239,7 @@
     '    border-radius: 16px;',
     '    z-index: 9001;',
     '  }',
-    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
+    '  .nav-dest-grid { grid-template-columns: 1fr; gap: 4px; }',
     '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 13px; padding: 12px 10px; }',
     '  .nav-dest-grid a span { font-size: 9px; }',
     '}'
@@ -257,15 +257,15 @@
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
-    ['Tulum', 'Mexico', 'tulum'],
-    ['Portugal', 'Europe', 'portugal'],
     ['Italy', 'Europe', 'italy'],
+    ['Greece', 'Europe', 'santorini'],
+    ['France', 'Europe', 'south-of-france'],
+    ['Portugal', 'Europe', 'portugal'],
     ['Switzerland', 'Europe', 'switzerland'],
-    ['South of France', 'France – Europe', 'south-of-france'],
-    ['Costa Rica', 'Central America', 'costa-rica'],
-    ['Santorini', 'Greece – Europe', 'santorini'],
     ['Bali', 'Indonesia', 'bali'],
+    ['Tulum', 'Mexico', 'tulum'],
     ['Maldives', 'Indian Ocean', 'maldives'],
+    ['Costa Rica', 'Central America', 'costa-rica'],
     ['Nicaragua', 'Central America', 'nicaragua'],
     ['New York', 'USA', 'new-york']
   ];
