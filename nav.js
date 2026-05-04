@@ -239,7 +239,7 @@
     '    border-radius: 16px;',
     '    z-index: 9001;',
     '  }',
-    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
+    '  .nav-dest-grid { grid-template-columns: 1fr; gap: 4px; }',
     '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 13px; padding: 12px 10px; }',
     '  .nav-dest-grid a span { font-size: 9px; }',
     '}'
@@ -258,8 +258,8 @@
 
   var destinations = [
     ['Italy', 'Europe', 'italy'],
-    ['Santorini', 'Greece – Europe', 'santorini'],
-    ['South of France', 'France – Europe', 'south-of-france'],
+    ['Greece', 'Europe', 'santorini'],
+    ['France', 'Europe', 'south-of-france'],
     ['Portugal', 'Europe', 'portugal'],
     ['Switzerland', 'Europe', 'switzerland'],
     ['Bali', 'Indonesia', 'bali'],
