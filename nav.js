@@ -257,15 +257,15 @@
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
   var destinations = [
-    ['Italy', 'Europe', 'italy'],
-    ['Santorini', 'Greece – Europe', 'santorini'],
-    ['South of France', 'France – Europe', 'south-of-france'],
-    ['Portugal', 'Europe', 'portugal'],
-    ['Switzerland', 'Europe', 'switzerland'],
-    ['Bali', 'Indonesia', 'bali'],
     ['Tulum', 'Mexico', 'tulum'],
-    ['Maldives', 'Indian Ocean', 'maldives'],
+    ['Portugal', 'Europe', 'portugal'],
+    ['Italy', 'Europe', 'italy'],
+    ['Switzerland', 'Europe', 'switzerland'],
+    ['South of France', 'France – Europe', 'south-of-france'],
     ['Costa Rica', 'Central America', 'costa-rica'],
+    ['Santorini', 'Greece – Europe', 'santorini'],
+    ['Bali', 'Indonesia', 'bali'],
+    ['Maldives', 'Indian Ocean', 'maldives'],
     ['Nicaragua', 'Central America', 'nicaragua'],
     ['New York', 'USA', 'new-york']
   ];
