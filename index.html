@@ -1739,6 +1739,13 @@ footer {
   padding: 4px 0 8px;
   min-width: 0;
 }
+/* Cap dest/vibe dropdowns to ~10 items on mobile; scroll for the rest */
+#ssb-dest-dd, #ssb-vibe-dd {
+  max-height: 488px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
 /* Task 4: Larger dropdown items for mobile tap targets */
 .ssb-dd-item {
   font-size: 16px;
