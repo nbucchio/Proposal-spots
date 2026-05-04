@@ -63,7 +63,6 @@
     '  z-index: 9000;',
     '}',
     '.nav-dest-dropdown.open { display: block; }',
-    '.nav-destinations-wrap:hover .nav-dest-dropdown { display: block; }',
     '.nav-dest-grid {',
     '  display: grid;',
     '  grid-template-columns: 1fr 1fr;',
@@ -81,10 +80,11 @@
     '  display: flex;',
     '  justify-content: space-between;',
     '  align-items: center;',
+    '  gap: 8px;',
     '  transition: background 0.15s;',
     '}',
     '.nav-dest-grid a:hover { background: #EDEAE2; }',
-    '.nav-dest-grid a span { color: #9E9890; font-size: 10px; font-weight: 300; }',
+    '.nav-dest-grid a span { color: #9E9890; font-size: 10px; font-weight: 300; text-align: right; flex-shrink: 0; }',
     '.nav-dest-footer {',
     '  border-top: 1px solid #D8D2C8;',
     '  margin-top: 12px;',
@@ -211,6 +211,15 @@
     '  cursor: default;',
     '}',
     '.nav-backdrop.active { display: block; }',
+    '.filter-backdrop {',
+    '  display: none;',
+    '  position: fixed;',
+    '  inset: 0;',
+    '  z-index: 499;',
+    '  background: transparent;',
+    '  cursor: default;',
+    '}',
+    '.filter-backdrop.active { display: block; }',
     '@media (max-width: 680px) {',
     '  nav#navbar { padding: 0 12px; }',
     '  .nav-logo { font-size: 9px; letter-spacing: 0.2em; }',
@@ -230,8 +239,9 @@
     '    border-radius: 16px;',
     '    z-index: 9001;',
     '  }',
-    '  .nav-dest-grid { grid-template-columns: 1fr; gap: 2px; }',
-    '  .nav-dest-grid a { min-height: 44px; align-items: center; font-size: 13px; padding: 10px 14px; justify-content: space-between; }',
+    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
+    '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 13px; padding: 12px 10px; }',
+    '  .nav-dest-grid a span { font-size: 9px; }',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -248,8 +258,8 @@
 
   var destinations = [
     ['Italy', 'Europe', 'italy'],
-    ['Santorini', 'Greece, Europe', 'santorini'],
-    ['South of France', 'France, Europe', 'south-of-france'],
+    ['Santorini', 'Greece – Europe', 'santorini'],
+    ['South of France', 'France – Europe', 'south-of-france'],
     ['Portugal', 'Europe', 'portugal'],
     ['Switzerland', 'Europe', 'switzerland'],
     ['Bali', 'Indonesia', 'bali'],
@@ -302,12 +312,25 @@
   });
   document.body.appendChild(backdrop);
 
+  var filterBackdrop = document.createElement('div');
+  filterBackdrop.id = 'filter-backdrop';
+  filterBackdrop.className = 'filter-backdrop';
+  filterBackdrop.addEventListener('click', function () {
+    closeAllFilterPanels();
+  });
+  document.body.appendChild(filterBackdrop);
+
   function closeAllNavDropdowns() {
     var dd = document.getElementById('nav-dest-dropdown');
     if (dd) dd.classList.remove('open');
     var menu = document.getElementById('nav-mobile-menu');
     if (menu) menu.classList.remove('open');
     backdrop.classList.remove('active');
+  }
+
+  function closeAllFilterPanels() {
+    document.querySelectorAll('.results-inline-panel').forEach(function(p) { p.classList.remove('open'); });
+    filterBackdrop.classList.remove('active');
   }
 
   var nav = document.createElement('nav');
@@ -351,6 +374,33 @@
   } else {
     document.body.insertBefore(nav, document.body.firstChild);
   }
+
+  // ── 5a. Desktop destinations dropdown: mouseenter/mouseleave → backdrop ─────────
+  var destWrap = nav.querySelector('.nav-destinations-wrap');
+  if (destWrap) {
+    destWrap.addEventListener('mouseenter', function () {
+      var dd = document.getElementById('nav-dest-dropdown');
+      if (dd) dd.classList.add('open');
+      backdrop.classList.add('active');
+    });
+    destWrap.addEventListener('mouseleave', function () {
+      var dd = document.getElementById('nav-dest-dropdown');
+      if (dd) dd.classList.remove('open');
+      backdrop.classList.remove('active');
+    });
+  }
+
+  // ── 5b. Filter panel backdrop: wrap toggleDLPanel so backdrop tracks open state ─
+  // nav.js runs defer (after inline scripts), so toggleDLPanel is already defined.
+  (function wrapFilterToggle() {
+    var origToggle = window.toggleDLPanel;
+    if (typeof origToggle !== 'function') return;
+    window.toggleDLPanel = function (panelId, pillId) {
+      origToggle(panelId, pillId);
+      var anyOpen = document.querySelector('.results-inline-panel.open');
+      filterBackdrop.classList.toggle('active', !!anyOpen);
+    };
+  }());
 
   // ── 5. Scroll effect ──────────────────────────────────────────────────────────
   window.addEventListener('scroll', function () {
