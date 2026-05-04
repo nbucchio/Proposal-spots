@@ -897,9 +897,8 @@
             : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
             : rawPrivacy;
           const rawBudget = f['Budget'] || '';
-          const budget = rawBudget === 'Free' ? '$'
-            : rawBudget === 'Moderate' ? '$$'
-            : rawBudget === 'Expensive' ? '$$$'
+          const budget = rawBudget === 'Moderate' ? 'Premium'
+            : rawBudget === 'Expensive' ? 'Luxury'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return {
