@@ -452,44 +452,4 @@
     document.body.appendChild(spotLinksEl);
   }
 
-  // ── 9. Mobile: fix filter pill taps in overflow-x:auto filter bars ────────────
-  // iOS/Android: once an overflow-x:auto container is scrollable the browser
-  // intercepts touchstart as a potential scroll gesture and may swallow clicks.
-  // Fix: preventDefault on touchstart kills scroll detection; touchend fires
-  // onclick manually.  We also null-out onclick momentarily so any synthetic
-  // click that still fires (seen on some Android builds) is a no-op instead of
-  // double-toggling the panel.  Same treatment for filter-tag divs inside panels
-  // which remain DOM-children of the overflow container even when position:fixed.
-  (function() {
-    function fixEl(btn) {
-      if (btn._touchFixed) return;
-      btn._touchFixed = true;
-      var active = false;
-      btn.addEventListener('touchstart', function(e) {
-        active = true;
-        e.preventDefault();
-      }, { passive: false });
-      btn.addEventListener('touchcancel', function() { active = false; });
-      btn.addEventListener('touchend', function(e) {
-        if (!active) return;
-        active = false;
-        e.preventDefault();
-        var saved = btn.onclick;
-        btn.onclick = null;                      // block any synthetic click
-        if (typeof saved === 'function') saved.call(btn, e);
-        setTimeout(function() { btn.onclick = saved; }, 0); // restore after click window
-      });
-    }
-    function applyFilterPillTouchFix() {
-      document.querySelectorAll(
-        '.results-filter-pill, .results-clear, .results-inline-panel .filter-tag'
-      ).forEach(fixEl);
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', applyFilterPillTouchFix);
-    } else {
-      applyFilterPillTouchFix();
-    }
-  })();
-
 })();
