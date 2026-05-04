@@ -202,6 +202,15 @@
     '  transition: background 0.2s;',
     '}',
     '.nav-mobile-cta-link:hover { background: #8C7B64; }',
+    '.nav-backdrop {',
+    '  display: none;',
+    '  position: fixed;',
+    '  inset: 0;',
+    '  z-index: 8998;',
+    '  background: transparent;',
+    '  cursor: default;',
+    '}',
+    '.nav-backdrop.active { display: block; }',
     '@media (max-width: 680px) {',
     '  nav#navbar { padding: 0 12px; }',
     '  .nav-logo { font-size: 9px; letter-spacing: 0.2em; }',
@@ -219,9 +228,10 @@
     '    max-height: 70vh;',
     '    overflow-y: auto;',
     '    border-radius: 16px;',
+    '    z-index: 9001;',
     '  }',
-    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
-    '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 13px; padding: 12px; }',
+    '  .nav-dest-grid { grid-template-columns: 1fr; gap: 2px; }',
+    '  .nav-dest-grid a { min-height: 44px; align-items: center; font-size: 13px; padding: 10px 14px; justify-content: space-between; }',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -238,15 +248,15 @@
 
   var destinations = [
     ['Italy', 'Europe', 'italy'],
-    ['Santorini', 'Greece', 'santorini'],
+    ['Santorini', 'Greece, Europe', 'santorini'],
+    ['South of France', 'France, Europe', 'south-of-france'],
+    ['Portugal', 'Europe', 'portugal'],
+    ['Switzerland', 'Europe', 'switzerland'],
     ['Bali', 'Indonesia', 'bali'],
     ['Tulum', 'Mexico', 'tulum'],
     ['Maldives', 'Indian Ocean', 'maldives'],
     ['Costa Rica', 'Central America', 'costa-rica'],
     ['Nicaragua', 'Central America', 'nicaragua'],
-    ['Algarve', 'Portugal', 'portugal'],
-    ['South of France', 'France', 'south-of-france'],
-    ['Switzerland', 'Alps', 'switzerland'],
     ['New York', 'USA', 'new-york']
   ];
 
@@ -284,13 +294,29 @@
     '<line x1="0" y1="11" x2="16" y2="11" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>' +
     '</svg>';
 
+  var backdrop = document.createElement('div');
+  backdrop.id = 'nav-backdrop';
+  backdrop.className = 'nav-backdrop';
+  backdrop.addEventListener('click', function () {
+    closeAllNavDropdowns();
+  });
+  document.body.appendChild(backdrop);
+
+  function closeAllNavDropdowns() {
+    var dd = document.getElementById('nav-dest-dropdown');
+    if (dd) dd.classList.remove('open');
+    var menu = document.getElementById('nav-mobile-menu');
+    if (menu) menu.classList.remove('open');
+    backdrop.classList.remove('active');
+  }
+
   var nav = document.createElement('nav');
   nav.id = 'navbar';
   nav.innerHTML =
     '<a href="' + logoHref + '" class="nav-logo"' + logoClick + '>Proposal Spots</a>' +
     '<div class="nav-links">' +
       '<div class="nav-destinations-wrap">' +
-        '<a href="/destinations" class="nav-link-right nav-destinations-btn">' +
+        '<a href="/destinations" class="nav-link-right nav-destinations-btn" onclick="if(window.innerWidth<=680){toggleDestDropdown();return false;}">' +
           'Destinations ' +
           '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
         '</a>' +
@@ -339,7 +365,11 @@
   if (typeof window.toggleDestDropdown === 'undefined') {
     window.toggleDestDropdown = function () {
       var dd = document.getElementById('nav-dest-dropdown');
-      if (dd) dd.classList.toggle('open');
+      if (dd) {
+        var willOpen = !dd.classList.contains('open');
+        dd.classList.toggle('open');
+        backdrop.classList.toggle('active', willOpen);
+      }
     };
   }
 
@@ -347,31 +377,18 @@
   window.toggleNavMobile = function (e) {
     if (e) e.stopPropagation();
     var menu = document.getElementById('nav-mobile-menu');
-    if (menu) menu.classList.toggle('open');
+    if (menu) {
+      var willOpen = !menu.classList.contains('open');
+      menu.classList.toggle('open');
+      backdrop.classList.toggle('active', willOpen);
+    }
   };
 
   window.closeNavMobile = function () {
     var menu = document.getElementById('nav-mobile-menu');
     if (menu) menu.classList.remove('open');
+    backdrop.classList.remove('active');
   };
-
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', function (e) {
-    // Close destinations dropdown
-    var dd = document.getElementById('nav-dest-dropdown');
-    if (dd) {
-      var wrap = document.querySelector('.nav-destinations-wrap');
-      if (!wrap || !wrap.contains(e.target)) {
-        dd.classList.remove('open');
-      }
-    }
-    // Close mobile menu
-    var menu = document.getElementById('nav-mobile-menu');
-    var hamburger = document.getElementById('nav-hamburger');
-    if (menu && !menu.contains(e.target) && hamburger && !hamburger.contains(e.target)) {
-      menu.classList.remove('open');
-    }
-  });
 
   // ── 8. Load spot-links.js on homepage (Phase 1 spot page links) ───────────────
   if (isIndex) {
