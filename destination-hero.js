@@ -10,7 +10,7 @@
     s.textContent =
       '.dest-landing-hero { position: relative; overflow: hidden; }' +
       '.dest-landing-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }' +
-      '.dest-landing-hero > *:not(.dest-landing-hero-video) { position: relative; z-index: 2; }';
+      '.dest-landing-hero > .dest-landing-hero-content { position: relative; z-index: 2; }';
     (document.head || document.documentElement).appendChild(s);
   }());
 
