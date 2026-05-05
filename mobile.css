@@ -277,12 +277,16 @@ img {
     padding: 0 20px 24px;
     max-width: 100%;
   }
-  .dest-landing-title,
   .dest-landing-sub {
     display: none;
   }
   .dest-landing-hero-content .pg-eyebrow {
-    margin-bottom: 0;
+    margin-bottom: 8px;
+  }
+  .dest-landing-title {
+    margin: 0;
+    font-size: 44px;
+    line-height: 1.05;
   }
 
   /* ── Back button: hidden on destination landing pages on mobile ── */
