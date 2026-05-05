@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="/nav.js" defer></script>
+  <script src="/destination-hero.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -830,7 +831,7 @@
     const privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
 
     function buildSpotCard(s) {
-      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || '');
       const imgStyle = cardPhoto
         ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
         : `background:${s.coverGradient || '#1e2835'};`;
@@ -994,6 +995,8 @@
       var wrap = document.querySelector('.dest-landing-spots-wrap');
       if (wrap) { wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     }
+
+    document.addEventListener('destination:ready', function () { if (typeof renderSpots === 'function') renderSpots(); });
 
     fetchSpots();
   </script>
