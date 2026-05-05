@@ -6624,7 +6624,6 @@ function buildSpotCard(s) {
       <div class="spot-card-img">
         <div class="img-bg" style="${imgStyle}"></div>
         ${badge}
-        <div class="spot-save${saved?' saved':''}" data-spot-id="${s.id}" onclick="toggleSaveSpot(event,'${s.id}')">♡</div>
         <div class="spot-card-overlay">
           <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
           <div class="spot-card-name">${s.Name}</div>
@@ -6675,7 +6674,6 @@ function buildSpotCardLinked(s) {
       <div class="spot-card-img">
         <div class="img-bg" style="${imgStyle}"></div>
         ${badge}
-        <div class="spot-save${saved?' saved':''}" data-spot-id="${s.id}" onclick="toggleSaveSpot(event,'${s.id}')">♡</div>
         <div class="spot-card-overlay">
           <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
           <div class="spot-card-name">${s.Name}</div>
@@ -10265,7 +10263,6 @@ function initSpotMap(lat, lng) {
         Back
       </button>
       <div class="sdp-hero-badge" id="sdp-badge" style="display:none"></div>
-      <button class="sdp-heart-btn" id="sdp-heart-btn" onclick="toggleSaveSpot(event)">♡</button>
       <div class="sdp-hero-bottom">
         <span class="sdp-hero-loc" id="sdp-loc"></span>
         <h1 class="sdp-hero-name" id="sdp-name"></h1>
@@ -10464,9 +10461,6 @@ function initSpotMap(lat, lng) {
 
           <!-- CTA -->
           <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
-          <button class="sdp-btn-secondary" id="sdp-save-btn" onclick="toggleSaveSpot(event)" style="margin-top:10px">
-            <span id="sdp-save-icon">♡</span> Save this Spot
-          </button>
           <p class="sdp-trust-note">
             ✦ No payment until you've approved your full quote
           </p>
@@ -10493,7 +10487,6 @@ function initSpotMap(lat, lng) {
     <span class="sdp-bar-price" id="sdp-bar-price">—</span>
     <span class="sdp-bar-note">No payment until you approve your quote</span>
   </div>
-  <button class="sdp-bar-save" id="sdp-bar-save" onclick="toggleSaveSpot(event)" title="Save">♡</button>
   <button class="sdp-bar-btn" onclick="openEnquiryModal()">Plan My Proposal →</button>
 </div>
 

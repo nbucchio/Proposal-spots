@@ -286,8 +286,8 @@
   var inspirationClass = 'nav-link-right' + ((isInspiration || isStoriesSection) ? ' nav-active' : '');
 
   var collectionBtn = isIndex
-    ? '<a href="#" id="nav-collection" onclick="event.preventDefault(); openCollection();" class="nav-cta nav-collection-link">♡ My Collection</a>'
-    : '<a href="/" class="nav-cta">Find a Spot →</a>';
+    ? '<a href="#" onclick="event.preventDefault(); showPage(\'home\');" class="nav-cta">Find Your Spot</a>'
+    : '<a href="/" class="nav-cta">Find Your Spot</a>';
 
   // Mobile menu links
   var mobileFaqLink = isIndex
@@ -295,8 +295,8 @@
     : '<a href="/#faq" class="nav-mobile-link">FAQ</a>';
 
   var mobileCtaLink = isIndex
-    ? '<a href="#" onclick="event.preventDefault(); openCollection(); closeNavMobile();" class="nav-mobile-cta-link">♡ My Collection</a>'
-    : '<a href="/" class="nav-mobile-cta-link">Find a Spot →</a>';
+    ? '<a href="#" onclick="event.preventDefault(); showPage(\'home\'); closeNavMobile();" class="nav-mobile-cta-link">Find Your Spot</a>'
+    : '<a href="/" class="nav-mobile-cta-link">Find Your Spot</a>';
 
   var hamburgerSvg =
     '<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
