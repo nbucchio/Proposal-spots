@@ -5,7 +5,8 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
 
   const BASE  = 'appN5GFcdPJvU1qff';
-  const TABLE = 'Destinations';
+  // Table ID from the user-provided Airtable URL — more stable than the table name.
+  const TABLE = 'tblAfK8TLXBFdRY9z';
   const TOKEN = process.env.AIRTABLE_TOKEN;
 
   if (!TOKEN) {
@@ -17,14 +18,15 @@ export default async function handler(req, res) {
     let offset = null;
 
     do {
-      const url = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent(TABLE)}?pageSize=100${offset ? '&offset=' + encodeURIComponent(offset) : ''}`;
+      const url = `https://api.airtable.com/v0/${BASE}/${TABLE}?pageSize=100${offset ? '&offset=' + encodeURIComponent(offset) : ''}`;
       const response = await fetch(url, {
         headers: { Authorization: `Bearer ${TOKEN}` }
       });
 
       if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        return res.status(response.status).json(err);
+        const errBody = await response.text().catch(() => '');
+        console.error('[destinations] Airtable error', response.status, errBody);
+        return res.status(response.status).json({ error: errBody || response.statusText });
       }
 
       const data = await response.json();
@@ -47,7 +49,7 @@ export default async function handler(req, res) {
           destination_slug: (f.destination_slug || '').trim(),
           display_name:     f.display_name     || '',
           Continent:        f.Continent        || '',
-          show_in_nav:      f.show_in_nav === true,
+          show_in_nav:      f.show_in_nav === true || f.show_in_nav === 1 || f.show_in_nav === 'true',
           nav_order:        typeof f.nav_order === 'number' ? f.nav_order : 9999,
           hero_video_url:   f.hero_video_url   || '',
           hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback)
