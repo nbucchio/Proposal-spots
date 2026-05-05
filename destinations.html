@@ -50,10 +50,6 @@
     .dest-hero-title em { font-style: italic; }
     .dest-hero-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.8; }
     .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
-    .dest-continent-section { max-width: 1200px; margin: 0 auto; padding: 24px 40px 0; }
-    .dest-continent-section + .dest-continent-section { padding-top: 16px; }
-    .dest-continent-header { font-family: 'Cormorant', serif; font-size: clamp(22px,3vw,30px); font-weight: 300; color: var(--ink); letter-spacing: 0.04em; margin: 0 0 18px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline); }
-    .dest-continent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding-bottom: 40px; }
     .dest-listing-loading { max-width: 1200px; margin: 0 auto; padding: 40px; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
     .dest-card { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; display: block; color: inherit; }
     .dest-card:hover { box-shadow: 0 8px 32px rgba(28,28,28,0.1); transform: translateY(-2px); }
@@ -97,8 +93,6 @@
     @media (max-width: 768px) {
       .dest-hero { padding: 60px 24px 40px; }
       .dest-grid { padding: 0 20px 40px; gap: 16px; }
-      .dest-continent-section { padding: 16px 20px 0; }
-      .dest-continent-grid { gap: 16px; }
       .dest-budget-section { padding: 0 20px 40px; }
     }
   </style>
@@ -115,8 +109,8 @@
       <p class="dest-hero-sub">Every market we cover was chosen because that's where the most discerning travellers propose. These are the places people plan around, save for, and remember forever.</p>
     </div>
 
-    <div id="dest-listing">
-      <div class="dest-listing-loading">Loading destinations…</div>
+    <div class="dest-grid" id="dest-listing">
+      <div class="dest-listing-loading" style="grid-column:1/-1">Loading destinations…</div>
     </div>
 
     <script>
@@ -126,8 +120,19 @@
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
+        function upgradeUnsplash(url) {
+          if (!url || !/images\.unsplash\.com/.test(url)) return url;
+          try {
+            var u = new URL(url);
+            u.searchParams.set('w', '1200');
+            u.searchParams.set('q', '85');
+            u.searchParams.set('auto', 'format');
+            u.searchParams.set('fit', 'crop');
+            return u.toString();
+          } catch (e) { return url; }
+        }
         function buildCard(d) {
-          var img = d.hero_image_fallback || '';
+          var img = upgradeUnsplash(d.hero_image_fallback || '');
           var bg = img ? 'background-image:url(\'' + img.replace(/'/g, '%27') + '\')' : '';
           return '<a class="dest-card" href="/destinations/' + escapeHtml(d.destination_slug) + '">' +
                    '<div class="dest-card-img" style="' + bg + '"></div>' +
@@ -139,22 +144,9 @@
                  '</a>';
         }
         function render(list) {
-          var groups = {};
-          var order = [];
-          list.forEach(function (d) {
-            var c = d.Continent || 'Other';
-            if (!groups[c]) { groups[c] = []; order.push(c); }
-            groups[c].push(d);
-          });
-          var html = order.map(function (c) {
-            var cards = groups[c].map(buildCard).join('');
-            return '<section class="dest-continent-section">' +
-                     '<h2 class="dest-continent-header">' + escapeHtml(c) + '</h2>' +
-                     '<div class="dest-continent-grid">' + cards + '</div>' +
-                   '</section>';
-          }).join('');
+          var html = list.map(buildCard).join('');
           document.getElementById('dest-listing').innerHTML =
-            html || '<div class="dest-listing-loading">No destinations available.</div>';
+            html || '<div class="dest-listing-loading" style="grid-column:1/-1">No destinations available.</div>';
         }
         fetch('/api/destinations')
           .then(function (r) { return r.json(); })
@@ -162,7 +154,7 @@
           .catch(function (e) {
             console.error('[destinations] load failed', e);
             document.getElementById('dest-listing').innerHTML =
-              '<div class="dest-listing-loading">Unable to load destinations right now.</div>';
+              '<div class="dest-listing-loading" style="grid-column:1/-1">Unable to load destinations right now.</div>';
           });
       })();
     </script>

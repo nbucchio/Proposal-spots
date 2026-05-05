@@ -1,5 +1,35 @@
 (function () {
 
+  // Inject the hero-video CSS once per page (the rule originally lived only in
+  // tulum.html; other destination pages didn't have it, which made an injected
+  // <video> render inline and break the layout).
+  (function injectStyles() {
+    if (document.getElementById('dest-hero-video-style')) return;
+    var s = document.createElement('style');
+    s.id = 'dest-hero-video-style';
+    s.textContent =
+      '.dest-landing-hero { position: relative; overflow: hidden; }' +
+      '.dest-landing-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }' +
+      '.dest-landing-hero > *:not(.dest-landing-hero-video) { position: relative; z-index: 2; }';
+    (document.head || document.documentElement).appendChild(s);
+  }());
+
+  // Bump small/low-quality Unsplash thumbnails up to a hero-quality size.
+  function upgradeImageUrl(url) {
+    if (!url) return url;
+    if (!/images\.unsplash\.com/.test(url)) return url;
+    try {
+      var u = new URL(url);
+      u.searchParams.set('w', '2000');
+      u.searchParams.set('q', '85');
+      u.searchParams.set('auto', 'format');
+      u.searchParams.set('fit', 'crop');
+      return u.toString();
+    } catch (e) {
+      return url;
+    }
+  }
+
   function slugFromPath() {
     var path = window.location.pathname.replace(/\/+$/, '');
     var m = path.match(/\/destinations\/([^/]+?)(?:\.html)?$/);
@@ -69,6 +99,7 @@
         var list = (data && data.destinations) || [];
         var match = list.find(function (d) { return d.destination_slug === slug; });
         if (!match) return;
+        match.hero_image_fallback = upgradeImageUrl(match.hero_image_fallback);
         window.__destination = match;
         window.__destFallbackImage = match.hero_image_fallback || '';
         if (hero) {
