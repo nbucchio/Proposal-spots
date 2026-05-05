@@ -2,9 +2,9 @@
   "redirects": [
     { "source": "/destinations/santorini",      "destination": "/destinations/greece",          "permanent": true },
     { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": false },
-    { "source": "/destinations/usa",              "destination": "/destinations/new-york",         "permanent": false },
-    { "source": "/destinations/united-states",   "destination": "/destinations/new-york",         "permanent": false },
-    { "source": "/destinations/united%20states", "destination": "/destinations/new-york",         "permanent": false }
+    { "source": "/destinations/usa",              "destination": "/destinations/united-states",    "permanent": false },
+    { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": false },
+    { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": false }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -22,7 +22,7 @@
     { "source": "/destinations/nicaragua", "destination": "/destinations/nicaragua.html" },
     { "source": "/destinations/portugal", "destination": "/destinations/portugal.html" },
     { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
-    { "source": "/destinations/new-york", "destination": "/destinations/new-york.html" },
+    { "source": "/destinations/united-states", "destination": "/destinations/united-states.html" },
     { "source": "/destinations/italy", "destination": "/destinations/italy.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/checklist", "destination": "/checklist.html" },
