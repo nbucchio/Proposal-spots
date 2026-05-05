@@ -2,8 +2,9 @@
   "redirects": [
     { "source": "/destinations/santorini",      "destination": "/destinations/greece",          "permanent": true },
     { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": false },
-    { "source": "/destinations/usa",             "destination": "/destinations/new-york",         "permanent": false },
-    { "source": "/destinations/united-states",   "destination": "/destinations/new-york",         "permanent": false }
+    { "source": "/destinations/usa",              "destination": "/destinations/new-york",         "permanent": false },
+    { "source": "/destinations/united-states",   "destination": "/destinations/new-york",         "permanent": false },
+    { "source": "/destinations/united%20states", "destination": "/destinations/new-york",         "permanent": false }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },

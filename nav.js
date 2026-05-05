@@ -371,7 +371,7 @@
         var grid = nav.querySelector('.nav-dest-grid');
         if (!grid) return;
         grid.innerHTML = list.map(function (d) {
-          return '<a href="/destinations/' + d.destination_slug + '">' +
+          return '<a href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
                  (d.display_name || '') +
                  ' <span>' + (d.Continent || '') + '</span></a>';
         }).join('');
