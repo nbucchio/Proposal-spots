@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="/nav.js" defer></script>
+  <script src="/destination-hero.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -478,7 +479,7 @@
     }
     const privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
     function buildSpotCard(s) {
-      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || '');
       const imgStyle = cardPhoto ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};` : `background:${s.coverGradient || '#1e2835'};`;
       const badge = s.badge ? `<span class="spot-card-badge">${s.badge}</span>` : '';
       const privEmoji = privacyEmojiMap[s.Privacy || ''] || '';
@@ -549,23 +550,9 @@
     document.addEventListener('click', e => { if (!e.target.closest('.results-panel-wrap')) document.querySelectorAll('.results-inline-panel').forEach(p => p.classList.remove('open')); });
     function openLightbox(src) { document.getElementById('gallery-lightbox-img').src = src; document.getElementById('gallery-lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeLightbox() { document.getElementById('gallery-lightbox').classList.remove('open'); document.body.style.overflow = ''; }
-    (function() {
-      var video = document.getElementById('hero-video');
-      var src = 'https://customer-lwpmkapmpw6y8ahx.cloudflarestream.com/aeeaf020c6eee74687b336e4f1b9d40b/manifest/video.m3u8';
-      if (window.Hls && Hls.isSupported()) {
-        var hls = new Hls({ lowLatencyMode: false });
-        hls.loadSource(src);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-          video.play().catch(function(){});
-        });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-        video.addEventListener('loadedmetadata', function() {
-          video.play().catch(function(){});
-        }, { once: true });
-      }
-    })();
+    // Hero video / image is loaded by /destination-hero.js from Airtable.
+    // Re-render once destination data is ready so spot cards can use the fallback image.
+    document.addEventListener('destination:ready', function () { renderSpots(); });
     fetchSpots();
   </script>
 </body>

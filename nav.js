@@ -257,23 +257,8 @@
   var logoHref = isIndex ? '#' : '/';
   var logoClick = isIndex ? ' onclick="showPage(\'home\'); return false;"' : '';
 
-  var destinations = [
-    ['Italy', 'Europe', 'italy'],
-    ['Greece', 'Europe', 'santorini'],
-    ['France', 'Europe', 'south-of-france'],
-    ['Portugal', 'Europe', 'portugal'],
-    ['Switzerland', 'Europe', 'switzerland'],
-    ['Bali', 'Indonesia', 'bali'],
-    ['Tulum', 'Mexico', 'tulum'],
-    ['Maldives', 'Indian Ocean', 'maldives'],
-    ['Costa Rica', 'Central America', 'costa-rica'],
-    ['Nicaragua', 'Central America', 'nicaragua'],
-    ['New York', 'USA', 'new-york']
-  ];
-
-  var destItems = destinations.map(function (d) {
-    return '<a href="/destinations/' + d[2] + '">' + d[0] + ' <span>' + d[1] + '</span></a>';
-  }).join('');
+  // Destinations populated asynchronously from /api/destinations.
+  var destItems = '';
 
   var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations →</a>';
 
@@ -376,6 +361,23 @@
   } else {
     document.body.insertBefore(nav, document.body.firstChild);
   }
+
+  // ── Populate destinations dropdown from Airtable ─────────────────────────────
+  (function loadNavDestinations() {
+    fetch('/api/destinations')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var list = (data && data.destinations) || [];
+        var grid = nav.querySelector('.nav-dest-grid');
+        if (!grid) return;
+        grid.innerHTML = list.map(function (d) {
+          return '<a href="/destinations/' + d.destination_slug + '">' +
+                 (d.display_name || '') +
+                 ' <span>' + (d.Continent || '') + '</span></a>';
+        }).join('');
+      })
+      .catch(function (e) { console.error('[nav] destinations load failed', e); });
+  }());
 
   // ── 5a. Desktop destinations dropdown: mouseenter/mouseleave → backdrop ─────────
   var destWrap = nav.querySelector('.nav-destinations-wrap');
