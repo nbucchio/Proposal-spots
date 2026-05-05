@@ -268,7 +268,7 @@ img {
 }
 
 @media (max-width: 768px) {
-  /* ── Hero content: hide title/sub copy and pin the eyebrow to bottom-left ── */
+  /* ── Hero content: hide the long sub copy and pin continent + country to bottom-left ── */
   .dest-landing-hero {
     align-items: flex-end;
     justify-content: flex-start;
@@ -277,11 +277,14 @@ img {
     padding: 0 20px 24px;
     max-width: 100%;
   }
-  .dest-landing-title,
   .dest-landing-sub {
     display: none;
   }
   .dest-landing-hero-content .pg-eyebrow {
+    margin-bottom: 6px;
+  }
+  .dest-landing-title {
+    font-size: clamp(32px, 9vw, 48px);
     margin-bottom: 0;
   }
 
