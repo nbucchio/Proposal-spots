@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/destinations/santorini", "destination": "/destinations/greece", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/robots.txt", "destination": "/robots.txt" },
@@ -6,7 +9,7 @@
     { "source": "/stories/:slug", "destination": "/stories/index.html" },
     { "source": "/destinations", "destination": "/destinations.html" },
     { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
-    { "source": "/destinations/santorini", "destination": "/destinations/santorini.html" },
+    { "source": "/destinations/greece", "destination": "/destinations/greece.html" },
     { "source": "/destinations/bali", "destination": "/destinations/bali.html" },
     { "source": "/destinations/tulum", "destination": "/destinations/tulum.html" },
     { "source": "/destinations/maldives", "destination": "/destinations/maldives.html" },
