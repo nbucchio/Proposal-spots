@@ -88,16 +88,30 @@
     }
   }
 
+  function applyHeroPosition(position) {
+    if (!position || position === 'center') return;
+    var s = document.createElement('style');
+    s.textContent = '.dest-landing-hero { background-position: ' + position + ' !important; }';
+    (document.head || document.documentElement).appendChild(s);
+  }
+
   function init() {
-    var slug = slugFromPath();
-    if (!slug) return;
+    var urlSlug = slugFromPath();
+    if (!urlSlug && !window.__destSlug) return;
     var hero = document.querySelector('.dest-landing-hero');
 
     fetch('/api/destinations')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var list = (data && data.destinations) || [];
-        var match = list.find(function (d) { return d.destination_slug === slug; });
+        // Try the URL-derived slug first; if no match and the page declares
+        // window.__destSlug (for cases where the Airtable slug differs from the
+        // URL path, e.g. Airtable uses 'france' but the page is at /south-of-france),
+        // try that as a fallback.
+        var match = list.find(function (d) { return d.destination_slug === urlSlug; });
+        if (!match && window.__destSlug) {
+          match = list.find(function (d) { return d.destination_slug === window.__destSlug; });
+        }
         if (!match) return;
         match.hero_image_fallback = upgradeImageUrl(match.hero_image_fallback);
         window.__destination = match;
@@ -107,6 +121,8 @@
             applyVideo(hero, match.hero_video_url);
           } else if (match.hero_image_fallback) {
             applyImage(hero, match.hero_image_fallback);
+            // Pages can set window.__destHeroPosition to override the default 'center'.
+            applyHeroPosition(window.__destHeroPosition);
           }
         }
         document.dispatchEvent(new CustomEvent('destination:ready', { detail: match }));
