@@ -137,18 +137,31 @@ The generic `/blog/:slug` rewrite already exists in `vercel.json`. No change nee
 
 ## Step 9 — Register the post on the inspiration page
 
-Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend a new entry at the top of the array:
+Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend the new entry at the top of the array:
 
 ```
 {
   title: "[post title — same as <h1>]",
   slug: "[slug — same as filename]",
   description: "[one-line description, ~110 chars max, no smart quotes]",
+  tag: "[Planning | Location | Logistics | Etiquette | Budget | Stories]",
   readTime: "[N min read]"
 }
 ```
 
-Use straight quotes only. Do not modify any other entry. Save the file.
+Use straight quotes only.
+
+**Then remove the closest-matching placeholder** so the page never shows two near-duplicate cards. The original placeholders are:
+
+- `how-to-plan-a-proposal-abroad`
+- `where-to-propose-choosing-the-right-place`
+- `how-to-hide-the-ring-while-travelling`
+
+If the new post overlaps in topic with any of those (planning steps, location choice, ring logistics, etc.), delete that placeholder entry from the array. If no clear topical overlap exists and there are still 3+ entries in the array, delete the last placeholder so the array stays at 3 items until you have published 3 real posts.
+
+Once all 3 original placeholders have been replaced, simply prepend without removing anything.
+
+Save the file.
 
 ---
 
