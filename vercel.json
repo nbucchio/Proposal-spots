@@ -4,7 +4,8 @@
     { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": false },
     { "source": "/destinations/usa",              "destination": "/destinations/united-states",    "permanent": false },
     { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": false },
-    { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": false }
+    { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": false },
+    { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": false }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
