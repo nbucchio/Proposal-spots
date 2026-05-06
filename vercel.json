@@ -24,6 +24,7 @@
     { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
     { "source": "/destinations/united-states", "destination": "/destinations/united-states.html" },
     { "source": "/destinations/italy", "destination": "/destinations/italy.html" },
+    { "source": "/destinations/hawaii", "destination": "/destinations/hawaii.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/checklist", "destination": "/checklist.html" },
     { "source": "/how-it-works", "destination": "/how-it-works.html" },
