@@ -110,10 +110,9 @@
     }
     .pg-dark-hero {
       position: relative;
-      min-height: 480px;
       display: flex;
-      align-items: flex-end;
-      padding-bottom: 72px;
+      align-items: center;
+      padding: 56px 0;
       overflow: hidden;
     }
     .pg-dark-hero-bg {
@@ -130,12 +129,12 @@
     }
     .pg-dark-hero-title {
       font-family: 'Cormorant', serif;
-      font-size: clamp(42px, 6vw, 72px);
+      font-size: clamp(32px, 4.4vw, 52px);
       font-weight: 300;
       color: #F4F1EB;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.01em;
-      margin-top: 16px;
+      margin-top: 12px;
     }
     .pg-dark-hero-title em { font-style: italic; }
     .pg-cta-strip {
@@ -225,6 +224,19 @@
     .story-footer .pg-cta-btn { background: var(--bg); color: var(--ink); }
     .story-footer .pg-cta-btn:hover { background: var(--bg2); }
 
+    /* ═══ THE GUIDE (BLOG) ═══ */
+    .insp-guide { max-width: 1200px; margin: 0 auto; padding: 72px 40px 56px; }
+    .insp-guide-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .insp-guide-header .pg-eyebrow { margin-bottom: 14px; }
+    .insp-guide-title { font-family: 'Cormorant', serif; font-size: clamp(26px, 3vw, 36px); font-weight: 300; color: var(--ink); line-height: 1.2; letter-spacing: 0.01em; }
+    .insp-guide-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 40px; }
+    .insp-guide-card { display: block; text-decoration: none; color: inherit; padding: 28px 0; border-top: 1px solid var(--hairline); transition: opacity 0.2s; }
+    .insp-guide-card:hover { opacity: 0.65; }
+    .insp-guide-card-title { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 400; color: var(--ink); line-height: 1.3; letter-spacing: 0.01em; margin-bottom: 14px; }
+    .insp-guide-card-desc { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 18px; }
+    .insp-guide-card-meta { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .insp-guide-actions { text-align: center; }
+
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 900px) {
       .insp-story { grid-template-columns: 1fr; min-height: auto; }
@@ -234,12 +246,14 @@
       .pg-dark-hero-content { padding: 0 28px; }
       .story-hero-content { padding: 0 28px; }
       .story-body { padding: 48px 28px; }
+      .insp-guide-grid { grid-template-columns: 1fr; gap: 0; }
       nav { padding: 0 20px; }
       .nav-links { display: none; }
     }
     @media (max-width: 600px) {
       .insp-stories { padding: 0 20px; }
       .insp-intro { padding: 48px 24px; }
+      .insp-guide { padding: 56px 24px 40px; }
     }
   </style>
 </head>
@@ -252,6 +266,18 @@
 <!-- ═══ INSPIRATION PAGE ═══ -->
 <div id="page-inspiration">
   <div class="pg-inspiration">
+
+    <!-- The Guide (blog) -->
+    <section class="insp-guide">
+      <div class="insp-guide-header">
+        <span class="pg-eyebrow">The Guide</span>
+        <h2 class="insp-guide-title">Practical advice for planning a proposal worth remembering</h2>
+      </div>
+      <div class="insp-guide-grid" id="insp-guide-grid"></div>
+      <div class="insp-guide-actions">
+        <button class="insp-read-more" id="insp-guide-more" type="button">Load more →</button>
+      </div>
+    </section>
 
     <!-- Hero -->
     <div class="pg-dark-hero">
@@ -624,6 +650,58 @@
 </div>
 
 <script>
+const BLOG_POSTS = [
+  {
+    title: "How to plan a proposal abroad without losing the surprise",
+    slug: "how-to-plan-a-proposal-abroad",
+    description: "The quiet logistics behind a proposal that feels effortless — bookings, timing, and the small details that give it away.",
+    readTime: "7 min read"
+  },
+  {
+    title: "Where to propose: choosing the right place, not the famous one",
+    slug: "where-to-propose-choosing-the-right-place",
+    description: "How to pick a location that means something to the two of you, instead of one that simply photographs well.",
+    readTime: "6 min read"
+  },
+  {
+    title: "How to hide the ring while travelling",
+    slug: "how-to-hide-the-ring-while-travelling",
+    description: "Practical, slightly paranoid advice on getting a ring through airports, hotels, and beach days without ruining the moment.",
+    readTime: "4 min read"
+  }
+];
+
+let guideShown = 0;
+const GUIDE_PAGE = 3;
+
+function renderGuide() {
+  const grid = document.getElementById('insp-guide-grid');
+  const more = document.getElementById('insp-guide-more');
+  if (!grid || !more) return;
+  const next = BLOG_POSTS.slice(guideShown, guideShown + GUIDE_PAGE);
+  next.forEach(post => {
+    const a = document.createElement('a');
+    a.className = 'insp-guide-card';
+    a.href = '/blog/' + post.slug;
+    a.innerHTML =
+      '<h3 class="insp-guide-card-title"></h3>' +
+      '<p class="insp-guide-card-desc"></p>' +
+      '<span class="insp-guide-card-meta"></span>';
+    a.querySelector('.insp-guide-card-title').textContent = post.title;
+    a.querySelector('.insp-guide-card-desc').textContent = post.description;
+    a.querySelector('.insp-guide-card-meta').textContent = post.readTime;
+    grid.appendChild(a);
+  });
+  guideShown += next.length;
+  if (guideShown >= BLOG_POSTS.length) more.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderGuide();
+  const more = document.getElementById('insp-guide-more');
+  if (more) more.addEventListener('click', renderGuide);
+});
+
 const STORY_DATA = {
   'amalfi': {
     slug: 'amalfi-coast-lemon-grove-proposal',
