@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { first, last, email, phone } = req.body;
+  const { first, last, email, phone, destination } = req.body;
 
   if (!first || !last || !email || !email.includes('@')) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 
     // Only add phone if provided
     if (phone) fields['Phone #'] = phone;
+    if (destination) fields['Destination'] = destination;
 
     const response = await fetch(
       `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}`,
