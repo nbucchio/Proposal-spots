@@ -159,7 +159,17 @@ Add the primary keyword (and all clustered keywords used) to `references/used-ke
 
 ---
 
-## Step 10 — Confirm completion
+## Step 10 — Update keyword tracker CSV
+
+Open `seo/keywords.csv`. For the primary keyword row (and every clustered keyword row that was addressed by this page), update:
+- `Status ` (note: column header has a trailing space) → `Published`
+- `Date Published` → today's date in `YYYY-MM-DD` format
+
+Do not modify any other row. Save the file.
+
+---
+
+## Step 11 — Confirm completion
 
 Report:
 - Primary keyword and all cluster keywords used
@@ -168,7 +178,8 @@ Report:
 - Internal links added
 - Schema types applied
 - File saved location
-- used-keywords.md updated confirmation
+- `used-keywords.md` updated confirmation
+- `seo/keywords.csv` rows updated (Status = Published, Date Published = today)
 - Any TODOs flagged (e.g. missing hero image)
 
 Do not say "done" until the build would pass.

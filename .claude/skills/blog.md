@@ -116,7 +116,7 @@ Save the completed post as:
 /blog/[slug].html
 ```
 
-The file must use the same nav, CSS variables, and design patterns as existing pages. Do not invent new components or classes.
+Use `/blog/template.html` as the starting point. Replace every `{{...}}` placeholder. The file must use the same nav, CSS variables, and design patterns as existing pages. Do not invent new components or classes.
 
 ---
 
@@ -131,11 +131,38 @@ Add the primary keyword to `references/used-keywords.md`:
 
 ## Step 8 — Update vercel.json
 
-Add the new route to `vercel.json` so the page is accessible at `/blog/[slug]`.
+The generic `/blog/:slug` rewrite already exists in `vercel.json`. No change needed unless the slug requires a custom route.
 
 ---
 
-## Step 9 — Confirm completion
+## Step 9 — Register the post on the inspiration page
+
+Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend a new entry at the top of the array:
+
+```
+{
+  title: "[post title — same as <h1>]",
+  slug: "[slug — same as filename]",
+  description: "[one-line description, ~110 chars max, no smart quotes]",
+  readTime: "[N min read]"
+}
+```
+
+Use straight quotes only. Do not modify any other entry. Save the file.
+
+---
+
+## Step 10 — Update keyword tracker CSV
+
+Open `seo/keywords.csv`. Find the row whose `Keyword` column matches the primary keyword used. Update that row:
+- `Status ` (note: column header has a trailing space) → `Published`
+- `Date Published` → today's date in `YYYY-MM-DD` format
+
+Do not modify any other row. Save the file.
+
+---
+
+## Step 11 — Confirm completion
 
 Report:
 - Primary keyword used
@@ -144,6 +171,8 @@ Report:
 - Internal links added (list them)
 - Schema types applied
 - File saved location
-- used-keywords.md updated confirmation
+- `used-keywords.md` updated confirmation
+- `inspiration.html` BLOG_POSTS array updated confirmation
+- `seo/keywords.csv` row updated (Status = Published, Date Published = today)
 
 Do not say "done" until the build would pass — correct HTML structure, no broken links, voice check passed.

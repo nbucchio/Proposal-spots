@@ -41,6 +41,7 @@
     { "source": "/budget/south-of-france", "destination": "/budget/south-of-france.html" },
     { "source": "/budget/switzerland", "destination": "/budget/switzerland.html" },
     { "source": "/budget/new-york", "destination": "/budget/new-york.html" },
+    { "source": "/blog/:slug", "destination": "/blog/:slug.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
