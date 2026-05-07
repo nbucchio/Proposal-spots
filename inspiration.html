@@ -247,6 +247,8 @@
     .insp-guide-card:hover .insp-guide-card-title::after { opacity: 1; }
     .insp-guide-card-desc { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 18px; }
     .insp-guide-card-meta { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .insp-guide-card-thumb { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 2px; margin-bottom: 18px; background: var(--hairline); }
+    .insp-guide-card-thumb-fallback { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 2px; margin-bottom: 18px; background: var(--hairline); }
     .insp-guide-actions { text-align: center; }
 
     /* ═══ RESPONSIVE ═══ */
@@ -668,21 +670,24 @@ const BLOG_POSTS = [
     slug: "how-to-plan-a-proposal",
     description: "The full process — location, timing, the ring, the photographer, the words — in the order the decisions need to be made.",
     tag: "Planning",
-    readTime: "9 min read"
+    readTime: "9 min read",
+    imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1920&auto=format&fit=crop"
   },
   {
     title: "Beach wedding proposal: how to do it well, without losing what makes it good",
     slug: "beach-wedding-proposal",
     description: "Choosing the beach, timing the tide and light, and the small decisions that separate a real beach proposal from a Pinterest one.",
     tag: "Location",
-    readTime: "8 min read"
+    readTime: "8 min read",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop"
   },
   {
     title: "How to hide the ring while travelling",
     slug: "how-to-hide-the-ring-while-travelling",
     description: "Practical, slightly paranoid advice on getting a ring through airports, hotels, and beach days without ruining the moment.",
     tag: "Logistics",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1920&auto=format&fit=crop"
   }
 ];
 
@@ -698,15 +703,35 @@ function renderGuide() {
     const a = document.createElement('a');
     a.className = 'insp-guide-card';
     a.href = '/blog/' + post.slug;
-    a.innerHTML =
-      '<span class="insp-guide-card-eyebrow"></span>' +
-      '<h3 class="insp-guide-card-title"></h3>' +
-      '<p class="insp-guide-card-desc"></p>' +
-      '<span class="insp-guide-card-meta"></span>';
-    a.querySelector('.insp-guide-card-eyebrow').textContent = post.tag || post.description.split(' ')[0];
-    a.querySelector('.insp-guide-card-title').textContent = post.title;
-    a.querySelector('.insp-guide-card-desc').textContent = post.description;
-    a.querySelector('.insp-guide-card-meta').textContent = post.readTime;
+    if (post.imageUrl) {
+      const img = document.createElement('img');
+      img.className = 'insp-guide-card-thumb';
+      img.src = post.imageUrl;
+      img.alt = post.title;
+      img.loading = 'lazy';
+      a.appendChild(img);
+    } else {
+      const ph = document.createElement('span');
+      ph.className = 'insp-guide-card-thumb-fallback';
+      ph.setAttribute('aria-hidden', 'true');
+      a.appendChild(ph);
+    }
+    const eyebrow = document.createElement('span');
+    eyebrow.className = 'insp-guide-card-eyebrow';
+    eyebrow.textContent = post.tag || post.description.split(' ')[0];
+    a.appendChild(eyebrow);
+    const title = document.createElement('h3');
+    title.className = 'insp-guide-card-title';
+    title.textContent = post.title;
+    a.appendChild(title);
+    const desc = document.createElement('p');
+    desc.className = 'insp-guide-card-desc';
+    desc.textContent = post.description;
+    a.appendChild(desc);
+    const meta = document.createElement('span');
+    meta.className = 'insp-guide-card-meta';
+    meta.textContent = post.readTime;
+    a.appendChild(meta);
     grid.appendChild(a);
   });
   guideShown += next.length;

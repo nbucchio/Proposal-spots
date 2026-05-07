@@ -94,6 +94,45 @@ Content rules:
 
 ---
 
+## Step 4b — Select hero image from Unsplash
+
+Find a high-quality landscape photo of the location or topic the post covers.
+
+Endpoint:
+```
+GET https://api.unsplash.com/search/photos?query=[topic]&orientation=landscape&per_page=5
+Header: Authorization: Client-ID $UNSPLASH_ACCESS_KEY
+```
+
+The API key is stored in `.env` as `UNSPLASH_ACCESS_KEY`. Read it from the env, never hardcode it.
+
+Pick the first result that meets all of these:
+- Real location or topic photo — not people, not staged studio shots
+- Landscape orientation
+- High resolution — at least 1920px wide (`urls.raw` with `&w=1920` is fine)
+
+Capture and store on the post:
+- `imageUrl` — full Unsplash URL (use `&w=1920&auto=format&fit=crop` for hero, `&w=1200&h=630&fit=crop` for og:image)
+- `imageAlt` — short description of the location or topic
+- `photographerName` — `user.name`
+- `photographerUrl` — `user.links.html` (their profile)
+
+Required additions to the blog post HTML:
+- Hero `<img>` at the top of the article using `imageUrl`, with `alt="[imageAlt]"`, `width="1920"`, `height` proportional, `loading="eager"`
+- `<meta property="og:image" content="[1200x630 crop URL]">` in `<head>`
+- `<meta name="twitter:image" content="[1200x630 crop URL]">` in `<head>`
+- Photo credit at the bottom of the post:
+  ```html
+  <p class="post-photo-credit">Photo by <a href="[photographerUrl]?utm_source=proposal_spots&utm_medium=referral" target="_blank" rel="noopener">[photographerName]</a> on <a href="https://unsplash.com/?utm_source=proposal_spots&utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></p>
+  ```
+
+If the API request fails, returns no results, or no result meets the criteria:
+- Skip the hero image and `og:image`/`twitter:image` tags
+- Insert `<!-- TODO: hero image — Unsplash lookup failed for query "[topic]" -->` at the top of the article
+- Note the gap in the Step 12 completion report
+
+---
+
 ## Step 5 — Add SEO elements
 
 Apply every applicable item from `references/on-page-seo.md`:
@@ -158,7 +197,8 @@ Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend the new entr
   slug: "[slug — same as filename]",
   description: "[one-line description, ~110 chars max, no smart quotes]",
   tag: "[Planning | Location | Logistics | Etiquette | Budget | Stories]",
-  readTime: "[N min read]"
+  readTime: "[N min read]",
+  imageUrl: "[Unsplash imageUrl from Step 4b — empty string if lookup failed]"
 }
 ```
 
@@ -197,8 +237,9 @@ Report:
 - Internal links added (list them)
 - Schema types applied
 - File saved location
+- Hero image: Unsplash URL + photographer name and profile URL (or "TODO — lookup failed" if it did)
 - `used-keywords.md` updated confirmation
-- `inspiration.html` BLOG_POSTS array updated confirmation
+- `inspiration.html` BLOG_POSTS array updated confirmation (incl. `imageUrl`)
 - `seo/keywords.csv` row updated (Status = Published, Date Published = today)
 
 Do not say "done" until the build would pass — correct HTML structure, no broken links, voice check passed.
