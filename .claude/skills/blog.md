@@ -118,6 +118,19 @@ Save the completed post as:
 
 Use `/blog/template.html` as the starting point. Replace every `{{...}}` placeholder. The file must use the same nav, CSS variables, and design patterns as existing pages. Do not invent new components or classes.
 
+Every new HTML file created must include the Google Analytics tag immediately after the opening `<head>` tag:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
+```
+
 ---
 
 ## Step 7 — Update keyword tracker
