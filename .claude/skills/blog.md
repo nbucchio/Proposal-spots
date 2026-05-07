@@ -111,24 +111,22 @@ Pick the first result that meets all of these:
 - Landscape orientation
 - High resolution — at least 1920px wide (`urls.raw` with `&w=1920` is fine)
 
-Capture and store on the post:
-- `imageUrl` — full Unsplash URL (use `&w=1920&auto=format&fit=crop` for hero, `&w=1200&h=630&fit=crop` for og:image)
+Capture and store on the post. Both URLs MUST include an explicit height + `&fit=crop` so Unsplash delivers a pre-cropped landscape file. Without `&h=`, the image arrives at its natural aspect (often 3:2 or 4:3) and renders elongated on the hero.
+- `imageUrl` — hero URL: `https://images.unsplash.com/photo-[id]?q=80&w=1920&h=1080&fit=crop&auto=format` (16:9, 1920×1080)
+- `imageOgUrl` — social URL: `https://images.unsplash.com/photo-[id]?w=1200&h=630&fit=crop&q=80` (Open Graph 1200×630)
 - `imageAlt` — short description of the location or topic
 - `photographerName` — `user.name`
 - `photographerUrl` — `user.links.html` (their profile)
 
-Required additions to the blog post HTML:
-- Hero `<img>` at the top of the article using `imageUrl`, with `alt="[imageAlt]"`, `width="1920"`, `height` proportional, `loading="eager"`
-- `<meta property="og:image" content="[1200x630 crop URL]">` in `<head>`
-- `<meta name="twitter:image" content="[1200x630 crop URL]">` in `<head>`
-- Photo credit at the bottom of the post:
-  ```html
-  <p class="post-photo-credit">Photo by <a href="[photographerUrl]?utm_source=proposal_spots&utm_medium=referral" target="_blank" rel="noopener">[photographerName]</a> on <a href="https://unsplash.com/?utm_source=proposal_spots&utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></p>
-  ```
+Required additions to the blog post HTML — all of this is already scaffolded in `blog/template.html`. You only need to fill the `{{heroImage}}`, `{{heroImageOg}}`, `{{heroAlt}}`, `{{photographerName}}`, `{{photographerUrl}}` placeholders:
+- Hero `<img>` at the top of the article — `src={{heroImage}}`, `alt={{heroAlt}}`, `width="1920"`, `height="1080"`, `loading="eager"` (template renders the `.post-hero` block; never remove it)
+- `<meta property="og:image" content="{{heroImageOg}}">` and `<meta name="twitter:image" content="{{heroImageOg}}">` already present in template head
+- Photo credit at the bottom of the post is already in the template — fill `{{photographerName}}` and `{{photographerUrl}}`
 
 If the API request fails, returns no results, or no result meets the criteria:
-- Skip the hero image and `og:image`/`twitter:image` tags
-- Insert `<!-- TODO: hero image — Unsplash lookup failed for query "[topic]" -->` at the top of the article
+- Leave the `{{heroImage}}` and `{{heroImageOg}}` placeholders unset and remove the `.post-hero` div + `og:image`/`twitter:image` meta from the rendered file
+- Replace the photo credit `<p>` with `<!-- TODO: hero image — Unsplash lookup failed for query "[topic]" -->`
+- Set `imageUrl: ""` in the BLOG_POSTS entry (the inspiration card will fall back to the hairline placeholder)
 - Note the gap in the Step 12 completion report
 
 ---
