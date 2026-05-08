@@ -1764,8 +1764,9 @@ footer {
   align-items: center;
 }
 /* Task 4: SSB label readable on mobile */
-.ssb-label { font-size: 10px; }
-.ssb-value { font-size: 17px; }
+.ssb-label { font-size: 10px; color: #5a4f47; }
+.ssb-value { font-size: 17px; color: #8c7e76; }
+.ssb-value.placeholder { color: #8c7e76; }
 
 .nav-links { display: none; }
 
@@ -1835,7 +1836,7 @@ footer {
   /* Capsule overlapping the seam at the bottom of the hero */
   .search-container {
     position: absolute;
-    bottom: -90px;
+    bottom: -62px;
     left: 16px;
     right: 16px;
     width: auto;
@@ -1925,8 +1926,22 @@ footer {
     transform: translateY(0);
     pointer-events: auto;
   }
-  /* Override the desktop max-height caps inside the fixed overlay */
-  #ssb-dest-dd, #ssb-vibe-dd { max-height: calc(100vh - 100px); }
+  /* Cap visible options at ~6 rows × 52px; scroll for the rest */
+  .ssb-dropdown,
+  #ssb-dest-dd,
+  #ssb-vibe-dd { max-height: 328px; }
+  /* Subtle fade at bottom of long, scrollable dropdowns */
+  #ssb-dest-dd::after,
+  #ssb-vibe-dd::after {
+    content: '';
+    display: block;
+    position: sticky;
+    bottom: 0;
+    height: 32px;
+    margin-top: -32px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #FFFFFF);
+    pointer-events: none;
+  }
 
   /* Option rows — single unified panel, no nested boxes */
   .ssb-dd-item {
