@@ -94,6 +94,55 @@ Content rules:
 
 ---
 
+## Step 4b — Select hero image from Unsplash
+
+Find a high-quality landscape photo of the location or topic the post covers using only **public Unsplash pages via WebFetch**. No API, no key, no `.env`.
+
+### Find the photo
+
+1. WebFetch `https://unsplash.com/s/photos/[topic]?orientation=landscape` (replace `[topic]` with a 2–3 word URL-encoded search relevant to the post — e.g. `proposal-abroad-travel`, `romantic-coastal-landscape`, `ring-jewelry-travel`).
+2. From the response, identify the first photo that meets all of these:
+   - Real location or topic photo — not people, not staged studio shots
+   - Landscape orientation
+   - Editorial-quality (clear, well-composed, not a stock thumbnail)
+3. Capture the photo's permalink (looks like `https://unsplash.com/photos/<slug>-<photoId>`) and the photo's CDN ID (the part after `photo-` in `images.unsplash.com/photo-<id>`).
+4. WebFetch that permalink. Read the photographer's display name and the URL of their Unsplash profile (linked from the page, format `https://unsplash.com/@<username>`).
+
+### Build the URLs
+
+Both URLs MUST pin width AND height with `&fit=crop` so Unsplash delivers a pre-cropped file. Without an explicit `&h=`, the image arrives at its natural DSLR aspect (often 3:2) and renders elongated on the hero.
+
+- `heroImage` — blog page hero (cinematic 21:9, 1920×822):
+  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=822&fit=crop&auto=format`
+- `heroImageOg` — Open Graph / Twitter (1200×630):
+  `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
+- `cardImage` — inspiration thumbnail (16:9, 1920×1080) — used in the `BLOG_POSTS` `imageUrl` field:
+  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=1080&fit=crop&auto=format`
+- `heroAlt` — short description of the location or topic
+- `photographerName` — visible name from the photo's permalink page
+- `photographerUrl` — full URL to their Unsplash profile
+
+### Apply to the rendered file
+
+`blog/template.html` already scaffolds the hero block, the og:image / twitter:image meta tags, and the photo credit footer. You only fill placeholders:
+- `{{heroImage}}` → `heroImage` URL
+- `{{heroImageOg}}` → `heroImageOg` URL
+- `{{heroAlt}}` → `heroAlt`
+- `{{photographerName}}` → `photographerName`
+- `{{photographerUrl}}` → `photographerUrl`
+
+Never remove the `.post-hero` block, the og:image/twitter:image meta tags, or the `.post-photo-credit` paragraph from a rendered post.
+
+### Graceful fallback if WebFetch fails or no photo qualifies
+
+- Remove the `.post-hero` div from the rendered file
+- Remove the `og:image` and `twitter:image` meta tags
+- Replace the `.post-photo-credit` paragraph with `<!-- TODO: hero image — Unsplash search failed for query "[topic]" -->`
+- Set `imageUrl: ""` in the BLOG_POSTS entry (the inspiration card will fall back to the hairline placeholder)
+- Flag the gap in the Step 12 completion report
+
+---
+
 ## Step 5 — Add SEO elements
 
 Apply every applicable item from `references/on-page-seo.md`:
@@ -117,6 +166,19 @@ Save the completed post as:
 ```
 
 Use `/blog/template.html` as the starting point. Replace every `{{...}}` placeholder. The file must use the same nav, CSS variables, and design patterns as existing pages. Do not invent new components or classes.
+
+Every new HTML file created must include the Google Analytics tag immediately after the opening `<head>` tag:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
+```
 
 ---
 
@@ -145,7 +207,8 @@ Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend the new entr
   slug: "[slug — same as filename]",
   description: "[one-line description, ~110 chars max, no smart quotes]",
   tag: "[Planning | Location | Logistics | Etiquette | Budget | Stories]",
-  readTime: "[N min read]"
+  readTime: "[N min read]",
+  imageUrl: "[Step 4b cardImage URL (16:9, 1920x1080) — empty string if Unsplash lookup failed]"
 }
 ```
 
@@ -184,8 +247,9 @@ Report:
 - Internal links added (list them)
 - Schema types applied
 - File saved location
+- Hero image: Unsplash URL + photographer name and profile URL (or "TODO — lookup failed" if it did)
 - `used-keywords.md` updated confirmation
-- `inspiration.html` BLOG_POSTS array updated confirmation
+- `inspiration.html` BLOG_POSTS array updated confirmation (incl. `imageUrl`)
 - `seo/keywords.csv` row updated (Status = Published, Date Published = today)
 
 Do not say "done" until the build would pass — correct HTML structure, no broken links, voice check passed.

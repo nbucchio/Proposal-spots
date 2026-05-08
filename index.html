@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
     <script defer src="/_vercel/insights/script.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,6 +227,7 @@ nav.scrolled {
   white-space: nowrap;
 }
 .ssb-btn:hover { background: var(--accent); }
+.ssb-btn-icon { display: none; }
 .ssb-dropdown {
   display: none;
   position: absolute;
@@ -1755,59 +1764,218 @@ footer {
   align-items: center;
 }
 /* Task 4: SSB label readable on mobile */
-.ssb-label { font-size: 10px; }
-.ssb-value { font-size: 17px; }
+.ssb-label { font-size: 10px; color: #5a4f47; }
+.ssb-value { font-size: 17px; color: #8c7e76; }
+.ssb-value.placeholder { color: #8c7e76; }
 
 .nav-links { display: none; }
 
-  /* ── TASK 1: Mobile hero — brand-first, no photo background ── */
+  /* ── M2 Hero A — full-bleed proposal photo with overlapping capsule ── */
   .hero {
-    background-image: none !important;
+    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=80&w=1470&auto=format&fit=crop') !important;
+    background-size: cover;
+    background-position: 25% center;
     background-color: var(--bg);
-    padding: 108px 24px 56px;
-    min-height: auto;
-    align-items: center;
+    height: 75vh;
+    min-height: 520px;
+    padding: 88px 24px 0;
+    align-items: stretch;
     justify-content: flex-start;
+    position: relative;
+    overflow: visible;
   }
-  .hero::before, .hero::after { display: none; }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.10) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero::after { display: none; }
+  /* Hero content is static so absolutely-positioned .search-container resolves to .hero */
   .hero-content {
+    position: static;
     max-width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: right;
+    padding: 0;
   }
-  /* Wordmark at top */
-  .hero-mobile-wordmark {
-    display: block;
-    font-family: 'Jost', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 28px;
-    order: 0;
-  }
-  /* Subtitle styling on mobile */
-  .hero-eyebrow {
-    font-size: 12px;
-    color: #A55A4A;
-    letter-spacing: 0.04em;
-    margin-bottom: 0;
-    order: 2;
-    margin-top: 10px;
-  }
-  /* Headline */
-  .hero-title {
-    font-size: clamp(34px, 9vw, 48px);
-    margin-bottom: 0;
-    order: 1;
-  }
-  /* Search bar */
-  .search-container { width: 100%; order: 3; margin-top: 28px; }
-  /* Hide stats — keep it clean on mobile */
+  .hero-mobile-wordmark { display: none; }
   .hero-stats { display: none; }
+  /* Headline — white, right-aligned, upper area */
+  .hero-title {
+    position: relative;
+    z-index: 1;
+    font-family: 'Cormorant', serif;
+    font-size: clamp(34px, 9vw, 48px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: #fff;
+    text-align: right;
+    margin: 0;
+    padding-top: 8px;
+  }
+  .hero-title strong { font-weight: 600; }
+  /* Subtitle — clay, italic Cormorant */
+  .hero-eyebrow {
+    position: relative;
+    z-index: 1;
+    display: block;
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    color: #1a1a18;
+    text-align: right;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  /* Capsule overlapping the seam at the bottom of the hero */
+  .search-container {
+    position: absolute;
+    bottom: -62px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    z-index: 9000;
+  }
+  .ssb-wrap {
+    flex-direction: column;
+    border-radius: 26px;
+    background: var(--white);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    min-height: auto;
+    position: relative;
+    overflow: visible;
+  }
+  .ssb-segment {
+    border-radius: 26px;
+    padding: 20px 72px 20px 22px;
+    width: 100%;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ssb-div {
+    width: auto;
+    height: 1px;
+    margin: 0 22px;
+  }
+  /* Floating circular search button right-center inside .ssb-wrap */
+  .ssb-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    background: #C17A5A;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  }
+  .ssb-btn:hover { background: #C17A5A; }
+  .ssb-btn-text { display: none; }
+  .ssb-btn-icon { display: block; color: #fff; }
+
+  /* Section below hero needs space for the overlapping capsule
+     and must sit below the fold on initial load */
+  #markets-section {
+    padding-top: 110px;
+    margin-top: 80px;
+  }
+
+  /* Dropdown — fixed overlay that always clears the navbar */
+  .ssb-dropdown {
+    display: block;
+    position: fixed;
+    top: 76px;
+    left: 16px;
+    right: 16px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: none;
+    border-top: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 8px 0;
+    margin-top: 8px;
+    min-width: 0;
+    z-index: 20000;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .ssb-dropdown.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  /* Cap visible options at ~6 rows × 52px; scroll for the rest */
+  .ssb-dropdown,
+  #ssb-dest-dd,
+  #ssb-vibe-dd { max-height: 328px; }
+  /* Subtle fade at bottom of long, scrollable dropdowns */
+  #ssb-dest-dd::after,
+  #ssb-vibe-dd::after {
+    content: '';
+    display: block;
+    position: sticky;
+    bottom: 0;
+    height: 32px;
+    margin-top: -32px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #FFFFFF);
+    pointer-events: none;
+  }
+
+  /* Option rows — single unified panel, no nested boxes */
+  .ssb-dd-item {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    color: #1a1a18;
+    background: #FFFFFF;
+    min-height: 52px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0ebe3;
+    letter-spacing: 0.02em;
+    white-space: normal;
+  }
+  .ssb-dd-item:last-child { border-bottom: none; }
+  .ssb-dd-item:hover { background: #FFFFFF; }
+  .ssb-dd-item.selected {
+    background: #fdf8f3;
+    color: #C17A5A;
+    font-weight: 400;
+    position: relative;
+  }
+  .ssb-dd-item.selected::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C17A5A;
+    transform: translateY(-50%);
+  }
 
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
@@ -4889,7 +5057,10 @@ footer {
         </div>
 
         <!-- Search button -->
-        <button class="ssb-btn" onclick="doSSBSearch()">Search &rarr;</button>
+        <button class="ssb-btn" onclick="doSSBSearch()">
+          <span class="ssb-btn-text">Search &rarr;</span>
+          <svg class="ssb-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        </button>
 
       </div>
 
@@ -4901,7 +5072,7 @@ footer {
 </section>
 
 <!-- FEATURED MARKETS -->
-<div class="section-wrap">
+<div class="section-wrap" id="markets-section">
   <div class="section">
     <div class="section-header">
       <div class="section-meta">
