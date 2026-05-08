@@ -1824,7 +1824,7 @@ footer {
     font-style: italic;
     font-weight: 400;
     font-size: 18px;
-    color: #a55a4a;
+    color: #1a1a18;
     text-align: right;
     text-transform: none;
     letter-spacing: 0.01em;
@@ -1876,7 +1876,7 @@ footer {
     margin: 0;
     padding: 0;
     border-radius: 50%;
-    background: var(--accent);
+    background: #C17A5A;
     color: #fff;
     display: flex;
     align-items: center;
@@ -1884,11 +1884,83 @@ footer {
     min-height: 0;
     box-shadow: 0 4px 14px rgba(0,0,0,0.18);
   }
+  .ssb-btn:hover { background: #C17A5A; }
   .ssb-btn-text { display: none; }
-  .ssb-btn-icon { display: block; }
+  .ssb-btn-icon { display: block; color: #fff; }
 
-  /* Section below hero needs space for the overlapping capsule */
-  #markets-section { padding-top: 110px; }
+  /* Section below hero needs space for the overlapping capsule
+     and must sit below the fold on initial load */
+  #markets-section {
+    padding-top: 110px;
+    margin-top: 80px;
+  }
+
+  /* Dropdown — fixed overlay that always clears the navbar */
+  .ssb-dropdown {
+    display: block;
+    position: fixed;
+    top: 76px;
+    left: 16px;
+    right: 16px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: none;
+    border-top: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 8px 0;
+    margin-top: 8px;
+    min-width: 0;
+    z-index: 20000;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .ssb-dropdown.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  /* Override the desktop max-height caps inside the fixed overlay */
+  #ssb-dest-dd, #ssb-vibe-dd { max-height: calc(100vh - 100px); }
+
+  /* Option rows — single unified panel, no nested boxes */
+  .ssb-dd-item {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    color: #1a1a18;
+    background: #FFFFFF;
+    min-height: 52px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0ebe3;
+    letter-spacing: 0.02em;
+    white-space: normal;
+  }
+  .ssb-dd-item:last-child { border-bottom: none; }
+  .ssb-dd-item:hover { background: #FFFFFF; }
+  .ssb-dd-item.selected {
+    background: #fdf8f3;
+    color: #C17A5A;
+    font-weight: 400;
+    position: relative;
+  }
+  .ssb-dd-item.selected::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C17A5A;
+    transform: translateY(-50%);
+  }
 
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
