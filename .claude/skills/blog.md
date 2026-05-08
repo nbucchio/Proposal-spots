@@ -96,38 +96,50 @@ Content rules:
 
 ## Step 4b — Select hero image from Unsplash
 
-Find a high-quality landscape photo of the location or topic the post covers.
+Find a high-quality landscape photo of the location or topic the post covers using only **public Unsplash pages via WebFetch**. No API, no key, no `.env`.
 
-Endpoint:
-```
-GET https://api.unsplash.com/search/photos?query=[topic]&orientation=landscape&per_page=5
-Header: Authorization: Client-ID $UNSPLASH_ACCESS_KEY
-```
+### Find the photo
 
-The API key is stored in `.env` as `UNSPLASH_ACCESS_KEY`. Read it from the env, never hardcode it.
+1. WebFetch `https://unsplash.com/s/photos/[topic]?orientation=landscape` (replace `[topic]` with a 2–3 word URL-encoded search relevant to the post — e.g. `proposal-abroad-travel`, `romantic-coastal-landscape`, `ring-jewelry-travel`).
+2. From the response, identify the first photo that meets all of these:
+   - Real location or topic photo — not people, not staged studio shots
+   - Landscape orientation
+   - Editorial-quality (clear, well-composed, not a stock thumbnail)
+3. Capture the photo's permalink (looks like `https://unsplash.com/photos/<slug>-<photoId>`) and the photo's CDN ID (the part after `photo-` in `images.unsplash.com/photo-<id>`).
+4. WebFetch that permalink. Read the photographer's display name and the URL of their Unsplash profile (linked from the page, format `https://unsplash.com/@<username>`).
 
-Pick the first result that meets all of these:
-- Real location or topic photo — not people, not staged studio shots
-- Landscape orientation
-- High resolution — at least 1920px wide (`urls.raw` with `&w=1920` is fine)
+### Build the URLs
 
-Capture and store on the post. Both URLs MUST include an explicit height + `&fit=crop` so Unsplash delivers a pre-cropped landscape file. Without `&h=`, the image arrives at its natural aspect (often 3:2 or 4:3) and renders elongated on the hero.
-- `imageUrl` — hero URL: `https://images.unsplash.com/photo-[id]?q=80&w=1920&h=1080&fit=crop&auto=format` (16:9, 1920×1080)
-- `imageOgUrl` — social URL: `https://images.unsplash.com/photo-[id]?w=1200&h=630&fit=crop&q=80` (Open Graph 1200×630)
-- `imageAlt` — short description of the location or topic
-- `photographerName` — `user.name`
-- `photographerUrl` — `user.links.html` (their profile)
+Both URLs MUST pin width AND height with `&fit=crop` so Unsplash delivers a pre-cropped file. Without an explicit `&h=`, the image arrives at its natural DSLR aspect (often 3:2) and renders elongated on the hero.
 
-Required additions to the blog post HTML — all of this is already scaffolded in `blog/template.html`. You only need to fill the `{{heroImage}}`, `{{heroImageOg}}`, `{{heroAlt}}`, `{{photographerName}}`, `{{photographerUrl}}` placeholders:
-- Hero `<img>` at the top of the article — `src={{heroImage}}`, `alt={{heroAlt}}`, `width="1920"`, `height="1080"`, `loading="eager"` (template renders the `.post-hero` block; never remove it)
-- `<meta property="og:image" content="{{heroImageOg}}">` and `<meta name="twitter:image" content="{{heroImageOg}}">` already present in template head
-- Photo credit at the bottom of the post is already in the template — fill `{{photographerName}}` and `{{photographerUrl}}`
+- `heroImage` — blog page hero (cinematic 21:9, 1920×822):
+  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=822&fit=crop&auto=format`
+- `heroImageOg` — Open Graph / Twitter (1200×630):
+  `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
+- `cardImage` — inspiration thumbnail (16:9, 1920×1080) — used in the `BLOG_POSTS` `imageUrl` field:
+  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=1080&fit=crop&auto=format`
+- `heroAlt` — short description of the location or topic
+- `photographerName` — visible name from the photo's permalink page
+- `photographerUrl` — full URL to their Unsplash profile
 
-If the API request fails, returns no results, or no result meets the criteria:
-- Leave the `{{heroImage}}` and `{{heroImageOg}}` placeholders unset and remove the `.post-hero` div + `og:image`/`twitter:image` meta from the rendered file
-- Replace the photo credit `<p>` with `<!-- TODO: hero image — Unsplash lookup failed for query "[topic]" -->`
+### Apply to the rendered file
+
+`blog/template.html` already scaffolds the hero block, the og:image / twitter:image meta tags, and the photo credit footer. You only fill placeholders:
+- `{{heroImage}}` → `heroImage` URL
+- `{{heroImageOg}}` → `heroImageOg` URL
+- `{{heroAlt}}` → `heroAlt`
+- `{{photographerName}}` → `photographerName`
+- `{{photographerUrl}}` → `photographerUrl`
+
+Never remove the `.post-hero` block, the og:image/twitter:image meta tags, or the `.post-photo-credit` paragraph from a rendered post.
+
+### Graceful fallback if WebFetch fails or no photo qualifies
+
+- Remove the `.post-hero` div from the rendered file
+- Remove the `og:image` and `twitter:image` meta tags
+- Replace the `.post-photo-credit` paragraph with `<!-- TODO: hero image — Unsplash search failed for query "[topic]" -->`
 - Set `imageUrl: ""` in the BLOG_POSTS entry (the inspiration card will fall back to the hairline placeholder)
-- Note the gap in the Step 12 completion report
+- Flag the gap in the Step 12 completion report
 
 ---
 
@@ -196,7 +208,7 @@ Open `inspiration.html`, locate `const BLOG_POSTS = [`, and prepend the new entr
   description: "[one-line description, ~110 chars max, no smart quotes]",
   tag: "[Planning | Location | Logistics | Etiquette | Budget | Stories]",
   readTime: "[N min read]",
-  imageUrl: "[Unsplash imageUrl from Step 4b — empty string if lookup failed]"
+  imageUrl: "[Step 4b cardImage URL (16:9, 1920x1080) — empty string if Unsplash lookup failed]"
 }
 ```
 
