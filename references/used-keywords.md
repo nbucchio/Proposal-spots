@@ -8,3 +8,4 @@ Primary keywords that have already been used as the target for a published page.
 how to plan a proposal | 2026-05-06 | /blog/how-to-plan-a-proposal
 beach wedding proposal | 2026-05-07 | /blog/beach-wedding-proposal
 beach proposal packages | 2026-05-08 | /blog/beach-proposal-packages
+proposal set up | 2026-05-09 | /blog/proposal-set-up
