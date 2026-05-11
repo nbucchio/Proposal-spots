@@ -83,14 +83,15 @@ Structure:
 
 Content rules:
 - Primary keyword in first 100 words
-- 3–5 internal links to relevant destination pages or other blog posts
-- 2–3 external links to authoritative sources (open in new tab)
+- 3 to 5 internal links to relevant destination pages or other blog posts
+- 2 to 3 external links to authoritative sources (open in new tab)
 - One humour moment max (see humour.md)
 - One story reference max (see stories.md)
 - One strong opinion max (see opinions.md)
-- No AI-tell phrases (see voice.md — "Tells that it's AI-written")
+- No AI-tell phrases (see voice.md, "Tells that it's AI-written")
 - No exclamation marks
 - No emojis
+- **No em-dashes or en-dashes ("—" or "–") anywhere in customer-facing content.** They read as AI-written. Use periods, commas, colons, or parentheses instead. Apply this to titles, meta descriptions, OG/Twitter descriptions, JSON-LD headlines and answers, body copy, FAQ Q&A, pull-quotes, and BLOG_POSTS card descriptions. Regular hyphens in compound words (e.g. "high-tide", "twenty-four") are fine.
 
 ---
 
@@ -112,8 +113,8 @@ Find a high-quality landscape photo of the location or topic the post covers usi
 
 Both URLs MUST pin width AND height with `&fit=crop` so Unsplash delivers a pre-cropped file. Without an explicit `&h=`, the image arrives at its natural DSLR aspect (often 3:2) and renders elongated on the hero.
 
-- `heroImage` — blog page hero (cinematic 21:9, 1920×822):
-  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=822&fit=crop&auto=format`
+- `heroImage`. Blog page hero (16:9, 1920x1080). The hero CSS uses `aspect-ratio: 16 / 9` and `object-fit: cover`. Do NOT use 21:9 (cinematic) since it crops too aggressively on portrait-source photos and reads as zoomed in.
+  `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=1080&fit=crop&auto=format`
 - `heroImageOg` — Open Graph / Twitter (1200×630):
   `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
 - `cardImage` — inspiration thumbnail (16:9, 1920×1080) — used in the `BLOG_POSTS` `imageUrl` field:

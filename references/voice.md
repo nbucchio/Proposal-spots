@@ -50,8 +50,9 @@ What to never do
 Never use: "unlock", "leverage", "seamless", "world-class", "unforgettable journey", "in today's fast-paced world", "look no further", "nestled", "boasting"
 Never use exclamation marks
 Never use emojis
+Never use em-dashes or en-dashes ("—" or "–") in any customer-facing content. They read as AI-written. Use a period, a comma, a colon, or parentheses instead. Regular hyphens in compound words (e.g. "high-tide", "twenty-four") are fine.
 Never open with a question as the very first sentence
-Never write for both partners — write for the man planning
+Never write for both partners. Write for the man planning.
 Never be vague when you can be specific
 
 
