@@ -802,7 +802,7 @@ nav.scrolled {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.15) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.04) 35%, transparent 55%);
   border-radius: inherit;
 }
 .market-card-bg {
@@ -814,7 +814,7 @@ nav.scrolled {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.15) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.04) 35%, transparent 55%);
   border-radius: inherit;
 }
 .market-card-bg { transform: scale(1.04); }
@@ -827,9 +827,9 @@ nav.scrolled {
   position: absolute; inset: 0;
   background: linear-gradient(
     to top,
-    rgba(20,19,17,0.65) 0%,
-    rgba(20,19,17,0.12) 45%,
-    transparent 100%
+    rgba(20,19,17,0.45) 0%,
+    rgba(20,19,17,0.04) 30%,
+    transparent 50%
   );
 }
 .market-card-info {
@@ -868,12 +868,14 @@ nav.scrolled {
 /* flat matte bg tones */
 .mc-amalfi   { background-image: url('https://plus.unsplash.com/premium_photo-1677494867836-3f56b1261bc5?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-santorini{ background-image: url('https://images.unsplash.com/photo-1635644690060-9ecac5dd550b?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
-.mc-tulum    { background-image: url('https://images.unsplash.com/photo-1597397707886-3edda5413325?q=80&w=735&auto=format&fit=crop'); background-size: cover; background-position: center; }
+.mc-italy    { background-image: url('https://images.unsplash.com/photo-1642494510670-08a2e9c0bc13?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; }
+.mc-portugal { background-image: url('https://images.unsplash.com/photo-1569406829354-eb0cc9e653e8?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; }
+.mc-tulum    { background-image: url('https://images.unsplash.com/photo-1522258493909-bf27c8ebd64a?q=80&w=655&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; }
 .mc-costarica{ background-image: url('https://images.unsplash.com/photo-1587450924794-1d88bd9df3c0?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center 50%; }
 .mc-bali     { background-image: url('https://images.unsplash.com/photo-1535968881874-0c39f1503640?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-maldives { background-image: url('https://images.unsplash.com/photo-1550031675-030918aff0e4?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-algarve  { background-image: url('https://images.unsplash.com/photo-1566988148642-343730e135bf?q=80&w=1170&auto=format&fit=crop'); background-size: cover; background-position: center; }
-.mc-france   { background-image: url('https://images.unsplash.com/photo-1714664857050-8ec9465f1068?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
+.mc-france   { background-image: url('https://images.unsplash.com/photo-1609971757431-439cf7b4141b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; }
 .mc-swiss    { background-image: url('https://images.unsplash.com/photo-1746950862748-df7d2c5af81d?q=80&w=1170&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-nicaragua{ background-image: url('https://images.unsplash.com/photo-1590856028965-5683c4b48ad0?q=80&w=735&auto=format&fit=crop'); background-size: cover; background-position: center; }
 .mc-new-york  { background-image: url('https://images.unsplash.com/photo-1698027030876-8ef160b2181e?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; }
@@ -5082,53 +5084,32 @@ footer {
       <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
     </div>
     <div class="markets-grid" style="cursor:pointer">
-      <div class="market-card" onclick="window.location.href='/destinations/italy'">
-        <div class="market-card-bg mc-amalfi"></div>
+      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
+        <div class="market-card-bg mc-portugal"></div>
         <div class="market-card-info">
           <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Italy</span>
+          <span class="market-card-name">Portugal</span>
         </div>
       </div>
-      <div class="market-card" onclick="goMarket('santorini')">
-        <div class="market-card-bg mc-santorini"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Greece</span>
-          <span class="market-card-name">Santorini</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
-        <div class="market-card-bg mc-algarve"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Portugal</span>
-          <span class="market-card-name">Algarve</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('tulum')">
+      <div class="market-card" onclick="window.location.href='/destinations/tulum'">
         <div class="market-card-bg mc-tulum"></div>
         <div class="market-card-info">
           <span class="market-card-region">Mexico</span>
           <span class="market-card-name">Tulum</span>
         </div>
       </div>
-      <div class="market-card" onclick="goMarket('costa-rica')">
-        <div class="market-card-bg mc-costarica"></div>
+      <div class="market-card" onclick="window.location.href='/destinations/italy'">
+        <div class="market-card-bg mc-italy"></div>
         <div class="market-card-info">
-          <span class="market-card-region">Central America</span>
-          <span class="market-card-name">Costa Rica</span>
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Italy</span>
         </div>
       </div>
-      <div class="market-card" onclick="goMarket('maldives')">
-        <div class="market-card-bg mc-maldives"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Indian Ocean</span>
-          <span class="market-card-name">Maldives</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="goMarket('south-of-france')">
+      <div class="market-card" onclick="window.location.href='/destinations/south-of-france'">
         <div class="market-card-bg mc-france"></div>
         <div class="market-card-info">
           <span class="market-card-region">France</span>
-          <span class="market-card-name">South of France</span>
+          <span class="market-card-name">France</span>
         </div>
       </div>
     </div>
