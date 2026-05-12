@@ -10,3 +10,4 @@ beach wedding proposal | 2026-05-07 | /blog/beach-wedding-proposal
 beach proposal packages | 2026-05-08 | /blog/beach-proposal-packages
 proposal set up | 2026-05-09 | /blog/proposal-set-up
 picnic proposal | 2026-05-10 | /blog/picnic-proposal
+romantic dinner proposal | 2026-05-11 | /blog/romantic-dinner-proposal
