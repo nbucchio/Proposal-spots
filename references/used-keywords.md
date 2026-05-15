@@ -12,3 +12,4 @@ proposal set up | 2026-05-09 | /blog/proposal-set-up
 picnic proposal | 2026-05-10 | /blog/picnic-proposal
 romantic dinner proposal | 2026-05-11 | /blog/romantic-dinner-proposal
 romantic proposal ideas | 2026-05-12 | /blog/romantic-proposal-ideas
+proposal packages | 2026-05-13 | /blog/proposal-packages
