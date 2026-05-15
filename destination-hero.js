@@ -54,9 +54,15 @@
     document.head.appendChild(s);
   }
 
-  function applyVideo(hero, src) {
+  function applyVideo(hero, src, poster) {
     if (!hero || !src) return;
-    hero.style.backgroundImage = '';
+    if (poster) {
+      hero.style.backgroundImage = 'url(' + poster + ')';
+      hero.style.backgroundSize = 'cover';
+      hero.style.backgroundPosition = 'center';
+    } else {
+      hero.style.backgroundImage = '';
+    }
     var video = hero.querySelector('.dest-landing-hero-video');
     if (!video) {
       video = document.createElement('video');
@@ -66,8 +72,12 @@
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
+      video.preload = 'auto';
       video.setAttribute('playsinline', '');
+      if (poster) video.poster = poster;
       hero.insertBefore(video, hero.firstChild);
+    } else if (poster) {
+      video.poster = poster;
     }
     var isHls = /\.m3u8(\?|$)/i.test(src);
     if (isHls) {
@@ -118,7 +128,7 @@
         window.__destFallbackImage = match.hero_image_fallback || '';
         if (hero) {
           if (match.hero_video_url) {
-            applyVideo(hero, match.hero_video_url);
+            applyVideo(hero, match.hero_video_url, match.hero_image_fallback);
           } else if (match.hero_image_fallback) {
             applyImage(hero, match.hero_image_fallback);
             // Pages can set window.__destHeroPosition to override the default 'center'.
