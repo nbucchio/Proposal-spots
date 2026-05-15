@@ -1,198 +1,161 @@
 # Skill: /location
 
-Triggered by: `/location`
+Triggered by: `/location [destination-slug] [primary-keyword]`
 
-Generates a fully optimized destination/location SEO page for Proposal Spots, consistent with existing destination pages.
+Example: `/location hawaii "full service proposal hawaii"`
+
+Injects a fully optimized SEO content block into an existing destination page for Proposal Spots. This skill never creates a new destination page — it only enriches one that already exists.
 
 ---
 
-## Before doing anything
+## Step 1 — Read all reference files first
 
 Read these files in this order:
-1. `CONTEXT.md` — site rules and architecture
-2. `references/voice.md` — how to write
-3. `references/humour.md` — how to use humour
-4. `references/stats.md` — what numbers to use
-5. `references/stories.md` — the one story you can reference
-6. `references/opinions.md` — strong positions to draw from
-7. `references/on-page-seo.md` — every SEO requirement
-8. `references/used-keywords.md` — keywords already used (never repeat as primary)
+1. `references/voice.md`
+2. `references/humour.md`
+3. `references/stats.md`
+4. `references/stories.md`
+5. `references/opinions.md`
+6. `references/on-page-seo.md`
+7. `references/used-keywords.md`
 
-Do not write a single word of content until you have read all eight files.
+Do not write anything until all 7 are read.
 
 ---
 
-## Step 1 — Select keyword
+## Step 2 — Select keyword
 
-Open `seo/keywords.csv`.
+If a primary keyword is passed in the trigger, use that.
 
-Filter to rows where:
+If not, open `seo/keywords.csv`, filter to rows where:
 - `Page type` = `Location Page`
 - `Status` = blank or `Not Started`
 
-Sort by `Priority` column descending (highest ratio first).
+Sort by `Priority` column descending and pick the highest unused keyword that does not appear in `references/used-keywords.md`.
 
-Select the top keyword that does NOT appear in `references/used-keywords.md`.
-
-Identify which destination this maps to (e.g. "santorini proposal" → Santorini, "proposal in bali" → Bali).
-
-Check whether a destination page already exists for this destination at `/destinations/[slug].html`.
-
-If the destination page exists: this keyword becomes SEO content added to the existing page's metadata and content — do not create a duplicate page.
-
-If the destination page does not exist: create a new one following the pattern of existing destination pages exactly.
+Identify which destination slug this maps to (e.g. "santorini proposal" → `santorini`, "proposal in bali" → `bali`).
 
 ---
 
-## Step 2 — Build keyword cluster
+## Step 3 — Build keyword cluster
 
-From the same CSV, find all Location Page keywords for the same destination that are NOT yet used. These all feed into the same destination page.
-
-Example: for Santorini, cluster all these together:
-- "santorini proposal"
-- "santorini marriage proposal"
-- "best places to propose in santorini"
-- "where to propose in santorini"
-- "santorini proposal packages"
-
-All of these should be addressed naturally within one destination page.
+From `seo/keywords.csv`, find all Location Page keywords for the same destination that are not yet used. All of these keywords get targeted on the same page and should be addressed naturally within the SEO content block.
 
 ---
 
-## Step 3 — Research the SERP
+## Step 4 — Find the existing destination page
+
+Look for `/destinations/[slug].html`.
+
+If it does not exist, flag it and stop — do not create a new page. Tell the user:
+
+> "No destination page found for [slug]. Please build the destination page first, then run /location again."
+
+---
+
+## Step 5 — Research the SERP
 
 Search Google for the primary keyword.
 
 Analyze the top 3 ranking pages (skip Reddit, Quora, forums):
-- What sections do they all cover?
-- What specific locations or spots do they mention?
-- What practical information (best time of year, weather, access) do they include?
-- What do they miss?
+- What sections do they cover
+- Approximate word count
+- H2 structure
+- People Also Ask questions
 
-Your page must cover everything they cover plus at least one angle they missed.
+Your content must cover everything they cover plus add at least one angle they missed.
 
 ---
 
-## Step 4 — Write the destination page content
+## Step 6 — Write the SEO content block
 
-Following voice.md exactly.
+Write a self-contained SEO content section following `voice.md` exactly.
 
-Every destination page must include:
+This content block must include:
 
-**Hero section:** destination name, one-line description (specific, not generic)
+- **H2: "Why Propose in [Destination]"** — 2–3 paragraphs, specific, no generic travel language. Primary keyword used naturally in the first 100 words.
+- **H2: "Best Times to Propose in [Destination]"** — specific months, crowd patterns, golden hour timing.
+- **H2: "What to Know Before You Go"** — practical specifics: access, what to book, what to avoid.
+- **H2: "Who This Destination Is NOT Right For"** — always include. Builds trust.
+- **FAQ section** — 4–8 questions from People Also Ask + keyword research, with direct answers.
+- **3–5 internal links** to related blog posts or other destination pages.
+- **2–3 external links** to authoritative sources.
+- **One Unsplash hero image** if the page doesn't already have one — use the same API approach as the blog skill.
+- **Photo credit at bottom** if image added.
 
-**Why propose here:** 2–3 paragraphs. Specific. Name the actual qualities — the light, the privacy, the landscape. Not "romantic atmosphere."
-
-**Best spots section:** If spots are live in Airtable for this destination, reference them. If not, describe the types of locations that make this destination exceptional for proposals (cliffside terraces, private beach access, etc.)
-
-**Best time to visit:** Specific months. Crowd patterns. Golden hour timing. Weather considerations.
-
-**Practical information:** How to get there. What to book in advance. What to avoid.
-
-**Who this destination is NOT right for:** Always include this. It builds trust.
-
-**FAQ section:** 4–8 questions from "People Also Ask" for the primary keyword.
-
-**CTA:** Link to view available spots (if live) or email capture (if destination not yet launched).
-
-Content rules — same as /blog:
-- Primary keyword in first 100 words
-- 3–5 internal links to related blog posts or other destination pages
-- 2–3 external links to authoritative sources
-- No AI-tell phrases
+Content rules — same as blog skill:
+- No AI-tell phrases (see `voice.md`)
 - No exclamation marks
 - No emojis
 - One humour moment max
 - One opinion max
+- Start with the answer, never build to it
+
+Show a summary of all changes before writing any code.
 
 ---
 
-## Step 5 — Add SEO elements
+## Step 7 — Inject content into existing destination page
 
-Apply every applicable item from `references/on-page-seo.md`:
+Open `/destinations/[slug].html`.
 
-- Title tag: "[Primary Keyword] — Proposal Spots" (50–60 chars)
-- Meta description (150–160 chars, emotional + specific)
-- Canonical URL: `/destinations/[slug]`
-- Open Graph tags
-- Twitter Card tags
-- JSON-LD schema: TouristAttraction + FAQPage + BreadcrumbList
-- Place schema with destination name and region
+Find the best insertion point — after the hero section and existing spot grid, before the footer.
 
----
+Insert the full SEO content block there.
 
-## Step 6 — Save or update the file
-
-If new destination:
-```
-/destinations/[slug].html
-```
-
-Match existing destination page structure exactly. Use same nav, CSS variables, components. Do not invent anything new.
-
-Every new HTML file created must include the Google Analytics tag immediately after the opening `<head>` tag:
-
-```html
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-4P287X7WZB');
-</script>
-```
-
-If adding to existing destination page:
-Update the existing file's metadata, title tag, and content to incorporate the new keyword cluster naturally.
+- Do not remove or change any existing content on the page.
+- Do not change the hero, nav, spot cards, or any existing sections.
+- Do not change any CSS.
 
 ---
 
-## Step 7 — Update homepage destination cards
+## Step 8 — Update SEO metadata on the destination page
 
-If this is a new destination page, add a destination card to `index.html` with:
-- `href="/destinations/[slug]"`
-- Same card style as all existing cards
-- Hero image (use Unsplash URL for now if no image is available — note this as a TODO)
+Update only these fields in the existing page:
 
----
+- **Title tag:** `[Primary Keyword] — Proposal Spots` (50–60 chars)
+- **Meta description:** 150–160 chars, emotional + specific, includes primary keyword
+- **og:title** and **og:description** to match
+- Add **FAQPage JSON-LD schema** for the FAQ section
+- Add **BreadcrumbList JSON-LD schema** if not already present
+- **Canonical URL:** `/destinations/[slug]`
 
-## Step 8 — Update vercel.json
-
-Add the route if it is a new page.
+Do not change anything else in the `<head>`.
 
 ---
 
 ## Step 9 — Update keyword tracker
 
-Add the primary keyword (and all clustered keywords used) to `references/used-keywords.md`:
+Add the primary keyword and all cluster keywords used to `references/used-keywords.md`:
+
 ```
 [keyword] | [date] | /destinations/[slug]
 ```
 
----
-
-## Step 10 — Update keyword tracker CSV
-
-Open `seo/keywords.csv`. For the primary keyword row (and every clustered keyword row that was addressed by this page), update:
-- `Status ` (note: column header has a trailing space) → `Published`
-- `Date Published` → today's date in `YYYY-MM-DD` format
-
-Do not modify any other row. Save the file.
+Update `seo/keywords.csv` — set `Status` = `Published` and `Date Published` = today (YYYY-MM-DD) for all keywords used.
 
 ---
 
-## Step 11 — Confirm completion
+## Step 10 — Confirm completion
 
 Report:
+- Destination page updated: `/destinations/[slug]`
 - Primary keyword and all cluster keywords used
-- Destination slug and URL
-- Whether new page or updated existing
+- Word count of content added
+- Sections added (list them)
 - Internal links added
-- Schema types applied
-- File saved location
-- `used-keywords.md` updated confirmation
-- `seo/keywords.csv` rows updated (Status = Published, Date Published = today)
-- Any TODOs flagged (e.g. missing hero image)
+- Schema types added
+- Image added or skipped
+- `used-keywords.md` updated
+- `seo/keywords.csv` updated
+- Any issues or TODOs flagged
 
-Do not say "done" until the build would pass.
+---
+
+## Hard rules
+
+- Never create a new destination page.
+- Never remove existing content.
+- Never change nav, hero, spot cards, or existing CSS.
+- Always show a summary of changes before writing any code.
+- List every file touched when done.
