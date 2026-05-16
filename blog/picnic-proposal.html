@@ -136,7 +136,8 @@
 
     .pg-post { padding-top: 64px; background: var(--bg); }
     .post-hero { max-width: 720px; margin: 0 auto; padding: 40px 40px 0; }
-    .post-hero img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 2px; }
+    .post-hero-frame { position: relative; width: 100%; padding-top: 56.25%; overflow: hidden; border-radius: 2px; background: var(--bg2); }
+    .post-hero-frame img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .post-photo-credit { max-width: 720px; margin: 0 auto; padding: 0 40px 56px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; letter-spacing: 0.05em; color: var(--ink); opacity: 0.5; }
     .post-photo-credit a { color: inherit; border-bottom: 1px solid var(--hairline); text-decoration: none; }
     .post-header { max-width: 720px; margin: 0 auto; padding: 40px 40px 40px; text-align: center; }
@@ -186,7 +187,9 @@
 <article class="pg-post">
 
   <div class="post-hero">
-    <img src="https://images.unsplash.com/photo-1707296819777-f96b799efb41?q=80&w=1920&h=1080&fit=crop&auto=format" alt="Picnic blanket spread with bread, wine and flowers in soft golden light" width="1920" height="1080" loading="eager">
+    <div class="post-hero-frame">
+      <img src="https://images.unsplash.com/photo-1707296819777-f96b799efb41?q=80&w=1920&h=1080&fit=crop&auto=format" alt="Picnic blanket spread with bread, wine and flowers in soft golden light" width="1920" height="1080" loading="eager">
+    </div>
   </div>
   <p class="post-photo-credit">Photo via <a href="https://unsplash.com/?utm_source=proposal_spots&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a><!-- TODO: add photographer name + profile link once UNSPLASH_ACCESS_KEY is set --></p>
 

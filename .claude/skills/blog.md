@@ -113,8 +113,28 @@ Find a high-quality landscape photo of the location or topic the post covers usi
 
 Both URLs MUST pin width AND height with `&fit=crop` so Unsplash delivers a pre-cropped file. Without an explicit `&h=`, the image arrives at its natural DSLR aspect (often 3:2) and renders elongated on the hero.
 
-- `heroImage`. Blog page hero (16:9, 1920x1080). The hero CSS uses `aspect-ratio: 16 / 9` and `object-fit: cover`. Do NOT use 21:9 (cinematic) since it crops too aggressively on portrait-source photos and reads as zoomed in.
+- `heroImage`. Blog page hero (16:9, 1920x1080). The hero is rendered inside a `.post-hero-frame` wrapper using a `padding-top: 56.25%` aspect-ratio trick (NOT the CSS `aspect-ratio` property — that rule was unreliable across browsers and would fall back to the image's natural aspect, rendering portrait sources tall). The image is absolutely positioned to fill the wrapper with `object-fit: cover`. Do NOT use 21:9 cinematic since it crops too aggressively on portrait-source photos.
   `https://images.unsplash.com/photo-<id>?q=80&w=1920&h=1080&fit=crop&auto=format`
+
+  **Required markup pattern for the hero block:**
+
+  ```html
+  <div class="post-hero">
+    <div class="post-hero-frame">
+      <img src="[heroImage url]" alt="[heroAlt]" width="1920" height="1080" loading="eager">
+    </div>
+  </div>
+  ```
+
+  **Required CSS pattern (already present in `blog/template.html`):**
+
+  ```css
+  .post-hero { max-width: 720px; margin: 0 auto; padding: 40px 40px 0; }
+  .post-hero-frame { position: relative; width: 100%; padding-top: 56.25%; overflow: hidden; border-radius: 2px; background: var(--bg2); }
+  .post-hero-frame img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  ```
+
+  Never strip the `.post-hero-frame` wrapper or replace the CSS with the bare `aspect-ratio` rule.
 - `heroImageOg` — Open Graph / Twitter (1200×630):
   `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
 - `cardImage` — inspiration thumbnail (16:9, 1920×1080) — used in the `BLOG_POSTS` `imageUrl` field:
