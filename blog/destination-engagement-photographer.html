@@ -19,9 +19,11 @@
   <meta property="og:description" content="How to hire a destination engagement photographer who travels well, stays invisible at the moment, and shoots wide. A practical hiring guide.">
   <meta property="og:url" content="https://proposalspots.com/blog/destination-engagement-photographer">
   <meta property="og:type" content="article">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1513031300226-c8fb12de9ade?w=1200&h=630&fit=crop&q=80">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Destination Engagement Photographer: A Hiring Guide">
   <meta name="twitter:description" content="How to hire a destination engagement photographer who travels well, stays invisible at the moment, and shoots wide. A practical hiring guide.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1513031300226-c8fb12de9ade?w=1200&h=630&fit=crop&q=80">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -32,6 +34,7 @@
     "@type": "Article",
     "headline": "Destination engagement photographer: how to hire one who actually disappears",
     "description": "How to hire a destination engagement photographer who travels well, stays invisible at the moment, and shoots wide. A practical hiring guide.",
+    "image": "https://images.unsplash.com/photo-1513031300226-c8fb12de9ade?w=1200&h=630&fit=crop&q=80",
     "author": {
       "@type": "Person",
       "name": "Nicholas Bucchio",
@@ -132,7 +135,11 @@
     .nav-cta:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
     .pg-post { padding-top: 64px; background: var(--bg); }
-    .post-header { max-width: 720px; margin: 0 auto; padding: 80px 40px 40px; text-align: center; }
+    .post-hero { max-width: 720px; margin: 0 auto; padding: 40px 40px 0; }
+    .post-hero img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 2px; }
+    .post-photo-credit { max-width: 720px; margin: 0 auto; padding: 0 40px 56px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; letter-spacing: 0.05em; color: var(--ink); opacity: 0.5; }
+    .post-photo-credit a { color: inherit; border-bottom: 1px solid var(--hairline); text-decoration: none; }
+    .post-header { max-width: 720px; margin: 0 auto; padding: 40px 40px 40px; text-align: center; }
     .post-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 22px; }
     .post-title { font-family: 'Cormorant', serif; font-size: clamp(34px, 5vw, 56px); font-weight: 300; color: var(--ink); line-height: 1.1; letter-spacing: -0.005em; margin-bottom: 28px; }
     .post-byline { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); letter-spacing: 0.08em; }
@@ -163,7 +170,9 @@
     @media (max-width: 900px) {
       nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .post-header { padding: 56px 24px 32px; }
+      .post-hero { padding: 24px 24px 0; }
+      .post-photo-credit { padding: 0 24px 40px; }
+      .post-header { padding: 32px 24px 32px; }
       .post-body { padding: 24px 24px 56px; }
       .post-faq { padding: 48px 24px; }
     }
@@ -176,7 +185,10 @@
 
 <article class="pg-post">
 
-  <!-- TODO: hero image. User-supplied photo URL pending. -->
+  <div class="post-hero">
+    <img src="https://images.unsplash.com/photo-1513031300226-c8fb12de9ade?q=80&w=1920&h=1080&fit=crop&auto=format" alt="Photographer at a distance shooting a couple in soft light" width="1920" height="1080" loading="eager">
+  </div>
+  <p class="post-photo-credit">Photo via <a href="https://unsplash.com/?utm_source=proposal_spots&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a><!-- TODO: add photographer name + profile link once UNSPLASH_ACCESS_KEY is set --></p>
 
   <header class="post-header">
     <span class="post-eyebrow">The Guide</span>
