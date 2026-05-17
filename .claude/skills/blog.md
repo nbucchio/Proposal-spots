@@ -84,6 +84,7 @@ Structure:
 Content rules:
 - Primary keyword in first 100 words
 - 3 to 5 internal links to relevant destination pages or other blog posts
+- **Destination link mapping — Amalfi Coast:** Any mention of the Amalfi Coast that becomes a hyperlink must point to `https://www.proposalspots.com/destinations/italy`. Never link to `/destinations/amalfi-coast`.
 - 2 to 3 external links to authoritative sources (open in new tab)
 - One humour moment max (see humour.md)
 - One story reference max (see stories.md)
