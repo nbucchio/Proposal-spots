@@ -530,9 +530,13 @@
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
       const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
+      const allImgs = [cardPhoto, ...(s['Gallery Photos'] || [])].filter(Boolean);
+      const hasMultiple = allImgs.length > 1;
+      const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
+      const scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>'}).join('') + '</div>' : '';
       return `
         <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
-          <div class="spot-card-img">
+          <div class="spot-card-img" ${imgsAttr}>
             <div class="img-bg" style="${imgStyle}"></div>
             ${badge}
             <div class="spot-card-overlay">
@@ -540,6 +544,7 @@
               <div class="spot-card-name">${s.Name || ''}</div>
               ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
             </div>
+          ${scHtml}
           </div>
           <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>
           <div class="spot-card-body">
@@ -605,7 +610,7 @@
             'Best Time':       bestTime,
             'Line Summary':    f['Line Summary'] || '',
             'Cover Photo':     f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null,
-            'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null,
+            'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Gallery Photos': (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:(p&&p.thumbnails&&p.thumbnails.large?p.thumbnails.large.url:null)||(p&&p.url)||'';}).filter(Boolean).slice(0,3),
             'Hero Position':   f['Hero Position'] || 'center center',
             'Card Position':   f['Card Position'] || 'center center',
             badge:             f['Badge'] || null,
@@ -685,5 +690,6 @@
 
     fetchSpots();
   </script>
+<script src="/spot-card-carousel.js" defer></script>
 </body>
 </html>
