@@ -275,13 +275,11 @@ Add the new entry to the correct section:
 - Destination guide → end of `## Destination Guides`
 - Budget guide → end of `## Budget Guides`
 
-Format (one line, with the title wrapped in `__...__` for bold):
+Format (one line):
 
 ```
-- __[Post Title](https://www.proposalspots.com/blog/post-slug)__: One sentence describing what it covers (under ~110 chars)
+- [Post Title](https://www.proposalspots.com/blog/post-slug): One sentence describing what it covers (under ~110 chars)
 ```
-
-The double underscore around `[Title](url)` is required — every entry in `llms.txt` uses bold link text. Do not omit the `__` markers.
 
 Append the entry as the last line of the section (do not reorder existing entries). Save the file. Stage it with `git add llms.txt` as part of the same commit that adds the blog post.
 
