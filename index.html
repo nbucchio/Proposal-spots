@@ -1084,6 +1084,12 @@ nav.scrolled {
 /* ── Mobile spot-card restyle (≤768px) ── */
 @media (max-width: 768px) {
   .spots-grid { gap: 20px; }
+  .spot-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
   .spot-card-overlay { padding: 22px 22px 20px; }
   .spot-card-market,
   .spot-card-hook { display: none; }
@@ -1091,21 +1097,21 @@ nav.scrolled {
   .spot-card-location {
     display: block;
     font-family: 'Jost', sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #1a1612;
     text-align: center;
-    padding: 10px 12px 0;
-    background: var(--bg);
+    padding: 12px 12px 0;
+    background: transparent;
   }
   .spot-card-location::after {
     content: '';
     display: block;
     height: 1px;
     background: rgba(26,22,18,0.12);
-    margin: 7px auto 0;
+    margin: 8px auto 0;
     max-width: 220px;
   }
 
@@ -1116,8 +1122,9 @@ nav.scrolled {
     align-items: center;
     gap: 18px;
     height: auto;
-    padding: 7px 12px 2px;
+    padding: 8px 12px 2px;
     border-top: none;
+    background: transparent;
   }
   .spot-card-body .spot-card-strip-item {
     flex: 0 0 auto;
@@ -1127,18 +1134,18 @@ nav.scrolled {
   .spot-card-body > :nth-child(n+4) { display: none; }
   .spot-card-body .spot-card-strip-divider {
     width: 1px;
-    height: 12px;
+    height: 13px;
     background: rgba(26,22,18,0.18);
   }
   .spot-card-body .spot-card-strip-icon {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     stroke-width: 1.6;
     color: rgb(150, 145, 140);
   }
   .spot-card-body .spot-card-strip-text {
     font-family: 'Jost', sans-serif;
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 400;
     letter-spacing: 0.02em;
     color: rgb(150, 145, 140);
