@@ -6,55 +6,55 @@ Proposal Spots helps couples plan memorable marriage proposals. Browse hundreds 
 
 ## Main Pages
 
-- [Home](https://www.proposalspots.com/): Full directory of proposal spots, filterable by destination, setting, and budget
-- [Destinations](https://www.proposalspots.com/destinations): Overview of all destination guides
-- [Proposal Checklist](https://www.proposalspots.com/checklist): Step-by-step proposal planning checklist
-- [Budget Guide](https://www.proposalspots.com/budget-guide): How much a proposal costs and where to spend wisely
-- [How It Works](https://www.proposalspots.com/how-it-works): How the directory and planning tools work
-- [Inspiration](https://www.proposalspots.com/inspiration): Planning articles and real proposal stories
+- __[Home](https://www.proposalspots.com/)__: Full directory of proposal spots, filterable by destination, setting, and budget
+- __[Destinations](https://www.proposalspots.com/destinations)__: Overview of all destination guides
+- __[Proposal Checklist](https://www.proposalspots.com/checklist)__: Step-by-step proposal planning checklist
+- __[Budget Guide](https://www.proposalspots.com/budget-guide)__: How much a proposal costs and where to spend wisely
+- __[How It Works](https://www.proposalspots.com/how-it-works)__: How the directory and planning tools work
+- __[Inspiration](https://www.proposalspots.com/inspiration)__: Planning articles and real proposal stories
 
 ## Destination Guides
 
-- [Greece](https://www.proposalspots.com/destinations/greece): Best proposal spots in Greece and Santorini
-- [Italy](https://www.proposalspots.com/destinations/italy): Best proposal spots in Italy
-- [Amalfi Coast](https://www.proposalspots.com/destinations/amalfi-coast): Best proposal spots on the Amalfi Coast
-- [South of France](https://www.proposalspots.com/destinations/south-of-france): Best proposal spots in the South of France
-- [Portugal](https://www.proposalspots.com/destinations/portugal): Best proposal spots in Portugal
-- [Switzerland](https://www.proposalspots.com/destinations/switzerland): Best proposal spots in Switzerland
-- [Maldives](https://www.proposalspots.com/destinations/maldives): Best proposal spots in the Maldives
-- [Bali](https://www.proposalspots.com/destinations/bali): Best proposal spots in Bali
-- [Tulum](https://www.proposalspots.com/destinations/tulum): Best proposal spots in Tulum, Mexico
-- [Costa Rica](https://www.proposalspots.com/destinations/costa-rica): Best proposal spots in Costa Rica
-- [Nicaragua](https://www.proposalspots.com/destinations/nicaragua): Best proposal spots in Nicaragua
-- [Hawaii](https://www.proposalspots.com/destinations/hawaii): Best proposal spots in Hawaii
-- [United States](https://www.proposalspots.com/destinations/united-states): Best proposal spots across the United States
+- __[Greece](https://www.proposalspots.com/destinations/greece)__: Best proposal spots in Greece and Santorini
+- __[Italy](https://www.proposalspots.com/destinations/italy)__: Best proposal spots in Italy
+- __[Amalfi Coast](https://www.proposalspots.com/destinations/amalfi-coast)__: Best proposal spots on the Amalfi Coast
+- __[South of France](https://www.proposalspots.com/destinations/south-of-france)__: Best proposal spots in the South of France
+- __[Portugal](https://www.proposalspots.com/destinations/portugal)__: Best proposal spots in Portugal
+- __[Switzerland](https://www.proposalspots.com/destinations/switzerland)__: Best proposal spots in Switzerland
+- __[Maldives](https://www.proposalspots.com/destinations/maldives)__: Best proposal spots in the Maldives
+- __[Bali](https://www.proposalspots.com/destinations/bali)__: Best proposal spots in Bali
+- __[Tulum](https://www.proposalspots.com/destinations/tulum)__: Best proposal spots in Tulum, Mexico
+- __[Costa Rica](https://www.proposalspots.com/destinations/costa-rica)__: Best proposal spots in Costa Rica
+- __[Nicaragua](https://www.proposalspots.com/destinations/nicaragua)__: Best proposal spots in Nicaragua
+- __[Hawaii](https://www.proposalspots.com/destinations/hawaii)__: Best proposal spots in Hawaii
+- __[United States](https://www.proposalspots.com/destinations/united-states)__: Best proposal spots across the United States
 
 ## Planning Guides
 
-- [How to Plan a Proposal](https://www.proposalspots.com/blog/how-to-plan-a-proposal): Complete step-by-step planning guide
-- [Romantic Proposal Ideas](https://www.proposalspots.com/blog/romantic-proposal-ideas): Ideas by setting, relationship style, and budget
-- [Best Destinations to Propose](https://www.proposalspots.com/blog/best-destinations-to-propose): Top destinations worldwide ranked by setting and season
-- [Proposal Packages](https://www.proposalspots.com/blog/proposal-packages): What proposal packages include and what they cost
-- [Proposal Set-Up](https://www.proposalspots.com/blog/proposal-set-up): How to set up a proposal scene
-- [Picnic Proposal](https://www.proposalspots.com/blog/picnic-proposal): How to plan a picnic proposal
-- [Beach Proposal Packages](https://www.proposalspots.com/blog/beach-proposal-packages): Guide to beach proposal packages
-- [Beach Wedding Proposal](https://www.proposalspots.com/blog/beach-wedding-proposal): How to plan a beach proposal
-- [Romantic Dinner Proposal](https://www.proposalspots.com/blog/romantic-dinner-proposal): How to propose at a restaurant
-- [Destination Engagement Photographer](https://www.proposalspots.com/blog/destination-engagement-photographer): How to find and hire one
-- [Proposal Planner](https://www.proposalspots.com/blog/proposal-planner): When a proposal planner is worth hiring, what they cost, and what to ask before signing
+- __[How to Plan a Proposal](https://www.proposalspots.com/blog/how-to-plan-a-proposal)__: Complete step-by-step planning guide
+- __[Romantic Proposal Ideas](https://www.proposalspots.com/blog/romantic-proposal-ideas)__: Ideas by setting, relationship style, and budget
+- __[Best Destinations to Propose](https://www.proposalspots.com/blog/best-destinations-to-propose)__: Top destinations worldwide ranked by setting and season
+- __[Proposal Packages](https://www.proposalspots.com/blog/proposal-packages)__: What proposal packages include and what they cost
+- __[Proposal Set-Up](https://www.proposalspots.com/blog/proposal-set-up)__: How to set up a proposal scene
+- __[Picnic Proposal](https://www.proposalspots.com/blog/picnic-proposal)__: How to plan a picnic proposal
+- __[Beach Proposal Packages](https://www.proposalspots.com/blog/beach-proposal-packages)__: Guide to beach proposal packages
+- __[Beach Wedding Proposal](https://www.proposalspots.com/blog/beach-wedding-proposal)__: How to plan a beach proposal
+- __[Romantic Dinner Proposal](https://www.proposalspots.com/blog/romantic-dinner-proposal)__: How to propose at a restaurant
+- __[Destination Engagement Photographer](https://www.proposalspots.com/blog/destination-engagement-photographer)__: How to find and hire one
+- __[Proposal Planner](https://www.proposalspots.com/blog/proposal-planner)__: When a proposal planner is worth hiring, what they cost, and what to ask before signing
 
 ## Budget Guides
 
 > Optional
 
-- [Santorini Proposal Budget](https://www.proposalspots.com/budget/santorini)
-- [Bali Proposal Budget](https://www.proposalspots.com/budget/bali)
-- [Amalfi Coast Proposal Budget](https://www.proposalspots.com/budget/amalfi-coast)
-- [Maldives Proposal Budget](https://www.proposalspots.com/budget/maldives)
-- [Tulum Proposal Budget](https://www.proposalspots.com/budget/tulum)
-- [Costa Rica Proposal Budget](https://www.proposalspots.com/budget/costa-rica)
-- [Nicaragua Proposal Budget](https://www.proposalspots.com/budget/nicaragua)
-- [Algarve Proposal Budget](https://www.proposalspots.com/budget/algarve)
-- [South of France Proposal Budget](https://www.proposalspots.com/budget/south-of-france)
-- [Switzerland Proposal Budget](https://www.proposalspots.com/budget/switzerland)
-- [New York Proposal Budget](https://www.proposalspots.com/budget/new-york)
+- __[Santorini Proposal Budget](https://www.proposalspots.com/budget/santorini)__
+- __[Bali Proposal Budget](https://www.proposalspots.com/budget/bali)__
+- __[Amalfi Coast Proposal Budget](https://www.proposalspots.com/budget/amalfi-coast)__
+- __[Maldives Proposal Budget](https://www.proposalspots.com/budget/maldives)__
+- __[Tulum Proposal Budget](https://www.proposalspots.com/budget/tulum)__
+- __[Costa Rica Proposal Budget](https://www.proposalspots.com/budget/costa-rica)__
+- __[Nicaragua Proposal Budget](https://www.proposalspots.com/budget/nicaragua)__
+- __[Algarve Proposal Budget](https://www.proposalspots.com/budget/algarve)__
+- __[South of France Proposal Budget](https://www.proposalspots.com/budget/south-of-france)__
+- __[Switzerland Proposal Budget](https://www.proposalspots.com/budget/switzerland)__
+- __[New York Proposal Budget](https://www.proposalspots.com/budget/new-york)__
