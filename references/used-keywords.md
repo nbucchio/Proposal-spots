@@ -15,3 +15,4 @@ romantic proposal ideas | 2026-05-12 | /blog/romantic-proposal-ideas
 proposal packages | 2026-05-13 | /blog/proposal-packages
 destination engagement photographer | 2026-05-14 | /blog/destination-engagement-photographer
 best destinations to propose | 2026-05-15 | /blog/best-destinations-to-propose
+proposal planner | 2026-05-16 | /blog/proposal-planner
