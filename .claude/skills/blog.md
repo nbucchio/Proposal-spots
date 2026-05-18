@@ -260,7 +260,32 @@ Do not modify any other row. Save the file.
 
 ---
 
-## Step 11 — Confirm completion
+## Step 11 — Update `llms.txt` automatically
+
+Edit `/llms.txt` in the same commit as the rest of this post. This is not a manual step. Do it every time, like the BLOG_POSTS update.
+
+If `/llms.txt` does not exist locally, fetch it first:
+
+```bash
+curl -sS https://raw.githubusercontent.com/nbucchio/Proposal-spots/main/llms.txt > /home/user/Proposal-spots/llms.txt
+```
+
+Add the new entry to the correct section:
+- Blog post or planning guide → end of `## Planning Guides`
+- Destination guide → end of `## Destination Guides`
+- Budget guide → end of `## Budget Guides`
+
+Format (one line):
+
+```
+- [Post Title](https://www.proposalspots.com/blog/post-slug): One sentence describing what it covers (under ~110 chars)
+```
+
+Append the entry as the last line of the section (do not reorder existing entries). Save the file. Stage it with `git add llms.txt` as part of the same commit that adds the blog post.
+
+---
+
+## Step 12 — Confirm completion
 
 Report:
 - Primary keyword used
@@ -273,5 +298,6 @@ Report:
 - `used-keywords.md` updated confirmation
 - `inspiration.html` BLOG_POSTS array updated confirmation (incl. `imageUrl`)
 - `seo/keywords.csv` row updated (Status = Published, Date Published = today)
+- `llms.txt` updated confirmation (which section, new entry text)
 
 Do not say "done" until the build would pass — correct HTML structure, no broken links, voice check passed.
