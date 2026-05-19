@@ -267,8 +267,118 @@ img {
   overflow-anchor: none;
 }
 
-/* Mobile-only location line; hidden on desktop */
-.spot-card-location { display: none; }
+/* ── Spot-card location + info strip: shown on all viewports ── */
+.spot-card-location {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #1a1612;
+  text-align: center;
+  padding: 12px 12px 0;
+  background: transparent;
+}
+.spot-card-location::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: rgba(26,22,18,0.12);
+  margin: 8px auto 0;
+  max-width: 220px;
+}
+.spot-card-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  height: auto;
+  padding: 8px 12px 2px;
+  border-top: none;
+  background: transparent;
+}
+.spot-card-body .spot-card-strip-item {
+  flex: 0 0 auto;
+  gap: 6px;
+  color: rgb(150, 145, 140);
+}
+.spot-card-body .spot-card-strip-divider {
+  width: 1px;
+  height: 13px;
+  background: rgba(26,22,18,0.18);
+}
+.spot-card-body .spot-card-strip-icon {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.6;
+  color: rgb(150, 145, 140);
+}
+.spot-card-body .spot-card-strip-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgb(150, 145, 140);
+}
+
+/* ── Spot-card carousel ── */
+.sc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px; height: 28px;
+  background: rgba(253,252,250,0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; line-height: 1;
+  color: rgba(28,28,28,0.8);
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  padding: 0;
+}
+.spot-card:hover .sc-arrow { opacity: 1; pointer-events: auto; }
+.sc-arrow:hover { background: rgba(253,252,250,0.98); }
+.sc-arrow-prev { left: 8px; }
+.sc-arrow-next { right: 8px; }
+.sc-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 4;
+  pointer-events: none;
+}
+.sc-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(253,252,250,0.45);
+  transition: background 0.2s;
+}
+.sc-dot.active { background: rgba(253,252,250,0.92); }
+
+/* ── Sliding strip: one frame per image, translateX navigation ── */
+.spot-card-img { container-type: inline-size; }
+.sc-strip {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  display: flex;
+}
+.sc-frame {
+  flex: 0 0 100cqw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
 
 @media (max-width: 768px) {
   /* ── Mobile spot-card restyle ── */
@@ -282,63 +392,9 @@ img {
   .spot-card-overlay { padding: 22px 22px 20px; }
   .spot-card-market,
   .spot-card-hook { display: none; }
-
-  .spot-card-location {
-    display: block;
-    font-family: 'Jost', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #1a1612;
-    text-align: center;
-    padding: 12px 12px 0;
-    background: transparent;
-  }
-  .spot-card-location::after {
-    content: '';
-    display: block;
-    height: 1px;
-    background: rgba(26,22,18,0.12);
-    margin: 8px auto 0;
-    max-width: 220px;
-  }
-
-  .spot-card-body {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-    height: auto;
-    padding: 8px 12px 2px;
-    border-top: none;
-    background: transparent;
-  }
   .spot-card-body > :nth-child(n+4) { display: none; }
-  .spot-card-body .spot-card-strip-item {
-    flex: 0 0 auto;
-    gap: 6px;
-    color: rgb(150, 145, 140);
-  }
-  .spot-card-body .spot-card-strip-divider {
-    width: 1px;
-    height: 13px;
-    background: rgba(26,22,18,0.18);
-  }
-  .spot-card-body .spot-card-strip-icon {
-    width: 15px;
-    height: 15px;
-    stroke-width: 1.6;
-    color: rgb(150, 145, 140);
-  }
-  .spot-card-body .spot-card-strip-text {
-    font-family: 'Jost', sans-serif;
-    font-size: 13.5px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    color: rgb(150, 145, 140);
-  }
+  /* Hide arrows on mobile — swipe to navigate */
+  .sc-arrow { display: none !important; }
 }
 
 @media (max-width: 768px) {
