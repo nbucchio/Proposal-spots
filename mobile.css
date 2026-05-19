@@ -366,6 +366,20 @@ img {
 }
 .sc-dot.active { background: rgba(253,252,250,0.92); }
 
+/* ── Sliding strip: one frame per image, translateX navigation ── */
+.spot-card-img { container-type: inline-size; }
+.sc-strip {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  display: flex;
+}
+.sc-frame {
+  flex: 0 0 100cqw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   /* ── Mobile spot-card restyle ── */
   .spots-grid { gap: 20px; }

@@ -957,6 +957,18 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  container-type: inline-size;
+}
+.sc-strip {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  display: flex;
+}
+.sc-frame {
+  flex: 0 0 100cqw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 .img-bg {
   position: absolute; inset: 0;
@@ -6866,11 +6878,12 @@ function buildSpotCard(s) {
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
   const scHtml   = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + imgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
+  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\')"></div></div>';}).join('') + '</div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
 
   return `
     <div class="spot-card" onclick="openSpotDrawer('${s.id}')" style="cursor:pointer">
       <div class="spot-card-img" ${imgsAttr}>
-        <div class="img-bg" style="${imgStyle}"></div>
+        ${stripHtml}
         ${badge}
         <div class="spot-card-overlay">
           <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
@@ -6922,11 +6935,12 @@ function buildSpotCardLinked(s) {
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
   const scHtml   = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + imgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
+  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\')"></div></div>';}).join('') + '</div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
 
   return `
     <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
       <div class="spot-card-img" ${imgsAttr}>
-        <div class="img-bg" style="${imgStyle}"></div>
+        ${stripHtml}
         ${badge}
         <div class="spot-card-overlay">
           <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>

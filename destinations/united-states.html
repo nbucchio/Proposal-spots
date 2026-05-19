@@ -532,10 +532,11 @@
       const hasMultiple = allImgs.length > 1;
       const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
       const scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>'}).join('') + '</div>' : '';
+      const stripHtml = hasMultiple ? '<div class="sc-strip">' + allImgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\')"' + '></div></div>';}).join('') + '</div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
       return `
         <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
           <div class="spot-card-img" ${imgsAttr}>
-            <div class="img-bg" style="${imgStyle}"></div>
+            ${stripHtml}
             ${badge}
             <div class="spot-card-overlay">
               <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
