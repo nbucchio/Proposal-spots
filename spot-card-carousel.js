@@ -6,7 +6,7 @@
   function _setIndex(imgEl, idx, animate) {
     var imgs = JSON.parse(imgEl.dataset.images || '[]');
     if (!imgs.length) return;
-    idx = ((idx % imgs.length) + imgs.length) % imgs.length;
+    idx = Math.max(0, Math.min(idx, imgs.length - 1)); // clamp, no wrap
     imgEl.dataset.index = idx;
     var strip = _getStrip(imgEl);
     if (strip) {
@@ -52,9 +52,14 @@
     _horiz = true;
     e.preventDefault();
     var idx = parseInt(_tEl.dataset.index || '0', 10);
-    var w = _tEl.offsetWidth;
+    var n   = JSON.parse(_tEl.dataset.images || '[]').length;
+    var w   = _tEl.offsetWidth;
+    // Resist drag at first/last image so it doesn't feel like it wraps
+    var resistedDx = ((idx === 0 && dx > 0) || (idx === n - 1 && dx < 0))
+      ? dx * 0.2
+      : dx;
     var strip = _getStrip(_tEl);
-    if (strip) strip.style.transform = 'translateX(' + (-idx * w + dx) + 'px)';
+    if (strip) strip.style.transform = 'translateX(' + (-idx * w + resistedDx) + 'px)';
   }, { passive: false });
 
   document.addEventListener('touchend', function (e) {
@@ -62,7 +67,7 @@
     var dx = e.changedTouches[0].clientX - _tx;
     var idx = parseInt(_tEl.dataset.index || '0', 10);
     var newIdx = (Math.abs(dx) > 40) ? idx + (dx < 0 ? 1 : -1) : idx;
-    _setIndex(_tEl, newIdx, true);
+    _setIndex(_tEl, newIdx, true); // _setIndex clamps to valid range
     _tEl = null;
     _horiz = false;
   }, { passive: true });
