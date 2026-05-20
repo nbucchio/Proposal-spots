@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" }
+      ]
+    }
+  ],
   "redirects": [
     { "source": "/destinations/santorini",      "destination": "/destinations/greece",          "permanent": true },
     { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": false },
