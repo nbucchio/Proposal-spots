@@ -122,10 +122,12 @@ Both URLs MUST pin width AND height with `&fit=crop` so Unsplash delivers a pre-
   ```html
   <div class="post-hero">
     <div class="post-hero-frame">
-      <img src="[heroImage url]" alt="[heroAlt]" width="1920" height="1080" loading="eager">
+      <img src="[heroImage url]" alt="[heroAlt]" width="1920" height="1080" loading="eager" referrerpolicy="no-referrer">
     </div>
   </div>
   ```
+
+  The `referrerpolicy="no-referrer"` is required. Unsplash CDN blocks requests from non-allowlisted referrers, which breaks every image on the live site. Removing the referrer header on the image request bypasses the block.
 
   **Required CSS pattern (already present in `blog/template.html`):**
 

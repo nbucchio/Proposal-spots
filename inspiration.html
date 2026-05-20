@@ -797,6 +797,7 @@ function renderGuide() {
       img.src = post.imageUrl;
       img.alt = post.title;
       img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
       a.appendChild(img);
     } else {
       const ph = document.createElement('span');
