@@ -6773,6 +6773,7 @@ async function fetchFromAirtable() {
         'Peak Multiplier':       f['Peak Multiplier']         || 1.3,
         'Low Multiplier':        f['Low Multiplier']          || 0.85,
         'Requires Stay':         !!(f['Requires Stay']),
+        editorsPick:             !!(f['Editors Pick']),
       };
     });
   } catch (err) {
@@ -7007,21 +7008,24 @@ function renderSpots(spots) {
     state.effort.size > 0 || state.toggles.heels ||
     (document.getElementById('search-main')?.value || '').trim().length > 0;
 
+  // When no filters active, only show spots marked as Editor's Picks in Airtable
+  const spotsToRender = filtersActive ? spots : spots.filter(s => s.editorsPick);
+
   // Update section header
   if (filtersActive) {
     if (eyebrow) eyebrow.textContent = 'Filtered results';
-    if (title) title.innerHTML = `<strong>${spots.length}</strong> spot${spots.length !== 1 ? 's' : ''} found`;
+    if (title) title.innerHTML = `<strong>${spotsToRender.length}</strong> spot${spotsToRender.length !== 1 ? 's' : ''} found`;
     if (countEl) countEl.style.display = 'none';
   } else {
     if (eyebrow) eyebrow.textContent = 'Hand-selected';
     if (title) title.innerHTML = `Editor\'s <strong>Picks</strong>`;
     if (countEl) {
-      countEl.innerHTML = `<strong>${spots.length}</strong> spots`;
+      countEl.innerHTML = `<strong>${spotsToRender.length}</strong> spots`;
       countEl.style.display = '';
     }
   }
 
-  if (!spots.length) {
+  if (!spotsToRender.length) {
     grid.innerHTML = '';
     empty.style.display = 'block';
     return;
@@ -7033,7 +7037,7 @@ function renderSpots(spots) {
     'Moderate Crowd': '👥👥', 'Everyone Will See': '👥👥👥'
   };
 
-  grid.innerHTML = spots.map(s => buildSpotCard(s)).join('');
+  grid.innerHTML = spotsToRender.map(s => buildSpotCard(s)).join('');
 }
 
 // ─────────────────────────────────────────────────────────
