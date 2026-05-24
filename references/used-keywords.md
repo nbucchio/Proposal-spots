@@ -21,3 +21,4 @@ girlfriend proposal | 2026-05-18 | /blog/girlfriend-proposal
 helicopter proposal | 2026-05-19 | /blog/helicopter-proposal
 engagement planning | 2026-05-20 | /blog/engagement-planning
 unique proposal ideas | 2026-05-21 | /blog/unique-proposal-ideas
+surprise proposal planning | 2026-05-22 | /blog/surprise-proposal-planning
