@@ -634,6 +634,17 @@
     </div>
   </section>
 
+  <section style="background:var(--bg);padding:0 40px 96px;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:64px;">
+      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">Start here</span>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:36px;">Your Hawaii proposal starts with the right spot.</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Hawaii proposal spot →</a>
+        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:16px 44px;margin-top:0;">Browse by destination →</a>
+      </div>
+    </div>
+  </section>
+
   <script>
     const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
     const DEST_ALIASES = ['hawaii'];
