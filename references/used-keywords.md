@@ -23,3 +23,4 @@ engagement planning | 2026-05-20 | /blog/engagement-planning
 unique proposal ideas | 2026-05-21 | /blog/unique-proposal-ideas
 surprise proposal planning | 2026-05-22 | /blog/surprise-proposal-planning
 engagement photo locations | 2026-05-23 | /blog/engagement-photo-locations
+full service proposal hawaii | 2026-05-23 | /destinations/hawaii (+ Hawaii cluster: hawaii proposal, proposal in hawaii, hawaii proposal packages, proposal oahu, etc.)
