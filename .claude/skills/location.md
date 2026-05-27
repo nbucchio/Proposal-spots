@@ -73,6 +73,7 @@ Write a self-contained SEO content section following `voice.md` exactly.
 
 This content block must include:
 
+- **TL;DR answer block** at the very top, right after the first H2. Two to three sentences that directly answer "where should I propose in [Destination] and what does it cost", naming the top 2–3 spots and the price range. AI engines (ChatGPT, Claude, Perplexity, Gemini) quote the first direct answer they find, so lead with it.
 - **H2: "Why Propose in [Destination]"** — 2–3 paragraphs, specific, no generic travel language. Primary keyword used naturally in the first 100 words.
 - **H2: "Best Times to Propose in [Destination]"** — specific months, crowd patterns, golden hour timing.
 - **H2: "What to Know Before You Go"** — practical specifics: access, what to book, what to avoid.
@@ -83,7 +84,16 @@ This content block must include:
 - **One Unsplash hero image** if the page doesn't already have one — use the same API approach as the blog skill.
 - **Photo credit at bottom** if image added.
 
+### AI search / generative engine optimization (always do this)
+
+AI assistants increasingly mediate "where should I propose in [Destination]" queries, and no competitor has structured content for them. Build the page to be the cleanest source to extract from:
+
+- **Name specific spots** in every FAQ answer and in the body — the actual cove, cliff, cenote, vineyard, or neighbourhood, pulled from the existing spot grid on the page plus well-known public ones. The question "Where is the most romantic place to propose in [Destination]?" must be answered with named places, not adjectives.
+- **One comparison table** the AI can ingest cleanly: a plain HTML `<table>` comparing the destination's settings/regions across columns like Best for, Privacy, Best time of day, Rough cost. Match the existing budget-table styling on the page (thin hairlines, no heavy borders, on-brand).
+- **Self-contained answers** — the TL;DR and every FAQ answer must make sense lifted out of context. No "as mentioned above".
+
 Content rules — same as blog skill:
+- **No em-dashes or en-dashes ("—" or "–") in any new customer-facing content.** Use periods, commas, colons, or parentheses. Number ranges: write "6 to 8 weeks", not "6–8". Leave any em-dashes already on the page; just do not add new ones.
 - No AI-tell phrases (see `voice.md`)
 - No exclamation marks
 - No emojis
@@ -118,13 +128,39 @@ Update only these fields in the existing page:
 - **og:title** and **og:description** to match
 - Add **FAQPage JSON-LD schema** for the FAQ section
 - Add **BreadcrumbList JSON-LD schema** if not already present
+- Add **TouristDestination (or Place) JSON-LD schema** for the destination itself, with `name`, `description`, and `geo` coordinates if known. This is what AI engines read to confirm the page is authoritatively about that place.
+- Add **ItemList JSON-LD schema** listing the named proposal spots covered on the page (the spot grid plus any well-known public spots named in the body), each as a `ListItem` with `name` and `position`. This makes the "best spots in [Destination]" list machine-extractable.
 - **Canonical URL:** `/destinations/[slug]`
 
 Do not change anything else in the `<head>`.
 
 ---
 
-## Step 9 — Update keyword tracker
+## Step 9 — Add the closing CTA block
+
+If the page does not already have a bottom CTA, add one at the very end of the content, just before the footer. Two buttons side by side, matching the on-brand outlined button style already used on the page:
+
+- **Primary button:** `Find my [Destination] proposal spot →` — scrolls smoothly to the existing spot grid. Use the same scroll target the page already uses (e.g. `.dest-landing-spots-wrap`):
+
+```html
+<section style="background:var(--bg);padding:0 40px 96px;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:64px;">
+    <span style="display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;">Start here</span>
+    <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:34px;line-height:1.2;margin:0 0 32px;color:var(--ink);">Your [Destination] proposal starts with the right spot.</h2>
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+      <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my [Destination] proposal spot →</a>
+      <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:16px 44px;margin-top:0;">Browse by destination →</a>
+    </div>
+  </div>
+</section>
+```
+
+- **Secondary button:** `Browse by destination →` — links to `/destinations`, transparent background, thin ink border.
+- Match the page's existing scroll target and button class. Do not invent new CSS classes; reuse `pg-cta-btn` and inline styles as above.
+
+---
+
+## Step 10 — Update keyword tracker
 
 Add the primary keyword and all cluster keywords used to `references/used-keywords.md`:
 
@@ -136,15 +172,17 @@ Update `seo/keywords.csv` — set `Status` = `Published` and `Date Published` = 
 
 ---
 
-## Step 10 — Confirm completion
+## Step 11 — Confirm completion
 
 Report:
 - Destination page updated: `/destinations/[slug]`
 - Primary keyword and all cluster keywords used
 - Word count of content added
 - Sections added (list them)
+- TL;DR block and comparison table added (yes/no)
 - Internal links added
-- Schema types added
+- Schema types added (FAQPage, BreadcrumbList, TouristDestination/Place, ItemList)
+- Closing CTA block added (yes/no)
 - Image added or skipped
 - `used-keywords.md` updated
 - `seo/keywords.csv` updated
@@ -157,5 +195,6 @@ Report:
 - Never create a new destination page.
 - Never remove existing content.
 - Never change nav, hero, spot cards, or existing CSS.
+- Never remove or alter the spot-card carousel script (`spot-card-carousel.js`) or the `<meta name="referrer" content="no-referrer">` tag (Unsplash images 403 without it).
 - Always show a summary of changes before writing any code.
 - List every file touched when done.
