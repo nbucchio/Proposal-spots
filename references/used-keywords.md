@@ -26,3 +26,4 @@ engagement photo locations | 2026-05-23 | /blog/engagement-photo-locations
 full service proposal hawaii | 2026-05-23 | /destinations/hawaii (+ Hawaii cluster: hawaii proposal, proposal in hawaii, hawaii proposal packages, proposal oahu, etc.)
 italy proposal | 2026-05-27 | /destinations/italy (+ Italy cluster: rome, venice, florence, lake como, amalfi)
 tulum proposal | 2026-05-27 | /destinations/tulum (+ Tulum cluster: photographer, planner, packages, cenote, beach)
+portugal proposal | 2026-05-27 | /destinations/portugal (+ Portugal cluster: algarve, sintra, lisbon, douro)
