@@ -27,3 +27,4 @@ full service proposal hawaii | 2026-05-23 | /destinations/hawaii (+ Hawaii clust
 italy proposal | 2026-05-27 | /destinations/italy (+ Italy cluster: rome, venice, florence, lake como, amalfi)
 tulum proposal | 2026-05-27 | /destinations/tulum (+ Tulum cluster: photographer, planner, packages, cenote, beach)
 portugal proposal | 2026-05-27 | /destinations/portugal (+ Portugal cluster: algarve, sintra, lisbon, douro)
+bali proposal | 2026-05-27 | /destinations/bali (+ Bali cluster: propose in bali, proposal in bali, bali proposal ideas, bali wedding proposal, bali wedding proposal ideas, wedding proposal bali, proposal bali, where to propose in bali, places to propose in bali, best place to propose in bali, bali beach proposal, best romantic proposal dinner beach bali, bali proposal spots, bali proposal packages, bali proposal planner, bali proposal photographer, bali marriage proposal, bali helicopter proposal, marriage proposal bali)
