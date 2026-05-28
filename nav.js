@@ -395,15 +395,24 @@
   }
 
   // ── 5b. Filter panel backdrop: wrap filter toggles so backdrop tracks open state ─
-  // nav.js runs defer (after inline scripts), so these functions are already defined.
+  // On destination pages nav.js is deferred, so functions are already defined.
+  // On index.html nav.js is NOT deferred, so toggleResultsPanel may not exist yet —
+  // in that case we defer the wrap to DOMContentLoaded.
   function wrapWithBackdrop(fnName) {
-    var orig = window[fnName];
-    if (typeof orig !== 'function') return;
-    window[fnName] = function (panelId, pillId) {
-      orig(panelId, pillId);
-      var anyOpen = document.querySelector('.results-inline-panel.open');
-      filterBackdrop.classList.toggle('active', !!anyOpen);
-    };
+    function doWrap() {
+      var orig = window[fnName];
+      if (typeof orig !== 'function') return;
+      window[fnName] = function (panelId, pillId) {
+        orig(panelId, pillId);
+        var anyOpen = document.querySelector('.results-inline-panel.open');
+        filterBackdrop.classList.toggle('active', !!anyOpen);
+      };
+    }
+    if (typeof window[fnName] === 'function') {
+      doWrap();
+    } else {
+      document.addEventListener('DOMContentLoaded', doWrap);
+    }
   }
   wrapWithBackdrop('toggleDLPanel');
   wrapWithBackdrop('toggleResultsPanel');
