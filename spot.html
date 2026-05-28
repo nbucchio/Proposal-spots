@@ -323,6 +323,43 @@ nav {
 .spot-map-caption { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); letter-spacing: 0.04em; margin-top: 10px; text-align: center; }
 @media (min-width: 768px) { .spot-map-container { height: 360px; } }
 
+.sdp-rain-check-block {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 48px;
+}
+.sdp-rain-check-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sdp-rain-check-icon { color: var(--accent); flex-shrink: 0; }
+.sdp-rain-check-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sdp-rain-check-divider {
+  height: 0.5px;
+  background: var(--hairline);
+  margin-bottom: 18px;
+}
+.sdp-rain-check-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.75;
+  max-width: 640px;
+  margin: 0;
+}
+@media (max-width: 768px) { .sdp-rain-check-block { padding: 28px 24px; } }
+
 .sdp-about { margin-bottom: 72px; }
 .sdp-about-text {
   font-family: 'Cormorant', serif;
@@ -1859,6 +1896,20 @@ nav {
           </div>
           <p class="spot-map-caption">Exact location shared after enquiry confirmation</p>
         </div>
+
+        <!-- Rain Check — rendered only when the Airtable "Rain Check" field has content -->
+        <div id="sdp-rain-check-section" style="display:none;">
+          <div class="sdp-rain-check-block">
+            <div class="sdp-rain-check-header">
+              <svg class="sdp-rain-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 12a11.05 11.05 0 0 0-22 0zm-5 7a3 3 0 0 1-6 0v-7"/>
+              </svg>
+              <span class="sdp-rain-check-lbl">Rain Check Policy</span>
+            </div>
+            <div class="sdp-rain-check-divider"></div>
+            <p id="sdp-rain-check-text" class="sdp-rain-check-body"></p>
+          </div>
+        </div>
       </div>
 
       <!-- Right sidebar -->
@@ -2382,6 +2433,7 @@ function mapSpotFromAirtable(r) {
     'Addon 3 Price': f['Addon 3 Price'] || null,
     'Addon 4 Name': f['Addon 4 Name'] || null,
     'Addon 4 Price': f['Addon 4 Price'] || null,
+    'Rain Check': f['Rain Check'] || '',
     packages: r.packages || [],
   };
 }
@@ -2518,6 +2570,18 @@ function populateSpot(s) {
           ? 'Map field found but URL not recognised: ' + rawMapUrl
           : 'No Google Maps Link in this record.';
       }
+    }
+  }
+
+  // Rain Check
+  var rainCheckSection = document.getElementById('sdp-rain-check-section');
+  if (rainCheckSection) {
+    var rainCheckText = s['Rain Check'] || '';
+    if (rainCheckText) {
+      document.getElementById('sdp-rain-check-text').textContent = rainCheckText;
+      rainCheckSection.style.display = '';
+    } else {
+      rainCheckSection.style.display = 'none';
     }
   }
 
