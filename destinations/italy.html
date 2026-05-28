@@ -335,6 +335,8 @@
               <div class="filter-tag" onclick="toggleDLTag(this,'region','Sicily')">🌊 Sicily</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'region','Portofino')">⛵ Portofino</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'region','Milan')">🏙 Milan</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Sorrento')">🍋 Sorrento</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','Positano')">🌊 Positano</div>
             </div>
           </div>
         </div>
@@ -940,7 +942,7 @@
     const DEST_ALIASES = ['italy','amalfi','positano','ravello','praiano','campania'];
 
     const DL_PILL_LABELS = {
-      region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan' } },
+      region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan', 'Sorrento': 'Sorrento', 'Positano': 'Positano' } },
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
       budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
@@ -953,7 +955,9 @@
       'Rome':         ['rome', 'roma', 'lazio'],
       'Sicily':       ['sicily', 'sicilia', 'palermo', 'taormina'],
       'Portofino':    ['portofino', 'liguria', 'cinque terre'],
-      'Milan':        ['milan', 'milano', 'lombardy']
+      'Milan':        ['milan', 'milano', 'lombardy'],
+      'Sorrento':     ['sorrento', 'sorrentine'],
+      'Positano':     ['positano']
     };
 
     function updatePillLabel(type) {
