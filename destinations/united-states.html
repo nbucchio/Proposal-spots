@@ -247,6 +247,18 @@
     <div class="results-topbar dest-landing-filter-bar">
       <div class="results-topbar-left">
         <div class="results-panel-wrap">
+          <button class="results-filter-pill" id="dlpill-city" onclick="toggleDLPanel('dl-city-panel','dlpill-city')">
+            <span id="dlcity-label">City</span>
+          </button>
+          <div class="results-inline-panel" id="dl-city-panel">
+            <span class="inline-panel-label">Select all that apply</span>
+            <div class="inline-tags">
+              <div class="filter-tag" onclick="toggleDLTag(this,'city','New York City')">🗽 New York City</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'city','Los Angeles')">🌴 Los Angeles</div>
+            </div>
+          </div>
+        </div>
+        <div class="results-panel-wrap">
           <button class="results-filter-pill" id="dlpill-vibe" onclick="toggleDLPanel('dl-vibe-panel','dlpill-vibe')">
             <span id="dlvibe-label">Vibe</span>
           </button>
@@ -471,8 +483,12 @@
   </div>
 
   <script>
-    const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
-    const DEST_ALIASES = ['new york','usa','united states','nyc','manhattan','brooklyn'];
+    const dlState = { city: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
+    const DEST_ALIASES = ['new york','usa','united states','nyc','manhattan','brooklyn','los angeles','california','hollywood','santa monica','malibu'];
+    const CITY_KEYWORDS = {
+      'New York City': ['new york', 'nyc', 'manhattan', 'brooklyn', 'queens', 'bronx', 'new york city'],
+      'Los Angeles':   ['los angeles', 'hollywood', 'santa monica', 'malibu', 'venice beach', 'beverly hills', 'west hollywood']
+    };
 
     function toggleDLPanel(panelId, pillId) {
       document.querySelectorAll('.results-inline-panel').forEach(p => {
@@ -481,6 +497,7 @@
       document.getElementById(panelId)?.classList.toggle('open');
     }
     const DL_PILL_LABELS = {
+      city:    { label: 'City',    names: { 'New York City': 'New York City', 'Los Angeles': 'Los Angeles' } },
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
       budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
@@ -507,9 +524,9 @@
       renderSpots();
     }
     function clearDLFilters() {
-      dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
+      dlState.city.clear(); dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
-      ['vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
+      ['city', 'vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
       renderSpots();
     }
 
@@ -649,6 +666,13 @@
       }
       if (comingSoon) comingSoon.style.display = 'none';
       let spots = destSpots.filter(s => {
+        if (dlState.city.size) {
+          const regionStr = ((s.Region || '') + ' ' + (s.Country || '')).toLowerCase();
+          if (![...dlState.city].some(v => {
+            const kws = CITY_KEYWORDS[v] || [v.toLowerCase()];
+            return kws.some(kw => regionStr.includes(kw));
+          })) return false;
+        }
         if (dlState.vibe.size) {
           const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
           if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
