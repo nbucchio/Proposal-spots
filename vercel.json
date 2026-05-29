@@ -5,7 +5,8 @@
     { "source": "/destinations/usa",              "destination": "/destinations/united-states",    "permanent": false },
     { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": false },
     { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": false },
-    { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": false }
+    { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": false },
+    { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": false }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -26,6 +27,7 @@
     { "source": "/destinations/united-states", "destination": "/destinations/united-states.html" },
     { "source": "/destinations/italy", "destination": "/destinations/italy.html" },
     { "source": "/destinations/hawaii", "destination": "/destinations/hawaii.html" },
+    { "source": "/destinations/london", "destination": "/destinations/london.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/checklist", "destination": "/checklist.html" },
     { "source": "/how-it-works", "destination": "/how-it-works.html" },
