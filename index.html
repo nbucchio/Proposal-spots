@@ -5064,6 +5064,7 @@ footer {
 </style>
 <script src="/panel-position.js" defer></script>
 <script src="/spot-card-carousel.js" defer></script>
+<script src="/lib/imageUtils.js" defer></script>
 </head>
 <body>
 
@@ -6838,17 +6839,17 @@ const privacyEmojiMap = {
 };
 
 function getCardImgs(s) {
-  const main = s['Spot Card Photo'] || s['Cover Photo'] || '';
+  const main = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || '');
   const gallery = (s['Gallery Photos'] || []).map(function(p) {
-    if (typeof p === 'string') return p;
-    if (p && p.thumbnails && p.thumbnails.large) return p.thumbnails.large.url;
-    return (p && p.url) || '';
+    if (typeof p === 'string') return optimizeAirtableImage(p);
+    if (p && p.thumbnails && p.thumbnails.large) return optimizeAirtableImage(p.thumbnails.large.url);
+    return optimizeAirtableImage((p && p.url) || '');
   }).filter(Boolean).slice(0, 3);
   return [main, ...gallery].filter(Boolean);
 }
 
 function buildSpotCard(s) {
-  const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+  const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
     ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
     : `background:${s.coverGradient || 'var(--bg3)'};`;
@@ -6908,7 +6909,7 @@ function buildSpotCard(s) {
 
 function buildSpotCardLinked(s) {
   const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
-  const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
+  const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
     ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
     : `background:${s.coverGradient || 'var(--bg3)'};`;
