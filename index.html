@@ -1733,7 +1733,7 @@ footer {
   color: rgba(244,241,235,0.35);
   max-width: 220px;
 }
-.footer-col h4 {
+.footer-col h3 {
   font-size: 8px;
   font-weight: 400;
   letter-spacing: 0.24em;
@@ -5073,6 +5073,7 @@ footer {
 
 <!-- ═══ HOME PAGE ═══ -->
 <div id="page-home" class="page active">
+<main>
 
 <!-- HERO -->
 <section class="hero">
@@ -5157,7 +5158,7 @@ footer {
         </div>
 
         <!-- Search button -->
-        <button class="ssb-btn" onclick="doSSBSearch()">
+        <button class="ssb-btn" onclick="doSSBSearch()" aria-label="Search proposal spots">
           <span class="ssb-btn-text">Search &rarr;</span>
           <svg class="ssb-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
         </button>
@@ -5329,7 +5330,7 @@ footer {
         <p>Whether you're planning a private villa dinner on the Amalfi Coast or a hidden cliff in Costa Rica, we've mapped the finest proposal locations in the world.</p>
         <div class="seo-links">
           <a href="#" class="seo-link">Italy</a>
-          <a href="#" class="seo-link">Greece</a>
+          <a href="/destinations/greece" class="seo-link">Greece</a>
           <a href="#" class="seo-link">Mexico</a>
           <a href="#" class="seo-link">Beach</a>
           <a href="#" class="seo-link">Private</a>
@@ -5471,6 +5472,8 @@ footer {
   <a href="/destinations" style="display:inline-block;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--bg);background:var(--ink);border:none;border-radius:100px;padding:18px 44px;text-decoration:none;cursor:pointer;transition:background 0.2s ease;" onmouseover="this.style.background='#A55A4A'" onmouseout="this.style.background='var(--ink)'">Browse by Destinations</a>
 </div>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -5480,7 +5483,7 @@ footer {
         <p>A curated archive of the world's most considered proposal locations. Selective, editorial, trustworthy.</p>
       </div>
       <div class="footer-col">
-        <h4>Destinations</h4>
+        <h3>Destinations</h3>
         <a href="/destinations/amalfi-coast">Amalfi Coast</a>
         <a href="/destinations/greece">Greece</a>
         <a href="/destinations/bali">Bali</a>
@@ -5489,14 +5492,14 @@ footer {
         <a href="/destinations">View all →</a>
       </div>
       <div class="footer-col">
-        <h4>Resources</h4>
+        <h3>Resources</h3>
         <a href="#" onclick="showPage('budget-guide'); return false;">Proposal Budget Guide</a>
         <a href="#" onclick="showPage('checklist'); return false;">Proposal Checklist (Free)</a>
         <a href="inspiration.html">Inspiration Stories</a>
         <a href="/how-it-works">How It Works</a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h3>Company</h3>
         <a href="#" onclick="showPage('about'); return false;">About</a>
         <a href="#" onclick="showPage('for-hotels'); return false;">For Hotels</a>
         <a href="#">Submit a Spot</a>
