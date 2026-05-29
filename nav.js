@@ -394,17 +394,28 @@
     });
   }
 
-  // ── 5b. Filter panel backdrop: wrap toggleDLPanel so backdrop tracks open state ─
-  // nav.js runs defer (after inline scripts), so toggleDLPanel is already defined.
-  (function wrapFilterToggle() {
-    var origToggle = window.toggleDLPanel;
-    if (typeof origToggle !== 'function') return;
-    window.toggleDLPanel = function (panelId, pillId) {
-      origToggle(panelId, pillId);
-      var anyOpen = document.querySelector('.results-inline-panel.open');
-      filterBackdrop.classList.toggle('active', !!anyOpen);
-    };
-  }());
+  // ── 5b. Filter panel backdrop: wrap filter toggles so backdrop tracks open state ─
+  // On destination pages nav.js is deferred, so functions are already defined.
+  // On index.html nav.js is NOT deferred, so toggleResultsPanel may not exist yet —
+  // in that case we defer the wrap to DOMContentLoaded.
+  function wrapWithBackdrop(fnName) {
+    function doWrap() {
+      var orig = window[fnName];
+      if (typeof orig !== 'function') return;
+      window[fnName] = function (panelId, pillId) {
+        orig(panelId, pillId);
+        var anyOpen = document.querySelector('.results-inline-panel.open');
+        filterBackdrop.classList.toggle('active', !!anyOpen);
+      };
+    }
+    if (typeof window[fnName] === 'function') {
+      doWrap();
+    } else {
+      document.addEventListener('DOMContentLoaded', doWrap);
+    }
+  }
+  wrapWithBackdrop('toggleDLPanel');
+  wrapWithBackdrop('toggleResultsPanel');
 
   // ── 5. Scroll effect ──────────────────────────────────────────────────────────
   window.addEventListener('scroll', function () {
