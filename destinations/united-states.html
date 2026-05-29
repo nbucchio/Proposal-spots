@@ -247,14 +247,14 @@
     <div class="results-topbar dest-landing-filter-bar">
       <div class="results-topbar-left">
         <div class="results-panel-wrap">
-          <button class="results-filter-pill" id="dlpill-city" onclick="toggleDLPanel('dl-city-panel','dlpill-city')">
-            <span id="dlcity-label">City</span>
+          <button class="results-filter-pill" id="dlpill-region" onclick="toggleDLPanel('dl-region-panel','dlpill-region')">
+            <span id="dlregion-label">Region</span>
           </button>
-          <div class="results-inline-panel" id="dl-city-panel">
+          <div class="results-inline-panel" id="dl-region-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'city','New York City')">🗽 New York City</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'city','Los Angeles')">🌴 Los Angeles</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','New York')">🗽 New York</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'region','California')">🌴 California</div>
             </div>
           </div>
         </div>
@@ -431,21 +431,58 @@
   </section>
 
   <div class="dest-gallery">
-    <span class="dest-gallery-eyebrow">The setting</span>
-    <div class="dest-gallery-masonry">
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop" alt="Manhattan skyline at night, New York" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop" alt="New York City rooftop view at dusk" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop" alt="Romantic bokeh lights, New York evening" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop" alt="Twinkling city lights at golden hour, New York" loading="lazy">
-      </a>
+    <span class="dest-gallery-eyebrow">The Setting</span>
+
+    <!-- New York -->
+    <div style="margin-bottom:80px;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <h3 style="font-family:'Cormorant',serif; font-size:clamp(38px,5.5vw,68px); font-weight:300; color:var(--ink); line-height:1.0; letter-spacing:-0.01em; margin-bottom:14px;">New York</h3>
+        <p style="font-family:'Jost',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.1em; color:var(--mid); line-height:1.6; max-width:380px; margin:0 auto; text-transform:uppercase;">The most cinematic backdrop on earth — yours if you know where to stand.</p>
+      </div>
+      <div class="dest-gallery-masonry">
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop" alt="Manhattan skyline at night, New York" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop" alt="New York City rooftop view at dusk" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop" alt="Romantic bokeh lights, New York evening" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop" alt="Twinkling city lights at golden hour, New York" loading="lazy">
+        </a>
+      </div>
+      <div style="margin-top:36px; text-align:center;">
+        <a href="#spots" onclick="scrollToRegionSpots('New York'); return false;" class="pg-cta-btn">See New York spots →</a>
+      </div>
     </div>
+
+    <!-- California -->
+    <div>
+      <div style="text-align:center; margin-bottom:40px;">
+        <h3 style="font-family:'Cormorant',serif; font-size:clamp(38px,5.5vw,68px); font-weight:300; color:var(--ink); line-height:1.0; letter-spacing:-0.01em; margin-bottom:14px;">California</h3>
+        <p style="font-family:'Jost',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.1em; color:var(--mid); line-height:1.6; max-width:380px; margin:0 auto; text-transform:uppercase;">Ocean light, canyon roads, and the kind of golden hour that photographers chase.</p>
+      </div>
+      <div class="dest-gallery-masonry">
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+        </a>
+        <a onclick="openLightbox('https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+        </a>
+      </div>
+      <div style="margin-top:36px; text-align:center;">
+        <a href="#spots" onclick="scrollToRegionSpots('California'); return false;" class="pg-cta-btn">See California spots →</a>
+      </div>
+    </div>
+
     <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
       <img id="gallery-lightbox-img" src="" alt="">
     </div>
@@ -483,11 +520,11 @@
   </div>
 
   <script>
-    const dlState = { city: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
+    const dlState = { region: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
     const DEST_ALIASES = ['new york','usa','united states','nyc','manhattan','brooklyn','los angeles','california','hollywood','santa monica','malibu'];
-    const CITY_KEYWORDS = {
-      'New York City': ['new york', 'nyc', 'manhattan', 'brooklyn', 'queens', 'bronx', 'new york city'],
-      'Los Angeles':   ['los angeles', 'hollywood', 'santa monica', 'malibu', 'venice beach', 'beverly hills', 'west hollywood']
+    const REGION_KEYWORDS = {
+      'New York':   ['new york', 'nyc', 'manhattan', 'brooklyn', 'queens', 'bronx', 'new york city'],
+      'California': ['los angeles', 'california', 'hollywood', 'santa monica', 'malibu', 'venice beach', 'beverly hills', 'west hollywood']
     };
 
     function toggleDLPanel(panelId, pillId) {
@@ -497,7 +534,7 @@
       document.getElementById(panelId)?.classList.toggle('open');
     }
     const DL_PILL_LABELS = {
-      city:    { label: 'City',    names: { 'New York City': 'New York City', 'Los Angeles': 'Los Angeles' } },
+      region:  { label: 'Region',  names: { 'New York': 'New York', 'California': 'California' } },
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
       budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
@@ -524,9 +561,9 @@
       renderSpots();
     }
     function clearDLFilters() {
-      dlState.city.clear(); dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
+      dlState.region.clear(); dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('selected'));
-      ['city', 'vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
+      ['region', 'vibe', 'privacy', 'budget'].forEach(function(type) { updatePillLabel(type); });
       renderSpots();
     }
 
@@ -666,10 +703,10 @@
       }
       if (comingSoon) comingSoon.style.display = 'none';
       let spots = destSpots.filter(s => {
-        if (dlState.city.size) {
+        if (dlState.region.size) {
           const regionStr = ((s.Region || '') + ' ' + (s.Country || '')).toLowerCase();
-          if (![...dlState.city].some(v => {
-            const kws = CITY_KEYWORDS[v] || [v.toLowerCase()];
+          if (![...dlState.region].some(v => {
+            const kws = REGION_KEYWORDS[v] || [v.toLowerCase()];
             return kws.some(kw => regionStr.includes(kw));
           })) return false;
         }
@@ -708,6 +745,18 @@
     function closeLightbox() {
       document.getElementById('gallery-lightbox').classList.remove('open');
       document.body.style.overflow = '';
+    }
+
+    function scrollToRegionSpots(region) {
+      dlState.region.clear();
+      dlState.region.add(region);
+      document.querySelectorAll('#dl-region-panel .filter-tag').forEach(function(tag) {
+        tag.classList.toggle('selected', tag.textContent.trim().indexOf(region) !== -1);
+      });
+      updatePillLabel('region');
+      renderSpots();
+      var wrap = document.querySelector('.dest-landing-spots-wrap');
+      if (wrap) { wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     }
 
     document.addEventListener('destination:ready', function () { if (typeof renderSpots === 'function') renderSpots(); });
