@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -14,7 +14,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Proposal Spots — A Curated Archive of Proposal Locations</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://v5.airtableusercontent.com">
+<link rel="preload" as="image" href="leo_visions-hqUkno6qO9Q-unsplash.webp" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap"></noscript>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -6643,9 +6648,6 @@ footer {
   </div>
 </div>
 <script>
-// ═══════════════════════════════════════════════════════════
-//  STATE — must be declared first
-// ═══════════════════════════════════════════════════════════
 const state = {
   vibe: new Set(),
   privacy: new Set(),
@@ -6657,26 +6659,14 @@ const state = {
   toggles: { heels: false }
 };
 
-// ═══════════════════════════════════════════════════════════
-//  AIRTABLE CONFIGURATION
-//  ─────────────────────────────────────────────────────────
-//  When you have your credentials, replace the three values
-//  below and set AIRTABLE_LIVE = true.
-//  That\'s the only change needed to go fully live.
-// ═══════════════════════════════════════════════════════════
 const AIRTABLE_LIVE  = true;
 const AIRTABLE_BASE  = 'appN5GFcdPJvU1qff';
 const AIRTABLE_TABLE = 'tblgpEUkpph612Hw5';
 const AIRTABLE_TOKEN = 'AIRTABLE_TOKEN_PLACEHOLDER';
 
-// ─────────────────────────────────────────────────────────
-//  LIVE FETCH FROM AIRTABLE (direct — no backend needed for
-//  read-only public data, but token is visible in source.
-//  For production, proxy through Vercel — see comments.)
-// ─────────────────────────────────────────────────────────
 async function fetchFromAirtable() {
   try {
-    // Call our secure Vercel proxy — token never exposed in browser
+
     const response = await fetch('/api/spots');
 
     if (!response.ok) {
@@ -6712,7 +6702,6 @@ async function fetchFromAirtable() {
         : rawBudget === 'Expensive' ? 'Luxury'
         : rawBudget;
 
-      // Vibe Secondary — multi-select, filter out non-vibe values like "Luxury"
       const vibeOptions = new Set(['Beach','Mountain','Cliff','Lake','Volcano','Ocean','City','Jungle','Rural','Boat']);
       const vibeSecondaryArr = Array.isArray(f['Vibe Secondary'])
         ? f['Vibe Secondary'].filter(v => vibeOptions.has(v))
@@ -6722,13 +6711,11 @@ async function fetchFromAirtable() {
         ? f['Other Vibe']
         : (f['Other Vibe'] ? [f['Other Vibe']] : []);
 
-      // Best Time — can be string or array
       const bestTime = Array.isArray(f['Best Time'])
         ? f['Best Time']
         : (f['Best Time'] ? [f['Best Time']] : []);
 
-      // Heel / Dress Friendly — note the double space in the actual field name
-      const heelFriendly = f['Heel / Dress  Friendly'] === 'Yes' 
+      const heelFriendly = f['Heel / Dress  Friendly'] === 'Yes'
         || f['Heel / Dress Friendly'] === 'Yes'
         || f['Heel / Dress  Friendly'] === true
         || f['Heal / Dress Friendly'] === true
@@ -6787,9 +6774,6 @@ async function fetchFromAirtable() {
   }
 }
 
-// ─────────────────────────────────────────────────────────
-//  MOCK DATA (used when AIRTABLE_LIVE = false)
-// ─────────────────────────────────────────────────────────
 const MOCK_SPOTS = [
   {
     id: 'recJrPfNWsskQYBxP',
@@ -6837,9 +6821,6 @@ const MOCK_SPOTS = [
   }
 ];
 
-// ─────────────────────────────────────────────────────────
-//  MASTER FETCH — switches between live and mock
-// ─────────────────────────────────────────────────────────
 async function fetchSpots() {
   if (AIRTABLE_LIVE) {
     return await fetchFromAirtable();
@@ -6849,11 +6830,6 @@ async function fetchSpots() {
 
 let allSpots = [];
 
-// ─────────────────────────────────────────────────────────
-//  RENDER SPOT CARDS
-// ─────────────────────────────────────────────────────────
-// ─── Card price whisper row ───────────────────────────────────
-// ── Shared card builder ───────────────────────────────────
 const privacyEmojiMap = {
   'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥'
 };
@@ -7007,16 +6983,13 @@ function renderSpots(spots) {
   const eyebrow = document.getElementById('spots-eyebrow');
   const title   = document.getElementById('spots-title');
 
-  // Detect if any filters are active
   const filtersActive = state.vibe.size > 0 || state.privacy.size > 0 ||
     state.budget.size > 0 || state.food.size > 0 || state.time.size > 0 ||
     state.effort.size > 0 || state.toggles.heels ||
     (document.getElementById('search-main')?.value || '').trim().length > 0;
 
-  // When no filters active, only show spots marked as Editor's Picks in Airtable
   const spotsToRender = filtersActive ? spots : spots.filter(s => s.editorsPick);
 
-  // Update section header
   if (filtersActive) {
     if (eyebrow) eyebrow.textContent = 'Filtered results';
     if (title) title.innerHTML = `<strong>${spotsToRender.length}</strong> spot${spotsToRender.length !== 1 ? 's' : ''} found`;
@@ -7045,23 +7018,17 @@ function renderSpots(spots) {
   grid.innerHTML = spotsToRender.map(s => buildSpotCard(s)).join('');
 }
 
-// ─────────────────────────────────────────────────────────
-//  SPOT DETAIL DRAWER
-// ─────────────────────────────────────────────────────────
-// Track where user came from so back button works correctly
 let spotReturnPage = 'home';
 
 function openSpotDrawer(id) {
   const s = allSpots.find(x => x.id === id);
   if (!s) return;
 
-  // Remember which page we came from
   const activePage = document.querySelector('.page.active');
   spotReturnPage = activePage ? activePage.id.replace('page-', '') : 'home';
 
   const privacyEmoji = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
 
-  // Hero
   const bg = document.getElementById('sdp-hero-bg');
   if (s['Cover Photo']) {
     bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
@@ -7082,20 +7049,14 @@ function openSpotDrawer(id) {
   document.getElementById('sdp-loc').textContent  = `${s.Region || ''} · ${s.Country || ''}`;
   document.getElementById('sdp-name').textContent = s.Name;
 
-
-  // Stats
   document.getElementById('sdp-budget').textContent  = s.Budget || '—';
   document.getElementById('sdp-privacy').textContent = s.Privacy || '—';
   document.getElementById('sdp-effort').textContent  = s['Access & Effort'] || '—';
   const times = Array.isArray(s['Best Time']) ? s['Best Time'].join(', ') : (s['Best Time'] || '—');
   document.getElementById('sdp-time').textContent   = times;
 
-  // About
   document.getElementById('sdp-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
 
-  // Proposal plan — removed from display
-
-  // What\'s Included
   const includedSection = document.getElementById('sdp-included-section');
   const includedList    = document.getElementById('sdp-included-list');
   const packageIncludes = s['Package Includes'] || '';
@@ -7111,7 +7072,6 @@ function openSpotDrawer(id) {
     }
   }
 
-  // Price CTA (below What\'s Included, above vibes)
   const priceCta  = document.getElementById('sdp-price-cta-section');
   const ctaAmount = document.getElementById('sdp-price-cta-amount');
   if (priceCta && ctaAmount) {
@@ -7124,19 +7084,14 @@ function openSpotDrawer(id) {
     }
   }
 
-  // (Vibe tags section removed from redesign — no sdp-vibes element)
-
-  // Hotel block in concierge sidebar
   const hotelBlock = document.getElementById('sdp-hotel-block');
   if (hotelBlock) {
     hotelBlock.style.display = s['Linked Hotel / Venue'] ? '' : 'none';
   }
 
-  // Book button text
   const bookBtn = document.getElementById('sdp-book-btn');
   if (bookBtn) { bookBtn.textContent = 'Plan My Proposal →'; bookBtn.onclick = () => openEnquiryModal(); }
 
-  // Access
   const accessBlock = document.getElementById('sdp-access-block');
   if (accessBlock) {
     if (s['Access Details']) {
@@ -7146,7 +7101,6 @@ function openSpotDrawer(id) {
     } else { accessBlock.style.display = 'none'; }
   }
 
-  // Photographer (element may not exist in redesign)
   const photoBlock = document.getElementById('sdp-photo-block');
   if (photoBlock) {
     if (s['Recommended Photographer']) {
@@ -7156,17 +7110,13 @@ function openSpotDrawer(id) {
     } else { photoBlock.style.display = 'none'; }
   }
 
-  // Line summary
   const lineSummaryEl = document.getElementById('sdp-line-summary');
   if (lineSummaryEl) lineSummaryEl.textContent = s['Line Summary'] || '';
 
-  // Load pricing + packages
   loadSpotPricing(s);
 
-  // Gallery photos
   renderGallery(s['Gallery Photos'] || []);
 
-  // Map — show if Google Maps Link has parseable coordinates
   var mapSection = document.getElementById('spot-map-section');
   var mapDebug  = document.getElementById('spot-map-debug');
   if (mapSection) {
@@ -7179,7 +7129,7 @@ function openSpotDrawer(id) {
       if (mapDebug) mapDebug.style.display = 'none';
       initSpotMap(mapsCoords.lat, mapsCoords.lng);
     } else {
-      // Show section with a visible status so no DevTools needed
+
       mapSection.style.display = '';
       if (mapDebug) {
         mapDebug.style.display = '';
@@ -7190,9 +7140,6 @@ function openSpotDrawer(id) {
     }
   }
 
-  // (add-ons shown in enquiry modal — no sidebar dropdown)
-
-  // Reset hotel toggle + calendar
   hotelStepOn = false;
   selectedProposalDates = [];
   calViewYear  = new Date().getFullYear();
@@ -7201,28 +7148,25 @@ function openSpotDrawer(id) {
   if (toggleTrack) toggleTrack.classList.remove('on');
   const hotelDates = document.getElementById('sdp-hotel-dates');
   if (hotelDates) hotelDates.style.display = 'none';
-  // Show mini cal by default (hotel off)
+
   setTimeout(renderProposalDateStep, 50);
 
-  // Reset booking steps
   const today = new Date().toISOString().split('T')[0];
   const ci = document.getElementById('sdp-checkin');
   const co = document.getElementById('sdp-checkout');
   if (ci) { ci.value = ''; ci.min = today; }
   if (co) { co.value = ''; co.min = today; }
-  // Reset step 2
-  // Step 2 is the hotel toggle — never locked
+
   const propDates = document.getElementById('sdp-proposal-dates');
   if (propDates) propDates.innerHTML = '<p class="sdp-step-hint">Select your stay above to see available nights</p>';
   const nightsDisplay = document.getElementById('sdp-nights-display');
   if (nightsDisplay) nightsDisplay.style.display = 'none';
   const pricingBlock = document.getElementById('sdp-pricing-block');
   if (pricingBlock) pricingBlock.style.display = 'none';
-  // Show hotel block for all spots (the booking flow is universal)
+
   const hotelBlock2 = document.getElementById('sdp-hotel-block');
   if (hotelBlock2) hotelBlock2.style.display = s['Linked Hotel / Venue'] ? '' : 'none';
 
-  // Budget badge
   const budgetBadge = document.getElementById('sdp-budget-badge');
   const budgetRange = document.getElementById('sdp-budget-range');
   if (budgetBadge && budgetRange && s.Budget) {
@@ -7232,23 +7176,19 @@ function openSpotDrawer(id) {
     budgetBadge.style.display = 'none';
   }
 
-  // Track current spot and update save UI
   currentSpotId = s.id;
   currentHotelIds = s['Linked Hotel IDs'] || [];
   updateSaveUI(s.id);
 
-  // ── Concierge card: price
   const concPrice = document.getElementById('sdp-concierge-price');
   if (concPrice) concPrice.textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
 
-  // ── Concierge card: hotel tag
   const concHotelTag = document.getElementById('sdp-concierge-hotel-tag');
   const vibeStripHotelChip = document.getElementById('sdp-hotel-chip');
   const hasHotel = !!(s['Linked Hotel / Venue']);
   if (concHotelTag) concHotelTag.style.display = hasHotel ? '' : 'none';
   if (vibeStripHotelChip) vibeStripHotelChip.style.display = hasHotel ? '' : 'none';
 
-  // Requires Stay — lock hotel step open when field is true
   const requiresStay = !!(s['Requires Stay']);
   const step2El = document.getElementById('sdp-step-2');
   if (step2El) step2El.style.display = hasHotel ? '' : 'none';
@@ -7269,7 +7209,6 @@ function openSpotDrawer(id) {
     hotelStepOn = true;
   }
 
-  // ── Bottom bar
   const bar = document.getElementById('sdp-bottom-bar');
   const barPrice = document.getElementById('sdp-bar-price');
   const barSaveEl = document.getElementById('sdp-bar-save');
@@ -7277,7 +7216,6 @@ function openSpotDrawer(id) {
   if (barPrice) barPrice.textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
   if (barSaveEl) { barSaveEl.textContent = isSpotSaved(s.id) ? '♥' : '♡'; barSaveEl.classList.toggle('saved', isSpotSaved(s.id)); }
 
-  // Navigate to spot page
   showPage('spot');
 }
 
@@ -7293,13 +7231,6 @@ function closeSpotDrawer() {
   goBackFromSpot();
 }
 
-// ─────────────────────────────────────────────────────────
-//  GALLERY & LIGHTBOX
-// ─────────────────────────────────────────────────────────
-// ─────────────────────────────────────────────────────────
-//  BOOKING FLOW — two-step date selection
-// ─────────────────────────────────────────────────────────
-// ─── PRICING STATE ───────────────────────────────────────────
 let currentSpotPricing = { moment: 297, hotel: 1400, full: 1850, peakMonths: [], lowMonths: [], peakMult: 1.3, lowMult: 0.85 };
 let selectedPackage = 'moment';
 
@@ -7339,20 +7270,19 @@ function loadSpotPricing(spot) {
     lowMult:      spot['Low Multiplier']        || 0.85,
     hasPricing:   !!(spot['Price Moment'] || spot['Price Hotel Per Night'])
   };
-  selectedPackage = 'hotel'; // default to most popular
+  selectedPackage = 'hotel';
   photographerAddonActive = false;
 
-  // Show/hide photographer add-on block
   const addonBlock = document.getElementById('sdp-addon-photo');
   if (addonBlock) {
     addonBlock.style.display = currentSpotPricing.photographer ? '' : 'none';
     addonBlock.classList.remove('active');
     const check = document.getElementById('sdp-addon-check');
     if (check) check.classList.remove('checked');
-    // Set note text
+
     const desc = document.getElementById('sdp-addon-desc');
     if (desc) desc.textContent = currentSpotPricing.photoNote;
-    // Set price text
+
     const priceEl = document.getElementById('sdp-addon-price');
     if (priceEl && currentSpotPricing.photographer) priceEl.textContent = '+ ' + formatPrice(currentSpotPricing.photographer);
   }
@@ -7370,7 +7300,7 @@ function togglePhotographerAddon() {
   const check  = document.getElementById('sdp-addon-check');
   if (block) block.classList.toggle('active', photographerAddonActive);
   if (check) check.classList.toggle('checked', photographerAddonActive);
-  // Recalculate live total if pricing block is visible
+
   const ci = document.getElementById('sdp-checkin');
   const season = ci?.value ? getSeasonForMonth(new Date(ci.value + 'T00:00:00').getMonth() + 1) : null;
   updateLivePricing(season);
@@ -7394,10 +7324,6 @@ function renderPackages(season) {
 
   const el = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
 
-  // Moment only
-  // (moment price shown in concierge top only)
-
-  // Hotel + Moment — shows per-night × nights OR "from $X/night" before dates
   if (nightlyAdj) {
     if (nights > 0) {
       el('pkg-hotel-price', formatPrice(hotelTotal));
@@ -7411,7 +7337,6 @@ function renderPackages(season) {
     el('pkg-hotel-nights', '');
   }
 
-  // Highlight selected — only moment and hotel now (full story removed per change 3)
   ['moment','hotel'].forEach(k => {
     const el = document.getElementById('pkg-' + k);
     if (el) el.classList.toggle('selected', k === selectedPackage);
@@ -7419,8 +7344,6 @@ function renderPackages(season) {
 
   updateLivePricing(season);
 }
-
-
 
 function updateSeasonBadge(season, monthName) {
   const badge = document.getElementById('sdp-season-badge');
@@ -7444,7 +7367,7 @@ function updateSeasonBadge(season, monthName) {
 }
 
 function updateLivePricing(season) {
-  // Delegate to selection summary — no pricing shown
+
   updateSelectionSummary();
 }
 
@@ -7455,11 +7378,9 @@ function updateSelectionSummary() {
 
   const lines = [];
 
-  // Package
   const pkgLabel = selectedPackage === 'hotel' ? 'The Moment + Hotel stay' : 'The Moment';
   lines.push(pkgLabel);
 
-  // Hotel dates if selected
   if (selectedPackage === 'hotel') {
     const ci = document.getElementById('sdp-checkin')?.value;
     const co = document.getElementById('sdp-checkout')?.value;
@@ -7470,15 +7391,12 @@ function updateSelectionSummary() {
     }
   }
 
-  // Photographer add-on
   if (photographerAddonActive) lines.push('Photographer add-on');
 
-  // Add-ons ticked in step 1 dropdown
   document.querySelectorAll('#sdp-moment-addons-list input:checked').forEach(cb => {
     lines.push(cb.value);
   });
 
-  // Proposal dates
   const fmt = d => d ? new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : null;
   const pd1 = document.getElementById('sdp-proposal-date-1')?.value;
   const pd2 = document.getElementById('sdp-proposal-date-2')?.value;
@@ -7500,7 +7418,6 @@ function selectPackage(key) {
   updateSelectionSummary();
 }
 
-// ── Range Calendar ─────────────────────────────────────────
 let _rcalMode  = 'checkin';
 let _rcalYear  = new Date().getFullYear();
 let _rcalMonth = new Date().getMonth();
@@ -7636,7 +7553,6 @@ function onHotelDatesChange() {
   ci.style.borderColor = '';
   co.style.borderColor = '';
 
-  // Calculate nights
   const nights = Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
   const nightsDisplay = document.getElementById('sdp-nights-display');
   if (nightsDisplay) {
@@ -7644,17 +7560,14 @@ function onHotelDatesChange() {
     nightsDisplay.style.display = 'block';
   }
 
-  // Detect season
   const month = checkIn.getMonth() + 1;
   const season = getSeasonForMonth(month);
   const monthNames2 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   updateSeasonBadge(season, monthNames2[checkIn.getMonth()]);
   renderPackages(season);
 
-  // Re-render night chips now that dates are set
   renderProposalDateStep();
 
-  // Build the night-by-night selector (legacy — kept for compatibility)
   const propDates = document.getElementById('sdp-proposal-dates');
   if (!propDates) return;
 
@@ -7696,23 +7609,18 @@ function updateEnquireButton() {
   }
 }
 
-// ─────────────────────────────────────────────────────────
-//  ENQUIRY MODAL
-// ─────────────────────────────────────────────────────────
 let _currentEnquirySpot = null;
 
 function openEnquiryModal() {
-  // Populate summary from current booking selections
+
   const spotName = document.getElementById('sdp-name')?.textContent || '';
   const hotelName = document.getElementById('sdp-hotel-name')?.textContent || '';
   const ci = document.getElementById('sdp-checkin')?.value;
   const co = document.getElementById('sdp-checkout')?.value;
   const selectedNights = [...document.querySelectorAll('#sdp-proposal-dates input:checked')].map(cb => cb.value);
 
-  // Set title
   document.getElementById('enq-spot-name').textContent = spotName || 'Request your proposal';
 
-  // Build summary
   const sumEl = document.getElementById('enq-summary');
   const sumHotel = document.getElementById('enq-sum-hotel');
   const sumDates = document.getElementById('enq-sum-dates');
@@ -7746,22 +7654,20 @@ function openEnquiryModal() {
   }
   if (!hotelName && !ci && selectedNights.length === 0) sumEl.style.display = 'none';
 
-  // Pre-fill proposal/backup dates from sidebar if already selected
-  // Pre-fill proposal/backup dates from ALL possible sidebar sources
   const pd1val = document.getElementById('sdp-proposal-date-1')?.value || '';
   const pd2val = document.getElementById('sdp-proposal-date-2')?.value || '';
   const chipSelected = [...document.querySelectorAll('#sdp-proposal-dates input:checked')].map(cb => cb.value);
-  // Also check date chips (hotel mode)
+
   const chipDates = [...document.querySelectorAll('#sdp-night-chips .sdp-night-chip.selected')].map(c => c.dataset.ds || '').filter(Boolean);
   const proposalDatePrefill = pd1val || chipSelected[0] || chipDates[0] || (selectedProposalDates && selectedProposalDates[0]) || '';
   const enqPD = document.getElementById('enq-proposal-date');
   const enqBD = document.getElementById('enq-backup-date');
   if (enqPD) enqPD.value = proposalDatePrefill;
-  if (enqBD) enqBD.value = ''; // no backup date
+  if (enqBD) enqBD.value = '';
   _enqProp1 = proposalDatePrefill;
   _enqProp2 = '';
   enqUpdateDateDisplay();
-  // Show/hide hotel stay section
+
   const ci2 = document.getElementById('sdp-checkin')?.value || '';
   const co2 = document.getElementById('sdp-checkout')?.value || '';
   const enqHotelSection = document.getElementById('enq-hotel-stay-section');
@@ -7775,7 +7681,6 @@ function openEnquiryModal() {
     enqHotelSection.style.display = 'none';
   }
 
-  // Package summary
   const pkgNames = { moment: 'The Moment', hotel: 'The Moment + Hotel stay' };
   const pkgRow   = document.getElementById('enq-sum-package');
   const pkgVal   = document.getElementById('enq-sum-package-val');
@@ -7787,21 +7692,19 @@ function openEnquiryModal() {
     sumEl.style.display = '';
   }
 
-  // Dynamic add-ons from current spot
   const addonsSection = document.getElementById('enq-addons-section');
   const addonsList    = document.getElementById('enq-addons-list');
-  // Mirror add-ons from spot — with prices from Add-on Prices field
+
   const spot        = allSpots.find(x => x.id === currentSpotId);
   const spotAddons  = spot?.['Add-ons'] || [];
   const priceText   = spot?.['Add-on Prices'] || '';
 
-  // Parse price lookup: "Photographer | $250" → { Photographer: '$250' }
   const priceMap = {};
   priceText.split('\n').forEach(line => {
     const parts = line.split('|').map(s => s.trim());
     if (parts.length === 2) {
       priceMap[parts[0]] = parts[1];
-      priceMap[parts[0].toLowerCase()] = parts[1]; // case-insensitive fallback
+      priceMap[parts[0].toLowerCase()] = parts[1];
     }
   });
 
@@ -7825,10 +7728,8 @@ function openEnquiryModal() {
     addonsSection.style.display = 'none';
   }
 
-  // Pre-fill if we have saved email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
 
-  // Show form, hide success
   document.getElementById('enq-success').style.display = 'none';
   document.querySelector('.enq-form').style.display = '';
 
@@ -7836,7 +7737,6 @@ function openEnquiryModal() {
   document.getElementById('enq-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Init the proposal date calendar
   setTimeout(initEnqCal, 50);
 }
 
@@ -7882,23 +7782,19 @@ function populateEnqHotelNights() {
   chipsEl.style.display = 'flex';
 }
 
-// ─── Booking Drawer (stub — drawer removed in favour of sidebar) ──
-// ── Enquiry proposal date calendar ──────────────────────────
 let _enqCalYear  = new Date().getFullYear();
 let _enqCalMonth = new Date().getMonth();
-let _enqProp1    = ''; // preferred
-let _enqProp2    = ''; // backup
+let _enqProp1    = '';
+let _enqProp2    = '';
 
 function initEnqCal() {
-  // Get hotel dates if set
+
   const ci = document.getElementById('sdp-checkin')?.value || '';
   const co = document.getElementById('sdp-checkout')?.value || '';
 
-  // Pre-fill from hidden inputs (set by openEnquiryModal)
   _enqProp1 = document.getElementById('enq-proposal-date')?.value || '';
   _enqProp2 = document.getElementById('enq-backup-date')?.value || '';
 
-  // Navigate to month of check-in or preferred date
   const anchor = ci || _enqProp1;
   if (anchor) {
     const d = new Date(anchor+'T00:00:00');
@@ -7909,7 +7805,6 @@ function initEnqCal() {
     _enqCalMonth = new Date().getMonth();
   }
 
-  // Show hotel stay section
   const hotelSection = document.getElementById('enq-hotel-stay-section');
   const hotelDates = document.getElementById('enq-hotel-stay-dates');
   const notice = document.getElementById('enq-hotel-notice');
@@ -7917,7 +7812,7 @@ function initEnqCal() {
   const fmtFull = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 
   if (ci && co) {
-    // Show hotel stay row
+
     if (hotelSection) hotelSection.style.display = 'block';
     if (hotelDates) {
       const nights = Math.round((new Date(co+'T00:00:00') - new Date(ci+'T00:00:00')) / 86400000);
@@ -7936,8 +7831,6 @@ function initEnqCal() {
   renderEnqCal();
   enqUpdateDateDisplay();
 }
-
-// Calendar removed from enquiry form — date selection on spot page
 
 function enqUpdateDateDisplay() {
   const fmt = d => new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
@@ -7959,8 +7852,6 @@ function enqUpdateDateDisplay() {
   }
 }
 
-// enqScrollToCal removed — no calendar in form
-
 function enqClearProp1() {
   _enqProp1 = ''; _enqProp2 = '';
   const p1 = document.getElementById('enq-proposal-date');
@@ -7976,7 +7867,6 @@ function enqClearProp2() {
   enqUpdateDateDisplay();
 }
 
-// ─── Navigation helpers — close modal and return to spot page ───
 function enqGoBackToHotelDates() {
   closeEnquiryModal();
   _rcalMode = 'checkin';
@@ -7997,16 +7887,14 @@ function enqGoBackToProposalDate() {
 function openBookingDrawer() { openEnquiryModal(); }
 function closeBookingDrawer() {}
 
-// ─── AIRTABLE CONFIG ──────────────────────────────────────────
 const AT_TOKEN  = 'patQ3sHtMjYPOtBps.3b8b1c5972d54af55516fab179dedfe1dbb71ade069cf03e255fab6d971d5da7';
 const AT_BASE   = 'appN5GFcdPJvU1qff';
 const AT_TABLE  = 'Bookings';
 
-// Diagnostic — type testAirtable() in browser console to debug
 window.testAirtable = async function() {
   console.log('🔍 Testing Airtable connection...');
   try {
-    // First just list records to confirm token + table works
+
     const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}?maxRecords=1`, {
       headers: { 'Authorization': `Bearer ${AT_TOKEN}` }
     });
@@ -8018,7 +7906,6 @@ window.testAirtable = async function() {
     console.log('✅ READ works. Table has', data.records?.length, 'records visible.');
     console.log('Field names in first record:', data.records?.[0] ? Object.keys(data.records[0].fields) : 'no records yet');
 
-    // Now try a minimal write with just one safe field
     const writeRes = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
@@ -8047,7 +7934,6 @@ async function submitEnquiry() {
   const propDate   = document.getElementById('enq-proposal-date')?.value || '';
   const backupDate = document.getElementById('enq-backup-date')?.value || '';
 
-  // Validation
   if (!first || !email) {
     document.getElementById('enq-first').style.borderColor = first ? '' : '#A55A4A';
     document.getElementById('enq-email').style.borderColor = email ? '' : '#A55A4A';
@@ -8058,7 +7944,6 @@ async function submitEnquiry() {
   btn.disabled = true;
   btn.textContent = 'Sending...';
 
-  // Gather sidebar selections
   const spotName       = document.getElementById('sdp-name')?.textContent || '';
   const hotelName      = document.getElementById('sdp-hotel-name')?.textContent || '';
   const ci             = document.getElementById('sdp-checkin')?.value || '';
@@ -8070,7 +7955,6 @@ async function submitEnquiry() {
   const packageChosen  = pkgNames[selectedPackage] || 'Hotel + Moment';
   const photoAddon     = photographerAddonActive;
 
-  // Add-ons from dynamic checklist — collect with prices for readable Bookings record
   const spot = allSpots.find(x => x.id === currentSpotId);
   const addonPriceText = spot?.['Add-on Prices'] || '';
   const addonPriceMap = {};
@@ -8087,12 +7971,10 @@ async function submitEnquiry() {
     addons.push(photoPrice ? `Photographer (${photoPrice})` : 'Photographer');
   }
 
-  // Calculate nights
   const nightCount = ci && co
     ? Math.round((new Date(co + 'T00:00:00') - new Date(ci + 'T00:00:00')) / 86400000)
     : 0;
 
-  // Build Airtable record — using your existing Bookings table field names
   const hotelIncluded = selectedPackage === 'hotel';
 
   const fields = {
@@ -8115,19 +7997,15 @@ async function submitEnquiry() {
     'Internal Notes':      'Submitted via website enquiry form. Spot: ' + spotName,
   };
 
-  // Linked Spot record — critical for knowing which spot this enquiry is about
   if (currentSpotId) fields['Linked Spot'] = [currentSpotId];
 
-  // Linked Hotel — populated when the spot has an associated hotel
   if (currentHotelIds.length) fields['Linked Hotel'] = currentHotelIds;
 
-  // Add-ons Selected — new field you added
   if (addons.length) fields['Add-ons Selected'] = addons.join(', ');
 
-  // Dates — always send if filled, hotel or not
   if (ci)                    fields['Check In']       = ci;
   if (co)                    fields['Check Out']      = co;
-  // Use sidebar proposal date, or fall back to form date field
+
   const finalProposalNight = proposalNights[0] || propDate;
   if (finalProposalNight)    fields['Proposal Night'] = finalProposalNight;
 
@@ -8149,7 +8027,7 @@ async function submitEnquiry() {
     if (!res.ok) {
       console.error('❌ Airtable error:', data?.error?.type, data?.error?.message);
       console.error('Full response:', JSON.stringify(data));
-      // Show user a real error so they know it failed
+
       alert('There was an issue sending your enquiry. Please email us directly at hello@proposalspots.com\n\nError: ' + (data?.error?.message || data?.error?.type || 'Unknown'));
       btn.disabled = false;
       btn.textContent = 'Send Enquiry →';
@@ -8169,14 +8047,12 @@ async function submitEnquiry() {
     return;
   }
 
-  // Show success state
   document.querySelector('.enq-form').style.display = 'none';
   document.getElementById('enq-success').style.display = '';
   btn.disabled = false;
   btn.textContent = 'Send Enquiry →';
 }
 
-// ─── Gallery state ────────────────────────────────────────────
 let galleryPhotos = [];
 let galleryIndex  = 0;
 
@@ -8190,7 +8066,6 @@ function renderGallery(photos) {
   const section = document.getElementById('sdp-gallery-section');
   if (!photos || photos.length === 0) { section.style.display = 'none'; return; }
 
-  // Build valid URL list
   galleryPhotos = photos.map(resolvePhotoUrl).filter(Boolean);
   if (!galleryPhotos.length) { section.style.display = 'none'; return; }
 
@@ -8206,7 +8081,6 @@ function renderGalleryFrame() {
   const viewer = document.getElementById('sdp-gallery-viewer');
   if (!img) return;
 
-  // Fade transition
   img.classList.add('fading');
   setTimeout(() => {
     img.src = galleryPhotos[galleryIndex];
@@ -8219,21 +8093,17 @@ function renderGalleryFrame() {
     img.classList.remove('fading');
   }, 180);
 
-  // Dots
   if (dots) {
     dots.innerHTML = galleryPhotos.length > 1
       ? galleryPhotos.map((_, i) => `<div class="sdp-gallery-dot ${i === galleryIndex ? 'active' : ''}" onclick="event.stopPropagation(); galleryGoTo(${i})"></div>`).join('')
       : '';
   }
 
-  // Count
   if (count) count.textContent = galleryPhotos.length > 1 ? `${galleryIndex + 1} / ${galleryPhotos.length}` : '';
 
-  // Show/hide arrows
   const arrows = document.querySelectorAll('.sdp-gallery-arrow');
   arrows.forEach(a => a.style.display = galleryPhotos.length > 1 ? '' : 'none');
 
-  // Lightbox on click still works
   if (viewer) viewer.onclick = (e) => {
     if (e.target.classList.contains('sdp-gallery-arrow') || e.target.classList.contains('sdp-gallery-dot')) return;
     openLightbox(galleryPhotos[galleryIndex]);
@@ -8266,7 +8136,7 @@ function checkGalleryEmpty(scroll) {
 
 function openLightbox(url) {
   const lb = document.getElementById('sdp-lightbox');
-  // Find index in current gallery
+
   lightboxPhotos = galleryPhotos && galleryPhotos.length ? galleryPhotos : [url];
   lightboxIndex = lightboxPhotos.indexOf(url);
   if (lightboxIndex < 0) { lightboxIndex = 0; lightboxPhotos = [url]; }
@@ -8308,13 +8178,9 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// ─────────────────────────────────────────────────────────
-//  SAVE SPOTS — lightweight email-based collection
-// ─────────────────────────────────────────────────────────
 let savedEmail   = localStorage.getItem('ps_email') || null;
 let savedSpotIds = JSON.parse(localStorage.getItem('ps_saved') || '[]');
 
-// Self-heal: after allSpots loads, remove any saved IDs that don\'t exist in Airtable
 function purgeStaleSavedIds() {
   if (!allSpots.length) return;
   const validIds = new Set(allSpots.map(s => s.id));
@@ -8333,13 +8199,13 @@ function isSpotSaved(id) {
 
 function updateSaveUI(id) {
   const saved = isSpotSaved(id);
-  // Hero heart
+
   const heroHeart = document.getElementById('sdp-heart-btn');
   if (heroHeart) {
     heroHeart.textContent = saved ? '♥' : '♡';
     heroHeart.classList.toggle('saved', saved);
   }
-  // Sidebar save button
+
   const saveBtn = document.getElementById('sdp-save-btn');
   if (saveBtn) {
     const icon = document.getElementById('sdp-save-icon');
@@ -8350,16 +8216,15 @@ function updateSaveUI(id) {
       if (n.nodeType === 3) n.textContent = saved ? ' Saved' : ' Save this Spot';
     });
   }
-  // Card hearts (home + results grids)
+
   document.querySelectorAll(`.spot-save[data-spot-id="${id}"]`).forEach(el => {
     el.textContent = saved ? '♥' : '♡';
     el.classList.toggle('saved', saved);
   });
-  // Nav link
+
   const navLink = document.getElementById('nav-collection');
   if (navLink) navLink.classList.toggle('has-saves', savedSpotIds.length > 0);
 
-  // Bottom bar save button
   const barSaveBtn = document.getElementById('sdp-bar-save');
   if (barSaveBtn && id === currentSpotId) {
     barSaveBtn.textContent = saved ? '♥' : '♡';
@@ -8375,7 +8240,7 @@ function toggleSaveSpot(e, passedId) {
   console.log('toggleSaveSpot called, id=', id, 'savedEmail=', savedEmail, 'savedSpotIds=', savedSpotIds);
 
   if (isSpotSaved(id)) {
-    // Unsave
+
     savedSpotIds = savedSpotIds.filter(sid => sid !== id);
     try { localStorage.setItem('ps_saved', JSON.stringify(savedSpotIds)); } catch(e) {}
     updateSaveUI(id);
@@ -8402,7 +8267,6 @@ function doSaveSpot(spotId, email) {
   updateSaveUI(spotId);
 }
 
-// Save modal
 function openSaveModal() {
   const overlay = document.getElementById('save-overlay');
   const modal   = document.getElementById('save-modal');
@@ -8466,22 +8330,20 @@ function confirmSaveSpot() {
   savedEmail = email;
   localStorage.setItem('ps_email', email);
 
-  // Write to Email List in Airtable (reuses join API)
   fetch('/api/join', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ first, last, email, phone })
   }).catch(() => {});
 
-  // Save the spot (if one is pending)
   if (pendingSaveId) doSaveSpot(pendingSaveId, email);
   document.getElementById('save-form').style.display    = 'none';
-  // Update confirm message based on context
+
   const confirmMsg = document.querySelector('#save-confirm p:first-of-type');
   let msg = pendingSaveId ? 'Spot saved to your collection.' : "You\'re on the list.";
   if (window._checklistPending) msg = 'Checklist sent to your email.';
   if (confirmMsg) confirmMsg.textContent = msg;
-  // Show "View Collection" button if a spot was saved
+
   const viewColBtn = document.getElementById('save-view-collection-btn');
   if (viewColBtn) viewColBtn.style.display = pendingSaveId ? 'block' : 'none';
   document.getElementById('save-confirm').style.display = 'block';
@@ -8489,7 +8351,7 @@ function confirmSaveSpot() {
     closeSaveModal();
     pendingSaveId = null;
     window._checklistPending = false;
-    // Update checklist button if that flow
+
     const btn = document.getElementById('checklist-download-btn');
     if (btn && msg.includes('Checklist')) {
       btn.textContent = '✓ Sent to your email';
@@ -8498,13 +8360,9 @@ function confirmSaveSpot() {
   }, 3000);
 }
 
-// ─────────────────────────────────────────────────────────
-//  MY COLLECTION PAGE
-// ─────────────────────────────────────────────────────────
 let currentSpotId = null;
 let currentHotelIds = [];
 
-// ─── NAV DESTINATIONS DROPDOWN ───
 function toggleDestDropdown() {
   const dd = document.getElementById('nav-dest-dropdown');
   dd.classList.toggle('open');
@@ -8516,9 +8374,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ─────────────────────────────────────────────────────────
-//  DESTINATION LANDING DATA
-// ─────────────────────────────────────────────────────────
 const DEST_DATA = {
   'Amalfi Coast': {
     country: 'Italy', bg: 'linear-gradient(160deg,#1a1208,#2a1e10)', photo: 'https://images.unsplash.com/photo-1513581166391-887a96ddeafd?q=80&w=1470&auto=format&fit=crop',
@@ -8576,8 +8431,6 @@ const DEST_DATA = {
     budgetKey: 'new-york'
   }
 };
-
-
 
 const DEST_HIGHLIGHTS_DATA = {
   'New York': {
@@ -8879,7 +8732,6 @@ const DEST_EDITORIAL_DATA = {
   },
 };
 
-// ─── DESTINATION PHOTO GALLERIES ───
 const DEST_GALLERY_DATA = {
   'Algarve': [
     { url: 'https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop', alt: 'Dramatic Atlantic coastline of the Algarve at golden hour' },
@@ -9060,7 +8912,7 @@ function renderDestBudget(key, destName) {
 let dlState = { vibe: new Set(), privacy: new Set(), budget: new Set(), dest: '' };
 
 function toggleDLPanel(panelId, pillId) {
-  // Only affect panels inside dest-landing page
+
   document.querySelectorAll('#page-dest-landing .results-inline-panel').forEach(p => {
     if (p.id !== panelId) p.classList.remove('open');
   });
@@ -9156,7 +9008,7 @@ function goToDestination(name) {
 
   const d = DEST_DATA[name];
   if (!d) {
-    // Fallback: results page
+
     const input = document.getElementById('search-main');
     if (input) input.value = name;
     resultState.country.clear();
@@ -9166,13 +9018,11 @@ function goToDestination(name) {
     return;
   }
 
-  // Set dest landing page
   dlState.dest = name;
   dlState.vibe.clear(); dlState.privacy.clear(); dlState.budget.clear();
   document.querySelectorAll('#page-dest-landing .inline-tag').forEach(t => t.classList.remove('selected'));
   ['dlvibe-count','dlprivacy-count','dlbudget-count'].forEach(id => { const el = document.getElementById(id); if(el){el.textContent='';el.style.display='none';} });
 
-  // Hero
   const hero = document.getElementById('dest-landing-hero');
   if (hero) {
     if (d.photo) {
@@ -9188,7 +9038,6 @@ function goToDestination(name) {
   if (elTitle)   elTitle.innerHTML = name;
   if (elSub)     elSub.textContent = d.sub;
 
-  // Budget guide
   const budgetTitle = document.getElementById('dest-landing-budget-title');
   if (budgetTitle) budgetTitle.textContent = `What a Proposal in ${name} Actually Costs`;
   const budgetContent = document.getElementById('dest-landing-budget-content');
@@ -9202,9 +9051,6 @@ function goToDestination(name) {
   window.scrollTo(0,0);
 }
 
-
-
-// ─── SEARCH DESTINATION DROPDOWN ───
 function showSearchDestDropdown(val) {
   const dd = document.getElementById('search-dest-dropdown');
   if (!dd) return;
@@ -9222,22 +9068,18 @@ function pickSearchDest(name) {
   const input = document.getElementById('search-main');
   if (input) input.value = name;
   hideSearchDestDropdown();
-  // Don't auto-navigate — let user add more filters then hit Search
+
 }
-// Hide search dropdown on outside click — use mousedown so the listener
-// fires before focus is given to the input, preventing the race condition
-// where the same click both opens (via onfocus) and closes (via click) the dropdown.
+
 document.addEventListener('mousedown', (e) => {
   const bar = document.querySelector('.search-bar-wrap');
   if (bar && !bar.contains(e.target)) hideSearchDestDropdown();
 });
 
-
-// ─── CHECKLIST DOWNLOAD ───
 function handleChecklistDownload() {
   const email = localStorage.getItem('ps_email');
   if (email) {
-    // User has account — confirm it was sent
+
     const btn = document.getElementById('checklist-download-btn');
     if (btn) {
       btn.textContent = '✓ Sent to your email';
@@ -9245,7 +9087,7 @@ function handleChecklistDownload() {
       btn.style.color = '#f4f1eb';
     }
   } else {
-    // Prompt to sign up
+
     pendingSaveId = null;
     window._checklistPending = true;
     openSaveModal();
@@ -9253,25 +9095,23 @@ function handleChecklistDownload() {
 }
 
 function openSignUpPrompt() {
-  // Open save modal in sign-up mode (no pending spot)
+
   pendingSaveId = null;
   openSaveModal();
 }
 
 function openCollection() {
-  // ALWAYS re-read localStorage as authoritative source of truth
+
   try {
     savedSpotIds = JSON.parse(localStorage.getItem('ps_saved') || '[]');
   } catch(e) { savedSpotIds = []; }
 
-  // Also re-read email
   if (!savedEmail) {
     try { savedEmail = localStorage.getItem('ps_email') || ''; } catch(e) {}
   }
 
   console.log('openCollection: savedSpotIds=', savedSpotIds, 'savedEmail=', savedEmail);
 
-  // No account — show sign up modal, don\'t navigate away from current page
   if (!savedEmail) {
     openSignUpPrompt();
     return;
@@ -9282,22 +9122,18 @@ function openCollection() {
   const grid  = document.getElementById('collection-grid');
   const empty = document.getElementById('collection-empty');
 
-  // Has account but no saves — show empty state
   if (savedSpotIds.length === 0) {
     if (grid)  { grid.style.display = 'none'; grid.innerHTML = ''; }
     if (empty) { empty.style.display = 'block'; }
     return;
   }
 
-  // Make sure empty is visible as fallback while loading
   if (grid)  { grid.style.display = 'none'; grid.innerHTML = ''; }
   if (empty) { empty.style.display = 'block'; }
 
-  // Show loading while allSpots fetches
   if (grid)  { grid.style.display = 'grid'; grid.innerHTML = '<p style="font-family:Jost,sans-serif;font-size:12px;color:var(--mid);padding:40px;text-align:center;grid-column:1/-1">Loading your collection…</p>'; }
   if (empty) { empty.style.display = 'none'; }
 
-  // If allSpots not loaded yet, fetch them now
   if (allSpots.length === 0) {
     fetchSpots().then(spots => {
       allSpots = spots;
@@ -9322,7 +9158,6 @@ function renderCollection() {
     return;
   }
 
-  // Always reload from localStorage — definitive source of truth
   try {
     savedSpotIds = JSON.parse(localStorage.getItem('ps_saved') || '[]');
   } catch(e) { savedSpotIds = []; }
@@ -9346,7 +9181,6 @@ function renderCollection() {
   if (sub) sub.textContent = `${spots.length} spot${spots.length > 1 ? 's' : ''} saved to your collection.`;
   empty.style.cssText = 'display:none';
 
-  // Build cards HTML
   const cardsHtml = spots.map(s => {
     const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'];
     const imgStyle = cardPhoto
@@ -9372,7 +9206,6 @@ function renderCollection() {
     </div>`;
   }).join('');
 
-  // Inject into a fresh wrapper — completely bypass the spots-grid CSS class
   grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%';
   grid.innerHTML = cardsHtml;
   console.log('renderCollection: done. grid offsetHeight=', grid.offsetHeight, 'offsetWidth=', grid.offsetWidth);
@@ -9386,52 +9219,37 @@ function removeSavedSpot(id) {
   if (navLink) navLink.classList.toggle('has-saves', savedSpotIds.length > 0);
 }
 
-// ─────────────────────────────────────────────────────────
-//  FILTER SPOTS
-// ─────────────────────────────────────────────────────────
 function applySpotFilters() {
   renderSpots(getFilteredSpots());
 }
 
-// ─────────────────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────────────────
 async function init() {
-  // Show loading state
+
   const grid = document.getElementById('spots-grid');
   if (grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px 0;font-family:\'Jost\',sans-serif;font-size:12px;color:var(--muted);letter-spacing:0.1em;">Loading spots...</div>';
 
   allSpots = await fetchSpots();
 
-  // Show data source banner in console AND as subtle indicator
   const source = AIRTABLE_LIVE ? 'Airtable' : 'Mock';
   console.log(`%c Proposal Spots — ${source} data — ${allSpots.length} spots loaded `, 'background:#1C1C1C;color:#F4F1EB;padding:4px 8px;border-radius:4px;font-family:monospace');
 
   purgeStaleSavedIds();
   renderSpots(allSpots);
 
-  // If collection page is already open (user clicked it before spots loaded), render it now
   const colPage = document.getElementById('page-collection');
   if (colPage && colPage.style.display !== 'none') {
     try { renderCollection(); } catch(e) {}
   }
 
-  // Update nav collection link if user has saves
   const navLink = document.getElementById('nav-collection');
   if (navLink) navLink.classList.toggle('has-saves', savedSpotIds.length > 0);
 }
 init();
 
-// ═══════════════════════════════════════════════════════════
-//  UI STATE + FILTER LOGIC
-// ═══════════════════════════════════════════════════════════
-
-// ── Navbar scroll ──────────────────────────────
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
 });
 
-// ── Autocomplete ───────────────────────────────
 const suggestions = [
   { label:'Italy',           sub:'12 spots',   icon:'◦' },
   { label:'Greece',          sub:'8 spots',    icon:'◦' },
@@ -9471,7 +9289,7 @@ function filterAC(val) {
 function pickAC(value) {
   document.getElementById('search-main').value = value;
   document.getElementById('ac-main').style.display = 'none';
-  // Just fills the field — user can add more filters before hitting Search
+
 }
 
 document.addEventListener('click', e => {
@@ -9479,7 +9297,6 @@ document.addEventListener('click', e => {
     document.getElementById('ac-main').style.display = 'none';
 });
 
-// ── Join the List Modal ─────────────────────────
 function openJoinModal() {
   const overlay = document.getElementById('join-overlay');
   const modal   = document.getElementById('join-modal');
@@ -9502,7 +9319,7 @@ function closeJoinModal() {
     overlay.style.display = 'none';
     modal.style.display   = 'none';
     document.body.style.overflow = '';
-    // Reset all fields
+
     document.getElementById('join-first').value = '';
     document.getElementById('join-last').value  = '';
     document.getElementById('join-email').value = '';
@@ -9522,7 +9339,6 @@ function submitJoin() {
   const phone = document.getElementById('join-phone').value.trim();
   const errEl = document.getElementById('join-error');
 
-  // Basic validation
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!first || !last || !emailOk) {
     errEl.style.display = 'block';
@@ -9531,7 +9347,6 @@ function submitJoin() {
   }
   errEl.style.display = 'none';
 
-  // Disable button, show loading state
   const btn = document.getElementById('join-btn');
   btn.textContent = 'Saving…';
   btn.disabled = true;
@@ -9548,20 +9363,17 @@ function submitJoin() {
     setTimeout(() => closeJoinModal(), 3500);
   })
   .catch(() => {
-    // Still show success to user — don\'t penalise them for network issues
+
     document.getElementById('join-form').style.display = 'none';
     document.getElementById('join-confirm').style.display = 'block';
     setTimeout(() => closeJoinModal(), 3500);
   });
 }
 
-
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeJoinModal();
 });
 
-
-// 'moment' = all spots, 'stay' = only spots with Linked Hotel / Venue
 let currentIntent = 'moment';
 
 function setIntent(intent) {
@@ -9569,7 +9381,6 @@ function setIntent(intent) {
   document.getElementById('intent-moment').classList.toggle('active', intent === 'moment');
   document.getElementById('intent-stay').classList.toggle('active', intent === 'stay');
 
-  // Update search label to match intent
   const label = document.querySelector('#search-main')?.previousElementSibling;
   const labelEl = document.querySelector('.search-input-inner label');
   if (labelEl) {
@@ -9580,7 +9391,6 @@ function setIntent(intent) {
 
   applySpotFilters();
 }
-
 
 function doSearch() {
   if (!allSpots.length) {
@@ -9597,7 +9407,6 @@ document.getElementById('search-main').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
 
-// ── Segmented Search Bar ────────────────────────
 var _ssbState = { destination: '', vibe: '', budget: '' };
 
 function ssbToggle(seg) {
@@ -9672,15 +9481,11 @@ function doSSBSearch() {
   window.location.href = '/search' + (qs ? '?' + qs : '');
 }
 
-// Close SSB dropdowns on outside click
 document.addEventListener('mousedown', function(e) {
   var wrap = document.getElementById('ssb-wrap');
   if (wrap && !wrap.contains(e.target)) ssbCloseAll();
 });
 
-// ── /search page initialisation ─────────────────
-// Reads URL params when landing on /search and seeds
-// the existing filter state before showing results.
 function initSearchPage() {
   if (window.location.pathname !== '/search') return;
   var params = new URLSearchParams(window.location.search);
@@ -9710,24 +9515,20 @@ function initSearchPage() {
   var vibeSlug   = params.get('vibe')        || '';
   var budgetSlug = params.get('budget')      || '';
 
-  // Destination — feeds the text-search path in getFilteredSpots
   if (destSlug && DEST_MAP[destSlug]) {
     var inp = document.getElementById('search-main');
     if (inp) inp.value = DEST_MAP[destSlug];
   }
 
-  // Vibe — capitalise first letter and add to state.vibe Set
   if (vibeSlug) {
     var vibeVal = vibeSlug.charAt(0).toUpperCase() + vibeSlug.slice(1);
     state.vibe.add(vibeVal);
   }
 
-  // Budget — map slug to the value getFilteredSpots understands
   if (budgetSlug && BUDGET_MAP[budgetSlug]) {
     state.budget.add(BUDGET_MAP[budgetSlug]);
   }
 
-  // Wait for Airtable data then show results
   function tryShow() {
     if (allSpots.length > 0) {
       showPage('results');
@@ -9742,9 +9543,8 @@ function initSearchPage() {
 }
 initSearchPage();
 
-// ── Results page render ─────────────────────────
 function renderResultsPage() {
-  // Get current filtered spots
+
   let filtered = getFilteredSpots();
 
   const grid    = document.getElementById('results-grid');
@@ -9752,7 +9552,6 @@ function renderResultsPage() {
   const title   = document.getElementById('results-count-title');
   const tagsEl  = document.getElementById('results-active-tags');
 
-  // Count title
   if (title) {
     if (filtered.length === 0) {
       title.innerHTML = `No spots found`;
@@ -9761,7 +9560,6 @@ function renderResultsPage() {
     }
   }
 
-  // Active filter tags
   if (tagsEl) {
     const tags = [];
     state.vibe.forEach(v    => tags.push({ label: `🌿 ${v}`,     rm: () => { state.vibe.delete(v);    syncResultsPills(); renderResultsPage(); }}));
@@ -9778,14 +9576,13 @@ function renderResultsPage() {
            <span class="results-tag" style="border-color:var(--muted);color:var(--muted);" onclick="clearAllFilters();renderResultsPage()">Clear all ×</span>
          </div>`
       : '';
-    // Show/hide count label based on whether filters are active
+
     const countLabel = document.getElementById('results-count-label');
     if (countLabel) countLabel.style.display = tags.length ? 'none' : '';
-    // Store for click handler
+
     window._resultTags = tags;
   }
 
-  // Render cards into results grid
   if (!filtered.length) {
     if (grid)  grid.innerHTML = '';
     if (empty) empty.style.display = 'block';
@@ -9806,16 +9603,13 @@ function removedResultTag(i) {
   }
 }
 
-// ── Get filtered spots (shared logic) ──────────
 function getFilteredSpots() {
   let filtered = [...allSpots];
   console.log(`getFilteredSpots: ${allSpots.length} total, vibe filter:`, [...state.vibe]);
 
-  // Intent filter — 'stay' shows only spots with a linked hotel
   if (currentIntent === 'stay') {
     filtered = filtered.filter(s => (s['Linked Hotel IDs'] || []).length > 0 || (typeof s['Linked Hotel / Venue'] === 'string' && s['Linked Hotel / Venue'].trim() !== ''));
   }
-
 
   if (state.vibe.size > 0) {
     filtered = filtered.filter(s => {
@@ -9848,7 +9642,7 @@ function getFilteredSpots() {
   if (state.toggles.heels) {
     filtered = filtered.filter(s => s['Heal / Dress Friendly'] === true);
   }
-  // Country filter
+
   if (state.country && state.country.size > 0) {
     filtered = filtered.filter(s => state.country.has(s.Country));
   }
@@ -9863,7 +9657,6 @@ function getFilteredSpots() {
   return filtered;
 }
 
-// ── Country filter ──────────────────────────────
 function toggleCountryFilter(el, val) {
   el.classList.toggle('selected');
   if (!state.country) state.country = new Set();
@@ -9872,9 +9665,6 @@ function toggleCountryFilter(el, val) {
   renderResultsPage();
 }
 
-// ── Results page dedicated filter toggle ────────
-// Used by Vibe + Privacy pills ON the results page
-// Always re-renders results, never touches homepage grid
 function toggleResultsFilter(el, cat, val) {
   el.classList.toggle('selected');
   state[cat].has(val) ? state[cat].delete(val) : state[cat].add(val);
@@ -9882,7 +9672,6 @@ function toggleResultsFilter(el, cat, val) {
   renderResultsPage();
 }
 
-// ── Sync pill active states on results page ─────
 function syncResultsPills() {
   const vEl  = document.getElementById('rpill-vibe');
   const pEl  = document.getElementById('rpill-privacy');
@@ -9891,7 +9680,6 @@ function syncResultsPills() {
   const pLbl = document.getElementById('rprivacy-label');
   const cLbl = document.getElementById('rcountry-label');
 
-  // Vibe pill
   if (vEl) vEl.classList.toggle('active', state.vibe.size > 0);
   if (vLbl) {
     vLbl.textContent = state.vibe.size > 0
@@ -9899,7 +9687,6 @@ function syncResultsPills() {
       : 'Vibe';
   }
 
-  // Privacy pill
   if (pEl) pEl.classList.toggle('active', state.privacy.size > 0);
   if (pLbl) {
     const privacyShort = { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate', 'Everyone Will See': 'Public' };
@@ -9908,7 +9695,6 @@ function syncResultsPills() {
       : 'Privacy';
   }
 
-  // Country pill
   const cs = state.country?.size || 0;
   if (cEl) cEl.classList.toggle('active', cs > 0);
   if (cLbl) {
@@ -9920,7 +9706,6 @@ function syncResultsPills() {
   syncResultsTagSelectedStates();
 }
 
-// ── Results page inline panel toggles ──────────
 function toggleResultsPanel(panelId, pillId) {
   document.querySelectorAll('.results-inline-panel').forEach(p => {
     if (p.id !== panelId) p.classList.remove('open');
@@ -9930,29 +9715,29 @@ function toggleResultsPanel(panelId, pillId) {
 }
 
 function syncResultsTagSelectedStates() {
-  // Vibe tags — match by onclick attribute value
+
   document.querySelectorAll('#rvibe-panel .filter-tag').forEach(el => {
     const match = el.getAttribute('onclick').match(/"vibe","([^"]+)"/);
     if (match) el.classList.toggle('selected', state.vibe.has(match[1]));
   });
-  // Privacy tags
+
   document.querySelectorAll('#rprivacy-panel .filter-tag').forEach(el => {
     const match = el.getAttribute('onclick').match(/"privacy","([^"]+)"/);
     if (match) el.classList.toggle('selected', state.privacy.has(match[1]));
   });
-  // Country tags
+
   document.querySelectorAll('#rcountry-panel .filter-tag').forEach(el => {
     el.classList.toggle('selected', state.country?.has(el.textContent.trim()));
   });
 }
 document.addEventListener('click', e => {
-  // Results page panels
+
   if (document.getElementById('page-results')?.classList.contains('active')) {
     if (!e.target.closest('#page-results .results-panel-wrap')) {
       document.querySelectorAll('#page-results .results-inline-panel').forEach(p => p.classList.remove('open'));
     }
   }
-  // Dest landing panels
+
   if (document.getElementById('page-dest-landing')?.classList.contains('active')) {
     if (!e.target.closest('#page-dest-landing .results-panel-wrap')) {
       document.querySelectorAll('#page-dest-landing .results-inline-panel').forEach(p => p.classList.remove('open'));
@@ -9960,7 +9745,6 @@ document.addEventListener('click', e => {
   }
 });
 
-// ── Inline panels (Vibe / Privacy) ────────────
 let openPanel_inline = null;
 
 function toggleInlinePanel(panelId, pillId) {
@@ -9969,7 +9753,6 @@ function toggleInlinePanel(panelId, pillId) {
   const stats = document.getElementById('hero-stats');
   const isOpen = panel.classList.contains('open');
 
-  // Close any other open inline panel
   document.querySelectorAll('.inline-panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.pill-btn').forEach(p => p.classList.remove('open'));
 
@@ -9988,7 +9771,6 @@ function toggleInlineTag(el, cat, val) {
   el.classList.toggle('selected');
   state[cat].has(val) ? state[cat].delete(val) : state[cat].add(val);
 
-  // Update homepage pill count badges
   const countEl = document.getElementById(cat + '-count');
   const pillEl  = document.getElementById('pill-' + cat);
   if (countEl && pillEl) {
@@ -9998,7 +9780,6 @@ function toggleInlineTag(el, cat, val) {
     if (size > 0) countEl.textContent = size;
   }
 
-  // Sync results page pills and re-render if on results page
   syncResultsPills();
   if (document.getElementById('page-results')?.classList.contains('active')) {
     renderResultsPage();
@@ -10008,7 +9789,6 @@ function toggleInlineTag(el, cat, val) {
   }
 }
 
-// Close inline panels on outside click
 document.addEventListener('click', e => {
   if (!e.target.closest('.inline-panel') && !e.target.closest('#pill-vibe') && !e.target.closest('#pill-privacy')) {
     document.querySelectorAll('.inline-panel').forEach(p => p.classList.remove('open'));
@@ -10017,12 +9797,11 @@ document.addEventListener('click', e => {
     });
     openPanel_inline = null;
     const stats = document.getElementById('hero-stats');
-    // Only show stats if no inline panel open
+
     if (stats) stats.style.visibility = '';
   }
 });
 
-// ── Filter panel ───────────────────────────────
 function openPanel() {
   document.getElementById('filter-panel').classList.add('open');
   document.getElementById('filter-overlay').classList.add('open');
@@ -10066,7 +9845,6 @@ function applyFilters() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Active tags ────────────────────────────────
 function renderActiveTags() {
   const container = document.getElementById('active-tags');
   const tags = [];
@@ -10144,24 +9922,23 @@ function clearAllFilters() {
   document.getElementById('search-main').value = '';
   updateFilterCount();
   syncResultsPills();
-  // Reset intent toggle
+
   currentIntent = 'moment';
   document.getElementById('intent-moment')?.classList.add('active');
   document.getElementById('intent-stay')?.classList.remove('active');
   const labelEl = document.querySelector('.search-input-inner label');
   if (labelEl) labelEl.textContent = 'Where do you want to propose?';
   renderSpots(allSpots);
-  // If on results page, re-render it too
+
   if (document.getElementById('page-results')?.classList.contains('active')) {
     renderResultsPage();
   }
 }
 
-// ── Hotel toggle ─────────────────────────────────────────────
 let hotelStepOn = false;
 let calViewYear = new Date().getFullYear();
 let calViewMonth = new Date().getMonth();
-let selectedProposalDates = []; // array of 'YYYY-MM-DD' strings
+let selectedProposalDates = [];
 
 function toggleHotelStep() {
   hotelStepOn = !hotelStepOn;
@@ -10190,7 +9967,7 @@ function renderProposalDateStep() {
   if (!chips || !cal) return;
 
   if (hotelStepOn) {
-    // Mode A: chips from hotel date range
+
     const ci = document.getElementById('sdp-checkin')?.value;
     const co = document.getElementById('sdp-checkout')?.value;
     chips.style.display = 'flex';
@@ -10221,7 +9998,7 @@ function renderProposalDateStep() {
     }
     chips.innerHTML = html;
   } else {
-    // Mode B: mini calendar, multi-select
+
     chips.style.display = 'none';
     cal.style.display   = '';
     if (sub) sub.textContent = 'Pick your preferred night — select a backup too if you have one';
@@ -10230,7 +10007,7 @@ function renderProposalDateStep() {
 }
 
 function toggleNightChip(el, dateStr) {
-  // Single select — clicking another deselects previous
+
   const chips = document.querySelectorAll('#sdp-night-chips .sdp-night-chip');
   chips.forEach(c => c.classList.remove('selected'));
   selectedProposalDates = [];
@@ -10239,7 +10016,7 @@ function toggleNightChip(el, dateStr) {
     el.classList.add('selected');
     selectedProposalDates = [dateStr];
   }
-  // reset all wasSelected
+
   chips.forEach(c => { c.dataset.wasSelected = 'false'; });
   if (selectedProposalDates.length) el.dataset.wasSelected = 'true';
   syncProposalDateInputs();
@@ -10276,7 +10053,6 @@ function renderMiniCal() {
   }
   html += '</div>';
 
-  // Selected summary
   const selDisplay = document.getElementById('sdp-mini-cal-selected');
   const selVal     = document.getElementById('sdp-mini-cal-sel-val');
   if (selDisplay && selVal) {
@@ -10342,7 +10118,6 @@ function renderSidebarAddons(spotAddons) {
   if (step4num) step4num.textContent = '04';
 }
 
-// ── Hotel info modal ──────────────────────────────────────────
 function showHotelInfo() {
   document.getElementById('hotel-info-overlay').classList.add('open');
   document.getElementById('hotel-info-modal').classList.add('open');
@@ -10357,12 +10132,12 @@ function closeHotelInfo() {
 function goToFaq() {
   const alreadyHome = document.getElementById('page-home').classList.contains('active');
   if (!alreadyHome) {
-    // Show home page but suppress the scroll-to-top
+
     document.querySelectorAll('.page').forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
     const pg = document.getElementById('page-home');
     pg.classList.add('active'); pg.style.display = 'block';
   }
-  // Wait for paint, then scroll
+
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       const el = document.getElementById('faq-section');
@@ -10390,13 +10165,10 @@ function goMarket(slug) {
   if (name) goToDestination(name);
 }
 
-// ─────────────────────────────────────────────────────────
-//  PAGE ROUTING
-// ─────────────────────────────────────────────────────────
 const pageHistory = [];
 
 function showPage(pageId) {
-  // Track history for back button
+
   const activePage = document.querySelector('.page.active');
   if (activePage) {
     const currentId = activePage.id.replace('page-', '');
@@ -10406,7 +10178,6 @@ function showPage(pageId) {
     }
   }
 
-  // Clear search input when returning to home so it doesn't persist
   if (pageId === 'home') {
     const searchInput = document.getElementById('search-main');
     if (searchInput) searchInput.value = '';
@@ -10414,49 +10185,38 @@ function showPage(pageId) {
     if (ac) ac.style.display = 'none';
   }
 
-  // Hide all pages
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
     p.style.display = 'none';
   });
 
-  // Show target page
   const pg = document.getElementById('page-' + pageId);
   if (pg) {
     pg.classList.add('active');
     pg.style.display = 'block';
   }
 
-  // Scroll to top instantly
   window.scrollTo(0, 0);
 
-  // Update active nav states
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('nav-active'));
   const activeLink = document.getElementById('nav-' + pageId);
   if (activeLink) activeLink.classList.add('nav-active');
 
-  // Proposal Map CTA colour
   const mapCta = document.getElementById('nav-map');
   if (mapCta) {
     mapCta.style.background = pageId === 'map' ? 'var(--accent)' : '';
   }
 }
 
-// ─────────────────────────────────────────────────────────
-//  FAQ ACCORDION
-// ─────────────────────────────────────────────────────────
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const isOpen = item.classList.contains('open');
-  // Close all
+
   document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  // Open clicked (unless it was already open)
+
   if (!isOpen) item.classList.add('open');
 }
 
-// ─────────────────────────────────────────────────────────
-//  MAP PIN PREVIEW
-// ─────────────────────────────────────────────────────────
 function openMapSpot(region, country, name, tags, gradient) {
   document.getElementById('msp-bg').style.background = gradient;
   document.getElementById('msp-loc').textContent = region + ' · ' + country;
@@ -10467,36 +10227,30 @@ function openMapSpot(region, country, name, tags, gradient) {
   document.getElementById('map-preview').style.display = 'block';
 }
 
-// ─────────────────────────────────────────────────────────
-//  HOTEL FORM SUBMISSION
-// ─────────────────────────────────────────────────────────
 function submitHotelForm(e) {
   e.preventDefault();
   document.getElementById('hf-form').style.display = 'none';
   document.getElementById('hf-confirm').style.display = 'block';
 }
 
-// ─────────────────────────────────────────────────────────
-//  SPOT MAP
-// ─────────────────────────────────────────────────────────
 function parseGoogleMapsCoords(url) {
   if (!url) return null;
-  // Format: @lat,lng  e.g. google.com/maps/@40.7128,-74.0060,15z  or  /place/Name/@lat,lng
+
   var atMatch = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (atMatch) return { lat: parseFloat(atMatch[1]), lng: parseFloat(atMatch[2]) };
-  // Format: ?q=lat,lng or &q=lat,lng  e.g. ?q=40.7128,-74.0060
+
   var qMatch = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (qMatch) return { lat: parseFloat(qMatch[1]), lng: parseFloat(qMatch[2]) };
-  // Format: ll=lat,lng  e.g. maps.google.com/?ll=40.7128,-74.0060
+
   var llMatch = url.match(/[?&]ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (llMatch) return { lat: parseFloat(llMatch[1]), lng: parseFloat(llMatch[2]) };
-  // Format: query=lat,lng  e.g. /maps/search/?api=1&query=40.7128,-74.0060
+
   var queryMatch = url.match(/[?&]query=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (queryMatch) return { lat: parseFloat(queryMatch[1]), lng: parseFloat(queryMatch[2]) };
-  // Format: destination=lat,lng  e.g. /maps/dir/?destination=40.7128,-74.0060
+
   var destMatch = url.match(/[?&]destination=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (destMatch) return { lat: parseFloat(destMatch[1]), lng: parseFloat(destMatch[2]) };
-  // Short URLs (maps.app.goo.gl, goo.gl/maps) cannot be resolved client-side — return null
+
   return null;
 }
 
