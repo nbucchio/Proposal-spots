@@ -22,6 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="/lib/imageUtils.js" defer></script>
+  
   <script src="/nav.js" defer></script>
   <script src="/destination-hero.js" defer></script>
   <style>
@@ -759,7 +761,7 @@
       'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥'
     };
     function buildSpotCard(s) {
-      const cardPhoto = s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || '');
+      const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || ''));
       const imgStyle = cardPhoto
         ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
         : `background:${s.coverGradient || '#1e2835'};`;
@@ -771,7 +773,7 @@
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
       const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
-      const allImgs = [cardPhoto, ...(s['Gallery Photos'] || [])].filter(Boolean);
+      const allImgs = [cardPhoto, ...(s['Gallery Photos'] || []).map(optimizeAirtableImage)].filter(Boolean);
       const hasMultiple = allImgs.length > 1;
       const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
       const scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>'}).join('') + '</div>' : '';
