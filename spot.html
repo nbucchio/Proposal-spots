@@ -1770,7 +1770,6 @@ nav {
 </style>
 <link rel="stylesheet" href="/mobile.min.css">
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
-<script src="/lib/imageUtils.js"></script>
 </head>
 <body>
 
@@ -2285,6 +2284,12 @@ nav {
 </div>
 
 <script>
+function optimizeAirtableImage(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (!url.includes('airtableusercontent.com')) return url;
+  return '/cdn-cgi/image/width=800,format=webp,quality=80/' + url;
+}
+
 // ─────────────────────────────────────────────────────────
 //  GLOBALS
 // ─────────────────────────────────────────────────────────
