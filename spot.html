@@ -2284,10 +2284,10 @@ nav {
 </div>
 
 <script>
-function optimizeAirtableImage(url) {
+function optimizeAirtableImage(url, width) {
   if (!url || typeof url !== 'string') return url;
   if (!url.includes('airtableusercontent.com')) return url;
-  return '/cdn-cgi/image/width=800,format=webp,quality=80/' + url;
+  return '/cdn-cgi/image/width=' + (width || 800) + ',format=webp,quality=80/' + url;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -2473,7 +2473,7 @@ function populateSpot(s) {
       }, { once: true });
     }
   } else if (s['Cover Photo']) {
-    bg.style.backgroundImage = `url('${optimizeAirtableImage(s['Cover Photo'])}')`;
+    bg.style.backgroundImage = `url('${optimizeAirtableImage(s['Cover Photo'], 1600)}')`;
     bg.style.backgroundSize = 'cover';
     bg.style.backgroundPosition = s['Hero Position'] || 'center center';
   }
