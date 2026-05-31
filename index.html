@@ -7035,7 +7035,7 @@ function openSpotDrawer(id) {
 
   const bg = document.getElementById('sdp-hero-bg');
   if (s['Cover Photo']) {
-    bg.style.backgroundImage = `url('${optimizeAirtableImage(s['Cover Photo'])}')`;
+    bg.style.backgroundImage = `url('${optimizeAirtableImage(s['Cover Photo'], 1600)}')`;
     bg.style.backgroundSize = 'cover';
     bg.style.backgroundPosition = s['Hero Position'] || 'center center';
     setTimeout(() => bg.classList.add('loaded'), 100);
