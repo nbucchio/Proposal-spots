@@ -7035,7 +7035,7 @@ function openSpotDrawer(id) {
 
   const bg = document.getElementById('sdp-hero-bg');
   if (s['Cover Photo']) {
-    bg.style.backgroundImage = `url('${s['Cover Photo']}')`;
+    bg.style.backgroundImage = `url('${optimizeAirtableImage(s['Cover Photo'])}')`;
     bg.style.backgroundSize = 'cover';
     bg.style.backgroundPosition = s['Hero Position'] || 'center center';
     setTimeout(() => bg.classList.add('loaded'), 100);
@@ -8061,9 +8061,11 @@ let galleryPhotos = [];
 let galleryIndex  = 0;
 
 function resolvePhotoUrl(urlOrObj) {
-  if (typeof urlOrObj === 'string') return urlOrObj;
-  if (urlOrObj?.thumbnails?.large?.url) return urlOrObj.thumbnails.large.url;
-  return urlOrObj?.url || '';
+  let url;
+  if (typeof urlOrObj === 'string') url = urlOrObj;
+  else if (urlOrObj?.thumbnails?.large?.url) url = urlOrObj.thumbnails.large.url;
+  else url = urlOrObj?.url || '';
+  return optimizeAirtableImage(url);
 }
 
 function renderGallery(photos) {
