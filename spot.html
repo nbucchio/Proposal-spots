@@ -501,9 +501,13 @@ nav {
 }
 .sdp-concierge-price-block {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
+}
+.sdp-concierge-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 .sdp-concierge-from {
   font-family: 'Jost', sans-serif;
@@ -520,8 +524,29 @@ nav {
   font-family: 'Jost', sans-serif;
   font-size: 10px; font-weight: 300;
   color: var(--muted); letter-spacing: 0.06em;
-  white-space: nowrap;
 }
+.sdp-price-code {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 3px;
+}
+.sdp-convert-link {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0.65;
+  border-bottom: 1px dotted currentColor;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.sdp-convert-link:hover { opacity: 1; }
 .sdp-concierge-hotel-tag {
   display: flex;
   align-items: center;
@@ -1919,9 +1944,12 @@ nav {
           <div class="sdp-concierge-top">
             <span class="sdp-concierge-eyebrow">Proposal Package</span>
             <div class="sdp-concierge-price-block">
-              <div style="display:flex;align-items:baseline;gap:6px">
-                <span class="sdp-concierge-from">from</span>
-                <span class="sdp-concierge-price" id="sdp-concierge-price">—</span>
+              <div class="sdp-concierge-price-row">
+                <div style="display:flex;align-items:baseline;gap:6px">
+                  <span class="sdp-concierge-from">from</span>
+                  <span class="sdp-concierge-price" id="sdp-concierge-price">—</span>
+                </div>
+                <a class="sdp-convert-link" id="sdp-convert-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none">Convert ↗</a>
               </div>
               <span class="sdp-concierge-note">No payment until you approve your quote</span>
             </div>
@@ -2413,6 +2441,7 @@ function mapSpotFromAirtable(r) {
     'Gallery Photos': (f['Gallery Photos'] || []),
     'Google Maps Link': f['Google Maps Link'] || '',
     'Price Moment': f['Price Moment'] || null,
+    'Price Currency': f['Price Currency'] || null,
     'Price Hotel Per Night': f['Price Hotel Per Night'] || null,
     'Price Photographer': f['Price Photographer'] || null,
     'Photographer Note': f['Photographer Note'] || '',
@@ -2552,8 +2581,10 @@ function populateSpot(s) {
   if (step2El) step2El.style.display = hasHotel ? '' : 'none';
 
   // Price
-  document.getElementById('sdp-concierge-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
-  document.getElementById('sdp-bar-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+  var _priceHtml = s['Price Moment'] ? formatPriceHTML(s['Price Moment'], s['Price Currency']) : 'Enquire';
+  document.getElementById('sdp-concierge-price').innerHTML = _priceHtml;
+  document.getElementById('sdp-bar-price').innerHTML = _priceHtml;
+  _updateConvertLink(s['Price Moment'], s['Price Currency']);
 
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
@@ -2835,8 +2866,37 @@ function getMultiplierForSeason(season) {
   return 1;
 }
 
-function formatPrice(n) {
-  return '$' + Math.round(n).toLocaleString();
+const CURRENCY_MAP = {
+  USD: { symbol: '$',   code: 'USD' },
+  EUR: { symbol: '€',   code: 'EUR' },
+  GBP: { symbol: '£',   code: 'GBP' },
+  AUD: { symbol: 'A$',  code: 'AUD' },
+  IDR: { symbol: 'Rp',  code: 'IDR' },
+  CHF: { symbol: 'CHF', code: 'CHF' },
+  BRL: { symbol: 'R$',  code: 'BRL' },
+  MXN: { symbol: '$',   code: 'MXN' },
+};
+
+function formatPrice(n, currency) {
+  const { symbol, code } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
+  return symbol + ' ' + Math.round(n).toLocaleString() + ' ' + code;
+}
+
+function formatPriceHTML(n, currency) {
+  const { symbol, code } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
+  return symbol + ' ' + Math.round(n).toLocaleString() + '<span class="sdp-price-code">' + code + '</span>';
+}
+
+function _updateConvertLink(amount, currency) {
+  var link = document.getElementById('sdp-convert-link');
+  if (!link) return;
+  var curr = currency || 'USD';
+  if (curr !== 'USD' && amount) {
+    link.href = 'https://www.google.com/search?q=' + Math.round(amount) + '+' + curr + '+to+USD';
+    link.style.display = '';
+  } else {
+    link.style.display = 'none';
+  }
 }
 
 function renderPackages(season) {
@@ -2853,7 +2913,7 @@ function updateSelectionSummary() {
   if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
     const pkg = currentSpot.packages[_tieredSelectedIdx];
     if (pkg) {
-      const priceSuffix = pkg['Price'] ? ' — $' + Math.round(pkg['Price']).toLocaleString() : '';
+      const priceSuffix = pkg['Price'] ? ' — ' + formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : '';
       lines.push(pkg['Tier Name'] + priceSuffix);
     }
   } else {
@@ -3231,7 +3291,7 @@ function openEnquiryModal() {
   if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
     const pkg = currentSpot.packages[_tieredSelectedIdx];
     if (pkg && sumPackage && sumPackageVal) {
-      const priceSuffix = pkg['Price'] ? ' ($' + Math.round(pkg['Price']).toLocaleString() + ')' : '';
+      const priceSuffix = pkg['Price'] ? ' (' + formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) + ')' : '';
       sumPackageVal.textContent = pkg['Tier Name'] + priceSuffix;
       sumPackage.style.display = '';
       sumEl.style.display = '';
@@ -3537,7 +3597,7 @@ function renderTieredPackages(packages) {
       return !prevItems.some(function(p) { return p.toLowerCase() === item.toLowerCase(); });
     });
 
-    var price         = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    var price         = pkg['Price'] ? formatPriceHTML(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
     var isPopular     = (pkg['Tier Name'] || '').toLowerCase() === 'romantic';
     var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
     var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
@@ -3583,7 +3643,7 @@ function _renderTierSelectorHTML(packages) {
   if (!container) return;
   container.innerHTML = packages.map(function(pkg, i) {
     var sel   = (i === _tieredSelectedIdx);
-    var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    var price = pkg['Price'] ? formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
     return '<div class="sdp-tier-sel-row' + (sel ? ' selected' : '') + '" onclick="selectTier(' + i + ')">' +
       '<div class="sdp-tier-sel-dot"><div class="sdp-tier-sel-dot-inner"></div></div>' +
       '<span class="sdp-tier-sel-name">' + pkg['Tier Name'] + '</span>' +
@@ -3593,13 +3653,15 @@ function _renderTierSelectorHTML(packages) {
 }
 
 function _updatePriceFromTier(packages) {
-  var pkg   = packages[_tieredSelectedIdx];
+  var pkg      = packages[_tieredSelectedIdx];
   if (!pkg) return;
-  var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+  var currency = currentSpot && currentSpot['Price Currency'];
+  var priceHtml = pkg['Price'] ? formatPriceHTML(pkg['Price'], currency) : 'Enquire';
   var priceEl    = document.getElementById('sdp-concierge-price');
   var barPriceEl = document.getElementById('sdp-bar-price');
-  if (priceEl)    priceEl.textContent    = price;
-  if (barPriceEl) barPriceEl.textContent = price;
+  if (priceEl)    priceEl.innerHTML    = priceHtml;
+  if (barPriceEl) barPriceEl.innerHTML = priceHtml;
+  _updateConvertLink(pkg['Price'], currency);
 }
 
 function _renderTierAddons(spot) {
@@ -3669,8 +3731,8 @@ function _renderTierAddons(spot) {
     var pAttr = '';
     if (a.price !== null && a.price !== undefined) {
       if (typeof a.price === 'number') {
-        pLabel = '+$' + Math.round(a.price).toLocaleString();
-        pAttr  = '$' + Math.round(a.price).toLocaleString();
+        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pAttr  = formatPrice(a.price, spot['Price Currency']);
       } else {
         var ps = String(a.price);
         pLabel = '+' + ps;

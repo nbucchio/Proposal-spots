@@ -6757,6 +6757,7 @@ async function fetchFromAirtable() {
         badge:                   f['Badge']                   || null,
         coverGradient:           f['Cover Gradient']          || 'linear-gradient(160deg,#28342c,#1e2835)',
         'Price Moment':           f['Price Moment']            || null,
+        'Price Currency':         f['Price Currency']          || null,
         'Price Hotel Per Night':  f['Price Hotel Per Night']   || null,
         'Price Photographer':     f['Price Photographer']      || null,
         'Package Includes':       f['Package Includes']        || '',
@@ -6971,11 +6972,11 @@ function buildCardPriceRow(s) {
 
   const parts = [];
   if (moment) {
-    parts.push(`<span class="spot-card-price-signal">Proposal from <strong>$${Math.round(moment).toLocaleString()}</strong></span>`);
+    parts.push(`<span class="spot-card-price-signal">Proposal from <strong>${formatPrice(moment, s['Price Currency'])}</strong></span>`);
   }
   if (hotelNightly) {
     if (parts.length) parts.push('<div class="spot-card-price-divider"></div>');
-    parts.push(`<span class="spot-card-price-signal">Hotels from <strong>$${Math.round(hotelNightly).toLocaleString()}/night</strong></span>`);
+    parts.push(`<span class="spot-card-price-signal">Hotels from <strong>${formatPrice(hotelNightly, s['Price Currency'])}/night</strong></span>`);
   }
   return `<div class="spot-card-price-row">${parts.join('')}</div>`;
 }
@@ -7081,7 +7082,7 @@ function openSpotDrawer(id) {
   if (priceCta && ctaAmount) {
     const momentPrice = s['Price Moment'];
     if (momentPrice) {
-      ctaAmount.textContent = '$' + Math.round(momentPrice).toLocaleString();
+      ctaAmount.textContent = formatPrice(momentPrice, s['Price Currency']);
       priceCta.style.display = '';
     } else {
       priceCta.style.display = 'none';
@@ -7185,7 +7186,7 @@ function openSpotDrawer(id) {
   updateSaveUI(s.id);
 
   const concPrice = document.getElementById('sdp-concierge-price');
-  if (concPrice) concPrice.textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+  if (concPrice) concPrice.textContent = s['Price Moment'] ? formatPrice(s['Price Moment'], s['Price Currency']) : 'Enquire';
 
   const concHotelTag = document.getElementById('sdp-concierge-hotel-tag');
   const vibeStripHotelChip = document.getElementById('sdp-hotel-chip');
@@ -7217,7 +7218,7 @@ function openSpotDrawer(id) {
   const barPrice = document.getElementById('sdp-bar-price');
   const barSaveEl = document.getElementById('sdp-bar-save');
   if (bar) bar.style.display = 'flex';
-  if (barPrice) barPrice.textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+  if (barPrice) barPrice.textContent = s['Price Moment'] ? formatPrice(s['Price Moment'], s['Price Currency']) : 'Enquire';
   if (barSaveEl) { barSaveEl.textContent = isSpotSaved(s.id) ? '♥' : '♡'; barSaveEl.classList.toggle('saved', isSpotSaved(s.id)); }
 
   showPage('spot');
@@ -7250,8 +7251,20 @@ function getMultiplierForSeason(season) {
   return 1;
 }
 
-function formatPrice(n) {
-  return '$' + Math.round(n).toLocaleString();
+const CURRENCY_MAP = {
+  USD: { symbol: '$',   code: 'USD' },
+  EUR: { symbol: '€',   code: 'EUR' },
+  GBP: { symbol: '£',   code: 'GBP' },
+  AUD: { symbol: 'A$',  code: 'AUD' },
+  IDR: { symbol: 'Rp',  code: 'IDR' },
+  CHF: { symbol: 'CHF', code: 'CHF' },
+  BRL: { symbol: 'R$',  code: 'BRL' },
+  MXN: { symbol: '$',   code: 'MXN' },
+};
+
+function formatPrice(n, currency) {
+  const { symbol, code } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
+  return symbol + ' ' + Math.round(n).toLocaleString() + ' ' + code;
 }
 
 function parsePriceForSeason(base, season) {
@@ -7272,7 +7285,8 @@ function loadSpotPricing(spot) {
     lowMonths:    parseMths(spot['Low Months']),
     peakMult:     spot['Peak Multiplier']       || 1.3,
     lowMult:      spot['Low Multiplier']        || 0.85,
-    hasPricing:   !!(spot['Price Moment'] || spot['Price Hotel Per Night'])
+    hasPricing:   !!(spot['Price Moment'] || spot['Price Hotel Per Night']),
+    currency:     spot['Price Currency']        || null,
   };
   selectedPackage = 'hotel';
   photographerAddonActive = false;
@@ -7288,7 +7302,7 @@ function loadSpotPricing(spot) {
     if (desc) desc.textContent = currentSpotPricing.photoNote;
 
     const priceEl = document.getElementById('sdp-addon-price');
-    if (priceEl && currentSpotPricing.photographer) priceEl.textContent = '+ ' + formatPrice(currentSpotPricing.photographer);
+    if (priceEl && currentSpotPricing.photographer) priceEl.textContent = '+ ' + formatPrice(currentSpotPricing.photographer, currentSpotPricing.currency);
   }
 
   renderPackages(null);
@@ -7330,10 +7344,10 @@ function renderPackages(season) {
 
   if (nightlyAdj) {
     if (nights > 0) {
-      el('pkg-hotel-price', formatPrice(hotelTotal));
-      el('pkg-hotel-nights', nights + ' nights · ' + formatPrice(nightlyAdj) + '/night');
+      el('pkg-hotel-price', formatPrice(hotelTotal, currentSpotPricing.currency));
+      el('pkg-hotel-nights', nights + ' nights · ' + formatPrice(nightlyAdj, currentSpotPricing.currency) + '/night');
     } else {
-      el('pkg-hotel-price', 'From ' + formatPrice(nightlyAdj) + '/night');
+      el('pkg-hotel-price', 'From ' + formatPrice(nightlyAdj, currentSpotPricing.currency) + '/night');
       el('pkg-hotel-nights', 'Select dates to see total');
     }
   } else {
