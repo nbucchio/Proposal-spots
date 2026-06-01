@@ -2413,6 +2413,7 @@ function mapSpotFromAirtable(r) {
     'Gallery Photos': (f['Gallery Photos'] || []),
     'Google Maps Link': f['Google Maps Link'] || '',
     'Price Moment': f['Price Moment'] || null,
+    'Price Currency': f['Price Currency'] || null,
     'Price Hotel Per Night': f['Price Hotel Per Night'] || null,
     'Price Photographer': f['Price Photographer'] || null,
     'Photographer Note': f['Photographer Note'] || '',
@@ -2552,8 +2553,8 @@ function populateSpot(s) {
   if (step2El) step2El.style.display = hasHotel ? '' : 'none';
 
   // Price
-  document.getElementById('sdp-concierge-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
-  document.getElementById('sdp-bar-price').textContent = s['Price Moment'] ? '$' + Math.round(s['Price Moment']).toLocaleString() : 'Enquire';
+  document.getElementById('sdp-concierge-price').textContent = s['Price Moment'] ? formatPrice(s['Price Moment'], s['Price Currency']) : 'Enquire';
+  document.getElementById('sdp-bar-price').textContent = s['Price Moment'] ? formatPrice(s['Price Moment'], s['Price Currency']) : 'Enquire';
 
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
@@ -2835,8 +2836,20 @@ function getMultiplierForSeason(season) {
   return 1;
 }
 
-function formatPrice(n) {
-  return '$' + Math.round(n).toLocaleString();
+const CURRENCY_MAP = {
+  USD: { symbol: '$',   code: 'USD' },
+  EUR: { symbol: '€',   code: 'EUR' },
+  GBP: { symbol: '£',   code: 'GBP' },
+  AUD: { symbol: 'A$',  code: 'AUD' },
+  IDR: { symbol: 'Rp',  code: 'IDR' },
+  CHF: { symbol: 'CHF', code: 'CHF' },
+  BRL: { symbol: 'R$',  code: 'BRL' },
+  MXN: { symbol: '$',   code: 'MXN' },
+};
+
+function formatPrice(n, currency) {
+  const { symbol, code } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
+  return symbol + ' ' + Math.round(n).toLocaleString() + ' ' + code;
 }
 
 function renderPackages(season) {
@@ -2853,7 +2866,7 @@ function updateSelectionSummary() {
   if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
     const pkg = currentSpot.packages[_tieredSelectedIdx];
     if (pkg) {
-      const priceSuffix = pkg['Price'] ? ' — $' + Math.round(pkg['Price']).toLocaleString() : '';
+      const priceSuffix = pkg['Price'] ? ' — ' + formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : '';
       lines.push(pkg['Tier Name'] + priceSuffix);
     }
   } else {
@@ -3231,7 +3244,7 @@ function openEnquiryModal() {
   if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
     const pkg = currentSpot.packages[_tieredSelectedIdx];
     if (pkg && sumPackage && sumPackageVal) {
-      const priceSuffix = pkg['Price'] ? ' ($' + Math.round(pkg['Price']).toLocaleString() + ')' : '';
+      const priceSuffix = pkg['Price'] ? ' (' + formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) + ')' : '';
       sumPackageVal.textContent = pkg['Tier Name'] + priceSuffix;
       sumPackage.style.display = '';
       sumEl.style.display = '';
@@ -3537,7 +3550,7 @@ function renderTieredPackages(packages) {
       return !prevItems.some(function(p) { return p.toLowerCase() === item.toLowerCase(); });
     });
 
-    var price         = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    var price         = pkg['Price'] ? formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
     var isPopular     = (pkg['Tier Name'] || '').toLowerCase() === 'romantic';
     var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
     var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
@@ -3583,7 +3596,7 @@ function _renderTierSelectorHTML(packages) {
   if (!container) return;
   container.innerHTML = packages.map(function(pkg, i) {
     var sel   = (i === _tieredSelectedIdx);
-    var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+    var price = pkg['Price'] ? formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
     return '<div class="sdp-tier-sel-row' + (sel ? ' selected' : '') + '" onclick="selectTier(' + i + ')">' +
       '<div class="sdp-tier-sel-dot"><div class="sdp-tier-sel-dot-inner"></div></div>' +
       '<span class="sdp-tier-sel-name">' + pkg['Tier Name'] + '</span>' +
@@ -3595,7 +3608,7 @@ function _renderTierSelectorHTML(packages) {
 function _updatePriceFromTier(packages) {
   var pkg   = packages[_tieredSelectedIdx];
   if (!pkg) return;
-  var price = pkg['Price'] ? '$' + Math.round(pkg['Price']).toLocaleString() : 'Enquire';
+  var price = pkg['Price'] ? formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
   var priceEl    = document.getElementById('sdp-concierge-price');
   var barPriceEl = document.getElementById('sdp-bar-price');
   if (priceEl)    priceEl.textContent    = price;
@@ -3669,8 +3682,8 @@ function _renderTierAddons(spot) {
     var pAttr = '';
     if (a.price !== null && a.price !== undefined) {
       if (typeof a.price === 'number') {
-        pLabel = '+$' + Math.round(a.price).toLocaleString();
-        pAttr  = '$' + Math.round(a.price).toLocaleString();
+        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pAttr  = formatPrice(a.price, spot['Price Currency']);
       } else {
         var ps = String(a.price);
         pLabel = '+' + ps;
