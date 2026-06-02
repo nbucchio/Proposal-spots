@@ -2151,6 +2151,9 @@ footer {
 
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
+  /* Tighten gap between Browse by Vibe and Featured Markets on mobile */
+  #vibes-section .section { padding-bottom: 28px; }
+  #markets-section .section { padding-top: 28px; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
   .market-card:first-child { min-height: 280px; }
   .vibe-card { flex-basis: 65%; }
@@ -5283,7 +5286,7 @@ footer {
 </section>
 
 <!-- VIBES -->
-<div class="section-wrap alt">
+<div class="section-wrap alt" id="vibes-section">
   <div class="section">
     <div class="section-header">
       <div class="section-meta">
