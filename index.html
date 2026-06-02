@@ -1944,12 +1944,12 @@ footer {
 
   /* ── M2 Hero A — full-bleed proposal photo with overlapping capsule ── */
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=80&w=1470&auto=format&fit=crop') !important;
+    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=2400&auto=format&fit=crop') !important;
     background-size: cover;
     background-position: 25% center;
     background-color: var(--bg);
-    height: 75vh;
-    min-height: 520px;
+    height: 90vh;
+    min-height: 600px;
     padding: 88px 24px 0;
     align-items: stretch;
     justify-content: flex-start;
@@ -2018,7 +2018,7 @@ footer {
     right: 16px;
     width: auto;
     max-width: none;
-    margin: 40px 0 0;
+    margin: 0;
     z-index: 9000;
   }
   .ssb-wrap {
@@ -5261,8 +5261,9 @@ footer {
   .ps-process-step-1,
   .ps-process-step-2,
   .ps-process-step-3 { padding:0; }
-  /* Push the section below the fold on mobile so it isn't visible on initial load */
-  .ps-process-section { margin-top:80px; }
+  /* Top padding clears the search card's overhang (~62px) plus breathing room,
+     and with the taller hero this keeps the section below the fold on load */
+  .ps-process-section { padding-top:96px !important; }
 }
 </style>
 <section class="ps-process-section" style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
