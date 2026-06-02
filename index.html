@@ -1459,6 +1459,29 @@ nav.scrolled {
 }
 
 /* ─────────────────────────────────────
+   CLOSING CTA BUTTON
+   Intentionally NOT using nav-cta class — nav.js hides nav-cta on mobile
+───────────────────────────────────── */
+.cta-pill {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bg) !important;
+  background: var(--ink);
+  border-radius: 100px;
+  padding: 14px 36px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.cta-pill:hover { background: var(--accent); transform: scale(1.02); }
+
+/* ─────────────────────────────────────
    FAQ
 ───────────────────────────────────── */
 .faq-wrap {
@@ -5457,7 +5480,7 @@ footer {
   <span style="display:block;font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">The Moment Starts Here</span>
   <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,4vw,52px);font-weight:300;font-style:italic;color:var(--ink);letter-spacing:0.01em;line-height:1.2;margin:0 0 20px;">Ready to find the one spot?</h2>
   <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);letter-spacing:0.03em;line-height:1.8;max-width:420px;margin:0 auto 40px;">Every location on Proposal Spots has been personally reviewed for its light, its privacy, and its feeling.</p>
-  <a href="/search" class="nav-cta" style="font-size:11px;padding:14px 36px;letter-spacing:0.18em;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--ink)'">Find Your Spot &rarr;</a>
+  <a href="/search" class="cta-pill" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--ink)'">Find Your Spot &rarr;</a>
 </div>
 
 </main>
