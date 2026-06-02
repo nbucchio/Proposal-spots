@@ -892,60 +892,107 @@ nav.scrolled {
 .mc-fiji     { background: #162c26; }
 
 /* ─────────────────────────────────────
-   COLLECTIONS
+   VIBES CAROUSEL
 ───────────────────────────────────── */
-.collections-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--divider);
-}
-.collection-card {
-  padding: 32px 28px 36px;
-  border-right: 1px solid var(--divider);
-  cursor: pointer;
-  transition: background 0.2s;
+.vibes-carousel-wrap {
   position: relative;
 }
-.collection-card:last-child { border-right: none; }
-.collection-card { cursor: pointer; }
-.collection-card:hover { background: var(--white); }
+.vibes-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 0;
+}
+.vibes-carousel::-webkit-scrollbar { display: none; }
 
-.collection-num {
-  font-family: 'Cormorant', serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--muted);
+.vibe-card {
+  position: relative;
+  flex: 0 0 calc((100% - 60px) / 4);
+  aspect-ratio: 4/5;
+  border-radius: 10px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: #fff;
   display: block;
-  margin-bottom: 20px;
-  letter-spacing: 0.04em;
+  background: var(--bg3);
 }
-.collection-name {
-  font-family: 'Cormorant', serif;
-  font-size: 20px;
+.vibe-card-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease-out;
+}
+.vibe-card::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+.vibe-num {
+  position: absolute;
+  top: 24px; left: 24px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
   font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 10px;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-}
-.collection-desc {
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.75;
-  letter-spacing: 0.02em;
-}
-.collection-link {
-  display: block;
-  margin-top: 20px;
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
+  color: #fff;
   text-transform: uppercase;
-  color: var(--muted);
-  transition: color 0.2s;
+  z-index: 2;
 }
-.collection-card:hover .collection-link { color: var(--ink); }
+.vibe-label {
+  position: absolute;
+  bottom: 24px; left: 24px; right: 24px;
+  font-family: 'Cormorant', serif;
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  z-index: 2;
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+.vibe-card:hover .vibe-card-img { transform: scale(1.05); }
+.vibe-card:hover .vibe-label    { transform: translateY(-4px); }
+.vibe-card:hover::after         { opacity: 0.92; }
+.vibe-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.vibes-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: opacity 0.2s, border-color 0.2s, background 0.2s;
+}
+.vibes-arrow:hover { border-color: var(--ink); }
+.vibes-arrow-prev { left: -20px; }
+.vibes-arrow-next { right: -20px; }
+.vibes-arrow[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
 
 /* ─────────────────────────────────────
    SPOT CARDS
@@ -1791,9 +1838,7 @@ footer {
 @media (max-width: 1024px) {
   .markets-grid { grid-template-columns: repeat(3, 1fr); }
   .market-card:nth-child(4) { grid-column: span 1; aspect-ratio: 3/4; }
-  .collections-grid { grid-template-columns: repeat(2, 1fr); }
-  .collection-card:nth-child(2) { border-right: none; }
-  .collection-card:nth-child(3) { border-top: 1px solid var(--divider); }
+  .vibe-card { flex-basis: calc((100% - 40px) / 3); }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
   .seo-inner { gap: 56px; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -2093,7 +2138,8 @@ footer {
   .section { padding: 64px 20px; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
   .market-card:first-child { min-height: 280px; }
-  .collections-grid { grid-template-columns: 1fr 1fr; }
+  .vibe-card { flex-basis: 65%; }
+  .vibes-arrow { display: none; }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
   .seo-inner { grid-template-columns: 1fr; gap: 40px; }
   .footer-top { grid-template-columns: 1fr 1fr; }
@@ -2112,8 +2158,7 @@ footer {
   .markets-grid { grid-template-columns: 1fr; }
   .market-card:first-child,
   .market-card:nth-child(4) { grid-column: span 1; }
-  .collections-grid { grid-template-columns: 1fr; }
-  .collection-card { border-right: none; border-bottom: 1px solid var(--divider); }
+  .vibe-card { flex-basis: 75%; }
   .footer-top { grid-template-columns: 1fr; }
   /* Tighter footer at very small screens */
   footer { padding: 32px 16px 24px; }
@@ -5263,41 +5308,24 @@ footer {
   </div>
 </section>
 
-<!-- COLLECTIONS -->
+<!-- VIBES -->
 <div class="section-wrap alt">
   <div class="section">
     <div class="section-header">
       <div class="section-meta">
         <span class="section-eyebrow">Expertly curated</span>
-        <h2 class="section-title">Browse by <strong>Collection</strong></h2>
+        <h2 class="section-title">Browse by <strong>Vibe</strong></h2>
       </div>
-      <a href="#" class="section-link">All collections →</a>
+      <a href="/search" class="section-link">All vibes →</a>
     </div>
-    <div class="collections-grid">
-      <div class="collection-card" style="background:rgba(165,90,74,0.11); border-top: 2px solid rgba(165,90,74,0.25);" onclick="showPage('collection-coming-soon')" title="Most Private">
-        <span class="collection-num">01</span>
-        <div class="collection-name">Most Private</div>
-        <p class="collection-desc">Secluded spots where it will just be the two of you — no crowds, no interruptions.</p>
-        <span class="collection-link">24 spots →</span>
-      </div>
-      <div class="collection-card" style="background:rgba(140,123,100,0.13); border-top: 2px solid rgba(140,123,100,0.3);" onclick="showPage('collection-coming-soon')" title="Best Sunset">
-        <span class="collection-num">02</span>
-        <div class="collection-name">Best Sunset</div>
-        <p class="collection-desc">Golden-hour locations chosen for their legendary light and atmosphere.</p>
-        <span class="collection-link">18 spots →</span>
-      </div>
-      <div class="collection-card" style="background:rgba(28,28,28,0.07); border-top: 2px solid rgba(28,28,28,0.15); cursor:pointer;" onclick="showPage('collection-coming-soon')" title="Luxury Resorts">
-        <span class="collection-num">03</span>
-        <div class="collection-name">Luxury Resorts</div>
-        <p class="collection-desc">World-class properties where every detail of the moment can be arranged.</p>
-        <span class="collection-link">31 spots →</span>
-      </div>
-      <div class="collection-card" style="background:rgba(107,102,96,0.12); border-top: 2px solid rgba(107,102,96,0.25); cursor:pointer;" onclick="showPage('collection-coming-soon')" title="Hidden Gems">
-        <span class="collection-num">04</span>
-        <div class="collection-name">Hidden Gems</div>
-        <p class="collection-desc">Off-the-map locations only locals and our curators know about.</p>
-        <span class="collection-link">15 spots →</span>
-      </div>
+    <div class="vibes-carousel-wrap">
+      <button type="button" class="vibes-arrow vibes-arrow-prev" id="vibes-prev" aria-label="Previous vibes" aria-disabled="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
+      </button>
+      <div class="vibes-carousel" id="vibes-carousel" role="region" aria-label="Browse by vibe"></div>
+      <button type="button" class="vibes-arrow vibes-arrow-next" id="vibes-next" aria-label="Next vibes">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>
     </div>
   </div>
 </div>
@@ -10279,6 +10307,108 @@ function initSpotMap(lat, lng) {
   if (iframe) {
     iframe.src = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=13&output=embed';
   }
+}
+
+/* ─────────────────────────────────────
+   BROWSE BY VIBE CAROUSEL
+───────────────────────────────────── */
+var FALLBACK_VIBES = [
+  { number: '01', displayLabel: 'Beach',         airtableValue: 'Beach',    image: '/images/vibes/beach.jpg' },
+  { number: '02', displayLabel: 'Mountain',      airtableValue: 'Mountain', image: '/images/vibes/mountain.jpg' },
+  { number: '03', displayLabel: 'Cliffside',     airtableValue: 'Cliff',    image: '/images/vibes/cliffside.jpg' },
+  { number: '04', displayLabel: 'Jungle',        airtableValue: 'Jungle',   image: '/images/vibes/jungle.jpg' },
+  { number: '05', displayLabel: 'Overwater',     airtableValue: 'Ocean',    image: '/images/vibes/overwater.jpg' },
+  { number: '06', displayLabel: 'Volcano',       airtableValue: 'Volcano',  image: '/images/vibes/volcano.jpg' },
+  { number: '07', displayLabel: 'Desert',        airtableValue: 'Desert',   image: '/images/vibes/desert.jpg' },
+  { number: '08', displayLabel: 'Lakeside',      airtableValue: 'Lake',     image: '/images/vibes/lakeside.jpg' },
+  { number: '09', displayLabel: 'Private Villa', airtableValue: 'Villa',    image: '/images/vibes/villa.jpg' },
+  { number: '10', displayLabel: 'Cityscape',     airtableValue: 'City',     image: '/images/vibes/cityscape.jpg' }
+];
+
+function renderVibesCarousel(vibes) {
+  var track = document.getElementById('vibes-carousel');
+  if (!track) return;
+
+  var clean = (vibes || []).filter(function(v) {
+    return v && v.image && v.displayLabel && v.airtableValue;
+  });
+  if (clean.length === 0) return;
+
+  var html = clean.map(function(v, i) {
+    var href = v.href || ('/search?vibe=' + encodeURIComponent(v.airtableValue));
+    var loading = i < 4 ? 'eager' : 'lazy';
+    var label = String(v.displayLabel);
+    var num   = v.number || String(i + 1).padStart(2, '0');
+    var escLabel = label.replace(/"/g, '&quot;');
+    return ''
+      + '<a class="vibe-card" href="' + href + '" aria-label="Browse ' + escLabel + ' proposal spots">'
+      +   '<img class="vibe-card-img" src="' + v.image + '" alt="' + escLabel + '" loading="' + loading + '" decoding="async">'
+      +   '<span class="vibe-num">' + num + '</span>'
+      +   '<span class="vibe-label">' + label + '</span>'
+      + '</a>';
+  }).join('');
+
+  track.innerHTML = html;
+  initVibesArrows();
+}
+
+function initVibesArrows() {
+  var track = document.getElementById('vibes-carousel');
+  var prev  = document.getElementById('vibes-prev');
+  var next  = document.getElementById('vibes-next');
+  if (!track || !prev || !next) return;
+
+  function updateArrows() {
+    var atStart = track.scrollLeft <= 1;
+    var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    prev.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+    next.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+  }
+
+  function step() {
+    var first = track.querySelector('.vibe-card');
+    if (!first) return track.clientWidth * 0.8;
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+    return first.getBoundingClientRect().width + gap;
+  }
+
+  prev.addEventListener('click', function() {
+    track.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next.addEventListener('click', function() {
+    track.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+  track.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+
+  updateArrows();
+}
+
+function loadVibes() {
+  var track = document.getElementById('vibes-carousel');
+  if (!track) return;
+
+  fetch('/api/vibes')
+    .then(function(r) {
+      if (!r.ok) throw new Error('vibes fetch failed: ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var vibes = (data && Array.isArray(data.vibes)) ? data.vibes : [];
+      if (vibes.length === 0) throw new Error('vibes empty');
+      renderVibesCarousel(vibes);
+    })
+    .catch(function(err) {
+      console.warn('[vibes] using fallback:', err && err.message);
+      renderVibesCarousel(FALLBACK_VIBES);
+    });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadVibes);
+} else {
+  loadVibes();
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
