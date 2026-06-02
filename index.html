@@ -2151,9 +2151,9 @@ footer {
 
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
-  /* Tighten gap between Browse by Vibe and Featured Markets on mobile */
-  #vibes-section .section { padding-bottom: 12px; }
-  #markets-section .section { padding-top: 12px; }
+  /* Remove gap between Browse by Vibe and Featured Markets on mobile */
+  #vibes-section .section { padding-bottom: 0 !important; }
+  #markets-section .section { padding-top: 0 !important; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
   .market-card:first-child { min-height: 280px; }
   .vibe-card { flex-basis: 65%; }
@@ -2185,6 +2185,8 @@ footer {
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   /* Section padding at 40px per mobile spec */
   .section { padding: 40px 16px; }
+  #vibes-section .section { padding-bottom: 0 !important; }
+  #markets-section .section { padding-top: 0 !important; }
   /* Tighter hero padding on smallest screens */
   .hero { padding: 96px 16px 48px; }
   .hero-title { font-size: clamp(32px, 9vw, 44px); }
