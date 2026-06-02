@@ -1393,12 +1393,52 @@ nav.scrolled {
 /* ─────────────────────────────────────
    SEO SECTION
 ───────────────────────────────────── */
-.seo-inner {
+/* Editorial split layout for "Why Proposal Spots" section */
+.seo-editorial-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 96px;
-  align-items: center;
+  min-height: 560px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
 }
+.seo-editorial-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 88px 64px 88px 48px;
+}
+.seo-editorial-text h2 {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+.seo-editorial-text h2 strong { font-weight: 500; }
+.seo-editorial-text p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+.seo-editorial-photo-wrap {
+  overflow: hidden;
+  border-radius: 8px 0 0 8px;
+  position: relative;
+}
+.seo-editorial-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+/* Legacy selectors kept for compatibility */
 .seo-text h2 {
   font-family: 'Cormorant', serif;
   font-size: clamp(26px, 3vw, 34px);
@@ -1416,54 +1456,6 @@ nav.scrolled {
   line-height: 1.9;
   letter-spacing: 0.02em;
   margin-bottom: 14px;
-}
-.seo-links {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 28px;
-}
-.seo-link {
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 1px solid var(--divider);
-  color: var(--mid);
-  text-decoration: none;
-  background: var(--white);
-  transition: border-color 0.15s, color 0.15s;
-}
-.seo-link:hover { border-color: var(--ink); color: var(--ink); }
-.seo-numbers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--divider);
-}
-.seo-num-card {
-  padding: 28px 24px;
-  border-right: 1px solid var(--divider);
-  border-bottom: 1px solid var(--divider);
-}
-.seo-num-card:nth-child(2) { border-right: none; }
-.seo-num-card:nth-child(3) { border-bottom: none; }
-.seo-num-card:nth-child(4) { border-right: none; border-bottom: none; }
-.seo-n {
-  font-family: 'Cormorant', serif;
-  font-size: 36px;
-  font-weight: 300;
-  color: var(--ink);
-  display: block;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-.seo-l {
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 8px;
-  display: block;
 }
 
 /* ─────────────────────────────────────
@@ -1840,7 +1832,7 @@ footer {
   .market-card:nth-child(4) { grid-column: span 1; aspect-ratio: 3/4; }
   .vibe-card { flex-basis: calc((100% - 40px) / 3); }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
-  .seo-inner { gap: 56px; }
+  .seo-editorial-text { padding: 72px 48px 72px 40px; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 @media (max-width: 960px) {
@@ -2141,7 +2133,9 @@ footer {
   .vibe-card { flex-basis: 65%; }
   .vibes-arrow { display: none; }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
-  .seo-inner { grid-template-columns: 1fr; gap: 40px; }
+  .seo-editorial-wrap { grid-template-columns: 1fr; min-height: unset; }
+  .seo-editorial-text { padding: 56px 24px 48px; order: 2; }
+  .seo-editorial-photo-wrap { aspect-ratio: 16/9; order: 1; border-radius: 0; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
   .filter-pills-row { overflow-x: auto; scrollbar-width: none; }
@@ -5218,49 +5212,6 @@ footer {
   </div>
 </section>
 
-<!-- FEATURED MARKETS -->
-<div class="section-wrap" id="markets-section">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-meta">
-        <span class="section-eyebrow">Browse by destination</span>
-        <h2 class="section-title">Featured <strong>Markets</strong></h2>
-      </div>
-      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
-    </div>
-    <div class="markets-grid" style="cursor:pointer">
-      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
-        <div class="market-card-bg mc-portugal"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Portugal</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="window.location.href='/destinations/tulum'">
-        <div class="market-card-bg mc-tulum"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Mexico</span>
-          <span class="market-card-name">Tulum</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="window.location.href='/destinations/italy'">
-        <div class="market-card-bg mc-italy"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Italy</span>
-        </div>
-      </div>
-      <div class="market-card" onclick="window.location.href='/destinations/south-of-france'">
-        <div class="market-card-bg mc-france"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">France</span>
-          <span class="market-card-name">France</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- THE PROCESS -->
 <style>
 .ps-process-steps { display:flex; gap:0; align-items:flex-start; text-align:left; }
@@ -5316,7 +5267,6 @@ footer {
         <span class="section-eyebrow">Expertly curated</span>
         <h2 class="section-title">Browse by <strong>Vibe</strong></h2>
       </div>
-      <a href="/search" class="section-link">All vibes →</a>
     </div>
     <div class="vibes-carousel-wrap">
       <button type="button" class="vibes-arrow vibes-arrow-prev" id="vibes-prev" aria-label="Previous vibes" aria-disabled="true">
@@ -5326,6 +5276,49 @@ footer {
       <button type="button" class="vibes-arrow vibes-arrow-next" id="vibes-next" aria-label="Next vibes">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED MARKETS -->
+<div class="section-wrap" id="markets-section">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-meta">
+        <span class="section-eyebrow">Browse by destination</span>
+        <h2 class="section-title">Featured <strong>Markets</strong></h2>
+      </div>
+      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
+    </div>
+    <div class="markets-grid" style="cursor:pointer">
+      <div class="market-card" onclick="window.location.href='/destinations/portugal'">
+        <div class="market-card-bg mc-portugal"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Portugal</span>
+        </div>
+      </div>
+      <div class="market-card" onclick="window.location.href='/destinations/tulum'">
+        <div class="market-card-bg mc-tulum"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Mexico</span>
+          <span class="market-card-name">Tulum</span>
+        </div>
+      </div>
+      <div class="market-card" onclick="window.location.href='/destinations/italy'">
+        <div class="market-card-bg mc-italy"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Italy</span>
+        </div>
+      </div>
+      <div class="market-card" onclick="window.location.href='/destinations/south-of-france'">
+        <div class="market-card-bg mc-france"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">France</span>
+          <span class="market-card-name">France</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -5348,44 +5341,18 @@ footer {
   </div>
 </div>
 
-<!-- SEO SECTION -->
-<div class="section-wrap alt">
-  <div class="section">
-    <div class="seo-inner">
-      <div class="seo-text">
-        <span class="section-eyebrow">Why Proposal Spots</span>
-        <h2>The most <strong>considered</strong> way<br>to find your moment</h2>
-        <p>Every location has been personally reviewed for its quality — the light, the privacy, the feeling. We don't list everything. We list what's genuinely worth it.</p>
-        <p>Whether you're planning a private villa dinner on the Amalfi Coast or a hidden cliff in Costa Rica, we've mapped the finest proposal locations in the world.</p>
-        <div class="seo-links">
-          <a href="#" class="seo-link">Italy</a>
-          <a href="/destinations/greece" class="seo-link">Greece</a>
-          <a href="#" class="seo-link">Mexico</a>
-          <a href="#" class="seo-link">Beach</a>
-          <a href="#" class="seo-link">Private</a>
-          <a href="#" class="seo-link">Sunset</a>
-          <a href="#" class="seo-link">Luxury</a>
-          <a href="#" class="seo-link">Hidden Gems</a>
-        </div>
-      </div>
-      <div class="seo-numbers">
-        <div class="seo-num-card">
-          <span class="seo-n">11</span>
-          <span class="seo-l">Markets</span>
-        </div>
-        <div class="seo-num-card">
-          <span class="seo-n">140+</span>
-          <span class="seo-l">Spots</span>
-        </div>
-        <div class="seo-num-card">
-          <span class="seo-n">5</span>
-          <span class="seo-l">Filters</span>
-        </div>
-        <div class="seo-num-card">
-          <span class="seo-n">4</span>
-          <span class="seo-l">Collections</span>
-        </div>
-      </div>
+<!-- SEO SECTION — Editorial split: text left, photo right -->
+<div class="section-wrap alt" style="overflow:hidden;">
+  <div class="seo-editorial-wrap">
+    <div class="seo-editorial-text">
+      <span class="section-eyebrow">Why Proposal Spots</span>
+      <h2>The most <strong>considered</strong> way<br>to find your moment</h2>
+      <p>Every location has been personally reviewed for its quality — the light, the privacy, the feeling. We don't list everything. We list what's genuinely worth it.</p>
+      <p>Whether you're planning a private villa dinner on the Amalfi Coast or a hidden cliff in Costa Rica, we've mapped the finest proposal locations in the world.</p>
+    </div>
+    <!-- TODO: Replace /images/editorial-feature.jpg with final editorial photo before launch -->
+    <div class="seo-editorial-photo-wrap">
+      <img src="/images/editorial-feature.jpg" alt="A couple at a proposal spot at sunset" class="seo-editorial-photo-img" loading="lazy">
     </div>
   </div>
 </div>
@@ -5481,24 +5448,17 @@ footer {
           </div>
         </div>
 
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            <span>I'm a hotel. How do I get listed?</span>
-            <div class="faq-icon">+</div>
-          </button>
-          <div class="faq-a">
-            <p>Visit our <button onclick="showPage('for-hotels'); return false;" class="faq-inline-link">For Hotels</button> page and submit an application. We review every property personally. If your venue meets our standards for a life-changing proposal experience, we'll be in touch within five business days.</p>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 </div>
 
-<!-- BROWSE BY DESTINATIONS CTA -->
-<div style="width:100%;background:var(--bg);padding:56px 24px 72px;text-align:center;">
-  <a href="/destinations" style="display:inline-block;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--bg);background:var(--ink);border:none;border-radius:100px;padding:18px 44px;text-decoration:none;cursor:pointer;transition:background 0.2s ease;" onmouseover="this.style.background='#A55A4A'" onmouseout="this.style.background='var(--ink)'">Browse by Destinations</a>
+<!-- CLOSING CTA -->
+<div style="width:100%;background:var(--bg);padding:96px 24px 112px;text-align:center;">
+  <span style="display:block;font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">The Moment Starts Here</span>
+  <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,4vw,52px);font-weight:300;font-style:italic;color:var(--ink);letter-spacing:0.01em;line-height:1.2;margin:0 0 20px;">Ready to find the one spot?</h2>
+  <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);letter-spacing:0.03em;line-height:1.8;max-width:420px;margin:0 auto 40px;">Every location on Proposal Spots has been personally reviewed for its light, its privacy, and its feeling.</p>
+  <a href="/search" class="nav-cta" style="font-size:11px;padding:14px 36px;letter-spacing:0.18em;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--ink)'">Find Your Spot &rarr;</a>
 </div>
 
 </main>
@@ -5542,7 +5502,7 @@ footer {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Proposal Spots. All rights reserved.</span>
+      <span>© 2026 Proposal Spots. All rights reserved.</span>
       <span>Intentional. Selective. Timeless.</span>
     </div>
   </div>
