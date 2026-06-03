@@ -1948,7 +1948,8 @@ footer {
     background-size: cover;
     background-position: 25% center;
     background-color: var(--bg);
-    height: 75vh;
+    height: 100vh;
+    height: 100dvh;
     min-height: 520px;
     padding: 88px 24px 0;
     align-items: stretch;
@@ -2011,9 +2012,10 @@ footer {
   }
 
   /* Capsule overlapping the seam at the bottom of the hero */
+  /* Capsule floats over the lower area of the full-bleed photo */
   .search-container {
     position: absolute;
-    bottom: -75px;
+    bottom: 8%;
     left: 16px;
     right: 16px;
     width: auto;
@@ -5261,8 +5263,8 @@ footer {
     letter-spacing: 0.01em;
     color: #A55A4A;
     background: var(--bg);
-    /* Top padding clears the search card overhang (~75px) + breathing room */
-    padding: 100px 32px 0;
+    /* Sits just below the full-bleed photo; appears on scroll, not on landing */
+    padding: 48px 32px 0;
     margin: 0;
   }
 }
