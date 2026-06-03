@@ -1944,11 +1944,12 @@ footer {
 
   /* ── M2 Hero A — full-bleed proposal photo with overlapping capsule ── */
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=80&w=1470&auto=format&fit=crop') !important;
+    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=2400&auto=format&fit=crop') !important;
     background-size: cover;
     background-position: 25% center;
     background-color: var(--bg);
-    height: 75vh;
+    height: 100vh;
+    height: 100dvh;
     min-height: 520px;
     padding: 88px 24px 0;
     align-items: stretch;
@@ -1971,6 +1972,8 @@ footer {
     max-width: 100%;
     text-align: right;
     padding: 0;
+    display: flex;
+    flex-direction: column;
   }
   .hero-mobile-wordmark { display: none; }
   .hero-stats { display: none; }
@@ -1982,33 +1985,37 @@ footer {
     font-size: clamp(34px, 9vw, 48px);
     font-weight: 300;
     line-height: 1.1;
-    color: #fff;
+    color: #ffffff;
     text-align: right;
     margin: 0;
     padding-top: 8px;
+    /* Soft shadow lifts the headline off the hero photo for legibility */
+    text-shadow: 0 2px 20px rgba(0,0,0,0.35);
   }
   .hero-title strong { font-weight: 600; }
-  /* Subtitle — clay, italic Cormorant */
+  /* Eyebrow — small uppercase clay label, sits ABOVE the headline */
   .hero-eyebrow {
+    order: -1;
     position: relative;
     z-index: 1;
-    display: block;
-    font-family: 'Cormorant', serif;
-    font-style: italic;
+    display: none;
+    font-family: 'Jost', sans-serif;
+    font-style: normal;
     font-weight: 400;
-    font-size: 18px;
-    color: #1a1a18;
+    font-size: 10px;
+    color: #C17A5A;
     text-align: right;
-    text-transform: none;
-    letter-spacing: 0.01em;
-    margin-top: 10px;
-    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   /* Capsule overlapping the seam at the bottom of the hero */
+  /* Capsule floats over the lower area of the full-bleed photo */
   .search-container {
     position: absolute;
-    bottom: -62px;
+    bottom: 8%;
     left: 16px;
     right: 16px;
     width: auto;
@@ -5236,9 +5243,32 @@ footer {
       <!-- ACTIVE TAGS -->
       <div class="active-tags-row" id="active-tags"></div>
       </div><!-- end search-container-inner -->
+      <!-- Mobile-only tagline tucked under the card, over the photo -->
+      <div class="hero-tagline-mobile">A curated world of proposal settings</div>
     </div><!-- end search-container -->
   </div>
 </section>
+
+<!-- Mobile tagline styling — floats under the card, over the full-bleed photo -->
+<style>
+.hero-tagline-mobile { display: none; }
+@media (max-width: 768px) {
+  .hero-tagline-mobile {
+    display: block;
+    text-align: center;
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+    text-shadow: 0 1px 16px rgba(0,0,0,0.5);
+    margin: 18px 0 0;
+    padding: 0 16px;
+  }
+}
+</style>
 
 <!-- THE PROCESS -->
 <style>
@@ -5256,9 +5286,12 @@ footer {
   .ps-process-step-1,
   .ps-process-step-2,
   .ps-process-step-3 { padding:0; }
+  /* The mobile tagline below the hero already carries the card overhang,
+     so the section just needs a clean gap above its heading */
+  .ps-process-section { padding-top:44px !important; }
 }
 </style>
-<section style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
+<section class="ps-process-section" style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
   <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
     <p style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin:0 0 16px;">The Process</p>
     <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;font-style:italic;color:var(--ink);letter-spacing:0.01em;margin:0 0 64px;line-height:1.15;">From idea to unforgettable.</h2>
