@@ -5243,12 +5243,13 @@ footer {
       <!-- ACTIVE TAGS -->
       <div class="active-tags-row" id="active-tags"></div>
       </div><!-- end search-container-inner -->
+      <!-- Mobile-only tagline tucked under the card, over the photo -->
+      <div class="hero-tagline-mobile">A curated world of proposal settings</div>
     </div><!-- end search-container -->
   </div>
 </section>
 
-<!-- Mobile-only tagline: dresses the cream space beneath the search card -->
-<div class="hero-tagline-mobile">A curated world of proposal settings</div>
+<!-- Mobile tagline styling — floats under the card, over the full-bleed photo -->
 <style>
 .hero-tagline-mobile { display: none; }
 @media (max-width: 768px) {
@@ -5261,11 +5262,10 @@ footer {
     font-size: 19px;
     line-height: 1.4;
     letter-spacing: 0.01em;
-    color: #A55A4A;
-    background: var(--bg);
-    /* Sits just below the full-bleed photo; appears on scroll, not on landing */
-    padding: 48px 32px 0;
-    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 1px 16px rgba(0,0,0,0.5);
+    margin: 18px 0 0;
+    padding: 0 16px;
   }
 }
 </style>
