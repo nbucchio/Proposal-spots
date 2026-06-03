@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Proposal Spots</title>
+<meta name="description" content="How Proposal Spots collects, uses, and protects your information. Compliant with GDPR, UK GDPR, CCPA, PIPEDA, and the Australian Privacy Act.">
+<link rel="canonical" href="https://www.proposalspots.com/privacy-policy">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="/nav.js" defer></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F4F1EB;
+    --bg2:      #EDEAE2;
+    --bg3:      #E8E4DB;
+    --white:    #FDFCFA;
+    --ink:      #1C1C1C;
+    --ink2:     #2E2C2A;
+    --mid:      #6B6660;
+    --muted:    #9E9890;
+    --hairline: #D8D2C8;
+    --divider:  #E4E0D8;
+    --accent:   #8C7B64;
+    --accent2:  #B5A48C;
+    --shadow:   rgba(28,28,28,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  #nav-placeholder { position: relative; z-index: 100; }
+
+  /* ── Page shell ── */
+  .pg-privacy {
+    padding-top: 92px;
+    background: var(--bg);
+  }
+
+  /* ── Header ── */
+  .pv-header {
+    text-align: center;
+    padding: 64px 40px 0;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .pv-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #A55A4A;
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .pv-title {
+    font-family: 'Cormorant', serif;
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .pv-subtitle {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+
+  .pv-updated {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 16px;
+  }
+
+  /* ── Table of Contents ── */
+  .pv-toc {
+    max-width: 680px;
+    margin: 48px auto 0;
+    padding: 32px 40px;
+    background: var(--white);
+    border: 1px solid var(--divider);
+  }
+
+  .pv-toc-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .pv-toc ol {
+    list-style: none;
+    columns: 2;
+    column-gap: 40px;
+  }
+
+  .pv-toc ol li {
+    margin-bottom: 10px;
+    break-inside: avoid;
+  }
+
+  .pv-toc ol li a {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--mid);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+
+  .pv-toc ol li a:hover { color: var(--ink); }
+
+  .pv-toc ol li .toc-num {
+    font-size: 10px;
+    color: var(--muted);
+    margin-right: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Main content ── */
+  .pv-content {
+    max-width: 680px;
+    margin: 60px auto 100px;
+    padding: 0 40px;
+  }
+
+  /* ── Sections ── */
+  .pv-section {
+    margin-bottom: 52px;
+    scroll-margin-top: 100px;
+  }
+
+  .pv-section:last-of-type { margin-bottom: 0; }
+
+  .pv-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .pv-section-num {
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .pv-section h2 {
+    font-family: 'Cormorant', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .pv-section h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink2);
+    line-height: 1.3;
+    margin-top: 28px;
+    margin-bottom: 10px;
+  }
+
+  .pv-section p {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+
+  .pv-section p:last-child { margin-bottom: 0; }
+
+  .pv-section a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+    transition: opacity 0.2s;
+  }
+
+  .pv-section a:hover { opacity: 0.55; }
+
+  .pv-section ul,
+  .pv-section ol {
+    margin: 12px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .pv-section ul li,
+  .pv-section ol li {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .pv-section ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 11px;
+    top: 3px;
+  }
+
+  .pv-section ol {
+    counter-reset: list-counter;
+  }
+
+  .pv-section ol li {
+    counter-increment: list-counter;
+  }
+
+  .pv-section ol li::before {
+    content: counter(list-counter) '.';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 11px;
+    font-family: 'Jost', sans-serif;
+    top: 2px;
+  }
+
+  /* ── Rights callout boxes ── */
+  .pv-rights-box {
+    background: var(--white);
+    border: 1px solid var(--divider);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .pv-rights-box-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .pv-rights-box h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .pv-rights-box ul {
+    margin: 8px 0 0 0;
+  }
+
+  .pv-rights-box ul li {
+    font-family: 'Jost', sans-serif;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 5px;
+    list-style: none;
+  }
+
+  .pv-rights-box ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  /* ── Cookie table ── */
+  .pv-cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+  }
+
+  .pv-cookie-table thead th {
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--divider);
+    background: var(--white);
+  }
+
+  .pv-cookie-table tbody td {
+    font-weight: 300;
+    color: var(--mid);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--divider);
+    vertical-align: top;
+    line-height: 1.7;
+  }
+
+  .pv-cookie-table tbody tr:last-child td { border-bottom: none; }
+
+  .pv-cookie-table tbody tr:nth-child(even) td { background: var(--white); }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--divider);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .badge-future {
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  /* ── Footer divider ── */
+  .pv-footer-note {
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 1px solid var(--divider);
+  }
+
+  .pv-footer-note p {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+  }
+
+  .pv-footer-note a {
+    color: var(--mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 680px) {
+    .pv-header { padding: 48px 24px 0; }
+    .pv-toc { margin: 36px 24px 0; padding: 24px; }
+    .pv-toc ol { columns: 1; }
+    .pv-content { padding: 0 24px; margin: 48px auto 80px; }
+    .pv-section h2 { font-size: 22px; }
+    .pv-rights-box { padding: 20px; }
+    .pv-cookie-table { font-size: 11px; }
+    .pv-cookie-table thead th,
+    .pv-cookie-table tbody td { padding: 10px; }
+  }
+
+  @media (max-width: 400px) {
+    .pv-cookie-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+</style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="pg-privacy">
+
+  <!-- ── Header ── -->
+  <div class="pv-header">
+    <span class="pv-eyebrow">Legal</span>
+    <h1 class="pv-title">Privacy Policy</h1>
+    <p class="pv-subtitle">How Proposal Spots collects, uses, and protects your information.</p>
+    <span class="pv-updated">Last updated: June 3, 2026</span>
+  </div>
+
+  <!-- ── Table of Contents ── -->
+  <nav class="pv-toc" aria-label="Page contents">
+    <span class="pv-toc-label">Contents</span>
+    <ol>
+      <li><a href="#introduction"><span class="toc-num">1.</span>Introduction</a></li>
+      <li><a href="#who-we-are"><span class="toc-num">2.</span>Who We Are</a></li>
+      <li><a href="#information-we-collect"><span class="toc-num">3.</span>Information We Collect</a></li>
+      <li><a href="#how-we-use-data"><span class="toc-num">4.</span>How We Use Your Information</a></li>
+      <li><a href="#legal-bases"><span class="toc-num">5.</span>Legal Bases for Processing</a></li>
+      <li><a href="#sharing-data"><span class="toc-num">6.</span>Sharing Your Information</a></li>
+      <li><a href="#cookies"><span class="toc-num">7.</span>Cookies &amp; Tracking</a></li>
+      <li><a href="#data-retention"><span class="toc-num">8.</span>Data Retention</a></li>
+      <li><a href="#your-rights"><span class="toc-num">9.</span>Your Rights</a></li>
+      <li><a href="#international-transfers"><span class="toc-num">10.</span>International Transfers</a></li>
+      <li><a href="#childrens-privacy"><span class="toc-num">11.</span>Children's Privacy</a></li>
+      <li><a href="#changes"><span class="toc-num">12.</span>Changes to This Policy</a></li>
+      <li><a href="#contact"><span class="toc-num">13.</span>Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- ── Content ── -->
+  <div class="pv-content">
+
+    <!-- 1. Introduction -->
+    <section class="pv-section" id="introduction">
+      <div class="pv-section-header">
+        <span class="pv-section-num">01</span>
+        <h2>Introduction</h2>
+      </div>
+      <p>Welcome to Proposal Spots. We are committed to protecting your personal information and being transparent about how we use it. This Privacy Policy explains what data we collect when you visit <strong>proposalspots.com</strong>, why we collect it, how we use it, and the rights you have over it.</p>
+      <p>Proposal Spots is a curated discovery platform that helps people find unique proposal locations, romantic hotels, and destination engagement experiences worldwide. When you use our platform — browsing listings, submitting an enquiry, or contacting us — certain information may be collected in the ways described below.</p>
+      <p>This policy applies to all users of our website and is designed to comply with applicable privacy laws, including the General Data Protection Regulation (GDPR), UK GDPR, the California Consumer Privacy Act (CCPA), Canada's Personal Information Protection and Electronic Documents Act (PIPEDA), and the Australian Privacy Act 1988. Where your jurisdiction grants you specific rights, those are explained in <a href="#your-rights">Section 9</a>.</p>
+      <p>Please read this policy carefully. By using proposalspots.com, you acknowledge the practices described here. If you have questions, you can reach us at <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a> at any time.</p>
+    </section>
+
+    <!-- 2. Who We Are -->
+    <section class="pv-section" id="who-we-are">
+      <div class="pv-section-header">
+        <span class="pv-section-num">02</span>
+        <h2>Who We Are</h2>
+      </div>
+      <p>Proposal Spots operates <strong>proposalspots.com</strong>, a discovery platform connecting individuals with proposal venues, romantic accommodations, and engagement experience providers worldwide.</p>
+      <p>For the purposes of data protection law, Proposal Spots is the <strong>data controller</strong> — meaning we determine how and why your personal information is processed. Where we engage third-party service providers to process data on our behalf, those parties act as <strong>data processors</strong> under our instruction.</p>
+      <p><strong>Contact details:</strong></p>
+      <ul>
+        <li>Website: proposalspots.com</li>
+        <li>Email: <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a></li>
+      </ul>
+      <p>If you are located in the EU or UK and have a privacy concern, you may contact us using the details in <a href="#contact">Section 13</a>. We will respond within the timeframe required by applicable law (generally 30 days).</p>
+    </section>
+
+    <!-- 3. Information We Collect -->
+    <section class="pv-section" id="information-we-collect">
+      <div class="pv-section-header">
+        <span class="pv-section-num">03</span>
+        <h2>Information We Collect</h2>
+      </div>
+      <p>We collect information in two ways: information you give us directly, and information collected automatically when you use our site.</p>
+
+      <h3>Information you provide to us</h3>
+      <ul>
+        <li><strong>Name and email address</strong> — when you submit an enquiry about a listing, sign up for updates, or contact us via a form.</li>
+        <li><strong>Enquiry details</strong> — any details you voluntarily include in a contact or enquiry form, such as travel dates, preferences, or questions.</li>
+        <li><strong>Communications</strong> — if you email us directly, we retain that correspondence.</li>
+      </ul>
+
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li><strong>Location and search inputs</strong> — country, region, or city entered into search fields on our platform (used to return relevant results).</li>
+        <li><strong>Usage and analytics data</strong> — pages visited, time spent on pages, referring URLs, and general browsing behaviour, collected through tools such as Google Analytics.</li>
+        <li><strong>Device and technical data</strong> — browser type, operating system, screen resolution, IP address (used in aggregate or anonymised form).</li>
+        <li><strong>Cookie and tracking data</strong> — data collected via cookies and similar technologies as described in <a href="#cookies">Section 7</a>.</li>
+      </ul>
+
+      <h3>Information we do not collect</h3>
+      <p>We do not knowingly collect sensitive personal data (such as health information, financial account credentials, or government ID numbers). We do not collect payment card details directly — any future payment functionality will be handled by a certified third-party payment processor.</p>
+    </section>
+
+    <!-- 4. How We Use Your Information -->
+    <section class="pv-section" id="how-we-use-data">
+      <div class="pv-section-header">
+        <span class="pv-section-num">04</span>
+        <h2>How We Use Your Information</h2>
+      </div>
+      <p>We use the information we collect for the following purposes:</p>
+      <ul>
+        <li><strong>Responding to enquiries</strong> — to reply to questions, provide information about specific listings, and follow up on requests you have made.</li>
+        <li><strong>Connecting you with partners</strong> — when you enquire about a specific venue or experience, we may share your enquiry details with the relevant partner to facilitate your request (see <a href="#sharing-data">Section 6</a>).</li>
+        <li><strong>Improving the platform</strong> — to understand how visitors use Proposal Spots, identify popular content, fix issues, and enhance the overall experience.</li>
+        <li><strong>Marketing communications</strong> — with your consent, we may send you occasional emails featuring curated destinations, inspiration, or platform updates. You can unsubscribe at any time using the link in any email or by contacting us directly.</li>
+        <li><strong>Analytics and performance</strong> — to measure site traffic, track aggregate usage patterns, and improve platform performance using tools such as Google Analytics.</li>
+        <li><strong>Legal compliance</strong> — to comply with applicable laws, respond to lawful requests from authorities, or enforce our terms of service.</li>
+      </ul>
+      <p>We do not use your data for automated decision-making or profiling that produces legal or similarly significant effects on you.</p>
+    </section>
+
+    <!-- 5. Legal Bases for Processing (GDPR) -->
+    <section class="pv-section" id="legal-bases">
+      <div class="pv-section-header">
+        <span class="pv-section-num">05</span>
+        <h2>Legal Bases for Processing</h2>
+      </div>
+      <p>If you are located in the European Economic Area (EEA), the United Kingdom, or Switzerland, we are required by law to have a legal basis for processing your personal data. The table below explains the basis we rely on for each purpose.</p>
+
+      <table class="pv-cookie-table" style="margin-top:24px">
+        <thead>
+          <tr>
+            <th>Purpose</th>
+            <th>Legal Basis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Responding to your enquiry</td>
+            <td>Performance of a contract / our legitimate interest in providing customer service</td>
+          </tr>
+          <tr>
+            <td>Connecting you with venue/experience partners</td>
+            <td>Your consent (given when submitting an enquiry) and our legitimate interest in fulfilling your request</td>
+          </tr>
+          <tr>
+            <td>Improving the platform</td>
+            <td>Our legitimate interests in operating and enhancing the service</td>
+          </tr>
+          <tr>
+            <td>Sending marketing emails</td>
+            <td>Your consent (opt-in) — you may withdraw consent at any time</td>
+          </tr>
+          <tr>
+            <td>Analytics (Google Analytics)</td>
+            <td>Your consent (via cookie banner) and our legitimate interests in measuring platform performance</td>
+          </tr>
+          <tr>
+            <td>Legal compliance</td>
+            <td>Compliance with a legal obligation</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Where we rely on <strong>legitimate interests</strong>, we have assessed that our interests do not override your fundamental rights and freedoms. You may object to processing based on legitimate interests at any time — see <a href="#your-rights">Section 9</a>.</p>
+      <p>Where we rely on <strong>consent</strong>, you have the right to withdraw it at any time without affecting the lawfulness of processing before withdrawal.</p>
+    </section>
+
+    <!-- 6. Sharing Your Information -->
+    <section class="pv-section" id="sharing-data">
+      <div class="pv-section-header">
+        <span class="pv-section-num">06</span>
+        <h2>Sharing Your Information</h2>
+      </div>
+      <p>We do not sell, rent, or trade your personal information to third parties for their own marketing purposes. We share data only in the circumstances described below.</p>
+
+      <h3>Partner venues and experience providers</h3>
+      <p>When you submit an enquiry about a specific listing, we will share the details of that enquiry (typically your name, email address, and enquiry content) with the relevant venue or experience partner so they can respond to your request. By submitting an enquiry, you consent to this sharing. Partner providers are expected to handle your data responsibly and in accordance with applicable law; however, their own privacy practices govern how they use data once received.</p>
+
+      <h3>Analytics providers</h3>
+      <p>We use <strong>Google Analytics</strong> to understand how visitors use our site. Google may process data on servers outside your country. Google Analytics data is primarily aggregated and anonymised, though Google's own privacy policy governs their data practices. You can learn more at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+
+      <h3>Email service provider</h3>
+      <p>We use <strong>Gmail (Google Workspace)</strong> to send transactional and enquiry-related emails. Google may process message metadata in connection with this service. Google's privacy practices are governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
+
+      <h3>Payment processors</h3>
+      <p><span style="color:var(--accent2);font-style:italic;">[Payment processing functionality is planned for a future release. When introduced, the relevant payment processor will be named here, and this policy will be updated accordingly.]</span></p>
+
+      <h3>Legal and regulatory disclosure</h3>
+      <p>We may disclose your information if required to do so by law, court order, or governmental authority, or where we believe in good faith that disclosure is necessary to protect the rights, property, or safety of Proposal Spots, our users, or the public.</p>
+
+      <h3>Business transfers</h3>
+      <p>In the event of a merger, acquisition, or sale of all or part of our business, personal data may be transferred to the acquiring entity. We will notify users of any such change in control.</p>
+    </section>
+
+    <!-- 7. Cookies -->
+    <section class="pv-section" id="cookies">
+      <div class="pv-section-header">
+        <span class="pv-section-num">07</span>
+        <h2>Cookies &amp; Tracking Technologies</h2>
+      </div>
+      <p>Proposal Spots uses cookies and similar tracking technologies to provide core functionality, measure performance, and (in future) support marketing. When you first visit our site, a <strong>cookie consent banner</strong> will appear allowing you to accept or decline non-essential cookies. You can update your preferences at any time.</p>
+      <p>A cookie is a small text file placed on your device by a website. Cookies help the site remember your preferences and understand how you use it. They are not harmful and cannot access other files on your device.</p>
+
+      <table class="pv-cookie-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Purpose</th>
+            <th>Examples</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Essential</strong></td>
+            <td>Required for the site to function. These cannot be disabled as they enable core features such as page navigation and security.</td>
+            <td>Session state, security tokens</td>
+            <td><span class="badge">Always active</span></td>
+          </tr>
+          <tr>
+            <td><strong>Analytics</strong></td>
+            <td>Help us understand how visitors interact with the site — which pages are popular, how long visits last, and where traffic comes from. Data is aggregated.</td>
+            <td>Google Analytics (_ga, _gid)</td>
+            <td><span class="badge">Consent required</span></td>
+          </tr>
+          <tr>
+            <td><strong>Marketing</strong></td>
+            <td>Used to deliver relevant advertising and track campaign effectiveness across platforms.</td>
+            <td>To be specified</td>
+            <td><span class="badge badge-future">Planned</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Managing your cookie preferences</h3>
+      <p>You can manage cookies in several ways:</p>
+      <ul>
+        <li><strong>Cookie banner</strong> — use the consent banner that appears on your first visit to accept or decline non-essential cookies.</li>
+        <li><strong>Browser settings</strong> — most browsers allow you to refuse cookies or delete existing ones. Note that disabling essential cookies may affect site functionality.</li>
+        <li><strong>Google Analytics opt-out</strong> — you can install the Google Analytics Opt-out Browser Add-on at <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">tools.google.com/dlpage/gaoptout</a>.</li>
+      </ul>
+    </section>
+
+    <!-- 8. Data Retention -->
+    <section class="pv-section" id="data-retention">
+      <div class="pv-section-header">
+        <span class="pv-section-num">08</span>
+        <h2>Data Retention</h2>
+      </div>
+      <p>We retain your personal data only for as long as necessary to fulfil the purposes for which it was collected, or as required by applicable law.</p>
+      <ul>
+        <li><strong>Enquiry data</strong> (name, email, enquiry content) — retained for up to 2 years from the date of the enquiry, unless you request earlier deletion or an ongoing relationship requires longer retention.</li>
+        <li><strong>Marketing email list</strong> — retained until you unsubscribe or request removal.</li>
+        <li><strong>Analytics data</strong> — retained in line with Google Analytics' default data retention settings (up to 26 months for aggregated data).</li>
+        <li><strong>Cookie consent records</strong> — retained for up to 12 months to demonstrate your consent choices.</li>
+        <li><strong>Legal and compliance records</strong> — retained for as long as required by applicable law.</li>
+      </ul>
+      <p>When data is no longer needed, we securely delete or anonymise it. You may request early deletion at any time — see <a href="#your-rights">Section 9</a>.</p>
+    </section>
+
+    <!-- 9. Your Rights -->
+    <section class="pv-section" id="your-rights">
+      <div class="pv-section-header">
+        <span class="pv-section-num">09</span>
+        <h2>Your Rights</h2>
+      </div>
+      <p>Depending on where you are located, you have specific legal rights over your personal data. We take these rights seriously and will respond to all valid requests promptly — in most cases within 30 days. There is no charge for exercising your rights, unless requests are manifestly unfounded or excessive.</p>
+      <p>To submit a request, email us at <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a> with your name and a clear description of your request. We may ask you to verify your identity before acting on sensitive requests.</p>
+
+      <!-- GDPR / UK GDPR -->
+      <div class="pv-rights-box">
+        <span class="pv-rights-box-label">GDPR &amp; UK GDPR — EU, UK, Germany, Switzerland</span>
+        <h3>Your rights under GDPR and UK GDPR</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-bottom:12px;">If you are located in the European Economic Area, the United Kingdom, Germany, or Switzerland, you have the following rights under the General Data Protection Regulation (GDPR) and its UK equivalent:</p>
+        <ul>
+          <li><strong>Right of access</strong> — you can request a copy of the personal data we hold about you.</li>
+          <li><strong>Right to rectification</strong> — you can ask us to correct inaccurate or incomplete data.</li>
+          <li><strong>Right to erasure ("right to be forgotten")</strong> — you can ask us to delete your personal data where it is no longer necessary, or where you withdraw consent and there is no other lawful basis for processing.</li>
+          <li><strong>Right to data portability</strong> — where processing is based on consent or contract, you may request a copy of your data in a structured, machine-readable format to transfer to another service.</li>
+          <li><strong>Right to restriction of processing</strong> — you can ask us to pause processing of your data in certain circumstances (e.g., while accuracy is disputed).</li>
+          <li><strong>Right to object</strong> — you can object to processing based on our legitimate interests at any time. We will cease processing unless we have compelling legitimate grounds that override your interests.</li>
+          <li><strong>Right to withdraw consent</strong> — where processing is based on consent (e.g., marketing emails), you may withdraw at any time without affecting prior lawful processing.</li>
+          <li><strong>Right to lodge a complaint</strong> — you have the right to complain to your local data protection authority. In Germany: <a href="https://www.bfdi.bund.de" target="_blank" rel="noopener noreferrer">bfdi.bund.de</a>. In the UK: <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a>. In Switzerland: <a href="https://www.edoeb.admin.ch" target="_blank" rel="noopener noreferrer">edoeb.admin.ch</a>.</li>
+        </ul>
+      </div>
+
+      <!-- CCPA -->
+      <div class="pv-rights-box">
+        <span class="pv-rights-box-label">CCPA — California, United States</span>
+        <h3>Your rights under the California Consumer Privacy Act</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-bottom:12px;">If you are a California resident, the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA) grant you the following rights:</p>
+        <ul>
+          <li><strong>Right to know</strong> — you may request details about the categories and specific pieces of personal information we have collected about you, the sources, the business purposes, and the categories of third parties with whom we share it.</li>
+          <li><strong>Right to delete</strong> — you may request deletion of your personal information, subject to certain exceptions (e.g., completing a transaction, legal obligations).</li>
+          <li><strong>Right to correct</strong> — you may request correction of inaccurate personal information.</li>
+          <li><strong>Right to opt out of sale or sharing</strong> — <strong>Proposal Spots does not sell or share personal information for cross-context behavioural advertising.</strong> You therefore do not need to opt out, but we will honour any such request.</li>
+          <li><strong>Right to limit use of sensitive personal information</strong> — we do not collect sensitive personal information as defined by the CPRA.</li>
+          <li><strong>Right to non-discrimination</strong> — we will not discriminate against you for exercising any of your CCPA rights.</li>
+        </ul>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-top:12px;">To submit a verifiable consumer request, email <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a>. We will respond within 45 days, with a possible 45-day extension where reasonably necessary.</p>
+      </div>
+
+      <!-- PIPEDA -->
+      <div class="pv-rights-box">
+        <span class="pv-rights-box-label">PIPEDA — Canada</span>
+        <h3>Your rights under PIPEDA</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-bottom:12px;">If you are located in Canada, Canada's Personal Information Protection and Electronic Documents Act (PIPEDA) governs how we handle your data. Your rights include:</p>
+        <ul>
+          <li><strong>Right of access</strong> — you may request access to the personal information we hold about you, the purposes for which it is used, and the third parties to whom it has been disclosed.</li>
+          <li><strong>Right to correction</strong> — you may request that inaccurate or incomplete personal information be corrected.</li>
+          <li><strong>Right to withdrawal of consent</strong> — you may withdraw consent to our collection, use, or disclosure of your personal information at any time, subject to legal or contractual restrictions. Note that withdrawal may limit our ability to provide certain services.</li>
+          <li><strong>Right to lodge a complaint</strong> — you may file a complaint with the Office of the Privacy Commissioner of Canada at <a href="https://www.priv.gc.ca" target="_blank" rel="noopener noreferrer">priv.gc.ca</a>.</li>
+        </ul>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-top:12px;">We collect only the minimum personal information necessary, use it only for the identified purpose, and obtain meaningful consent before or at the time of collection.</p>
+      </div>
+
+      <!-- Australian Privacy Act -->
+      <div class="pv-rights-box">
+        <span class="pv-rights-box-label">Australian Privacy Act 1988</span>
+        <h3>Your rights under the Australian Privacy Act</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-bottom:12px;">If you are located in Australia, the Privacy Act 1988 and the Australian Privacy Principles (APPs) apply to how we handle your personal information. Your rights include:</p>
+        <ul>
+          <li><strong>Right of access</strong> — you may request access to the personal information we hold about you. We will respond within 30 days and provide the information in a requested format where reasonable.</li>
+          <li><strong>Right to correction</strong> — if you believe information we hold is inaccurate, out of date, incomplete, irrelevant, or misleading, you may ask us to correct it. We will respond within 30 days.</li>
+          <li><strong>Right to anonymity</strong> — where lawful and practicable, you have the option to interact with us without identifying yourself.</li>
+          <li><strong>Right to complain</strong> — if you believe we have breached the APPs, you may first complain to us directly. If unresolved, you may escalate to the Office of the Australian Information Commissioner (OAIC) at <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer">oaic.gov.au</a>.</li>
+        </ul>
+        <p style="font-family:'Jost',sans-serif;font-size:12.5px;font-weight:300;color:var(--mid);line-height:1.8;margin-top:12px;">We handle Australian users' personal information in accordance with the APPs and will not use it for a purpose other than the primary purpose of collection without consent, unless an exception applies.</p>
+      </div>
+
+      <!-- General: Marketing -->
+      <h3>Unsubscribing from marketing</h3>
+      <p>Regardless of your location, you may opt out of marketing emails at any time by clicking the <strong>unsubscribe</strong> link included in any email we send, or by emailing <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a>. We will process your request promptly and you will receive no further marketing communications. Transactional emails (e.g., replies to an active enquiry) may still be sent as they are necessary to fulfil your request.</p>
+    </section>
+
+    <!-- 10. International Data Transfers -->
+    <section class="pv-section" id="international-transfers">
+      <div class="pv-section-header">
+        <span class="pv-section-num">10</span>
+        <h2>International Data Transfers</h2>
+      </div>
+      <p>Proposal Spots operates globally and may transfer your personal data to countries outside your home jurisdiction, including countries that may not provide the same level of data protection as your own.</p>
+      <p>Where we transfer data from the EEA, UK, or Switzerland to third countries, we ensure appropriate safeguards are in place, including:</p>
+      <ul>
+        <li>The use of <strong>Standard Contractual Clauses (SCCs)</strong> approved by the European Commission or UK equivalent.</li>
+        <li>Transfers to countries with an <strong>adequacy decision</strong> by the relevant authority.</li>
+        <li>Other legally recognised transfer mechanisms as applicable.</li>
+      </ul>
+      <p>For example, Google Analytics may process data on servers in the United States. Google LLC participates in data transfer frameworks that provide appropriate safeguards for such transfers.</p>
+      <p>You may request information about the specific safeguards applicable to any transfer of your data by contacting us at <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a>.</p>
+    </section>
+
+    <!-- 11. Children's Privacy -->
+    <section class="pv-section" id="childrens-privacy">
+      <div class="pv-section-header">
+        <span class="pv-section-num">11</span>
+        <h2>Children's Privacy</h2>
+      </div>
+      <p>Proposal Spots is not directed at children under the age of 16 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal data from children.</p>
+      <p>If you believe a child has provided us with personal information without appropriate consent, please contact us at <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a> and we will take steps to delete the information promptly.</p>
+    </section>
+
+    <!-- 12. Changes to This Policy -->
+    <section class="pv-section" id="changes">
+      <div class="pv-section-header">
+        <span class="pv-section-num">12</span>
+        <h2>Changes to This Policy</h2>
+      </div>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make material changes, we will update the <strong>Last updated</strong> date at the top of this page.</p>
+      <p>We encourage you to review this policy periodically. Where changes are significant, we may also notify you by email (if you have provided one) or by displaying a notice on our website.</p>
+      <p>Your continued use of Proposal Spots after a policy update constitutes your acknowledgement of the revised policy.</p>
+    </section>
+
+    <!-- 13. Contact Us -->
+    <section class="pv-section" id="contact">
+      <div class="pv-section-header">
+        <span class="pv-section-num">13</span>
+        <h2>Contact Us</h2>
+      </div>
+      <p>If you have any questions about this Privacy Policy, wish to exercise any of your rights, or have a concern about how we handle your personal information, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a></li>
+        <li><strong>Website:</strong> proposalspots.com</li>
+      </ul>
+      <p>We aim to respond to all privacy-related enquiries within <strong>30 days</strong>. If your request is complex or you have submitted multiple requests, we may extend this period by a further 30 days, in which case we will notify you of the extension and the reason.</p>
+      <p>If you are not satisfied with our response, you have the right to lodge a complaint with the data protection authority in your jurisdiction — the relevant authorities are listed in <a href="#your-rights">Section 9</a>.</p>
+    </section>
+
+    <!-- Footer note -->
+    <div class="pv-footer-note">
+      <p>This policy was last reviewed and updated on <strong>June 3, 2026</strong>. Proposal Spots is committed to keeping this policy accurate, clear, and up to date. If you spot anything that seems outdated or unclear, please let us know at <a href="mailto:contact@proposalspots.com">contact@proposalspots.com</a>.</p>
+    </div>
+
+  </div><!-- /.pv-content -->
+
+</div><!-- /.pg-privacy -->
+
+</body>
+</html>

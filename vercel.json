@@ -44,6 +44,7 @@
     { "source": "/budget/switzerland", "destination": "/budget/switzerland.html" },
     { "source": "/budget/new-york", "destination": "/budget/new-york.html" },
     { "source": "/blog/:slug", "destination": "/blog/:slug.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
