@@ -16,13 +16,13 @@
   <meta name="description" content="{{metaDescription}}">
   <link rel="canonical" href="https://proposalspots.com/blog/{{slug}}">
   <meta property="og:title" content="{{title}}">
-  <meta property="og:description" content="{{metaDescription}}">
+  <meta property="og:description" content="{{ogDescription}}">
   <meta property="og:url" content="https://proposalspots.com/blog/{{slug}}">
   <meta property="og:type" content="article">
   <meta property="og:image" content="{{heroImageOg}}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{title}}">
-  <meta name="twitter:description" content="{{metaDescription}}">
+  <meta name="twitter:description" content="{{ogDescription}}">
   <meta name="twitter:image" content="{{heroImageOg}}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,6 +134,15 @@
     .post-body a:hover { border-color: var(--ink); }
     .post-pull { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.5vw, 26px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.5; border-left: 2px solid var(--accent); padding: 8px 0 8px 24px; margin: 36px 0; letter-spacing: 0.01em; }
 
+    .post-quick-answer { background: var(--bg2); border-left: 3px solid var(--accent); padding: 18px 22px; margin: 0 0 32px; border-radius: 1px; }
+    .post-quick-answer p { font-size: 14px; font-weight: 400; color: var(--ink2); line-height: 1.8; margin: 0; }
+
+    .post-table { overflow-x: auto; margin: 32px 0; }
+    .post-table table { width: 100%; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); }
+    .post-table th { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; border-bottom: 1px solid var(--hairline); text-align: left; white-space: nowrap; }
+    .post-table td { padding: 12px 14px; border-bottom: 1px solid var(--divider); line-height: 1.6; vertical-align: top; }
+    .post-table tr:last-child td { border-bottom: none; }
+
     .post-faq { max-width: 720px; margin: 0 auto; padding: 56px 40px; border-top: 1px solid var(--divider); }
     .post-faq h2 { font-family: 'Cormorant', serif; font-size: clamp(24px, 3vw, 36px); font-weight: 300; color: var(--ink); line-height: 1.2; margin-bottom: 32px; }
     .post-faq-item { padding: 24px 0; border-bottom: 1px solid var(--hairline); }
@@ -178,8 +187,28 @@
   </header>
 
   <div class="post-body">
-    <!-- {{body}} -->
-    <p>Replace this with the post body. Use &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;a&gt;, and the &lt;div class="post-pull"&gt; quote block.</p>
+
+    <!-- Opening paragraph: direct answer first, primary keyword in first 100 words -->
+    <p>{{openingParagraph}}</p>
+
+    <!-- Quick answer block: 3 sentences summarising the full post (setting / best approach / one concrete takeaway). Required on every post. -->
+    <div class="post-quick-answer">
+      <p>{{quickAnswer}}</p>
+    </div>
+
+    <!-- Body sections: use <h2>, <h3>, <p>, <div class="post-pull"> -->
+    <!-- Comparison table: required at least once per post. Place after the main options section. -->
+    <!-- <div class="post-table">
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Best for</th><th>Privacy</th><th>Best time</th><th>Rough cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div> -->
+
   </div>
 
   <section class="post-faq">

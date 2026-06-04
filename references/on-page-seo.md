@@ -10,7 +10,9 @@ Every blog post and location page must satisfy every applicable item below befor
 - **Meta description**: 150–160 chars, primary keyword + emotional benefit + soft CTA
 - **Canonical URL** set to prevent duplicates
 - **Open Graph tags**: `og:title`, `og:description`, `og:image` (1200×630), `og:url`, `og:type`
+  - `og:description` must be written separately from the meta description: 2–3 sentences, include a timing detail, a cost signal, and one specific insight not in the meta. AI tools (ChatGPT, Perplexity) read OG tags when summarising pages — this is distinct copy, not a copy-paste of the meta.
 - **Twitter Card tags**: `twitter:card=summary_large_image`, `twitter:title`, `twitter:description`, `twitter:image`
+  - `twitter:description` must match `og:description`, not the meta description.
 - **Language attribute** on `<html>` (`lang="en"`)
 - **Viewport meta tag**
 - **Charset meta** (`utf-8`)
@@ -40,6 +42,7 @@ Every blog post and location page must satisfy every applicable item below befor
 
 - Primary keyword in the first 100 words
 - Direct answer to the query in the first paragraph — no build-up
+- **Quick answer block**: immediately after the opening paragraph, place a 3-sentence summary of the entire post (setting, best approach, one concrete takeaway). This is the primary AI citation signal — it is what ChatGPT and Perplexity pull when summarising the page. Use `<div class="post-quick-answer">` in the template.
 - Length within 20% of SERP top-3 average word count for the target keyword
 - Short paragraphs (1–3 sentences)
 - Active voice
@@ -53,6 +56,15 @@ Every blog post and location page must satisfy every applicable item below befor
 - 4–8 questions drawn from SEMrush Questions tab + Google "People Also Ask"
 - Direct answers, 2–4 sentences each
 - FAQPage schema (JSON-LD) applied
+
+---
+
+## COMPARISON TABLE (every blog post)
+
+- At least one table per post comparing options, settings, or scenarios
+- Columns: Setting / Best for / Privacy / Best time / Rough cost
+- Use `<div class="post-table">` wrapper in the template
+- Place where it is most useful to the reader — after the main options section, not appended at the end
 
 ---
 
