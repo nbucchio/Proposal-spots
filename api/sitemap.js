@@ -5,6 +5,16 @@ function toSlug(str) {
     .replace(/^-|-$/g, '');
 }
 
+const BLOG_SLUGS = [
+  'how-to-plan-a-proposal', 'beach-wedding-proposal', 'beach-proposal-packages',
+  'proposal-set-up', 'picnic-proposal', 'romantic-dinner-proposal',
+  'romantic-proposal-ideas', 'proposal-packages', 'destination-engagement-photographer',
+  'best-destinations-to-propose', 'proposal-planner', 'outdoor-proposal-ideas',
+  'girlfriend-proposal', 'helicopter-proposal', 'engagement-planning',
+  'unique-proposal-ideas', 'surprise-proposal-planning', 'engagement-photo-locations',
+  'beach-proposal'
+];
+
 const STORY_SLUGS = [
   'amalfi', 'bali-rice', 'maldives', 'santorini', 'costa-rica', 'tulum',
   'algarve', 'provence', 'switzerland', 'nicaragua', 'costa-rica-waterfall',
@@ -67,6 +77,13 @@ export default async function handler(req, res) {
     <priority>0.9</priority>
   </url>`).join('');
 
+  const blogUrls = BLOG_SLUGS.map(slug => `
+  <url>
+    <loc>https://www.proposalspots.com/blog/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('');
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -78,7 +95,7 @@ export default async function handler(req, res) {
     <loc>https://www.proposalspots.com/destinations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>${destinationUrls}
+  </url>${destinationUrls}${blogUrls}
   <url>
     <loc>https://www.proposalspots.com/inspiration</loc>
     <changefreq>monthly</changefreq>
