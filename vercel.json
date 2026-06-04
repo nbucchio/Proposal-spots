@@ -1,12 +1,12 @@
 {
   "redirects": [
     { "source": "/destinations/santorini",      "destination": "/destinations/greece",          "permanent": true },
-    { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": false },
-    { "source": "/destinations/usa",              "destination": "/destinations/united-states",    "permanent": false },
-    { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": false },
-    { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": false },
-    { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": false },
-    { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": false }
+    { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": true },
+    { "source": "/destinations/usa",              "destination": "/destinations/united-states",    "permanent": true },
+    { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": true },
+    { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": true },
+    { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": true },
+    { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
