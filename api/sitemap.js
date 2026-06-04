@@ -56,6 +56,17 @@ export default async function handler(req, res) {
     <priority>0.6</priority>
   </url>`).join('');
 
+  const destinationUrls = [
+    'amalfi-coast', 'greece', 'bali', 'tulum', 'maldives', 'switzerland',
+    'costa-rica', 'nicaragua', 'portugal', 'south-of-france', 'united-states',
+    'italy', 'hawaii', 'london'
+  ].map(slug => `
+  <url>
+    <loc>https://www.proposalspots.com/destinations/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>`).join('');
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -64,9 +75,24 @@ export default async function handler(req, res) {
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.proposalspots.com/inspiration.html</loc>
+    <loc>https://www.proposalspots.com/destinations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>${destinationUrls}
+  <url>
+    <loc>https://www.proposalspots.com/inspiration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.proposalspots.com/how-it-works</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.proposalspots.com/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
   </url>${spotUrls}${storyUrls}
 </urlset>`;
 
