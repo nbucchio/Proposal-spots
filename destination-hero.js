@@ -3,35 +3,28 @@
   // Inject the hero-video CSS once per page (the rule originally lived only in
   // tulum.html; other destination pages didn't have it, which made an injected
   // <video> render inline and break the layout).
-  // The [data-hero-loading] rule hides the hero until the API-driven image
-  // (or video poster) finishes loading, so the hardcoded fallback in each
-  // page's inline CSS doesn't paint-then-swap.
   (function injectStyles() {
     if (document.getElementById('dest-hero-video-style')) return;
     var s = document.createElement('style');
     s.id = 'dest-hero-video-style';
     s.textContent =
-      '.dest-landing-hero { position: relative; overflow: hidden; transition: opacity 220ms ease; }' +
-      '.dest-landing-hero[data-hero-loading] { opacity: 0; }' +
+      '.dest-landing-hero { position: relative; overflow: hidden; }' +
       '.dest-landing-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }' +
       '.dest-landing-hero > .dest-landing-hero-content { position: relative; z-index: 2; }';
     (document.head || document.documentElement).appendChild(s);
   }());
 
-  function markReady(hero) {
-    if (hero) hero.removeAttribute('data-hero-loading');
-  }
-
-  function revealWhenLoaded(hero, url) {
-    if (!hero) return;
-    if (!url) { markReady(hero); return; }
+  // Preload an image URL and call cb when it's decoded (or errored/timed out).
+  // Used so we only swap the hero background in once the new image is in cache,
+  // avoiding a flash of broken/loading image.
+  function preload(url, cb) {
+    if (!url) { cb(); return; }
     var img = new Image();
     var done = false;
-    var finish = function () { if (done) return; done = true; markReady(hero); };
+    var finish = function () { if (done) return; done = true; cb(); };
     img.onload = finish;
     img.onerror = finish;
     img.src = url;
-    // Safety: never leave the hero hidden longer than 1.5s.
     setTimeout(finish, 1500);
   }
 
@@ -130,9 +123,6 @@
     var urlSlug = slugFromPath();
     if (!urlSlug && !window.__destSlug) return;
     var hero = document.querySelector('.dest-landing-hero');
-    // Hide the hero until the API-driven image is decoded, so the hardcoded
-    // fallback URL baked into each page's CSS doesn't flash before the swap.
-    if (hero) hero.setAttribute('data-hero-loading', '');
 
     fetch('/api/destinations')
       .then(function (r) { return r.json(); })
@@ -146,30 +136,28 @@
         if (!match && window.__destSlug) {
           match = list.find(function (d) { return d.destination_slug === window.__destSlug; });
         }
-        if (!match) { markReady(hero); return; }
+        if (!match) return;
         match.hero_image_fallback = upgradeImageUrl(match.hero_image_fallback);
         window.__destination = match;
         window.__destFallbackImage = match.hero_image_fallback || '';
         if (hero) {
           if (match.hero_video_url) {
-            applyVideo(hero, match.hero_video_url, match.hero_image_fallback);
-            // Reveal once the poster is decoded; the video itself fades up on top.
-            revealWhenLoaded(hero, match.hero_image_fallback);
+            // Preload the poster so the dark loading color → poster swap doesn't
+            // briefly show a half-loaded image while the video itself buffers.
+            preload(match.hero_image_fallback, function () {
+              applyVideo(hero, match.hero_video_url, match.hero_image_fallback);
+            });
           } else if (match.hero_image_fallback) {
-            applyImage(hero, match.hero_image_fallback);
-            // Pages can set window.__destHeroPosition to override the default 'center'.
-            applyHeroPosition(window.__destHeroPosition);
-            revealWhenLoaded(hero, match.hero_image_fallback);
-          } else {
-            markReady(hero);
+            preload(match.hero_image_fallback, function () {
+              applyImage(hero, match.hero_image_fallback);
+              // Pages can set window.__destHeroPosition to override the default 'center'.
+              applyHeroPosition(window.__destHeroPosition);
+            });
           }
         }
         document.dispatchEvent(new CustomEvent('destination:ready', { detail: match }));
       })
-      .catch(function (e) {
-        console.error('[destination-hero]', e);
-        markReady(hero);
-      });
+      .catch(function (e) { console.error('[destination-hero]', e); });
   }
 
   if (document.readyState === 'loading') {
