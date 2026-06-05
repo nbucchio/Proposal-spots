@@ -12,7 +12,7 @@
     s.id = 'dest-hero-video-style';
     s.textContent =
       '.dest-landing-hero { position: relative; overflow: hidden; }' +
-      '.dest-landing-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 260ms ease; }' +
+      '.dest-landing-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 500ms ease; }' +
       '.dest-landing-hero-video[data-video-loading] { opacity: 0; }' +
       '.dest-landing-hero > .dest-landing-hero-content { position: relative; z-index: 2; }';
     (document.head || document.documentElement).appendChild(s);
@@ -93,19 +93,28 @@
       video.playsInline = true;
       video.preload = 'auto';
       video.setAttribute('playsinline', '');
-      if (poster) video.poster = poster;
-      // Start invisible — fades in on canplay so we never hard-cut from
-      // poster to the video's first frame.
+      // Intentionally NOT setting video.poster — the hero background already
+      // shows the poster image (= listing card image), so a poster on the
+      // video element would just be a redundant decode/paint that can flash.
+      // Start invisible — fades in on `playing` so we only swap from poster
+      // image to video once an actual frame is rendered.
       video.setAttribute('data-video-loading', '');
       hero.insertBefore(video, hero.firstChild);
     } else {
-      if (poster) video.poster = poster;
+      // Pre-baked <video> in HTML (e.g. tulum.html): clear any poster attr
+      // so it doesn't render its own poster on top of the hero background,
+      // and hide until the first real frame plays.
+      video.removeAttribute('poster');
       video.setAttribute('data-video-loading', '');
     }
     var reveal = function () { video.removeAttribute('data-video-loading'); };
+    // `playing` only fires once playback has actually started AND a frame
+    // is on screen — more reliable than `canplay`, which can fire before
+    // any frame is rendered. Listen to both so we never miss the reveal.
+    video.addEventListener('playing', reveal, { once: true });
     video.addEventListener('canplay', reveal, { once: true });
-    // Safety net so we don't leave the video invisible forever if canplay never fires.
-    setTimeout(reveal, 2500);
+    // Safety net so we don't leave the video invisible forever if neither fires.
+    setTimeout(reveal, 3000);
 
     var isHls = /\.m3u8(\?|$)/i.test(src);
     if (isHls) {
