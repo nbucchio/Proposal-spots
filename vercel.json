@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/destination-hero.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ],
   "redirects": [
     { "source": "/destinations/santorini",      "destination": "/destinations/greece",          "permanent": true },
     { "source": "/destinations/france",          "destination": "/destinations/south-of-france", "permanent": true },
