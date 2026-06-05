@@ -72,15 +72,13 @@
     document.head.appendChild(s);
   }
 
-  function applyVideo(hero, src, poster) {
+  function applyVideo(hero, src) {
     if (!hero || !src) return;
-    if (poster) {
-      hero.style.backgroundImage = 'url(' + poster + ')';
-      hero.style.backgroundSize = 'cover';
-      hero.style.backgroundPosition = 'center';
-    } else {
-      hero.style.backgroundImage = '';
-    }
+    // Intentionally do NOT paint the poster/hero_image_fallback as the hero
+    // background. On video destinations, the user should see the dark
+    // loading color and then the video — never the still poster image,
+    // because that creates a visible "image flash → video" transition.
+    hero.style.backgroundImage = '';
     var video = hero.querySelector('.dest-landing-hero-video');
     var isNew = !video;
     if (isNew) {
@@ -192,11 +190,11 @@
         window.__destFallbackImage = match.hero_image_fallback || '';
         if (hero) {
           if (match.hero_video_url) {
-            // Preload the poster so the dark loading color → poster swap doesn't
-            // briefly show a half-loaded image while the video itself buffers.
-            preload(match.hero_image_fallback, function () {
-              applyVideo(hero, match.hero_video_url, match.hero_image_fallback);
-            });
+            // Video destinations: skip the poster entirely. Going from the
+            // dark loading color straight to the playing video means the user
+            // never sees a still image of the destination flashed before the
+            // video — which is the bug the previous poster-preload caused.
+            applyVideo(hero, match.hero_video_url);
           } else if (match.hero_image_fallback) {
             preload(match.hero_image_fallback, function () {
               applyImage(hero, match.hero_image_fallback);
