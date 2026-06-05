@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   // Cache at the edge for 5 minutes; serve stale for up to 1h while revalidating
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
+  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=3600');
 
   const BASE  = 'appN5GFcdPJvU1qff';
   // Table ID from the user-provided Airtable URL — more stable than the table name.
