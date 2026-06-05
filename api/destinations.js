@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   // Cache at the edge for 5 minutes; serve stale for up to 1h while revalidating
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
+  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=3600');
 
   const BASE  = 'appN5GFcdPJvU1qff';
   // Table ID from the user-provided Airtable URL — more stable than the table name.
@@ -41,6 +41,20 @@ export default async function handler(req, res) {
       return '';
     };
 
+    // Parse the `gallery_images` long-text field into [{ url, alt }, ...].
+    // Each line: "URL | alt text". Blank lines ignored. Lines without "|"
+    // are kept (url only, empty alt) so a single bad row never blanks the gallery.
+    const parseGallery = (val) => {
+      if (!val || typeof val !== 'string') return [];
+      return val.split(/\r?\n/).map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+        const i = trimmed.indexOf('|');
+        if (i === -1) return { url: trimmed, alt: '' };
+        return { url: trimmed.slice(0, i).trim(), alt: trimmed.slice(i + 1).trim() };
+      }).filter(item => item && item.url);
+    };
+
     const destinations = allRecords
       .map(r => {
         const f = r.fields || {};
@@ -52,7 +66,8 @@ export default async function handler(req, res) {
           show_in_nav:      f.show_in_nav === true || f.show_in_nav === 1 || f.show_in_nav === 'true',
           nav_order:        typeof f.nav_order === 'number' ? f.nav_order : 9999,
           hero_video_url:   f.hero_video_url   || '',
-          hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback)
+          hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback),
+          gallery_images:   parseGallery(f.gallery_images)
         };
       })
       .filter(d => d.show_in_nav && d.destination_slug)
