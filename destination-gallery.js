@@ -9,7 +9,7 @@
     var safeUrl = String(url).replace(/"/g, '&quot;');
     return (
       '<a onclick="openLightbox(\'' + safeUrl.replace(/'/g, "\\'") + '\'); return false;" href="#">' +
-        '<img src="' + safeUrl + '" alt="' + safeAlt + '" loading="lazy">' +
+        '<img src="' + safeUrl + '" alt="' + safeAlt + '">' +
       '</a>'
     );
   }
