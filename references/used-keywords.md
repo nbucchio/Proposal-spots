@@ -35,3 +35,4 @@ beach proposal | 2026-06-04 | /blog/beach-proposal
 paris proposal | 2026-06-05 | /destinations/paris (+ Paris/France cluster: proposal in paris, propose in paris, paris france proposal, where to propose in paris, places to propose in paris, best places to propose in paris, proposal in paris eiffel tower, marriage proposal eiffel tower paris, paris proposal planner, proposal in france, proposals in france, wedding proposal france, places to propose in france, best places to propose in france, france best places for romantic proposal)
 south of france proposal | 2026-06-06 | /destinations/south-of-france (+ South of France cluster: south of france proposal planner, nice france proposal)
 best places to propose in europe | 2026-06-06 | /blog/best-places-to-propose-in-europe
+marry me proposal | 2026-06-07 | /blog/marry-me-proposal
