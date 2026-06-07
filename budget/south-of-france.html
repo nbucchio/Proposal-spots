@@ -60,6 +60,22 @@
     .budget-tip { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--ink); padding: 18px 22px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; margin-bottom: 48px; }
     .budget-tip strong { font-weight: 500; }
 
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
     .budget-pg-link:hover { border-color: var(--ink); }
@@ -99,15 +115,14 @@
       <h1 class="budget-pg-h1">How Much Does a Proposal in the South of France Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>The South of France's premium proposal costs cluster around two things: accommodation and dining. Luxury mas and château properties in the Luberon and Var regions command some of the highest rental rates in France during lavender season (late June through July), when demand from international visitors is at its peak. Private venue hire for a proposal at a restaurant terrace in Provence — particularly those with Luberon mountain views — often involves minimum spend requirements that can significantly inflate the evening's total. The Côte d'Azur adds another premium layer: Nice, Antibes, and Saint-Tropez operate at prices that reflect the destination's international reputation rather than regional France norms.</p>
-        <p>Inland Provence, away from the Côte d'Azur, is genuinely accessible on a moderate budget. A gîte rather than a luxury mas delivers the same Provençal atmosphere — stone walls, lavender views, morning light — at a fraction of the nightly rate. The lavender fields of Valensole plateau are free to enter and are at their most cinematic in the first two hours of morning light, before the tour coaches arrive. The hilltop villages of Les Baux-de-Provence, Gordes, and Roussillon charge no access fee and provide some of the most painterly proposal backdrops in Europe. Good local photographers are considerably more affordable than Paris-based or internationally marketed names.</p>
+        <p>What you pay for a South of France proposal comes down to three decisions made before you ever board a flight: which region you choose, which season you travel in, and whether you hire locally or import. The Côte d'Azur and inland Provence operate as two different price tiers under the same regional name — moving from a coastal base to an inland one can cut your accommodation cost roughly in half. Lavender season (late June through July) layers a seasonal surcharge on top of that regional gap, and a photographer flown in from Paris can cost more than double a photographer based in Aix-en-Provence for the same two hours of work. None of these costs are fixed. They are choices, and each one moves the total by hundreds — sometimes thousands — of dollars.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
             <div class="budget-dest-name">South of France</div>
-            <p class="budget-dest-tagline">Lavender fields, the Côte d'Azur, hilltop villages, Provençal farmhouses. The South of France offers a level of romantic variety that no other European destination can match.</p>
+            <p class="budget-dest-tagline">Two regions operating as two price tiers, a seasonal surcharge in lavender season, and a wide gap between public access and private venue hire — here's the baseline range before any of those choices are made.</p>
           </div>
           <div class="budget-dest-range-badge">$800 – $6,000+</div>
         </div>
@@ -122,11 +137,77 @@
         </div>
       </div>
 
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> The Valensole lavender fields peak in late June to early July — go at 6am or golden hour and you'll have the rows to yourselves with extraordinary light. Private farm access for a fully exclusive proposal can usually be arranged informally through the local gîte you're staying at; the farmers are accustomed to it and charge modestly. This is the most photogenic proposal setting in France, and it requires almost no budget to access.</p>
+      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Timing is a cost decision, not just a photography one. Arriving at the Valensole lavender rows around 5am means free, unsupervised access — the fields are simply open. Show up after 9am, once farm staff and tour groups are on site, and the same access is frequently sold as an escorted "private" visit for $30–$80 per couple. The view is identical either way. The only thing separating the free version from the paid one is what time you set your alarm.</p>
+
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>Lavender season premium (late June–July).</strong> Accommodation across the Luberon and Valensole corridor runs roughly 30–50% higher at peak bloom than in shoulder months — a gîte that lists for $120/night in May or September commonly lists for $180–$220/night in late June. Local photographers also tend to add a $100–$200 seasonal premium simply because the small pool of regional talent is fully booked.</li>
+          <li><strong>Côte d'Azur vs. inland Provence.</strong> A boutique hotel room in Nice, Antibes, or Saint-Tropez averages $250–$450/night in season; a comparable standard of room in Aix-en-Provence or the Luberon runs $90–$180/night. Concretely, three nights on the coast can cost $750–$1,200 more than three nights inland for the same quality of stay.</li>
+          <li><strong>Private venue hire vs. public spots.</strong> Reserving a restaurant terrace or rooftop exclusively — on the coast or inland — typically carries a minimum spend of $400–$1,000 regardless of how many people show up, against $0 to use a public hilltop viewpoint or a lavender field margin at the right hour.</li>
+          <li><strong>Photographer: Paris-based vs. local Provence.</strong> A Paris-based or internationally marketed photographer commonly runs $900–$1,500 for a 2–3 hour proposal session once travel and accommodation are folded into the fee, versus $300–$600 for an established photographer already based in Aix-en-Provence or the Luberon.</li>
+          <li><strong>Luxury mas/château vs. gîte.</strong> A luxury mas or château property in the Luberon or Var runs $400–$1,000+ per night in peak season; a well-located gîte with the same stone-walls-and-lavender-views atmosphere runs $90–$180 per night — a difference of roughly $1,000–$2,500 across a three-night stay.</li>
+        </ul>
+      </div>
+
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Booking a coastal base for an inland trip (or the reverse).</strong> Couples often default to Nice because it's the better-known airport, then pay coastal room rates for a trip actually built around lavender fields and hilltop villages an hour and a half inland — adding hundreds of dollars in accommodation for a setting they won't use.</li>
+          <li><strong>Paying for "private" lavender access that's free at the right hour.</strong> Tour operators and local fixers routinely sell escorted early-morning lavender visits for $50–$150 per couple — the same rows that are simply open and unattended at 5am.</li>
+          <li><strong>Hiring a photographer who has to scout the region first.</strong> Out-of-region photographers often bill a half-day of location scouting as additional hours to find the farm paths and village terraces a Provence-based photographer already has on a list. That scouting time is frequently the single most expensive line item on the invoice.</li>
+          <li><strong>Booking a "romantic dinner" through a hotel concierge instead of directly.</strong> Concierge-arranged private dinners in Provence and on the Côte d'Azur often carry a 20–40% markup over reserving the same table or terrace directly with the restaurant.</li>
+        </ul>
+      </div>
+
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to do this well on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Anchor the trip inland and let the savings fund the moment.</strong> Shifting your base from the Côte d'Azur to Aix-en-Provence or the Luberon can free up $750 or more across three nights — enough to cover a photographer and a private dinner outright.</li>
+          <li><strong>Travel just outside the lavender peak.</strong> Late May, early June, or September trade two or three weeks of full bloom for 30–50% lower accommodation rates and a photographer roster that isn't already fully booked.</li>
+          <li><strong>Choose a gîte over a mas or château.</strong> The atmosphere — stone walls, wooden shutters, lavender views from the terrace — is materially the same; the nightly rate is a third to a half of the luxury equivalent.</li>
+          <li><strong>Book a Provence-based photographer directly.</strong> Search by town name — Aix-en-Provence, Avignon, Gordes — rather than "France proposal photographer." Local search terms surface photographers who charge local rates and already know the locations.</li>
+          <li><strong>Use public viewpoints instead of paying for venue access.</strong> Hilltop villages such as Les Baux-de-Provence and Roussillon, and the public lavender margins around Valensole, charge nothing to enter and photograph just as well at the right time of day as anything you'd pay to access privately.</li>
+        </ul>
+      </div>
+
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdown — 3 nights, two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$1,400 — Provence-focused</div>
+        <p class="budget-breakdown-sub">Gîte stay, local photographer, lavender field at first light</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Gîte, 3 nights @ $130/night</span><span>$390</span></div>
+          <div class="budget-breakdown-row"><span>Rental car, 3 days + fuel</span><span>$140</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Aix-en-Provence based, 2 hrs)</span><span>$400</span></div>
+          <div class="budget-breakdown-row"><span>Lavender field access (arrive 5am — free)</span><span>$0</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner, Provence farmhouse restaurant</span><span>$220</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$90</span></div>
+          <div class="budget-breakdown-row"><span>Parking, incidentals, miscellaneous</span><span>$160</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$1,400</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$3,200 — Côte d'Azur</div>
+        <p class="budget-breakdown-sub">Boutique hotel, private terrace dinner, photographer with travel</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Boutique hotel, 3 nights @ $320/night</span><span>$960</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (coastal-based, with travel, 3 hrs)</span><span>$750</span></div>
+          <div class="budget-breakdown-row"><span>Private terrace dinner (minimum spend)</span><span>$650</span></div>
+          <div class="budget-breakdown-row"><span>Private terrace / venue access fee</span><span>$250</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; florist setup</span><span>$180</span></div>
+          <div class="budget-breakdown-row"><span>Car service &amp; transfers</span><span>$230</span></div>
+          <div class="budget-breakdown-row"><span>Incidentals &amp; miscellaneous</span><span>$180</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$3,200</span></div>
+        </div>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific lavender fields, hilltop terraces, and coastal coves that fit each of these budgets — with notes on access, timing, and what to book ahead — live on the destination page below.</p>
+      </div>
 
       <div class="budget-pg-links">
-        <a href="/destinations/south-of-france" class="budget-pg-link">Browse South of France proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/south-of-france" class="budget-pg-link budget-pg-link-accent">Browse South of France proposal spots →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>
