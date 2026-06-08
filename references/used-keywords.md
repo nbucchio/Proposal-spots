@@ -36,3 +36,4 @@ paris proposal | 2026-06-05 | /destinations/paris (+ Paris/France cluster: propo
 south of france proposal | 2026-06-06 | /destinations/south-of-france (+ South of France cluster: south of france proposal planner, nice france proposal)
 best places to propose in europe | 2026-06-06 | /blog/best-places-to-propose-in-europe
 marry me proposal | 2026-06-07 | /blog/marry-me-proposal
+private engagement proposal ideas | 2026-06-07 | /blog/private-engagement-proposal-ideas
