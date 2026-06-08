@@ -289,11 +289,12 @@
           var order = [];
           var groups = {};
           list.forEach(function (d) {
-            var key = d.Continent || 'Other';
-            if (!groups[key]) { groups[key] = []; order.push(key); }
-            groups[key].push(d);
+            var label = String(d.Continent || 'Other').trim() || 'Other';
+            var key = label.toLowerCase();
+            if (!groups[key]) { groups[key] = { label: label, items: [] }; order.push(key); }
+            groups[key].items.push(d);
           });
-          return order.map(function (key) { return { continent: key, items: groups[key] }; });
+          return order.map(function (key) { return { continent: groups[key].label, items: groups[key].items }; });
         }
 
         function render(list) {
