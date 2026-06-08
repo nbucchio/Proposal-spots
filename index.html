@@ -878,10 +878,11 @@ nav.scrolled {
 }
 
 /* ─────────────────────────────────────
-   FEATURED MARKETS — MOBILE CAROUSEL
+   FEATURED MARKETS — CAROUSEL
    (mirrors .vibes-carousel; populated from /api/destinations in nav_order)
 ───────────────────────────────────── */
-.markets-carousel-wrap { display: none; }
+.markets-grid { display: none; }
+.markets-carousel-wrap { display: block; position: relative; }
 .markets-carousel {
   display: flex;
   gap: 20px;
@@ -895,7 +896,7 @@ nav.scrolled {
 .markets-carousel::-webkit-scrollbar { display: none; }
 .market-spot-card {
   position: relative;
-  flex: 0 0 65%;
+  flex: 0 0 calc((100% - 60px) / 4);
   aspect-ratio: 4/5;
   border-radius: 10px;
   overflow: hidden;
@@ -940,6 +941,37 @@ nav.scrolled {
   letter-spacing: 0.01em;
   line-height: 1.1;
   z-index: 2;
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+.market-spot-card-img { transition: transform 0.4s ease-out; }
+.market-spot-card:hover .market-spot-card-img { transform: scale(1.05); }
+.market-spot-card:hover .market-spot-label    { transform: translateY(-4px); }
+.market-spot-card:hover::after                { opacity: 0.92; }
+.market-spot-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.markets-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: opacity 0.2s, border-color 0.2s, background 0.2s;
+}
+.markets-arrow:hover { border-color: var(--ink); }
+.markets-arrow-prev { left: -20px; }
+.markets-arrow-next { right: -20px; }
+.markets-arrow[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 /* flat matte bg tones */
 .mc-amalfi   { background-image: url('https://plus.unsplash.com/premium_photo-1677494867836-3f56b1261bc5?q=80&w=900&auto=format&fit=crop'); background-size: cover; background-position: center; }
@@ -1917,8 +1949,7 @@ footer {
    RESPONSIVE
 ───────────────────────────────────── */
 @media (max-width: 1024px) {
-  .markets-grid { grid-template-columns: repeat(3, 1fr); }
-  .market-card:nth-child(4) { grid-column: span 1; aspect-ratio: 3/4; }
+  .market-spot-card { flex-basis: calc((100% - 40px) / 3); }
   .vibe-card { flex-basis: calc((100% - 40px) / 3); }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
   .seo-editorial-text { padding: 72px 48px 72px 40px; }
@@ -2229,8 +2260,8 @@ footer {
   /* Remove gap between Browse by Vibe and Featured Markets on mobile */
   #vibes-section .section { padding-bottom: 0 !important; }
   #markets-section .section { padding-top: 0 !important; }
-  .markets-grid { display: none; }
-  .markets-carousel-wrap { display: block; position: relative; }
+  .market-spot-card { flex-basis: 65%; }
+  .markets-arrow { display: none; }
   .vibe-card { flex-basis: 65%; }
   .vibes-arrow { display: none; }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
@@ -5448,7 +5479,13 @@ footer {
       </a>
     </div>
     <div class="markets-carousel-wrap" id="markets-carousel-wrap">
+      <button type="button" class="markets-arrow markets-arrow-prev" id="markets-prev" aria-label="Previous destinations" aria-disabled="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
+      </button>
       <div class="markets-carousel" id="markets-carousel" role="region" aria-label="Browse all destinations"></div>
+      <button type="button" class="markets-arrow markets-arrow-next" id="markets-next" aria-label="Next destinations">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>
     </div>
   </div>
 </div>
@@ -10529,6 +10566,39 @@ function renderMarketsCarousel(destinations) {
   }).join('');
 
   track.innerHTML = html;
+  initMarketsArrows();
+}
+
+function initMarketsArrows() {
+  var track = document.getElementById('markets-carousel');
+  var prev  = document.getElementById('markets-prev');
+  var next  = document.getElementById('markets-next');
+  if (!track || !prev || !next) return;
+
+  function updateArrows() {
+    var atStart = track.scrollLeft <= 1;
+    var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    prev.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+    next.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+  }
+
+  function step() {
+    var first = track.querySelector('.market-spot-card');
+    if (!first) return track.clientWidth * 0.8;
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+    return first.getBoundingClientRect().width + gap;
+  }
+
+  prev.addEventListener('click', function() {
+    track.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next.addEventListener('click', function() {
+    track.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+  track.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
 }
 
 function loadMarketsCarousel() {
