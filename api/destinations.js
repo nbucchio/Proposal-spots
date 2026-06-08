@@ -67,6 +67,7 @@ export default async function handler(req, res) {
           nav_order:        typeof f.nav_order === 'number' ? f.nav_order : 9999,
           hero_video_url:   f.hero_video_url   || '',
           hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback),
+          portrait_hero:    firstAttachmentUrl(f['Portrait Hero']) || firstAttachmentUrl(f.hero_image_fallback),
           gallery_images:   parseGallery(f.gallery_images)
         };
       })

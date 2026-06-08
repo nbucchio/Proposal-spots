@@ -60,16 +60,105 @@
     .dest-hero-title { font-family: 'Cormorant', serif; font-size: clamp(36px,5vw,60px); font-weight: 300; color: var(--ink); margin-bottom: 16px; }
     .dest-hero-title em { font-style: italic; }
     .dest-hero-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.8; }
-    .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
     .dest-listing-loading { max-width: 1200px; margin: 0 auto; padding: 40px; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-    .dest-card { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; display: block; color: inherit; }
-    .dest-card:hover { box-shadow: 0 8px 32px rgba(28,28,28,0.1); transform: translateY(-2px); }
-    .dest-card-img { height: 160px; background-size: cover; background-position: center; }
-    .dest-card-info { padding: 20px; }
-    .dest-card-country { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
-    .dest-card-name { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
-    .dest-card-line { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 12px; }
-    .dest-card-cta { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A55A4A; }
+
+    /* ── Continent groups (title font matches the Italy region headers) ── */
+    .dest-continent { max-width: 1200px; margin: 0 auto; padding: 0 40px 56px; }
+    .dest-continent-title { font-family: 'Cormorant', serif; font-size: clamp(38px,5.5vw,68px); font-weight: 300; color: var(--ink); line-height: 1.0; letter-spacing: -0.01em; margin-bottom: 24px; }
+
+    /* ── Carousel + cards (mirrors Browse-by-Vibe on the homepage) ── */
+    .dest-carousel-wrap { position: relative; }
+    .dest-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding: 4px 0; }
+    .dest-carousel::-webkit-scrollbar { display: none; }
+    .dest-card {
+      position: relative;
+      flex: 0 0 calc((100% - 60px) / 4);
+      aspect-ratio: 4/5;
+      border-radius: 10px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      background: var(--white);
+      border: 1px solid var(--hairline);
+    }
+    .dest-card-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease-out;
+    }
+    .dest-card::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 60%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+    }
+    .dest-card-eyebrow {
+      position: absolute;
+      top: 24px; left: 24px;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: #fff;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .dest-card-label {
+      position: absolute;
+      bottom: 24px; left: 24px; right: 24px;
+      font-family: 'Cormorant', serif;
+      font-size: clamp(24px, 2.4vw, 30px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.01em;
+      line-height: 1.1;
+      z-index: 2;
+      transform: translateY(0);
+      transition: transform 0.3s ease-out;
+    }
+    .dest-card:hover .dest-card-img   { transform: scale(1.05); }
+    .dest-card:hover .dest-card-label { transform: translateY(-4px); }
+    .dest-card:hover::after           { opacity: 0.92; }
+    .dest-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+    .dest-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--hairline);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: opacity 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .dest-arrow:hover { border-color: var(--ink); }
+    .dest-arrow-prev { left: -20px; }
+    .dest-arrow-next { right: -20px; }
+    .dest-arrow[aria-disabled="true"] { opacity: 0.4; cursor: default; pointer-events: none; }
+
+    @media (max-width: 1024px) {
+      .dest-card { flex-basis: calc((100% - 40px) / 3); }
+    }
+    @media (max-width: 768px) {
+      .dest-card { flex-basis: 65%; }
+      .dest-arrow { display: none; }
+    }
+    @media (max-width: 480px) {
+      .dest-card { flex-basis: 75%; }
+    }
     .dest-budget-section { max-width: 1100px; margin: 0 auto; padding: 0 40px 60px; }
     .dest-budget-header { text-align: center; margin-bottom: 40px; }
     .dest-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
@@ -103,7 +192,7 @@
 
     @media (max-width: 768px) {
       .dest-hero { padding: 60px 24px 40px; }
-      .dest-grid { padding: 0 20px 40px; gap: 16px; }
+      .dest-continent { padding: 0 20px 40px; }
       .dest-budget-section { padding: 0 20px 40px; }
     }
   </style>
@@ -120,12 +209,15 @@
       <p class="dest-hero-sub">Every market we cover was chosen because that's where the most discerning travellers propose. These are the places people plan around, save for, and remember forever.</p>
     </div>
 
-    <div class="dest-grid" id="dest-listing">
-      <div class="dest-listing-loading" style="grid-column:1/-1">Loading destinations…</div>
+    <div id="dest-listing">
+      <div class="dest-listing-loading">Loading destinations…</div>
     </div>
 
     <script>
       (function () {
+        var ARROW_PREV_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>';
+        var ARROW_NEXT_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>';
+
         function escapeHtml(s) {
           return String(s == null ? '' : s)
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -135,37 +227,99 @@
           if (!url || !/images\.unsplash\.com/.test(url)) return url;
           try {
             var u = new URL(url);
-            u.searchParams.set('w', '1200');
+            u.searchParams.set('w', '900');
             u.searchParams.set('q', '85');
             u.searchParams.set('auto', 'format');
             u.searchParams.set('fit', 'crop');
             return u.toString();
           } catch (e) { return url; }
         }
-        function buildCard(d) {
-          var img = upgradeUnsplash(d.hero_image_fallback || '');
-          var bg = img ? 'background-image:url(\'' + img.replace(/'/g, '%27') + '\')' : '';
-          return '<a class="dest-card" href="/destinations/' + escapeHtml(d.destination_slug) + '">' +
-                   '<div class="dest-card-img" style="' + bg + '"></div>' +
-                   '<div class="dest-card-info">' +
-                     '<span class="dest-card-country">' + escapeHtml(d.Continent || '') + '</span>' +
-                     '<h2 class="dest-card-name">' + escapeHtml(d.display_name || '') + '</h2>' +
-                     '<span class="dest-card-cta">Explore spots →</span>' +
-                   '</div>' +
+
+        function buildCard(d, i) {
+          var img = upgradeUnsplash(d.portrait_hero || d.hero_image_fallback || '');
+          var loading = i < 4 ? 'eager' : 'lazy';
+          var name = escapeHtml(d.display_name || '');
+          return '<a class="dest-card" href="/destinations/' + escapeHtml(d.destination_slug) + '" aria-label="Explore ' + name + ' proposal spots">' +
+                   '<img class="dest-card-img" src="' + img.replace(/"/g, '&quot;') + '" alt="' + name + '" loading="' + loading + '" decoding="async">' +
+                   '<span class="dest-card-eyebrow">' + escapeHtml(d.Continent || '') + '</span>' +
+                   '<span class="dest-card-label">' + name + '</span>' +
                  '</a>';
         }
-        function render(list) {
-          var html = list.map(buildCard).join('');
-          document.getElementById('dest-listing').innerHTML =
-            html || '<div class="dest-listing-loading" style="grid-column:1/-1">No destinations available.</div>';
+
+        function buildContinentSection(continent, list, idx) {
+          var carouselId = 'dest-carousel-' + idx;
+          var prevId = 'dest-prev-' + idx;
+          var nextId = 'dest-next-' + idx;
+          var cards = list.map(buildCard).join('');
+          return '<div class="dest-continent">' +
+                   '<h2 class="dest-continent-title">' + escapeHtml(continent) + '</h2>' +
+                   '<div class="dest-carousel-wrap">' +
+                     '<button type="button" class="dest-arrow dest-arrow-prev" id="' + prevId + '" aria-label="Previous ' + escapeHtml(continent) + ' destinations" aria-disabled="true">' + ARROW_PREV_SVG + '</button>' +
+                     '<div class="dest-carousel" id="' + carouselId + '" role="region" aria-label="' + escapeHtml(continent) + ' destinations">' + cards + '</div>' +
+                     '<button type="button" class="dest-arrow dest-arrow-next" id="' + nextId + '" aria-label="Next ' + escapeHtml(continent) + ' destinations">' + ARROW_NEXT_SVG + '</button>' +
+                   '</div>' +
+                 '</div>';
         }
+
+        function initCarouselArrows(track, prev, next) {
+          if (!track || !prev || !next) return;
+
+          function updateArrows() {
+            var atStart = track.scrollLeft <= 1;
+            var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+            prev.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+            next.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+          }
+          function step() {
+            var first = track.querySelector('.dest-card');
+            if (!first) return track.clientWidth * 0.8;
+            var style = window.getComputedStyle(track);
+            var gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+            return first.getBoundingClientRect().width + gap;
+          }
+
+          prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+          next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+          track.addEventListener('scroll', updateArrows, { passive: true });
+          window.addEventListener('resize', updateArrows);
+          updateArrows();
+        }
+
+        function groupByContinent(list) {
+          var order = [];
+          var groups = {};
+          list.forEach(function (d) {
+            var key = d.Continent || 'Other';
+            if (!groups[key]) { groups[key] = []; order.push(key); }
+            groups[key].push(d);
+          });
+          return order.map(function (key) { return { continent: key, items: groups[key] }; });
+        }
+
+        function render(list) {
+          var root = document.getElementById('dest-listing');
+          var groups = groupByContinent(list);
+          if (groups.length === 0) {
+            root.innerHTML = '<div class="dest-listing-loading">No destinations available.</div>';
+            return;
+          }
+          root.innerHTML = groups.map(function (g, idx) { return buildContinentSection(g.continent, g.items, idx); }).join('');
+          groups.forEach(function (g, idx) {
+            initCarouselArrows(
+              document.getElementById('dest-carousel-' + idx),
+              document.getElementById('dest-prev-' + idx),
+              document.getElementById('dest-next-' + idx)
+            );
+          });
+        }
+
         fetch('/api/destinations')
           .then(function (r) { return r.json(); })
           .then(function (data) { render((data && data.destinations) || []); })
           .catch(function (e) {
             console.error('[destinations] load failed', e);
             document.getElementById('dest-listing').innerHTML =
-              '<div class="dest-listing-loading" style="grid-column:1/-1">Unable to load destinations right now.</div>';
+              '<div class="dest-listing-loading">Unable to load destinations right now.</div>';
           });
       })();
     </script>
