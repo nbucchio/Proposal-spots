@@ -12,7 +12,8 @@ const BLOG_SLUGS = [
   'best-destinations-to-propose', 'proposal-planner', 'outdoor-proposal-ideas',
   'girlfriend-proposal', 'helicopter-proposal', 'engagement-planning',
   'unique-proposal-ideas', 'surprise-proposal-planning', 'engagement-photo-locations',
-  'beach-proposal'
+  'beach-proposal', 'best-places-to-propose-in-europe', 'marry-me-proposal',
+  'private-engagement-proposal-ideas'
 ];
 
 const STORY_SLUGS = [
