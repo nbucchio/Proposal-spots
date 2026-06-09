@@ -1,3 +1,8 @@
+const optimizeCdn = (url, w) => {
+  if (!url || !url.includes('airtableusercontent.com')) return url;
+  return `/cdn-cgi/image/width=${w || 800},format=webp,quality=80/${url}`;
+};
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -35,7 +40,7 @@ export default async function handler(req, res) {
       const displayLabel  = f['Display Label'];
       const orderNum      = Number(f['Order']);
       const heroImage     = Array.isArray(f['Hero Image']) ? f['Hero Image'][0] : null;
-      const imageUrl      = heroImage && heroImage.url ? heroImage.url : null;
+      const imageUrl      = heroImage && heroImage.url ? optimizeCdn(heroImage.url, 800) : null;
 
       if (!vibeName || !displayLabel || !imageUrl || !Number.isFinite(orderNum)) {
         return acc;

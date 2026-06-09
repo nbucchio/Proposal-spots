@@ -34,6 +34,11 @@ export default async function handler(req, res) {
       offset = data.offset || null;
     } while (offset);
 
+    const optimizeCdn = (url, w) => {
+      if (!url || !url.includes('airtableusercontent.com')) return url;
+      return `/cdn-cgi/image/width=${w || 800},format=webp,quality=80/${url}`;
+    };
+
     const firstAttachmentUrl = (val) => {
       if (!val) return '';
       if (Array.isArray(val) && val[0] && val[0].url) return val[0].url;
@@ -67,7 +72,7 @@ export default async function handler(req, res) {
           nav_order:        typeof f.nav_order === 'number' ? f.nav_order : 9999,
           hero_video_url:   f.hero_video_url   || '',
           hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback),
-          portrait_hero:    firstAttachmentUrl(f['Portrait Heroes']) || firstAttachmentUrl(f.hero_image_fallback),
+          portrait_hero:    optimizeCdn(firstAttachmentUrl(f['Portrait Heroes']) || firstAttachmentUrl(f.hero_image_fallback), 800),
           gallery_images:   parseGallery(f.gallery_images)
         };
       })
