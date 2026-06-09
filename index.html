@@ -2042,7 +2042,7 @@ footer {
 
   /* ── M2 Hero A — full-bleed proposal photo with overlapping capsule ── */
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=2400&auto=format&fit=crop') !important;
+    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=828&auto=format&fit=crop') !important;
     background-size: cover;
     background-position: 25% center;
     background-color: var(--bg);
@@ -7011,7 +7011,7 @@ function getCardImgs(s) {
   return [main, ...gallery].filter(Boolean);
 }
 
-function buildSpotCard(s) {
+function buildSpotCard(s, index) {
   const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
     ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
@@ -7027,8 +7027,9 @@ function buildSpotCard(s) {
   const imgs     = getCardImgs(s);
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
+  const lazyLoad = (index || 0) >= 3 ? ' loading="lazy"' : '';
   const scHtml   = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + imgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
-  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\')"></div></div>';}).join('') + '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + imgs[0].replace(/'/g,"\\'") + '\')"></div></div></div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
+  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){var u400=url.replace('width=800,','width=400,');return '<div class="sc-frame"><img class="img-bg" src="'+url.replace(/"/g,'&quot;')+'" srcset="'+u400.replace(/"/g,'&quot;')+' 400w, '+url.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div>';}).join('') + '<div class="sc-frame"><img class="img-bg" src="'+imgs[0].replace(/"/g,'&quot;')+'" srcset="'+imgs[0].replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+imgs[0].replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div></div>' : (cardPhoto ? '<img class="img-bg" src="'+cardPhoto.replace(/"/g,'&quot;')+'" srcset="'+cardPhoto.replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+cardPhoto.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'">' : '<div class="img-bg" style="background:'+(s.coverGradient||'var(--bg3)')+'"></div>');
 
   return `
     <div class="spot-card" onclick="openSpotDrawer('${s.id}')" style="cursor:pointer">
@@ -7070,7 +7071,7 @@ function buildSpotCard(s) {
     </div>`;
 }
 
-function buildSpotCardLinked(s) {
+function buildSpotCardLinked(s, index) {
   const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
   const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
@@ -7084,8 +7085,9 @@ function buildSpotCardLinked(s) {
   const imgs    = getCardImgs(s);
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
+  const lazyLoad = (index || 0) >= 3 ? ' loading="lazy"' : '';
   const scHtml   = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + imgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
-  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\')"></div></div>';}).join('') + '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + imgs[0].replace(/'/g,"\\'") + '\')"></div></div></div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
+  const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url){var u400=url.replace('width=800,','width=400,');return '<div class="sc-frame"><img class="img-bg" src="'+url.replace(/"/g,'&quot;')+'" srcset="'+u400.replace(/"/g,'&quot;')+' 400w, '+url.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div>';}).join('') + '<div class="sc-frame"><img class="img-bg" src="'+imgs[0].replace(/"/g,'&quot;')+'" srcset="'+imgs[0].replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+imgs[0].replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div></div>' : (cardPhoto ? '<img class="img-bg" src="'+cardPhoto.replace(/"/g,'&quot;')+'" srcset="'+cardPhoto.replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+cardPhoto.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'">' : '<div class="img-bg" style="background:'+(s.coverGradient||'var(--bg3)')+'"></div>');
 
   return `
     <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
@@ -7182,7 +7184,7 @@ function renderSpots(spots) {
     'Moderate Crowd': '👥👥', 'Everyone Will See': '👥👥👥'
   };
 
-  grid.innerHTML = spotsToRender.map(s => buildSpotCard(s)).join('');
+  grid.innerHTML = spotsToRender.map((s, i) => buildSpotCard(s, i)).join('');
 }
 
 let spotReturnPage = 'home';
@@ -9181,7 +9183,7 @@ function renderDLSpots() {
     grid.innerHTML = ''; grid.style.display = 'none'; empty.style.display = 'block'; return;
   }
   grid.style.display = ''; empty.style.display = 'none';
-  grid.innerHTML = spots.map(s => buildSpotCard(s)).join('');
+  grid.innerHTML = spots.map((s, i) => buildSpotCard(s, i)).join('');
 }
 
 function goToDestination(name) {
@@ -9775,7 +9777,7 @@ function renderResultsPage() {
   const privacyEmoji = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
 
   if (grid) {
-    grid.innerHTML = filtered.map(s => buildSpotCardLinked(s)).join('');
+    grid.innerHTML = filtered.map((s, i) => buildSpotCardLinked(s, i)).join('');
   }
 }
 
