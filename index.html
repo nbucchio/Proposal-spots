@@ -10485,7 +10485,7 @@ function renderVibesCarousel(vibes) {
     var escLabel = label.replace(/"/g, '&quot;');
     return ''
       + '<a class="vibe-card" href="' + href + '" aria-label="Browse ' + escLabel + ' proposal spots">'
-      +   '<img class="vibe-card-img" src="' + v.image + '" alt="' + escLabel + '" loading="' + loading + '" decoding="async">'
+      +   '<img class="vibe-card-img" src="' + optimizeAirtableImage(v.image, 800) + '" alt="' + escLabel + '" loading="' + loading + '" decoding="async">'
       +   '<span class="vibe-num">' + num + '</span>'
       +   '<span class="vibe-label">' + label + '</span>'
       + '</a>';
@@ -10569,7 +10569,7 @@ function renderMarketsCarousel(destinations) {
     var escName = name.replace(/"/g, '&quot;');
     return ''
       + '<a class="market-spot-card" href="/destinations/' + d.destination_slug + '" aria-label="Explore ' + escName + ' proposal spots">'
-      +   '<img class="market-spot-card-img" src="' + d.portrait_hero + '" alt="' + escName + '" loading="' + loading + '" decoding="async">'
+      +   '<img class="market-spot-card-img" src="' + optimizeAirtableImage(d.portrait_hero, 800) + '" alt="' + escName + '" loading="' + loading + '" decoding="async">'
       +   (d.Continent ? '<span class="market-spot-eyebrow">' + d.Continent + '</span>' : '')
       +   '<span class="market-spot-label">' + name + '</span>'
       + '</a>';
