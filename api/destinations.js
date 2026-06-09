@@ -63,6 +63,17 @@ export default async function handler(req, res) {
     const destinations = allRecords
       .map(r => {
         const f = r.fields || {};
+
+        const urlImages = parseGallery(f.gallery_images);
+
+        const attachmentImages = Array.isArray(f.gallery_images_attachment)
+          ? f.gallery_images_attachment
+              .filter(a => a && a.url)
+              .map(a => ({ url: a.url, alt: a.filename || '' }))
+          : [];
+
+        const galleryImages = [...urlImages, ...attachmentImages];
+
         return {
           id: r.id,
           destination_slug: (f.destination_slug || '').trim(),
@@ -73,7 +84,7 @@ export default async function handler(req, res) {
           hero_video_url:   f.hero_video_url   || '',
           hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback),
           portrait_hero:    optimizeCdn(firstAttachmentUrl(f['Portrait Heroes']) || firstAttachmentUrl(f.hero_image_fallback), 800),
-          gallery_images:   parseGallery(f.gallery_images)
+          gallery_images:   galleryImages
         };
       })
       .filter(d => d.show_in_nav && d.destination_slug)
