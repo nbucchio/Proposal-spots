@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://v5.airtableusercontent.com">
 <link rel="preload" as="image" href="leo_visions-hqUkno6qO9Q-unsplash.webp" type="image/webp" fetchpriority="high" media="(min-width: 769px)">
-<link rel="preload" as="image" href="https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=2400&auto=format&fit=crop" fetchpriority="high" media="(max-width: 768px)">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=1200&auto=format&fit=crop" fetchpriority="high" media="(max-width: 768px)">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap"></noscript>
 <style>
@@ -340,13 +340,6 @@ nav.scrolled {
 .hero {
   min-height: 100vh;
   background-color: var(--bg);
-  background-image: url('leo_visions-hqUkno6qO9Q-unsplash.jpg');
-  background-image: image-set(
-    url('leo_visions-hqUkno6qO9Q-unsplash.webp') type('image/webp'),
-    url('leo_visions-hqUkno6qO9Q-unsplash.jpg') type('image/jpeg')
-  );
-  background-size: cover;
-  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -364,7 +357,7 @@ nav.scrolled {
   position: absolute;
   inset: 0;
   background: linear-gradient(to right, transparent 28%, rgba(245, 240, 232, 0.78) 62%, rgba(245, 240, 232, 0.90) 100%);
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -375,7 +368,7 @@ nav.scrolled {
   bottom: 0; left: 0; right: 0;
   height: 100%;
   background: linear-gradient(to bottom, transparent 85%, #f5f0e8 100%);
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -396,7 +389,7 @@ nav.scrolled {
   text-align: left;
   max-width: 640px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .hero-eyebrow {
   font-family: 'Jost', sans-serif;
@@ -424,7 +417,19 @@ nav.scrolled {
 }
 
 /* Keep stats below dropdown z-index */
-.hero-stats { position: relative; z-index: 1; }
+.hero-stats { position: relative; z-index: 2; }
+
+/* Full-bleed hero background image — LCP candidate, sits below gradient overlays */
+.hero picture { display: contents; }
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
 
 .hero-sub {
   font-family: 'Jost', sans-serif;
@@ -2042,9 +2047,6 @@ footer {
 
   /* ── M2 Hero A — full-bleed proposal photo with overlapping capsule ── */
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=2400&auto=format&fit=crop') !important;
-    background-size: cover;
-    background-position: 25% center;
     background-color: var(--bg);
     height: 100vh;
     height: 100dvh;
@@ -2053,20 +2055,21 @@ footer {
     align-items: stretch;
     justify-content: flex-start;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
   }
+  .hero-bg-img { object-position: 25% center; }
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.10) 100%);
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
   }
   .hero::after { display: none; }
-  /* Hero content is static so absolutely-positioned .search-container resolves to .hero */
   .hero-content {
-    position: static;
+    position: relative;
+    z-index: 2;
     max-width: 100%;
     text-align: right;
     padding: 0;
@@ -5250,6 +5253,10 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
+  <picture>
+    <source media="(max-width: 768px)" srcset="https://images.unsplash.com/photo-1583132648365-db96e1ea0c42?q=85&w=1200&auto=format&fit=crop">
+    <img src="leo_visions-hqUkno6qO9Q-unsplash.webp" class="hero-bg-img" fetchpriority="high" loading="eager" alt="" decoding="async">
+  </picture>
   <div class="hero-rule"></div>
   <div class="hero-content">
     <h1 class="hero-title">
@@ -10472,7 +10479,7 @@ function renderVibesCarousel(vibes) {
 
   var html = clean.map(function(v, i) {
     var href = v.href || ('/search?vibe=' + encodeURIComponent(v.airtableValue));
-    var loading = i < 4 ? 'eager' : 'lazy';
+    var loading = 'lazy';
     var label = String(v.displayLabel);
     var num   = v.number || String(i + 1).padStart(2, '0');
     var escLabel = label.replace(/"/g, '&quot;');
@@ -10557,7 +10564,7 @@ function renderMarketsCarousel(destinations) {
   if (clean.length === 0) return;
 
   var html = clean.map(function(d, i) {
-    var loading = i < 2 ? 'eager' : 'lazy';
+    var loading = 'lazy';
     var name = String(d.display_name);
     var escName = name.replace(/"/g, '&quot;');
     return ''
