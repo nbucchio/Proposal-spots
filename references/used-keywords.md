@@ -37,3 +37,4 @@ south of france proposal | 2026-06-06 | /destinations/south-of-france (+ South o
 best places to propose in europe | 2026-06-06 | /blog/best-places-to-propose-in-europe
 marry me proposal | 2026-06-07 | /blog/marry-me-proposal
 private engagement proposal ideas | 2026-06-07 | /blog/private-engagement-proposal-ideas
+how to buy wedding proposal packages | 2026-06-09 | /blog/how-to-buy-wedding-proposal-packages
