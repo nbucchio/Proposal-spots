@@ -46,16 +46,30 @@ export default async function handler(req, res) {
       return '';
     };
 
+    // Parse the `gallery_images` long-text field into [{ url, alt }, ...].
+    // Each line: "URL | alt text". Blank lines ignored. Lines without "|"
+    // are kept (url only, empty alt) so a single bad row never blanks the gallery.
+    const parseGallery = (val) => {
+      if (!val || typeof val !== 'string') return [];
+      return val.split(/\r?\n/).map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+        const i = trimmed.indexOf('|');
+        if (i === -1) return { url: trimmed, alt: '' };
+        return { url: trimmed.slice(0, i).trim(), alt: trimmed.slice(i + 1).trim() };
+      }).filter(item => item && item.url);
+    };
+
     const destinations = allRecords
       .map(r => {
         const f = r.fields || {};
 
-        const urlImages = f.gallery_images
-          ? f.gallery_images.split(/[\n,]/).map(u => u.trim()).filter(Boolean)
-          : [];
+        const urlImages = parseGallery(f.gallery_images);
 
-        const attachmentImages = f.gallery_images_attachment
-          ? f.gallery_images_attachment.map(a => a.url)
+        const attachmentImages = Array.isArray(f.gallery_images_attachment)
+          ? f.gallery_images_attachment
+              .filter(a => a && a.url)
+              .map(a => ({ url: a.url, alt: a.filename || '' }))
           : [];
 
         const galleryImages = [...urlImages, ...attachmentImages];
