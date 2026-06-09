@@ -185,7 +185,7 @@
           }
           return;
         }
-        match.hero_image_fallback = upgradeImageUrl(match.hero_image_fallback) || ogImageFallback();
+        match.hero_image_fallback = optimizeAirtableImage(upgradeImageUrl(match.hero_image_fallback), 1600) || ogImageFallback();
         window.__destination = match;
         window.__destFallbackImage = match.hero_image_fallback || '';
         if (hero) {

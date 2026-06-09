@@ -12,7 +12,7 @@
     // then never load them inside CSS columns when intrinsic sizing is unknown).
     return (
       '<a onclick="openLightbox(\'' + safeUrl.replace(/'/g, "\\'") + '\'); return false;" href="#">' +
-        '<img src="' + safeUrl + '" alt="' + safeAlt + '" loading="eager" fetchpriority="high" decoding="async">' +
+        '<img src="' + safeUrl + '" alt="' + safeAlt + '" loading="lazy" fetchpriority="high" decoding="async">' +
       '</a>'
     );
   }
