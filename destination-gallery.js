@@ -1,8 +1,8 @@
 (function () {
 
   function buildItem(img) {
-    var url = (img && img.url) || '';
-    var alt = (img && img.alt) || '';
+    var url = typeof img === 'string' ? img : ((img && img.url) || '');
+    var alt = typeof img === 'string' ? '' : ((img && img.alt) || '');
     if (!url) return '';
     // Escape quotes/brackets in alt to keep the attribute safe.
     var safeAlt = String(alt).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -49,7 +49,7 @@
         pending--;
         if (pending === 0) swap('all-preloaded');
       };
-      pre.src = img.url;
+      pre.src = typeof img === 'string' ? img : (img && img.url);
     });
     // Safety net: render anyway after 2s in case some images are slow.
     setTimeout(function () { swap('timeout'); }, 2000);
