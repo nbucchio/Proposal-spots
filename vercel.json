@@ -14,7 +14,8 @@
     { "source": "/destinations/new-york",        "destination": "/destinations/united-states",    "permanent": true },
     { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": true },
     { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": true },
-    { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": true }
+    { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": true },
+    { "source": "/destinations/Patagonia",       "destination": "/destinations/patagonia",        "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
