@@ -8260,7 +8260,6 @@ let galleryIndex  = 0;
 function resolvePhotoUrl(urlOrObj) {
   let url;
   if (typeof urlOrObj === 'string') url = urlOrObj;
-  else if (urlOrObj?.thumbnails?.large?.url) url = urlOrObj.thumbnails.large.url;
   else url = urlOrObj?.url || '';
   return optimizeAirtableImage(url);
 }
