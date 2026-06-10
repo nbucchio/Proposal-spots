@@ -969,7 +969,7 @@
             'Line Summary':    f['Line Summary'] || '',
             'Cover Photo':     f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null,
             'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null,
-            'Gallery Photos':  (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:(p&&p.thumbnails&&p.thumbnails.large?p.thumbnails.large.url:null)||(p&&p.url)||'';}).filter(Boolean).slice(0,3),
+            'Gallery Photos':  (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:((p&&p.url)||'');}).filter(Boolean).slice(0,3),
             'Card Position':   f['Card Position'] || 'center center',
             badge:             f['Badge'] || null,
             coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
