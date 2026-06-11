@@ -263,6 +263,42 @@ nav.scrolled {
 }
 .ssb-dd-item:hover { background: var(--bg2); }
 .ssb-dd-item.selected { color: var(--accent); font-weight: 400; }
+.ssb-dd-item { display: block; text-decoration: none; }
+.ssb-dd-group-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 20px 6px;
+}
+.ssb-dd-group-label.coming-soon {
+  color: #A55A4A;
+  border-top: 1px solid var(--hairline);
+  margin-top: 6px;
+  padding-top: 14px;
+}
+.ssb-dd-item.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #A55A4A;
+}
+.ssb-dd-item.coming-soon:hover { background: rgba(165,90,74,0.06); }
+.ssb-soon-tag {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A55A4A;
+  border: 1px solid rgba(165,90,74,0.35);
+  border-radius: 10px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
 
 .nav-links {
   display: flex;
@@ -2259,6 +2295,16 @@ footer {
     border-radius: 50%;
     background: #C17A5A;
     transform: translateY(-50%);
+  }
+  .ssb-dd-group-label {
+    background: #FFFFFF;
+    border-bottom: 1px solid #f0ebe3;
+  }
+  .ssb-dd-group-label.coming-soon {
+    border-top: 1px solid #f0ebe3;
+  }
+  .ssb-dd-item.coming-soon {
+    justify-content: space-between;
   }
 
   .intent-toggle { justify-content: center; }
@@ -9429,6 +9475,7 @@ async function init() {
   purgeStaleSavedIds();
   renderSpots(allSpots);
   populateCountryFilter();
+  maybeRenderSSBDestinations();
 
   const colPage = document.getElementById('page-collection');
   if (colPage && colPage.style.display !== 'none') {
@@ -10684,6 +10731,21 @@ function ssbDdItem(slug, label, onclickFn) {
   return '<div class="ssb-dd-item" data-slug="' + slugAttr + '" onclick="' + onclickFn + '(\'' + slugJs + '\',\'' + escJs + '\')">' + escAttr + '</div>';
 }
 
+// A destination "has spots" if its display_name or Continent matches (or is
+// matched by) one of the countries currently present on live spots — same
+// alias-style comparison used for the /search Country filter and the
+// destination landing pages' DEST_ALIASES matching.
+function ssbDestinationHasSpots(d, liveCountries) {
+  var candidates = [d.display_name, d.Continent].filter(Boolean).map(function(v) {
+    return v.trim().toLowerCase();
+  });
+  return candidates.some(function(name) {
+    return liveCountries.some(function(c) {
+      return name === c || name.includes(c) || c.includes(name);
+    });
+  });
+}
+
 function renderSSBDestinations(destinations) {
   var dd = document.getElementById('ssb-dest-dd');
   if (!dd) return;
@@ -10692,13 +10754,43 @@ function renderSSBDestinations(destinations) {
   });
   if (!clean.length) return;
 
+  var liveCountries = [...new Set(
+    (allSpots || [])
+      .map(function(s) { return (s.Country || '').trim().toLowerCase(); })
+      .filter(Boolean)
+  )];
+
+  var available  = [];
+  var comingSoon = [];
+  clean.forEach(function(d) {
+    (ssbDestinationHasSpots(d, liveCountries) ? available : comingSoon).push(d);
+  });
+
   var html = ssbDdItem('', 'Any Destination', 'ssbPickDest');
-  html += clean.map(function(d) {
+  html += available.map(function(d) {
     var label = d.Continent ? (d.display_name + ' — ' + d.Continent) : d.display_name;
     return ssbDdItem(d.destination_slug, label, 'ssbPickDest');
   }).join('');
 
+  if (comingSoon.length) {
+    html += '<div class="ssb-dd-group-label coming-soon">Coming Soon</div>';
+    html += comingSoon.map(function(d) {
+      var label = d.Continent ? (d.display_name + ' — ' + d.Continent) : d.display_name;
+      var escAttr = String(label).replace(/"/g, '&quot;');
+      var href = '/destinations/' + encodeURIComponent(d.destination_slug);
+      return '<a class="ssb-dd-item coming-soon" href="' + href + '">' +
+        '<span>' + escAttr + '</span><span class="ssb-soon-tag">Soon</span></a>';
+    }).join('');
+  }
+
   dd.innerHTML = html;
+}
+
+var _ssbDestinationsData = null;
+
+function maybeRenderSSBDestinations() {
+  if (!_ssbDestinationsData) return;
+  renderSSBDestinations(_ssbDestinationsData);
 }
 
 function loadSSBDestinations() {
@@ -10710,7 +10802,8 @@ function loadSSBDestinations() {
     .then(function(data) {
       var destinations = (data && Array.isArray(data.destinations)) ? data.destinations : [];
       if (!destinations.length) throw new Error('destinations empty');
-      renderSSBDestinations(destinations);
+      _ssbDestinationsData = destinations;
+      maybeRenderSSBDestinations();
     })
     .catch(function(err) {
       console.warn('[ssb] destinations fallback:', err && err.message);
