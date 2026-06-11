@@ -6249,18 +6249,7 @@ footer {
           </button>
           <div class="results-inline-panel" id="rcountry-panel">
             <span class="inline-panel-label">Select destination</span>
-            <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Nicaragua')">Nicaragua</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Costa Rica')">Costa Rica</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Mexico')">Mexico</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Italy')">Italy</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Greece')">Greece</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Indonesia')">Indonesia</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Maldives')">Maldives</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'France')">France</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Portugal')">Portugal</div>
-              <div class="filter-tag" onclick="toggleCountryFilter(this,'Switzerland')">Switzerland</div>
-            </div>
+            <div class="inline-tags" id="rcountry-tags"></div>
           </div>
         </div>
 
@@ -9439,6 +9428,7 @@ async function init() {
 
   purgeStaleSavedIds();
   renderSpots(allSpots);
+  populateCountryFilter();
 
   const colPage = document.getElementById('page-collection');
   if (colPage && colPage.style.display !== 'none') {
@@ -9875,6 +9865,24 @@ function getFilteredSpots() {
     );
   }
   return filtered;
+}
+
+function populateCountryFilter() {
+  const wrap = document.getElementById('rcountry-tags');
+  if (!wrap) return;
+
+  const countries = [...new Set(allSpots.map(s => (s.Country || '').trim()).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b));
+
+  wrap.innerHTML = '';
+  countries.forEach(country => {
+    const tag = document.createElement('div');
+    tag.className = 'filter-tag';
+    tag.textContent = country;
+    if (state.country?.has(country)) tag.classList.add('selected');
+    tag.addEventListener('click', () => toggleCountryFilter(tag, country));
+    wrap.appendChild(tag);
+  });
 }
 
 function toggleCountryFilter(el, val) {
