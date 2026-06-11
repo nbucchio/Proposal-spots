@@ -9720,19 +9720,25 @@ function initSearchPage() {
     'tulum':           'Tulum'
   };
 
+  // Maps the search-bar budget slug to the normalized Budget value stored on
+  // each spot (see fetchFromAirtable: 'Moderate'→'Premium', 'Expensive'→'Luxury').
   var BUDGET_MAP = {
-    'affordable': '$$',
-    'premium':    '$$$',
-    'luxury':     '$$$$'
+    'affordable': 'Affordable',
+    'premium':    'Premium',
+    'luxury':     'Luxury'
   };
 
   var destSlug   = params.get('destination') || '';
   var vibeSlug   = params.get('vibe')        || '';
   var budgetSlug = params.get('budget')      || '';
 
-  if (destSlug && DEST_MAP[destSlug]) {
+  if (destSlug) {
     var inp = document.getElementById('search-main');
-    if (inp) inp.value = DEST_MAP[destSlug];
+    // Use an explicit display name when known, otherwise turn the slug into a
+    // search term ('south-of-france' → 'south of france'). The results query
+    // matches this (case-insensitively) against each spot's Name/Region/Country,
+    // so any destination added in Airtable works without a hardcoded entry.
+    if (inp) inp.value = DEST_MAP[destSlug] || destSlug.replace(/-/g, ' ');
   }
 
   if (vibeSlug) {
@@ -9840,8 +9846,7 @@ function getFilteredSpots() {
     filtered = filtered.filter(s => state.privacy.has(s.Privacy));
   }
   if (state.budget.size > 0) {
-    const bmap = { 'Free':'Free','Moderate':'$$','Expensive':'$$$','Luxury':'$$$$' };
-    filtered = filtered.filter(s => [...state.budget].some(b => s.Budget === (bmap[b] || b)));
+    filtered = filtered.filter(s => state.budget.has(s.Budget));
   }
   if (state.food.size > 0) {
     filtered = filtered.filter(s => state.food.has(s['Food & Drinks']));
