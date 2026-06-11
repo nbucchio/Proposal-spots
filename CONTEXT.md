@@ -38,6 +38,12 @@ Read this entire file before touching any code.
 - Large image on top, 2–3 lines of text below
 - No drop shadows, no heavy borders
 - Clean white space between elements
+- Spot cards (`.spot-card-img`): on mobile (max-width: 768px), use
+  `aspect-ratio: 7/6` (desktop stays 4/5). Every `destinations/*.html`
+  page and `index.html` (Editor's Picks / `/search`) define this in their
+  own `@media(max-width:768px)` block — when adding a new destination
+  page, copy this rule into its mobile media query alongside
+  `.spot-card-img { aspect-ratio: 4/5; ... }`.
 
 ---
 
