@@ -2304,7 +2304,8 @@ footer {
     border-top: 1px solid #f0ebe3;
   }
   .ssb-dd-item.coming-soon {
-    justify-content: space-between;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   .intent-toggle { justify-content: center; }
@@ -10731,14 +10732,17 @@ function ssbDdItem(slug, label, onclickFn) {
   return '<div class="ssb-dd-item" data-slug="' + slugAttr + '" onclick="' + onclickFn + '(\'' + slugJs + '\',\'' + escJs + '\')">' + escAttr + '</div>';
 }
 
-// A destination "has spots" if its display_name or Continent matches (or is
-// matched by) one of the countries currently present on live spots — same
-// alias-style comparison used for the /search Country filter and the
-// destination landing pages' DEST_ALIASES matching.
+// A destination "has spots" if its display_name or Continent — or, for
+// destinations with a known DEST_COUNTRY_MAP alias list (e.g. Tulum →
+// Mexico), one of those aliases — matches (or is matched by) one of the
+// countries currently present on live spots. Same alias-style comparison
+// used for the /search Country filter and the destination landing pages'
+// DEST_ALIASES matching.
 function ssbDestinationHasSpots(d, liveCountries) {
-  var candidates = [d.display_name, d.Continent].filter(Boolean).map(function(v) {
-    return v.trim().toLowerCase();
-  });
+  var aliases = DEST_COUNTRY_MAP[d.display_name];
+  var candidates = aliases
+    ? aliases.map(function(v) { return v.toLowerCase(); })
+    : [d.display_name, d.Continent].filter(Boolean).map(function(v) { return v.trim().toLowerCase(); });
   return candidates.some(function(name) {
     return liveCountries.some(function(c) {
       return name === c || name.includes(c) || c.includes(name);
