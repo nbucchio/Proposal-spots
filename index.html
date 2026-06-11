@@ -9610,6 +9610,17 @@ document.getElementById('search-main').addEventListener('keydown', e => {
 
 var _ssbState = { destination: '', vibe: '', budget: '' };
 
+// The hero's fadeUp entrance animation leaves a lingering `transform`
+// (translateY(0)) on .search-container-inner via fill-mode:both. A
+// transformed ancestor becomes the containing block for our fixed-position
+// dropdowns, so they get clipped to .hero's overflow:hidden bounds instead
+// of overlaying the rest of the page. Drop the animation once it finishes.
+document.querySelectorAll('.search-container-inner').forEach(function(el) {
+  el.addEventListener('animationend', function() {
+    el.style.animation = 'none';
+  }, { once: true });
+});
+
 function ssbToggle(seg) {
   var segs = ['dest', 'vibe', 'budget'];
   segs.forEach(function(s) {
@@ -10643,6 +10654,93 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadMarketsCarousel);
 } else {
   loadMarketsCarousel();
+}
+
+// ── Search-bar Destination / Vibe dropdowns: keep in sync with Airtable ──
+// Builds a "Destination" dropdown item, escaping the label for both the
+// HTML attribute context and the single-quoted JS string passed to
+// ssbPickDest/ssbPickVibe.
+function ssbDdItem(slug, label, onclickFn) {
+  var escAttr = String(label).replace(/"/g, '&quot;');
+  var escJs   = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  var slugAttr = String(slug).replace(/"/g, '&quot;');
+  var slugJs   = String(slug).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  return '<div class="ssb-dd-item" data-slug="' + slugAttr + '" onclick="' + onclickFn + '(\'' + slugJs + '\',\'' + escJs + '\')">' + escAttr + '</div>';
+}
+
+function renderSSBDestinations(destinations) {
+  var dd = document.getElementById('ssb-dest-dd');
+  if (!dd) return;
+  var clean = (destinations || []).filter(function(d) {
+    return d && d.destination_slug && d.display_name;
+  });
+  if (!clean.length) return;
+
+  var html = ssbDdItem('', 'Any Destination', 'ssbPickDest');
+  html += clean.map(function(d) {
+    var label = d.Continent ? (d.display_name + ' — ' + d.Continent) : d.display_name;
+    return ssbDdItem(d.destination_slug, label, 'ssbPickDest');
+  }).join('');
+
+  dd.innerHTML = html;
+}
+
+function loadSSBDestinations() {
+  fetch('/api/destinations')
+    .then(function(r) {
+      if (!r.ok) throw new Error('destinations fetch failed: ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var destinations = (data && Array.isArray(data.destinations)) ? data.destinations : [];
+      if (!destinations.length) throw new Error('destinations empty');
+      renderSSBDestinations(destinations);
+    })
+    .catch(function(err) {
+      console.warn('[ssb] destinations fallback:', err && err.message);
+    });
+}
+
+function renderSSBVibes(vibes) {
+  var dd = document.getElementById('ssb-vibe-dd');
+  if (!dd) return;
+  var clean = (vibes || []).filter(function(v) {
+    return v && v.airtableValue;
+  });
+  if (!clean.length) return;
+
+  var html = ssbDdItem('', 'Any Vibe', 'ssbPickVibe');
+  html += clean.map(function(v) {
+    return ssbDdItem(v.airtableValue, v.airtableValue, 'ssbPickVibe');
+  }).join('');
+
+  dd.innerHTML = html;
+}
+
+function loadSSBVibes() {
+  fetch('/api/vibes')
+    .then(function(r) {
+      if (!r.ok) throw new Error('vibes fetch failed: ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var vibes = (data && Array.isArray(data.vibes)) ? data.vibes : [];
+      if (!vibes.length) throw new Error('vibes empty');
+      renderSSBVibes(vibes);
+    })
+    .catch(function(err) {
+      console.warn('[ssb] vibes fallback:', err && err.message);
+    });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    loadSSBDestinations();
+    loadSSBVibes();
+  });
+} else {
+  loadSSBDestinations();
+  loadSSBVibes();
 }
 </script>
 <!-- JOIN THE LIST MODAL -->
