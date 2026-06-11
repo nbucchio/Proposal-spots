@@ -67,11 +67,9 @@
     .results-empty p { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--mid); margin-bottom: 20px; }
     .spots-loading { text-align: center; padding: 60px 20px; color: var(--mid); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
     .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
-    .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; transition: opacity 0.2s; }
-    .spot-card:hover { opacity: 0.93; }
+    .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; }
     .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
-    .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
-    .spot-card:hover .img-bg { transform: scale(1.04); }
+    .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
     .spot-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 18px 18px; z-index: 1; }
     .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
