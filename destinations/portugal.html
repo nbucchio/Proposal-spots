@@ -26,6 +26,7 @@
   
   <script src="/nav.js" defer></script>
   <script src="/destination-hero.js?v=20260605" defer></script>
+  <script src="/destination-notify.js" defer></script>
   <script src="/destination-gallery.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -482,11 +483,19 @@
         <p>No spots match your filters.</p>
         <button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;margin-top:16px;">Clear Filters</button>
       </div>
-      <div id="dest-landing-coming-soon" style="display:none;text-align:center;padding:100px 20px 80px;">
+      <div id="dest-landing-coming-soon" data-destination-name="Portugal" style="display:none;text-align:center;padding:100px 20px 80px;">
         <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#A55A4A;display:block;margin-bottom:24px;">Coming Soon</span>
         <p style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,46px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:16px;">We're curating something<br><em>extraordinary</em> here.</p>
         <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.8;max-width:460px;margin:0 auto 36px;">Our editors are on the ground, vetting only the spots worth proposing at. This destination opens soon.</p>
-        <a href="/destinations" style="display:inline-block;background:var(--ink);color:var(--bg);font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;padding:14px 36px;border-radius:24px;text-decoration:none;">Explore All Destinations</a>
+        <form id="dn-notify-form" style="display:flex;align-items:stretch;gap:8px;max-width:440px;margin:0 auto 24px;flex-wrap:wrap;justify-content:center;">
+          <input id="dn-notify-email" type="email" required placeholder="Your email address" style="flex:1;min-width:220px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);background:var(--bg);border:1px solid var(--hairline);border-radius:8px;padding:14px 18px;outline:none;letter-spacing:0.02em;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--hairline)'">
+          <button type="submit" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:14px 22px;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Notify me</button>
+        </form>
+        <p id="dn-notify-confirm" style="display:none;font-family:'Cormorant',serif;font-size:20px;font-weight:300;color:var(--ink);margin-bottom:24px;">You're on the list.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:8px;">
+          <a href="#" id="dn-enquire-link" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:3px;">Enquire about this destination →</a>
+          <a href="/destinations" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">Explore all destinations →</a>
+        </div>
       </div>
     </div>
   </div>
