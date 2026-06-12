@@ -517,6 +517,30 @@ nav.scrolled {
   text-underline-offset: 2px;
 }
 
+.hero-quick-dests {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.hero-quick-pill {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.hero-quick-pill:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
 
 /* Autocomplete */
 .autocomplete {
@@ -5425,6 +5449,12 @@ footer {
       <p class="search-help-line">
         Tell us what you're imagining. <a href="https://wa.me/32451014608?text=Hi%2C%20I%20need%20help%20finding%20the%20perfect%20proposal%20spot." target="_blank" rel="noopener" class="search-help-link">We'll find it &rarr;</a>
       </p>
+      <div class="hero-quick-dests">
+        <button type="button" class="hero-quick-pill" onclick="ssbPickDest('portugal','Portugal'); doSSBSearch();">Portugal</button>
+        <button type="button" class="hero-quick-pill" onclick="ssbPickDest('italy','Italy'); doSSBSearch();">Italy</button>
+        <button type="button" class="hero-quick-pill" onclick="ssbPickDest('tulum','Tulum'); doSSBSearch();">Tulum</button>
+        <button type="button" class="hero-quick-pill" onclick="ssbPickDest('patagonia','Patagonia'); doSSBSearch();">Patagonia</button>
+      </div>
       </div><!-- end search-container-inner -->
       <!-- Mobile-only tagline tucked under the card, over the photo -->
       <div class="hero-tagline-mobile">A curated world of proposal settings</div>
