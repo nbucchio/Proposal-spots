@@ -38,3 +38,4 @@ best places to propose in europe | 2026-06-06 | /blog/best-places-to-propose-in-
 marry me proposal | 2026-06-07 | /blog/marry-me-proposal
 private engagement proposal ideas | 2026-06-07 | /blog/private-engagement-proposal-ideas
 how to buy wedding proposal packages | 2026-06-09 | /blog/how-to-buy-wedding-proposal-packages
+best places to propose in the united states | 2026-06-09 | /blog/best-places-to-propose-in-the-united-states
