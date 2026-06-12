@@ -429,13 +429,14 @@ nav.scrolled {
 }
 .hero-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: #A55A4A;
   display: block;
-  margin-top: 0.75rem;
-  margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 12px;
 }
 
 .hero-title {
@@ -504,14 +505,17 @@ nav.scrolled {
   opacity: 0.5;
 }
 .search-help-link {
-  color: inherit;
+  color: #A55A4A;
+  opacity: 1;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s ease;
+  text-decoration-color: transparent;
 }
 .search-help-link:hover {
-  color: #A55A4A;
-  border-bottom-color: rgba(165,90,74,0.4);
+  text-decoration: underline;
+  text-decoration-color: rgba(165,90,74,0.6);
+  text-underline-offset: 2px;
 }
 
 
@@ -5329,10 +5333,10 @@ footer {
   </picture>
   <div class="hero-rule"></div>
   <div class="hero-content">
+    <span class="hero-eyebrow">A curated world of proposal settings</span>
     <h1 class="hero-title">
       Find the perfect place<br>to <strong>propose.</strong>
     </h1>
-    <span class="hero-eyebrow">A curated world of proposal settings</span>
 
     <!-- SEARCH -->
     <div class="search-container">
@@ -5420,7 +5424,7 @@ footer {
 
       <!-- Quiet WhatsApp helper line -->
       <p class="search-help-line">
-        Not sure where to start? <a href="https://wa.me/32451014608?text=Hi%2C%20I%20need%20help%20finding%20the%20perfect%20proposal%20spot." target="_blank" rel="noopener" class="search-help-link">We'll help you find it.</a>
+        Tell us what you're imagining. <a href="https://wa.me/32451014608?text=Hi%2C%20I%20need%20help%20finding%20the%20perfect%20proposal%20spot." target="_blank" rel="noopener" class="search-help-link">We'll find it &rarr;</a>
       </p>
       </div><!-- end search-container-inner -->
       <!-- Mobile-only tagline tucked under the card, over the photo -->
@@ -5843,7 +5847,7 @@ footer {
     var max = (doc.scrollHeight - doc.clientHeight) || 1;
     if (scrolled / max >= 0.4) reveal();
   }
-  var timer = setTimeout(reveal, 8000);
+  var timer = setTimeout(reveal, 2000);
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
 </script>
