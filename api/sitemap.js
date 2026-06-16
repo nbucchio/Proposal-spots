@@ -47,8 +47,13 @@ export default async function handler(req, res) {
         offset = data.offset || null;
       } while (offset);
 
+      // Prefer the Airtable "Slug" field; fall back to a slug generated from
+      // the spot Name so spots with a blank Slug field still get listed.
       spotSlugs = allRecords
-        .map(r => toSlug(r.fields.Name || r.fields.name || ''))
+        .map(r => {
+          const f = r.fields;
+          return toSlug(f.Slug || '') || toSlug(f.Name || f.name || '');
+        })
         .filter(Boolean);
     } catch (e) {
       // fall through with empty spotSlugs

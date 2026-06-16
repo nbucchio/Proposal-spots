@@ -2374,9 +2374,14 @@ async function initPage() {
     return;
   }
 
-  // Find spot by slug
+  // Find spot by slug.
+  // Prefer the Airtable "Slug" field; fall back to a slug generated from the
+  // Name so already-indexed spots (whose Slug field is left blank) still match.
   const spotSlug = slug.toLowerCase();
-  const spot = allSpots.find(s => toSlug(s.Name) === spotSlug);
+  const spot = allSpots.find(s => {
+    const customSlug = s['Slug'] ? toSlug(s['Slug']) : '';
+    return customSlug === spotSlug || toSlug(s.Name) === spotSlug;
+  });
 
   if (!spot) {
     showNotFound();
@@ -2392,9 +2397,12 @@ async function initPage() {
   // Populate page
   populateSpot(spot);
 
-  // Update SEO
-  document.title = spot.Name + ' — Proposal Spots';
-  document.getElementById('page-description').content = spot['Line Summary'] || spot['Full Summary'] || '';
+  // Update SEO.
+  // Prefer the Airtable "Meta Title" / "Meta Description" fields; fall back to
+  // the Name and Line Summary when those fields are left blank.
+  document.title = spot['Meta Title'] || (spot.Name + ' — Proposal Spots');
+  document.getElementById('page-description').content =
+    spot['Meta Description'] || spot['Line Summary'] || spot['Full Summary'] || '';
 }
 
 function mapSpotFromAirtable(r) {
@@ -2424,6 +2432,9 @@ function mapSpotFromAirtable(r) {
   return {
     id: r.id,
     Name: f['Spot Name'] || f['Name'] || '',
+    'Slug': f['Slug'] || '',
+    'Meta Title': f['Meta Title'] || '',
+    'Meta Description': f['Meta Description'] || '',
     Country: f['Country'] || '',
     Region: f['Region / Town'] || f['Region'] || '',
     Privacy: privacy,
