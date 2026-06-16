@@ -14,6 +14,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="page-title">Proposal Spot — Proposal Spots</title>
 <meta id="page-description" name="description" content="Discover this stunning proposal location at Proposal Spots.">
+<!-- Canonical + social tags. These hold branded defaults for non-JS crawlers
+     (social scrapers) and are upgraded per-spot in initPage() for Google and
+     JS-rendering clients. -->
+<link id="canonical-link" rel="canonical" href="https://www.proposalspots.com/spots/">
+<meta id="og-type" property="og:type" content="website">
+<meta id="og-site" property="og:site_name" content="Proposal Spots">
+<meta id="og-url" property="og:url" content="https://www.proposalspots.com/spots/">
+<meta id="og-title" property="og:title" content="Proposal Spot — Proposal Spots">
+<meta id="og-description" property="og:description" content="Discover this stunning proposal location at Proposal Spots.">
+<meta id="og-image" property="og:image" content="https://images.unsplash.com/photo-1657610760235-f818e26040a3?q=80&w=1200&auto=format&fit=crop">
+<meta id="tw-card" name="twitter:card" content="summary_large_image">
+<meta id="tw-title" name="twitter:title" content="Proposal Spot — Proposal Spots">
+<meta id="tw-description" name="twitter:description" content="Discover this stunning proposal location at Proposal Spots.">
+<meta id="tw-image" name="twitter:image" content="https://images.unsplash.com/photo-1657610760235-f818e26040a3?q=80&w=1200&auto=format&fit=crop">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2400,9 +2414,31 @@ async function initPage() {
   // Update SEO.
   // Prefer the Airtable "Meta Title" / "Meta Description" fields; fall back to
   // the Name and Line Summary when those fields are left blank.
-  document.title = spot['Meta Title'] || (spot.Name + ' — Proposal Spots');
-  document.getElementById('page-description').content =
+  const metaTitle = spot['Meta Title'] || (spot.Name + ' — Proposal Spots');
+  const metaDesc =
     spot['Meta Description'] || spot['Line Summary'] || spot['Full Summary'] || '';
+  // Canonical / share URL: prefer the Airtable Slug, fall back to the name.
+  const canonicalSlug = spot['Slug'] ? toSlug(spot['Slug']) : toSlug(spot.Name);
+  const canonicalUrl = 'https://www.proposalspots.com/spots/' + canonicalSlug;
+  // Share image: the spot's Cover Photo (absolute Airtable URL), if available.
+  const shareImage = spot['Cover Photo'] || spot['Spot Card Photo'] || null;
+
+  document.title = metaTitle;
+  document.getElementById('page-description').content = metaDesc;
+
+  const setAttr = (id, attr, val) => {
+    const el = document.getElementById(id);
+    if (el && val) el.setAttribute(attr, val);
+  };
+  setAttr('canonical-link', 'href', canonicalUrl);
+  setAttr('og-url', 'content', canonicalUrl);
+  setAttr('og-type', 'content', 'article');
+  setAttr('og-title', 'content', metaTitle);
+  setAttr('og-description', 'content', metaDesc);
+  setAttr('og-image', 'content', shareImage);
+  setAttr('tw-title', 'content', metaTitle);
+  setAttr('tw-description', 'content', metaDesc);
+  setAttr('tw-image', 'content', shareImage);
 }
 
 function mapSpotFromAirtable(r) {
