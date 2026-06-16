@@ -829,7 +829,7 @@
       const hook = s['Hook'] || s['Line Summary'] || '';
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
-      const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
+      const slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
       const allImgs = [cardPhoto, ...(s['Gallery Photos'] || []).map(function(u){return optimizeAirtableImage(u);})].filter(Boolean);
       const hasMultiple = allImgs.length > 1;
       const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
@@ -898,7 +898,7 @@
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
           return {
             id,
-            Slug:              f['Slug'] || f['slug'] || id,
+            Slug:              f['Slug'] || f['slug'] || '',
             Name:              f['Spot Name'] || f['Name'] || '',
             Country:           f['Country'] || '',
             Region:            f['Region / Town'] || f['Region'] || '',

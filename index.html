@@ -7100,6 +7100,7 @@ async function fetchFromAirtable() {
       return {
         id:                      r.id,
         Name:                    f['Spot Name']               || f['Name'] || '',
+        Slug:                    f['Slug']                    || '',
         Country:                 f['Country']                 || '',
         Region:                  f['Region / Town']           || f['Region'] || '',
         Vibe:                    f['Vibe']                    || '',
