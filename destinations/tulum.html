@@ -755,7 +755,7 @@
       const hook = s['Hook'] || s['Line Summary'] || '';
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
-      const slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
+      const slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
       const allImgs = [cardPhoto, ...(s['Gallery Photos'] || []).map(function(u){return optimizeAirtableImage(u);})].filter(Boolean);
       const hasMultiple = allImgs.length > 1;
       const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
@@ -778,7 +778,7 @@
             : rawBudget === 'Expensive' ? 'Luxury'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
-          return { id, Slug: f['Slug'] || f['slug'] || id, Name: f['Spot Name'] || f['Name'] || '', Country: f['Country'] || '', Region: f['Region / Town'] || f['Region'] || '', Vibe: f['Vibe'] || '', 'Secondary Vibe': f['Secondary Vibe'] || '', Privacy: privacy, Budget: budget, 'Best Time': bestTime, 'Line Summary': f['Line Summary'] || '', 'Cover Photo': f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null, 'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Gallery Photos': (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:((p&&p.url)||'');}).filter(Boolean).slice(0,3), 'Hero Position': f['Hero Position'] || 'center center', 'Card Position': f['Card Position'] || 'center center', badge: f['Badge'] || null, coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)', 'Price Moment': f['Price Moment'] || null };
+          return { id, Slug: f['Slug'] || f['slug'] || '', Name: f['Spot Name'] || f['Name'] || '', Country: f['Country'] || '', Region: f['Region / Town'] || f['Region'] || '', Vibe: f['Vibe'] || '', 'Secondary Vibe': f['Secondary Vibe'] || '', Privacy: privacy, Budget: budget, 'Best Time': bestTime, 'Line Summary': f['Line Summary'] || '', 'Cover Photo': f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null, 'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Gallery Photos': (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:((p&&p.url)||'');}).filter(Boolean).slice(0,3), 'Hero Position': f['Hero Position'] || 'center center', 'Card Position': f['Card Position'] || 'center center', badge: f['Badge'] || null, coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)', 'Price Moment': f['Price Moment'] || null };
         });
         renderSpots();
       } catch (e) {

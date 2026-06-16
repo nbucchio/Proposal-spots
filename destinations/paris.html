@@ -908,7 +908,7 @@
       var hook = s['Hook'] || s['Line Summary'] || '';
       var price = s['Price Moment'] || s['Moment Price'] || '';
       var priceStr = s.Budget || (price ? 'From $' + Math.round(Number(price)).toLocaleString() : '');
-      var slug = (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.Slug || s.id || '';
+      var slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
       var allImgs = [cardPhoto].concat((s['Gallery Photos'] || []).map(function(u) { return optimizeAirtableImage(u); })).filter(Boolean);
       var hasMultiple = allImgs.length > 1;
       var imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
@@ -957,7 +957,7 @@
             : rawBudget;
           return {
             id,
-            Slug:              f['Slug'] || f['slug'] || id,
+            Slug:              f['Slug'] || f['slug'] || '',
             Name:              f['Spot Name'] || f['Name'] || '',
             Country:           f['Country'] || '',
             Region:            f['Region / Town'] || f['Region'] || '',
