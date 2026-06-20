@@ -39,3 +39,5 @@ marry me proposal | 2026-06-07 | /blog/marry-me-proposal
 private engagement proposal ideas | 2026-06-07 | /blog/private-engagement-proposal-ideas
 how to buy wedding proposal packages | 2026-06-09 | /blog/how-to-buy-wedding-proposal-packages
 best places to propose in the united states | 2026-06-09 | /blog/best-places-to-propose-in-the-united-states
+luxury proposal | 2026-06-13 | /blog/luxury-proposal
+best places to propose in the united states | 2026-06-09 | /blog/best-places-to-propose-in-the-united-states
