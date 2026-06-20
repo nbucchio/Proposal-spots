@@ -199,6 +199,14 @@
     .post-faq-a a { color: var(--ink); border-bottom: 1px solid var(--hairline); text-decoration: none; }
     .post-faq-a a:hover { border-color: var(--ink); }
 
+    .post-cta-soft { max-width: 720px; margin: 0 auto; padding: 56px 40px 72px; border-top: 1px solid var(--divider); text-align: center; }
+    .post-cta-soft-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 18px; }
+    .post-cta-soft-title { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.4vw, 36px); font-weight: 300; color: var(--ink); line-height: 1.2; margin-bottom: 20px; letter-spacing: 0.005em; }
+    .post-cta-soft-body { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.85; letter-spacing: 0.02em; max-width: 560px; margin: 0 auto 28px; }
+    .post-cta-soft-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--ink); border-radius: 100px; padding: 14px 26px; transition: background 0.2s, color 0.2s; }
+    .post-cta-soft-btn:hover { background: var(--ink); color: var(--bg); }
+    .post-cta-soft-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
     .post-cta { background: var(--ink); padding: 80px 40px; text-align: center; }
     .post-cta-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(244,241,235,0.4); display: block; margin-bottom: 16px; }
     .post-cta-title { font-family: 'Cormorant', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 300; color: var(--bg); line-height: 1.15; margin-bottom: 32px; }
@@ -213,6 +221,7 @@
       .post-faq { padding: 48px 24px; }
       .post-hero { padding: 24px 24px 0; }
       .post-photo-credit { padding: 0 24px 40px; }
+      .post-cta-soft { padding: 48px 24px 56px; }
     }
   </style>
 </head>
@@ -370,13 +379,24 @@
 
   <p class="post-photo-credit">Photo via <a href="https://unsplash.com/?utm_source=proposal_spots&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></p>
 
+  <section class="post-cta-soft">
+    <span class="post-cta-soft-eyebrow">Planning at this tier?</span>
+    <h2 class="post-cta-soft-title">Tell us what you want.</h2>
+    <p class="post-cta-soft-body">The luxury tier runs on relationships. We have ours: planners, estates, named vendors across Europe, the Mediterranean, and the Caribbean. Tell us what you are imagining and we will introduce you to the right one for it.</p>
+    <a class="post-cta-soft-btn" href="https://wa.me/32451014608?text=Hi%2C%20I%27m%20planning%20a%20luxury%20proposal%20and%20would%20like%20to%20talk." target="_blank" rel="noopener">
+      <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.385.696 4.605 1.892 6.473L4 29l7.74-1.832A11.93 11.93 0 0 0 16.001 28C22.628 28 28 22.627 28 16S22.628 3 16.001 3zm0 22.4a9.36 9.36 0 0 1-4.77-1.305l-.342-.203-4.59 1.087 1.108-4.473-.223-.357A9.36 9.36 0 1 1 16.001 25.4zm5.336-7.027c-.292-.146-1.73-.853-1.998-.95-.268-.097-.463-.146-.658.146-.195.293-.755.95-.926 1.146-.171.195-.341.22-.633.073-.293-.146-1.236-.456-2.354-1.453-.87-.776-1.457-1.736-1.628-2.029-.171-.293-.018-.45.128-.596.131-.131.293-.341.439-.512.146-.171.195-.293.293-.488.097-.195.049-.366-.024-.512-.073-.146-.658-1.587-.902-2.173-.237-.57-.479-.493-.658-.502l-.561-.01c-.195 0-.512.073-.78.366-.268.293-1.024 1.001-1.024 2.441 0 1.44 1.048 2.832 1.194 3.027.146.195 2.063 3.152 5 4.421.699.302 1.244.482 1.669.617.701.223 1.34.191 1.844.116.563-.084 1.73-.707 1.974-1.39.244-.683.244-1.269.171-1.39-.073-.121-.268-.195-.561-.341z"/></svg>
+      <span>Message us on WhatsApp</span>
+    </a>
+  </section>
+
   <section class="post-cta">
-    <span class="post-cta-eyebrow">When you're ready</span>
+    <span class="post-cta-eyebrow">Or start exploring</span>
     <h2 class="post-cta-title">The right place is half the proposal.</h2>
     <a class="post-cta-btn" href="/#search">Find your proposal spot →</a>
   </section>
 
 </article>
 
+<script src="/wa-float.js" defer></script>
 </body>
 </html>
