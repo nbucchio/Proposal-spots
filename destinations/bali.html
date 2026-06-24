@@ -95,22 +95,15 @@
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
-    .dest-similar { background: var(--ink2); padding: 64px 40px 56px; }
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
     .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
-    .dest-similar-header { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
-    .dest-similar-heading { flex: 1; min-width: 280px; }
-    .dest-similar-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(165,90,74,0.95); display: block; margin-bottom: 12px; }
-    .dest-similar-title { font-family: 'Cormorant', serif; font-size: clamp(24px,3.2vw,34px); font-weight: 300; color: var(--bg); line-height: 1.15; margin-bottom: 10px; }
-    .dest-similar-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: rgba(244,241,235,0.6); line-height: 1.75; max-width: 540px; }
-    .dest-similar-allink { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,235,0.65); text-decoration: none; border-bottom: 1px solid rgba(244,241,235,0.2); padding-bottom: 3px; transition: color 0.18s, border-color 0.18s; white-space: nowrap; }
-    .dest-similar-allink:hover { color: var(--bg); border-color: rgba(244,241,235,0.6); }
-    .dest-similar-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .dest-similar-pill { display: flex; flex-direction: column; gap: 4px; padding: 18px 22px; border: 1px solid rgba(244,241,235,0.14); border-radius: 14px; background: rgba(244,241,235,0.04); color: var(--bg); text-decoration: none; transition: border-color 0.18s, background 0.18s, transform 0.18s; }
-    .dest-similar-pill:hover { border-color: rgba(244,241,235,0.5); background: rgba(244,241,235,0.08); transform: translateY(-2px); }
-    .dest-similar-pill-name { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; color: var(--bg); line-height: 1.1; }
-    .dest-similar-pill-desc { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.55); letter-spacing: 0.02em; }
-    @media(max-width:720px){ .dest-similar-row { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:480px){ .dest-similar { padding: 48px 20px 40px; } .dest-similar-row { gap: 10px; } }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
     .dest-editorial { background: var(--ink2); padding: 80px 40px; }
     .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
     .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
@@ -435,31 +428,16 @@
   <!-- SIMILAR MARKETS -->
   <section class="dest-similar">
     <div class="dest-similar-inner">
-      <div class="dest-similar-header">
-        <div class="dest-similar-heading">
-          <span class="dest-similar-eyebrow">If not Bali</span>
-          <h2 class="dest-similar-title">Similar markets</h2>
-          <p class="dest-similar-sub">Closest matches for what brings people to Bali — value-luxury, tropical light, and private villa setups in a warm climate.</p>
-        </div>
-        <a href="/destinations" class="dest-similar-allink">View all destinations →</a>
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not Bali</span>
+        <span class="dest-similar-rule-line"></span>
       </div>
-      <div class="dest-similar-row">
-        <a href="/destinations/tulum" class="dest-similar-pill">
-          <span class="dest-similar-pill-name">Tulum</span>
-          <span class="dest-similar-pill-desc">Jungle and beach, boho-luxury</span>
-        </a>
-        <a href="/destinations/costa-rica" class="dest-similar-pill">
-          <span class="dest-similar-pill-name">Costa Rica</span>
-          <span class="dest-similar-pill-desc">Eco-lodges, cloud forest</span>
-        </a>
-        <a href="/destinations/maldives" class="dest-similar-pill">
-          <span class="dest-similar-pill-name">Maldives</span>
-          <span class="dest-similar-pill-desc">Overwater privacy, premium tier</span>
-        </a>
-        <a href="/destinations/hawaii" class="dest-similar-pill">
-          <span class="dest-similar-pill-name">Hawaii</span>
-          <span class="dest-similar-pill-desc">Tropical, no passport needed</span>
-        </a>
+      <div class="dest-similar-pills">
+        <a href="/destinations/tulum" class="dest-similar-pill">Tulum</a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">Costa Rica</a>
+        <a href="/destinations/maldives" class="dest-similar-pill">Maldives</a>
+        <a href="/destinations/hawaii" class="dest-similar-pill">Hawaii</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
     </div>
   </section>
@@ -778,13 +756,12 @@
   </section>
 
   <!-- CLOSING CTA -->
-  <section style="background:var(--bg);padding:80px 40px 96px;text-align:center;">
+  <section style="background:var(--bg);padding:48px 40px 56px;text-align:center;">
     <div style="max-width:720px;margin:0 auto;">
-      <span style="display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;">Start here</span>
-      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:34px;line-height:1.2;margin:0 0 32px;color:var(--ink);">Your Bali proposal starts with the right spot.</h2>
-      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Bali proposal spot &#8594;</a>
-        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:16px 44px;margin-top:0;">Browse by destination &#8594;</a>
+      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Bali proposal starts with the right spot.</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Bali proposal spot &#8594;</a>
+        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:14px 36px;margin-top:0;">Browse by destination &#8594;</a>
       </div>
     </div>
   </section>
