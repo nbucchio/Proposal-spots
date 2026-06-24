@@ -95,7 +95,22 @@
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
-    .dest-dark-break { background: var(--ink2); height: 8px; width: 100%; }
+    .dest-similar { background: var(--bg); padding: 64px 40px 56px; border-top: 1px solid var(--hairline); }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-header { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 28px; }
+    .dest-similar-heading { flex: 1; min-width: 280px; }
+    .dest-similar-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
+    .dest-similar-title { font-family: 'Cormorant', serif; font-size: clamp(24px,3.2vw,34px); font-weight: 300; color: var(--ink); line-height: 1.15; margin-bottom: 10px; }
+    .dest-similar-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 540px; }
+    .dest-similar-allink { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--hairline); padding-bottom: 3px; transition: color 0.18s, border-color 0.18s; white-space: nowrap; }
+    .dest-similar-allink:hover { color: var(--ink); border-color: var(--ink); }
+    .dest-similar-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .dest-similar-pill { display: flex; flex-direction: column; gap: 4px; padding: 18px 22px; border: 1px solid var(--hairline); border-radius: 14px; background: var(--white); color: var(--ink); text-decoration: none; transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s; }
+    .dest-similar-pill:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(28,28,28,0.06); }
+    .dest-similar-pill-name { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; color: var(--ink); line-height: 1.1; }
+    .dest-similar-pill-desc { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.02em; }
+    @media(max-width:720px){ .dest-similar-row { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:480px){ .dest-similar { padding: 48px 20px 40px; } .dest-similar-row { gap: 10px; } }
     .dest-editorial { background: var(--ink2); padding: 80px 40px; }
     .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
     .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
@@ -138,7 +153,8 @@
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
     @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
     @media(max-width:480px) { .dest-gallery-masonry { columns: 1; } }
-    .dest-landing-budget { max-width: 960px; margin: 80px auto 0; padding: 0 40px 80px; }
+    .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
+    .dest-landing-budget-inner { max-width: 960px; margin: 0 auto; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
     .dest-landing-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
     .dest-landing-budget-sub { font-size: 14px; color: var(--mid); line-height: 1.7; max-width: 520px; margin: 0 auto; }
@@ -162,7 +178,7 @@
     @media(max-width:640px) {
       .dest-landing-hero-content { padding: 60px 24px; }
       .dest-landing-body { padding: 0 20px; }
-      .dest-landing-budget { padding: 0 20px 60px; }
+      .dest-landing-budget { padding: 60px 20px; }
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
@@ -416,8 +432,37 @@
     </div>
   </div>
 
-  <!-- DARK PAGE BREAK -->
-  <div class="dest-dark-break"></div>
+  <!-- SIMILAR MARKETS -->
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-header">
+        <div class="dest-similar-heading">
+          <span class="dest-similar-eyebrow">If not Bali</span>
+          <h2 class="dest-similar-title">Similar markets</h2>
+          <p class="dest-similar-sub">Closest matches for what brings people to Bali — value-luxury, tropical light, and private villa setups in a warm climate.</p>
+        </div>
+        <a href="/destinations" class="dest-similar-allink">View all destinations →</a>
+      </div>
+      <div class="dest-similar-row">
+        <a href="/destinations/tulum" class="dest-similar-pill">
+          <span class="dest-similar-pill-name">Tulum</span>
+          <span class="dest-similar-pill-desc">Jungle and beach, boho-luxury</span>
+        </a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">
+          <span class="dest-similar-pill-name">Costa Rica</span>
+          <span class="dest-similar-pill-desc">Eco-lodges, cloud forest</span>
+        </a>
+        <a href="/destinations/maldives" class="dest-similar-pill">
+          <span class="dest-similar-pill-name">Maldives</span>
+          <span class="dest-similar-pill-desc">Overwater privacy, premium tier</span>
+        </a>
+        <a href="/destinations/hawaii" class="dest-similar-pill">
+          <span class="dest-similar-pill-name">Hawaii</span>
+          <span class="dest-similar-pill-desc">Tropical, no passport needed</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- GALLERY -->
   <div class="dest-gallery">
@@ -520,6 +565,7 @@
 
   <!-- BUDGET -->
   <div class="dest-landing-budget">
+    <div class="dest-landing-budget-inner">
     <div class="dest-landing-budget-header">
       <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
       <h2 class="dest-landing-budget-title">How much does a proposal in Bali cost?</h2>
@@ -548,10 +594,11 @@
       <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Bali proposal spot →</a>
       <a href="/budget-guide" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
     </div>
+    </div>
   </div>
 
   <!-- SEO CONTENT: WHY PROPOSE IN BALI -->
-  <section style="background:var(--bg);padding:80px 40px 0;">
+  <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Bali?</h2>
@@ -569,8 +616,8 @@
   </section>
 
   <!-- SEO CONTENT: BEST TIMES -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Bali?</h2>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">March through November is a strong window for outdoor proposals in Bali. Skies are mostly clear, light is reliable, and the rice terrace paths are manageable. January and February bring more rainfall, but in practice it's usually short afternoon showers rather than full write-offs — many couples still propose successfully in those months by working around the weather.</p>
@@ -584,8 +631,8 @@
   </section>
 
   <!-- SEO CONTENT: WHAT TO KNOW -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">What should you know before you go?</h2>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Visa.</strong> Most nationalities can enter Indonesia on a Visa on Arrival (30 days, extendable) or an e-Visa arranged online before travel. Check current requirements for your passport on the <a href="https://evisa.imigrasi.go.id" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">official Indonesian e-visa portal</a> before booking flights.</p>
@@ -601,8 +648,8 @@
   </section>
 
   <!-- SEO CONTENT: WHO THIS IS NOT FOR -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Who is this destination NOT right for?</h2>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Bali is not the right choice for everyone. If your partner needs urban energy, reliable air conditioning, and convenience, the most meaningful proposal spots in Bali require heat, walking, and a willingness to leave the hotel very early.</p>
@@ -616,8 +663,8 @@
   </section>
 
   <!-- SEO CONTENT: COMPARISON TABLE -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Bali proposal spots compare?</h2>
       <div style="border:1px solid var(--hairline);border-radius:10px;overflow:hidden;margin-bottom:0;">
@@ -668,8 +715,8 @@
   </section>
 
   <!-- SEO CONTENT: EXPANDED FAQ -->
-  <section class="dest-faq" style="padding-top:48px;">
-    <div class="dest-faq-inner">
+  <section class="dest-faq" style="background:var(--white);padding:80px 40px;">
+    <div class="dest-faq-inner" style="border-top:none;padding-top:0;">
       <span class="dest-faq-label">Bali Proposal: Questions Answered</span>
       <details>
         <summary>Where is the best place to propose in Bali?</summary>
@@ -731,8 +778,8 @@
   </section>
 
   <!-- CLOSING CTA -->
-  <section style="background:var(--bg);padding:0 40px 96px;text-align:center;">
-    <div style="max-width:720px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:64px;">
+  <section style="background:var(--bg);padding:80px 40px 96px;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
       <span style="display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;">Start here</span>
       <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:34px;line-height:1.2;margin:0 0 32px;color:var(--ink);">Your Bali proposal starts with the right spot.</h2>
       <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
