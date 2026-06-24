@@ -14,9 +14,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
   <title>Bali Proposal: Spots, Packages and Ideas | Proposal Spots</title>
-  <meta name="description" content="Planning a Bali proposal? Best spots, packages, and photographer tips: Uluwatu cliffs, Tegallalang rice terraces at sunrise, and private villa setups from $290.">
+  <meta name="description" content="Planning a Bali proposal? Best spots, packages, and photographer tips: Ubud rice terraces, jungle-valley villas, and full private sunset setups from around $1,800.">
   <meta property="og:title" content="Bali Proposal: Spots, Packages and Ideas | Proposal Spots">
-  <meta property="og:description" content="Planning a Bali proposal? Best spots, packages, and photographer tips: Uluwatu cliffs, Tegallalang rice terraces at sunrise, and private villa setups from $290.">
+  <meta property="og:description" content="Planning a Bali proposal? Best spots, packages, and photographer tips: Ubud rice terraces, jungle-valley villas, and full private sunset setups from around $1,800.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?q=80&w=1170&auto=format&fit=crop">
   <link rel="canonical" href="https://www.proposalspots.com/destinations/bali">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,6 +95,15 @@
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
     .dest-editorial { background: var(--ink2); padding: 80px 40px; }
     .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
     .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
@@ -128,16 +137,20 @@
     @media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
-    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
-    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
-    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
-    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dest-gallery-col { display: flex; flex-direction: column; gap: 12px; }
+    .dest-gallery-grid a { display: block; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-grid a.is-portrait { aspect-ratio: 2 / 3; }
+    .dest-gallery-grid a.is-landscape { aspect-ratio: 3 / 2; }
+    .dest-gallery-grid img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-grid a:hover img { transform: scale(1.04); filter: brightness(1); }
     .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
-    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
-    @media(max-width:480px) { .dest-gallery-masonry { columns: 1; } }
-    .dest-landing-budget { max-width: 960px; margin: 80px auto 0; padding: 0 40px 80px; }
+    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } }
+    @media(max-width:480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
+    .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
+    .dest-landing-budget-inner { max-width: 960px; margin: 0 auto; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
     .dest-landing-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
     .dest-landing-budget-sub { font-size: 14px; color: var(--mid); line-height: 1.7; max-width: 520px; margin: 0 auto; }
@@ -151,24 +164,25 @@
     .budget-row:last-child { border-bottom: none; }
     .budget-row-head { background: rgba(26,22,18,0.04); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
     .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
-    .budget-tip { font-size: 13px; line-height: 1.7; color: var(--ink); padding: 16px 20px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; }
+    .budget-tip { font-family: 'Cormorant', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); padding: 22px 0 0; margin-top: 22px; border-top: 1px solid var(--hairline); }
+    .budget-tip strong { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .dest-quick-answer { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.6; color: var(--ink); margin: 0 0 32px; padding: 4px 0 0; }
+    .dest-quick-answer .qa-lead { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline; margin-right: 10px; }
     .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
     .pg-cta-btn:hover { opacity: 0.8; }
     @media(max-width:640px) {
       .dest-landing-hero-content { padding: 60px 24px; }
       .dest-landing-body { padding: 0 20px; }
-      .dest-landing-budget { padding: 0 20px 60px; }
+      .dest-landing-budget { padding: 60px 20px !important; margin-top: 0 !important; }
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
 
     /* ── EXPERT TAKE ── */
-    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
-    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
-    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
-    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
-    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
-    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+    .dest-expert-take { padding: 120px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 1100px; margin: 0 auto; }
+    .dest-expert-statement { font-family: 'Cormorant', serif; font-size: clamp(34px, 6.4vw, 78px); font-weight: 300; color: var(--ink); line-height: 1.05; letter-spacing: -0.01em; margin: 0; }
+    @media(max-width:640px){ .dest-expert-take { padding: 72px 24px; } }
 
     /* ── FAQ ── */
     .dest-faq { padding: 0 40px 80px; background: var(--bg); }
@@ -193,7 +207,7 @@
         "name": "Where is the best place to propose in Bali?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The best place to propose in Bali depends on what you want to create. For complete seclusion: a private villa infinity pool in Ubud, overlooking a jungle valley. For dramatic natural scenery: the Uluwatu clifftops at golden hour, with a 70-metre drop to the Indian Ocean behind you. For raw visual spectacle: the Kelingking Beach viewpoint on Nusa Penida, a vertical cliff formation above a hidden turquoise cove, with very few visitors before 9am. For the iconic Bali rice terrace backdrop: Tegallalang or Jatiluwih, before 6am when the paths are empty and the mist sits in the terraces."
+          "text": "The best place to propose in Bali depends on what you want to create. For complete seclusion: a private villa infinity pool in Ubud, overlooking a jungle valley. For raw visual spectacle: the Kelingking Beach viewpoint on Nusa Penida, a vertical cliff formation above a hidden turquoise cove (note that decor setups are not feasible on the neighbour islands — they're best kept on Bali itself). For the iconic Bali rice terrace backdrop: Tegallalang or Jatiluwih (in Tabanan, central-west Bali) — go early, but expect other visitors regardless of the hour."
         }
       },
       {
@@ -201,7 +215,7 @@
         "name": "How much does a Bali proposal cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Bali proposal moment starts at around $290: a local guide or private access fee ($30 to $100) plus a photographer for 2 to 3 hours ($150 to $300). A full Bali proposal package covering decor, flowers, photographer coordination, and a post-proposal dinner setup typically runs $500 to $1,200. With 3 nights in a private villa, the total budget is $650 to $2,500+. Bali runs at roughly a third of the cost of equivalent quality in Europe."
+          "text": "A full Bali proposal setup — 1 hour of professional photography, a private dinner setup, and floral décor — typically runs $1,800 to $2,400. Adding 3 nights in a private villa brings the total to roughly $2,200 to $4,000+. A standalone helicopter charter starts from around $1,050. Bali still runs at a fraction of the cost of equivalent quality in Europe, but it is no longer the sub-$1,000 destination some older guides describe."
         }
       },
       {
@@ -209,7 +223,7 @@
         "name": "What do Bali proposal packages include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Bali proposal packages from luxury villas and independent coordinators typically include: private venue access or exclusive villa use, fresh flower decor, a vetted photographer for 2 to 3 hours, and a post-proposal dinner setup. The best packages also include a dedicated coordinator who handles photographer briefing and timing logistics. Prices run $400 to $1,200 depending on the tier."
+          "text": "Bali proposal packages from luxury villas and independent coordinators typically include: private venue access or exclusive villa use, fresh flower decor, a vetted photographer for around 1 hour (most couples find one hour is genuinely enough), and a post-proposal dinner setup. The best packages also include a dedicated coordinator who handles photographer briefing and timing logistics. Prices run roughly $1,800 to $4,000 depending on the tier and whether a heart arch or other premium décor element is included."
         }
       },
       {
@@ -217,7 +231,7 @@
         "name": "Should I hire a Bali proposal photographer?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. The light at Uluwatu at 6pm or Tegallalang at 5:30am produces images a phone cannot replicate. Bali photographers who specialise in proposals know the exact positions and timing to keep the moment a genuine surprise. Rates run $150 to $450 for 2 to 3 hours, which is lower than comparable quality in almost any other destination."
+          "text": "Yes. The light at sunset over Bali's cliffs and rice terraces produces images a phone cannot replicate. Bali photographers who specialise in proposals know the exact positions and timing to keep the moment a genuine surprise. Most couples book 1 hour of coverage, which is genuinely enough for the moment plus a short couple shoot. The going rate for 1 hour is around $240 to $280."
         }
       },
       {
@@ -225,7 +239,7 @@
         "name": "What are good Bali proposal ideas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The strongest Bali proposal ideas are location-driven. At a private villa infinity pool in Ubud or Seminyak: arrange flowers on the terrace before you arrive with your partner. At Tegallalang rice terraces: the moment the mist lifts at 5:45am is the moment to ask. At Kelingking Beach on Nusa Penida: the clifftop viewpoint looking down at the hidden cove is the setting. Other ideas include a private boat at sunset off the Uluwatu coast, a sunrise picnic at Jatiluwih rice terraces (less visited than Tegallalang), and a private table at Ayana Resort overlooking the Indian Ocean."
+          "text": "The strongest Bali proposal ideas are location-driven and almost always built around sunset rather than sunrise — in practice only a small minority of couples want to be up at 4am for their proposal. At a private villa infinity pool in Ubud or Kintamani: arrange flowers and the dinner setup on the terrace before you arrive with your partner, timed to golden hour. At Jatiluwih rice terraces (in Tabanan, central-west Bali): a quieter alternative to Tegallalang for a late-afternoon proposal. Other ideas include a private boat at sunset off the south Bali coast and a private table at Ayana Resort in Jimbaran overlooking the Indian Ocean."
         }
       },
       {
@@ -233,7 +247,7 @@
         "name": "Is a beach proposal in Bali a good idea?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Bali beach proposal works well with the right beach. Kuta and Seminyak are too crowded. Better options: Padang Padang Beach (a small cove reached by stone steps), Nyang Nyang Beach in south Bali (20 minutes downhill from the car park, rarely visited), or a private villa beach club. For a romantic proposal dinner on a beach in Bali, Jimbaran Bay is the established choice: fresh seafood, tables on the sand at sunset, and a stretch of beach that quiets after 8pm."
+          "text": "A Bali beach proposal can work, but be realistic about privacy — public beaches in Bali are rarely empty, even at the quieter ones. We sell beach setups as 'public but more secluded' and never promise an empty beach on the day. Kuta and Seminyak are too crowded; Padang Padang is small and very busy and we don't recommend it for a proposal. Nyang Nyang in south Bali used to be remote but now has vehicle access and parking and is significantly busier than it was. The most reliable option is a private villa beach club with exclusive afternoon access. For a romantic proposal dinner on the sand, Jimbaran Bay remains the established setting — fresh seafood, tables at sunset, and a stretch that quiets after 8pm."
         }
       },
       {
@@ -241,7 +255,7 @@
         "name": "What is a Bali helicopter proposal and what does it cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Bali helicopter proposal involves a scenic charter over Ubud's rice terraces, the Uluwatu coast, or Mt Agung, with the proposal in the air or at a private landing spot. Operators including Blue Sky Bali run charter flights from Ngurah Rai Airport. Cost: $600 to $2,000+ depending on route and duration (30 to 90 minutes). A flight ending at a private cliff or beach landing gives you both the arrival drama and the calm to propose properly."
+          "text": "A Bali helicopter proposal involves a scenic charter over Ubud's rice terraces, the south Bali coast, or Mt Agung, with the proposal in the air or at a private landing spot. Charter flights from Ngurah Rai Airport start at around $1,050 (from 13,900,000 IDR) and rise from there depending on route and duration. A flight ending at a private cliff or beach landing gives you both the arrival drama and the calm to propose properly."
         }
       },
       {
@@ -249,7 +263,7 @@
         "name": "How far in advance should I plan a Bali marriage proposal?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Six to eight weeks of lead time is comfortable for a Bali marriage proposal. Book the photographer first (the best fill quickly in July, August, and December), then the villa or venue, then flowers and decor. If you use a full-service Bali proposal planner through a villa, they handle the sequencing. The single most common mistake is leaving the photographer booking until the week before travel, then finding the best options are fully booked."
+          "text": "Six to eight weeks of lead time is comfortable for a Bali marriage proposal. Book the photographer first (the best fill quickly in July, August, and December), then the villa or venue, then flowers and decor. If you use a full-service Bali proposal planner through a villa, they handle the sequencing. The single most common mistake is leaving the photographer booking until the week before travel, then finding the best options are fully booked. Note that décor setups are produced on Bali itself — we don't recommend trying to stage one on Nusa Penida or the other neighbour islands, as the décor elements aren't practical to ferry across."
         }
       }
     ]
@@ -286,7 +300,7 @@
     "@context": "https://schema.org",
     "@type": "TouristDestination",
     "name": "Bali, Indonesia",
-    "description": "Bali is one of the world's leading destinations for marriage proposals, known for private villa infinity pools above jungle valleys, Uluwatu clifftops at golden hour, Tegallalang rice terraces at sunrise, and the Kelingking Beach viewpoint on Nusa Penida. Bali proposal packages range from $290 to $2,500+.",
+    "description": "Bali is one of the world's leading destinations for marriage proposals, known for private villa infinity pools above jungle valleys, rice terraces in Tabanan, and the Kelingking Beach viewpoint on Nusa Penida. Full Bali proposal setups (photography, dinner, décor) typically range from around $1,800 to $4,000+.",
     "url": "https://www.proposalspots.com/destinations/bali",
     "geo": {
       "@type": "GeoCoordinates",
@@ -295,10 +309,10 @@
     },
     "hasMap": "https://www.google.com/maps/place/Bali,+Indonesia",
     "includesAttraction": [
-      { "@type": "TouristAttraction", "name": "Uluwatu Temple and Clifftops" },
       { "@type": "TouristAttraction", "name": "Tegallalang Rice Terraces" },
       { "@type": "TouristAttraction", "name": "Kelingking Beach, Nusa Penida" },
-      { "@type": "TouristAttraction", "name": "Jatiluwih Rice Terraces" }
+      { "@type": "TouristAttraction", "name": "Jatiluwih Rice Terraces (Tabanan)" },
+      { "@type": "TouristAttraction", "name": "Kintamani and the Caldera" }
     ]
   }
   </script>
@@ -308,16 +322,14 @@
     "@type": "ItemList",
     "name": "Best Bali Proposal Spots",
     "description": "Top-rated marriage proposal locations in Bali, Indonesia, curated by Proposal Spots.",
-    "numberOfItems": 8,
+    "numberOfItems": 6,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Private Villa Infinity Pool, Ubud" },
-      { "@type": "ListItem", "position": 2, "name": "Uluwatu Clifftops" },
+      { "@type": "ListItem", "position": 2, "name": "Private Villa, Kintamani" },
       { "@type": "ListItem", "position": 3, "name": "Tegallalang Rice Terraces" },
-      { "@type": "ListItem", "position": 4, "name": "Kelingking Beach, Nusa Penida" },
-      { "@type": "ListItem", "position": 5, "name": "Jatiluwih Rice Terraces" },
-      { "@type": "ListItem", "position": 6, "name": "Padang Padang Beach" },
-      { "@type": "ListItem", "position": 7, "name": "Jimbaran Bay Beach Dinner" },
-      { "@type": "ListItem", "position": 8, "name": "Nyang Nyang Beach" }
+      { "@type": "ListItem", "position": 4, "name": "Kelingking Beach Viewpoint, Nusa Penida" },
+      { "@type": "ListItem", "position": 5, "name": "Jatiluwih Rice Terraces (Tabanan)" },
+      { "@type": "ListItem", "position": 6, "name": "Jimbaran Bay Beach Dinner" }
     ]
   }
   </script>
@@ -332,7 +344,7 @@
     <div class="dest-landing-hero-content">
       <span class="pg-eyebrow">Indonesia</span>
       <h1 class="dest-landing-title">Bali</h1>
-      <p class="dest-landing-sub">Hidden waterfalls, ancient rice terraces at sunrise, jungle-wrapped temples, and private villas with infinity pools above the valley. Bali is the world's best-value luxury proposal destination.</p>
+      <p class="dest-landing-sub">Hidden waterfalls, ancient rice terraces, jungle-wrapped temples, and private villas with infinity pools above the valley. Bali is the world's best-value luxury proposal destination — and the light at sunset is unrepeatable.</p>
     </div>
   </div>
 
@@ -413,34 +425,46 @@
     </div>
   </div>
 
-  <!-- EDITORIAL -->
-  <div class="dest-editorial">
-    <div class="dest-editorial-inner">
-      <span class="dest-editorial-eyebrow">Indonesia · Southeast Asia</span>
-      <h2 class="dest-editorial-headline">Private villas, ancient rice terraces, and a light that makes everything feel sacred.</h2>
-      <p class="dest-editorial-sub">Bali offers the highest value-for-money proposal experience in the world. But the real reason people propose in Bali is the quality of the feeling — something about the island makes it feel like the right place to ask.</p>
-      <div class="dest-editorial-grid">
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌾</span>
-          <div class="dest-editorial-card-title">Rice terraces at sunrise</div>
-          <p class="dest-editorial-card-body">Tegallalang at 5:30am, before the tour groups arrive, is one of the most beautiful things you will ever see. Layers of emerald terraces descending into mist, almost complete silence.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🏊</span>
-          <div class="dest-editorial-card-title">Infinity pool proposals</div>
-          <p class="dest-editorial-card-body">Bali's private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌊</span>
-          <div class="dest-editorial-card-title">Uluwatu at sunset</div>
-          <p class="dest-editorial-card-body">The Uluwatu clifftops at golden hour rival anything in Europe — hidden coves, crashing surf, and the kind of light that makes every photograph look like a film still.</p>
-        </div>
+  <!-- SIMILAR MARKETS -->
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not Bali</span>
+        <span class="dest-similar-rule-line"></span>
       </div>
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"He woke me at 4:30am. I was furious. Then I saw the rice terraces in the first light and understood completely."</p>
-        <span class="dest-editorial-pull-attr">— Sophie, Ubud</span>
+      <div class="dest-similar-pills">
+        <a href="/destinations/tulum" class="dest-similar-pill">Tulum</a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">Costa Rica</a>
+        <a href="/destinations/maldives" class="dest-similar-pill">Maldives</a>
+        <a href="/destinations/hawaii" class="dest-similar-pill">Hawaii</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does a Bali proposal cost? <a href="/budget/bali" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <div class="dest-gallery">
+    <span class="dest-gallery-eyebrow">The setting</span>
+    <div class="dest-gallery-grid">
+      <div class="dest-gallery-col">
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop" alt="Lush Bali rice terraces in the morning light" loading="lazy">
+        </a>
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop" alt="Golden hour landscape in Bali" loading="lazy">
+        </a>
+      </div>
+      <div class="dest-gallery-col">
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop" alt="Romantic sunset over a Bali villa and jungle valley" loading="lazy">
+        </a>
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop" alt="Tranquil Bali tropical scenery at dusk" loading="lazy">
+        </a>
+      </div>
+    </div>
+    <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
+      <img id="gallery-lightbox-img" src="" alt="">
     </div>
   </div>
 
@@ -456,46 +480,40 @@
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🌄</span>
           <div class="dest-hl-title">Mt Batur sunrise trek</div>
-          <p class="dest-hl-body">A 2am departure, a 2-hour hike in darkness, and sunrise from the summit of an active volcano — one of the most extraordinary mornings available anywhere on earth. The crater views at dawn are incomprehensible.</p>
+          <p class="dest-hl-body">A 2am departure, a 2-hour hike in darkness, and sunrise from the summit of an active volcano. An extraordinary morning — but not the proposal itself. Most couples we work with prefer sunset for the moment and treat Batur as a separate adventure during the trip.</p>
         </div>
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🌾</span>
-          <div class="dest-hl-title">Tegallalang at 5:30am</div>
-          <p class="dest-hl-body">The rice terraces are famous. What most visitors don't know: at 5:30am they're deserted. Layers of green descending into mist, near-complete silence, and photography that looks nothing like the midday shots everyone else takes.</p>
+          <div class="dest-hl-title">Tegallalang rice terraces</div>
+          <p class="dest-hl-body">The iconic terraces, easy to reach from Ubud. Be realistic: the early-arrival "trick" is now widely known and the site can be closed before dawn anyway, so expect other visitors regardless of the hour. The strongest light is late afternoon, just before closing.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🌊</span>
-          <div class="dest-hl-title">Uluwatu temple at dusk</div>
-          <p class="dest-hl-body">The Uluwatu temple perched on a 70-metre cliff above the Indian Ocean, with the Kecak fire dance performed at sunset — one of the most cinematic evenings available anywhere in Southeast Asia.</p>
+          <span class="dest-hl-icon">🌋</span>
+          <div class="dest-hl-title">Kintamani caldera views</div>
+          <p class="dest-hl-body">Mt Batur and Lake Batur from the rim of an enormous caldera. The villas above Kintamani offer some of the most genuinely private terrace setups on the island, with cool air and a view that doesn't look like anywhere else in Bali.</p>
         </div>
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🏊</span>
           <div class="dest-hl-title">Nyang Nyang Beach</div>
-          <p class="dest-hl-body">A 20-minute hike down steep steps leads to one of the least-visited beaches in south Bali. The combination of effort and isolation makes it a genuinely private setting — and the walk down is part of the experience.</p>
+          <p class="dest-hl-body">A long stretch of sand on the Bukit peninsula. Worth knowing: it's no longer the secret it once was — vehicle access and parking arrived, and it now sees regular traffic. Treat it as a quieter public beach rather than a private one.</p>
         </div>
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🛕</span>
           <div class="dest-hl-title">Pura Lempuyang gates</div>
-          <p class="dest-hl-body">The "gates of heaven" with Mt Agung reflected in the pool below — the most photographed image in Bali, and for good reason. Arrive before 6am to have the gates to yourself. By 7am there's a queue.</p>
+          <p class="dest-hl-body">The "gates of heaven" — beautiful, but worth knowing the truth before you go: there is no reflecting pool. The famous reflection is created by a photographer holding a mirror beneath a phone. The photo gate also runs on a numbered-ticket system, so there is a wait no matter how early you arrive.</p>
         </div>
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🌿</span>
           <div class="dest-hl-title">Ubud Sacred Monkey Forest</div>
-          <p class="dest-hl-body">Not for the proposal moment itself — but for the morning after. The forest at dawn, feeding monkeys in dappled jungle light, is one of those experiences that makes a trip feel genuinely unlike any other.</p>
+          <p class="dest-hl-body">Not for the proposal itself — for the morning after. The forest opens around 8:30–9:00am, so plan accordingly. Note that feeding the monkeys is discouraged; the staff will direct you, and the encounter is plenty memorable without it.</p>
         </div>
-      </div>
-      <div class="dest-highlights-tip">
-        <span class="dest-highlights-tip-label">Proposal Spots tip</span>
-        <p class="dest-highlights-tip-text">Hire a local guide for your proposal morning. Not a tourist guide — a local fixer who can arrange private rice terrace access, know which viewpoints are empty before 6am, and drive you without GPS anxiety. Most reputable villas can recommend someone.</p>
       </div>
     </div>
   </div>
 
   <section class="dest-expert-take">
     <div class="dest-expert-take-inner">
-      <span class="dest-expert-label">Our Take</span>
-      <h2 class="dest-expert-h2">Bali is the most value-for-money luxury proposal destination in the world. Most people propose in the wrong place.</h2>
-      <p class="dest-expert-body">Bali is the most value-for-money luxury proposal destination in the world. A private villa sunset setup that costs $5,000 in Europe costs $800 here — with better photography and more attentive service. The mistake most people make is proposing at a famous temple, surrounded by tour groups. Our spots are the ones only residents and return visitors know about.</p>
+      <p class="dest-expert-statement">Most people propose in the wrong place in Bali.</p>
     </div>
   </section>
 
@@ -508,46 +526,22 @@
       </details>
       <details>
         <summary>What is the most private proposal spot in Bali?</summary>
-        <p class="dest-faq-answer">Private infinity pool villa terraces in Ubud and Seminyak offer the most intimate settings. A villa with a rice terrace or jungle valley view gives you complete seclusion with Bali's extraordinary light as a backdrop.</p>
+        <p class="dest-faq-answer">Private infinity pool villa terraces in Ubud and Kintamani offer the most intimate settings — a villa with a rice terrace or jungle-valley view gives you genuine seclusion with Bali's extraordinary light as a backdrop. Public beaches and temples are not reliably private, even at quieter hours; we only sell beach setups as "public but more secluded" and never promise an empty location on the day.</p>
       </details>
       <details>
         <summary>How far in advance should I book a Bali proposal?</summary>
-        <p class="dest-faq-answer">4–6 weeks is comfortable for most Bali proposals. The best villa photographers and luxury resort concierges can book up during high season (July–August and December). We recommend confirming your key vendors as soon as your flights are locked.</p>
+        <p class="dest-faq-answer">6–8 weeks is comfortable for most Bali proposals. The best villa photographers and luxury resort concierges can book up during high season (July–August and December). We recommend confirming your key vendors as soon as your flights are locked.</p>
       </details>
       <details>
         <summary>What is the best time of year to propose in Bali?</summary>
-        <p class="dest-faq-answer">April through June, and September through October — Bali's dry season. The light is extraordinary, humidity is manageable, and the crowds are thinner than in peak summer. Avoid December through February for outdoor proposals as the rainy season can be unpredictable.</p>
+        <p class="dest-faq-answer">March through November is a strong window for outdoor proposals in Bali. January and February bring more rainfall, though it's typically short afternoon showers rather than full write-offs. It's worth separating two things people often conflate: "high season" (crowds and pricing — July, August, December) is not the same as the rainy season (weather). December is a busy holiday season and works perfectly well for an outdoor proposal.</p>
       </details>
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <div class="dest-gallery">
-    <span class="dest-gallery-eyebrow">The setting</span>
-    <div class="dest-gallery-masonry">
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1612692379864-570256c9456b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1612692379864-570256c9456b?q=80&w=1170&auto=format&fit=crop" alt="Jungle swing above Ubud rainforest canopy, Bali" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop" alt="Lush Bali rice terraces in the morning light" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop" alt="Romantic sunset over a Bali villa and jungle valley" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop" alt="Golden hour landscape in Bali" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop" alt="Tranquil Bali tropical scenery at dusk" loading="lazy">
-      </a>
-    </div>
-    <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
-      <img id="gallery-lightbox-img" src="" alt="">
-    </div>
-  </div>
-
   <!-- BUDGET -->
   <div class="dest-landing-budget">
+    <div class="dest-landing-budget-inner">
     <div class="dest-landing-budget-header">
       <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
       <h2 class="dest-landing-budget-title">How much does a proposal in Bali cost?</h2>
@@ -557,88 +551,86 @@
       <div class="budget-dest-header">
         <div>
           <h3 class="budget-dest-name">Bali</h3>
-          <p class="budget-dest-tagline">The most value-for-money luxury proposal destination in the world. Private villa setups that would cost $5,000 in Europe can be arranged in Bali for under $1,000.</p>
+          <p class="budget-dest-tagline">A high value-for-money luxury proposal destination. Private villa sunset setups that would cost $5,000 in Europe can be arranged in Bali for around $1,200.</p>
         </div>
-        <div class="budget-dest-range-badge">$400 – $4,000+</div>
+        <div class="budget-dest-range-badge">$1,800 – $4,000+</div>
       </div>
       <div class="budget-table">
         <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
         <div class="budget-row"><span>Private access / guide</span><span>$30 – $100</span><span>Included</span></div>
-        <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$150 – $450</span><span>$150 – $450</span></div>
+        <div class="budget-row"><span>Photographer (1 hr)</span><span>$240 – $280</span><span>$240 – $280</span></div>
         <div class="budget-row"><span>Hotel (3 nights, private villa)</span><span>—</span><span>$400 – $1,800</span></div>
-        <div class="budget-row"><span>Private dinner setup</span><span>$80 – $200</span><span>$100 – $300</span></div>
-        <div class="budget-row"><span>Flowers &amp; décor</span><span>$30 – $120</span><span>Often included</span></div>
-        <div class="budget-row budget-row-total"><span>Estimated total</span><span>$290 – $870</span><span>$650 – $2,550+</span></div>
+        <div class="budget-row"><span>Private dinner setup</span><span>$700 – $800</span><span>$700 – $800</span></div>
+        <div class="budget-row"><span>Flowers &amp; décor (from)</span><span>$850 – $1,200+</span><span>$850 – $1,200+</span></div>
+        <div class="budget-row budget-row-total"><span>Estimated total</span><span>$1,820 – $2,380+</span><span>$2,220 – $4,180+</span></div>
       </div>
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don't skip this. The rice terrace light at sunrise is unrepeatable.</p>
+      <p class="budget-tip"><strong>A note on photography</strong>Bali photographers are among the best in the world for proposal work, at a fraction of European rates. It's the line in the budget that earns itself back — the light at sunset across the valleys is unrepeatable, and a phone won't catch it.</p>
     </div>
     <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
       <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Bali proposal spot →</a>
       <a href="/budget-guide" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
     </div>
+    </div>
   </div>
 
   <!-- SEO CONTENT: WHY PROPOSE IN BALI -->
-  <section style="background:var(--bg);padding:80px 40px 0;">
+  <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin:0 0 28px;">Why propose in Bali?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Bali?</h2>
 
-      <div style="background:rgba(165,90,74,0.06);border-left:2px solid var(--accent);padding:20px 24px;margin:0 0 36px;">
-        <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Quick answer</span>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);line-height:1.85;margin:0;">The top three spots for a Bali proposal: a private villa terrace in Ubud with an infinity pool above the jungle valley (setup from $150 to $400), the Uluwatu clifftops at golden hour (photographer from $150 to $300, site access free), and the Kelingking Beach viewpoint on Nusa Penida (remote, spectacular, no cost). Total spend for the proposal moment: $290 to $870. A full stay with accommodation runs $650 to $2,500+.</p>
-      </div>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The short version: a private villa terrace in Ubud or above the Kintamani caldera, and Jatiluwih in Tabanan for the rice terraces. The Kelingking viewpoint on Nusa Penida is for the photograph, not the décor — that stays on Bali itself. Expect roughly $1,800 to $2,400 for the proposal day; $2,200 to $4,000+ with three nights in a villa.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">A bali proposal costs roughly a third of what the same quality experience would cost in Europe. That is the arithmetic. The more important reason is harder to quantify: something about the island makes the question feel right to ask.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">A bali proposal costs a meaningful fraction of what the same quality experience would cost in Europe. That is the arithmetic. The more important reason is harder to quantify: something about the island makes the question feel right to ask.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The light at Tegallalang at 5:30am, or at Uluwatu at 6:00pm, is unlike anywhere else in Southeast Asia. Bali photographers who specialise in proposals know exactly what to do with it. A <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> in Bali typically runs $150 to $450 for 2 to 3 hours, which is lower than comparable quality in almost any other destination. The images they produce consistently rank among the best proposal photography in the world.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Sunset light over Bali's valleys and cliffs is unlike anywhere else in Southeast Asia, and the vast majority of couples we work with prefer a sunset proposal — only a small minority want to be up before sunrise for the moment itself. Bali photographers who specialise in proposals know exactly what to do with golden hour. A <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> for the 1 hour most couples book typically runs around $240 to $280. The images they produce consistently rank among the best proposal photography in the world.</p>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Men spend months choosing the ring. Most spend less than an afternoon deciding where to propose. The location is in every photograph, in the story told to every friend and family member, in the memory both of you carry for decades. It deserves the same consideration as the ring.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Villa concierges in Ubud have helped coordinate hundreds of proposals. They know which rice terrace to access privately, how to get flowers to a cliffside before sunrise, and how to brief a photographer without letting the secret out. You are not figuring this out alone. That is the other reason to propose in Bali.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Villa concierges in Ubud have helped coordinate hundreds of proposals. They know which rice terrace to access privately, how to get flowers to a private terrace ahead of golden hour, and how to brief a photographer without letting the secret out. You are not figuring this out alone. That is the other reason to propose in Bali.</p>
     </div>
   </section>
 
   <!-- SEO CONTENT: BEST TIMES -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin:0 0 28px;">When is the best time to propose in Bali?</h2>
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Bali?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">April through June is the best window. The dry season has arrived, high season has not. Humidity is manageable, skies are clear, and the rice terrace paths are not yet full of tour groups. September and October deliver the same quality.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">March through November is a strong window for outdoor proposals in Bali. Skies are mostly clear, light is reliable, and the rice terrace paths are manageable. January and February bring more rainfall, but in practice it's usually short afternoon showers rather than full write-offs — many couples still propose successfully in those months by working around the weather.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Sunset falls between 6:10pm and 6:30pm throughout the year. Bali sits close to the equator, so the variation is small. For a proposal at Uluwatu, arrive by 5:30pm. For Tegallalang or Jatiluwih, the UNESCO rice terraces in West Bali, sunrise starts around 6:00am year-round. The hour before 7:00am is yours. After 7:00am, the maths are less favourable.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Worth separating two things people often conflate. <strong>High season</strong> (crowds and pricing) hits in July, August and December — December especially, because it's the holiday season and demand surges. <strong>Rainy season</strong> (weather) is mainly January and February. They are not the same thing: December is high season for demand and price, but the weather is still workable for an outdoor proposal, and we have many December bookings.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The Nusa Penida crossing runs on fast boats from Sanur port, typically from 7:00am. A viewpoint visit to Kelingking Beach takes 4 to 5 hours including transit. Plan a morning departure to arrive at the viewpoint before 9:00am, ahead of the day-tripper groups from south Bali.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Sunset falls between 6:10pm and 6:30pm throughout the year — Bali sits close to the equator, so variation is small. Most of our couples choose sunset for the proposal moment. For a clifftop or terrace setup, arrive by 5:30pm. Sunrise proposals are possible but rarely preferred — in practice, only around 5% of couples we work with want to be up before dawn for their proposal.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Avoid December through February for outdoor proposals. The wet season brings afternoon storms that end a moment with no warning. June through August is the safest weather window but carries the highest prices and the most crowded clifftop paths. The sweet spot is the shoulder period on either side.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">The Nusa Penida crossing runs on fast boats from Sanur port, typically from 7:00am. After the 45-minute crossing, expect a further 45–60 minute drive across the island to reach Kelingking Beach. The boat itself runs $20–50 per person, and on-island transport (car and driver) is an additional cost on top — usually arranged separately. Note also that décor setups are not practical on Nusa Penida; we recommend staging the proposal itself on Bali and visiting Kelingking as a separate viewpoint trip.</p>
     </div>
   </section>
 
   <!-- SEO CONTENT: WHAT TO KNOW -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin:0 0 28px;">What should you know before you go?</h2>
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">What should you know before you go?</h2>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Visa.</strong> Most nationalities can enter Indonesia on a Visa on Arrival (30 days, extendable) or an e-Visa arranged online before travel. Check current requirements for your passport on the <a href="https://evisa.imigrasi.go.id" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">official Indonesian e-visa portal</a> before booking flights.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Access.</strong> Two areas require advance planning. Nusa Penida (for Kelingking Beach) involves a 45-minute fast boat from Sanur port. Jatiluwih rice terraces are about 90 minutes from Ubud by car. Both reward the effort with near-solitude compared to the busier central Bali spots. Full destination info is available at <a href="https://www.indonesia.travel/gb/en/destination/bali" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Indonesia.travel</a>.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Access.</strong> Two areas require advance planning. Nusa Penida (for the Kelingking Beach viewpoint) involves a 45-minute fast boat from Sanur port plus a further 45–60 minute drive across the island; on-island transport is an additional cost on top of the boat. Jatiluwih rice terraces sit in Tabanan (central-west Bali), about 90 minutes from Ubud by car. Both reward the effort with quieter scenery than the busier central spots. Full destination info is available at <a href="https://www.indonesia.travel/gb/en/destination/bali" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Indonesia.travel</a>.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Booking windows.</strong> Book a bali proposal photographer 4 to 6 weeks out. The best fill quickly during July, August, and December. Concierge-coordinated setups at luxury villas need 3 to 4 weeks notice. Flowers can usually be arranged within a week, but confirm for rare varieties.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Booking windows.</strong> Book a bali proposal photographer 6 to 8 weeks out. The best fill quickly during July, August, and December. Concierge-coordinated setups at luxury villas need 3 to 4 weeks notice. Flowers can usually be arranged within a week, but confirm for rare varieties.</p>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Climate.</strong> Daytime heat runs 28 to 32 degrees Celsius year-round. Cliff and terrace proposals are outdoors and often exposed. Your partner will be comfortable in light clothing. Keep the ring box somewhere dry until the moment.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;"><strong style="color:var(--ink);font-weight:400;">Order of operations.</strong> Location first. Photographer second. Flowers and décor third. Working in reverse leads to elaborate décor at a spot you have not confirmed is private or accessible. If you want everything handled for you, bali proposal planners and full-service <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">proposal packages</a> are available through most luxury villas, covering venue access, décor, photographer briefing, and a post-proposal dinner. Budget $400 to $1,200 for a full-service arrangement.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;"><strong style="color:var(--ink);font-weight:400;">Order of operations.</strong> Location first. Photographer second. Flowers and décor third. Working in reverse leads to elaborate décor at a spot you have not confirmed is private or accessible. If you want everything handled for you, bali proposal planners and full-service <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">proposal packages</a> are available through most luxury villas, covering venue access, décor, photographer briefing, and a post-proposal dinner. Budget around $1,800 to $4,000 for a full-service arrangement, depending on the décor tier (a heart arch and similar premium elements sit at the upper end).</p>
     </div>
   </section>
 
   <!-- SEO CONTENT: WHO THIS IS NOT FOR -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin:0 0 28px;">Who is this destination NOT right for?</h2>
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Who is this destination NOT right for?</h2>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Bali is not the right choice for everyone. If your partner needs urban energy, reliable air conditioning, and convenience, the most meaningful proposal spots in Bali require heat, walking, and a willingness to leave the hotel very early.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The Kelingking Beach viewpoint on Nusa Penida involves a steep descent and ascent that most people find genuinely tiring. Tegallalang at 5:30am requires a dark, early departure. The fast boat to Nusa Penida is 45 minutes on open water. None of this is difficult in an absolute sense, but none of it is a white-tablecloth restaurant in a cool city.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The Kelingking Beach viewpoint on Nusa Penida involves a 45-minute fast boat from Sanur followed by a further 45–60 minute drive across the island, and the viewpoint descent itself is genuinely steep. Rice terrace visits mean early starts and uneven paths. None of this is difficult in an absolute sense, but none of it is a white-tablecloth restaurant in a cool city.</p>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">If the ring budget is $500 and you also need flights, a private villa, a bali proposal photographer, and flowers, something will have to give. Bali is affordable in regional terms. A considered proposal still costs real money.</p>
 
@@ -647,12 +639,12 @@
   </section>
 
   <!-- SEO CONTENT: COMPARISON TABLE -->
-  <section style="background:var(--bg);padding:48px 40px 0;">
-    <div style="max-width:760px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:48px;">
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(22px,3vw,36px);font-weight:300;color:var(--ink);line-height:1.2;margin:0 0 28px;">How do Bali proposal spots compare?</h2>
-      <div style="border:1px solid var(--hairline);border-radius:10px;overflow:hidden;margin-bottom:0;">
-        <table style="width:100%;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Bali proposal spots compare?</h2>
+      <div style="border:1px solid var(--hairline);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:0;">
+        <table style="width:100%;min-width:620px;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
           <thead>
             <tr style="background:rgba(26,22,18,0.04);">
               <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Spot</th>
@@ -666,30 +658,30 @@
               <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Private villa, Ubud</td>
               <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Complete seclusion, infinity pool above jungle</td>
               <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Complete</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$150 to $400 setup</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Setup from ~$1,800</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Uluwatu clifftops</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Drama, ocean backdrop, golden-hour photography</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Light crowd</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Free access; photographer from $150</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Private villa, Kintamani</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Caldera and lake views, cooler air, real privacy</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Complete</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Setup from ~$1,800</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Tegallalang rice terraces</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Iconic Bali landscape, mist and emerald layers</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Private before 6am</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Entry ~$5; photographer from $150</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Jatiluwih rice terraces (Tabanan)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">UNESCO terraces, quieter alternative to Tegallalang</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Moderate; never empty</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Entry ~$5; photographer from $240/hr</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Kelingking Beach, Nusa Penida</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Raw natural spectacle, very few visitors</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Near-private (mornings)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$20 to $50 boat; entry ~$5</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Kelingking Beach viewpoint, Nusa Penida</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Raw spectacle for photographs (no décor setups feasible)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Busy by mid-morning</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$20–50 boat + on-island transport</td>
             </tr>
             <tr>
               <td style="padding:13px 18px;border-bottom:none;color:var(--ink);font-weight:400;">Jimbaran Bay, beach dinner</td>
               <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Romantic dinner setting, ocean at sunset</td>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Moderate; quiets after 8pm</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Public; quieter after 8pm</td>
               <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">$80 to $200 dinner</td>
             </tr>
           </tbody>
@@ -699,55 +691,55 @@
   </section>
 
   <!-- SEO CONTENT: EXPANDED FAQ -->
-  <section class="dest-faq" style="padding-top:48px;">
-    <div class="dest-faq-inner">
+  <section class="dest-faq" style="background:var(--white);padding:80px 40px;">
+    <div class="dest-faq-inner" style="border-top:none;padding-top:0;">
       <span class="dest-faq-label">Bali Proposal: Questions Answered</span>
       <details>
         <summary>Where is the best place to propose in Bali?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">The best place depends on what you want to create. For complete seclusion: a private villa infinity pool in Ubud, overlooking a jungle valley. For dramatic natural scenery: the Uluwatu clifftops at golden hour, with a 70-metre drop to the Indian Ocean behind you. For raw visual spectacle: the Kelingking Beach viewpoint on Nusa Penida, a vertical cliff formation above a hidden turquoise cove, with very few visitors before 9:00am.</p>
-          <p style="margin:0;">For the iconic Bali rice terrace backdrop: Tegallalang or Jatiluwih (the less-visited UNESCO site in West Bali), before 6:00am when the paths are empty and the mist sits in the terraces. See the comparison table above for a side-by-side breakdown of each spot.</p>
+          <p style="margin:0 0 12px;">The best place depends on what you want to create. For complete seclusion: a private villa infinity pool in Ubud overlooking a jungle valley, or a villa above the Kintamani caldera. For raw visual spectacle for photographs (no décor setup feasible): the Kelingking Beach viewpoint on Nusa Penida — though note it now sees crowds well before noon.</p>
+          <p style="margin:0;">For the iconic Bali rice terrace backdrop: Jatiluwih (the quieter UNESCO site in Tabanan, central-west Bali) is a better choice than Tegallalang for a proposal — and late afternoon light is stronger than dawn for the photographs. See the comparison table above for a side-by-side breakdown of each spot.</p>
         </div>
       </details>
       <details>
         <summary>How much does a proposal in Bali cost?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">The proposal moment alone starts at around $290: a local guide or private access fee ($30 to $100) plus a bali proposal photographer for 2 to 3 hours ($150 to $300). A full bali proposal package covering décor, flowers, photographer coordination, and a post-proposal dinner setup typically runs $500 to $1,200.</p>
-          <p style="margin:0;">With 3 nights in a private villa, the total budget is $650 to $2,500+. Bali runs at roughly a third of the cost of equivalent quality in Europe. The full breakdown by category is in the <a href="/budget/bali" style="color:var(--accent);text-decoration:none;">Bali proposal budget guide</a>.</p>
+          <p style="margin:0 0 12px;">A full Bali proposal setup — 1 hour of professional photography (around $240–$280), a private dinner setup (around $700–$800), and floral décor (from around $850, more for a heart arch or similar) — typically lands between $1,800 and $2,400. The "1 hour" is intentional: most couples find one hour of photography is genuinely enough for the moment plus a short couple shoot.</p>
+          <p style="margin:0;">Adding 3 nights in a private villa brings the total to roughly $2,200 to $4,000+. Bali still runs at a meaningful discount to equivalent quality in Europe, but it is no longer the sub-$1,000 destination some older guides describe. The full breakdown by category is in the <a href="/budget/bali" style="color:var(--accent);text-decoration:none;">Bali proposal budget guide</a>.</p>
         </div>
       </details>
       <details>
         <summary>What do Bali proposal packages include?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">Bali proposal packages from luxury villas and independent coordinators typically include: private venue access or exclusive villa use, fresh flower décor, a vetted bali proposal photographer for 2 to 3 hours, and a post-proposal dinner setup with candles and champagne.</p>
-          <p style="margin:0;">The best packages include a dedicated coordinator who handles the photographer briefing, arrival timing, and florist logistics. Prices run $400 to $1,200 depending on the tier. The key question to ask any provider: exactly where does the proposal moment happen, and who is responsible for keeping the photographer's presence a surprise? For more, see our guide to <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">proposal packages</a>.</p>
+          <p style="margin:0 0 12px;">Bali proposal packages from luxury villas and independent coordinators typically include: private venue access or exclusive villa use, fresh flower décor, a vetted bali proposal photographer for around 1 hour, and a post-proposal dinner setup with candles and champagne. Most clients find 1 hour of coverage is enough for the moment itself and a short couple shoot.</p>
+          <p style="margin:0;">The best packages include a dedicated coordinator who handles the photographer briefing, arrival timing, and florist logistics. Prices run roughly $1,800 to $4,000+ depending on the tier — a heart arch or other premium décor element sits at the upper end. Note that décor setups are produced on Bali itself; they are not practical to stage on Nusa Penida or the other neighbour islands. The key question to ask any provider: exactly where does the proposal moment happen, and who is responsible for keeping the photographer's presence a surprise? For more, see our guide to <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">proposal packages</a>.</p>
         </div>
       </details>
       <details>
         <summary>Should I hire a Bali proposal photographer?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">Yes. This is the most consequential vendor decision in a bali proposal. The light at Uluwatu at 6:00pm or at Tegallalang at 5:30am produces images that a phone or a passing stranger cannot replicate. A bali proposal photographer who specialises in this work knows the exact angles, the timing, and the approach that keeps the moment genuinely surprising.</p>
-          <p style="margin:0;">Rates run $150 to $450 for 2 to 3 hours, lower than comparable quality in almost any other destination. A good <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> is not optional; it is the part of the budget that earns back every dollar.</p>
+          <p style="margin:0 0 12px;">Yes. This is the most consequential vendor decision in a bali proposal. Sunset light over Bali's valleys and cliffs produces images that a phone or a passing stranger cannot replicate. A bali proposal photographer who specialises in this work knows the exact angles, the timing, and the approach that keeps the moment genuinely surprising.</p>
+          <p style="margin:0;">Most couples book 1 hour of coverage — genuinely enough for the moment plus a short couple shoot — at around $240 to $280. A good <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> is not optional; it is the part of the budget that earns back every dollar.</p>
         </div>
       </details>
       <details>
         <summary>What are good Bali wedding proposal ideas?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">The strongest bali wedding proposal ideas are location-driven rather than prop-driven. At a private villa infinity pool in Ubud or Seminyak: arrange flowers on the terrace before you arrive with your partner. At Tegallalang rice terraces: the moment the mist lifts at 5:45am is the moment to ask. At Kelingking Beach on Nusa Penida: the clifftop viewpoint looking down at the hidden cove is the setting.</p>
-          <p style="margin:0;">Other ideas: a private boat at sunset off the Uluwatu coast, a sunrise picnic at Jatiluwih (the UNESCO rice terrace site with lower foot traffic than Tegallalang), a private table at Ayana Resort in Jimbaran overlooking the Indian Ocean, or a candlelit dinner on the sand at Jimbaran Bay. All of these work best when the logistics are confirmed before you land.</p>
+          <p style="margin:0 0 12px;">The strongest bali wedding proposal ideas are location-driven rather than prop-driven, and almost all of ours are built around sunset rather than sunrise — only about 5% of couples we work with actually want to be up before dawn for their proposal. At a private villa infinity pool in Ubud or Kintamani: arrange flowers and a dinner setup on the terrace before you arrive with your partner, timed to golden hour. At Jatiluwih rice terraces (in Tabanan): a quieter late-afternoon walk through the UNESCO terraces, with a setup waiting.</p>
+          <p style="margin:0;">Other ideas: a private boat at sunset off the south Bali coast, a private table at Ayana Resort in Jimbaran overlooking the Indian Ocean, or a candlelit dinner on the sand at Jimbaran Bay. All of these work best when the logistics are confirmed before you land.</p>
         </div>
       </details>
       <details>
         <summary>Is a beach proposal in Bali a good idea?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">A bali beach proposal works well with the right beach. The main beaches at Kuta and Seminyak are too crowded for a private moment. Better options: Padang Padang Beach (a small cove reached by stone steps, manageable crowds outside of peak season), Nyang Nyang Beach in south Bali (a 20-minute downhill walk from the car park, rarely visited, long stretch of empty sand), or a private villa beach club with exclusive afternoon access.</p>
+          <p style="margin:0 0 12px;">Be realistic up front: public beaches in Bali are never truly private. The island is busy and most beaches see consistent visitors throughout the day — it's a promise we won't make. The main beaches at Kuta and Seminyak are far too crowded for a proposal. Padang Padang is small and very popular and we don't recommend it. Nyang Nyang in south Bali used to be remote but now has vehicle access and parking and is significantly busier than it was. The most reliable option is a private villa beach club with exclusive afternoon access, or a quieter public beach with the caveat that we can't guarantee how many people will be there on the day.</p>
           <p style="margin:0;">For the best romantic proposal dinner on a beach in Bali, Jimbaran Bay is the most established setting: fresh seafood, tables on the sand at sunset, and a stretch of beach that quiets after 8:00pm. Book directly with the better restaurants rather than through a tour operator, and confirm a specific table position in advance.</p>
         </div>
       </details>
       <details>
         <summary>What is a Bali helicopter proposal and what does it cost?</summary>
         <div class="dest-faq-answer">
-          <p style="margin:0 0 12px;">A bali helicopter proposal typically involves a scenic charter over Ubud's rice terraces, the Uluwatu coast, or Mt Agung, with the moment happening in the air or at a private landing spot. Operators including Blue Sky Bali run charter flights from Ngurah Rai Airport, starting from $600 to $2,000+ depending on route and duration (30 to 90 minutes).</p>
+          <p style="margin:0 0 12px;">A bali helicopter proposal typically involves a scenic charter over Ubud's rice terraces, the south Bali coast, or Mt Agung, with the moment happening in the air or at a private landing spot. Charter flights from Ngurah Rai Airport start at around $1,050 (from 13,900,000 IDR) and rise from there depending on route and duration.</p>
           <p style="margin:0;">The in-air proposal works best on shorter routes where the noise level is manageable. A more controlled approach: a flight that ends at a private cliff or beach landing, giving you both the arrival drama and the quiet to ask properly. For the full guide on what to plan, see our <a href="/blog/helicopter-proposal" style="color:var(--accent);text-decoration:none;">helicopter proposal guide</a>.</p>
         </div>
       </details>
@@ -762,13 +754,12 @@
   </section>
 
   <!-- CLOSING CTA -->
-  <section style="background:var(--bg);padding:0 40px 96px;text-align:center;">
-    <div style="max-width:720px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:64px;">
-      <span style="display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;">Start here</span>
-      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:34px;line-height:1.2;margin:0 0 32px;color:var(--ink);">Your Bali proposal starts with the right spot.</h2>
-      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Bali proposal spot &#8594;</a>
-        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:16px 44px;margin-top:0;">Browse by destination &#8594;</a>
+  <section style="background:var(--bg);padding:48px 40px 56px;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Bali proposal starts with the right spot.</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Bali proposal spot &#8594;</a>
+        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:14px 36px;margin-top:0;">Browse by destination &#8594;</a>
       </div>
     </div>
   </section>
