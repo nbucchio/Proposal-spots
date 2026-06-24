@@ -137,15 +137,18 @@
     @media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
-    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
-    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
-    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
-    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dest-gallery-col { display: flex; flex-direction: column; gap: 12px; }
+    .dest-gallery-grid a { display: block; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-grid a.is-portrait { aspect-ratio: 2 / 3; }
+    .dest-gallery-grid a.is-landscape { aspect-ratio: 3 / 2; }
+    .dest-gallery-grid img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-grid a:hover img { transform: scale(1.04); filter: brightness(1); }
     .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
-    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
-    @media(max-width:480px) { .dest-gallery-masonry { columns: 1; } }
+    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } }
+    @media(max-width:480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
     .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
     .dest-landing-budget-inner { max-width: 960px; margin: 0 auto; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
@@ -445,22 +448,23 @@
   <!-- GALLERY -->
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>
-    <div class="dest-gallery-masonry">
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1612692379864-570256c9456b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1612692379864-570256c9456b?q=80&w=1170&auto=format&fit=crop" alt="Jungle swing above Ubud rainforest canopy, Bali" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop" alt="Lush Bali rice terraces in the morning light" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop" alt="Romantic sunset over a Bali villa and jungle valley" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop" alt="Golden hour landscape in Bali" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop" alt="Tranquil Bali tropical scenery at dusk" loading="lazy">
-      </a>
+    <div class="dest-gallery-grid">
+      <div class="dest-gallery-col">
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?q=80&w=1170&auto=format&fit=crop" alt="Lush Bali rice terraces in the morning light" loading="lazy">
+        </a>
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1733281120655-8da3dc371514?q=80&w=1170&auto=format&fit=crop" alt="Golden hour landscape in Bali" loading="lazy">
+        </a>
+      </div>
+      <div class="dest-gallery-col">
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1561522127-a628e5cac55e?q=80&w=1173&auto=format&fit=crop" alt="Romantic sunset over a Bali villa and jungle valley" loading="lazy">
+        </a>
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1711609110590-5ad5c4599e56?q=80&w=1171&auto=format&fit=crop" alt="Tranquil Bali tropical scenery at dusk" loading="lazy">
+        </a>
+      </div>
     </div>
     <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
       <img id="gallery-lightbox-img" src="" alt="">
