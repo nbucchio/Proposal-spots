@@ -151,7 +151,11 @@
     .budget-row:last-child { border-bottom: none; }
     .budget-row-head { background: rgba(26,22,18,0.04); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
     .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
-    .budget-tip { font-size: 13px; line-height: 1.7; color: var(--ink); padding: 16px 20px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; }
+    .budget-tip { font-family: 'Cormorant', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); padding: 22px 0 0; margin-top: 22px; border-top: 1px solid var(--hairline); }
+    .budget-tip strong { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .dest-editor-note { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); max-width: 680px; margin: 8px auto 0; padding-top: 22px; border-top: 1px solid var(--hairline); text-align: left; }
+    .dest-quick-answer { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.6; color: var(--ink); margin: 0 0 32px; padding: 4px 0 0; }
+    .dest-quick-answer .qa-lead { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline; margin-right: 10px; }
     .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
     .pg-cta-btn:hover { opacity: 0.8; }
     @media(max-width:640px) {
@@ -415,13 +419,13 @@
   <div class="dest-editorial">
     <div class="dest-editorial-inner">
       <span class="dest-editorial-eyebrow">Indonesia · Southeast Asia</span>
-      <h2 class="dest-editorial-headline">Private villas, ancient rice terraces, and a light that makes everything feel sacred.</h2>
+      <h2 class="dest-editorial-headline">Private villas, jungle valleys, and a light that makes everything feel sacred.</h2>
       <p class="dest-editorial-sub">Bali offers the highest value-for-money proposal experience in the world. But the real reason people propose in Bali is the quality of the feeling — something about the island makes it feel like the right place to ask.</p>
       <div class="dest-editorial-grid">
         <div class="dest-editorial-card">
           <span class="dest-editorial-icon">🌅</span>
-          <div class="dest-editorial-card-title">Sunset over the valley</div>
-          <p class="dest-editorial-card-body">The vast majority of couples want a sunset proposal, and Bali delivers the most reliable golden hour in Southeast Asia. A private terrace facing the jungle valley as the light drops is the setting most of our clients choose.</p>
+          <div class="dest-editorial-card-title">A sunset you can rely on</div>
+          <p class="dest-editorial-card-body">Bali sits close to the equator, so golden hour lands between 6:10pm and 6:30pm year-round. That predictability is a quiet luxury — you can plan a proposal to the minute, knowing the light will arrive when you've asked for it.</p>
         </div>
         <div class="dest-editorial-card">
           <span class="dest-editorial-icon">🏊</span>
@@ -429,16 +433,11 @@
           <p class="dest-editorial-card-body">Bali's private villas have perfected the infinity pool overlooking jungle valleys. Several of our vetted properties have set up proposals here so seamlessly that she will believe it happened naturally.</p>
         </div>
         <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌾</span>
-          <div class="dest-editorial-card-title">Rice terraces, late afternoon</div>
-          <p class="dest-editorial-card-body">Jatiluwih, in Tabanan, is the quieter UNESCO alternative to Tegallalang. Late afternoon light pulls the green out of the terraces and the crowds thin before closing — a slower, more private version of the iconic Bali backdrop.</p>
+          <span class="dest-editorial-icon">🕯️</span>
+          <div class="dest-editorial-card-title">Hospitality you don't have to manage</div>
+          <p class="dest-editorial-card-body">A villa team that knows what a proposal is for — flowers placed before you arrive, a dinner table waiting, a photographer briefed and out of sight. The work disappears so the moment can land. This is the part Bali does better than almost anywhere.</p>
         </div>
       </div>
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"The light dropped behind the valley just as he turned around. The whole terrace was orange. I didn't realise what was happening until I saw the ring."</p>
-        <span class="dest-editorial-pull-attr">— Sophie, Ubud</span>
-      </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does a Bali proposal cost? <a href="/budget/bali" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
     </div>
   </div>
 
@@ -482,10 +481,7 @@
           <p class="dest-hl-body">Not for the proposal itself — for the morning after. The forest opens around 8:30–9:00am, so plan accordingly. Note that feeding the monkeys is discouraged; the staff will direct you, and the encounter is plenty memorable without it.</p>
         </div>
       </div>
-      <div class="dest-highlights-tip">
-        <span class="dest-highlights-tip-label">Proposal Spots tip</span>
-        <p class="dest-highlights-tip-text">Hire a local guide for your proposal morning. Not a tourist guide — a local fixer who can arrange private rice terrace access, know which viewpoints are empty before 6am, and drive you without GPS anxiety. Most reputable villas can recommend someone.</p>
-      </div>
+      <p class="dest-editor-note">One thing worth saying. A local fixer is worth more than any tour guide — someone who can arrange the private access, knows the staff at the quieter viewpoints, and can drive without the GPS-and-stress routine. Any reputable villa will have a name for you. Ask before you book the flights.</p>
     </div>
   </div>
 
@@ -568,7 +564,7 @@
         <div class="budget-row"><span>Flowers &amp; décor (from)</span><span>$850 – $1,200+</span><span>$850 – $1,200+</span></div>
         <div class="budget-row budget-row-total"><span>Estimated total</span><span>$1,820 – $2,380+</span><span>$2,220 – $4,180+</span></div>
       </div>
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Bali photographers are among the best in the world for proposal work and cost a fraction of European rates. Don't skip this. The light over the rice terraces and the jungle valleys at sunset is unrepeatable.</p>
+      <p class="budget-tip"><strong>A note on photography</strong>Bali photographers are among the best in the world for proposal work, at a fraction of European rates. It's the line in the budget that earns itself back — the light at sunset across the valleys is unrepeatable, and a phone won't catch it.</p>
     </div>
     <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
       <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Bali proposal spot →</a>
@@ -582,10 +578,7 @@
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin:0 0 28px;">Why propose in Bali?</h2>
 
-      <div style="background:rgba(165,90,74,0.06);border-left:2px solid var(--accent);padding:20px 24px;margin:0 0 36px;">
-        <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Quick answer</span>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);line-height:1.85;margin:0;">The strongest spots for a Bali proposal are a private villa terrace in Ubud with an infinity pool above the jungle valley, a villa in Kintamani above the caldera, and Jatiluwih (the quieter UNESCO rice terraces in Tabanan). The Kelingking Beach viewpoint on Nusa Penida is spectacular for photographs, but décor setups aren't practical on the neighbour islands. A full Bali proposal — 1 hour photographer, private dinner, floral décor — typically runs $1,800 to $2,400. With 3 nights in a private villa added, the total is roughly $2,200 to $4,000+.</p>
-      </div>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The short version: a private villa terrace in Ubud or above the Kintamani caldera, and Jatiluwih in Tabanan for the rice terraces. The Kelingking viewpoint on Nusa Penida is for the photograph, not the décor — that stays on Bali itself. Expect roughly $1,800 to $2,400 for the proposal day; $2,200 to $4,000+ with three nights in a villa.</p>
 
       <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">A bali proposal costs a meaningful fraction of what the same quality experience would cost in Europe. That is the arithmetic. The more important reason is harder to quantify: something about the island makes the question feel right to ask.</p>
 
