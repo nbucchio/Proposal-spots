@@ -166,10 +166,6 @@
     .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
     .budget-tip { font-family: 'Cormorant', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); padding: 22px 0 0; margin-top: 22px; border-top: 1px solid var(--hairline); }
     .budget-tip strong { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
-    .dest-founder-note { max-width: 620px; margin: 28px auto 0; padding-top: 24px; border-top: 1px solid var(--hairline); }
-    .dest-founder-note-body { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--ink); margin: 0 0 14px; }
-    .dest-founder-note-sig { display: flex; align-items: center; gap: 10px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.08em; color: var(--mid); }
-    .dest-founder-note-sig::before { content: ''; display: block; width: 24px; height: 1px; background: var(--mid); }
     .dest-quick-answer { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.6; color: var(--ink); margin: 0 0 32px; padding: 4px 0 0; }
     .dest-quick-answer .qa-lead { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline; margin-right: 10px; }
     .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
@@ -183,14 +179,10 @@
     }
 
     /* ── EXPERT TAKE ── */
-    .dest-expert-take { padding: 90px 40px; background: var(--bg); }
-    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: 140px 1fr; gap: 48px; align-items: start; }
-    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mid); padding-top: 8px; }
-    .dest-expert-body-wrap { display: flex; flex-direction: column; gap: 20px; }
-    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(28px, 3.6vw, 40px); font-weight: 300; color: var(--ink); line-height: 1.18; margin: 0; }
-    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; margin: 0; }
-    .dest-expert-body strong { color: var(--ink); font-weight: 400; }
-    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } .dest-expert-take-inner { grid-template-columns: 1fr; gap: 18px; } .dest-expert-label { padding-top: 0; } }
+    .dest-expert-take { padding: 120px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 1100px; margin: 0 auto; }
+    .dest-expert-statement { font-family: 'Cormorant', serif; font-size: clamp(34px, 6.4vw, 78px); font-weight: 300; color: var(--ink); line-height: 1.05; letter-spacing: -0.01em; margin: 0; }
+    @media(max-width:640px){ .dest-expert-take { padding: 72px 24px; } }
 
     /* ── FAQ ── */
     .dest-faq { padding: 0 40px 80px; background: var(--bg); }
@@ -516,21 +508,12 @@
           <p class="dest-hl-body">Not for the proposal itself — for the morning after. The forest opens around 8:30–9:00am, so plan accordingly. Note that feeding the monkeys is discouraged; the staff will direct you, and the encounter is plenty memorable without it.</p>
         </div>
       </div>
-      <div class="dest-founder-note">
-        <p class="dest-founder-note-body">Hire a local fixer, not a tour guide. They know which staff to call for private access, where the quieter angles actually are, and they'll get you there without the GPS-and-stress routine. The villa concierge will have a name. Ask before you book the flights.</p>
-        <div class="dest-founder-note-sig">Nicholas, Proposal Spots</div>
-      </div>
     </div>
   </div>
 
   <section class="dest-expert-take">
     <div class="dest-expert-take-inner">
-      <span class="dest-expert-label">Our take</span>
-      <div class="dest-expert-body-wrap">
-        <h2 class="dest-expert-h2">Most people propose in the wrong place in Bali.</h2>
-        <p class="dest-expert-body">The famous temples and rice terraces are tour-group traffic by 9am, and the photographs everyone comes home with look like everyone else's.</p>
-        <p class="dest-expert-body">A private villa sunset setup costs around <strong>$1,200</strong> here — roughly a quarter of the European equivalent, with better photography and more attentive service. <strong>That</strong> is the case for Bali. The spots we work with are the ones residents and return visitors know about.</p>
-      </div>
+      <p class="dest-expert-statement">Most people propose in the wrong place in Bali.</p>
     </div>
   </section>
 
