@@ -95,20 +95,20 @@
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
-    .dest-similar { background: var(--bg); padding: 64px 40px 56px; border-top: 1px solid var(--hairline); }
+    .dest-similar { background: var(--ink2); padding: 64px 40px 56px; }
     .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
-    .dest-similar-header { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 28px; }
+    .dest-similar-header { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
     .dest-similar-heading { flex: 1; min-width: 280px; }
-    .dest-similar-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
-    .dest-similar-title { font-family: 'Cormorant', serif; font-size: clamp(24px,3.2vw,34px); font-weight: 300; color: var(--ink); line-height: 1.15; margin-bottom: 10px; }
-    .dest-similar-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 540px; }
-    .dest-similar-allink { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--hairline); padding-bottom: 3px; transition: color 0.18s, border-color 0.18s; white-space: nowrap; }
-    .dest-similar-allink:hover { color: var(--ink); border-color: var(--ink); }
+    .dest-similar-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(165,90,74,0.95); display: block; margin-bottom: 12px; }
+    .dest-similar-title { font-family: 'Cormorant', serif; font-size: clamp(24px,3.2vw,34px); font-weight: 300; color: var(--bg); line-height: 1.15; margin-bottom: 10px; }
+    .dest-similar-sub { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: rgba(244,241,235,0.6); line-height: 1.75; max-width: 540px; }
+    .dest-similar-allink { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,235,0.65); text-decoration: none; border-bottom: 1px solid rgba(244,241,235,0.2); padding-bottom: 3px; transition: color 0.18s, border-color 0.18s; white-space: nowrap; }
+    .dest-similar-allink:hover { color: var(--bg); border-color: rgba(244,241,235,0.6); }
     .dest-similar-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .dest-similar-pill { display: flex; flex-direction: column; gap: 4px; padding: 18px 22px; border: 1px solid var(--hairline); border-radius: 14px; background: var(--white); color: var(--ink); text-decoration: none; transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s; }
-    .dest-similar-pill:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(28,28,28,0.06); }
-    .dest-similar-pill-name { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; color: var(--ink); line-height: 1.1; }
-    .dest-similar-pill-desc { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.02em; }
+    .dest-similar-pill { display: flex; flex-direction: column; gap: 4px; padding: 18px 22px; border: 1px solid rgba(244,241,235,0.14); border-radius: 14px; background: rgba(244,241,235,0.04); color: var(--bg); text-decoration: none; transition: border-color 0.18s, background 0.18s, transform 0.18s; }
+    .dest-similar-pill:hover { border-color: rgba(244,241,235,0.5); background: rgba(244,241,235,0.08); transform: translateY(-2px); }
+    .dest-similar-pill-name { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; color: var(--bg); line-height: 1.1; }
+    .dest-similar-pill-desc { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.55); letter-spacing: 0.02em; }
     @media(max-width:720px){ .dest-similar-row { grid-template-columns: 1fr 1fr; } }
     @media(max-width:480px){ .dest-similar { padding: 48px 20px 40px; } .dest-similar-row { gap: 10px; } }
     .dest-editorial { background: var(--ink2); padding: 80px 40px; }
@@ -178,7 +178,7 @@
     @media(max-width:640px) {
       .dest-landing-hero-content { padding: 60px 24px; }
       .dest-landing-body { padding: 0 20px; }
-      .dest-landing-budget { padding: 60px 20px; }
+      .dest-landing-budget { padding: 60px 20px !important; margin-top: 0 !important; }
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
@@ -667,8 +667,8 @@
     <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Bali proposal spots compare?</h2>
-      <div style="border:1px solid var(--hairline);border-radius:10px;overflow:hidden;margin-bottom:0;">
-        <table style="width:100%;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
+      <div style="border:1px solid var(--hairline);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:0;">
+        <table style="width:100%;min-width:620px;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
           <thead>
             <tr style="background:rgba(26,22,18,0.04);">
               <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Spot</th>
