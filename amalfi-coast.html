@@ -232,36 +232,6 @@
       background-size: cover;
       background-position: center;
     }
-    .spot-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 16px;
-    }
-    .spot-card-market {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(244,241,235,0.7);
-      margin-bottom: 4px;
-    }
-    .spot-card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: #f4f1eb;
-      line-height: 1.2;
-    }
-    .spot-card-hook {
-      font-size: 11px;
-      color: rgba(244,241,235,0.65);
-      line-height: 1.5;
-      margin-top: 2px;
-    }
     .spot-card-body { padding: 14px 16px 12px; }
     .spot-card-budget-new {
       font-size: 11px;
@@ -811,11 +781,6 @@
         <div class="spot-card" onclick="window.location='/spots/${slug}'">
           <div class="spot-card-img">
             <div class="img-bg" style="background-image:url('${photo}')"></div>
-            <div class="spot-card-overlay">
-              <span class="spot-card-market">${market}</span>
-              <div class="spot-card-name">${name}</div>
-              <div class="spot-card-hook">${hook}</div>
-            </div>
           </div>
           <div class="spot-card-body">
             <div class="spot-card-budget-new">${budget}</div>

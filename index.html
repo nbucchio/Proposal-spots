@@ -1258,12 +1258,6 @@ nav.scrolled {
   );
   pointer-events: none;
 }
-/* Name + hook overlaid on photo */
-.spot-card-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 24px 18px 18px;
-  z-index: 1;
-}
 .spot-card-badge {
   position: absolute; top: 12px; left: 12px;
   background: rgba(165,90,74,0.82);
@@ -1291,38 +1285,6 @@ nav.scrolled {
   transition: background 0.15s;
 }
 .spot-save:hover { background: rgba(253,252,250,0.28); }
-.spot-card-market {
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(244,241,235,0.6);
-  display: block;
-  margin-bottom: 5px;
-}
-.spot-card-name {
-  font-family: 'Cormorant', serif;
-  font-size: 20px;
-  font-weight: 400;
-  font-style: italic;
-  color: #fdfcfa;
-  line-height: 1.15;
-  letter-spacing: 0.01em;
-  margin-bottom: 6px;
-}
-.spot-card-hook {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 300;
-  color: rgba(244,241,235,0.7);
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 /* Metadata strip below image */
 .spot-card-body {
   display: flex;
@@ -1442,9 +1404,6 @@ nav.scrolled {
     border-radius: 0;
   }
   .spot-card-img { aspect-ratio: 7/6; }
-  .spot-card-overlay { padding: 22px 22px 20px; }
-  .spot-card-market,
-  .spot-card-hook { display: none; }
   .spot-card-body > :nth-child(n+4) { display: none; }
   /* Hide arrows on mobile — swipe to navigate */
   .sc-arrow { display: none !important; }
@@ -7273,7 +7232,6 @@ function buildSpotCard(s, index) {
   const privacy  = s.Privacy || '';
   const privEmoji = privacyEmojiMap[privacy] || '';
   const vibe     = Array.isArray(s['Vibe']) ? s['Vibe'][0] : (s['Vibe'] || '');
-  const hook     = s['Hook'] || s['Line Summary'] || '';
   const price    = s['Moment Price'] || s['Price'] || '';
   const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
   const imgs     = getCardImgs(s);
@@ -7288,11 +7246,6 @@ function buildSpotCard(s, index) {
       <div class="spot-card-img" ${imgsAttr}>
         ${stripHtml}
         ${badge}
-        <div class="spot-card-overlay">
-          <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
-          <div class="spot-card-name">${s.Name}</div>
-          ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
-        </div>
         ${scHtml}
       </div>
       <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>
@@ -7333,7 +7286,6 @@ function buildSpotCardLinked(s, index) {
   const saved   = (typeof savedSpotIds !== 'undefined') && savedSpotIds.includes(s.id);
   const privacy = s.Privacy || '';
   const vibe    = Array.isArray(s['Vibe']) ? s['Vibe'][0] : (s['Vibe'] || '');
-  const hook    = s['Hook'] || s['Line Summary'] || '';
   const imgs    = getCardImgs(s);
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
@@ -7346,11 +7298,6 @@ function buildSpotCardLinked(s, index) {
       <div class="spot-card-img" ${imgsAttr}>
         ${stripHtml}
         ${badge}
-        <div class="spot-card-overlay">
-          <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
-          <div class="spot-card-name">${s.Name}</div>
-          ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
-        </div>
         ${scHtml}
       </div>
       <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>

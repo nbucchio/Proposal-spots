@@ -87,11 +87,7 @@
     .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
     .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
-    .spot-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 18px 18px; z-index: 1; }
     .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
-    .spot-card-market { font-family: 'Jost', sans-serif; font-size: 8px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,241,235,0.5); display: block; margin-bottom: 5px; }
-    .spot-card-name { font-family: 'Cormorant', serif; font-size: 21px; font-weight: 400; color: #fdfcfa; line-height: 1.15; letter-spacing: 0.01em; margin-bottom: 7px; }
-    .spot-card-hook { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(244,241,235,0.68); line-height: 1.5; letter-spacing: 0.01em; font-style: italic; }
     .spot-card-body { display: flex; align-items: center; height: 38px; }
     .spot-card-strip-item { display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1; min-width: 0; }
     .spot-card-strip-icon { flex-shrink: 0; color: rgba(28,28,28,0.6); }
@@ -606,7 +602,6 @@
       const privacy = s.Privacy || '';
       const privEmoji = privacyEmojiMap[privacy] || '';
       const vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || '');
-      const hook = s['Hook'] || s['Line Summary'] || '';
       const price = s['Price Moment'] || s['Moment Price'] || '';
       const priceStr = s.Budget || (price ? `From $${Math.round(Number(price)).toLocaleString()}` : '');
       const slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
@@ -620,12 +615,7 @@
           <div class="spot-card-img" ${imgsAttr}>
             ${stripHtml}
             ${badge}
-            <div class="spot-card-overlay">
-              <span class="spot-card-market">${s.Region || ''} · ${s.Country || ''}</span>
-              <div class="spot-card-name">${s.Name || ''}</div>
-              ${hook ? `<p class="spot-card-hook">${hook}</p>` : ''}
-            </div>
-          ${scHtml}
+            ${scHtml}
           </div>
           <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>
           <div class="spot-card-body">
