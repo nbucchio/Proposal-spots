@@ -83,21 +83,15 @@
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
-    .dest-editorial { background: var(--ink2); padding: 80px 40px; }
-    .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
-    .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
-    .dest-editorial-headline { font-family:'Cormorant',serif; font-size:clamp(30px,4.5vw,54px); font-weight:300; color:var(--bg); line-height:1.1; text-align:center; margin-bottom:18px; }
-    .dest-editorial-sub { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:rgba(244,241,235,0.55); line-height:1.85; text-align:center; max-width:620px; margin:0 auto 60px; }
-    .dest-editorial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(244,241,235,0.08); margin-bottom:60px; }
-    @media(max-width:768px){ .dest-editorial-grid { grid-template-columns:1fr; } }
-    .dest-editorial-card { background:rgba(20,20,22,0.7); padding:36px 30px; }
-    .dest-editorial-icon { font-size:20px; margin-bottom:14px; display:block; }
-    .dest-editorial-card-title { font-family:'Cormorant',serif; font-size:21px; font-weight:400; color:var(--bg); margin-bottom:10px; line-height:1.2; }
-    .dest-editorial-card-body { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:rgba(244,241,235,0.5); line-height:1.82; }
-    .dest-editorial-pull { border-left:2px solid #A55A4A; padding-left:28px; max-width:660px; margin:0 auto; }
-    .dest-editorial-pull-text { font-family:'Cormorant',serif; font-size:clamp(19px,2.2vw,26px); font-weight:300; font-style:italic; color:rgba(244,241,235,0.82); line-height:1.5; margin-bottom:14px; }
-    .dest-editorial-pull-attr { font-family:'Jost',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,241,235,0.3); }
-    @media(max-width:640px){ .dest-editorial { padding:60px 24px; } }
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
     .dest-highlights { background: var(--white); padding: 80px 40px 60px; border-top: 1px solid var(--hairline); }
     .dest-highlights-inner { max-width: 1000px; margin: 0 auto; }
     .dest-highlights-header { text-align: center; margin-bottom: 56px; }
@@ -110,22 +104,23 @@
     .dest-hl-icon { font-size: 18px; margin-bottom: 10px; display:block; }
     .dest-hl-title { font-family:'Cormorant',serif; font-size:18px; font-weight:400; color:var(--ink); margin-bottom:8px; line-height:1.2; }
     .dest-hl-body { font-family:'Jost',sans-serif; font-size:11.5px; font-weight:300; color:var(--mid); line-height:1.78; }
-    .dest-highlights-tip { background: rgba(165,90,74,0.06); border-left: 2px solid #A55A4A; padding: 24px 28px; max-width:680px; margin:0 auto; }
-    .dest-highlights-tip-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:8px; }
-    .dest-highlights-tip-text { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.8; }
     @media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
-    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
-    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
-    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
-    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dest-gallery-col { display: flex; flex-direction: column; gap: 12px; }
+    .dest-gallery-grid a { display: block; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-grid a.is-portrait { aspect-ratio: 2 / 3; }
+    .dest-gallery-grid a.is-landscape { aspect-ratio: 3 / 2; }
+    .dest-gallery-grid img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-grid a:hover img { transform: scale(1.04); filter: brightness(1); }
     .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
-    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
-    @media(max-width:480px) { .dest-gallery-masonry { columns: 1; } }
-    .dest-landing-budget { max-width: 960px; margin: 80px auto 0; padding: 0 40px 80px; }
+    @media(max-width:768px) { .dest-gallery { padding: 60px 20px; } }
+    @media(max-width:480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
+    .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
+    .dest-landing-budget-inner { max-width: 960px; margin: 0 auto; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
     .dest-landing-budget-title { font-family: 'Cormorant', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; color: var(--ink); margin-bottom: 14px; }
     .dest-landing-budget-sub { font-size: 14px; color: var(--mid); line-height: 1.7; max-width: 520px; margin: 0 auto; }
@@ -139,24 +134,25 @@
     .budget-row:last-child { border-bottom: none; }
     .budget-row-head { background: rgba(26,22,18,0.04); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
     .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
-    .budget-tip { font-size: 13px; line-height: 1.7; color: var(--ink); padding: 16px 20px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; }
+    .budget-tip { font-family: 'Cormorant', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); padding: 22px 0 0; margin-top: 22px; border-top: 1px solid var(--hairline); }
+    .budget-tip strong { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .dest-quick-answer { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.6; color: var(--ink); margin: 0 0 32px; padding: 4px 0 0; }
+    .dest-quick-answer .qa-lead { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline; margin-right: 10px; }
     .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
     .pg-cta-btn:hover { opacity: 0.8; }
     @media(max-width:640px) {
       .dest-landing-hero-content { padding: 60px 24px; }
       .dest-landing-body { padding: 0 20px; }
-      .dest-landing-budget { padding: 0 20px 60px; }
+      .dest-landing-budget { padding: 60px 20px !important; margin-top: 0 !important; }
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
 
     /* ── EXPERT TAKE ── */
-    .dest-expert-take { padding: 80px 40px; background: var(--bg); }
-    .dest-expert-take-inner { max-width: 760px; margin: 0 auto; }
-    .dest-expert-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
-    .dest-expert-h2 { font-family: 'Cormorant', serif; font-size: clamp(26px, 3.5vw, 44px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 28px; }
-    .dest-expert-body { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.85; }
-    @media(max-width:640px){ .dest-expert-take { padding: 60px 24px; } }
+    .dest-expert-take { padding: 120px 40px; background: var(--bg); }
+    .dest-expert-take-inner { max-width: 1100px; margin: 0 auto; }
+    .dest-expert-statement { font-family: 'Cormorant', serif; font-size: clamp(34px, 6.4vw, 78px); font-weight: 300; color: var(--ink); line-height: 1.05; letter-spacing: -0.01em; margin: 0; }
+    @media(max-width:640px){ .dest-expert-take { padding: 72px 24px; } }
 
     /* ── FAQ ── */
     .dest-faq { padding: 0 40px 80px; background: var(--bg); }
@@ -420,33 +416,46 @@
     </div>
   </div>
 
-  <div class="dest-editorial">
-    <div class="dest-editorial-inner">
-      <span class="dest-editorial-eyebrow">Quintana Roo · Mexico</span>
-      <h2 class="dest-editorial-headline">Cenotes glowing turquoise underground. The Americas' most sophisticated proposal destination.</h2>
-      <p class="dest-editorial-sub">Tulum has transformed from a backpacker stop into the most design-forward destination in the Americas. Private cenote access, open-air beds above the jungle, and Caribbean water the colour of gemstones.</p>
-      <div class="dest-editorial-grid">
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">💧</span>
-          <div class="dest-editorial-card-title">Private cenote access</div>
-          <p class="dest-editorial-card-body">The cenotes — underground sinkholes filled with crystal freshwater — are extraordinary at dawn. Our vetted spots include private early-morning access before tour groups arrive at 9am.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌴</span>
-          <div class="dest-editorial-card-title">Jungle eco-lodges</div>
-          <p class="dest-editorial-card-body">Tulum's design-conscious eco-lodges have turned the jungle into a luxury setting. Open-air bedrooms, outdoor showers, infinity pools above the canopy. The proposal setup is often the easiest part.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🏖</span>
-          <div class="dest-editorial-card-title">Caribbean seclusion</div>
-          <p class="dest-editorial-card-body">North of Tulum, near-empty beaches remain accessible only by dirt road. Turquoise water, no facilities, no other people. Some of the best proposal photography in the Americas happens here.</p>
-        </div>
+  <!-- SIMILAR MARKETS -->
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not Tulum</span>
+        <span class="dest-similar-rule-line"></span>
       </div>
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"We had private access to the cenote from 6am. By 9am it had 40 tourists. The timing was everything."</p>
-        <span class="dest-editorial-pull-attr">— Alex, Gran Cenote</span>
+      <div class="dest-similar-pills">
+        <a href="/destinations/bali" class="dest-similar-pill">Bali</a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">Costa Rica</a>
+        <a href="/destinations/nicaragua" class="dest-similar-pill">Nicaragua</a>
+        <a href="/destinations/hawaii" class="dest-similar-pill">Hawaii</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does a Tulum proposal cost? <a href="/budget/tulum" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <div class="dest-gallery">
+    <span class="dest-gallery-eyebrow">The setting</span>
+    <div class="dest-gallery-grid">
+      <div class="dest-gallery-col">
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1568849676085-51415703900f?q=80&w=687&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1568849676085-51415703900f?q=80&w=687&auto=format&fit=crop" alt="Private cenote glowing with emerald light, Tulum" loading="lazy">
+        </a>
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1605216663980-b7ca6e9f2451?q=80&w=807&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1605216663980-b7ca6e9f2451?q=80&w=807&auto=format&fit=crop" alt="Tulum beach at sunrise, turquoise Caribbean water" loading="lazy">
+        </a>
+      </div>
+      <div class="dest-gallery-col">
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1585614733378-4c58f92de4a1?q=80&w=765&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1585614733378-4c58f92de4a1?q=80&w=765&auto=format&fit=crop" alt="Turquoise water and tropical palms, Tulum Mexico" loading="lazy">
+        </a>
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1520483601560-389dff434fdf?q=80&w=687&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1520483601560-389dff434fdf?q=80&w=687&auto=format&fit=crop" alt="Tulum beach at dawn, deserted Caribbean coastline" loading="lazy">
+        </a>
+      </div>
+    </div>
+    <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
+      <img id="gallery-lightbox-img" src="" alt="">
     </div>
   </div>
 
@@ -489,18 +498,12 @@
           <p class="dest-hl-body">The Azulik resort — treehouse villas above the jungle, no electronics, connected by wooden walkways — is one of the most extraordinary hotel environments in the world. Worth a visit even if not staying there.</p>
         </div>
       </div>
-      <div class="dest-highlights-tip">
-        <span class="dest-highlights-tip-label">Proposal Spots tip</span>
-        <p class="dest-highlights-tip-text">Tulum's best experiences require early rising and advance booking. The cenotes, the ruins, the best beach spots — all are best before 8am. The same places that feel transcendent at dawn feel like a theme park by 11am.</p>
-      </div>
     </div>
   </div>
 
   <section class="dest-expert-take">
     <div class="dest-expert-take-inner">
-      <span class="dest-expert-label">Our Take</span>
-      <h2 class="dest-expert-h2">Tulum has transformed from a backpacker stop to one of the most sophisticated proposal markets in the Americas.</h2>
-      <p class="dest-expert-body">Tulum has transformed from a backpacker stop to one of the most sophisticated proposal markets in the Americas. The cenote proposals are Tulum's signature — ancient, private, and unlike anything else. The crowd arrives by 9am. Private early-morning access before 7am costs a small premium and is entirely worth it. Several of our spots include this as standard.</p>
+      <p class="dest-expert-statement">In Tulum, the hour you arrive matters more than the spot you choose.</p>
     </div>
   </section>
 
@@ -526,31 +529,9 @@
     </div>
   </section>
 
-  <div class="dest-gallery">
-    <span class="dest-gallery-eyebrow">The setting</span>
-    <div class="dest-gallery-masonry">
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1568849676085-51415703900f?q=80&w=687&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1568849676085-51415703900f?q=80&w=687&auto=format&fit=crop" alt="Private cenote glowing with emerald light, Tulum" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1605216663980-b7ca6e9f2451?q=80&w=807&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1605216663980-b7ca6e9f2451?q=80&w=807&auto=format&fit=crop" alt="Tulum beach at sunrise, turquoise Caribbean water" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1587452439690-78bbe9f31672?q=80&w=566&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1587452439690-78bbe9f31672?q=80&w=566&auto=format&fit=crop" alt="Tulum jungle and coastline at golden hour" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1585614733378-4c58f92de4a1?q=80&w=765&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1585614733378-4c58f92de4a1?q=80&w=765&auto=format&fit=crop" alt="Turquoise water and tropical palms, Tulum Mexico" loading="lazy">
-      </a>
-      <a onclick="openLightbox('https://images.unsplash.com/photo-1520483601560-389dff434fdf?q=80&w=687&auto=format&fit=crop'); return false;" href="#">
-        <img src="https://images.unsplash.com/photo-1520483601560-389dff434fdf?q=80&w=687&auto=format&fit=crop" alt="Tulum beach at dawn, deserted Caribbean coastline" loading="lazy">
-      </a>
-    </div>
-    <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
-      <img id="gallery-lightbox-img" src="" alt="">
-    </div>
-  </div>
-
+  <!-- BUDGET -->
   <div class="dest-landing-budget">
+    <div class="dest-landing-budget-inner">
     <div class="dest-landing-budget-header">
       <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
       <h2 class="dest-landing-budget-title">How much does a proposal in Tulum cost?</h2>
@@ -560,9 +541,9 @@
       <div class="budget-dest-header">
         <div>
           <h3 class="budget-dest-name">Tulum</h3>
-          <p class="budget-dest-tagline">A destination that has transformed from a backpacker stop into one of the most sophisticated proposal markets in the Americas. Private cenote access and jungle eco-lodge proposals are its signature.</p>
+          <p class="budget-dest-tagline">Cenotes, jungle eco-lodges, and a quiet southern beach toward Sian Ka'an. Private early-morning cenote access is the line that pays itself back.</p>
         </div>
-        <div class="budget-dest-range-badge">$500 – $5,000+</div>
+        <div class="budget-dest-range-badge">$410 – $3,400+</div>
       </div>
       <div class="budget-table">
         <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
@@ -573,131 +554,162 @@
         <div class="budget-row"><span>Flowers &amp; décor</span><span>$50 – $150</span><span>Often included</span></div>
         <div class="budget-row budget-row-total"><span>Estimated total</span><span>$410 – $1,300</span><span>$950 – $3,400+</span></div>
       </div>
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Cenotes are magical but crowded by 9am. Private early-morning access (before 7am) costs a small premium and is entirely worth it. Several of our vetted spots include this as standard.</p>
+      <p class="budget-tip"><strong>A note on timing</strong>Cenotes are extraordinary before 7am and a theme park by 11am. Private early-morning access is a small premium and the difference between a setting nobody back home has seen and a queue. Several of our vetted spots include this as standard.</p>
     </div>
     <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
       <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Tulum proposal spot →</a>
       <a href="/budget" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
     </div>
+    </div>
   </div>
 
-  <section class="dest-seo" style="background:var(--bg);padding:80px 40px;border-top:1px solid var(--hairline);">
+  <!-- SEO CONTENT: WHY PROPOSE IN TULUM -->
+  <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
-      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:32px;text-align:center;">Planning Guide</span>
+      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Tulum?</h2>
 
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">Why propose in Tulum?</h2>
-      <div style="background:rgba(165,90,74,0.06);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:22px 26px;margin-bottom:40px;">
-        <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">The short answer</span>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--ink);line-height:1.8;margin:0;">The strongest Tulum proposal spots are a cenote at first light (Gran Cenote or Dos Ojos, before the 9am tour groups), the quiet southern beach toward Sian Ka'an, and a private jungle terrace at an eco-lodge. Expect roughly $410 to $1,300 for a moment-only setup with a photographer, and $950 to $3,400 once you add a three-night eco-lodge stay. Sunrise beats sunset here: the light is softer, the sand is empty, and cenote access is private before the crowds arrive.</p>
-      </div>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Most men planning a tulum proposal are choosing between three settings without quite naming them: a cenote, the beach, or a jungle terrace. Here is the short version of the decision. A cenote at sunrise for water and light nobody back home has seen. The southern beach toward Sian Ka'an for an open Caribbean horizon and no crowds. A private jungle terrace for shade, a setup that is already built, and almost no logistics. Tulum is one of the few places where all three sit within forty minutes of each other.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">What makes Tulum work is timing more than money. The cenotes are extraordinary at 6am and a theme park by 11am. The beach is yours at first light and lined with palapa bars by noon. A full service plan handles the part that actually matters here: a photographer booked for sunrise, private access arranged before the gates open, and a small setup waiting when you arrive. See <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:underline;">how proposal packages actually work</a> for what is and is not included.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">The opinion, and I will only make one. Spend on the spot and the hour before you spend on anything else. The ring lives in one frame. The cenote light, or the empty beach, or the jungle at golden hour lives in every frame and in the story you tell for the next thirty years. Tulum rewards the man who plans the setting as carefully as the ring.</p>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The short version: a cenote at first light (Gran Cenote or Dos Ojos, before the 9am tour groups), the quiet southern beach toward Sian Ka'an, or a private jungle terrace at an eco-lodge. Expect roughly $410 to $1,300 for a moment-only setup with a photographer, and $950 to $3,400 once you add a three-night eco-lodge stay. Sunrise beats sunset here.</p>
 
-      <h3 style="font-family:'Cormorant',serif;font-size:clamp(20px,2.6vw,28px);font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:20px;">The best Tulum proposal spots, compared</h3>
-      <div style="overflow-x:auto;margin-bottom:48px;">
-        <table style="width:100%;border-collapse:collapse;font-family:'Jost',sans-serif;min-width:560px;">
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Most men planning a tulum proposal are choosing between three settings without quite naming them: a cenote, the beach, or a jungle terrace. A cenote at sunrise for water and light nobody back home has seen. The southern beach toward Sian Ka'an for an open Caribbean horizon and no crowds. A private jungle terrace for shade, a built-in setup, and almost no logistics. Tulum is one of the few places where all three sit within forty minutes of each other.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">What makes Tulum work is timing more than money. The cenotes are extraordinary at 6am and a theme park by 11am. The beach is yours at first light and lined with palapa bars by noon. A full-service plan handles the part that actually matters here: a photographer booked for sunrise, private access arranged before the gates open, and a small setup waiting when you arrive. See <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">how proposal packages actually work</a> for what is and is not included.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Spend on the spot and the hour before you spend on anything else. The ring lives in one frame. The cenote light, the empty beach, or the jungle at golden hour lives in every frame and in the story you tell for the next thirty years. Tulum rewards the man who plans the setting as carefully as the ring.</p>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT: BEST TIMES -->
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Tulum?</h2>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The dry season, November to April. Lower humidity, reliable sunrises, clear cenote water, and the cleanest beaches of the year. This is also when sargassum seaweed is least likely on the coast, which matters more for a beach proposal than most guides admit.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">May through October is the wet season and the sargassum season. Afternoon storms roll through fast and clear quickly, but the bigger issue is the seaweed: between roughly May and August, sargassum can blanket the open Caribbean beaches in volume. The cenotes and jungle terraces are unaffected, so summer is still workable if you move the moment off the open sand. The <a href="https://optics.marine.usf.edu/projects/saws.html" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">University of South Florida sargassum outlook</a> tracks the incoming volume week by week.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Tulum sits near 20 degrees north, so the days do not swing as wildly as Europe. In winter, sunrise is around 6:30am and sunset around 5:40pm. In summer, sunrise is closer to 5:45am and sunset around 7:20pm. Propose at sunrise. The cenotes are empty, the beach is yours, and photographers often charge the same as a crowded sunset slot. The <a href="https://aa.usno.navy.mil/data/RS_OneDay" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">US Naval Observatory sunrise and sunset tables</a> give the exact times for your date.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Avoid the two weeks around Christmas and New Year, and US spring break in March, when the hotel zone and the popular cenotes are at their busiest. If you want similar warm-water settings with a different rhythm, <a href="/destinations/costa-rica" style="color:var(--accent);text-decoration:none;">Costa Rica</a> and <a href="/destinations/bali" style="color:var(--accent);text-decoration:none;">Bali</a> are worth a look.</p>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT: WHAT TO KNOW -->
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">What should you know before you go?</h2>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Private access, not just a ticket.</strong> The cenotes (Gran Cenote, Dos Ojos) sell standard entry from 8 or 9am, by which point you are sharing the water with tour groups. The version you want is private early-morning entry before the gates open, which a planner or guide arranges in advance. Ask for it by name.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Photographer.</strong> A Tulum proposal photographer runs $200 to $600 for two to three hours. The cenotes and eco-lodges are private property, so there is no city permit to chase, but you do need the venue's permission to shoot, which reputable photographers and planners arrange as a matter of course.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Sargassum forecast.</strong> Check it if you are proposing on the beach between May and August. It changes week to week. A good planner will move you to a cenote or a sheltered cove if the seaweed is heavy that week.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;"><strong style="color:var(--ink);font-weight:400;">Heat.</strong> By 11am the sun is punishing and the best spots are full. Almost everything worth doing in Tulum happens before 9am or after 4:30pm. Build the day around that.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;"><strong style="color:var(--ink);font-weight:400;">Getting there.</strong> Fly into Cancun or the Tulum airport, then transfer south. The hotel zone road is slow and sandy, so leave margin on the morning of the proposal. Do not schedule a sunrise cenote for the same morning you land.</p>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT: WHO THIS IS NOT FOR -->
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Who is this destination NOT right for?</h2>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Anyone targeting under $400 all in. A photographer alone starts around $200, and private access adds to that. Below that number you are looking at a phone-camera proposal, which is fine, but it is not what this page is for.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Anyone who wants a city or skyline proposal. Tulum has no skyline. It has jungle, water, and Maya ruins. If the dream is a rooftop over a city grid, this is the wrong destination, and somewhere like New York or Lisbon fits better.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Anyone who cannot do early mornings. The single biggest mistake here is proposing at midday. If neither of you will get up for a 5:30am start, Tulum will feel crowded and hot rather than extraordinary.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Anyone set on a flawless open beach in summer. Between May and August the sargassum can be heavy, and no planner can guarantee clear sand. If that is non-negotiable, propose in the dry season or choose a cenote. See our guide to <a href="/blog/best-destinations-to-propose" style="color:var(--accent);text-decoration:none;">best destinations to propose</a> for alternatives.</p>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT: COMPARISON TABLE -->
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Tulum proposal spots compare?</h2>
+      <div style="border:1px solid var(--hairline);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:0;">
+        <table style="width:100%;min-width:620px;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
           <thead>
-            <tr>
-              <th style="text-align:left;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);padding:12px 14px;border-bottom:1px solid var(--hairline);">Setting</th>
-              <th style="text-align:left;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);padding:12px 14px;border-bottom:1px solid var(--hairline);">Best for</th>
-              <th style="text-align:left;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);padding:12px 14px;border-bottom:1px solid var(--hairline);">Privacy</th>
-              <th style="text-align:left;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);padding:12px 14px;border-bottom:1px solid var(--hairline);">Best time of day</th>
-              <th style="text-align:left;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);padding:12px 14px;border-bottom:1px solid var(--hairline);">Rough cost</th>
+            <tr style="background:rgba(26,22,18,0.04);">
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Setting</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Best for</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Privacy</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Rough cost</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="font-size:13px;font-weight:400;color:var(--ink);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Cenote (Gran Cenote, Dos Ojos)</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Light nobody else has, total seclusion</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Very high before 9am</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">First light to 8am</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">$500 to $1,500</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Cenote (Gran Cenote, Dos Ojos)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Light nobody else has, total seclusion at dawn</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Very high before 9am</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$500 to $1,500</td>
             </tr>
             <tr>
-              <td style="font-size:13px;font-weight:400;color:var(--ink);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Southern beach toward Sian Ka'an</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Open horizon, sunrise color</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">High before 8am</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Sunrise, 5:30 to 6:30am</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">$400 to $1,300</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Southern beach toward Sian Ka'an</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Open Caribbean horizon, sunrise color</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High before 8am</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$400 to $1,300</td>
             </tr>
             <tr>
-              <td style="font-size:13px;font-weight:400;color:var(--ink);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Jungle terrace / eco-lodge</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Built-in setup, shade, rain cover</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">High, private property</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">Golden hour, 4:30 to 6pm</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;border-bottom:1px solid var(--hairline);vertical-align:top;">$950 to $3,400</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Jungle terrace / eco-lodge</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Built-in setup, shade, rain cover</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High, private property</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$950 to $3,400</td>
             </tr>
             <tr>
-              <td style="font-size:13px;font-weight:400;color:var(--ink);padding:14px;vertical-align:top;">Rooftop or beach club</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;vertical-align:top;">Drinks after, easy logistics, no early start</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;vertical-align:top;">Low to moderate</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;vertical-align:top;">Sunset</td>
-              <td style="font-size:13px;font-weight:300;color:var(--mid);padding:14px;vertical-align:top;">$300 to $900</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--ink);font-weight:400;">Rooftop or beach club</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Drinks after, easy logistics, no early start</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Low to moderate</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">$300 to $900</td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </section>
 
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">When is the best time to propose in Tulum?</h2>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">The dry season, November to April. Lower humidity, reliable sunrises, clear cenote water, and the cleanest beaches of the year. This is also when sargassum seaweed is least likely on the coast, which matters more for a beach proposal than most guides admit.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">May through October is the wet season and the sargassum season. Afternoon storms roll through fast and clear quickly, but the bigger issue is the seaweed: between roughly May and August, sargassum can blanket the open Caribbean beaches in volume. The cenotes and jungle terraces are unaffected, so summer is still workable if you move the moment off the open sand. The <a href="https://optics.marine.usf.edu/projects/saws.html" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">University of South Florida sargassum outlook</a> tracks the incoming volume week by week.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Tulum sits near 20 degrees north, so the days do not swing as wildly as Europe. In winter, sunrise is around 6:30am and sunset around 5:40pm. In summer, sunrise is closer to 5:45am and sunset around 7:20pm. Propose at sunrise. The cenotes are empty, the beach is yours, and photographers often charge the same as a crowded sunset slot. The <a href="https://aa.usno.navy.mil/data/RS_OneDay" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">US Naval Observatory sunrise and sunset tables</a> give the exact times for your date.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Avoid the two weeks around Christmas and New Year, and US spring break in March, when the hotel zone and the popular cenotes are at their busiest. If you want similar warm-water settings with a different rhythm, <a href="/destinations/costa-rica" style="color:var(--accent);text-decoration:underline;">Costa Rica</a> and <a href="/destinations/maldives" style="color:var(--accent);text-decoration:underline;">the Maldives</a> are worth a look.</p>
-
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">What should you know before you go?</h2>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Book private access, not just a ticket. The cenotes (Gran Cenote, Dos Ojos) sell standard entry from 8 or 9am, by which point you are sharing the water with tour groups. The version you want is private early-morning entry before the gates open, which a planner or guide arranges in advance. Ask for it by name.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">A Tulum proposal photographer runs $200 to $600 for two to three hours. The cenotes and eco-lodges are private property, so there is no city permit to chase, but you do need the venue's permission to shoot, which reputable photographers and planners arrange as a matter of course.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Check the sargassum forecast if you are proposing on the beach between May and August. It changes week to week. A good planner will move you to a cenote or a sheltered cove if the seaweed is heavy that week.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Plan around the heat. By 11am the sun is punishing and the best spots are full. Almost everything worth doing in Tulum happens before 9am or after 4:30pm. Build the day around that.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Fly into Cancun or the Tulum airport, then transfer south. The hotel zone road is slow and sandy, so leave margin on the morning of the proposal. Do not schedule a sunrise cenote for the same morning you land.</p>
-
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">Who is Tulum NOT right for?</h2>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone targeting under $400 all in. A photographer alone starts around $200, and private access adds to that. Below that number you are looking at a phone-camera proposal, which is fine, but it is not what this page is for.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone who wants a city or skyline proposal. Tulum has no skyline. It has jungle, water, and Maya ruins. If the dream is a rooftop over a city grid, this is the wrong destination, and somewhere like New York or Lisbon fits better.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone who cannot do early mornings. The single biggest mistake here is proposing at midday. If neither of you will get up for a 5:30am start, Tulum will feel crowded and hot rather than extraordinary.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Anyone set on a flawless open beach in summer. Between May and August the sargassum can be heavy, and no planner can guarantee clear sand. If that is non-negotiable, propose in the dry season or choose a cenote.</p>
-
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">How much does a Tulum proposal cost?</h2>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Here is the honest range. A moment-only Tulum proposal, meaning a photographer, private cenote or beach access, and a small setup, runs roughly $410 to $1,300. Add a three-night eco-lodge stay and the all-in figure lands around $950 to $3,400, with luxury lodges pushing higher.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">The pieces, individually. Photographer for two to three hours: $200 to $600. Private early-morning cenote access: $60 to $200. A private dinner setup: $100 to $400. Flowers and decor: $50 to $150. The single largest line is almost always the hotel, not the proposal itself.</p>
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">The full breakdown, category by category, is in the <a href="/budget/tulum" style="color:var(--accent);text-decoration:underline;">Tulum proposal budget</a> above and on its own page. The short version: the spot and the photographer are cheap relative to the stay. Spend there first.</p>
-
-      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:24px;">Planning Specifics</span>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">How much does a Tulum proposal cost?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">Roughly $410 to $1,300 for a moment-only package (photographer, private cenote or beach access, a small setup) and $950 to $3,400 once you add a three-night eco-lodge stay. A photographer for two to three hours runs $200 to $600. Private early-morning cenote access runs $60 to $200. The most expensive line is almost always the hotel, not the proposal.</p>
+  <!-- SEO CONTENT: EXPANDED FAQ -->
+  <section class="dest-faq" style="background:var(--white);padding:80px 40px;">
+    <div class="dest-faq-inner" style="border-top:none;padding-top:0;">
+      <span class="dest-faq-label">Tulum Proposal: Questions Answered</span>
+      <details>
+        <summary>How much does a Tulum proposal cost?</summary>
+        <p class="dest-faq-answer">Roughly $410 to $1,300 for a moment-only package (photographer, private cenote or beach access, a small setup) and $950 to $3,400 once you add a three-night eco-lodge stay. A photographer for two to three hours runs $200 to $600. Private early-morning cenote access runs $60 to $200. The most expensive line is almost always the hotel, not the proposal.</p>
       </details>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">Where is the most romantic place to propose in Tulum?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">Three spots stand out. A cenote at first light, Gran Cenote or Dos Ojos before the 9am tour groups, for light nobody else has. The quiet southern stretch of Tulum beach toward the Sian Ka'an reserve, where the sand is empty and the Caribbean horizon is open. And a private jungle terrace at an eco-lodge such as the Azulik canopy decks, where the setup is built in and the only sound is the jungle.</p>
+      <details>
+        <summary>Where is the most romantic place to propose in Tulum?</summary>
+        <p class="dest-faq-answer">Three spots stand out. A cenote at first light, Gran Cenote or Dos Ojos before the 9am tour groups, for light nobody else has. The quiet southern stretch of Tulum beach toward the Sian Ka'an reserve, where the sand is empty and the Caribbean horizon is open. And a private jungle terrace at an eco-lodge such as the Azulik canopy decks, where the setup is built in and the only sound is the jungle.</p>
       </details>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">Should I propose at a cenote or on the beach in Tulum?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">A cenote (Gran Cenote or Dos Ojos) if you want light and a setting nobody back home will have seen, and you can be there before 8am. The southern Tulum beach toward Sian Ka'an if you want an open horizon, sunrise color, and room for a photographer to work from a distance. Cenotes are cooler and more private at dawn. The beach is warmer, easier to reach, and carries a small risk of sargassum seaweed between May and August.</p>
+      <details>
+        <summary>Should I propose at a cenote or on the beach in Tulum?</summary>
+        <p class="dest-faq-answer">A cenote (Gran Cenote or Dos Ojos) if you want light and a setting nobody back home will have seen, and you can be there before 8am. The southern Tulum beach toward Sian Ka'an if you want an open horizon, sunrise color, and room for a photographer to work from a distance. Cenotes are cooler and more private at dawn. The beach is warmer, easier to reach, and carries a small risk of sargassum seaweed between May and August.</p>
       </details>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">Do I need a Tulum proposal photographer, and how much do they cost?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">Yes, if you want to keep the moment. A Tulum proposal photographer runs $200 to $600 for a two to three hour shoot, which usually covers the proposal plus a short couples session afterward. First-light shoots at a cenote or on the southern beach toward Sian Ka'an cost the same as midday but deliver far better light and empty backgrounds. Book four to six weeks ahead, and earlier for December through March.</p>
+      <details>
+        <summary>Do I need a Tulum proposal photographer, and how much do they cost?</summary>
+        <p class="dest-faq-answer">Yes, if you want to keep the moment. A Tulum proposal photographer runs $200 to $600 for a two to three hour shoot, which usually covers the proposal plus a short couples session afterward. First-light shoots at a cenote or on the southern beach toward Sian Ka'an cost the same as midday but deliver far better light and empty backgrounds. Book four to six weeks ahead, and earlier for December through March.</p>
       </details>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">Will sargassum seaweed affect a Tulum proposal?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">It can, on the beach, between roughly May and August, when sargassum seaweed washes onto the Caribbean coast in volume. The dry season window of November through April is usually clear. If you are proposing in summer and want water in the photographs, a cenote at sunrise or a jungle terrace sidesteps the problem entirely, since neither touches the open coast.</p>
+      <details>
+        <summary>Will sargassum seaweed affect a Tulum proposal?</summary>
+        <p class="dest-faq-answer">It can, on the beach, between roughly May and August, when sargassum seaweed washes onto the Caribbean coast in volume. The dry season window of November through April is usually clear. If you are proposing in summer and want water in the photographs, a cenote at sunrise or a jungle terrace sidesteps the problem entirely, since neither touches the open coast.</p>
       </details>
-      <details style="border-bottom:1px solid var(--hairline);">
-        <summary style="font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--ink);padding:22px 0;cursor:pointer;list-style:none;">Do I need a permit or private access to propose in Tulum?</summary>
-        <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.85;padding-bottom:22px;">You do not need a personal permit. What you want is private access. The cenotes (Gran Cenote, Dos Ojos) sell private early-morning entry before the 9am crowds, and most jungle eco-lodges let you reserve a terrace or beach club section. A Tulum proposal planner arranges the access and the photographer together, so you arrive to an empty cenote or a held stretch of sand rather than a queue.</p>
+      <details>
+        <summary>Do I need a permit or private access to propose in Tulum?</summary>
+        <p class="dest-faq-answer">You do not need a personal permit. What you want is private access. The cenotes (Gran Cenote, Dos Ojos) sell private early-morning entry before the 9am crowds, and most jungle eco-lodges let you reserve a terrace or beach club section. A Tulum proposal planner arranges the access and the photographer together, so you arrive to an empty cenote or a held stretch of sand rather than a queue.</p>
       </details>
     </div>
   </section>
 
-  <section style="background:var(--bg);padding:0 40px 96px;text-align:center;">
-    <div style="max-width:720px;margin:0 auto;border-top:1px solid var(--hairline);padding-top:64px;">
-      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">Start here</span>
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:36px;">Your Tulum proposal starts with the right spot.</h2>
-      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Tulum proposal spot →</a>
-        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:16px 44px;margin-top:0;">Browse by destination →</a>
+  <!-- CLOSING CTA -->
+  <section style="background:var(--bg);padding:48px 40px 56px;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Tulum proposal starts with the right spot.</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Tulum proposal spot &#8594;</a>
+        <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:14px 36px;margin-top:0;">Browse by destination &#8594;</a>
       </div>
     </div>
   </section>
