@@ -49,16 +49,8 @@
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
-    .budget-dest-name { font-family: 'Cormorant', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 300; color: var(--ink); margin-bottom: 8px; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
-    .budget-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-    .budget-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 14px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); gap: 12px; }
-    .budget-row:last-child { border-bottom: none; }
-    .budget-row-head { background: var(--bg2); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
-    .budget-row-total { background: var(--bg2); font-weight: 500; color: var(--ink); }
-    .budget-tip { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--ink); padding: 18px 22px; border-left: 2px solid var(--accent); background: rgba(165,90,74,0.05); border-radius: 0 8px 8px 0; margin-bottom: 48px; }
-    .budget-tip strong { font-weight: 500; }
 
     .budget-section { margin-bottom: 48px; }
     .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
@@ -86,7 +78,6 @@
       .budget-pg-wrap { padding-top: 110px; }
       .budget-pg-inner { padding: 0 24px; }
       .budget-dest-header { flex-direction: column; }
-      .budget-row { grid-template-columns: 1.6fr 1fr 1fr; font-size: 12px; padding: 12px 14px; }
     }
   </style>
 
@@ -121,23 +112,11 @@
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <div class="budget-dest-name">South of France</div>
-            <p class="budget-dest-tagline">Two regions operating as two price tiers, a seasonal surcharge in lavender season, and a wide gap between public access and private venue hire — here's the baseline range before any of those choices are made.</p>
+            <p class="budget-dest-tagline">Two regions operating as two price tiers, a seasonal surcharge in lavender season, and a wide gap between public access and private venue hire — here's the baseline range before any of those choices are made. For the full category-by-category breakdown, see the <a href="/destinations/south-of-france" style="color:var(--accent);">South of France destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$800 – $6,000+</div>
         </div>
-        <div class="budget-table">
-          <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
-          <div class="budget-row"><span>Private access / venue</span><span>$80 – $300</span><span>Included</span></div>
-          <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$300 – $700</span><span>$300 – $700</span></div>
-          <div class="budget-row"><span>Hotel (3 nights, mas/château)</span><span>—</span><span>$600 – $3,000</span></div>
-          <div class="budget-row"><span>Private dinner</span><span>$150 – $500</span><span>$150 – $500</span></div>
-          <div class="budget-row"><span>Flowers &amp; setup</span><span>$80 – $200</span><span>Often included</span></div>
-          <div class="budget-row budget-row-total"><span>Estimated total</span><span>$610 – $1,700</span><span>$1,150 – $4,200+</span></div>
-        </div>
       </div>
-
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Timing is a cost decision, not just a photography one. Arriving at the Valensole lavender rows around 5am means free, unsupervised access — the fields are simply open. Show up after 9am, once farm staff and tour groups are on site, and the same access is frequently sold as an escorted "private" visit for $30–$80 per couple. The view is identical either way. The only thing separating the free version from the paid one is what time you set your alarm.</p>
 
       <div class="budget-section">
         <h2 class="budget-section-h2">What drives costs up</h2>

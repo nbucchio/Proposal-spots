@@ -75,12 +75,22 @@ export default async function handler(req, res) {
   const destinationUrls = [
     'amalfi-coast', 'greece', 'bali', 'tulum', 'maldives', 'switzerland',
     'costa-rica', 'nicaragua', 'portugal', 'south-of-france', 'united-states',
-    'italy', 'hawaii', 'london'
+    'italy', 'hawaii', 'london', 'paris', 'patagonia'
   ].map(slug => `
   <url>
     <loc>https://www.proposalspots.com/destinations/${slug}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>`).join('');
+
+  const budgetUrls = [
+    'algarve', 'amalfi-coast', 'bali', 'costa-rica', 'maldives', 'new-york',
+    'nicaragua', 'patagonia', 'santorini', 'south-of-france', 'switzerland', 'tulum'
+  ].map(slug => `
+  <url>
+    <loc>https://www.proposalspots.com/budget/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>`).join('');
 
   const blogUrls = BLOG_SLUGS.map(slug => `
@@ -112,6 +122,16 @@ export default async function handler(req, res) {
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://www.proposalspots.com/checklist</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.proposalspots.com/budget</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>${budgetUrls}
   <url>
     <loc>https://www.proposalspots.com/privacy-policy</loc>
     <changefreq>yearly</changefreq>

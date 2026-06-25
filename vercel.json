@@ -21,7 +21,8 @@
     { "source": "/destinations/united%20states", "destination": "/destinations/united-states",    "permanent": true },
     { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": true },
     { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": true },
-    { "source": "/destinations/Patagonia",       "destination": "/destinations/patagonia",        "permanent": true }
+    { "source": "/destinations/Patagonia",       "destination": "/destinations/patagonia",        "permanent": true },
+    { "source": "/budget-guide",                 "destination": "/budget",                        "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -48,7 +49,7 @@
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/checklist", "destination": "/checklist.html" },
     { "source": "/how-it-works", "destination": "/how-it-works.html" },
-    { "source": "/budget-guide", "destination": "/budget-guide.html" },
+    { "source": "/budget", "destination": "/budget/index.html" },
     { "source": "/budget/santorini", "destination": "/budget/santorini.html" },
     { "source": "/budget/bali", "destination": "/budget/bali.html" },
     { "source": "/budget/amalfi-coast", "destination": "/budget/amalfi-coast.html" },
