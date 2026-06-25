@@ -3212,9 +3212,7 @@ footer {
   padding-top: 90px;
 }
 .results-topbar {
-  position: sticky;
-  top: 80px;
-  z-index: 500;
+  position: static;
   background: rgba(244,241,235,0.97);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--divider);
@@ -6473,6 +6471,49 @@ footer {
       </div>
     </div>
 
+  </div>
+
+  <!-- More to explore -->
+  <div class="section-wrap" style="border-top:1px solid var(--hairline); margin-top:40px;">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-meta">
+          <span class="section-eyebrow">Keep looking</span>
+          <h2 class="section-title">By <strong>destination</strong></h2>
+        </div>
+        <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
+      </div>
+      <div class="markets-grid">
+        <a class="market-card" href="/destinations/amalfi-coast">
+          <div class="market-card-bg mc-amalfi"></div>
+          <div class="market-card-info">
+            <span class="market-card-region">Italy</span>
+            <span class="market-card-name">Amalfi Coast</span>
+          </div>
+        </a>
+        <a class="market-card" href="/destinations/bali">
+          <div class="market-card-bg mc-bali"></div>
+          <div class="market-card-info">
+            <span class="market-card-region">Indonesia</span>
+            <span class="market-card-name">Bali</span>
+          </div>
+        </a>
+        <a class="market-card" href="/destinations/costa-rica">
+          <div class="market-card-bg mc-costarica"></div>
+          <div class="market-card-info">
+            <span class="market-card-region">Central America</span>
+            <span class="market-card-name">Costa Rica</span>
+          </div>
+        </a>
+        <a class="market-card" href="/destinations/maldives">
+          <div class="market-card-bg mc-maldives"></div>
+          <div class="market-card-info">
+            <span class="market-card-region">Indian Ocean</span>
+            <span class="market-card-name">Maldives</span>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
