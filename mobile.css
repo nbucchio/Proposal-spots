@@ -389,9 +389,6 @@ img {
     box-shadow: none;
     border-radius: 0;
   }
-  .spot-card-overlay { padding: 22px 22px 20px; }
-  .spot-card-market,
-  .spot-card-hook { display: none; }
   .spot-card-body > :nth-child(n+4) { display: none; }
   /* Hide arrows on mobile — swipe to navigate */
   .sc-arrow { display: none !important; }
