@@ -1957,7 +1957,7 @@ footer {
 .footer-inner { max-width: 1200px; margin: 0 auto; }
 .footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
   gap: 64px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(244,241,235,0.08);
@@ -5752,20 +5752,24 @@ footer {
 
 <!-- FOOTER REVEAL (popcorn-style curtain) -->
 <style>
-  /* Giant cream wordmark across the bottom of the footer */
+  /* Giant cream wordmark chained to the bottom edge of the footer (popcorn-style).
+     Matches the nav font (Jost, uppercase), full-bleed, bottom slightly clipped. */
+  footer{ overflow: hidden; }
   .footer-wordmark-xl{
-    font-family: 'Cormorant', serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: clamp(40px, 10vw, 140px);
-    line-height: 0.92;
-    letter-spacing: -0.01em;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: clamp(38px, 10.2vw, 188px);
+    line-height: 0.82;
+    letter-spacing: 0.01em;
     color: var(--bg);
     text-align: center;
-    margin: 48px auto 0;
-    max-width: 1200px;
+    margin: 44px 0 -0.18em;
     white-space: nowrap;
-    overflow: hidden;
     pointer-events: none;
     user-select: none;
   }
@@ -5790,7 +5794,8 @@ footer {
 
   @media (max-width: 768px){
     .footer-wordmark-xl{
-      font-size: clamp(34px, 16vw, 84px);
+      font-size: 10.6vw;
+      letter-spacing: 0;
       margin-top: 32px;
     }
   }
@@ -5800,10 +5805,6 @@ footer {
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">
-        <span class="footer-wordmark">Proposal Spots</span>
-        <p>A curated archive of the world's most considered proposal locations. Selective, editorial, trustworthy.</p>
-      </div>
       <div class="footer-col">
         <h3>Destinations</h3>
         <a href="/destinations/amalfi-coast">Amalfi Coast</a>
