@@ -95,21 +95,15 @@
     .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
     @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
 
-    .dest-editorial { background: var(--ink2); padding: 80px 40px; }
-    .dest-editorial-inner { max-width: 1100px; margin: 0 auto; }
-    .dest-editorial-eyebrow { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(165,90,74,0.85); display:block; margin-bottom:24px; text-align:center; }
-    .dest-editorial-headline { font-family:'Cormorant',serif; font-size:clamp(30px,4.5vw,54px); font-weight:300; color:var(--bg); line-height:1.1; text-align:center; margin-bottom:18px; }
-    .dest-editorial-sub { font-family:'Jost',sans-serif; font-size:13px; font-weight:300; color:rgba(244,241,235,0.55); line-height:1.85; text-align:center; max-width:620px; margin:0 auto 60px; }
-    .dest-editorial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(244,241,235,0.08); margin-bottom:60px; }
-    @media(max-width:768px){ .dest-editorial-grid { grid-template-columns:1fr; } }
-    .dest-editorial-card { background:rgba(20,20,22,0.7); padding:36px 30px; }
-    .dest-editorial-icon { font-size:20px; margin-bottom:14px; display:block; }
-    .dest-editorial-card-title { font-family:'Cormorant',serif; font-size:21px; font-weight:400; color:var(--bg); margin-bottom:10px; line-height:1.2; }
-    .dest-editorial-card-body { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:rgba(244,241,235,0.5); line-height:1.82; }
-    .dest-editorial-pull { border-left:2px solid #A55A4A; padding-left:28px; max-width:660px; margin:0 auto; }
-    .dest-editorial-pull-text { font-family:'Cormorant',serif; font-size:clamp(19px,2.2vw,26px); font-weight:300; font-style:italic; color:rgba(244,241,235,0.82); line-height:1.5; margin-bottom:14px; }
-    .dest-editorial-pull-attr { font-family:'Jost',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,241,235,0.3); }
-    @media(max-width:640px){ .dest-editorial { padding:60px 24px; } }
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
 
     .dest-highlights { background: var(--white); padding: 80px 40px 60px; border-top: 1px solid var(--hairline); }
     .dest-highlights-inner { max-width: 1000px; margin: 0 auto; }
@@ -130,15 +124,18 @@
 
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
-    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
-    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
-    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
-    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dest-gallery-col { display: flex; flex-direction: column; gap: 12px; }
+    .dest-gallery-grid a { display: block; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-grid a.is-portrait { aspect-ratio: 2 / 3; }
+    .dest-gallery-grid a.is-landscape { aspect-ratio: 3 / 2; }
+    .dest-gallery-grid img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-grid a:hover img { transform: scale(1.04); filter: brightness(1); }
     .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
-    @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
-    @media(max-width: 480px) { .dest-gallery-masonry { columns: 1; } }
+    @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } }
+    @media(max-width:480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
 
     .dest-landing-budget { max-width: 960px; margin: 80px auto 0; padding: 0 40px 80px; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
@@ -185,6 +182,15 @@
     .dest-faq details[open] summary::after { transform: rotate(45deg); }
     .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
     @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
+
+    .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
+    .dest-browse-inner { max-width: 1040px; margin: 0 auto; }
+    .dest-browse-label { display: block; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 36px; }
+    .dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 32px; }
+    .dest-browse-grid a { display: block; padding: 13px 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.18s; }
+    .dest-browse-grid a:hover { color: var(--accent); }
+    @media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, auto); } }
+    @media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } }
   </style>
   <link rel="stylesheet" href="/mobile.min.css">
   <script type="application/ld+json">
@@ -378,35 +384,21 @@
     </div>
   </div>
 
-  <div class="dest-editorial">
-    <div class="dest-editorial-inner">
-      <span class="dest-editorial-eyebrow">New York City · USA</span>
-      <h2 class="dest-editorial-headline">The most cinematic city on earth. It does half the work for you.</h2>
-      <p class="dest-editorial-sub">Eight million people, and somehow a hundred places where it feels like just the two of you. The skyline at golden hour, a rooftop above the noise, a hidden garden nobody else found.</p>
-      <div class="dest-editorial-grid">
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌆</span>
-          <div class="dest-editorial-card-title">The skyline effect</div>
-          <p class="dest-editorial-card-body">No backdrop on earth communicates scale and ambition like the Manhattan skyline. Brooklyn Bridge Park, Dumbo, and the High Line at sunset turn the city into your photographer.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌿</span>
-          <div class="dest-editorial-card-title">Secret gardens</div>
-          <p class="dest-editorial-card-body">Central Park has 843 acres. Most visitors see the same five landmarks. Our spots are the hidden meadows, private terraces, and rose gardens that feel miles from the city — and minutes from anywhere.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🔒</span>
-          <div class="dest-editorial-card-title">Private inside public</div>
-          <p class="dest-editorial-card-body">New York seems impossible to escape — until you know where to look. Rooftop terraces, private dining rooms, and waterfront spots that give you Manhattan without the crowds.</p>
-        </div>
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not United States</span>
+        <span class="dest-similar-rule-line"></span>
       </div>
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"She thought we were just getting dinner in Brooklyn. When we turned the corner and she saw the Manhattan skyline reflected in the water, she stopped walking."</p>
-        <span class="dest-editorial-pull-attr">— Marcus, Brooklyn Bridge Park</span>
+      <div class="dest-similar-pills">
+        <a href="/destinations/london" class="dest-similar-pill">London</a>
+        <a href="/destinations/tulum" class="dest-similar-pill">Tulum</a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">Costa Rica</a>
+        <a href="/destinations/switzerland" class="dest-similar-pill">Switzerland</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does a New York proposal cost? <a href="/budget/new-york" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
     </div>
-  </div>
+  </section>
 
   <div class="dest-highlights">
     <div class="dest-highlights-inner">
@@ -447,10 +439,7 @@
           <p class="dest-hl-body">Brooklyn gives you Manhattan. Manhattan gives you a skyline that feels abstract from inside it. The best proposals we've seen happen from Brooklyn looking back — specifically Dumbo, Brooklyn Bridge Park Pier 1, or Transmitter Park in Greenpoint.</p>
         </div>
       </div>
-      <div class="dest-highlights-tip">
-        <span class="dest-highlights-tip-label">Proposal Spots tip</span>
-        <p class="dest-highlights-tip-text">Avoid Times Square, the Top of the Rock, and the Brooklyn Bridge walkway — all extraordinary in photographs, all impossible for a private proposal. The best New York proposals happen in the places tourists haven't found yet.</p>
-      </div>
+      <p style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--mid);line-height:1.8;max-width:680px;margin:0 auto;text-align:center;">Times Square, the Top of the Rock, and the Brooklyn Bridge walkway are extraordinary in photographs and impossible for a private proposal. The best New York proposals happen in the places tourists haven't found yet.</p>
     </div>
   </div>
 
@@ -458,11 +447,8 @@
     <div class="dest-expert-take-inner">
       <span class="dest-expert-label">Our Take</span>
       <h2 class="dest-expert-h2">New York proposals fail for one reason: they're too public.</h2>
-      <div class="dest-highlights-tip" style="margin-bottom:36px;">
-        <span class="dest-highlights-tip-label">Quick answer</span>
-        <p class="dest-highlights-tip-text">The best places to propose in New York are Central Park's Bow Bridge at 7am, Brooklyn Bridge Park's Pier 1 at dusk, and a private rooftop terrace at golden hour. April to June and September to October are the strongest windows. Proposal packages start from around $800; a full New York proposal weekend runs $1,800 to $5,500.</p>
-      </div>
-      <p class="dest-expert-body">New York proposals fail for one reason: they're too public. The Empire State Building, Brooklyn Bridge, Central Park Bow Bridge — all of them are surrounded by 50 strangers with phones. Our New York spots are rooftop terraces, private garden access, and sunset courtyards where the skyline is the backdrop and nobody else is in the frame.</p>
+      <p class="dest-expert-body" style="margin-bottom:24px;">The best places to propose in New York are Central Park's Bow Bridge at 7am, Brooklyn Bridge Park's Pier 1 at dusk, and a private rooftop terrace at golden hour. April to June and September to October are the strongest windows. Proposal packages start from around $800; a full New York proposal weekend runs $1,800 to $5,500.</p>
+      <p class="dest-expert-body">New York proposals fail for one reason: they're too public. The Empire State Building, Brooklyn Bridge, and Central Park Bow Bridge are all surrounded by 50 strangers with phones. Our New York spots are rooftop terraces, private garden access, and sunset courtyards where the skyline is the backdrop and nobody else is in the frame.</p>
       <h3 style="font-family:'Cormorant',serif;font-size:clamp(22px,2.8vw,32px);font-weight:300;color:var(--ink);line-height:1.2;margin:48px 0 20px;">New York Proposal Spots at a Glance</h3>
       <div style="overflow-x:auto;margin-bottom:24px;">
         <table style="width:100%;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:12px;font-weight:300;border:1px solid var(--hairline);border-radius:10px;overflow:hidden;">
@@ -519,19 +505,23 @@
         <h3 style="font-family:'Cormorant',serif; font-size:clamp(38px,5.5vw,68px); font-weight:300; color:var(--ink); line-height:1.0; letter-spacing:-0.01em; margin-bottom:14px;">New York</h3>
         <p style="font-family:'Jost',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.1em; color:var(--mid); line-height:1.6; max-width:380px; margin:0 auto; text-transform:uppercase;">The most cinematic backdrop on earth — yours if you know where to stand.</p>
       </div>
-      <div class="dest-gallery-masonry">
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop" alt="Manhattan skyline at night, New York" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop" alt="New York City rooftop view at dusk" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop" alt="Romantic bokeh lights, New York evening" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop" alt="Twinkling city lights at golden hour, New York" loading="lazy">
-        </a>
+      <div class="dest-gallery-grid">
+        <div class="dest-gallery-col">
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?q=80&w=1470&auto=format&fit=crop" alt="Manhattan skyline at night, New York" loading="lazy">
+          </a>
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1466350380309-a09bb7347af9?q=80&w=1470&auto=format&fit=crop" alt="Romantic bokeh lights, New York evening" loading="lazy">
+          </a>
+        </div>
+        <div class="dest-gallery-col">
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1558908727-afa958b16472?q=80&w=1470&auto=format&fit=crop" alt="New York City rooftop view at dusk" loading="lazy">
+          </a>
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1466500419182-8602dc906b51?q=80&w=1470&auto=format&fit=crop" alt="Twinkling city lights at golden hour, New York" loading="lazy">
+          </a>
+        </div>
       </div>
       <div style="margin-top:36px; text-align:center;">
         <a href="#spots" onclick="scrollToRegionSpots('New York'); return false;" class="pg-cta-btn">See New York spots →</a>
@@ -544,19 +534,23 @@
         <h3 style="font-family:'Cormorant',serif; font-size:clamp(38px,5.5vw,68px); font-weight:300; color:var(--ink); line-height:1.0; letter-spacing:-0.01em; margin-bottom:14px;">California</h3>
         <p style="font-family:'Jost',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.1em; color:var(--mid); line-height:1.6; max-width:380px; margin:0 auto; text-transform:uppercase;">Ocean light, canyon roads, and the kind of golden hour that photographers chase.</p>
       </div>
-      <div class="dest-gallery-masonry">
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
-        </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
-        </a>
+      <div class="dest-gallery-grid">
+        <div class="dest-gallery-col">
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1742275346989-2d696fa2c9b3?q=80&w=2662&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+          </a>
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1729731322870-6bbe85214d58?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+          </a>
+        </div>
+        <div class="dest-gallery-col">
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1737741708962-6611036dc351?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+          </a>
+          <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); return false;" href="#">
+            <img src="https://images.unsplash.com/photo-1572953749785-7e0f427f9d88?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="California, United States" loading="lazy">
+          </a>
+        </div>
       </div>
       <div style="margin-top:36px; text-align:center;">
         <a href="#spots" onclick="scrollToRegionSpots('California'); return false;" class="pg-cta-btn">See California spots →</a>
@@ -591,11 +585,35 @@
         <div class="budget-row"><span>Flowers &amp; champagne setup</span><span>$80 – $200</span><span>Often included</span></div>
         <div class="budget-row budget-row-total"><span>Estimated total</span><span>$480 – $1,600</span><span>$850 – $3,500+</span></div>
       </div>
-      <p class="budget-tip"><strong>Proposal Spots tip:</strong> Central Park is the most proposed-in place in the world — which means it can feel ordinary. Our vetted NYC spots include private rooftop terraces, hidden garden spaces, and waterfront locations that give you the skyline without the crowd. Golden hour from Brooklyn Bridge Park is free and extraordinary.</p>
+      <p style="font-size:13px;line-height:1.7;color:var(--mid);"><strong style="color:var(--ink);">Proposal Spots tip:</strong> Central Park is the most proposed-in place in the world, which means it can feel ordinary. Our vetted NYC spots include private rooftop terraces, hidden garden spaces, and waterfront locations that give you the skyline without the crowd. Golden hour from Brooklyn Bridge Park is free and extraordinary.</p>
     </div>
     <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
       <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my New York proposal spot →</a>
       <a href="/budget" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
+    </div>
+  </div>
+
+  <div class="dest-browse">
+    <div class="dest-browse-inner">
+      <span class="dest-browse-label">Browse by Destination</span>
+      <div class="dest-browse-grid">
+        <a href="/destinations/amalfi-coast">Amalfi Coast</a>
+        <a href="/destinations/bali">Bali</a>
+        <a href="/destinations/costa-rica">Costa Rica</a>
+        <a href="/destinations/greece">Greece</a>
+        <a href="/destinations/hawaii">Hawaii</a>
+        <a href="/destinations/italy">Italy</a>
+        <a href="/destinations/london">London</a>
+        <a href="/destinations/maldives">Maldives</a>
+        <a href="/destinations/nicaragua">Nicaragua</a>
+        <a href="/destinations/paris">Paris</a>
+        <a href="/destinations/patagonia">Patagonia</a>
+        <a href="/destinations/portugal">Portugal</a>
+        <a href="/destinations/south-of-france">South of France</a>
+        <a href="/destinations/switzerland">Switzerland</a>
+        <a href="/destinations/tulum">Tulum</a>
+        <a href="/destinations/united-states">United States</a>
+      </div>
     </div>
   </div>
 
