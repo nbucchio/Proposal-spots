@@ -5794,28 +5794,35 @@ footer {
     user-select: none;
   }
 
-  /* Curtain reveal: cream content slides up to uncover the footer underneath.
-     The footer stays in normal flow (sticky), so the page always ends exactly
-     at the footer — no JS, no measured spacer, no trailing blank scroll.
-     Desktop only; mobile keeps the normal stacked footer. */
+  /* Soft image bleed: the footer photo dissolves up into the beige above it.
+     A gradient fades from the page background down to transparent across the
+     top of the footer, so the dark image appears to emerge from the cream.
+     The footer sits in normal flow (no sticky reveal), so the page always ends
+     exactly at the footer — no trailing blank scroll past the bottom. */
+  footer{ position: relative; }
+  footer::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 160px;
+    background: linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      var(--bg) 6%,
+      rgba(244,241,235,0) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  footer .footer-inner,
+  footer .footer-wordmark-xl{ position: relative; z-index: 1; }
   @media (min-width: 769px){
-    #page-home > main{
-      position: relative;
-      z-index: 2;
-      background: var(--bg);
-      border-bottom-left-radius: 52px;
-      border-bottom-right-radius: 52px;
-      overflow: clip;
-    }
-    #page-home > footer{
-      position: -webkit-sticky;
-      position: sticky;
-      bottom: 0;
-      z-index: 1;
-    }
+    footer{ padding-top: 144px; }
   }
 
   @media (max-width: 768px){
+    footer{ padding-top: 88px; }
+    footer::before{ height: 96px; }
     .footer-wordmark-xl{
       font-size: 10.6vw;
       letter-spacing: 0;
