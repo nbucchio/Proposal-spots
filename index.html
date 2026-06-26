@@ -5750,6 +5750,52 @@ footer {
 
 </main>
 
+<!-- FOOTER REVEAL (popcorn-style curtain) -->
+<style>
+  /* Giant cream wordmark across the bottom of the footer */
+  .footer-wordmark-xl{
+    font-family: 'Cormorant', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(40px, 10vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--bg);
+    text-align: center;
+    margin: 48px auto 0;
+    max-width: 1200px;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Curtain reveal: cream content slides up to uncover the pinned black footer.
+     Activated by JS (body.home-reveal) on desktop only. */
+  body.home-reveal #page-home > main{
+    position: relative;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom-left-radius: 52px;
+    border-bottom-right-radius: 52px;
+    overflow: clip;
+  }
+  body.home-reveal #page-home > footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px){
+    .footer-wordmark-xl{
+      font-size: clamp(34px, 16vw, 84px);
+      margin-top: 32px;
+    }
+  }
+</style>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -5800,6 +5846,7 @@ footer {
       <span>Intentional. Selective. Timeless.</span>
     </div>
   </div>
+  <div class="footer-wordmark-xl" aria-hidden="true">Proposal&nbsp;Spots</div>
 </footer>
 
 <!-- Floating WhatsApp contact button (home page only) -->
@@ -5870,6 +5917,44 @@ footer {
   }
   var timer = setTimeout(reveal, 2000);
   window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+<!-- Footer reveal: pin footer, slide content up, keep page ending exactly at footer -->
+<script>
+(function(){
+  var main = document.querySelector('#page-home > main');
+  var footer = document.querySelector('#page-home > footer');
+  var home = document.getElementById('page-home');
+  if(!main || !footer || !home) return;
+
+  function update(){
+    var active = home.classList.contains('active');
+    var desktop = window.innerWidth > 768;
+    if(active && desktop){
+      // Measure footer height in normal flow, then pin it.
+      document.body.classList.remove('home-reveal');
+      main.style.marginBottom = '';
+      var h = footer.offsetHeight;
+      document.body.classList.add('home-reveal');
+      // Reserve exactly the footer's height so content can slide up to reveal it,
+      // and the document ends right at the footer (no blank space below).
+      main.style.marginBottom = h + 'px';
+    } else {
+      document.body.classList.remove('home-reveal');
+      main.style.marginBottom = '';
+    }
+  }
+
+  var raf;
+  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }
+
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(schedule); }
+  // Re-sync after in-page navigation (showPage toggles .active).
+  document.addEventListener('click', function(){ setTimeout(schedule, 80); });
+  schedule();
 })();
 </script>
 
