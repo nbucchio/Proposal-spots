@@ -5752,6 +5752,23 @@ footer {
 
 <!-- FOOTER REVEAL (popcorn-style curtain) -->
 <style>
+  /* Balanced, evenly-spread footer columns (5 consistent columns) */
+  footer .footer-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px 48px;
+  }
+  footer .footer-col{ flex: 0 1 auto; }
+  @media (max-width: 900px){
+    footer .footer-top{ gap: 36px 40px; }
+    footer .footer-col{ flex: 1 1 40%; }
+  }
+  @media (max-width: 480px){
+    footer .footer-col{ flex: 1 1 100%; }
+  }
+
   /* Giant cream wordmark chained to the bottom edge of the footer (popcorn-style).
      Matches the nav font (Jost, uppercase), full-bleed, bottom slightly clipped. */
   footer{ overflow: hidden; }
@@ -5835,10 +5852,9 @@ footer {
         <a href="#">Submit a Spot</a>
         <a href="/privacy-policy">Privacy Policy</a>
       </div>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/proposal.spots/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-        </a>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <a href="https://www.instagram.com/proposal.spots/" target="_blank" rel="noopener">Instagram</a>
         <a href="mailto:hello@proposalspots.com">hello@proposalspots.com</a>
       </div>
     </div>
@@ -5933,14 +5949,11 @@ footer {
     var active = home.classList.contains('active');
     var desktop = window.innerWidth > 768;
     if(active && desktop){
-      // Measure footer height in normal flow, then pin it.
-      document.body.classList.remove('home-reveal');
-      main.style.marginBottom = '';
-      var h = footer.offsetHeight;
       document.body.classList.add('home-reveal');
-      // Reserve exactly the footer's height so content can slide up to reveal it,
-      // and the document ends right at the footer (no blank space below).
-      main.style.marginBottom = h + 'px';
+      // Reserve exactly the footer's current height so content can slide up to
+      // reveal it, and the document ends right at the footer — no blank space
+      // below, even if the footer height changes (fonts/images loading, resize).
+      main.style.marginBottom = footer.offsetHeight + 'px';
     } else {
       document.body.classList.remove('home-reveal');
       main.style.marginBottom = '';
@@ -5950,6 +5963,10 @@ footer {
   var raf;
   function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }
 
+  // Keep the reserved space locked to the footer's real height at all times.
+  if('ResizeObserver' in window){
+    new ResizeObserver(schedule).observe(footer);
+  }
   window.addEventListener('load', schedule);
   window.addEventListener('resize', schedule);
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(schedule); }
