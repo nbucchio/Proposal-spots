@@ -183,6 +183,15 @@
     .dest-faq details[open] summary::after { transform: rotate(45deg); }
     .dest-faq-answer { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
     @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
+
+    .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
+    .dest-browse-inner { max-width: 1040px; margin: 0 auto; }
+    .dest-browse-label { display: block; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 36px; }
+    .dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 32px; }
+    .dest-browse-grid a { display: block; padding: 13px 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.18s; }
+    .dest-browse-grid a:hover { color: var(--accent); }
+    @media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, auto); } }
+    @media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } .dest-browse-grid { grid-template-columns: 1fr; grid-template-rows: repeat(16, auto); column-gap: 0; } }
   </style>
   <link rel="stylesheet" href="/mobile.min.css">
   <script type="application/ld+json">
@@ -812,6 +821,30 @@
       </div>
     </div>
   </section>
+
+  <div class="dest-browse">
+    <div class="dest-browse-inner">
+      <span class="dest-browse-label">Browse by Destination</span>
+      <div class="dest-browse-grid">
+        <a href="/destinations/amalfi-coast">Amalfi Coast</a>
+        <a href="/destinations/bali">Bali</a>
+        <a href="/destinations/costa-rica">Costa Rica</a>
+        <a href="/destinations/greece">Greece</a>
+        <a href="/destinations/hawaii">Hawaii</a>
+        <a href="/destinations/italy">Italy</a>
+        <a href="/destinations/london">London</a>
+        <a href="/destinations/maldives">Maldives</a>
+        <a href="/destinations/nicaragua">Nicaragua</a>
+        <a href="/destinations/paris">Paris</a>
+        <a href="/destinations/patagonia">Patagonia</a>
+        <a href="/destinations/portugal">Portugal</a>
+        <a href="/destinations/south-of-france">South of France</a>
+        <a href="/destinations/switzerland">Switzerland</a>
+        <a href="/destinations/tulum">Tulum</a>
+        <a href="/destinations/united-states">United States</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
