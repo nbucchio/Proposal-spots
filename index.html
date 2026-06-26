@@ -5791,22 +5791,25 @@ footer {
     user-select: none;
   }
 
-  /* Curtain reveal: cream content slides up to uncover the pinned black footer.
-     Activated by JS (body.home-reveal) on desktop only. */
-  body.home-reveal #page-home > main{
-    position: relative;
-    z-index: 2;
-    background: var(--bg);
-    border-bottom-left-radius: 52px;
-    border-bottom-right-radius: 52px;
-    overflow: clip;
-  }
-  body.home-reveal #page-home > footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1;
+  /* Curtain reveal: cream content slides up to uncover the footer underneath.
+     The footer stays in normal flow (sticky), so the page always ends exactly
+     at the footer — no JS, no measured spacer, no trailing blank scroll.
+     Desktop only; mobile keeps the normal stacked footer. */
+  @media (min-width: 769px){
+    #page-home > main{
+      position: relative;
+      z-index: 2;
+      background: var(--bg);
+      border-bottom-left-radius: 52px;
+      border-bottom-right-radius: 52px;
+      overflow: clip;
+    }
+    #page-home > footer{
+      position: -webkit-sticky;
+      position: sticky;
+      bottom: 0;
+      z-index: 1;
+    }
   }
 
   @media (max-width: 768px){
@@ -5934,45 +5937,6 @@ footer {
   }
   var timer = setTimeout(reveal, 2000);
   window.addEventListener('scroll', onScroll, { passive: true });
-})();
-</script>
-
-<!-- Footer reveal: pin footer, slide content up, keep page ending exactly at footer -->
-<script>
-(function(){
-  var main = document.querySelector('#page-home > main');
-  var footer = document.querySelector('#page-home > footer');
-  var home = document.getElementById('page-home');
-  if(!main || !footer || !home) return;
-
-  function update(){
-    var active = home.classList.contains('active');
-    var desktop = window.innerWidth > 768;
-    if(active && desktop){
-      document.body.classList.add('home-reveal');
-      // Reserve exactly the footer's current height so content can slide up to
-      // reveal it, and the document ends right at the footer — no blank space
-      // below, even if the footer height changes (fonts/images loading, resize).
-      main.style.marginBottom = footer.offsetHeight + 'px';
-    } else {
-      document.body.classList.remove('home-reveal');
-      main.style.marginBottom = '';
-    }
-  }
-
-  var raf;
-  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }
-
-  // Keep the reserved space locked to the footer's real height at all times.
-  if('ResizeObserver' in window){
-    new ResizeObserver(schedule).observe(footer);
-  }
-  window.addEventListener('load', schedule);
-  window.addEventListener('resize', schedule);
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(schedule); }
-  // Re-sync after in-page navigation (showPage toggles .active).
-  document.addEventListener('click', function(){ setTimeout(schedule, 80); });
-  schedule();
 })();
 </script>
 
