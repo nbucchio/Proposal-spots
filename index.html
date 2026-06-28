@@ -5796,26 +5796,27 @@ footer {
 
   /* Curtain reveal: cream content slides up to uncover the footer underneath.
      The footer stays in normal flow (sticky), so the page always ends exactly
-     at the footer — no JS, no measured spacer, no trailing blank scroll.
-     Desktop only; mobile keeps the normal stacked footer. */
-  @media (min-width: 769px){
-    #page-home > main{
-      position: relative;
-      z-index: 2;
-      background: var(--bg);
-      border-bottom-left-radius: 52px;
-      border-bottom-right-radius: 52px;
-      overflow: clip;
-    }
-    #page-home > footer{
-      position: -webkit-sticky;
-      position: sticky;
-      bottom: 0;
-      z-index: 1;
-    }
+     at the footer — no JS, no measured spacer, no trailing blank scroll. */
+  #page-home > main{
+    position: relative;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom-left-radius: 52px;
+    border-bottom-right-radius: 52px;
+    overflow: clip;
+  }
+  #page-home > footer{
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
   }
 
   @media (max-width: 768px){
+    #page-home > main{
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
     .footer-wordmark-xl{
       font-size: 10.6vw;
       letter-spacing: 0;
