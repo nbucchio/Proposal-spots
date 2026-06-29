@@ -6167,6 +6167,10 @@ footer {
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Jungle')">🌿 Jungle</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Rural')">🌾 Rural</div>
                 <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Boat')">⛵ Boat</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Luxury')">💎 Luxury</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Hiking')">🥾 Hiking</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Desert')">🏜 Desert</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Villa')">🏡 Villa</div>
               </div>
             </div>
           </div>
@@ -7153,7 +7157,7 @@ async function fetchFromAirtable() {
         : rawBudget === 'Expensive' ? 'Luxury'
         : rawBudget;
 
-      const vibeOptions = new Set(['Beach','Mountain','Cliff','Lake','Volcano','Ocean','City','Jungle','Rural','Boat']);
+      const vibeOptions = new Set(['Beach','Mountain','Cliff','Lake','Volcano','Ocean','City','Jungle','Rural','Boat','Luxury','Hiking','Desert','Villa']);
       const vibeSecondaryArr = Array.isArray(f['Vibe Secondary'])
         ? f['Vibe Secondary'].filter(v => vibeOptions.has(v))
         : (f['Vibe Secondary'] ? [f['Vibe Secondary']] : []);
@@ -9375,7 +9379,7 @@ function toggleDLPanel(panelId, pillId) {
   document.getElementById(panelId)?.classList.toggle('open');
 }
 const DL_PILL_LABELS = {
-  vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
+  vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat', 'Luxury': 'Luxury', 'Hiking': 'Hiking', 'Desert': 'Desert', 'Villa': 'Villa' } },
   privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
   budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
 };
@@ -9436,11 +9440,12 @@ function renderDLSpots() {
     if (!matchDest) return false;
     if (dlState.vibe.size) {
       const allVibes = [
-        s.Vibe,
-        ...(Array.isArray(s['Vibe Secondary All']) ? s['Vibe Secondary All'] : [s['Vibe Secondary']]),
-        ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : (s['Other Vibe'] ? [s['Other Vibe']] : []))
-      ].filter(Boolean);
-      const vibeMatch = [...dlState.vibe].some(v => allVibes.some(vv => vv === v || (typeof vv === 'string' && vv.includes(v))));
+        ...(Array.isArray(s.Vibe) ? s.Vibe : [s.Vibe]),
+        ...(Array.isArray(s['Vibe Secondary All']) ? s['Vibe Secondary All'] : [s['Vibe Secondary All']]),
+        ...(Array.isArray(s['Vibe Secondary']) ? s['Vibe Secondary'] : [s['Vibe Secondary']]),
+        ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : [s['Other Vibe']])
+      ].filter(v => typeof v === 'string' && v);
+      const vibeMatch = [...dlState.vibe].some(v => allVibes.some(vv => vv === v || vv.includes(v)));
       if (!vibeMatch) return false;
     }
     if (dlState.privacy.size) {
