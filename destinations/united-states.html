@@ -316,16 +316,7 @@
           </button>
           <div class="results-inline-panel" id="dl-vibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
-            <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">🏖 Beach</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','City')">🏙 City</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Jungle')">🌿 Jungle</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Boat')">⛵ Boat</div>
-            </div>
+            <div class="inline-tags" id="dl-vibe-tags"></div>
           </div>
         </div>
         <div class="results-panel-wrap">
@@ -720,6 +711,31 @@
         </div>`;
     }
 
+    const VIBE_EMOJI = {
+      Beach: '🏖', Mountain: '⛰', Cliff: '🏔', Cliffside: '🏔', Lake: '🏞', Lakeside: '🏞',
+      Volcano: '🌋', Ocean: '🌊', Overwater: '🌊', City: '🏙', Cityscape: '🏙',
+      Jungle: '🌿', Rural: '🌾', Boat: '⛵', Luxury: '💎', Hiking: '🥾',
+      Desert: '🏜', Villa: '🏡', 'Private Villa': '🏡', Cenote: '💧'
+    };
+    function spotAllVibes(s) {
+      return [
+        ...(Array.isArray(s.Vibe) ? s.Vibe : [s.Vibe]),
+        ...(Array.isArray(s['Vibe Secondary']) ? s['Vibe Secondary'] : [s['Vibe Secondary']]),
+        ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : [s['Other Vibe']])
+      ].filter(v => typeof v === 'string' && v.trim()).map(v => v.trim());
+    }
+    function renderDLVibeChips(destSpots) {
+      const tags = document.getElementById('dl-vibe-tags');
+      if (!tags) return;
+      const uniq = new Set();
+      (allSpots && allSpots.length ? allSpots : destSpots).forEach(s => spotAllVibes(s).forEach(v => uniq.add(v)));
+      const vibes = [...uniq].sort();
+      tags.innerHTML = vibes.map(v => {
+        const safe = String(v).replace(/'/g, "\'");
+        const emoji = VIBE_EMOJI[v] || '✨';
+        return '<div class="filter-tag" onclick="toggleDLTag(this,\'vibe\',\'' + safe + '\')">' + emoji + ' ' + v + '</div>';
+      }).join('');
+    }
     let allSpots = [];
 
     async function fetchSpots() {
@@ -750,7 +766,8 @@
             Country:           f['Country'] || '',
             Region:            f['Region / Town'] || f['Region'] || '',
             Vibe:              f['Vibe'] || '',
-            'Secondary Vibe':  f['Secondary Vibe'] || f['Vibe 2'] || '',
+            'Vibe Secondary': Array.isArray(f['Vibe Secondary']) ? f['Vibe Secondary'] : (f['Vibe Secondary'] ? [f['Vibe Secondary']] : []),
+            'Other Vibe':     Array.isArray(f['Other Vibe']) ? f['Other Vibe'] : (f['Other Vibe'] ? [f['Other Vibe']] : []),
             Privacy:           privacy,
             Budget:            budget,
             'Best Time':       bestTime,
@@ -787,6 +804,7 @@
           region  === alias || region.includes(alias)  || alias.includes(region)
         );
       });
+      renderDLVibeChips(destSpots);
       if (destSpots.length === 0) {
         grid.innerHTML = ''; grid.style.display = 'none';
         if (empty) empty.style.display = 'none';
@@ -803,8 +821,8 @@
           })) return false;
         }
         if (dlState.vibe.size) {
-          const vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
-          if (![...dlState.vibe].some(v => vibeStr.includes(v))) return false;
+          const allVibes = spotAllVibes(s);
+          if (![...dlState.vibe].some(v => allVibes.includes(v))) return false;
         }
         if (dlState.privacy.size) {
           if (![...dlState.privacy].some(v => (s.Privacy||s.privacy||'').includes(v))) return false;
