@@ -9435,8 +9435,15 @@ function renderDLSpots() {
     );
     if (!matchDest) return false;
     if (dlState.vibe.size) {
-      const vibeVal = (s.Vibe || s.vibe || '');
-      const vibeMatch = [...dlState.vibe].some(v => vibeVal.includes(v));
+      const primaryVibe = (s.Vibe || s.vibe || '');
+      const secondaryVibes = Array.isArray(s['Vibe Secondary All'])
+        ? s['Vibe Secondary All']
+        : (s['Vibe Secondary'] ? [s['Vibe Secondary']] : []);
+      const otherVibes = Array.isArray(s['Other Vibe'])
+        ? s['Other Vibe']
+        : (s['Other Vibe'] ? [s['Other Vibe']] : []);
+      const allVibes = [primaryVibe, ...secondaryVibes, ...otherVibes].filter(Boolean);
+      const vibeMatch = [...dlState.vibe].some(v => allVibes.some(vv => vv === v || vv.includes(v)));
       if (!vibeMatch) return false;
     }
     if (dlState.privacy.size) {
