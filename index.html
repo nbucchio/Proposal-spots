@@ -9408,6 +9408,39 @@ const DEST_COUNTRY_MAP = {
   'New York':        ['new york','usa','united states','nyc','manhattan','brooklyn'],
 };
 
+function spotAllVibes(s) {
+  return [
+    ...(Array.isArray(s.Vibe) ? s.Vibe : [s.Vibe]),
+    ...(Array.isArray(s['Vibe Secondary All']) ? s['Vibe Secondary All'] : [s['Vibe Secondary All']]),
+    ...(Array.isArray(s['Vibe Secondary']) ? s['Vibe Secondary'] : [s['Vibe Secondary']]),
+    ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : [s['Other Vibe']])
+  ].filter(v => typeof v === 'string' && v.trim()).map(v => v.trim());
+}
+
+function renderDLVibeChipsForDest() {
+  const tags = document.getElementById('dl-vibe-tags');
+  if (!tags) return;
+  const destAliases = (DEST_COUNTRY_MAP[dlState.dest] || [dlState.dest.toLowerCase()]);
+  const destSpots = (allSpots || []).filter(s => {
+    const country = (s.Country||'').toLowerCase().trim();
+    const region  = (s.Region||'').toLowerCase().trim();
+    if (!country && !region) return false;
+    return destAliases.some(alias =>
+      country === alias || country.includes(alias) || alias.includes(country) ||
+      region  === alias || region.includes(alias)  || alias.includes(region)
+    );
+  });
+  const uniq = new Set();
+  destSpots.forEach(s => spotAllVibes(s).forEach(v => uniq.add(v)));
+  const vibes = [...uniq].sort();
+  if (!vibes.length) { tags.innerHTML = ''; return; }
+  tags.innerHTML = vibes.map(v => {
+    const safe = String(v).replace(/'/g, "\\'");
+    const emoji = (typeof VIBE_EMOJI !== 'undefined' && VIBE_EMOJI[v]) || '✨';
+    return '<div class="filter-tag" onclick="toggleDLTag(this,\'vibe\',\'' + safe + '\')">' + emoji + ' ' + v + '</div>';
+  }).join('');
+}
+
 function renderDLSpots() {
   const grid = document.getElementById('dest-landing-grid');
   const empty = document.getElementById('dest-landing-empty');
@@ -9423,13 +9456,8 @@ function renderDLSpots() {
     );
     if (!matchDest) return false;
     if (dlState.vibe.size) {
-      const allVibes = [
-        ...(Array.isArray(s.Vibe) ? s.Vibe : [s.Vibe]),
-        ...(Array.isArray(s['Vibe Secondary All']) ? s['Vibe Secondary All'] : [s['Vibe Secondary All']]),
-        ...(Array.isArray(s['Vibe Secondary']) ? s['Vibe Secondary'] : [s['Vibe Secondary']]),
-        ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : [s['Other Vibe']])
-      ].filter(v => typeof v === 'string' && v);
-      const vibeMatch = [...dlState.vibe].some(v => allVibes.some(vv => vv === v || vv.includes(v)));
+      const allVibes = spotAllVibes(s);
+      const vibeMatch = [...dlState.vibe].some(v => allVibes.includes(v));
       if (!vibeMatch) return false;
     }
     if (dlState.privacy.size) {
@@ -9493,6 +9521,7 @@ function goToDestination(name) {
   if (budgetContent) budgetContent.innerHTML = renderDestBudget(d.budgetKey, name);
 
   showPage('dest-landing');
+  renderDLVibeChipsForDest();
   renderDLSpots();
   renderDestEditorial(name);
   renderDestHighlights(name);
@@ -9686,6 +9715,10 @@ async function init() {
   renderSpots(allSpots);
   populateCountryFilter();
   maybeRenderSSBDestinations();
+
+  if (document.getElementById('page-dest-landing')?.style.display !== 'none' && dlState.dest) {
+    try { renderDLVibeChipsForDest(); renderDLSpots(); } catch(e) {}
+  }
 
   const colPage = document.getElementById('page-collection');
   if (colPage && colPage.style.display !== 'none') {
@@ -10844,8 +10877,7 @@ function renderDLVibeChips(vibes) {
 
 function loadVibes() {
   var track = document.getElementById('vibes-carousel');
-  var dlTags = document.getElementById('dl-vibe-tags');
-  if (!track && !dlTags) return;
+  if (!track) return;
 
   fetch('/api/vibes')
     .then(function(r) {
@@ -10855,13 +10887,11 @@ function loadVibes() {
     .then(function(data) {
       var vibes = (data && Array.isArray(data.vibes)) ? data.vibes : [];
       if (vibes.length === 0) throw new Error('vibes empty');
-      if (track) renderVibesCarousel(vibes);
-      renderDLVibeChips(vibes);
+      renderVibesCarousel(vibes);
     })
     .catch(function(err) {
       console.warn('[vibes] using fallback:', err && err.message);
-      if (track) renderVibesCarousel(FALLBACK_VIBES);
-      renderDLVibeChips(FALLBACK_VIBES);
+      renderVibesCarousel(FALLBACK_VIBES);
     });
 }
 
