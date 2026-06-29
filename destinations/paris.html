@@ -935,6 +935,31 @@
       '</div>';
     }
 
+    const VIBE_EMOJI = {
+      Beach: '🏖', Mountain: '⛰', Cliff: '🏔', Cliffside: '🏔', Lake: '🏞', Lakeside: '🏞',
+      Volcano: '🌋', Ocean: '🌊', Overwater: '🌊', City: '🏙', Cityscape: '🏙',
+      Jungle: '🌿', Rural: '🌾', Boat: '⛵', Luxury: '💎', Hiking: '🥾',
+      Desert: '🏜', Villa: '🏡', 'Private Villa': '🏡', Cenote: '💧'
+    };
+    function spotAllVibes(s) {
+      return [
+        ...(Array.isArray(s.Vibe) ? s.Vibe : [s.Vibe]),
+        ...(Array.isArray(s['Vibe Secondary']) ? s['Vibe Secondary'] : [s['Vibe Secondary']]),
+        ...(Array.isArray(s['Other Vibe']) ? s['Other Vibe'] : [s['Other Vibe']])
+      ].filter(v => typeof v === 'string' && v.trim()).map(v => v.trim());
+    }
+    function renderDLVibeChips(destSpots) {
+      const tags = document.getElementById('dl-vibe-tags');
+      if (!tags) return;
+      const uniq = new Set();
+      (allSpots && allSpots.length ? allSpots : destSpots).forEach(s => spotAllVibes(s).forEach(v => uniq.add(v)));
+      const vibes = [...uniq].sort();
+      tags.innerHTML = vibes.map(v => {
+        const safe = String(v).replace(/'/g, "\\'");
+        const emoji = VIBE_EMOJI[v] || '✨';
+        return '<div class="filter-tag" onclick="toggleDLTag(this,\'vibe\',\'' + safe + '\')">' + emoji + ' ' + v + '</div>';
+      }).join('');
+    }
     var allSpots = [];
 
     async function fetchSpots() {
@@ -998,6 +1023,7 @@
                  region  === alias || region.includes(alias)  || alias.includes(region);
         });
       });
+      renderDLVibeChips(destSpots);
       if (destSpots.length === 0) {
         grid.innerHTML = ''; grid.style.display = 'none';
         if (empty) empty.style.display = 'none';
@@ -1007,8 +1033,8 @@
       if (comingSoon) comingSoon.style.display = 'none';
       var spots = destSpots.filter(function(s) {
         if (dlState.vibe.size) {
-          var vibeStr = (s.Vibe || '') + ' ' + (s['Secondary Vibe'] || '');
-          if (![...dlState.vibe].some(function(v) { return vibeStr.includes(v); })) return false;
+          var allVibes = spotAllVibes(s);
+          if (![...dlState.vibe].some(function(v) { return allVibes.includes(v); })) return false;
         }
         if (dlState.privacy.size) {
           if (![...dlState.privacy].some(function(v) { return (s.Privacy||'').includes(v); })) return false;

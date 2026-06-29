@@ -898,7 +898,7 @@
       const tags = document.getElementById('dl-vibe-tags');
       if (!tags) return;
       const uniq = new Set();
-      destSpots.forEach(s => spotAllVibes(s).forEach(v => uniq.add(v)));
+      (allSpots && allSpots.length ? allSpots : destSpots).forEach(s => spotAllVibes(s).forEach(v => uniq.add(v)));
       const vibes = [...uniq].sort();
       tags.innerHTML = vibes.map(v => {
         const safe = String(v).replace(/'/g, "\'");
