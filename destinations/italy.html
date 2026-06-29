@@ -1185,6 +1185,7 @@
       const grid = document.getElementById('dest-landing-grid');
       const empty = document.getElementById('dest-landing-empty');
       if (!grid) return;
+      renderDLVibeChips(allSpots);
       let spots = allSpots.filter(s => {
         const country = (s.Country || '').toLowerCase().trim();
         const region = (s['Region / Town'] || s.Region || '').toLowerCase().trim();
