@@ -6156,22 +6156,7 @@ footer {
             </button>
             <div class="results-inline-panel" id="dl-vibe-panel">
               <span class="inline-panel-label">Select all that apply</span>
-              <div class="inline-tags">
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">🏖 Beach</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">⛰ Mountain</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">🏔 Cliff</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">🏞 Lake</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Volcano')">🌋 Volcano</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Ocean')">🌊 Ocean</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','City')">🏙 City</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Jungle')">🌿 Jungle</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Rural')">🌾 Rural</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Boat')">⛵ Boat</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Luxury')">💎 Luxury</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Hiking')">🥾 Hiking</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Desert')">🏜 Desert</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Villa')">🏡 Villa</div>
-              </div>
+              <div class="inline-tags" id="dl-vibe-tags"></div>
             </div>
           </div>
 
@@ -7157,9 +7142,8 @@ async function fetchFromAirtable() {
         : rawBudget === 'Expensive' ? 'Luxury'
         : rawBudget;
 
-      const vibeOptions = new Set(['Beach','Mountain','Cliff','Lake','Volcano','Ocean','City','Jungle','Rural','Boat','Luxury','Hiking','Desert','Villa']);
       const vibeSecondaryArr = Array.isArray(f['Vibe Secondary'])
-        ? f['Vibe Secondary'].filter(v => vibeOptions.has(v))
+        ? f['Vibe Secondary'].filter(Boolean)
         : (f['Vibe Secondary'] ? [f['Vibe Secondary']] : []);
 
       const otherVibeArr = Array.isArray(f['Other Vibe'])
@@ -10838,9 +10822,30 @@ function initVibesArrows() {
   updateArrows();
 }
 
+var VIBE_EMOJI = {
+  Beach: '🏖', Mountain: '⛰', Cliff: '🏔', Cliffside: '🏔', Lake: '🏞', Lakeside: '🏞',
+  Volcano: '🌋', Ocean: '🌊', Overwater: '🌊', City: '🏙', Cityscape: '🏙',
+  Jungle: '🌿', Rural: '🌾', Boat: '⛵', Luxury: '💎', Hiking: '🥾',
+  Desert: '🏜', Villa: '🏡', 'Private Villa': '🏡'
+};
+
+function renderDLVibeChips(vibes) {
+  var tags = document.getElementById('dl-vibe-tags');
+  if (!tags) return;
+  var clean = (vibes || []).filter(function(v) { return v && v.airtableValue; });
+  if (!clean.length) return;
+  tags.innerHTML = clean.map(function(v) {
+    var val = String(v.airtableValue).replace(/'/g, "\\'");
+    var label = v.displayLabel || v.airtableValue;
+    var emoji = VIBE_EMOJI[v.airtableValue] || VIBE_EMOJI[label] || '✨';
+    return '<div class="filter-tag" onclick="toggleDLTag(this,\'vibe\',\'' + val + '\')">' + emoji + ' ' + label + '</div>';
+  }).join('');
+}
+
 function loadVibes() {
   var track = document.getElementById('vibes-carousel');
-  if (!track) return;
+  var dlTags = document.getElementById('dl-vibe-tags');
+  if (!track && !dlTags) return;
 
   fetch('/api/vibes')
     .then(function(r) {
@@ -10850,11 +10855,13 @@ function loadVibes() {
     .then(function(data) {
       var vibes = (data && Array.isArray(data.vibes)) ? data.vibes : [];
       if (vibes.length === 0) throw new Error('vibes empty');
-      renderVibesCarousel(vibes);
+      if (track) renderVibesCarousel(vibes);
+      renderDLVibeChips(vibes);
     })
     .catch(function(err) {
       console.warn('[vibes] using fallback:', err && err.message);
-      renderVibesCarousel(FALLBACK_VIBES);
+      if (track) renderVibesCarousel(FALLBACK_VIBES);
+      renderDLVibeChips(FALLBACK_VIBES);
     });
 }
 
