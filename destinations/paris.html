@@ -359,8 +359,7 @@
           </button>
           <div class="results-inline-panel" id="dl-vibe-panel">
             <span class="inline-panel-label">Select all that apply</span>
-            <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Beach')">Beach</div>
+            <div class="inline-tags" id="dl-vibe-tags"></div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Mountain')">Mountain</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Cliff')">Cliff</div>
               <div class="filter-tag" onclick="toggleDLTag(this,'vibe','Lake')">Lake</div>
@@ -970,7 +969,8 @@
             Country:           f['Country'] || '',
             Region:            f['Region / Town'] || f['Region'] || '',
             Vibe:              f['Vibe'] || '',
-            'Secondary Vibe':  f['Secondary Vibe'] || f['Vibe 2'] || '',
+            'Vibe Secondary': Array.isArray(f['Vibe Secondary']) ? f['Vibe Secondary'] : (f['Vibe Secondary'] ? [f['Vibe Secondary']] : []),
+            'Other Vibe':     Array.isArray(f['Other Vibe']) ? f['Other Vibe'] : (f['Other Vibe'] ? [f['Other Vibe']] : []),
             Privacy:           privacy,
             Budget:            budget,
             'Line Summary':    f['Line Summary'] || '',
