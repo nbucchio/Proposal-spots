@@ -61,17 +61,17 @@
     }
 
     /* ═══ HOW IT WORKS ═══ */
-    .pg-hiw { padding-top: 92px; background: var(--bg); }
+    .pg-hiw { background: var(--bg); }
 
     .hiw-hero {
       position: relative;
-      min-height: 86vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      padding: 120px 40px 90px;
+      padding: 160px 40px 140px;
     }
     .hiw-hero-bg {
       position: absolute; inset: 0;
@@ -82,7 +82,16 @@
     .hiw-hero-bg::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(28,28,28,0.5) 0%, rgba(28,28,28,0.22) 42%, rgba(28,28,28,0.58) 100%);
+      background: linear-gradient(180deg, rgba(28,28,28,0.55) 0%, rgba(28,28,28,0.18) 40%, rgba(28,28,28,0.30) 70%, rgba(28,28,28,0.0) 100%);
+    }
+    .hiw-hero::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 180px;
+      background: linear-gradient(180deg, rgba(253,252,250,0) 0%, rgba(253,252,250,0.6) 55%, rgba(253,252,250,0.92) 82%, var(--white) 100%);
+      pointer-events: none;
+      z-index: 1;
     }
     .hiw-hero-content { position: relative; z-index: 1; max-width: 640px; }
     .hiw-hero-eyebrow {
@@ -268,7 +277,8 @@
     }
 
     @media (max-width: 600px) {
-      .hiw-hero { min-height: 72vh; padding: 100px 24px 64px; }
+      .hiw-hero { min-height: 92vh; padding: 130px 24px 110px; }
+      .hiw-hero::after { height: 100px; }
     }
 
     .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
