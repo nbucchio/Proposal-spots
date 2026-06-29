@@ -404,9 +404,9 @@
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$</div>
             </div>
           </div>
         </div>
@@ -1001,7 +1001,7 @@
       region:  { label: 'Region',  names: { 'Amalfi Coast': 'Amalfi Coast', 'Lake Como': 'Lake Como', 'Tuscany': 'Tuscany', 'Rome': 'Rome', 'Sicily': 'Sicily', 'Portofino': 'Portofino', 'Milan': 'Milan', 'Sorrento': 'Sorrento', 'Positano': 'Positano' } },
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+      budget:  { label: 'Budget',  names: { 'Affordable': '$', 'Premium': '$$', 'Luxury': '$$$' } }
     };
 
     const REGION_KEYWORDS = {
@@ -1053,6 +1053,38 @@
 
     const privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
 
+
+    const FX_TO_USD = {
+      USD: 1,
+      EUR: 1.08,
+      GBP: 1.27,
+      IDR: 0.000063,
+      MXN: 0.055,
+      CHF: 1.13,
+      CRC: 0.0019,
+      NIO: 0.027,
+      AUD: 0.66,
+      CAD: 0.74,
+      JPY: 0.0067,
+      THB: 0.028,
+      MVR: 0.065,
+    };
+    function toUSD(amount, ccy) {
+      const rate = FX_TO_USD[ccy] ?? 1;
+      return amount * rate;
+    }
+    function formatStartingPrice(amount, ccy) {
+      const usd = toUSD(amount, ccy);
+      const floored = Math.floor(usd / 10) * 10;
+      return '$' + floored.toLocaleString() + '+';
+    }
+    function momentStartingPriceText(s) {
+      const pkgs = Array.isArray(s.packages) ? s.packages : [];
+      const moment = pkgs.find(p => p && p['Tier Name'] === 'The Moment');
+      if (!moment || moment.Price == null || moment.Price === '') return '';
+      return formatStartingPrice(Number(moment.Price), s['Price Currency']);
+    }
+
     function buildSpotCard(s) {
       const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || ''));
       const imgStyle = cardPhoto
@@ -1091,7 +1123,7 @@
               <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path>
               </svg>
-              <span class="spot-card-strip-text">${s.Budget || ''}</span>
+              <span class="spot-card-strip-text">${momentStartingPriceText(s)}</span>
             </div>
             <div class="spot-card-strip-divider"></div>
             <div class="spot-card-strip-item">
@@ -1171,6 +1203,8 @@
             badge:             f['Badge'] || null,
             coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
             'Price Moment':    f['Price Moment'] || null,
+            'Price Currency':  f['Price Currency'] || null,
+            packages:          Array.isArray(r.packages) ? r.packages : [],
           };
         });
         renderSpots();

@@ -383,9 +383,9 @@
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$</div>
             </div>
           </div>
         </div>
@@ -868,7 +868,7 @@
     var DL_PILL_LABELS = {
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Ocean': 'Ocean', 'City': 'City', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+      budget:  { label: 'Budget',  names: { 'Affordable': '$', 'Premium': '$$', 'Luxury': '$$$' } }
     };
     function updatePillLabel(type) {
       var cfg = DL_PILL_LABELS[type];
@@ -902,6 +902,38 @@
       'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See'
     };
 
+
+    const FX_TO_USD = {
+      USD: 1,
+      EUR: 1.08,
+      GBP: 1.27,
+      IDR: 0.000063,
+      MXN: 0.055,
+      CHF: 1.13,
+      CRC: 0.0019,
+      NIO: 0.027,
+      AUD: 0.66,
+      CAD: 0.74,
+      JPY: 0.0067,
+      THB: 0.028,
+      MVR: 0.065,
+    };
+    function toUSD(amount, ccy) {
+      const rate = FX_TO_USD[ccy] ?? 1;
+      return amount * rate;
+    }
+    function formatStartingPrice(amount, ccy) {
+      const usd = toUSD(amount, ccy);
+      const floored = Math.floor(usd / 10) * 10;
+      return '$' + floored.toLocaleString() + '+';
+    }
+    function momentStartingPriceText(s) {
+      const pkgs = Array.isArray(s.packages) ? s.packages : [];
+      const moment = pkgs.find(p => p && p['Tier Name'] === 'The Moment');
+      if (!moment || moment.Price == null || moment.Price === '') return '';
+      return formatStartingPrice(Number(moment.Price), s['Price Currency']);
+    }
+
     function buildSpotCard(s) {
       var cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || '');
       var imgStyle = cardPhoto
@@ -911,7 +943,7 @@
       var privacy = s.Privacy || '';
       var vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || '');
       var price = s['Price Moment'] || s['Moment Price'] || '';
-      var priceStr = s.Budget || (price ? 'From $' + Math.round(Number(price)).toLocaleString() : '');
+      var priceStr = momentStartingPriceText(s);
       var slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
       var allImgs = [cardPhoto].concat((s['Gallery Photos'] || []).map(function(u) { return optimizeAirtableImage(u); })).filter(Boolean);
       var hasMultiple = allImgs.length > 1;
@@ -999,6 +1031,8 @@
             badge:             f['Badge'] || null,
             coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
             'Price Moment':    f['Price Moment'] || null,
+            'Price Currency':  f['Price Currency'] || null,
+            packages:          Array.isArray(r.packages) ? r.packages : [],
           };
         });
         renderSpots();

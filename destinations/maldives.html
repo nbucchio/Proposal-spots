@@ -357,9 +357,9 @@
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$</div>
             </div>
           </div>
         </div>
@@ -701,7 +701,7 @@
     const DL_PILL_LABELS = {
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+      budget:  { label: 'Budget',  names: { 'Affordable': '$', 'Premium': '$$', 'Luxury': '$$$' } }
     };
     function updatePillLabel(type) {
       var cfg = DL_PILL_LABELS[type];
@@ -731,6 +731,38 @@
       renderSpots();
     }
     const privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
+
+    const FX_TO_USD = {
+      USD: 1,
+      EUR: 1.08,
+      GBP: 1.27,
+      IDR: 0.000063,
+      MXN: 0.055,
+      CHF: 1.13,
+      CRC: 0.0019,
+      NIO: 0.027,
+      AUD: 0.66,
+      CAD: 0.74,
+      JPY: 0.0067,
+      THB: 0.028,
+      MVR: 0.065,
+    };
+    function toUSD(amount, ccy) {
+      const rate = FX_TO_USD[ccy] ?? 1;
+      return amount * rate;
+    }
+    function formatStartingPrice(amount, ccy) {
+      const usd = toUSD(amount, ccy);
+      const floored = Math.floor(usd / 10) * 10;
+      return '$' + floored.toLocaleString() + '+';
+    }
+    function momentStartingPriceText(s) {
+      const pkgs = Array.isArray(s.packages) ? s.packages : [];
+      const moment = pkgs.find(p => p && p['Tier Name'] === 'The Moment');
+      if (!moment || moment.Price == null || moment.Price === '') return '';
+      return formatStartingPrice(Number(moment.Price), s['Price Currency']);
+    }
+
     function buildSpotCard(s) {
       const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || (window.__destFallbackImage || ''));
       const imgStyle = cardPhoto ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};` : `background:${s.coverGradient || '#1e2835'};`;
@@ -745,7 +777,7 @@
       const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
       const scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
       const stripHtml = hasMultiple ? '<div class="sc-strip">' + allImgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"' + '></div></div>';}).join('') + '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + allImgs[0].replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"' + '></div></div></div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
-      return `<div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer"><div class="spot-card-img" ${imgsAttr}>${stripHtml}${badge}${scHtml}</div><div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div><div class="spot-card-body"><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="spot-card-strip-text">${s.Privacy || ''}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path></svg><span class="spot-card-strip-text">${s.Budget || ''}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg><span class="spot-card-strip-text">${vibe}</span></div></div></div>`;
+      return `<div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer"><div class="spot-card-img" ${imgsAttr}>${stripHtml}${badge}${scHtml}</div><div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div><div class="spot-card-body"><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="spot-card-strip-text">${s.Privacy || ''}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path></svg><span class="spot-card-strip-text">${momentStartingPriceText(s)}</span></div><div class="spot-card-strip-divider"></div><div class="spot-card-strip-item"><svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg><span class="spot-card-strip-text">${vibe}</span></div></div></div>`;
     }
     const VIBE_EMOJI = {
       Beach: '🏖', Mountain: '⛰', Cliff: '🏔', Cliffside: '🏔', Lake: '🏞', Lakeside: '🏞',
@@ -787,7 +819,7 @@
             : rawBudget === 'Expensive' ? 'Luxury'
             : rawBudget;
           const bestTime = Array.isArray(f['Best Time']) ? f['Best Time'] : (f['Best Time'] ? [f['Best Time']] : []);
-          return { id, Slug: f['Slug'] || f['slug'] || '', Name: f['Spot Name'] || f['Name'] || '', Country: f['Country'] || '', Region: f['Region / Town'] || f['Region'] || '', Vibe: f['Vibe'] || '', 'Secondary Vibe': f['Secondary Vibe'] || '', Privacy: privacy, Budget: budget, 'Best Time': bestTime, 'Line Summary': f['Line Summary'] || '', 'Cover Photo': f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null, 'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Gallery Photos': (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:((p&&p.url)||'');}).filter(Boolean).slice(0,3), 'Hero Position': f['Hero Position'] || 'center center', 'Card Position': f['Card Position'] || 'center center', badge: f['Badge'] || null, coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)', 'Price Moment': f['Price Moment'] || null };
+          return { id, Slug: f['Slug'] || f['slug'] || '', Name: f['Spot Name'] || f['Name'] || '', Country: f['Country'] || '', Region: f['Region / Town'] || f['Region'] || '', Vibe: f['Vibe'] || '', 'Secondary Vibe': f['Secondary Vibe'] || '', Privacy: privacy, Budget: budget, 'Best Time': bestTime, 'Line Summary': f['Line Summary'] || '', 'Cover Photo': f['Cover Photo']?.[0]?.url || f['Cover Photo'] || null, 'Spot Card Photo': f['Spot Card Photo']?.[0]?.url || f['Spot Card Photo'] || null, 'Gallery Photos': (f['Gallery Photos']||[]).map(function(p){return typeof p==='string'?p:((p&&p.url)||'');}).filter(Boolean).slice(0,3), 'Hero Position': f['Hero Position'] || 'center center', 'Card Position': f['Card Position'] || 'center center', badge: f['Badge'] || null, coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)', 'Price Moment': f['Price Moment'] || null, 'Price Currency': f['Price Currency'] || null, packages: Array.isArray(r.packages) ? r.packages : [] };
         });
         renderSpots();
       } catch (e) {
