@@ -1305,9 +1305,19 @@ nav.scrolled {
   align-items: center;
   gap: 18px;
   height: auto;
-  padding: 8px 12px 2px;
+  padding: 4px 12px 14px;
   border-top: none;
   background: transparent;
+}
+.spot-card-name {
+  font-family: 'Cormorant', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a1612;
+  text-align: center;
+  line-height: 1.2;
+  padding: 18px 12px 3px;
+  margin: 0;
 }
 .spot-card-strip-item {
   display: flex;
@@ -1325,7 +1335,7 @@ nav.scrolled {
 }
 .spot-card-strip-text {
   font-family: 'Jost', sans-serif;
-  font-size: 13.5px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: rgb(150, 145, 140);
@@ -1346,13 +1356,13 @@ nav.scrolled {
 .spot-card-location {
   display: block;
   font-family: 'Jost', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #1a1612;
+  color: rgb(150, 145, 140);
   text-align: center;
-  padding: 12px 12px 0;
+  padding: 0 12px 0;
   background: transparent;
 }
 .spot-card-location::after {
@@ -1360,7 +1370,7 @@ nav.scrolled {
   display: block;
   height: 1px;
   background: rgba(26,22,18,0.12);
-  margin: 8px auto 0;
+  margin: 14px auto 0;
   max-width: 220px;
 }
 /* ── Spot-card carousel ── */
@@ -1416,7 +1426,6 @@ nav.scrolled {
     border-radius: 0;
   }
   .spot-card-img { aspect-ratio: 7/6; }
-  .spot-card-body > :nth-child(n+4) { display: none; }
   /* Hide arrows on mobile — swipe to navigate */
   .sc-arrow { display: none !important; }
 }
@@ -6184,9 +6193,9 @@ footer {
             <div class="results-inline-panel" id="dl-budget-panel">
               <span class="inline-panel-label">Select all that apply</span>
               <div class="inline-tags">
-                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
-                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$</div>
+                <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$</div>
               </div>
             </div>
           </div>
@@ -7207,6 +7216,7 @@ async function fetchFromAirtable() {
         'Low Multiplier':        f['Low Multiplier']          || 0.85,
         'Requires Stay':         !!(f['Requires Stay']),
         editorsPick:             !!(f['Editors Pick']),
+        packages:                Array.isArray(r.packages) ? r.packages : [],
       };
     });
   } catch (err) {
@@ -7284,6 +7294,39 @@ function getCardImgs(s) {
   return [main, ...gallery].filter(Boolean);
 }
 
+const FX_TO_USD = {
+  USD: 1,
+  EUR: 1.08,
+  GBP: 1.27,
+  IDR: 0.000063,
+  MXN: 0.055,
+  CHF: 1.13,
+  CRC: 0.0019,
+  NIO: 0.027,
+  AUD: 0.66,
+  CAD: 0.74,
+  JPY: 0.0067,
+  THB: 0.028,
+  MVR: 0.065,
+};
+function toUSD(amount, ccy) {
+  const rate = FX_TO_USD[ccy] ?? 1;
+  return amount * rate;
+}
+function formatStartingPrice(amount, ccy) {
+  const usd = toUSD(amount, ccy);
+  const floored = Math.floor(usd / 10) * 10;
+  return '$' + floored.toLocaleString() + '+';
+}
+function momentStartingPriceText(s) {
+  const pkgs = Array.isArray(s.packages) ? s.packages : [];
+  const moment = pkgs.find(p => p && p['Tier Name'] === 'The Moment');
+  let price = (moment && moment.Price != null && moment.Price !== '') ? moment.Price : null;
+  if (price == null && s['Price Moment'] != null && s['Price Moment'] !== '') price = s['Price Moment'];
+  if (price == null) return '';
+  return formatStartingPrice(Number(price), s['Price Currency']);
+}
+
 function buildSpotCard(s, index) {
   const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
@@ -7310,28 +7353,18 @@ function buildSpotCard(s, index) {
         ${badge}
         ${scHtml}
       </div>
+      <div class="spot-card-name">${s.Name || ''}</div>
       <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>
       <div class="spot-card-body">
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
           <span class="spot-card-strip-text">${privacy}</span>
         </div>
         <div class="spot-card-strip-divider"></div>
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path>
-          </svg>
-          <span class="spot-card-strip-text">${s.Budget || ''}</span>
+          <span class="spot-card-strip-text">${momentStartingPriceText(s)}</span>
         </div>
         <div class="spot-card-strip-divider"></div>
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-            <line x1="7" y1="7" x2="7.01" y2="7"></line>
-          </svg>
           <span class="spot-card-strip-text">${vibe}</span>
         </div>
       </div>
@@ -7362,28 +7395,18 @@ function buildSpotCardLinked(s, index) {
         ${badge}
         ${scHtml}
       </div>
+      <div class="spot-card-name">${s.Name || ''}</div>
       <div class="spot-card-location">${s.Region || ''}, ${s.Country || ''}</div>
       <div class="spot-card-body">
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
           <span class="spot-card-strip-text">${privacy}</span>
         </div>
         <div class="spot-card-strip-divider"></div>
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2 Q12 0 18 2 L20 6 L20 18 L4 18 L4 6 Z"></path>
-          </svg>
-          <span class="spot-card-strip-text">${s.Budget || ''}</span>
+          <span class="spot-card-strip-text">${momentStartingPriceText(s)}</span>
         </div>
         <div class="spot-card-strip-divider"></div>
         <div class="spot-card-strip-item">
-          <svg class="spot-card-strip-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-            <line x1="7" y1="7" x2="7.01" y2="7"></line>
-          </svg>
           <span class="spot-card-strip-text">${vibe}</span>
         </div>
       </div>
@@ -9365,7 +9388,7 @@ function toggleDLPanel(panelId, pillId) {
 const DL_PILL_LABELS = {
   vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Volcano': 'Volcano', 'Ocean': 'Ocean', 'City': 'City', 'Jungle': 'Jungle', 'Rural': 'Rural', 'Boat': 'Boat', 'Luxury': 'Luxury', 'Hiking': 'Hiking', 'Desert': 'Desert', 'Villa': 'Villa' } },
   privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-  budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+  budget:  { label: 'Budget',  names: { 'Affordable': '$', 'Premium': '$$', 'Luxury': '$$$' } }
 };
 function updatePillLabel(type) {
   var cfg = DL_PILL_LABELS[type];

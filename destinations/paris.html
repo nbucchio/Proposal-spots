@@ -92,7 +92,10 @@
     .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
     .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
-    .spot-card-body { display: flex; align-items: center; height: 38px; }
+    .spot-card-body { display: flex; align-items: center; height: 30px; padding: 4px 12px 12px; }
+    .spot-card-name { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 400; color: #1a1612; text-align: center; line-height: 1.2; padding: 18px 12px 3px; margin: 0; }
+    .spot-card-location { display: block; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(150, 145, 140); text-align: center; padding: 0 12px 0; background: transparent; }
+    .spot-card-location::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.12); margin: 14px auto 0; max-width: 220px; }
     .spot-card-strip-item { display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1; min-width: 0; }
     .spot-card-strip-icon { flex-shrink: 0; color: rgba(28,28,28,0.6); }
     .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -383,9 +386,9 @@
           <div class="results-inline-panel" id="dl-budget-panel">
             <span class="inline-panel-label">Select all that apply</span>
             <div class="inline-tags">
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$ Affordable</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$ Premium</div>
-              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$ Luxury</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Affordable')">$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Premium')">$$</div>
+              <div class="filter-tag" onclick="toggleDLTag(this,'budget','Luxury')">$$$</div>
             </div>
           </div>
         </div>
@@ -868,7 +871,7 @@
     var DL_PILL_LABELS = {
       vibe:    { label: 'Vibe',    names: { 'Beach': 'Beach', 'Mountain': 'Mountain', 'Cliff': 'Cliff', 'Lake': 'Lake', 'Ocean': 'Ocean', 'City': 'City', 'Boat': 'Boat' } },
       privacy: { label: 'Privacy', names: { 'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See' } },
-      budget:  { label: 'Budget',  names: { 'Affordable': '$ Affordable', 'Premium': '$$ Premium', 'Luxury': '$$$ Luxury' } }
+      budget:  { label: 'Budget',  names: { 'Affordable': '$', 'Premium': '$$', 'Luxury': '$$$' } }
     };
     function updatePillLabel(type) {
       var cfg = DL_PILL_LABELS[type];
@@ -902,6 +905,40 @@
       'Private': 'Private', 'Light Crowd': 'Light Crowd', 'Moderate Crowd': 'Moderate Crowd', 'Everyone Will See': 'Everyone Will See'
     };
 
+
+    const FX_TO_USD = {
+      USD: 1,
+      EUR: 1.08,
+      GBP: 1.27,
+      IDR: 0.000063,
+      MXN: 0.055,
+      CHF: 1.13,
+      CRC: 0.0019,
+      NIO: 0.027,
+      AUD: 0.66,
+      CAD: 0.74,
+      JPY: 0.0067,
+      THB: 0.028,
+      MVR: 0.065,
+    };
+    function toUSD(amount, ccy) {
+      const rate = FX_TO_USD[ccy] ?? 1;
+      return amount * rate;
+    }
+    function formatStartingPrice(amount, ccy) {
+      const usd = toUSD(amount, ccy);
+      const floored = Math.floor(usd / 10) * 10;
+      return '$' + floored.toLocaleString() + '+';
+    }
+    function momentStartingPriceText(s) {
+      const pkgs = Array.isArray(s.packages) ? s.packages : [];
+      const moment = pkgs.find(p => p && p['Tier Name'] === 'The Moment');
+      let price = (moment && moment.Price != null && moment.Price !== '') ? moment.Price : null;
+      if (price == null && s['Price Moment'] != null && s['Price Moment'] !== '') price = s['Price Moment'];
+      if (price == null) return '';
+      return formatStartingPrice(Number(price), s['Price Currency']);
+    }
+
     function buildSpotCard(s) {
       var cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || '');
       var imgStyle = cardPhoto
@@ -911,7 +948,7 @@
       var privacy = s.Privacy || '';
       var vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || '');
       var price = s['Price Moment'] || s['Moment Price'] || '';
-      var priceStr = s.Budget || (price ? 'From $' + Math.round(Number(price)).toLocaleString() : '');
+      var priceStr = momentStartingPriceText(s);
       var slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
       var allImgs = [cardPhoto].concat((s['Gallery Photos'] || []).map(function(u) { return optimizeAirtableImage(u); })).filter(Boolean);
       var hasMultiple = allImgs.length > 1;
@@ -925,6 +962,8 @@
           '' +
           scHtml +
         '</div>' +
+        '<div class="spot-card-name">' + (s.Name || '') + '</div>' +
+        '<div class="spot-card-location">' + (s.Region || '') + ', ' + (s.Country || '') + '</div>' +
         '<div class="spot-card-body">' +
           '<div class="spot-card-strip-item"><span class="spot-card-strip-text">' + privacy + '</span></div>' +
           '<div class="spot-card-strip-divider"></div>' +
@@ -999,6 +1038,8 @@
             badge:             f['Badge'] || null,
             coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
             'Price Moment':    f['Price Moment'] || null,
+            'Price Currency':  f['Price Currency'] || null,
+            packages:          Array.isArray(r.packages) ? r.packages : [],
           };
         });
         renderSpots();
