@@ -41,3 +41,4 @@ how to buy wedding proposal packages | 2026-06-09 | /blog/how-to-buy-wedding-pro
 best places to propose in the united states | 2026-06-09 | /blog/best-places-to-propose-in-the-united-states
 luxury proposal | 2026-06-13 | /blog/luxury-proposal
 best month to propose | 2026-06-24 | /blog/best-month-to-propose
+proposal photographer cost | 2026-06-24 | /blog/proposal-photographer-cost
