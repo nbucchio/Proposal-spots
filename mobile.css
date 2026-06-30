@@ -268,16 +268,26 @@ img {
 }
 
 /* ── Spot-card location + info strip: shown on all viewports ── */
+.spot-card-name {
+  font-family: 'Cormorant', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a1612;
+  text-align: center;
+  line-height: 1.2;
+  padding: 18px 12px 3px;
+  margin: 0;
+}
 .spot-card-location {
   display: block;
   font-family: 'Jost', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #1a1612;
+  color: rgb(150, 145, 140);
   text-align: center;
-  padding: 12px 12px 0;
+  padding: 0 12px 0;
   background: transparent;
 }
 .spot-card-location::after {
@@ -285,7 +295,7 @@ img {
   display: block;
   height: 1px;
   background: rgba(26,22,18,0.12);
-  margin: 8px auto 0;
+  margin: 14px auto 0;
   max-width: 220px;
 }
 .spot-card-body {
@@ -295,7 +305,7 @@ img {
   align-items: center;
   gap: 18px;
   height: auto;
-  padding: 8px 12px 2px;
+  padding: 4px 12px 12px;
   border-top: none;
   background: transparent;
 }
@@ -309,15 +319,9 @@ img {
   height: 13px;
   background: rgba(26,22,18,0.18);
 }
-.spot-card-body .spot-card-strip-icon {
-  width: 15px;
-  height: 15px;
-  stroke-width: 1.6;
-  color: rgb(150, 145, 140);
-}
 .spot-card-body .spot-card-strip-text {
   font-family: 'Jost', sans-serif;
-  font-size: 13.5px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: rgb(150, 145, 140);
@@ -389,7 +393,6 @@ img {
     box-shadow: none;
     border-radius: 0;
   }
-  .spot-card-body > :nth-child(n+4) { display: none; }
   /* Hide arrows on mobile — swipe to navigate */
   .sc-arrow { display: none !important; }
 }
@@ -455,7 +458,7 @@ img {
 
   /* ── Spot card strip text: readable on two-column card grid ── */
   .spot-card-strip-text {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   /* ── Destination sub text on hero: ensure min 14px ── */
