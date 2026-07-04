@@ -43,3 +43,4 @@ luxury proposal | 2026-06-13 | /blog/luxury-proposal
 best month to propose | 2026-06-24 | /blog/best-month-to-propose
 proposal photographer cost | 2026-06-24 | /blog/proposal-photographer-cost
 empire state building proposal | 2026-07-01 | /blog/empire-state-building-proposal
+how to hide the ring while traveling | 2026-07-01 | /blog/how-to-hide-the-ring-while-traveling
