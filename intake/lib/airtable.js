@@ -34,8 +34,22 @@ export const SPOT_FIELDS = {
   ADDON_3_PRICE: "Addon 3 Price",
   ADDON_4_NAME: "Addon 4 Name",
   ADDON_4_PRICE: "Addon 4 Price",
+  PRIVACY: "Privacy",
+  BEST_TIME: "Best Time",
   STATUS: "Status",
 };
+
+// Exact Airtable single-select choice strings, including trailing spaces
+// where the base actually has them. Do not trim before sending — typecast
+// would otherwise create near-duplicate choices in Airtable.
+export const PRIVACY_CHOICES = [
+  "Private (No Crowds)",
+  "Light Crowd ",
+  "Moderate Crowd ",
+  "Everyone will see",
+];
+
+export const BEST_TIME_CHOICES = ["Sunrise", "Sunset", "Mid-day", "Any"];
 
 export const PACKAGE_FIELDS = {
   NAME: "Name",
@@ -45,6 +59,7 @@ export const PACKAGE_FIELDS = {
   INCLUDES: "Includes ", // trailing space is intentional
   SORT_ORDER: "Sort Order",
   IS_ACTIVE: "Is Active",
+  INCLUDED_ADDONS: "Included Addons",
 };
 
 async function airtableRequest(path, options = {}) {

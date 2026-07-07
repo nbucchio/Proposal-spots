@@ -88,7 +88,57 @@ const CURRENCIES = [
   "XPF",
 ];
 
+// Exact Airtable single-select choice strings — trailing spaces on some
+// Privacy choices are intentional and must be sent as-is.
+const PRIVACY_OPTIONS = [
+  "Private (No Crowds)",
+  "Light Crowd ",
+  "Moderate Crowd ",
+  "Everyone will see",
+];
+
+const BEST_TIME_OPTIONS = ["Sunrise", "Sunset", "Mid-day", "Any"];
+
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
+
+// Same subtle shades the live site already uses to tell tiers apart
+// (see spot.html .sdp-tier-row:nth-child backgrounds).
+const TIER_SHADES = ["#f5f0e8", "#ede5d8", "#e4d9c8"];
+
+const PRICING_MODEL_INFO = [
+  {
+    value: "Single Price",
+    description: "One flat price for the whole experience.",
+  },
+  {
+    value: "Tiered",
+    description:
+      "Offer couples 2–3 packages at different price points — for example, a simple setup vs. a full luxury experience.",
+  },
+];
+
+const TIERED_EXAMPLE_URL =
+  "https://www.proposalspots.com/spots/private-island-proposal-faro-algarve";
+
+const TIER_PREFIXES = {
+  moment: "Everything in The Moment, plus: ",
+  experience: "Everything in The Experience, plus: ",
+  both: "Everything in The Moment and The Experience, plus: ",
+};
+
+function tierPrefixFor(sameAsMoment, sameAsExperience) {
+  if (sameAsMoment && sameAsExperience) return TIER_PREFIXES.both;
+  if (sameAsMoment) return TIER_PREFIXES.moment;
+  if (sameAsExperience) return TIER_PREFIXES.experience;
+  return "";
+}
+
+function stripKnownPrefix(text) {
+  for (const p of Object.values(TIER_PREFIXES)) {
+    if (text.startsWith(p)) return text.slice(p.length);
+  }
+  return text;
+}
 
 const EMPTY_SPOT = {
   spotName: "",
@@ -97,6 +147,8 @@ const EMPTY_SPOT = {
   fullSummary: "",
   vibe: "",
   vibeSecondary: [],
+  privacy: "",
+  bestTime: "",
   availabilityType: "All Year",
   availableMonths: [],
   rainCheck: "",
@@ -115,10 +167,9 @@ const EMPTY_TIERS = TIER_NAMES.map((name) => ({
   tierName: name,
   price: "",
   includes: "",
+  sameAsMoment: false,
+  sameAsExperience: false,
 }));
-
-const TIERED_EXAMPLE_URL =
-  "https://www.proposalspots.com/spots/private-island-proposal-faro-algarve";
 
 function Chip({ label, selected, onClick }) {
   return (
@@ -148,18 +199,31 @@ function Label({ children, hint }) {
   );
 }
 
+function ReviewRow({ label, value }) {
+  if (!value) return null;
+  return (
+    <div className="flex justify-between gap-4 border-b border-line/60 pb-2 last:border-0 last:pb-0">
+      <span className="text-ink/50">{label}</span>
+      <span className="text-right text-ink">{value}</span>
+    </div>
+  );
+}
+
 const inputClass =
   "w-full rounded-md border border-line bg-white/70 px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink/35 focus:border-wine/60";
 
 function Waypoints({ step, showPackages }) {
-  const steps = showPackages
-    ? ["Spot details", "Pricing tiers", "Done"]
-    : ["Spot details", "Done"];
-  const activeIndex = { spot: 0, packages: 1, done: steps.length - 1 }[step];
+  const stepOrder = showPackages
+    ? ["spot", "packages", "review", "done"]
+    : ["spot", "review", "done"];
+  const labels = showPackages
+    ? ["Spot details", "Pricing tiers", "Review", "Done"]
+    : ["Spot details", "Review", "Done"];
+  const activeIndex = stepOrder.indexOf(step);
 
   return (
     <div className="mb-10 flex items-center justify-center gap-2">
-      {steps.map((label, i) => (
+      {labels.map((label, i) => (
         <div key={label} className="flex items-center gap-2">
           <div className="flex flex-col items-center gap-1.5">
             <div
@@ -179,7 +243,7 @@ function Waypoints({ step, showPackages }) {
               {label}
             </span>
           </div>
-          {i < steps.length - 1 && (
+          {i < labels.length - 1 && (
             <div
               className={
                 "mb-4 h-px w-10 " + (i < activeIndex ? "bg-wine" : "bg-line")
@@ -195,13 +259,10 @@ function Waypoints({ step, showPackages }) {
 export default function Page() {
   const [step, setStep] = useState("spot");
   const [spot, setSpot] = useState(EMPTY_SPOT);
-  const [spotRecordId, setSpotRecordId] = useState(null);
-  const [savedSpotName, setSavedSpotName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const [tiers, setTiers] = useState(EMPTY_TIERS);
-  const [tierSubmitting, setTierSubmitting] = useState(false);
 
   const updateSpot = (patch) => setSpot((s) => ({ ...s, ...patch }));
 
@@ -231,7 +292,18 @@ export default function Page() {
     });
   };
 
-  async function submitSpot(e) {
+  const updateTierFlag = (index, key, value) => {
+    setTiers((t) => {
+      const next = [...t];
+      const tier = { ...next[index], [key]: value };
+      const prefix = tierPrefixFor(tier.sameAsMoment, tier.sameAsExperience);
+      tier.includes = prefix + stripKnownPrefix(tier.includes);
+      next[index] = tier;
+      return next;
+    });
+  };
+
+  function goPastSpotDetails(e) {
     e.preventDefault();
     setError("");
 
@@ -240,6 +312,25 @@ export default function Page() {
       return;
     }
 
+    setStep(spot.pricingModel === "Tiered" ? "packages" : "review");
+  }
+
+  const filledTiers = tiers.filter((t) => t.price);
+  const filledAddons = spot.addons.filter((a) => a.name);
+
+  function goPastTiers() {
+    setError("");
+    if (filledTiers.length < 2) {
+      setError(
+        "Add a price for at least two tiers before continuing (three is recommended)."
+      );
+      return;
+    }
+    setStep("review");
+  }
+
+  async function doFinalSubmit() {
+    setError("");
     setSubmitting(true);
     try {
       const res = await fetch("/api/spots", {
@@ -250,14 +341,35 @@ export default function Page() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
 
-      setSpotRecordId(data.id);
-      setSavedSpotName(spot.spotName);
+      const newSpotRecordId = data.id;
 
       if (spot.pricingModel === "Tiered") {
-        setStep("packages");
-      } else {
-        setStep("done");
+        const includedAddonsSummary = filledAddons
+          .map((a) => (a.price ? `${a.name} (+${a.price})` : a.name))
+          .join(", ");
+
+        for (let i = 0; i < filledTiers.length; i++) {
+          const tier = filledTiers[i];
+          const pRes = await fetch("/api/packages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              spotRecordId: newSpotRecordId,
+              spotName: spot.spotName,
+              tierName: tier.tierName,
+              price: tier.price,
+              includes: tier.includes,
+              sortOrder: i + 1,
+              includedAddons: includedAddonsSummary,
+            }),
+          });
+          const pData = await pRes.json();
+          if (!pRes.ok)
+            throw new Error(pData.error || `Could not save ${tier.tierName}.`);
+        }
       }
+
+      setStep("done");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -265,48 +377,8 @@ export default function Page() {
     }
   }
 
-  const filledTiers = tiers.filter((t) => t.price);
-
-  async function submitTiers() {
-    setError("");
-    if (filledTiers.length < 2) {
-      setError(
-        "Add a price for at least two tiers before finishing (three is recommended)."
-      );
-      return;
-    }
-    setTierSubmitting(true);
-    try {
-      for (let i = 0; i < filledTiers.length; i++) {
-        const tier = filledTiers[i];
-        const res = await fetch("/api/packages", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            spotRecordId,
-            spotName: savedSpotName,
-            tierName: tier.tierName,
-            price: tier.price,
-            includes: tier.includes,
-            sortOrder: i + 1,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok)
-          throw new Error(data.error || `Could not save ${tier.tierName}.`);
-      }
-      setStep("done");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setTierSubmitting(false);
-    }
-  }
-
   function startAnotherSpot() {
     setSpot(EMPTY_SPOT);
-    setSpotRecordId(null);
-    setSavedSpotName("");
     setTiers(EMPTY_TIERS);
     setError("");
     setStep("spot");
@@ -332,7 +404,7 @@ export default function Page() {
       )}
 
       {step === "spot" && (
-        <form onSubmit={submitSpot} className="space-y-8">
+        <form onSubmit={goPastSpotDetails} className="space-y-8">
           <section className="space-y-5">
             <div>
               <Label>Spot name</Label>
@@ -425,6 +497,38 @@ export default function Page() {
 
           <section className="space-y-5">
             <div>
+              <Label>Privacy</Label>
+              <div className="flex flex-wrap gap-2">
+                {PRIVACY_OPTIONS.map((p) => (
+                  <Chip
+                    key={p}
+                    label={p.trim()}
+                    selected={spot.privacy === p}
+                    onClick={() => updateSpot({ privacy: p })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label>Best time of day</Label>
+              <div className="flex flex-wrap gap-2">
+                {BEST_TIME_OPTIONS.map((b) => (
+                  <Chip
+                    key={b}
+                    label={b}
+                    selected={spot.bestTime === b}
+                    onClick={() => updateSpot({ bestTime: b })}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <div>
               <Label>Availability</Label>
               <div className="flex gap-2">
                 {["All Year", "Seasonal"].map((a) => (
@@ -472,42 +576,50 @@ export default function Page() {
 
           <section className="space-y-5">
             <div>
+              <Label>Pricing currency</Label>
+              <select
+                className={inputClass}
+                value={spot.priceCurrency}
+                onChange={(e) =>
+                  updateSpot({ priceCurrency: e.target.value })
+                }
+              >
+                {CURRENCIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
               <Label>Pricing model</Label>
-              <div className="flex gap-2">
-                {["Single Price", "Tiered"].map((p) => (
-                  <Chip
-                    key={p}
-                    label={p}
-                    selected={spot.pricingModel === p}
-                    onClick={() => updateSpot({ pricingModel: p })}
-                  />
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {PRICING_MODEL_INFO.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => updateSpot({ pricingModel: opt.value })}
+                    className={
+                      "rounded-lg border p-4 text-left transition-colors " +
+                      (spot.pricingModel === opt.value
+                        ? "border-wine bg-wine/5"
+                        : "border-line bg-white/40 hover:border-wine/40")
+                    }
+                  >
+                    <p className="text-sm font-medium text-ink">
+                      {opt.value}
+                    </p>
+                    <p className="mt-1 text-xs text-ink/50">
+                      {opt.description}
+                    </p>
+                  </button>
                 ))}
               </div>
-              <p className="mt-2 text-xs text-ink/50">
-                {spot.pricingModel === "Single Price"
-                  ? "One flat price for the whole experience."
-                  : "Offer couples 2–3 packages at different price points — for example, a simple setup vs. a full luxury experience."}
-              </p>
             </div>
 
             {spot.pricingModel === "Single Price" && (
-              <div className="grid grid-cols-2 gap-4 rounded-lg border border-line bg-white/40 p-5">
-                <div>
-                  <Label>Currency</Label>
-                  <select
-                    className={inputClass}
-                    value={spot.priceCurrency}
-                    onChange={(e) =>
-                      updateSpot({ priceCurrency: e.target.value })
-                    }
-                  >
-                    {CURRENCIES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div className="space-y-5 rounded-lg border border-line bg-white/40 p-5">
                 <div>
                   <Label>Price</Label>
                   <input
@@ -520,55 +632,44 @@ export default function Page() {
                     placeholder="e.g. 450"
                   />
                 </div>
+
+                <div>
+                  <Label hint="optional, up to 4">Add-ons</Label>
+                  <div className="space-y-2">
+                    {spot.addons.map((addon, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-2">
+                        <input
+                          className={inputClass + " col-span-2"}
+                          placeholder={`Add-on ${i + 1} name`}
+                          value={addon.name}
+                          onChange={(e) =>
+                            updateAddon(i, { name: e.target.value })
+                          }
+                        />
+                        <input
+                          type="number"
+                          className={inputClass}
+                          placeholder="Price"
+                          value={addon.price}
+                          onChange={(e) =>
+                            updateAddon(i, { price: e.target.value })
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
-
-            <div className="space-y-2 rounded-lg border border-line bg-white/40 p-5">
-              <Label
-                hint={
-                  spot.pricingModel === "Tiered"
-                    ? "apply on top of any tier the couple picks, optional, up to 4"
-                    : "optional, up to 4"
-                }
-              >
-                Add-ons
-              </Label>
-              <div className="space-y-2">
-                {spot.addons.map((addon, i) => (
-                  <div key={i} className="grid grid-cols-3 gap-2">
-                    <input
-                      className={inputClass + " col-span-2"}
-                      placeholder={`Add-on ${i + 1} name`}
-                      value={addon.name}
-                      onChange={(e) =>
-                        updateAddon(i, { name: e.target.value })
-                      }
-                    />
-                    <input
-                      type="number"
-                      className={inputClass}
-                      placeholder="Price"
-                      value={addon.price}
-                      onChange={(e) =>
-                        updateAddon(i, { price: e.target.value })
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
           </section>
 
           <button
             type="submit"
-            disabled={submitting}
-            className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
           >
-            {submitting
-              ? "Saving…"
-              : spot.pricingModel === "Tiered"
+            {spot.pricingModel === "Tiered"
               ? "Continue to pricing tiers"
-              : "Save spot"}
+              : "Continue to review"}
           </button>
         </form>
       )}
@@ -578,7 +679,7 @@ export default function Page() {
           <div className="space-y-2 text-center">
             <p className="text-sm text-ink/60">
               Adding pricing tiers for{" "}
-              <span className="font-medium text-ink">{savedSpotName}</span>
+              <span className="font-medium text-ink">{spot.spotName}</span>
             </p>
             <p className="text-xs text-ink/50">
               We recommend filling out all three tiers below, but it's okay
@@ -594,10 +695,44 @@ export default function Page() {
             </a>
           </div>
 
+          <div className="space-y-2 rounded-lg border border-line bg-white/40 p-5">
+            <Label hint="apply to every tier below, optional, up to 3">
+              Add-ons
+            </Label>
+            <p className="text-xs text-ink/50">
+              Fill these in first — whatever you add here will show as
+              available extras in each tier below.
+            </p>
+            <div className="space-y-2">
+              {spot.addons.slice(0, 3).map((addon, i) => (
+                <div key={i} className="grid grid-cols-3 gap-2">
+                  <input
+                    className={inputClass + " col-span-2"}
+                    placeholder={`Add-on ${i + 1} name`}
+                    value={addon.name}
+                    onChange={(e) =>
+                      updateAddon(i, { name: e.target.value })
+                    }
+                  />
+                  <input
+                    type="number"
+                    className={inputClass}
+                    placeholder="Price"
+                    value={addon.price}
+                    onChange={(e) =>
+                      updateAddon(i, { price: e.target.value })
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {tiers.map((tier, i) => (
             <div
               key={tier.tierName}
-              className="space-y-4 rounded-lg border border-line bg-white/40 p-5"
+              className="space-y-4 rounded-lg border border-line p-5"
+              style={{ backgroundColor: TIER_SHADES[i] }}
             >
               <p className="text-sm font-medium tracking-wide text-ink">
                 {tier.tierName}
@@ -616,6 +751,48 @@ export default function Page() {
                 />
               </div>
 
+              {i === 1 && (
+                <label className="flex items-center gap-2 text-xs text-ink/60">
+                  <input
+                    type="checkbox"
+                    checked={tier.sameAsMoment}
+                    onChange={(e) =>
+                      updateTierFlag(i, "sameAsMoment", e.target.checked)
+                    }
+                  />
+                  Include everything from The Moment
+                </label>
+              )}
+
+              {i === 2 && (
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-2 text-xs text-ink/60">
+                    <input
+                      type="checkbox"
+                      checked={tier.sameAsMoment}
+                      onChange={(e) =>
+                        updateTierFlag(i, "sameAsMoment", e.target.checked)
+                      }
+                    />
+                    Include everything from The Moment
+                  </label>
+                  <label className="flex items-center gap-2 text-xs text-ink/60">
+                    <input
+                      type="checkbox"
+                      checked={tier.sameAsExperience}
+                      onChange={(e) =>
+                        updateTierFlag(
+                          i,
+                          "sameAsExperience",
+                          e.target.checked
+                        )
+                      }
+                    />
+                    Include everything from The Experience
+                  </label>
+                </div>
+              )}
+
               <div>
                 <Label hint="comma separated">Includes</Label>
                 <textarea
@@ -628,21 +805,120 @@ export default function Page() {
                   placeholder="e.g. Setup, photographer, champagne toast"
                 />
               </div>
+
+              {filledAddons.length > 0 && (
+                <p className="text-xs text-ink/50">
+                  Available add-ons:{" "}
+                  {filledAddons
+                    .map((a) => (a.price ? `${a.name} (+${a.price})` : a.name))
+                    .join(", ")}
+                </p>
+              )}
             </div>
           ))}
 
           <button
             type="button"
-            onClick={submitTiers}
-            disabled={tierSubmitting || filledTiers.length < 2}
-            className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90 disabled:opacity-40"
+            onClick={goPastTiers}
+            className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
           >
-            {tierSubmitting
-              ? "Saving tiers…"
-              : `Finish — save ${filledTiers.length} tier${
-                  filledTiers.length === 1 ? "" : "s"
-                }`}
+            Continue to review — {filledTiers.length} tier
+            {filledTiers.length === 1 ? "" : "s"} added
           </button>
+        </div>
+      )}
+
+      {step === "review" && (
+        <div className="space-y-8">
+          <h2 className="text-center font-display text-2xl italic text-ink">
+            Review before submitting
+          </h2>
+
+          <div className="space-y-3 rounded-lg border border-line bg-white/40 p-5 text-sm">
+            <ReviewRow label="Spot name" value={spot.spotName} />
+            <ReviewRow label="Country" value={spot.country} />
+            <ReviewRow label="Region / town" value={spot.regionTown} />
+            <ReviewRow label="Summary" value={spot.fullSummary} />
+            <ReviewRow
+              label="Vibe"
+              value={[spot.vibe, ...spot.vibeSecondary]
+                .filter(Boolean)
+                .join(", ")}
+            />
+            <ReviewRow label="Privacy" value={spot.privacy.trim()} />
+            <ReviewRow label="Best time" value={spot.bestTime} />
+            <ReviewRow
+              label="Availability"
+              value={
+                spot.availabilityType === "Seasonal"
+                  ? `Seasonal (${spot.availableMonths.join(", ")})`
+                  : "All Year"
+              }
+            />
+            <ReviewRow label="Rain check" value={spot.rainCheck} />
+            <ReviewRow label="Currency" value={spot.priceCurrency} />
+            <ReviewRow label="Pricing model" value={spot.pricingModel} />
+            {spot.pricingModel === "Single Price" && (
+              <ReviewRow
+                label="Price"
+                value={
+                  spot.priceMoment
+                    ? `${spot.priceCurrency} ${spot.priceMoment}`
+                    : ""
+                }
+              />
+            )}
+            <ReviewRow
+              label="Add-ons"
+              value={filledAddons
+                .map((a) =>
+                  a.price ? `${a.name} (${spot.priceCurrency} ${a.price})` : a.name
+                )
+                .join(", ")}
+            />
+          </div>
+
+          {spot.pricingModel === "Tiered" && (
+            <div className="space-y-3">
+              {tiers.map(
+                (t, i) =>
+                  t.price && (
+                    <div
+                      key={t.tierName}
+                      className="rounded-lg border border-line p-4 text-sm"
+                      style={{ backgroundColor: TIER_SHADES[i] }}
+                    >
+                      <p className="font-medium text-ink">
+                        {t.tierName} — {spot.priceCurrency} {t.price}
+                      </p>
+                      {t.includes && (
+                        <p className="mt-1 text-ink/70">{t.includes}</p>
+                      )}
+                    </div>
+                  )
+              )}
+            </div>
+          )}
+
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() =>
+                setStep(spot.pricingModel === "Tiered" ? "packages" : "spot")
+              }
+              className="w-1/3 rounded-md border border-line px-5 py-3 text-sm text-ink/70 transition-colors hover:border-wine/50"
+            >
+              ← Back
+            </button>
+            <button
+              type="button"
+              onClick={doFinalSubmit}
+              disabled={submitting}
+              className="w-2/3 rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90 disabled:opacity-50"
+            >
+              {submitting ? "Saving…" : "Confirm & submit"}
+            </button>
+          </div>
         </div>
       )}
 
@@ -650,7 +926,7 @@ export default function Page() {
         <div className="space-y-8 text-center">
           <div className="rounded-lg border border-line bg-white/50 px-6 py-10">
             <p className="font-display text-2xl italic text-ink">
-              {savedSpotName} has been saved
+              {spot.spotName} has been saved
             </p>
             <p className="mt-3 text-sm text-ink/60">
               It's marked as a Draft. Our team will review it before it goes

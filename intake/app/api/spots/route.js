@@ -15,6 +15,7 @@ export async function POST(request) {
       [SPOT_FIELDS.AVAILABILITY_TYPE]: body.availabilityType,
       [SPOT_FIELDS.RAIN_CHECK]: body.rainCheck,
       [SPOT_FIELDS.PRICING_MODEL]: body.pricingModel,
+      [SPOT_FIELDS.PRICE_CURRENCY]: body.priceCurrency,
       [SPOT_FIELDS.STATUS]: "Draft",
     };
 
@@ -22,18 +23,20 @@ export async function POST(request) {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];
     }
 
-    if (body.pricingModel === "Single Price") {
-      fields[SPOT_FIELDS.PRICE_CURRENCY] = body.priceCurrency;
-      fields[SPOT_FIELDS.PRICE_MOMENT] = body.priceMoment
-        ? Number(body.priceMoment)
-        : undefined;
+    if (body.privacy) fields[SPOT_FIELDS.PRIVACY] = body.privacy;
+    if (body.bestTime) fields[SPOT_FIELDS.BEST_TIME] = body.bestTime;
 
-      (body.addons || []).slice(0, 4).forEach((addon, i) => {
-        const n = i + 1;
-        if (addon?.name) fields[`Addon ${n} Name`] = addon.name;
-        if (addon?.price) fields[`Addon ${n} Price`] = Number(addon.price);
-      });
+    if (body.pricingModel === "Single Price" && body.priceMoment) {
+      fields[SPOT_FIELDS.PRICE_MOMENT] = Number(body.priceMoment);
     }
+
+    // Add-ons apply to both pricing models — for Tiered spots they're
+    // available on top of whichever tier the couple picks.
+    (body.addons || []).slice(0, 4).forEach((addon, i) => {
+      const n = i + 1;
+      if (addon?.name) fields[`Addon ${n} Name`] = addon.name;
+      if (addon?.price) fields[`Addon ${n} Price`] = Number(addon.price);
+    });
 
     const record = await createRecord(TABLES.PROPOSAL_SPOTS, fields);
 

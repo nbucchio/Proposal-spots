@@ -4,8 +4,15 @@ import { createRecord, TABLES, PACKAGE_FIELDS } from "../../../lib/airtable";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { spotRecordId, spotName, tierName, price, includes, sortOrder } =
-      body;
+    const {
+      spotRecordId,
+      spotName,
+      tierName,
+      price,
+      includes,
+      sortOrder,
+      includedAddons,
+    } = body;
 
     if (!spotRecordId) {
       throw new Error("Missing spotRecordId — cannot link this package.");
@@ -20,6 +27,8 @@ export async function POST(request) {
       [PACKAGE_FIELDS.SORT_ORDER]: sortOrder,
       [PACKAGE_FIELDS.IS_ACTIVE]: true,
     };
+
+    if (includedAddons) fields[PACKAGE_FIELDS.INCLUDED_ADDONS] = includedAddons;
 
     const record = await createRecord(TABLES.PACKAGES, fields);
 
