@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const COUNTRIES = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
@@ -301,6 +301,10 @@ export default function Page() {
   const [error, setError] = useState("");
 
   const [tiers, setTiers] = useState(EMPTY_TIERS);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
 
   const updateSpot = (patch) => setSpot((s) => ({ ...s, ...patch }));
 
@@ -1014,17 +1018,8 @@ export default function Page() {
                 className="text-wine underline underline-offset-2"
               >
                 hello@proposalspots.com
-              </a>{" "}
-              or send them over{" "}
-              <a
-                href="https://wa.me/32451014608"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-wine underline underline-offset-2"
-              >
-                WhatsApp
               </a>
-              .
+              . We recommend at least 5 photos, up to 10 total.
             </p>
           </div>
 
