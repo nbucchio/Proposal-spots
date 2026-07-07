@@ -15,8 +15,8 @@ module.exports = {
         line: "#E4D9C8",
       },
       fontFamily: {
-        display: ["Fraunces", "serif"],
-        body: ["Inter", "sans-serif"],
+        display: ["Cormorant", "serif"],
+        body: ["Jost", "sans-serif"],
       },
     },
   },

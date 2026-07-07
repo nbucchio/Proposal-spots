@@ -151,6 +151,33 @@ function finalIncludesFor(tier) {
 
 const TIER_PRICE_EXAMPLES = [650, 1000, 1450];
 
+const CURRENCY_SYMBOLS = {
+  USD: "$", EUR: "€", GBP: "£", CAD: "$", AUD: "$", NZD: "$", CHF: "CHF",
+  JPY: "¥", CNY: "¥", INR: "₹", MXN: "$", BRL: "R$", ARS: "$", CLP: "$",
+  IDR: "Rp", THB: "฿", VND: "₫", PHP: "₱", MYR: "RM", SGD: "$", HKD: "$",
+  KRW: "₩", AED: "AED", SAR: "SAR", ZAR: "R", EGP: "EGP", MAD: "DH",
+  TRY: "₺", ISK: "kr", FJD: "FJ$", XPF: "₣",
+};
+
+function PriceInput({ value, onChange, placeholder, currency }) {
+  const symbol = CURRENCY_SYMBOLS[currency] || currency;
+  return (
+    <div className="relative">
+      <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
+        {symbol}
+      </span>
+      <input
+        type="number"
+        className={inputClass}
+        style={{ paddingLeft: `${2.25 + symbol.length * 0.55}rem` }}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    </div>
+  );
+}
+
 const EMPTY_SPOT = {
   spotName: "",
   country: "",
@@ -414,7 +441,7 @@ export default function Page() {
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-6 py-16">
+    <main className="mx-auto max-w-2xl px-6 py-16">
       <header className="mb-12 text-center">
         <p className="mb-2 text-xs uppercase tracking-[0.25em] text-sage">
           Partner Listing
@@ -622,7 +649,7 @@ export default function Page() {
             </div>
 
             <div>
-              <Label>Pricing model</Label>
+              <Label hint="select one">Pricing model</Label>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {PRICING_MODEL_INFO.map((opt) => (
                   <button
@@ -651,9 +678,8 @@ export default function Page() {
               <div className="space-y-5 rounded-lg border border-line bg-white/40 p-5">
                 <div>
                   <Label>Price</Label>
-                  <input
-                    type="number"
-                    className={inputClass}
+                  <PriceInput
+                    currency={spot.priceCurrency}
                     value={spot.priceMoment}
                     onChange={(e) =>
                       updateSpot({ priceMoment: e.target.value })
@@ -675,9 +701,8 @@ export default function Page() {
                             updateAddon(i, { name: e.target.value })
                           }
                         />
-                        <input
-                          type="number"
-                          className={inputClass}
+                        <PriceInput
+                          currency={spot.priceCurrency}
                           placeholder="Price"
                           value={addon.price}
                           onChange={(e) =>
@@ -745,9 +770,8 @@ export default function Page() {
                       updateAddon(i, { name: e.target.value })
                     }
                   />
-                  <input
-                    type="number"
-                    className={inputClass}
+                  <PriceInput
+                    currency={spot.priceCurrency}
                     placeholder="Price"
                     value={addon.price}
                     onChange={(e) =>
@@ -771,9 +795,8 @@ export default function Page() {
 
               <div>
                 <Label>Price</Label>
-                <input
-                  type="number"
-                  className={inputClass}
+                <PriceInput
+                  currency={spot.priceCurrency}
                   value={tier.price}
                   onChange={(e) =>
                     updateTier(i, { price: e.target.value })
@@ -848,14 +871,23 @@ export default function Page() {
             </div>
           ))}
 
-          <button
-            type="button"
-            onClick={goPastTiers}
-            className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
-          >
-            Continue to review — {filledTiers.length} tier
-            {filledTiers.length === 1 ? "" : "s"} added
-          </button>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => setStep("spot")}
+              className="w-1/3 rounded-md border border-line px-5 py-3 text-sm text-ink/70 transition-colors hover:border-wine/50"
+            >
+              ← Back
+            </button>
+            <button
+              type="button"
+              onClick={goPastTiers}
+              className="w-2/3 rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
+            >
+              Continue to review — {filledTiers.length} tier
+              {filledTiers.length === 1 ? "" : "s"} added
+            </button>
+          </div>
         </div>
       )}
 
@@ -973,6 +1005,26 @@ export default function Page() {
             <p className="mt-3 text-sm text-ink/60">
               It's marked as a Draft. Our team will review it before it goes
               live on Proposal Spots.
+            </p>
+            <p className="mt-5 border-t border-line pt-5 text-sm text-ink/60">
+              If you haven't already sent us photos of this spot, please
+              email them to{" "}
+              <a
+                href="mailto:hello@proposalspots.com"
+                className="text-wine underline underline-offset-2"
+              >
+                hello@proposalspots.com
+              </a>{" "}
+              or send them over{" "}
+              <a
+                href="https://wa.me/32451014608"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-wine underline underline-offset-2"
+              >
+                WhatsApp
+              </a>
+              .
             </p>
           </div>
 
