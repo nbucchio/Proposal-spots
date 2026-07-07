@@ -140,6 +140,17 @@ function stripKnownPrefix(text) {
   return text;
 }
 
+// What actually gets saved to Airtable: just this tier's own incremental
+// items, matching the existing CRM convention (the live site auto-shows
+// "Includes everything in [previous tier]" itself — see spot.html
+// renderTieredPackages). The "Everything in X, plus:" prefix above is
+// only ever shown to the partner while they're filling out the form.
+function finalIncludesFor(tier) {
+  return stripKnownPrefix(tier.includes).trim();
+}
+
+const TIER_PRICE_EXAMPLES = [650, 1000, 1450];
+
 const EMPTY_SPOT = {
   spotName: "",
   country: "",
@@ -152,7 +163,7 @@ const EMPTY_SPOT = {
   availabilityType: "All Year",
   availableMonths: [],
   rainCheck: "",
-  pricingModel: "Single Price",
+  pricingModel: "",
   priceCurrency: "USD",
   priceMoment: "",
   addons: [
@@ -312,6 +323,11 @@ export default function Page() {
       return;
     }
 
+    if (!spot.pricingModel) {
+      setError("Choose a pricing model before continuing.");
+      return;
+    }
+
     setStep(spot.pricingModel === "Tiered" ? "packages" : "review");
   }
 
@@ -326,6 +342,19 @@ export default function Page() {
       );
       return;
     }
+
+    const incomplete = tiers.find(
+      (t) =>
+        !t.price &&
+        (finalIncludesFor(t) || t.sameAsMoment || t.sameAsExperience)
+    );
+    if (incomplete) {
+      setError(
+        `${incomplete.tierName} has notes but no price, so it won't be saved — add a price or clear its notes before continuing.`
+      );
+      return;
+    }
+
     setStep("review");
   }
 
@@ -358,7 +387,7 @@ export default function Page() {
               spotName: spot.spotName,
               tierName: tier.tierName,
               price: tier.price,
-              includes: tier.includes,
+              includes: finalIncludesFor(tier),
               sortOrder: i + 1,
               includedAddons: includedAddonsSummary,
             }),
@@ -669,7 +698,9 @@ export default function Page() {
           >
             {spot.pricingModel === "Tiered"
               ? "Continue to pricing tiers"
-              : "Continue to review"}
+              : spot.pricingModel === "Single Price"
+              ? "Continue to review"
+              : "Continue"}
           </button>
         </form>
       )}
@@ -747,7 +778,7 @@ export default function Page() {
                   onChange={(e) =>
                     updateTier(i, { price: e.target.value })
                   }
-                  placeholder="e.g. 650"
+                  placeholder={`e.g. ${TIER_PRICE_EXAMPLES[i]}`}
                 />
               </div>
 
@@ -880,23 +911,34 @@ export default function Page() {
 
           {spot.pricingModel === "Tiered" && (
             <div className="space-y-3">
-              {tiers.map(
-                (t, i) =>
-                  t.price && (
-                    <div
-                      key={t.tierName}
-                      className="rounded-lg border border-line p-4 text-sm"
-                      style={{ backgroundColor: TIER_SHADES[i] }}
-                    >
-                      <p className="font-medium text-ink">
-                        {t.tierName} — {spot.priceCurrency} {t.price}
-                      </p>
-                      {t.includes && (
-                        <p className="mt-1 text-ink/70">{t.includes}</p>
-                      )}
-                    </div>
-                  )
-              )}
+              {tiers.map((t, i) => {
+                if (!t.price) return null;
+                const includes = finalIncludesFor(t);
+                const plusNote =
+                  i > 0 && (t.sameAsMoment || t.sameAsExperience)
+                    ? "Includes everything in " +
+                      [t.sameAsMoment && "The Moment", t.sameAsExperience && "The Experience"]
+                        .filter(Boolean)
+                        .join(" and ")
+                    : "";
+                return (
+                  <div
+                    key={t.tierName}
+                    className="rounded-lg border border-line p-4 text-sm"
+                    style={{ backgroundColor: TIER_SHADES[i] }}
+                  >
+                    <p className="font-medium text-ink">
+                      {t.tierName} — {spot.priceCurrency} {t.price}
+                    </p>
+                    {plusNote && (
+                      <p className="mt-1 text-xs text-ink/60">✓ {plusNote}</p>
+                    )}
+                    {includes && (
+                      <p className="mt-1 text-ink/70">{includes}</p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
 
