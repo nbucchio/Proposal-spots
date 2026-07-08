@@ -450,9 +450,11 @@ export default function Page() {
         <p className="mb-2 text-xs uppercase tracking-[0.25em] text-sage">
           Partner Listing
         </p>
-        <h1 className="font-display text-4xl italic text-ink">
-          Proposal Spots
-        </h1>
+        <img
+          src="/logo/proposal-spots-logo-color.svg"
+          alt="Proposal Spots"
+          className="mx-auto h-24 w-auto"
+        />
       </header>
 
       <Waypoints step={step} showPackages={spot.pricingModel === "Tiered"} />
