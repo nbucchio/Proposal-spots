@@ -20,6 +20,7 @@ export const SPOT_FIELDS = {
   FULL_SUMMARY: "Full Summary",
   VIBE: "Vibe",
   VIBE_SECONDARY: "Vibe Secondary",
+  OTHER_VIBE: "Other Vibe",
   AVAILABILITY_TYPE: "Availability Type",
   AVAILABLE_MONTHS: "Available Months",
   RAIN_CHECK: "Rain Check",

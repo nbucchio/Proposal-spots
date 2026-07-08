@@ -23,6 +23,7 @@ export async function POST(request) {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];
     }
 
+    if (body.otherVibe) fields[SPOT_FIELDS.OTHER_VIBE] = body.otherVibe;
     if (body.privacy) fields[SPOT_FIELDS.PRIVACY] = body.privacy;
     if (body.bestTime) fields[SPOT_FIELDS.BEST_TIME] = body.bestTime;
 

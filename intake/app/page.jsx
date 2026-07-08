@@ -159,6 +159,12 @@ const CURRENCY_SYMBOLS = {
   TRY: "₺", ISK: "kr", FJD: "FJ$", XPF: "₣",
 };
 
+function formatPrice(amount, currency) {
+  const symbol = CURRENCY_SYMBOLS[currency] || currency;
+  const num = Number(amount);
+  return `${symbol}${Number.isFinite(num) ? num.toLocaleString() : amount}`;
+}
+
 function PriceInput({ value, onChange, placeholder, currency }) {
   const symbol = CURRENCY_SYMBOLS[currency] || currency;
   return (
@@ -185,6 +191,7 @@ const EMPTY_SPOT = {
   fullSummary: "",
   vibe: "",
   vibeSecondary: [],
+  otherVibe: "",
   privacy: "",
   bestTime: "",
   availabilityType: "All Year",
@@ -405,7 +412,11 @@ export default function Page() {
 
       if (spot.pricingModel === "Tiered") {
         const includedAddonsSummary = filledAddons
-          .map((a) => (a.price ? `${a.name} (+${a.price})` : a.name))
+          .map((a) =>
+            a.price
+              ? `${a.name} (+${formatPrice(a.price, spot.priceCurrency)})`
+              : a.name
+          )
           .join(", ");
 
         for (let i = 0; i < filledTiers.length; i++) {
@@ -447,20 +458,24 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
       <header className="mb-12 text-center">
-        <p className="mb-2 text-xs uppercase tracking-[0.25em] text-sage">
-          Partner Listing
-        </p>
         <img
           src="/logo/proposal-spots-logo-color.svg"
           alt="Proposal Spots"
-          className="mx-auto h-24 w-auto"
+          className="mx-auto h-32 w-auto"
         />
+        <p className="mt-6 text-sm uppercase tracking-[0.2em] text-sage">
+          For Partners: Add Your Proposal Spot
+        </p>
+        <p className="mt-2 text-xs text-ink/50">
+          Please submit one form per spot — use "+ Add another spot" at the
+          end if you have more than one.
+        </p>
       </header>
 
       <Waypoints step={step} showPackages={spot.pricingModel === "Tiered"} />
 
       {error && (
-        <div className="mb-6 rounded-md border border-wine/30 bg-wine/5 px-4 py-3 text-sm text-wineDark">
+        <div className="mb-6 rounded-md border border-wine/30 bg-wine/5 px-4 py-3 text-sm text-ink">
           {error}
         </div>
       )}
@@ -552,6 +567,18 @@ export default function Page() {
                   />
                 ))}
               </div>
+            </div>
+
+            <div>
+              <Label hint="if none of our Vibes fit, please create one">
+                Other Vibe
+              </Label>
+              <input
+                className={inputClass}
+                value={spot.otherVibe}
+                onChange={(e) => updateSpot({ otherVibe: e.target.value })}
+                placeholder="e.g. Rooftop"
+              />
             </div>
           </section>
 
@@ -870,7 +897,11 @@ export default function Page() {
                 <p className="text-xs text-ink/50">
                   Available add-ons:{" "}
                   {filledAddons
-                    .map((a) => (a.price ? `${a.name} (+${a.price})` : a.name))
+                    .map((a) =>
+                      a.price
+                        ? `${a.name} (+${formatPrice(a.price, spot.priceCurrency)})`
+                        : a.name
+                    )
                     .join(", ")}
                 </p>
               )}
@@ -914,6 +945,7 @@ export default function Page() {
                 .filter(Boolean)
                 .join(", ")}
             />
+            <ReviewRow label="Other Vibe" value={spot.otherVibe} />
             <ReviewRow label="Privacy" value={spot.privacy.trim()} />
             <ReviewRow label="Best time" value={spot.bestTime} />
             <ReviewRow
@@ -924,7 +956,6 @@ export default function Page() {
                   : "All Year"
               }
             />
-            <ReviewRow label="Rain check" value={spot.rainCheck} />
             <ReviewRow label="Currency" value={spot.priceCurrency} />
             <ReviewRow label="Pricing model" value={spot.pricingModel} />
             {spot.pricingModel === "Single Price" && (
@@ -932,7 +963,7 @@ export default function Page() {
                 label="Price"
                 value={
                   spot.priceMoment
-                    ? `${spot.priceCurrency} ${spot.priceMoment}`
+                    ? formatPrice(spot.priceMoment, spot.priceCurrency)
                     : ""
                 }
               />
@@ -941,7 +972,9 @@ export default function Page() {
               label="Add-ons"
               value={filledAddons
                 .map((a) =>
-                  a.price ? `${a.name} (${spot.priceCurrency} ${a.price})` : a.name
+                  a.price
+                    ? `${a.name} (${formatPrice(a.price, spot.priceCurrency)})`
+                    : a.name
                 )
                 .join(", ")}
             />
@@ -966,7 +999,7 @@ export default function Page() {
                     style={{ backgroundColor: TIER_SHADES[i] }}
                   >
                     <p className="font-medium text-ink">
-                      {t.tierName} — {spot.priceCurrency} {t.price}
+                      {t.tierName} — {formatPrice(t.price, spot.priceCurrency)}
                     </p>
                     {plusNote && (
                       <p className="mt-1 text-xs text-ink/60">✓ {plusNote}</p>
