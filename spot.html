@@ -791,6 +791,21 @@ nav {
 .sdp-mini-cal-selected { margin-top:10px; font-family:'Jost',sans-serif; font-size:11px; color:var(--mid); padding:8px; background:var(--bg2); border-radius:6px; }
 .sdp-mini-cal-sel-lbl { font-weight:500; margin-right:4px; }
 
+/* Proposal-date calendar inside the enquiry modal */
+.enq-cal { background: var(--white); border: 1px solid var(--hairline); border-radius: 12px; padding: 16px; }
+.enq-prop-date-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(165,90,74,0.06); border: 1px solid rgba(165,90,74,0.2);
+  border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;
+  font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--ink);
+}
+.enq-prop-date-item:last-child { margin-bottom: 0; }
+.enq-prop-date-remove {
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  font-size: 16px; line-height: 1; padding: 0 2px; transition: color 0.15s;
+}
+.enq-prop-date-remove:hover { color: #A55A4A; }
+
 .sdp-selection-summary {
   border-top: 1px solid var(--hairline);
   padding-top: 16px;
@@ -1134,6 +1149,32 @@ nav {
 }
 
 .enq-summary-row:last-child { border-bottom: none; }
+
+.enq-sum-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0 2px;
+  margin-top: 4px;
+  border-top: 1px solid var(--hairline);
+}
+.enq-sum-total .enq-sum-lbl { color: var(--ink); }
+.enq-sum-total-val {
+  font-family: 'Cormorant', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #A55A4A;
+  letter-spacing: 0.01em;
+}
+.enq-sum-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  padding-top: 4px;
+}
 
 .enq-sum-lbl {
   font-family: 'Jost', sans-serif;
@@ -2035,32 +2076,18 @@ nav {
               </div>
             </div>
 
-            <!-- Step 3: Proposal date -->
-            <div class="sdp-booking-step" id="sdp-step-4">
-              <div class="sdp-step-header">
-                <span class="sdp-step-num" id="sdp-step4-num">03</span>
-                <div>
-                  <span class="sdp-step-title">When would you like to propose?</span>
-                  <span class="sdp-step-sub" id="sdp-step4-sub">Select your preferred night</span>
-                </div>
-              </div>
-              <div id="sdp-night-chips" style="display:none;display:flex;flex-direction:column;gap:6px"></div>
-              <div id="sdp-mini-cal" style="display:none">
-                <div class="sdp-mini-cal-grid" id="sdp-mini-cal-grid"></div>
-                <div class="sdp-mini-cal-selected" id="sdp-mini-cal-selected" style="display:none">
-                  <span class="sdp-mini-cal-sel-lbl">Selected:</span>
-                  <span id="sdp-mini-cal-sel-val"></span>
-                </div>
-              </div>
+            <!-- Step 3 (proposal date) moved into the enquiry modal.
+                 Hidden inputs kept so existing helpers stay safe. -->
+            <div id="sdp-proposal-hidden" style="display:none">
               <input type="hidden" id="sdp-proposal-date-1">
               <input type="hidden" id="sdp-proposal-date-2">
               <p class="sdp-seasonal-label" id="sdp-seasonal-label" style="display:none"></p>
             </div>
 
-            <!-- Tiered: Step 04 — Enhance your experience (hidden for Single Price) -->
+            <!-- Tiered: Step 03 — Enhance your experience (hidden for Single Price) -->
             <div class="sdp-booking-step" id="sdp-step-enhance" style="display:none">
               <div class="sdp-step-header">
-                <span class="sdp-step-num">04</span>
+                <span class="sdp-step-num">03</span>
                 <div>
                   <span class="sdp-step-title">Enhance your experience</span>
                   <span class="sdp-step-sub">Optional add-ons for your proposal</span>
@@ -2190,6 +2217,8 @@ nav {
       <span class="enq-sum-lbl">Add-ons</span>
       <span class="enq-sum-val" id="enq-sum-addons-val"></span>
     </div>
+    <!-- Tiered pricing breakdown: package + add-ons + total -->
+    <div id="enq-pricing-breakdown" style="display:none"></div>
   </div>
 
   <!-- Form -->
@@ -2271,11 +2300,23 @@ nav {
 
     <!-- Proposal date section -->
     <div class="enq-section-divider">
-      <span class="enq-section-label">Proposal Night</span>
+      <span class="enq-section-label">When would you like to propose?</span>
     </div>
-    <div class="enq-hotel-stay-row" id="enq-prop-date-row">
-      <div class="enq-hotel-stay-dates" id="enq-prop1-display" style="color:var(--muted);font-style:italic">Not selected</div>
-      <button class="enq-hotel-change-btn" id="enq-prop1-change" onclick="enqChangeProposalDate()" type="button">Change</button>
+    <div class="enq-photo-pills" id="enq-prop-choice">
+      <button type="button" class="enq-photo-pill" id="enq-prop-unsure" onclick="enqProposalPref('unsure')">I'm not sure yet</button>
+      <button type="button" class="enq-photo-pill" id="enq-prop-pick" onclick="enqProposalPref('dates')">Pick dates</button>
+    </div>
+
+    <!-- Calendar drop-down (revealed when "Pick dates" is chosen) -->
+    <div id="enq-prop-cal-wrap" style="display:none;margin-top:14px">
+      <p class="enq-addons-note" style="margin-bottom:12px">Select as many dates as you'd like — we'll confirm which ones are available for you.</p>
+      <div class="enq-cal" id="enq-cal">
+        <div class="sdp-mini-cal-grid" id="enq-cal-grid"></div>
+      </div>
+      <div id="enq-prop-selected" style="display:none;margin-top:14px">
+        <span class="enq-label" style="margin-bottom:8px">Dates you selected</span>
+        <div id="enq-prop-selected-list"></div>
+      </div>
     </div>
 
     <input type="date" id="enq-proposal-date" style="display:none">
@@ -2357,6 +2398,9 @@ let _rcalYear = new Date().getFullYear();
 let _rcalMonth = new Date().getMonth();
 let _enqProp1 = '';
 let _enqProp2 = '';
+let _enqCalYear = new Date().getFullYear();
+let _enqCalMonth = new Date().getMonth();
+let _enqProposalPref = '';
 let _galleryIndex = 0;
 let _galleryPhotos = [];
 let _lightboxIndex = 0;
@@ -2938,6 +2982,53 @@ function formatPriceHTML(n, currency) {
   return symbol + ' ' + Math.round(n).toLocaleString() + '<span class="sdp-price-code">' + code + '</span>';
 }
 
+function _parseAmount(v) {
+  if (v === null || v === undefined) return null;
+  if (typeof v === 'number') return v;
+  const m = String(v).replace(/,/g, '').match(/[\d.]+/);
+  return m ? parseFloat(m[0]) : null;
+}
+
+// Builds the tiered enquiry pricing recap: package price + each add-on + total
+function buildTieredPricingBreakdown() {
+  if (!currentSpot || !currentSpot.packages || !currentSpot.packages.length) return '';
+  const currency = currentSpot['Price Currency'];
+  const pkg = currentSpot.packages[_tieredSelectedIdx];
+  if (!pkg) return '';
+
+  const pkgAmount = _parseAmount(pkg['Price']);
+  let rows = '';
+  // Package line
+  rows += '<div class="enq-summary-row"><span class="enq-sum-lbl">' +
+    (pkg['Tier Name'] || 'Package') + '</span><span class="enq-sum-val">' +
+    (pkgAmount !== null ? formatPrice(pkgAmount, currency) : 'On enquiry') + '</span></div>';
+
+  // Add-on lines (selected in the sidebar)
+  let addonTotal = 0;
+  let hasTBD = false;
+  const checked = [...document.querySelectorAll('#sdp-tier-addons input:checked')];
+  checked.forEach(cb => {
+    const amount = _parseAmount(cb.dataset.price);
+    let valTxt;
+    if (amount !== null) { addonTotal += amount; valTxt = '+ ' + formatPrice(amount, currency); }
+    else { hasTBD = true; valTxt = 'Price on request'; }
+    rows += '<div class="enq-summary-row"><span class="enq-sum-lbl">' + cb.value +
+      '</span><span class="enq-sum-val">' + valTxt + '</span></div>';
+  });
+
+  // Total
+  if (pkgAmount !== null) {
+    const total = pkgAmount + addonTotal;
+    rows += '<div class="enq-sum-total"><span class="enq-sum-lbl">Total</span>' +
+      '<span class="enq-sum-total-val">' + formatPrice(total, currency) + '</span></div>';
+    if (hasTBD) rows += '<div class="enq-sum-note">Items marked “Price on request” are quoted separately and added to your total.</div>';
+    else rows += '<div class="enq-sum-note">Final quote confirmed before any payment.</div>';
+  } else {
+    rows += '<div class="enq-sum-note">We\'ll send a full itemised quote for your selection within 24 hours.</div>';
+  }
+  return rows;
+}
+
 function _updateConvertLink(amount, currency) {
   var link = document.getElementById('sdp-convert-link');
   if (!link) return;
@@ -3325,69 +3416,37 @@ function openEnquiryModal() {
     sumDates.style.display = 'none';
   }
 
-  const pd1 = document.getElementById('sdp-proposal-date-1')?.value;
-  const pd2 = document.getElementById('sdp-proposal-date-2')?.value;
-  const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
-  if (pd1) {
-    document.getElementById('enq-sum-nights-val').textContent = fmtDate(pd1);
-    sumNights.style.display = '';
-    sumEl.style.display = '';
-  } else {
-    sumNights.style.display = 'none';
-  }
+  // Proposal night is now chosen inside the modal — recap row stays hidden
+  if (sumNights) sumNights.style.display = 'none';
 
-  // Package (Tiered spots only)
-  const sumPackage    = document.getElementById('enq-sum-package');
-  const sumPackageVal = document.getElementById('enq-sum-package-val');
-  if (currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length) {
-    const pkg = currentSpot.packages[_tieredSelectedIdx];
-    if (pkg && sumPackage && sumPackageVal) {
-      const priceSuffix = pkg['Price'] ? ' (' + formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) + ')' : '';
-      sumPackageVal.textContent = pkg['Tier Name'] + priceSuffix;
-      sumPackage.style.display = '';
-      sumEl.style.display = '';
-    }
-  } else if (sumPackage) {
-    sumPackage.style.display = 'none';
-  }
-
-  // Add-ons selected in the sidebar (Tiered spots)
+  // Package + add-ons pricing (Tiered spots only)
+  const sumPackage   = document.getElementById('enq-sum-package');
   const sumAddons    = document.getElementById('enq-sum-addons');
-  const sumAddonsVal = document.getElementById('enq-sum-addons-val');
-  if (sumAddons && sumAddonsVal) {
-    const checkedAddons = [...document.querySelectorAll('#sdp-tier-addons input:checked')].map(cb => cb.value);
-    if (checkedAddons.length) {
-      sumAddonsVal.innerHTML = checkedAddons.map(name =>
-        '<span style="display:block;font-size:11px;color:var(--muted)">&#10003; ' + name + '</span>'
-      ).join('');
-      sumAddons.style.display = '';
+  const breakdownEl  = document.getElementById('enq-pricing-breakdown');
+  const isTieredSum  = !!(currentSpot && currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length);
+  // The breakdown replaces the plain package/add-on recap rows for tiered spots
+  if (sumPackage) sumPackage.style.display = 'none';
+  if (sumAddons)  sumAddons.style.display  = 'none';
+  if (breakdownEl) {
+    if (isTieredSum) {
+      breakdownEl.innerHTML = buildTieredPricingBreakdown();
+      breakdownEl.style.display = '';
       sumEl.style.display = '';
     } else {
-      sumAddons.style.display = 'none';
+      breakdownEl.innerHTML = '';
+      breakdownEl.style.display = 'none';
     }
   }
 
-  // Update the proposal date row in the form
-  const propDisplay = document.getElementById('enq-prop1-display');
-  if (propDisplay) {
-    if (pd1) {
-      let txt = fmtDate(pd1);
-      if (pd2) txt += ' · Backup: ' + fmtDate(pd2);
-      propDisplay.textContent = txt;
-      propDisplay.style.color = '';
-      propDisplay.style.fontStyle = '';
-    } else {
-      propDisplay.textContent = 'Not selected';
-      propDisplay.style.color = 'var(--muted)';
-      propDisplay.style.fontStyle = 'italic';
-    }
-  }
-
-  // Pre-fill dates
-  document.getElementById('enq-proposal-date').value = pd1 || '';
-  document.getElementById('enq-backup-date').value = pd2 || '';
-  _enqProp1 = pd1 || '';
-  _enqProp2 = pd2 || '';
+  // Reset the modal proposal-date picker each time the modal opens
+  selectedProposalDates = [];
+  _enqProposalPref = '';
+  document.getElementById('enq-prop-unsure')?.classList.remove('selected');
+  document.getElementById('enq-prop-pick')?.classList.remove('selected');
+  const enqCalWrap = document.getElementById('enq-prop-cal-wrap');
+  if (enqCalWrap) enqCalWrap.style.display = 'none';
+  enqRenderSelectedDates();
+  enqSyncProposalInputs();
 
   // Hotel section
   const enqHotelSection = document.getElementById('enq-hotel-stay-section');
@@ -3505,6 +3564,11 @@ async function submitEnquiry() {
     });
   }
 
+  const proposalDatesSel = selectedProposalDates.slice();
+  const proposalDatePref = _enqProposalPref === 'unsure'
+    ? 'Not sure yet'
+    : (proposalDatesSel.length ? 'Specific dates' : '');
+
   const data = {
     spotName: document.getElementById('sdp-name')?.textContent || '',
     firstName: first,
@@ -3515,8 +3579,10 @@ async function submitEnquiry() {
     country: document.getElementById('enq-country')?.value?.trim() || '',
     hotelCheckin: document.getElementById('sdp-checkin')?.value || '',
     hotelCheckout: document.getElementById('sdp-checkout')?.value || '',
-    proposalDate: document.getElementById('enq-proposal-date')?.value || '',
-    backupDate: document.getElementById('enq-backup-date')?.value || '',
+    proposalDate: proposalDatesSel[0] || '',
+    backupDate: proposalDatesSel[1] || '',
+    proposalDates: proposalDatesSel,
+    proposalDatePref: proposalDatePref,
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
@@ -3575,12 +3641,124 @@ function enqChangeHotelDates() {
   }
 }
 
-function enqChangeProposalDate() {
-  closeEnquiryModal();
-  const step3 = document.getElementById('sdp-step-4');
-  if (step3) {
-    setTimeout(() => step3.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+// ─────────────────────────────────────────────────────────
+//  ENQUIRY MODAL — PROPOSAL DATE PICKER (multi-select)
+// ─────────────────────────────────────────────────────────
+function enqProposalPref(pref) {
+  _enqProposalPref = pref;
+  const unsureBtn = document.getElementById('enq-prop-unsure');
+  const pickBtn   = document.getElementById('enq-prop-pick');
+  const calWrap   = document.getElementById('enq-prop-cal-wrap');
+  if (unsureBtn) unsureBtn.classList.toggle('selected', pref === 'unsure');
+  if (pickBtn)   pickBtn.classList.toggle('selected', pref === 'dates');
+  if (pref === 'dates') {
+    if (calWrap) calWrap.style.display = '';
+    // Anchor the calendar on the earliest already-selected date, else today
+    if (selectedProposalDates.length) {
+      const d = new Date(selectedProposalDates[0] + 'T00:00:00');
+      _enqCalYear = d.getFullYear();
+      _enqCalMonth = d.getMonth();
+    } else {
+      const now = new Date();
+      _enqCalYear = now.getFullYear();
+      _enqCalMonth = now.getMonth();
+    }
+    enqRenderCal();
+    enqRenderSelectedDates();
+  } else {
+    if (calWrap) calWrap.style.display = 'none';
+    selectedProposalDates = [];
+    enqSyncProposalInputs();
   }
+}
+
+function enqRenderCal() {
+  const grid = document.getElementById('enq-cal-grid');
+  if (!grid) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const yr = _enqCalYear, mo = _enqCalMonth;
+  const monNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const firstDay = new Date(yr, mo, 1).getDay();
+  const daysInMonth = new Date(yr, mo + 1, 0).getDate();
+  let html = `<div class="sdp-mini-cal-nav">
+    <button type="button" onclick="enqCalNav(-1)">&#8249;</button>
+    <span class="sdp-mini-cal-month">${monNames[mo]} ${yr}</span>
+    <button type="button" onclick="enqCalNav(1)">&#8250;</button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">`;
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => { html += `<div class="sdp-cal-day-head">${d}</div>`; });
+  const _MONTH_KEYS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const _isSeasonal = currentSpot && currentSpot['Availability Type'] === 'Seasonal';
+  const _availMonths = _isSeasonal ? (currentSpot['Available Months'] || []) : null;
+  const _monthBlocked = _isSeasonal && !_availMonths.includes(_MONTH_KEYS[mo]);
+  for (let i = 0; i < firstDay; i++) html += '<div class="sdp-cal-day empty"></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds   = yr + '-' + String(mo + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const date = new Date(yr, mo, d);
+    const past = date < today || _monthBlocked;
+    const sel  = selectedProposalDates.includes(ds);
+    html += `<div class="sdp-cal-day${past ? ' past' : ''}${sel ? ' selected' : ''}" onclick="${past ? '' : "enqCalSelectDay('" + ds + "')"}">${d}</div>`;
+  }
+  html += '</div>';
+  grid.innerHTML = html;
+}
+
+function enqCalNav(dir) {
+  _enqCalMonth += dir;
+  if (_enqCalMonth < 0)  { _enqCalMonth = 11; _enqCalYear--; }
+  if (_enqCalMonth > 11) { _enqCalMonth = 0;  _enqCalYear++; }
+  enqRenderCal();
+}
+
+function enqCalSelectDay(ds) {
+  const idx = selectedProposalDates.indexOf(ds);
+  if (idx > -1) {
+    selectedProposalDates.splice(idx, 1);
+  } else {
+    selectedProposalDates.push(ds);
+  }
+  selectedProposalDates.sort();
+  enqSyncProposalInputs();
+  enqRenderCal();
+  enqRenderSelectedDates();
+}
+
+function enqRemoveProposalDate(ds) {
+  const idx = selectedProposalDates.indexOf(ds);
+  if (idx > -1) selectedProposalDates.splice(idx, 1);
+  enqSyncProposalInputs();
+  enqRenderCal();
+  enqRenderSelectedDates();
+}
+
+function enqRenderSelectedDates() {
+  const wrap = document.getElementById('enq-prop-selected');
+  const list = document.getElementById('enq-prop-selected-list');
+  if (!wrap || !list) return;
+  if (!selectedProposalDates.length) {
+    wrap.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+  const fmt = ds => new Date(ds + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  list.innerHTML = selectedProposalDates.map(ds =>
+    '<div class="enq-prop-date-item"><span>' + fmt(ds) + '</span>' +
+    '<button type="button" class="enq-prop-date-remove" onclick="enqRemoveProposalDate(\'' + ds + '\')" aria-label="Remove date">&times;</button></div>'
+  ).join('');
+  wrap.style.display = '';
+}
+
+function enqSyncProposalInputs() {
+  const i1 = document.getElementById('enq-proposal-date');
+  const i2 = document.getElementById('enq-backup-date');
+  if (i1) i1.value = selectedProposalDates[0] || '';
+  if (i2) i2.value = selectedProposalDates[1] || '';
+  _enqProp1 = selectedProposalDates[0] || '';
+  _enqProp2 = selectedProposalDates[1] || '';
+  const s1 = document.getElementById('sdp-proposal-date-1');
+  const s2 = document.getElementById('sdp-proposal-date-2');
+  if (s1) s1.value = selectedProposalDates[0] || '';
+  if (s2) s2.value = selectedProposalDates[1] || '';
 }
 
 // ─────────────────────────────────────────────────────────
@@ -3838,5 +4016,6 @@ function selectMobileTier(idx) {
 window.addEventListener('DOMContentLoaded', initPage);
 </script>
 
+<script src="/wa-float.js" defer></script>
 </body>
 </html>

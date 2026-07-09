@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons, selectedTier, pricingModel, contactPreference, photographyQuote,
+    proposalDate, backupDate, proposalDates, proposalDatePref, notes, addons, selectedTier, pricingModel, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
 
@@ -57,6 +57,9 @@ export default async function handler(req, res) {
                 spotName     ? `Spot: ${spotName}`           : '',
                 selectedTier ? `Package: ${selectedTier}`    : '',
                 backupDate   ? `Backup Date: ${backupDate}`  : '',
+                proposalDatePref ? `Proposal timing: ${proposalDatePref}` : '',
+                (Array.isArray(proposalDates) && proposalDates.length)
+                  ? `Preferred dates: ${proposalDates.join(', ')}` : '',
               ].filter(Boolean).join('\n') || '',
             },
           }],
