@@ -40,6 +40,7 @@ export const SPOT_FIELDS = {
   ADDON_4_PRICE: "Addon 4 Price",
   PRIVACY: "Privacy",
   BEST_TIME: "Best Time",
+  PARTNER_NAME: "Partner Name",
   PREFERRED_CONTACT: "Preferred Contact Method",
   PARTNER_EMAIL: "Partner Email",
   PARTNER_WHATSAPP: "Partner WhatsApp",

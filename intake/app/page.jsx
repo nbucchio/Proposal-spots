@@ -187,10 +187,11 @@ function PriceInput({ value, onChange, placeholder, currency }) {
 }
 
 const EMPTY_SPOT = {
-  spotName: "",
+  partnerName: "",
   preferredContact: "",
   partnerEmail: "",
   partnerWhatsapp: "",
+  spotName: "",
   country: "",
   regionTown: "",
   fullSummary: "",
@@ -490,18 +491,22 @@ export default function Page() {
       {step === "spot" && (
         <form onSubmit={goPastSpotDetails} className="space-y-8">
           <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">
+              Partner Info
+            </h2>
+
             <div>
-              <Label>Spot name</Label>
+              <Label>Partner Name</Label>
               <input
                 className={inputClass}
-                value={spot.spotName}
-                onChange={(e) => updateSpot({ spotName: e.target.value })}
-                placeholder="e.g. Private Jungle Cenote"
+                value={spot.partnerName}
+                onChange={(e) => updateSpot({ partnerName: e.target.value })}
+                placeholder="e.g. Maria Fernandez"
               />
             </div>
 
             <div>
-              <Label hint="optional">Preferred contact method</Label>
+              <Label>Preferred contact method</Label>
               <div className="flex gap-2">
                 {PREFERRED_CONTACT_OPTIONS.map((c) => (
                   <Chip
@@ -516,7 +521,7 @@ export default function Page() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label hint="optional">Your email</Label>
+                <Label>Your email</Label>
                 <input
                   type="email"
                   className={inputClass}
@@ -528,7 +533,7 @@ export default function Page() {
                 />
               </div>
               <div>
-                <Label hint="optional">Your WhatsApp</Label>
+                <Label>Your WhatsApp</Label>
                 <input
                   type="tel"
                   className={inputClass}
@@ -539,6 +544,20 @@ export default function Page() {
                   placeholder="e.g. +1 555 123 4567"
                 />
               </div>
+            </div>
+          </section>
+
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <div>
+              <Label>Spot name</Label>
+              <input
+                className={inputClass}
+                value={spot.spotName}
+                onChange={(e) => updateSpot({ spotName: e.target.value })}
+                placeholder="e.g. Private Jungle Cenote"
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -983,11 +1002,12 @@ export default function Page() {
           </h2>
 
           <div className="space-y-3 rounded-lg border border-line bg-white/40 p-5 text-sm">
-            <ReviewRow label="Spot name" value={spot.spotName} />
+            <ReviewRow label="Partner Name" value={spot.partnerName} />
             <ReviewRow
               label="Preferred contact"
               value={spot.preferredContact}
             />
+            <ReviewRow label="Spot name" value={spot.spotName} />
             <ReviewRow label="Your email" value={spot.partnerEmail} />
             <ReviewRow label="Your WhatsApp" value={spot.partnerWhatsapp} />
             <ReviewRow label="Country" value={spot.country} />
