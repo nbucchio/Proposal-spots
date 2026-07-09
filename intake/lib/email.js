@@ -42,7 +42,10 @@ function tierBlock(tier, index, currency) {
     </div>`;
 }
 
-const FALLBACK_LOGO_URL =
+// The stable production domain — not built from VERCEL_URL, which points
+// at a deployment-specific hash URL that isn't reliably fetchable by
+// email clients (that's what caused the broken image in testing).
+const LOGO_URL =
   "https://proposal-spots-intake.vercel.app/logo/proposal-spots-logo-color.png";
 
 export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
@@ -94,7 +97,7 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
   <div style="background:#F4F1EB;padding:32px 16px;font-family:Georgia,'Times New Roman',serif;">
     <div style="max-width:560px;margin:0 auto;background:#FFFFFF;border:1px solid #D8D2C8;border-radius:12px;padding:32px;">
       <div style="text-align:center;margin:0 0 24px;">
-        <img src="${logoUrl || FALLBACK_LOGO_URL}" alt="Proposal Spots" width="220" style="width:220px;max-width:60%;height:auto;" />
+        <img src="${logoUrl || LOGO_URL}" alt="Proposal Spots" width="220" style="width:220px;max-width:60%;height:auto;" />
       </div>
 
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1C1C1C;">
@@ -133,18 +136,11 @@ export async function sendPartnerConfirmation({ spot, tiers }) {
     return;
   }
 
-  // VERCEL_URL always matches whatever deployment is actually running
-  // this code (preview or production), so the logo resolves correctly
-  // without hardcoding a domain that may not exist yet on this deploy.
-  const logoUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}/logo/proposal-spots-logo-color.png`
-    : FALLBACK_LOGO_URL;
-
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
     from: FROM_ADDRESS,
     to: spot.partnerEmail,
     subject: `We've received your Proposal Spot: ${spot.spotName}`,
-    html: renderConfirmationEmailHtml({ spot, tiers: tiers || [], logoUrl }),
+    html: renderConfirmationEmailHtml({ spot, tiers: tiers || [] }),
   });
 }
