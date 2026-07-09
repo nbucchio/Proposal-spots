@@ -99,6 +99,8 @@ const PRIVACY_OPTIONS = [
 
 const BEST_TIME_OPTIONS = ["Sunrise", "Sunset", "Mid-day", "Any"];
 
+const PREFERRED_CONTACT_OPTIONS = ["Email", "WhatsApp"];
+
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
 
 // Same subtle shades the live site already uses to tell tiers apart
@@ -186,6 +188,9 @@ function PriceInput({ value, onChange, placeholder, currency }) {
 
 const EMPTY_SPOT = {
   spotName: "",
+  preferredContact: "",
+  partnerEmail: "",
+  partnerWhatsapp: "",
   country: "",
   regionTown: "",
   fullSummary: "",
@@ -493,6 +498,47 @@ export default function Page() {
                 onChange={(e) => updateSpot({ spotName: e.target.value })}
                 placeholder="e.g. Private Jungle Cenote"
               />
+            </div>
+
+            <div>
+              <Label hint="optional">Preferred contact method</Label>
+              <div className="flex gap-2">
+                {PREFERRED_CONTACT_OPTIONS.map((c) => (
+                  <Chip
+                    key={c}
+                    label={c}
+                    selected={spot.preferredContact === c}
+                    onClick={() => updateSpot({ preferredContact: c })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label hint="optional">Your email</Label>
+                <input
+                  type="email"
+                  className={inputClass}
+                  value={spot.partnerEmail}
+                  onChange={(e) =>
+                    updateSpot({ partnerEmail: e.target.value })
+                  }
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div>
+                <Label hint="optional">Your WhatsApp</Label>
+                <input
+                  type="tel"
+                  className={inputClass}
+                  value={spot.partnerWhatsapp}
+                  onChange={(e) =>
+                    updateSpot({ partnerWhatsapp: e.target.value })
+                  }
+                  placeholder="e.g. +1 555 123 4567"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -938,6 +984,12 @@ export default function Page() {
 
           <div className="space-y-3 rounded-lg border border-line bg-white/40 p-5 text-sm">
             <ReviewRow label="Spot name" value={spot.spotName} />
+            <ReviewRow
+              label="Preferred contact"
+              value={spot.preferredContact}
+            />
+            <ReviewRow label="Your email" value={spot.partnerEmail} />
+            <ReviewRow label="Your WhatsApp" value={spot.partnerWhatsapp} />
             <ReviewRow label="Country" value={spot.country} />
             <ReviewRow label="Region / town" value={spot.regionTown} />
             <ReviewRow label="Summary" value={spot.fullSummary} />

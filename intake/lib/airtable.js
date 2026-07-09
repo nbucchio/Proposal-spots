@@ -40,6 +40,9 @@ export const SPOT_FIELDS = {
   ADDON_4_PRICE: "Addon 4 Price",
   PRIVACY: "Privacy",
   BEST_TIME: "Best Time",
+  PREFERRED_CONTACT: "Preferred Contact Method",
+  PARTNER_EMAIL: "Partner Email",
+  PARTNER_WHATSAPP: "Partner WhatsApp",
   STATUS: "Status",
 };
 
@@ -54,6 +57,8 @@ export const PRIVACY_CHOICES = [
 ];
 
 export const BEST_TIME_CHOICES = ["Sunrise", "Sunset", "Mid-day", "Any"];
+
+export const PREFERRED_CONTACT_CHOICES = ["Email", "WhatsApp"];
 
 export const PACKAGE_FIELDS = {
   NAME: "Name",

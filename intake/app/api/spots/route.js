@@ -27,6 +27,11 @@ export async function POST(request) {
     if (body.otherVibe) fields[SPOT_FIELDS.OTHER_VIBE] = body.otherVibe;
     if (body.privacy) fields[SPOT_FIELDS.PRIVACY] = body.privacy;
     if (body.bestTime) fields[SPOT_FIELDS.BEST_TIME] = body.bestTime;
+    if (body.preferredContact)
+      fields[SPOT_FIELDS.PREFERRED_CONTACT] = body.preferredContact;
+    if (body.partnerEmail) fields[SPOT_FIELDS.PARTNER_EMAIL] = body.partnerEmail;
+    if (body.partnerWhatsapp)
+      fields[SPOT_FIELDS.PARTNER_WHATSAPP] = body.partnerWhatsapp;
 
     if (body.pricingModel === "Single Price" && body.priceMoment) {
       fields[SPOT_FIELDS.PRICE_MOMENT] = Number(body.priceMoment);
