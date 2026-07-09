@@ -168,6 +168,7 @@ const EMPTY_SPOT = {
   pricingModel: "",
   priceCurrency: "USD",
   priceMoment: "",
+  includedItems: "",
   addons: [
     { name: "", price: "" },
     { name: "", price: "" },
@@ -759,6 +760,19 @@ export default function Page() {
                 </div>
 
                 <div>
+                  <Label hint="comma separated">What's included</Label>
+                  <textarea
+                    className={inputClass}
+                    rows={2}
+                    value={spot.includedItems}
+                    onChange={(e) =>
+                      updateSpot({ includedItems: e.target.value })
+                    }
+                    placeholder="e.g. Setup, photographer, champagne toast"
+                  />
+                </div>
+
+                <div>
                   <Label hint="optional, up to 4">Add-ons</Label>
                   <div className="space-y-2">
                     {spot.addons.map((addon, i) => (
@@ -1011,6 +1025,9 @@ export default function Page() {
                     : ""
                 }
               />
+            )}
+            {spot.pricingModel === "Single Price" && (
+              <ReviewRow label="What's included" value={spot.includedItems} />
             )}
             <ReviewRow
               label="Add-ons"
