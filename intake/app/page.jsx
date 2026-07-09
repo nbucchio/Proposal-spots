@@ -1,6 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  TIER_SHADES,
+  CURRENCY_SYMBOLS,
+  formatPrice,
+  tierPrefixFor,
+  stripKnownPrefix,
+  finalIncludesFor,
+  tierPlusNote,
+} from "../lib/reviewFormat";
 
 const COUNTRIES = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
@@ -103,10 +112,6 @@ const PREFERRED_CONTACT_OPTIONS = ["Email", "WhatsApp"];
 
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
 
-// Same subtle shades the live site already uses to tell tiers apart
-// (see spot.html .sdp-tier-row:nth-child backgrounds).
-const TIER_SHADES = ["#f5f0e8", "#ede5d8", "#e4d9c8"];
-
 const PRICING_MODEL_INFO = [
   {
     value: "Single Price",
@@ -122,50 +127,7 @@ const PRICING_MODEL_INFO = [
 const TIERED_EXAMPLE_URL =
   "https://www.proposalspots.com/spots/private-island-proposal-faro-algarve";
 
-const TIER_PREFIXES = {
-  moment: "Everything in The Moment, plus: ",
-  experience: "Everything in The Experience, plus: ",
-  both: "Everything in The Moment and The Experience, plus: ",
-};
-
-function tierPrefixFor(sameAsMoment, sameAsExperience) {
-  if (sameAsMoment && sameAsExperience) return TIER_PREFIXES.both;
-  if (sameAsMoment) return TIER_PREFIXES.moment;
-  if (sameAsExperience) return TIER_PREFIXES.experience;
-  return "";
-}
-
-function stripKnownPrefix(text) {
-  for (const p of Object.values(TIER_PREFIXES)) {
-    if (text.startsWith(p)) return text.slice(p.length);
-  }
-  return text;
-}
-
-// What actually gets saved to Airtable: just this tier's own incremental
-// items, matching the existing CRM convention (the live site auto-shows
-// "Includes everything in [previous tier]" itself — see spot.html
-// renderTieredPackages). The "Everything in X, plus:" prefix above is
-// only ever shown to the partner while they're filling out the form.
-function finalIncludesFor(tier) {
-  return stripKnownPrefix(tier.includes).trim();
-}
-
 const TIER_PRICE_EXAMPLES = [650, 1000, 1450];
-
-const CURRENCY_SYMBOLS = {
-  USD: "$", EUR: "€", GBP: "£", CAD: "$", AUD: "$", NZD: "$", CHF: "CHF",
-  JPY: "¥", CNY: "¥", INR: "₹", MXN: "$", BRL: "R$", ARS: "$", CLP: "$",
-  IDR: "Rp", THB: "฿", VND: "₫", PHP: "₱", MYR: "RM", SGD: "$", HKD: "$",
-  KRW: "₩", AED: "AED", SAR: "SAR", ZAR: "R", EGP: "EGP", MAD: "DH",
-  TRY: "₺", ISK: "kr", FJD: "FJ$", XPF: "₣",
-};
-
-function formatPrice(amount, currency) {
-  const symbol = CURRENCY_SYMBOLS[currency] || currency;
-  const num = Number(amount);
-  return `${symbol}${Number.isFinite(num) ? num.toLocaleString() : amount}`;
-}
 
 function PriceInput({ value, onChange, placeholder, currency }) {
   const symbol = CURRENCY_SYMBOLS[currency] || currency;
@@ -445,6 +407,14 @@ export default function Page() {
             throw new Error(pData.error || `Could not save ${tier.tierName}.`);
         }
       }
+
+      // Best-effort — the spot is already saved either way, so a failed
+      // confirmation email should never block reaching the done step.
+      fetch("/api/notify-partner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spot, tiers }),
+      }).catch(() => {});
 
       setStep("done");
     } catch (err) {
@@ -1059,13 +1029,7 @@ export default function Page() {
               {tiers.map((t, i) => {
                 if (!t.price) return null;
                 const includes = finalIncludesFor(t);
-                const plusNote =
-                  i > 0 && (t.sameAsMoment || t.sameAsExperience)
-                    ? "Includes everything in " +
-                      [t.sameAsMoment && "The Moment", t.sameAsExperience && "The Experience"]
-                        .filter(Boolean)
-                        .join(" and ")
-                    : "";
+                const plusNote = tierPlusNote(t, i);
                 return (
                   <div
                     key={t.tierName}
