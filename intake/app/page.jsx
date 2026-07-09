@@ -561,7 +561,7 @@ export default function Page() {
             </div>
 
             <div>
-              <Label>Full summary</Label>
+              <Label hint="aim for 5–10 sentences">Full summary</Label>
               <textarea
                 className={inputClass}
                 rows={4}
