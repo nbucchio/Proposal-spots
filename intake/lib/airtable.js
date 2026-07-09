@@ -14,12 +14,16 @@ export const TABLES = {
 // Exact Airtable field names, including trailing spaces where the base
 // actually has them ("Spot ", "Price ", "Includes "). Do not trim these.
 export const SPOT_FIELDS = {
+  // "Name" is the table's primary field; "Spot Name" is a separate
+  // regular field. Both get set to whatever the partner types.
+  PRIMARY_NAME: "Name",
   NAME: "Spot Name",
   COUNTRY: "Country",
   REGION_TOWN: "Region / Town",
   FULL_SUMMARY: "Full Summary",
   VIBE: "Vibe",
   VIBE_SECONDARY: "Vibe Secondary",
+  OTHER_VIBE: "Other Vibe",
   AVAILABILITY_TYPE: "Availability Type",
   AVAILABLE_MONTHS: "Available Months",
   RAIN_CHECK: "Rain Check",
@@ -34,8 +38,28 @@ export const SPOT_FIELDS = {
   ADDON_3_PRICE: "Addon 3 Price",
   ADDON_4_NAME: "Addon 4 Name",
   ADDON_4_PRICE: "Addon 4 Price",
+  PRIVACY: "Privacy",
+  BEST_TIME: "Best Time",
+  PARTNER_NAME: "Partner Name",
+  PREFERRED_CONTACT: "Preferred Contact Method",
+  PARTNER_EMAIL: "Partner Email",
+  PARTNER_WHATSAPP: "Partner WhatsApp",
   STATUS: "Status",
 };
+
+// Exact Airtable single-select choice strings, including trailing spaces
+// where the base actually has them. Do not trim before sending — typecast
+// would otherwise create near-duplicate choices in Airtable.
+export const PRIVACY_CHOICES = [
+  "Private (No Crowds)",
+  "Light Crowd ",
+  "Moderate Crowd ",
+  "Everyone will see",
+];
+
+export const BEST_TIME_CHOICES = ["Sunrise", "Sunset", "Mid-day", "Any"];
+
+export const PREFERRED_CONTACT_CHOICES = ["Email", "WhatsApp"];
 
 export const PACKAGE_FIELDS = {
   NAME: "Name",
@@ -45,6 +69,7 @@ export const PACKAGE_FIELDS = {
   INCLUDES: "Includes ", // trailing space is intentional
   SORT_ORDER: "Sort Order",
   IS_ACTIVE: "Is Active",
+  INCLUDED_ADDONS: "Included Addons",
 };
 
 async function airtableRequest(path, options = {}) {

@@ -6,6 +6,7 @@ export async function POST(request) {
     const body = await request.json();
 
     const fields = {
+      [SPOT_FIELDS.PRIMARY_NAME]: body.spotName,
       [SPOT_FIELDS.NAME]: body.spotName,
       [SPOT_FIELDS.COUNTRY]: body.country,
       [SPOT_FIELDS.REGION_TOWN]: body.regionTown,
@@ -15,6 +16,7 @@ export async function POST(request) {
       [SPOT_FIELDS.AVAILABILITY_TYPE]: body.availabilityType,
       [SPOT_FIELDS.RAIN_CHECK]: body.rainCheck,
       [SPOT_FIELDS.PRICING_MODEL]: body.pricingModel,
+      [SPOT_FIELDS.PRICE_CURRENCY]: body.priceCurrency,
       [SPOT_FIELDS.STATUS]: "Draft",
     };
 
@@ -22,18 +24,27 @@ export async function POST(request) {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];
     }
 
-    if (body.pricingModel === "Single Price") {
-      fields[SPOT_FIELDS.PRICE_CURRENCY] = body.priceCurrency;
-      fields[SPOT_FIELDS.PRICE_MOMENT] = body.priceMoment
-        ? Number(body.priceMoment)
-        : undefined;
+    if (body.otherVibe) fields[SPOT_FIELDS.OTHER_VIBE] = body.otherVibe;
+    if (body.privacy) fields[SPOT_FIELDS.PRIVACY] = body.privacy;
+    if (body.bestTime) fields[SPOT_FIELDS.BEST_TIME] = body.bestTime;
+    if (body.partnerName) fields[SPOT_FIELDS.PARTNER_NAME] = body.partnerName;
+    if (body.preferredContact)
+      fields[SPOT_FIELDS.PREFERRED_CONTACT] = body.preferredContact;
+    if (body.partnerEmail) fields[SPOT_FIELDS.PARTNER_EMAIL] = body.partnerEmail;
+    if (body.partnerWhatsapp)
+      fields[SPOT_FIELDS.PARTNER_WHATSAPP] = body.partnerWhatsapp;
 
-      (body.addons || []).slice(0, 4).forEach((addon, i) => {
-        const n = i + 1;
-        if (addon?.name) fields[`Addon ${n} Name`] = addon.name;
-        if (addon?.price) fields[`Addon ${n} Price`] = Number(addon.price);
-      });
+    if (body.pricingModel === "Single Price" && body.priceMoment) {
+      fields[SPOT_FIELDS.PRICE_MOMENT] = Number(body.priceMoment);
     }
+
+    // Add-ons apply to both pricing models — for Tiered spots they're
+    // available on top of whichever tier the couple picks.
+    (body.addons || []).slice(0, 4).forEach((addon, i) => {
+      const n = i + 1;
+      if (addon?.name) fields[`Addon ${n} Name`] = addon.name;
+      if (addon?.price) fields[`Addon ${n} Price`] = Number(addon.price);
+    });
 
     const record = await createRecord(TABLES.PROPOSAL_SPOTS, fields);
 
