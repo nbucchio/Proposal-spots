@@ -356,8 +356,8 @@ export default function Page() {
     e.preventDefault();
     setError("");
 
-    if (!spot.spotName.trim() || !spot.country || !spot.vibe) {
-      setError("Spot name, country, and vibe are required.");
+    if (!spot.spotName.trim() || !spot.country) {
+      setError("Spot name and country are required.");
       return;
     }
 
@@ -457,20 +457,22 @@ export default function Page() {
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
-      <header className="mb-12 text-center">
-        <img
-          src="/logo/proposal-spots-logo-color.svg"
-          alt="Proposal Spots"
-          className="mx-auto h-32 w-auto"
-        />
-        <p className="mt-6 text-sm uppercase tracking-[0.2em] text-sage">
-          For Partners: Add Your Proposal Spot
-        </p>
-        <p className="mt-2 text-xs text-ink/50">
-          Please submit one form per spot — use "+ Add another spot" at the
-          end if you have more than one.
-        </p>
-      </header>
+      {step === "spot" && (
+        <header className="mb-12 text-center">
+          <img
+            src="/logo/proposal-spots-logo-color.svg"
+            alt="Proposal Spots"
+            className="mx-auto h-32 w-auto"
+          />
+          <p className="mt-6 text-sm uppercase tracking-[0.2em] text-sage">
+            For Partners: Add Your Proposal Spot
+          </p>
+          <p className="mt-2 text-xs text-ink/50">
+            Please submit one form per spot — use "+ Add another spot" at
+            the end if you have more than one.
+          </p>
+        </header>
+      )}
 
       <Waypoints step={step} showPackages={spot.pricingModel === "Tiered"} />
 

@@ -14,6 +14,9 @@ export const TABLES = {
 // Exact Airtable field names, including trailing spaces where the base
 // actually has them ("Spot ", "Price ", "Includes "). Do not trim these.
 export const SPOT_FIELDS = {
+  // "Name" is the table's primary field; "Spot Name" is a separate
+  // regular field. Both get set to whatever the partner types.
+  PRIMARY_NAME: "Name",
   NAME: "Spot Name",
   COUNTRY: "Country",
   REGION_TOWN: "Region / Town",

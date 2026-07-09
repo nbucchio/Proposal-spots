@@ -6,6 +6,7 @@ export async function POST(request) {
     const body = await request.json();
 
     const fields = {
+      [SPOT_FIELDS.PRIMARY_NAME]: body.spotName,
       [SPOT_FIELDS.NAME]: body.spotName,
       [SPOT_FIELDS.COUNTRY]: body.country,
       [SPOT_FIELDS.REGION_TOWN]: body.regionTown,
