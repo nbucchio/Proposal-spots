@@ -3569,6 +3569,13 @@ async function submitEnquiry() {
     ? 'Not sure yet'
     : (proposalDatesSel.length ? 'Specific dates' : '');
 
+  // Human-readable list for the "Interested Dates" field (one per line),
+  // or "Not sure yet" when the customer is undecided.
+  const _fmtNice = ds => new Date(ds + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const interestedDates = _enqProposalPref === 'unsure'
+    ? 'Not sure yet'
+    : proposalDatesSel.map(_fmtNice).join('\n');
+
   const data = {
     spotName: document.getElementById('sdp-name')?.textContent || '',
     firstName: first,
@@ -3579,10 +3586,9 @@ async function submitEnquiry() {
     country: document.getElementById('enq-country')?.value?.trim() || '',
     hotelCheckin: document.getElementById('sdp-checkin')?.value || '',
     hotelCheckout: document.getElementById('sdp-checkout')?.value || '',
-    proposalDate: proposalDatesSel[0] || '',
-    backupDate: proposalDatesSel[1] || '',
     proposalDates: proposalDatesSel,
     proposalDatePref: proposalDatePref,
+    interestedDates: interestedDates,
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
