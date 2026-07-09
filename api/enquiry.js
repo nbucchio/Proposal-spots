@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDate, backupDate, notes, addons, selectedTier, pricingModel, contactPreference, photographyQuote,
+    proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, pricingModel, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
 
@@ -43,7 +43,10 @@ export default async function handler(req, res) {
               'Partner Name':        partner || '',
               ...(hotelCheckin  ? { 'Check In':       hotelCheckin  } : {}),
               ...(hotelCheckout ? { 'Check Out':      hotelCheckout } : {}),
-              ...(proposalDate  ? { 'Proposal Night': proposalDate  } : {}),
+              // Proposal Night is left blank on submission — filled manually once
+              // availability is confirmed with the partner. Customer's requested
+              // date(s) live in Interested Dates.
+              ...(interestedDates ? { 'Interested Dates': interestedDates } : {}),
               ...(contactPreference ? { 'Contact Preference': contactPreference } : {}),
               'Special Requests':    notes || '',
               'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
@@ -56,7 +59,6 @@ export default async function handler(req, res) {
               'Internal Notes':      [
                 spotName     ? `Spot: ${spotName}`           : '',
                 selectedTier ? `Package: ${selectedTier}`    : '',
-                backupDate   ? `Backup Date: ${backupDate}`  : '',
               ].filter(Boolean).join('\n') || '',
             },
           }],
