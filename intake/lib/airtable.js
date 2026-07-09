@@ -30,6 +30,7 @@ export const SPOT_FIELDS = {
   PRICING_MODEL: "Pricing Model",
   PRICE_CURRENCY: "Price Currency",
   PRICE_MOMENT: "Price Moment",
+  INCLUDED_ITEMS: "Included Items",
   ADDON_1_NAME: "Addon 1 Name",
   ADDON_1_PRICE: "Addon 1 Price",
   ADDON_2_NAME: "Addon 2 Name",

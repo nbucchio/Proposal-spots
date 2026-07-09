@@ -34,8 +34,9 @@ export async function POST(request) {
     if (body.partnerWhatsapp)
       fields[SPOT_FIELDS.PARTNER_WHATSAPP] = body.partnerWhatsapp;
 
-    if (body.pricingModel === "Single Price" && body.priceMoment) {
-      fields[SPOT_FIELDS.PRICE_MOMENT] = Number(body.priceMoment);
+    if (body.pricingModel === "Single Price") {
+      if (body.priceMoment) fields[SPOT_FIELDS.PRICE_MOMENT] = Number(body.priceMoment);
+      if (body.includedItems) fields[SPOT_FIELDS.INCLUDED_ITEMS] = body.includedItems;
     }
 
     // Add-ons apply to both pricing models — for Tiered spots they're

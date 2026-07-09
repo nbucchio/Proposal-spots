@@ -83,6 +83,9 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
             : ""
         )
       : "",
+    spot.pricingModel === "Single Price"
+      ? row("What's included", spot.includedItems)
+      : "",
     row("Add-ons", addonsValue),
   ].join("");
 
