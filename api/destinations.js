@@ -80,6 +80,7 @@ export default async function handler(req, res) {
           display_name:     f.display_name     || '',
           Continent:        f.Continent        || '',
           show_in_nav:      f.show_in_nav === true || f.show_in_nav === 1 || f.show_in_nav === 'true',
+          coming_soon:      f.coming_soon === true || f.coming_soon === 1 || f.coming_soon === 'true',
           nav_order:        typeof f.nav_order === 'number' ? f.nav_order : 9999,
           hero_video_url:   f.hero_video_url   || '',
           hero_image_fallback: firstAttachmentUrl(f.hero_image_fallback),

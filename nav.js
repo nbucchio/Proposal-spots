@@ -85,6 +85,34 @@
     '}',
     '.nav-dest-grid a:hover { background: #EDEAE2; }',
     '.nav-dest-grid a span { color: #9E9890; font-size: 10px; font-weight: 300; text-align: right; flex-shrink: 0; }',
+    '.nav-dest-grid a.coming-soon { color: #A55A4A; }',
+    '.nav-dest-grid a.coming-soon:hover { background: rgba(165,90,74,0.06); }',
+    '.nav-dest-grid a .nav-soon-tag {',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 8px;',
+    '  font-weight: 400;',
+    '  letter-spacing: 0.14em;',
+    '  text-transform: uppercase;',
+    '  color: #A55A4A;',
+    '  border: 1px solid rgba(165,90,74,0.35);',
+    '  border-radius: 10px;',
+    '  padding: 2px 8px;',
+    '  white-space: nowrap;',
+    '  flex-shrink: 0;',
+    '  text-align: center;',
+    '}',
+    '.nav-dest-soon-label {',
+    '  grid-column: 1 / -1;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 9px;',
+    '  font-weight: 400;',
+    '  letter-spacing: 0.16em;',
+    '  text-transform: uppercase;',
+    '  color: #A55A4A;',
+    '  border-top: 1px solid #D8D2C8;',
+    '  margin-top: 6px;',
+    '  padding: 12px 12px 4px;',
+    '}',
     '.nav-dest-footer {',
     '  border-top: 1px solid #D8D2C8;',
     '  margin-top: 12px;',
@@ -370,11 +398,27 @@
         var list = (data && data.destinations) || [];
         var grid = nav.querySelector('.nav-dest-grid');
         if (!grid) return;
-        grid.innerHTML = list.map(function (d) {
+
+        var available  = list.filter(function (d) { return !d.coming_soon; });
+        var comingSoon = list.filter(function (d) { return d.coming_soon; });
+
+        var availableItem = function (d) {
           return '<a href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
                  (d.display_name || '') +
                  ' <span>' + (d.Continent || '') + '</span></a>';
-        }).join('');
+        };
+        var comingSoonItem = function (d) {
+          return '<a class="coming-soon" href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
+                 (d.display_name || '') +
+                 ' <span class="nav-soon-tag">Soon</span></a>';
+        };
+
+        var html = available.map(availableItem).join('');
+        if (comingSoon.length) {
+          html += '<div class="nav-dest-soon-label">Coming Soon</div>';
+          html += comingSoon.map(comingSoonItem).join('');
+        }
+        grid.innerHTML = html;
       })
       .catch(function (e) { console.error('[nav] destinations load failed', e); });
   }());
