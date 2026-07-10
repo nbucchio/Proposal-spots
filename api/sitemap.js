@@ -123,6 +123,16 @@ export default async function handler(req, res) {
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.proposalspots.com/about</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.proposalspots.com/for-hotels</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.proposalspots.com/checklist</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -64,6 +64,8 @@
     { "source": "/budget/patagonia", "destination": "/budget/patagonia.html" },
     { "source": "/blog/:slug", "destination": "/blog/:slug.html" },
     { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/for-hotels", "destination": "/for-hotels.html" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
