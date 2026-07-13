@@ -380,23 +380,13 @@ function prettyKB(bytes) {
 async function init() {
   const main = document.getElementById('main');
   try {
-    const res = await fetch(`${PROD}/api/spots`);
+    // Use same-origin endpoint so it works on any host (preview or prod)
+    const res = await fetch('/api/test-photos');
+    if (!res.ok) throw new Error(`API returned ${res.status}`);
     const data = await res.json();
-    const records = data.records || data.spots || [];
-    const spot = records.find(r => {
-      const f = r.fields || r;
-      return (f['Spot Name'] || f['Name'] || '').trim() === SPOT_NAME;
-    });
-    if (!spot) throw new Error(`Spot "${SPOT_NAME}" not found in API response.`);
+    if (data.error) throw new Error(data.error);
 
-    const f = spot.fields || spot;
-    const gallery = (f['Gallery Photos'] || []);
-    const raw = gallery
-      .map(p => (typeof p === 'string' ? p : (p && p.url) || ''))
-      .filter(Boolean);
-
-    // landscape only, max 6
-    photos = raw.slice(0, 6);
+    photos = (data.photos || []).slice(0, 6);
     if (!photos.length) throw new Error('No gallery photos found on this spot.');
 
     renderUI(main);
