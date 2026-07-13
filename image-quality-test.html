@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Quality Test — Arenal Panorama</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0F0F0F;
+    --surface:  #1A1A1A;
+    --border:   #2A2A2A;
+    --ink:      #EDE8E3;
+    --muted:    #666;
+    --accent:   #C8A97E;
+    --active-bg:#C8A97E22;
+    --radius:   6px;
+    --mono:     'Courier New', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  header {
+    padding: 36px 40px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .subtitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .controls label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .width-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
+  .width-btn:hover { color: var(--ink); border-color: #444; }
+  .width-btn.active {
+    color: var(--accent);
+    background: var(--active-bg);
+    border-color: var(--accent);
+  }
+
+  .mode-sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+
+  .mode-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 7px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .mode-btn:hover { color: var(--ink); border-color: #444; }
+  .mode-btn.active { color: var(--ink); border-color: #444; background: var(--surface); }
+
+  /* COMPARE MODE: 4-column side by side */
+  #compare-view { padding: 32px 40px; }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .col-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .col-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .col-label .w { color: var(--accent); font-size: 13px; }
+  .col-label .note { font-size: 9px; color: #444; }
+
+  .photo-cell {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .photo-cell img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .photo-cell .size-tag {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-family: var(--mono);
+    font-size: 9px;
+    background: rgba(0,0,0,0.7);
+    color: var(--muted);
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+  }
+
+  .photo-row { margin-bottom: 24px; }
+
+  .row-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+
+  /* LIGHTBOX MODE: full-width single image with switcher */
+  #lightbox-view { display: none; padding: 32px 40px; }
+
+  .lb-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .lb-switcher-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+  .lb-photo-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .lb-photo-btn:hover { color: var(--ink); }
+  .lb-photo-btn.active { color: var(--ink); border-color: #555; }
+
+  .lb-stage {
+    position: relative;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  .lb-stage img {
+    display: block;
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .lb-info {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.6);
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* loading / error states */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .error {
+    padding: 40px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #c0392b;
+    letter-spacing: 0.04em;
+  }
+
+  /* spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 1px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .kb-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* detail crop row */
+  .detail-row { margin-top: 16px; }
+  .detail-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .detail-cell {
+    aspect-ratio: 2 / 1;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .detail-cell img {
+    position: absolute;
+    top: 0; left: 0;
+    /* show center crop at 2× display size */
+    width: 200%;
+    height: 200%;
+    object-fit: cover;
+    object-position: center 30%;
+    transform: translate(-25%, -25%);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">
+    <h1>Image Quality Comparison</h1>
+    <span class="subtitle">Arenal Panorama Proposal · Costa Rica · Cloudflare CDN width test</span>
+  </div>
+  <div class="controls">
+    <label>Width</label>
+    <button class="width-btn active" data-w="800">800</button>
+    <button class="width-btn" data-w="1400">1400</button>
+    <button class="width-btn" data-w="1600">1600</button>
+    <button class="width-btn" data-w="2000">2000</button>
+    <div class="mode-sep"></div>
+    <button class="mode-btn active" id="mode-compare">Side by side</button>
+    <button class="mode-btn" id="mode-lightbox">Lightbox sim</button>
+  </div>
+</header>
+
+<div id="main">
+  <div class="loading"><div class="spinner"></div>Loading spots from API…</div>
+</div>
+
+<script>
+const PROD = 'https://www.proposalspots.com';
+const SPOT_NAME = 'Arenal Panorama Proposal';
+const WIDTHS = [800, 1400, 1600, 2000];
+const LABELS = {
+  800:  { w: '800px', note: 'current' },
+  1400: { w: '1400px', note: 'gallery rec' },
+  1600: { w: '1600px', note: 'lightbox rec' },
+  2000: { w: '2000px', note: 'aggressive' },
+};
+
+let photos = []; // raw airtable URLs
+let currentWidth = 800;
+let currentMode = 'compare';
+let currentLbPhoto = 0;
+let imgElements = {}; // { compare: [[img,...], ...], lb: [img,...] }
+
+function cdnUrl(url, w) {
+  if (!url) return '';
+  return `${PROD}/cdn-cgi/image/width=${w},format=webp,quality=80,fit=scale-down/${url}`;
+}
+
+function prettyKB(bytes) {
+  if (!bytes) return '';
+  return bytes < 1024 ? bytes + ' B' : Math.round(bytes / 1024) + ' KB';
+}
+
+async function init() {
+  const main = document.getElementById('main');
+  try {
+    const res = await fetch(`${PROD}/api/spots`);
+    const data = await res.json();
+    const records = data.records || data.spots || [];
+    const spot = records.find(r => {
+      const f = r.fields || r;
+      return (f['Spot Name'] || f['Name'] || '').trim() === SPOT_NAME;
+    });
+    if (!spot) throw new Error(`Spot "${SPOT_NAME}" not found in API response.`);
+
+    const f = spot.fields || spot;
+    const gallery = (f['Gallery Photos'] || []);
+    const raw = gallery
+      .map(p => (typeof p === 'string' ? p : (p && p.url) || ''))
+      .filter(Boolean);
+
+    // landscape only, max 6
+    photos = raw.slice(0, 6);
+    if (!photos.length) throw new Error('No gallery photos found on this spot.');
+
+    renderUI(main);
+  } catch (err) {
+    main.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+  }
+}
+
+function renderUI(container) {
+  container.innerHTML = `
+    <div id="compare-view"></div>
+    <div id="lightbox-view"></div>
+  `;
+  buildCompareView();
+  buildLightboxView();
+  wireControls();
+  setMode('compare');
+}
+
+function buildCompareView() {
+  const view = document.getElementById('compare-view');
+
+  // column headers (static)
+  const headerHTML = `<div class="col-header">
+    ${WIDTHS.map(w => `
+      <div class="col-label">
+        <span class="w">${w}px</span>
+        <span class="note">${LABELS[w].note}</span>
+      </div>`).join('')}
+  </div>`;
+
+  // photo rows (show first 3 photos)
+  const showPhotos = photos.slice(0, 3);
+  const rowsHTML = showPhotos.map((url, pi) => `
+    <div class="photo-row">
+      ${pi === 0 ? `<div class="row-label">Gallery photos</div>` : ''}
+      <div class="compare-grid" id="cg-${pi}">
+        ${WIDTHS.map(w => `
+          <div class="photo-cell">
+            <img id="cmp-${pi}-${w}" src="${cdnUrl(url, w)}" alt="photo ${pi+1} at ${w}px" loading="${pi===0?'eager':'lazy'}">
+            <span class="size-tag">${w}px</span>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // detail crop row for first photo
+  const detailHTML = `
+    <div class="detail-row">
+      <div class="detail-label">2× zoom crop — center frame (sharpness reveals here first)</div>
+      <div class="detail-grid">
+        ${WIDTHS.map(w => `
+          <div class="detail-cell">
+            <img src="${cdnUrl(showPhotos[0], w)}" alt="crop ${w}px" loading="lazy">
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  view.innerHTML = headerHTML + rowsHTML + detailHTML;
+}
+
+function buildLightboxView() {
+  const view = document.getElementById('lightbox-view');
+  const switcherBtns = photos.map((_, i) => `
+    <button class="lb-photo-btn ${i===0?'active':''}" data-pi="${i}">Photo ${i+1}</button>`).join('');
+
+  view.innerHTML = `
+    <div class="lb-switcher">
+      <span class="lb-switcher-label">Photo</span>
+      ${switcherBtns}
+    </div>
+    <div class="lb-stage">
+      <img id="lb-img" src="" alt="lightbox preview">
+      <div class="lb-info" id="lb-info">— px</div>
+    </div>`;
+
+  view.querySelectorAll('.lb-photo-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      view.querySelectorAll('.lb-photo-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLbPhoto = +btn.dataset.pi;
+      updateLightboxImg();
+    });
+  });
+
+  updateLightboxImg();
+}
+
+function updateLightboxImg() {
+  const img = document.getElementById('lb-img');
+  const info = document.getElementById('lb-info');
+  if (!img || !photos[currentLbPhoto]) return;
+  img.src = cdnUrl(photos[currentLbPhoto], currentWidth);
+  info.textContent = `${currentWidth}px · quality 80 · webp`;
+}
+
+function wireControls() {
+  document.querySelectorAll('.width-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.width-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentWidth = +btn.dataset.w;
+      if (currentMode === 'lightbox') updateLightboxImg();
+    });
+  });
+
+  document.getElementById('mode-compare').addEventListener('click', () => setMode('compare'));
+  document.getElementById('mode-lightbox').addEventListener('click', () => setMode('lightbox'));
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  const cv = document.getElementById('compare-view');
+  const lv = document.getElementById('lightbox-view');
+  const mc = document.getElementById('mode-compare');
+  const ml = document.getElementById('mode-lightbox');
+
+  if (mode === 'compare') {
+    cv.style.display = ''; lv.style.display = 'none';
+    mc.classList.add('active'); ml.classList.remove('active');
+  } else {
+    cv.style.display = 'none'; lv.style.display = '';
+    ml.classList.add('active'); mc.classList.remove('active');
+    updateLightboxImg();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
