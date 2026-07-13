@@ -1521,6 +1521,7 @@ nav {
   .sdp-vibe-chip { min-width: 120px; flex-shrink: 0; padding: 16px 18px; }
   /* Gallery viewer shorter on mobile */
   .sdp-gallery-viewer { height: 260px; }
+  .sdp-gallery-dots { display: none; }
   /* About text: reduce from 23px editorial size */
   .sdp-about-text { font-size: 18px; }
   /* Enquiry form: single column on mobile */
@@ -2577,7 +2578,9 @@ nav {
 function optimizeAirtableImage(url, width) {
   if (!url || typeof url !== 'string') return url;
   if (!url.includes('airtableusercontent.com')) return url;
-  return '/cdn-cgi/image/width=' + (width || 800) + ',format=webp,quality=80/' + url;
+  const onProd = /(^|\.)proposalspots\.com$/.test(location.hostname);
+  const base = onProd ? '' : 'https://www.proposalspots.com';
+  return base + '/cdn-cgi/image/width=' + (width || 800) + ',format=webp,quality=80/' + url;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -3033,7 +3036,7 @@ function renderGalleryFrame() {
   const photo = _galleryPhotos[_galleryIndex];
   if (!photo) return;
 
-  document.getElementById('sdp-gallery-main').src = optimizeAirtableImage(photo.url || '');
+  document.getElementById('sdp-gallery-main').src = optimizeAirtableImage(photo.url || '', 1400);
   document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
 
   // Dots
@@ -3112,7 +3115,7 @@ function openLightbox(index) {
   const photo = _galleryPhotos[index];
   if (!photo) return;
 
-  document.getElementById('sdp-lightbox-img').src = optimizeAirtableImage(photo.url || '');
+  document.getElementById('sdp-lightbox-img').src = optimizeAirtableImage(photo.url || '', 1400);
   document.getElementById('sdp-lightbox-counter').textContent = (index + 1) + ' / ' + _galleryPhotos.length;
   document.getElementById('sdp-lightbox').classList.add('open');
 }
