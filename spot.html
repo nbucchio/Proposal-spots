@@ -3692,7 +3692,7 @@ function openEnquiryModal() {
     if (addonsSection && addonsList && addonItems.length) {
       addonsList.innerHTML = addonItems.map(item => {
         const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
-        const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price TBD' : '+' + price}</span>` : '';
+        const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price on Request' : '+' + price}</span>` : '<span class="enq-addon-price">Price on Request</span>';
         return `<label class="enq-addon-check">
           <input type="checkbox" value="${item}">
           <span>${item}</span>${priceLabel}
@@ -4183,7 +4183,7 @@ function _renderTierAddons(spot) {
     return '<label class="sdp-tier-addon-row">' +
       '<input type="checkbox" value="' + a.name + '" ' + (pAttr ? 'data-price="' + pAttr + '" ' : '') + 'onchange="updateSelectionSummary()">' +
       '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
-      (pLabel ? '<span class="sdp-tier-addon-price">' + pLabel + '</span>' : '') +
+      '<span class="sdp-tier-addon-price">' + (pLabel || 'Price on Request') + '</span>' +
     '</label>';
   }).join('');
 }
