@@ -1236,6 +1236,9 @@ nav.scrolled {
   width: 100%;
 }
 .spot-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   overflow: hidden;
   cursor: pointer;
   background: transparent;
@@ -7347,11 +7350,12 @@ function buildSpotCard(s, index) {
   const hasMultiple = imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
   const lazyLoad = (index || 0) >= 3 ? ' loading="lazy"' : '';
+  const slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
   const scHtml   = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + imgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
   const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url,i){var u400=url.replace('width=800,','width=400,');var frameLazy=(i===0)?lazyLoad:' loading="lazy"';return '<div class="sc-frame"><img class="img-bg" src="'+url.replace(/"/g,'&quot;')+'" srcset="'+u400.replace(/"/g,'&quot;')+' 400w, '+url.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+frameLazy+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div>';}).join('') + '<div class="sc-frame"><img class="img-bg" src="'+imgs[0].replace(/"/g,'&quot;')+'" srcset="'+imgs[0].replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+imgs[0].replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low" loading="lazy" style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div></div>' : (cardPhoto ? '<img class="img-bg" src="'+cardPhoto.replace(/"/g,'&quot;')+'" srcset="'+cardPhoto.replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+cardPhoto.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'">' : '<div class="img-bg" style="background:'+(s.coverGradient||'var(--bg3)')+'"></div>');
 
   return `
-    <div class="spot-card" onclick="openSpotDrawer('${s.id}')" style="cursor:pointer">
+    <a class="spot-card" href="/spots/${slug}" style="cursor:pointer">
       <div class="spot-card-img" ${imgsAttr}>
         ${stripHtml}
         ${badge}
@@ -7372,7 +7376,7 @@ function buildSpotCard(s, index) {
           <span class="spot-card-strip-text">${vibe}</span>
         </div>
       </div>
-    </div>`;
+    </a>`;
 }
 
 function buildSpotCardLinked(s, index) {
@@ -7393,7 +7397,7 @@ function buildSpotCardLinked(s, index) {
   const stripHtml = hasMultiple ? '<div class="sc-strip">' + imgs.map(function(url,i){var u400=url.replace('width=800,','width=400,');var frameLazy=(i===0)?lazyLoad:' loading="lazy"';return '<div class="sc-frame"><img class="img-bg" src="'+url.replace(/"/g,'&quot;')+'" srcset="'+u400.replace(/"/g,'&quot;')+' 400w, '+url.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+frameLazy+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div>';}).join('') + '<div class="sc-frame"><img class="img-bg" src="'+imgs[0].replace(/"/g,'&quot;')+'" srcset="'+imgs[0].replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+imgs[0].replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low" loading="lazy" style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'"></div></div>' : (cardPhoto ? '<img class="img-bg" src="'+cardPhoto.replace(/"/g,'&quot;')+'" srcset="'+cardPhoto.replace('width=800,','width=400,').replace(/"/g,'&quot;')+' 400w, '+cardPhoto.replace(/"/g,'&quot;')+' 800w" sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"'+lazyLoad+' style="object-fit:cover;width:100%;height:100%;object-position:'+(s['Card Position']||'center center')+'">' : '<div class="img-bg" style="background:'+(s.coverGradient||'var(--bg3)')+'"></div>');
 
   return `
-    <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
+    <a class="spot-card" href="/spots/${slug}" style="cursor:pointer">
       <div class="spot-card-img" ${imgsAttr}>
         ${stripHtml}
         ${badge}
@@ -7414,7 +7418,7 @@ function buildSpotCardLinked(s, index) {
           <span class="spot-card-strip-text">${vibe}</span>
         </div>
       </div>
-    </div>`;
+    </a>`;
 }
 
 function buildCardPriceRow(s) {
