@@ -219,6 +219,9 @@
       gap: 24px;
     }
     .spot-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       background: #fff;
       border-radius: var(--card-radius);
       overflow: hidden;
@@ -782,7 +785,7 @@
       const vibe = s.Vibe || s.vibe || '';
       const privacyEmoji = privacyEmojiMap[privacy] || '';
       return `
-        <div class="spot-card" onclick="window.location='/spots/${slug}'">
+        <a class="spot-card" href="/spots/${slug}">
           <div class="spot-card-img">
             <div class="img-bg" style="background-image:url('${photo}')"></div>
           </div>
@@ -793,7 +796,7 @@
               ${privacy ? `<span class="spot-card-badge">${privacyEmoji} ${privacy}</span>` : ''}
             </div>
           </div>
-        </div>`;
+        </a>`;
     }
 
     let allSpots = [];

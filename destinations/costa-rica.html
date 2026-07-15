@@ -101,7 +101,7 @@
 
     /* ── SPOT CARDS ── */
     .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
-    .spot-card { overflow: hidden; cursor: pointer; background: none; border: none; }
+    .spot-card { display: block; text-decoration: none; color: inherit; overflow: hidden; cursor: pointer; background: none; border: none; }
     .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
     .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
@@ -883,7 +883,7 @@
       const scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>'}).join('') + '</div>' : '';
       const stripHtml = hasMultiple ? '<div class="sc-strip">' + allImgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"' + '></div></div>';}).join('') + '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + allImgs[0].replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"' + '></div></div></div>' : '<div class="img-bg" style="' + imgStyle + '"></div>';
       return `
-        <div class="spot-card" onclick="window.location='/spots/${slug}'" style="cursor:pointer">
+        <a class="spot-card" href="/spots/${slug}" style="cursor:pointer">
           <div class="spot-card-img" ${imgsAttr}>
             ${stripHtml}
             ${badge}
@@ -903,7 +903,7 @@
               <span class="spot-card-strip-text">${vibe}</span>
             </div>
           </div>
-        </div>`;
+        </a>`;
     }
 
     const VIBE_EMOJI = {
