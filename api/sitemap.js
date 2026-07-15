@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 function toSlug(str) {
   return (str || '').toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -5,16 +8,16 @@ function toSlug(str) {
     .replace(/^-|-$/g, '');
 }
 
-const BLOG_SLUGS = [
-  'how-to-plan-a-proposal', 'beach-wedding-proposal', 'beach-proposal-packages',
-  'proposal-set-up', 'picnic-proposal', 'romantic-dinner-proposal',
-  'romantic-proposal-ideas', 'proposal-packages', 'destination-engagement-photographer',
-  'best-destinations-to-propose', 'proposal-planner', 'outdoor-proposal-ideas',
-  'girlfriend-proposal', 'helicopter-proposal', 'engagement-planning',
-  'unique-proposal-ideas', 'surprise-proposal-planning', 'engagement-photo-locations',
-  'beach-proposal', 'best-places-to-propose-in-europe', 'marry-me-proposal',
-  'private-engagement-proposal-ideas'
-];
+function getBlogSlugs() {
+  try {
+    const blogDir = path.join(process.cwd(), 'blog');
+    return fs.readdirSync(blogDir)
+      .filter(f => f.endsWith('.html') && f !== 'template.html')
+      .map(f => f.replace(/\.html$/, ''));
+  } catch (e) {
+    return [];
+  }
+}
 
 const STORY_SLUGS = [
   'amalfi', 'bali-rice', 'maldives', 'santorini', 'costa-rica', 'tulum',
@@ -93,7 +96,7 @@ export default async function handler(req, res) {
     <priority>0.8</priority>
   </url>`).join('');
 
-  const blogUrls = BLOG_SLUGS.map(slug => `
+  const blogUrls = getBlogSlugs().map(slug => `
   <url>
     <loc>https://www.proposalspots.com/blog/${slug}</loc>
     <changefreq>monthly</changefreq>
