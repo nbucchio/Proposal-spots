@@ -76,9 +76,13 @@ export default async function handler(req, res) {
     const metaDesc= f['Meta Description'] || '';
     const summary = f['Full Summary']     || '';
 
-    const coverArr = Array.isArray(f['Cover Photo']) ? f['Cover Photo'] : [];
-    const cardArr  = Array.isArray(f['Spot Card Photo']) ? f['Spot Card Photo'] : [];
-    const coverUrl = (coverArr[0] && coverArr[0].url) || (cardArr[0] && cardArr[0].url) || '';
+    const coverArr  = Array.isArray(f['Cover Photo']) ? f['Cover Photo'] : [];
+    const cardArr   = Array.isArray(f['Spot Card Photo']) ? f['Spot Card Photo'] : [];
+    const rawImgUrl = (coverArr[0] && coverArr[0].url) || (cardArr[0] && cardArr[0].url) || '';
+    // Proxy through Cloudflare so the og:image URL never expires (Airtable signed URLs last ~2h)
+    const coverUrl  = rawImgUrl
+      ? `https://www.proposalspots.com/cdn-cgi/image/width=1200,format=auto/${rawImgUrl}`
+      : '';
 
     const title = metaTit  || name  || 'Proposal Spot — Proposal Spots';
     const desc  = metaDesc || (summary ? summary.slice(0, 155) : 'Discover this stunning proposal location at Proposal Spots.');
