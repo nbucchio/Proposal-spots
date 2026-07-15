@@ -46,7 +46,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const fields = ['Name', 'Slug', 'Meta Title', 'Meta Description', 'Cover Photo', 'Full Summary'];
+    const fields = ['Name', 'Slug', 'Meta Title', 'Meta Description', 'Cover Photo', 'Spot Card Photo', 'Full Summary'];
     const formula = encodeURIComponent(
       `AND({Status}="Published",{Slug}="${slug.replace(/"/g, '\\"')}")`
     );
@@ -77,7 +77,8 @@ export default async function handler(req, res) {
     const summary = f['Full Summary']     || '';
 
     const coverArr = Array.isArray(f['Cover Photo']) ? f['Cover Photo'] : [];
-    const coverUrl = coverArr.length > 0 ? (coverArr[0].url || '') : '';
+    const cardArr  = Array.isArray(f['Spot Card Photo']) ? f['Spot Card Photo'] : [];
+    const coverUrl = (coverArr[0] && coverArr[0].url) || (cardArr[0] && cardArr[0].url) || '';
 
     const title = metaTit  || name  || 'Proposal Spot — Proposal Spots';
     const desc  = metaDesc || (summary ? summary.slice(0, 155) : 'Discover this stunning proposal location at Proposal Spots.');
