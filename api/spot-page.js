@@ -36,11 +36,8 @@ export default async function handler(req, res) {
   const slug = urlSlug ? urlSlug.trim() : '';
 
   if (!slug) {
-    console.log('[spot-page] No slug extracted from request, url:', req.url, 'query:', JSON.stringify(req.query));
     return serveOriginal(res, html);
   }
-
-  console.log('[spot-page] Handling slug:', slug);
 
   const TOKEN = process.env.AIRTABLE_TOKEN;
   if (!TOKEN) {
@@ -68,8 +65,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     const record = data.records && data.records[0];
-
-    console.log('[spot-page] Airtable returned', data.records ? data.records.length : 0, 'records for slug:', slug);
 
     if (!record) {
       return serveOriginal(res, html);
@@ -143,7 +138,6 @@ export default async function handler(req, res) {
       );
     }
 
-    console.log('[spot-page] Injected meta tags — title:', title);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(html);
   } catch (err) {
