@@ -87,7 +87,7 @@ export default async function handler(req, res) {
   </url>`).join('');
 
   const budgetUrls = [
-    'algarve', 'amalfi-coast', 'bali', 'costa-rica', 'maldives', 'new-york',
+    'algarve', 'amalfi-coast', 'bali', 'costa-rica', 'italy', 'maldives', 'new-york',
     'nicaragua', 'patagonia', 'santorini', 'south-of-france', 'switzerland', 'tulum'
   ].map(slug => `
   <url>

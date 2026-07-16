@@ -52,6 +52,7 @@
     { "source": "/budget", "destination": "/budget/index.html" },
     { "source": "/budget/santorini", "destination": "/budget/santorini.html" },
     { "source": "/budget/bali", "destination": "/budget/bali.html" },
+    { "source": "/budget/italy", "destination": "/budget/italy.html" },
     { "source": "/budget/amalfi-coast", "destination": "/budget/amalfi-coast.html" },
     { "source": "/budget/maldives", "destination": "/budget/maldives.html" },
     { "source": "/budget/tulum", "destination": "/budget/tulum.html" },
