@@ -191,6 +191,27 @@
     .dest-faq-region-content { padding-bottom: 8px; }
     .dest-faq-region .dest-faq-explore { padding: 16px 0 20px; }
     @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
+
+    /* If not Italy — similar markets */
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
+
+    /* Browse by Destination footer */
+    .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
+    .dest-browse-inner { max-width: 1040px; margin: 0 auto; }
+    .dest-browse-label { display: block; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 36px; }
+    .dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 32px; }
+    .dest-browse-grid a { display: block; padding: 13px 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.18s; }
+    .dest-browse-grid a:hover { color: var(--accent); }
+    @media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, auto); } }
+    @media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } }
   </style>
   <link rel="stylesheet" href="/mobile.min.css">
   <script type="application/ld+json">
@@ -430,6 +451,24 @@
       </div>
     </div>
   </div>
+
+  <!-- IF NOT ITALY — SIMILAR MARKETS -->
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not Italy</span>
+        <span class="dest-similar-rule-line"></span>
+      </div>
+      <div class="dest-similar-pills">
+        <a href="/destinations/south-of-france" class="dest-similar-pill">South of France</a>
+        <a href="/destinations/greece" class="dest-similar-pill">Greece</a>
+        <a href="/destinations/switzerland" class="dest-similar-pill">Switzerland</a>
+        <a href="/destinations/portugal" class="dest-similar-pill">Portugal</a>
+        <a href="/destinations/paris" class="dest-similar-pill">Paris</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- HIGHLIGHTS -->
   <div style="display:none">
@@ -924,6 +963,30 @@
       </div>
     </div>
   </section>
+
+  <div class="dest-browse">
+    <div class="dest-browse-inner">
+      <span class="dest-browse-label">Browse by Destination</span>
+      <div class="dest-browse-grid">
+        <a href="/destinations/amalfi-coast">Amalfi Coast</a>
+        <a href="/destinations/bali">Bali</a>
+        <a href="/destinations/costa-rica">Costa Rica</a>
+        <a href="/destinations/greece">Greece</a>
+        <a href="/destinations/hawaii">Hawaii</a>
+        <a href="/destinations/italy">Italy</a>
+        <a href="/destinations/london">London</a>
+        <a href="/destinations/maldives">Maldives</a>
+        <a href="/destinations/nicaragua">Nicaragua</a>
+        <a href="/destinations/paris">Paris</a>
+        <a href="/destinations/patagonia">Patagonia</a>
+        <a href="/destinations/portugal">Portugal</a>
+        <a href="/destinations/south-of-france">South of France</a>
+        <a href="/destinations/switzerland">Switzerland</a>
+        <a href="/destinations/tulum">Tulum</a>
+        <a href="/destinations/united-states">United States</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     const dlState = { region: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
