@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Switzerland Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in Switzerland actually costs in 2026 — cable car access, mountain photographer, alpine lodge, and private dinner.">
+  <meta name="description" content="An honest breakdown of what a proposal in Switzerland actually costs in 2026 — region by region, from Zermatt and the Jungfrau to the Lauterbrunnen valley, Interlaken lakes, Lucerne and Lake Geneva. Cable car, photographer, hotel, mountain dinner and planner costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/switzerland">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Switzerland Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in Switzerland actually costs in 2026 — cable car access, mountain photographer, alpine lodge, and private dinner.",
+    "description": "An honest breakdown of what a proposal in Switzerland actually costs in 2026 — region by region, from Zermatt and the Jungfrau to the Lauterbrunnen valley, the Interlaken lakes, Lucerne and Lake Geneva.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
-    "datePublished": "2026-04-10"
+    "datePublished": "2026-07-16"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Switzerland cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $900 to $2,500 for the moment alone (a photographer, a small setup and a mountain or lakeside dinner) and about $1,500 to $9,000 or more once you add a three-night stay. What moves the number most is not decor — it is whether your viewpoint is a free hike or a paid cable car, and whether you sleep in a valley town or a Matterhorn-view suite."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest way to propose in Switzerland?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Base yourself in a valley town — Interlaken, Lauterbrunnen or Grindelwald village — and propose at a free viewpoint reached on foot rather than by cable car. The Bachalpsee, the Lauterbrunnen valley floor and the turquoise shores of Lake Brienz and Lake Lucerne cost nothing to reach. A well-planned proposal this way runs about $900 to $1,800 including a local photographer and dinner."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Switzerland?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $450 to $1,300 for a two-to-three-hour session, reflecting the Swiss cost of living. Booking a photographer already based in the region — Interlaken, Zermatt or Lucerne — rather than flying one in keeps it to the lower end, and the best are booked out weeks ahead for the June-to-September window."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does the Jungfraujoch or a Swiss cable car cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cable-car access is Switzerland's signature proposal cost. A round-trip to the Jungfraujoch runs about $245 to $290 per person (CHF 224 to 261), the Gornergrat above Zermatt about $145 (CHF 132) in summer, the Schilthorn about $127 (CHF 115) and Grindelwald-First about $85 (CHF 76). A Swiss Half Fare Card roughly halves all of them — but many of the most beautiful viewpoints are free hikes that need no ticket at all."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do proposal packages in Switzerland cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Swiss proposal packages typically start around $1,650 (CHF 1,500) for photography with a light styled setup, and a full custom proposal with planning, florals, transport and a hidden photographer starts around $5,500 (CHF 5,000) and climbs with exclusivity. You only need the full package when you cannot be on the ground early to scout the light and the spot yourself."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,171 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Alps</span>
+      <span class="pg-eyebrow">Budget Guide · Switzerland</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in Switzerland Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>Switzerland has one of the highest baseline costs of any destination on this list, and that reality applies to proposals as much as to anything else. Mountain resort accommodation in Grindelwald, Mürren, Wengen, and Zermatt is expensive year-round — and significantly more so in peak summer (July–August) and winter ski season. Cable car access to the most dramatic viewpoints adds up: the Jungfraujoch alone costs over CHF 200 per person. A private mountain dinner at an altitude restaurant — one of the most extraordinary proposal experiences available — typically requires a hefty minimum spend and advance reservation months out. Swiss photography rates reflect the Swiss cost of living, full stop.</p>
-        <p>Some of the most dramatic Swiss proposal moments are accessible by hiking, not cable car, and they cost nothing in access fees. The First Cliff Walk at Grindelwald, with its glass-floor sections over a 2,168m drop, is reachable by a hike that takes around two hours from the valley — no cable car required. Accommodation in the valley towns of Interlaken, Lauterbrunnen, or Grindelwald village is a fraction of the mountain-station prices while providing identical access to the scenery. The smaller lakeside villages — Iseltwald (the Crash Landing on You pier), Brienz, Meiringen — offer equivalent beauty with significantly less tourist traffic and meaningfully lower prices.</p>
+        <p>Switzerland carries one of the highest baseline costs of any proposal destination — but the number you actually pay is decided by two things people rarely think about before they book. The first is how you reach your viewpoint: the marquee summits here are not free. A round-trip to the Jungfraujoch costs about $245 to $290 a person, the Gornergrat above Zermatt about $145 — and yet some of the most breathtaking spots in the country are reached on foot and cost nothing. The second is where you sleep: a valley room in Interlaken and a Matterhorn-view suite in Zermatt are two completely different budgets for the same trip.</p>
+        <p>The table below breaks the cost down region by region, then line by line, so you can see exactly where the money goes — and where it does not need to. Once you know the shape of it, the only decision left is where to stand when you ask, and every one of these regions has its spots waiting on the <a href="/destinations/switzerland">Switzerland proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">The Alps provide the most dramatic natural proposal backdrops in Europe. Private cable car access and mountain restaurant reservations require advance planning — but deliver something unforgettable. For the full category-by-category breakdown, see the <a href="/destinations/switzerland" style="color:var(--accent);">Switzerland destination page</a>.</p>
+            <p class="budget-dest-tagline">Six regions, a June-to-September window that most couples get right, and a range that runs from a free lakeshore at dawn to a private ascent above the Matterhorn — here is the honest Switzerland-wide baseline before any of those choices are made. For the spots themselves, see the <a href="/destinations/switzerland">Switzerland destination page</a>.</p>
           </div>
-          <div class="budget-dest-range-badge">$1,000 – $8,000+</div>
+          <div class="budget-dest-range-badge">$900 – $9,000+</div>
         </div>
       </div>
+
+      <!-- COST BY REGION -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by region</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by region. Zermatt and the Jungfrau sit at the top because of high nightly hotel rates and paid cable-car access to their signature summits; the Interlaken lakes, Lucerne and Lake Geneva are the most budget-friendly, because their best viewpoints are free lakeshores and the towns are well supplied with photographers.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Zermatt / Matterhorn</td><td>Car-free village, Gornergrat sunrise over the Matterhorn</td><td>Jun–Sep, Dec–Mar</td><td>$1,500 – $8,000</td></tr>
+                <tr><td>Grindelwald &amp; the Jungfrau</td><td>Eiger north face, First ridge, Top of Europe</td><td>Jun–Sep</td><td>$1,400 – $8,000</td></tr>
+                <tr><td>Lauterbrunnen valley</td><td>Waterfall walls, car-free cliff villages (Mürren, Wengen)</td><td>Late May–Sep</td><td>$1,200 – $6,000</td></tr>
+                <tr><td>Interlaken &amp; the lakes</td><td>Turquoise water, free lakeshore viewpoints (Brienz, Iseltwald)</td><td>Jun–Sep</td><td>$900 – $4,500</td></tr>
+                <tr><td>Lucerne</td><td>Medieval lakeside city, Pilatus &amp; Rigi</td><td>May–Oct</td><td>$900 – $4,500</td></tr>
+                <tr><td>Lake Geneva / Montreux</td><td>Lavaux vine terraces, mild lakeside, Château de Chillon</td><td>Apr–Oct</td><td>$900 – $4,500</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a free walk-to viewpoint, a regional photographer and a valley-town hotel; the upper end assumes paid summit access or a private setup, a mountain-view suite, and a planner. Regions are not interchangeable — a Zermatt photographer does not work the Jungfrau, and a Zermatt package and a Lucerne package are different vendors at different price points.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every region above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/switzerland" class="budget-cta-band-btn">Browse Switzerland proposal spots by region →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, Switzerland-wide</h2>
+        <p>Whichever region you choose, the proposal breaks into the same categories. Here is the honest Switzerland-wide range for each, category by category — with the cable car broken out, because in Switzerland it is a line item all its own.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Viewpoint access (free hike ↔ Jungfraujoch cable car, per couple)</span><span>$0 – $580</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$450 – $1,300</span></div>
+          <div class="budget-breakdown-row"><span>Hotel (3 nights)</span><span>$550 – $3,000+</span></div>
+          <div class="budget-breakdown-row"><span>Mountain or lakeside dinner for two</span><span>$150 – $500</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; champagne</span><span>$80 – $350</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $2,000+</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with hotel stay</span><span>$900 – $9,000+</span></div>
+        </div>
+        <p>Just the moment — a photographer, a small setup and a mountain or lakeside dinner, at a viewpoint you reach on foot — runs roughly $900 to $2,500 across most of Switzerland. Add a three-night stay and paid summit access and the range opens to about $1,500 to $9,000 or more, depending on whether you are booking a valley room or a Matterhorn-view suite.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>Cable-car access to the marquee summits.</strong> This is the Swiss line item Italy and France do not have. A round-trip for two to the Jungfraujoch is about $490–580 (CHF 224–261 a person), the Gornergrat about $290, the Schilthorn about $254. A Swiss Half Fare Card roughly halves it — and a free ridge hike removes it entirely.</li>
+          <li><strong>Sleeping on the mountain instead of in the valley.</strong> A Matterhorn-view suite in Zermatt or a room in Grindelwald village routinely runs CHF 500+ per night in season. The same standard of stay down in Interlaken or the Lauterbrunnen valley — twenty minutes from identical scenery — is often 40–60% less.</li>
+          <li><strong>Flying in a photographer instead of hiring local.</strong> Swiss photography rates already reflect the Swiss cost of living; adding a photographer's travel and accommodation on top commonly doubles the line item. A photographer already based in Interlaken, Zermatt or Lucerne charges local rates and knows the exact light window.</li>
+          <li><strong>Peak summer and ski season.</strong> Mid-June through August and the December–February ski weeks are the most expensive and the most crowded. Even the private workarounds — sunrise slots, a booked-out mountain restaurant — cost more when the whole country is at altitude.</li>
+          <li><strong>A private altitude dining buyout.</strong> A normal dinner for two at a mountain restaurant is $150–$400; a genuinely private, after-hours table at a summit restaurant with a reserved terrace is a different order of cost — extraordinary, but easily the most expensive single line item of the day.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Paying for the cable car when the hike is more beautiful.</strong> The Jungfraujoch is remarkable, but it is crowded and glassed-in. A dawn walk to the Bachalpsee, or the shore of Lake Brienz at Iseltwald, photographs more privately and more romantically — for nothing. Reach for the ticket only when the summit itself is the point.</li>
+          <li><strong>Booking the mountain-station hotel by reflex.</strong> The view from your window is lovely for one evening and then you are asleep. Sleeping in the valley and going up for the moment buys you the same scenery for a fraction of the nightly rate.</li>
+          <li><strong>Over-spending on décor, under-spending on the photographer.</strong> The ring is in one photograph. The mountains and the photographer are in every photograph. In a landscape this dramatic the setting does the work a flower wall would elsewhere — put the money where the images are.</li>
+          <li><strong>Proposing on a travel day.</strong> Switzerland tempts you to chain Lucerne to Interlaken to Zermatt in five days. A proposal squeezed onto a transfer day is rushed, weather-exposed and badly lit. Pick one region and give it two clear mornings.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in Switzerland on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Choose a lakes region — Interlaken, Lucerne or Lake Geneva.</strong> The signature viewpoint is a free lakeshore: the pier at Iseltwald, the promenade at Brunnen on Lake Lucerne, the Lavaux terraces above Montreux. A well-planned proposal in these regions can be done beautifully from around $900 to $1,800 including a local photographer and dinner.</li>
+          <li><strong>Reach your viewpoint on foot.</strong> The country's best-kept secret is that its most photogenic spots — the Bachalpsee, the Lauterbrunnen valley floor, a dozen ridge trails in the Bernese Oberland — are free hikes, not paid summits. The walk is the privacy that a private terrace would otherwise cost.</li>
+          <li><strong>Sleep in the valley, not on the mountain.</strong> Interlaken, Lauterbrunnen and Grindelwald village put you minutes from the same scenery at a fraction of the mountain-station nightly rate.</li>
+          <li><strong>Carry a Swiss Half Fare Card.</strong> If you do want a cable car, the Half Fare Card cuts most mountain-railway tickets roughly in half — the Jungfraujoch drops from about $250 to $145 a person — and pays for itself within a couple of ascents.</li>
+          <li><strong>Hire a regional photographer directly, and skip the full package.</strong> Search by town — Interlaken, Zermatt, Lucerne — not "Switzerland proposal photographer." You only need a full <a href="/blog/proposal-packages">proposal package</a> when you cannot be on the ground early to scout the light yourself.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$1,700 — Interlaken lakes, free viewpoint, 3 nights</div>
+        <p class="budget-breakdown-sub">A valley-town base, a dawn lakeshore reached on foot, and a local photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Valley hotel (Interlaken / Lauterbrunnen), 3 nights @ $180</span><span>$540</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Interlaken-based, 2 hrs)</span><span>$650</span></div>
+          <div class="budget-breakdown-row"><span>Lakeshore / ridge viewpoint (on foot)</span><span>$0</span></div>
+          <div class="budget-breakdown-row"><span>Lakeside dinner for two</span><span>$220</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$120</span></div>
+          <div class="budget-breakdown-row"><span>Regional trains &amp; incidentals</span><span>$170</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$1,700</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$5,600 — Zermatt, Matterhorn view, 3 nights</div>
+        <p class="budget-breakdown-sub">A Matterhorn-view room, a Gornergrat sunrise ascent, and a private mountain-restaurant dinner</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Matterhorn-view hotel, 3 nights @ $600</span><span>$1,800</span></div>
+          <div class="budget-breakdown-row"><span>Gornergrat sunrise ascent for two (CHF 132 pp)</span><span>$290</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Zermatt-based, 3 hrs)</span><span>$1,000</span></div>
+          <div class="budget-breakdown-row"><span>Private mountain-restaurant dinner</span><span>$650</span></div>
+          <div class="budget-breakdown-row"><span>Flowers, champagne &amp; setup</span><span>$250</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination</span><span>$1,600</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$5,600</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Switzerland cost?</summary>
+          <p>Roughly $900 to $2,500 for the moment alone — a photographer, a small setup and a mountain or lakeside dinner — and about $1,500 to $9,000 or more once you add a three-night stay. What moves the number is not decor: it is whether your viewpoint is a free hike or a paid cable car, and whether you sleep in a valley town or a Matterhorn-view suite. The table above breaks it down region by region and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest way to propose in Switzerland?</summary>
+          <p>Base yourself in a valley town — Interlaken, Lauterbrunnen or Grindelwald village — and propose at a free viewpoint reached on foot rather than by cable car. The Bachalpsee, the Lauterbrunnen valley floor and the turquoise shores of Lake Brienz and Lake Lucerne cost nothing to reach. A well-planned proposal this way runs about $900 to $1,800 including a local photographer and dinner.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Switzerland?</summary>
+          <p>About $450 to $1,300 for a two-to-three-hour session, reflecting the Swiss cost of living, and the single best line item in the budget. Hiring a photographer already based in the region — Interlaken, Zermatt or Lucerne — rather than flying one in keeps it to the lower end. Book early: the best are gone weeks ahead for the June-to-September window. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>How much does the Jungfraujoch or a Swiss cable car cost?</summary>
+          <p>Cable-car access is Switzerland's signature proposal cost. A round-trip to the Jungfraujoch runs about $245 to $290 per person (CHF 224 to 261), the Gornergrat above Zermatt about $145 (CHF 132) in summer, the Schilthorn about $127 (CHF 115) and Grindelwald-First about $85 (CHF 76). A Swiss Half Fare Card roughly halves all of them — but many of the most beautiful viewpoints, from the Bachalpsee to the Iseltwald pier, are free hikes that need no ticket at all.</p>
+        </details>
+        <details>
+          <summary>What do proposal packages in Switzerland include, and what do they cost?</summary>
+          <p>Swiss proposal packages typically start around $1,650 (CHF 1,500) for photography with a light styled setup, and a full custom proposal — planning, florals, transport, a hidden photographer and often a videographer — starts around $5,500 (CHF 5,000) and climbs with exclusivity and altitude. Worth it when you cannot be on the ground early to scout; skippable when you can. See how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific summits, lakeshores, ridge walks and mountain terraces that fit each of these budgets — with notes on access, timing and what to book ahead — live on the destination page, sorted by region.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/switzerland" class="budget-pg-link">Browse Switzerland proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/switzerland" class="budget-pg-link budget-pg-link-accent">Browse Switzerland proposal spots by region →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>
