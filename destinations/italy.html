@@ -191,6 +191,27 @@
     .dest-faq-region-content { padding-bottom: 8px; }
     .dest-faq-region .dest-faq-explore { padding: 16px 0 20px; }
     @media(max-width:640px){ .dest-faq { padding: 0 24px 60px; } }
+
+    /* If not Italy — similar markets */
+    .dest-similar { background: var(--bg); padding: 56px 40px 60px; }
+    .dest-similar-inner { max-width: 1200px; margin: 0 auto; }
+    .dest-similar-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .dest-similar-rule-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .dest-similar-rule-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.55; }
+    .dest-similar-pills { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .dest-similar-pill { display: inline-block; padding: 11px 22px; border: 1px solid rgba(26,22,18,0.22); border-radius: 999px; background: transparent; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.01em; text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
+
+    /* Browse by Destination footer */
+    .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
+    .dest-browse-inner { max-width: 1040px; margin: 0 auto; }
+    .dest-browse-label { display: block; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 36px; }
+    .dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 32px; }
+    .dest-browse-grid a { display: block; padding: 13px 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.18s; }
+    .dest-browse-grid a:hover { color: var(--accent); }
+    @media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, auto); } }
+    @media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } }
   </style>
   <link rel="stylesheet" href="/mobile.min.css">
   <script type="application/ld+json">
@@ -431,40 +452,23 @@
     </div>
   </div>
 
-  <!-- EDITORIAL -->
-  <div class="dest-editorial" style="display:none">
-    <div class="dest-editorial-inner">
-      <span class="dest-editorial-eyebrow">Campania · Italy</span>
-      <h2 class="dest-editorial-headline">Europe's most cinematic coastline. Some moments are inevitable here.</h2>
-      <p class="dest-editorial-sub">The Amalfi Coast has been making people fall in love for centuries — the light, the limestone cliffs, the lemon groves, the sea. There is a reason proposals here feel like they were meant to happen.</p>
-      <div style="display:none">
-      <div class="dest-editorial-grid">
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🍋</span>
-          <div class="dest-editorial-card-title">The lemon grove light</div>
-          <p class="dest-editorial-card-body">Late afternoon on the Amalfi Coast produces a quality of light photographers call unrepeatable — golden, diffuse, warm. The terraced lemon groves glow. Positano turns amber. The proposal almost takes care of itself.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🏔</span>
-          <div class="dest-editorial-card-title">Private cliffside terraces</div>
-          <p class="dest-editorial-card-body">The most extraordinary proposal spots here are invisible from the path. Carved into the cliffside, draped in bougainvillea, they exist specifically for moments that demand privacy.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🚤</span>
-          <div class="dest-editorial-card-title">Boat-access only spots</div>
-          <p class="dest-editorial-card-body">Several of our vetted locations are only accessible by boat — which means you are the only person who knows they exist. A local boatman, two hours, and a cove that doesn't appear on any map.</p>
-        </div>
+  <!-- IF NOT ITALY — SIMILAR MARKETS -->
+  <section class="dest-similar">
+    <div class="dest-similar-inner">
+      <div class="dest-similar-rule">
+        <span class="dest-similar-rule-label">If not Italy</span>
+        <span class="dest-similar-rule-line"></span>
       </div>
+      <div class="dest-similar-pills">
+        <a href="/destinations/south-of-france" class="dest-similar-pill">South of France</a>
+        <a href="/destinations/greece" class="dest-similar-pill">Greece</a>
+        <a href="/destinations/switzerland" class="dest-similar-pill">Switzerland</a>
+        <a href="/destinations/portugal" class="dest-similar-pill">Portugal</a>
+        <a href="/destinations/paris" class="dest-similar-pill">Paris</a>
+        <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
-      <div style="display:none">
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"The guitarist started playing around the corner and she thought it was for another table. When she turned to ask if we should move, I was already on one knee."</p>
-        <span class="dest-editorial-pull-attr">— James, Positano</span>
-      </div>
-      </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does an Amalfi Coast proposal cost? <a href="/budget/italy" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
     </div>
-  </div>
+  </section>
 
   <!-- HIGHLIGHTS -->
   <div style="display:none">
@@ -519,10 +523,7 @@
     <div class="dest-expert-take-inner">
       <span class="dest-expert-label">Our Take</span>
       <h2 class="dest-expert-h2">Italy is the country that invented romance. Every region asks the question differently.</h2>
-      <div class="dest-highlights-tip" style="margin-bottom:36px;">
-        <span class="dest-highlights-tip-label">Quick answer</span>
-        <p class="dest-highlights-tip-text">The best places to propose in Italy are the Amalfi Coast for cinematic clifftops, Lake Como for villa-garden serenity, Tuscany for cypress lanes at golden hour, and Rome for rooftops above the Eternal City. May and September are the strongest months. Proposal packages start from around $700; a full Italy proposal weekend runs $1,400 to $5,600.</p>
-      </div>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The best places to propose in Italy are the Amalfi Coast for cinematic clifftops, Lake Como for villa-garden serenity, Tuscany for cypress lanes at golden hour, and Rome for rooftops above the Eternal City. May and September are the strongest months. Proposal packages start from around $700; a full Italy proposal weekend runs $1,400 to $5,600.</p>
       <p class="dest-expert-body">Italy is the world's most enduringly romantic proposal country, and no two regions feel the same. The Amalfi Coast is theatre. Lake Como is silence. Tuscany is light at golden hour. Rome is rooftops. Choose the region that fits how the two of you actually are, not the one that looks best on Instagram.</p>
       <h3 style="font-family:'Cormorant',serif;font-size:clamp(22px,2.8vw,32px);font-weight:300;color:var(--ink);line-height:1.2;margin:48px 0 20px;">Italy Proposal Regions Compared</h3>
       <div style="overflow-x:auto;margin-bottom:24px;">
@@ -546,46 +547,9 @@
           </tbody>
         </table>
       </div>
+      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does an Italy proposal cost? <a href="/budget/italy" style="color:#a55a4a;text-decoration:none;">See the full Italy breakdown, region by region →</a></p>
     </div>
   </section>
-  <section class="dest-expert-take" style="display:none">
-    <div class="dest-expert-take-inner">
-      <span class="dest-expert-label">Our Take</span>
-      <h2 class="dest-expert-h2">The Amalfi Coast is the most cinematic coastline in Europe. Logistics are the thing nobody talks about.</h2>
-      <p class="dest-expert-body">The Amalfi Coast is the most cinematic coastline in Europe, but logistics are the thing nobody talks about. The coast is narrow, the roads are single-file, and the boat taxis run on their own schedule. Every spot we list accounts for this — you'll know exactly when to be where, and how to get there without stress on the most important day.</p>
-    </div>
-  </section>
-
-  <!-- OUR TAKE — ITALY -->
-  <div class="dest-editorial">
-    <div class="dest-editorial-inner">
-      <span class="dest-editorial-eyebrow">Italy · Europe</span>
-      <h2 class="dest-editorial-headline">The country that invented romance. Every region asks the question differently.</h2>
-      <p class="dest-editorial-sub">Italy doesn't need to try. The light here has been making people fall in love for centuries — clifftop terraces above turquoise sea, vineyard hills at golden hour, still lake water at dusk. No other country has this concentration of settings where a proposal feels not just romantic but inevitable.</p>
-      <div class="dest-editorial-grid">
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🍋</span>
-          <div class="dest-editorial-card-title">The Amalfi Coast light</div>
-          <p class="dest-editorial-card-body">Late afternoon on the Amalfi Coast produces a quality of light photographers call unrepeatable — golden, diffuse, warm. Limestone terraces glow. Positano turns amber. The proposal almost takes care of itself.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🏔</span>
-          <div class="dest-editorial-card-title">Lake Como's stillness</div>
-          <p class="dest-editorial-card-body">Reflected mountains, Belle Époque villas, and water that turns silver at dusk. Como has a quality of romantic grandeur that feels earned rather than performed — it doesn't try to impress you, and that's exactly why it does.</p>
-        </div>
-        <div class="dest-editorial-card">
-          <span class="dest-editorial-icon">🌿</span>
-          <div class="dest-editorial-card-title">Tuscany at golden hour</div>
-          <p class="dest-editorial-card-body">Cypress-lined roads, vineyard hills catching the last of the light, hilltop towns unchanged since the Renaissance. The Val d'Orcia at dusk is one of the most extraordinary things you'll ever see — and in shoulder season it's nearly yours alone.</p>
-        </div>
-      </div>
-      <div class="dest-editorial-pull">
-        <p class="dest-editorial-pull-text">"I planned everything down to the minute. Then the light changed over the lake and I completely forgot my speech. She said yes before I'd finished the question."</p>
-        <span class="dest-editorial-pull-attr">— Marcus, Lake Como</span>
-      </div>
-      <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:#6b6560;margin-top:28px;text-align:center;">What does an Italy proposal cost? <a href="/budget/amalfi-coast" style="color:#a55a4a;text-decoration:none;">See the full breakdown →</a></p>
-    </div>
-  </div>
 
   <!-- THE SETTING -->
   <div class="dest-gallery">
@@ -999,6 +963,30 @@
       </div>
     </div>
   </section>
+
+  <div class="dest-browse">
+    <div class="dest-browse-inner">
+      <span class="dest-browse-label">Browse by Destination</span>
+      <div class="dest-browse-grid">
+        <a href="/destinations/amalfi-coast">Amalfi Coast</a>
+        <a href="/destinations/bali">Bali</a>
+        <a href="/destinations/costa-rica">Costa Rica</a>
+        <a href="/destinations/greece">Greece</a>
+        <a href="/destinations/hawaii">Hawaii</a>
+        <a href="/destinations/italy">Italy</a>
+        <a href="/destinations/london">London</a>
+        <a href="/destinations/maldives">Maldives</a>
+        <a href="/destinations/nicaragua">Nicaragua</a>
+        <a href="/destinations/paris">Paris</a>
+        <a href="/destinations/patagonia">Patagonia</a>
+        <a href="/destinations/portugal">Portugal</a>
+        <a href="/destinations/south-of-france">South of France</a>
+        <a href="/destinations/switzerland">Switzerland</a>
+        <a href="/destinations/tulum">Tulum</a>
+        <a href="/destinations/united-states">United States</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     const dlState = { region: new Set(), vibe: new Set(), privacy: new Set(), budget: new Set() };
