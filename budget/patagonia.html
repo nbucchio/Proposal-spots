@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Patagonia Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="An honest breakdown of what a Patagonia proposal actually costs in 2026 — Torres del Paine, Fitz Roy, Perito Moreno, photographer, lodge stays, and helicopter charters.">
+  <meta name="description" content="An honest breakdown of what a Patagonia proposal actually costs in 2026 — region by region, from Torres del Paine and Fitz Roy to Perito Moreno, Bariloche and Ushuaia. Photographer, lodge, dinner, guide and helicopter costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/patagonia">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,18 +50,35 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
 
     .budget-section { margin-bottom: 48px; }
     .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
     .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
     .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
     .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
     .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
 
     .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
     .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
@@ -71,6 +88,20 @@
     .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
     .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
     .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -90,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Patagonia Cost? (2026 Guide)",
-    "description": "An honest breakdown of what a Patagonia proposal actually costs in 2026 — Torres del Paine, Fitz Roy, Perito Moreno, photographer, lodge stays, and helicopter charters.",
+    "description": "An honest breakdown of what a Patagonia proposal actually costs in 2026 — region by region, from Torres del Paine and Fitz Roy to Perito Moreno, Bariloche and Ushuaia.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-06-09"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Patagonia cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $800 to $2,500 for the moment alone (a photographer, a small setup and a dinner) and about $1,500 to $8,000 or more once you add a three-to-four-night lodge stay. Two things move the number most: whether you base on the Chilean side (Torres del Paine) or the cheaper Argentine side (El Chaltén, El Calafate), and whether you propose at a drive-up viewpoint or commit to a guided multi-day trek."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest way to propose in Patagonia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Base on the Argentine side — El Chaltén, El Calafate or Bariloche — and propose at a drive-up viewpoint or short hike rather than a multi-day trek. Mirador de los Cóndores above El Chaltén is a one-hour walk from town, and the Perito Moreno boardwalks are a drive-up. A well-planned Argentine-side proposal runs about $800 to $1,800 including a local photographer and a dinner."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Patagonia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $400 to $2,200 for a two-to-three-hour session. A photographer already based in Puerto Natales, El Chaltén or El Calafate runs $400 to $900; flying one in from Buenos Aires, Santiago or abroad commonly runs $1,200 to $2,200 once travel and accommodation are folded in — and the local knows the exact sunrise windows anyway."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Torres del Paine (Chile) more expensive than the Argentine side?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Torres del Paine charges a park-entry fee of about $35 in high season, requires online CONAF booking, and its lodges run 30 to 50% higher than comparable stays in El Chaltén or El Calafate — so three nights on the Chilean side commonly cost $700 to $1,500 more. The Argentine side introduced a modest trail-access fee at El Chaltén in late 2024 (about $40 for non-nationals), but remains the more budget-friendly choice overall."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best time for a Patagonia proposal, and does weather matter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The season runs November to March. December and January are warmest but the windiest, with gusts of 80 to 110 km/h on exposed ridges that can force a schedule change. November and late March deliver excellent conditions with calmer wind and lodge rates 25 to 40% below peak. Whatever month you choose, build one weather buffer day into the itinerary — it is the cheapest insurance in Patagonia."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -110,16 +189,68 @@
       <h1 class="budget-pg-h1">How Much Does a Proposal in Patagonia Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>What you pay for a Patagonia proposal comes down to three decisions made before you ever board a flight: which side of the border you choose, how far you're willing to hike, and whether the trip includes a multi-night lodge stay or just an in-and-out visit. The Chilean side (Torres del Paine) and the Argentine side (El Chaltén, El Calafate) operate as two distinct price ecosystems under a single regional name — Torres del Paine requires online-booked park entry and lodges that sell out 6–12 months ahead, while the El Chaltén side has no park fee and a more spontaneous accommodation market. Layered on top of that, the choice between a drive-up viewpoint (Lago Pehoé, Mirador de los Cóndores, Perito Moreno's boardwalks) and a serious day hike or multi-day trek can move the total by thousands. None of these costs are fixed. They are choices, and each one shifts the total by hundreds — sometimes thousands — of dollars.</p>
+        <p>What you pay for a Patagonia proposal comes down to three decisions made before you ever board a flight: which side of the border you choose, how far you're willing to hike, and whether the trip includes a multi-night lodge stay or just an in-and-out visit. The Chilean side (Torres del Paine) and the Argentine side (El Chaltén, El Calafate) operate as two distinct price ecosystems under a single regional name — Torres del Paine requires online-booked park entry and lodges that sell out 6–12 months ahead, while the El Chaltén side charges only a modest trail-access fee and has a more spontaneous accommodation market. Layered on top of that, the choice between a drive-up viewpoint (Lago Pehoé, Mirador de los Cóndores, Perito Moreno's boardwalks) and a serious day hike or multi-day trek can move the total by thousands. None of these costs are fixed. They are choices, and each one shifts the total by hundreds — sometimes thousands — of dollars.</p>
+        <p>The table below breaks the cost down region by region, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to spend it, and every one of these regions has its spots waiting on the <a href="/destinations/patagonia">Patagonia proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">Two countries operating as two cost ecosystems, a hard seasonal window of November–March, and a price range that runs from a free drive-up viewpoint to a helicopter on the granite — here's the baseline before any of those choices are made. For the full category-by-category breakdown, see the <a href="/destinations/patagonia" style="color:var(--accent);">Patagonia destination page</a>.</p>
+            <p class="budget-dest-tagline">Two countries operating as two cost ecosystems, a hard seasonal window of November–March, and a price range that runs from a free drive-up viewpoint to a helicopter on the granite — here is the baseline before any of those choices are made. For the spots themselves, see the <a href="/destinations/patagonia">Patagonia destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$800 – $8,000+</div>
         </div>
+      </div>
+
+      <!-- COST BY REGION -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by region</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by region. Torres del Paine sits at the top because of park-entry booking and lodges that run 30–50% higher than the Argentine side; El Chaltén, El Calafate and Bariloche are the most budget-friendly, because their signature viewpoints are drive-ups or short hikes and the towns have a more open accommodation market.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Torres del Paine (Chile)</td><td>The granite towers at sunrise, iconic lodges</td><td>Nov – Mar</td><td>$1,500 – $8,000</td></tr>
+                <tr><td>Ushuaia / Tierra del Fuego</td><td>The end of the world, Beagle Channel</td><td>Nov – Mar</td><td>$1,000 – $5,000</td></tr>
+                <tr><td>El Calafate / Perito Moreno</td><td>Glacier boardwalks, drive-up ice views</td><td>Nov – Mar</td><td>$900 – $4,500</td></tr>
+                <tr><td>El Chaltén / Fitz Roy</td><td>Trekking capital, free-to-reach viewpoints</td><td>Nov – Mar</td><td>$800 – $4,000</td></tr>
+                <tr><td>Bariloche &amp; the Lake District</td><td>Alpine lakes, the most accessible base</td><td>Nov – Apr</td><td>$800 – $3,500</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a drive-up or short-hike viewpoint, a Patagonia-based photographer and a town guesthouse; the upper end assumes a premium lodge, a guided ascent and a photographer with travel. The Chilean and Argentine sides are not interchangeable — different park systems, different vendors, different price points — and a helicopter charter (roughly $4,000+ per group) sits above every range here.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every region above has its spots — vetted, remote, and worth the flight.</div>
+        <a href="/destinations/patagonia" class="budget-cta-band-btn">Browse Patagonia proposal spots by region →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, region-wide</h2>
+        <p>Whichever side of the border you choose, the proposal breaks into the same categories. Here is the honest Patagonia-wide range for each, category by category.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Park entry &amp; transfers</span><span>$0 – $250</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$400 – $2,200</span></div>
+          <div class="budget-breakdown-row"><span>Lodge / hotel (3–4 nights)</span><span>$240 – $4,000+</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner</span><span>$140 – $500</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; champagne</span><span>$80 – $300</span></div>
+          <div class="budget-breakdown-row"><span>Guide / coordination (day hike ↔ multi-day trek)</span><span>$0 – $2,500</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with lodge stay</span><span>$800 – $8,000+</span></div>
+        </div>
+        <p>Just the moment — a photographer, a small setup and a dinner at a drive-up viewpoint — runs roughly $800 to $2,500 across Patagonia. Add a three-to-four-night lodge stay and the range opens to about $1,500 to $8,000 or more, depending on whether you are booking an El Chaltén guesthouse or a Torres del Paine lodge. A helicopter charter, if you want one, sits above all of this at roughly $4,000+ per group.</p>
       </div>
 
       <div class="budget-section">
@@ -148,7 +279,7 @@
         <ul class="budget-list">
           <li><strong>Anchor the proposal at a drive-up viewpoint.</strong> Lago Pehoé in Torres del Paine, Mirador de los Cóndores in El Chaltén, and the Perito Moreno boardwalks all give extraordinary Patagonia photos at the price of a park ticket. A self-planned proposal at one of these spots can be done well for under $900 including photographer and a rental car.</li>
           <li><strong>Travel in the shoulder window — November or late March.</strong> Conditions are still excellent (often better than the January peak), lodges drop 25–40%, and the small pool of regional photographers has availability. November is best for Fitz Roy clarity; late March is best for Torres del Paine wind calm.</li>
-          <li><strong>Choose Argentina over Chile for cost-sensitive trips.</strong> The El Chaltén side of Los Glaciares has no entry fee, accommodation in town runs $80–$200/night for solid options, and the iconic Fitz Roy view from Mirador de los Cóndores is a one-hour walk from the town centre. A three-night Argentine-side proposal trip can total $1,200–$1,800 including photographer and a private dinner.</li>
+          <li><strong>Choose Argentina over Chile for cost-sensitive trips.</strong> The El Chaltén side of Los Glaciares charges only a modest trail-access fee (about $40 for non-nationals, introduced in late 2024), accommodation in town runs $80–$200/night for solid options, and the iconic Fitz Roy view from Mirador de los Cóndores is a one-hour walk from the town centre. A three-night Argentine-side proposal trip can total $1,200–$1,800 including photographer and a private dinner.</li>
           <li><strong>Hire a Patagonia-based photographer directly.</strong> Search by town — Puerto Natales, El Chaltén, El Calafate — not "Patagonia proposal photographer." Local search terms surface photographers who charge local rates and already know the timing windows.</li>
           <li><strong>Build in one weather buffer day; don't try to recover after.</strong> Adding one extra night to the itinerary is the cheapest insurance in Patagonia. If the proposal day weather holds, you have a slow morning. If it doesn't, you have the moment intact.</li>
         </ul>
@@ -160,13 +291,13 @@
         <div class="budget-breakdown-label">~$1,500 — Argentine Patagonia, drive-up viewpoint</div>
         <p class="budget-breakdown-sub">El Chaltén town stay, Mirador de los Cóndores at sunset, day visit to Perito Moreno</p>
         <div class="budget-breakdown">
-          <div class="budget-breakdown-row"><span>El Chaltén guesthouse, 4 nights @ $130/night</span><span>$520</span></div>
+          <div class="budget-breakdown-row"><span>El Chaltén guesthouse, 4 nights @ $120/night</span><span>$480</span></div>
           <div class="budget-breakdown-row"><span>Rental car, 4 days + fuel</span><span>$220</span></div>
           <div class="budget-breakdown-row"><span>Photographer (El Chaltén based, 2 hrs)</span><span>$450</span></div>
           <div class="budget-breakdown-row"><span>Perito Moreno park entry, transfers, picnic</span><span>$80</span></div>
           <div class="budget-breakdown-row"><span>Private dinner at lodge, El Chaltén</span><span>$140</span></div>
           <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$90</span></div>
-          <div class="budget-breakdown-row"><span>Incidentals &amp; miscellaneous</span><span>$0</span></div>
+          <div class="budget-breakdown-row"><span>Los Glaciares trail-access fee &amp; incidentals</span><span>$40</span></div>
           <div class="budget-breakdown-row total"><span>Estimated total</span><span>$1,500</span></div>
         </div>
 
@@ -184,12 +315,37 @@
         </div>
       </div>
 
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Patagonia cost?</summary>
+          <p>Roughly $800 to $2,500 for the moment alone — a photographer, a small setup and a dinner — and about $1,500 to $8,000 or more once you add a three-to-four-night lodge stay. Two things move the number most: whether you base on the Chilean side (Torres del Paine) or the cheaper Argentine side (El Chaltén, El Calafate), and whether you propose at a drive-up viewpoint or commit to a guided multi-day trek. The table above breaks it down region by region and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest way to propose in Patagonia?</summary>
+          <p>Base on the Argentine side — El Chaltén, El Calafate or Bariloche — and propose at a drive-up viewpoint or short hike rather than a multi-day trek. Mirador de los Cóndores above El Chaltén is a one-hour walk from town, and the Perito Moreno boardwalks are a drive-up. A well-planned Argentine-side proposal runs about $800 to $1,800 including a local photographer and a dinner.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Patagonia?</summary>
+          <p>About $400 to $2,200 for a two-to-three-hour session, and the single best line item in the budget. A photographer already based in Puerto Natales, El Chaltén or El Calafate runs $400 to $900; flying one in from Buenos Aires, Santiago or abroad commonly runs $1,200 to $2,200 once travel and accommodation are folded in — and the local knows the exact sunrise windows anyway. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>Is Torres del Paine (Chile) more expensive than the Argentine side?</summary>
+          <p>Yes. Torres del Paine charges a park-entry fee of about $35 in high season, requires online CONAF booking, and its lodges run 30 to 50% higher than comparable stays in El Chaltén or El Calafate — so three nights on the Chilean side commonly cost $700 to $1,500 more. The Argentine side introduced a modest trail-access fee at El Chaltén in late 2024 (about $40 for non-nationals), but remains the more budget-friendly choice overall.</p>
+        </details>
+        <details>
+          <summary>When is the best time for a Patagonia proposal, and does weather matter?</summary>
+          <p>The season runs November to March. December and January are warmest but the windiest, with gusts of 80 to 110 km/h on exposed ridges that can force a schedule change. November and late March deliver excellent conditions with calmer wind and lodge rates 25 to 40% below peak. Whatever month you choose, build one weather buffer day into the itinerary — it is the cheapest insurance in Patagonia, and it is why so many <a href="/blog/proposal-packages">proposal packages</a> here quote a spare day.</p>
+        </details>
+      </div>
+
       <div class="budget-pg-prose">
-        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific viewpoints, lodges, and trail timings that fit each of these budgets — with notes on access, timing, and what to book ahead — live on the destination page below.</p>
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific viewpoints, lodges, and trail timings that fit each of these budgets — with notes on access, timing, and what to book ahead — live on the destination page, sorted by region.</p>
       </div>
 
       <div class="budget-pg-links">
-        <a href="/destinations/patagonia" class="budget-pg-link budget-pg-link-accent">Browse Patagonia proposal spots →</a>
+        <a href="/destinations/patagonia" class="budget-pg-link budget-pg-link-accent">Browse Patagonia proposal spots by region →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
         <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
