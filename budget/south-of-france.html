@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in the South of France Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in the South of France actually costs in 2026 — lavender fields, photographer, château stay, and private dinner.">
+  <meta name="description" content="An honest breakdown of what a proposal in the South of France actually costs in 2026 — region by region, from the Luberon and Valensole lavender to Cassis, the French Riviera, the Verdon and Aix-en-Provence. Photographer, hotel, dinner and planner costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/south-of-france">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,18 +50,35 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
 
     .budget-section { margin-bottom: 48px; }
     .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
     .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
     .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
     .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
     .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
 
     .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
     .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
@@ -71,6 +88,20 @@
     .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
     .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
     .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -90,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in the South of France Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in the South of France actually costs in 2026 — lavender fields, photographer, château stay, and private dinner.",
+    "description": "An honest breakdown of what a proposal in the South of France actually costs in 2026 — region by region, from the Luberon and Valensole lavender to Cassis, the French Riviera, the Verdon and Aix-en-Provence.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in the South of France cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $800 to $2,500 for the moment alone (a photographer, a small setup and a dinner) and about $1,400 to $6,000 or more once you add a three-night stay. Two things move the number most: whether you base inland in Provence or on the Côte d'Azur, and whether you travel in lavender season or the cheaper shoulder months on either side of it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest region in the South of France to propose?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Inland Provence — the Luberon, Aix-en-Provence and the Gorges du Verdon — is meaningfully cheaper than the coast. The signature viewpoints are free: a hilltop village like Gordes or Les Baux, a lavender-field margin at dawn, a canyon overlook. A well-planned proposal here runs about $800 to $1,500 including a Provence-based photographer and a dinner, against $1,200 and up on the Riviera."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in the South of France?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $350 to $1,200 for a two-to-three-hour session. A standalone Provence session commonly runs around €499. Booking a photographer already based in Provence — Aix-en-Provence, Avignon, Gordes — rather than importing one from Paris or the coast keeps it to the lower end, and Provence-based photographers charge a 20 to 40% premium over other French regions, so search by town, not by country."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is lavender season and does it cost more?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Valensole plateau and Luberon lavender peak from late June through July. Accommodation across that corridor runs roughly 30 to 50% higher at peak bloom, and the small pool of local photographers books out. Travelling in late May, early June or September trades a few weeks of full bloom for materially lower rates — and the fields themselves are free to stand in at first light either way."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Côte d'Azur more expensive than inland Provence?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, and mostly through the hotel. A boutique room in Nice, Antibes or Saint-Tropez averages $250 to $450 a night in season, against $90 to $180 for a comparable inland stay — so three nights on the coast can cost $750 to $1,200 more than three inland for the same standard of room. The Riviera earns its price for coastal glamour; the Luberon delivers stone-village romance for far less."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -106,20 +185,73 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · France</span>
+      <span class="pg-eyebrow">Budget Guide · South of France</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in the South of France Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
         <p>What you pay for a South of France proposal comes down to three decisions made before you ever board a flight: which region you choose, which season you travel in, and whether you hire locally or import. The Côte d'Azur and inland Provence operate as two different price tiers under the same regional name — moving from a coastal base to an inland one can cut your accommodation cost roughly in half. Lavender season (late June through July) layers a seasonal surcharge on top of that regional gap, and a photographer flown in from Paris can cost more than double a photographer based in Aix-en-Provence for the same two hours of work. None of these costs are fixed. They are choices, and each one moves the total by hundreds — sometimes thousands — of dollars.</p>
+        <p>The table below breaks the cost down region by region, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to spend it, and every one of these regions has its spots waiting on the <a href="/destinations/south-of-france">South of France proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">Two regions operating as two price tiers, a seasonal surcharge in lavender season, and a wide gap between public access and private venue hire — here's the baseline range before any of those choices are made. For the full category-by-category breakdown, see the <a href="/destinations/south-of-france" style="color:var(--accent);">South of France destination page</a>.</p>
+            <p class="budget-dest-tagline">Two regions operating as two price tiers, a seasonal surcharge in lavender season, and a wide gap between public access and private venue hire — here is the baseline range before any of those choices are made. For the spots themselves, see the <a href="/destinations/south-of-france">South of France destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$800 – $6,000+</div>
         </div>
+      </div>
+
+      <!-- COST BY REGION -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by region</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by region. The French Riviera sits at the top because of high coastal hotel rates; the Luberon, the Verdon and Aix-en-Provence are the most budget-friendly, because the best viewpoints are free hilltop villages and lavender margins and the inland towns are well supplied with photographers.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>French Riviera / Côte d'Azur</td><td>Coastal glamour — Nice, Èze, Villefranche</td><td>May, Jun, Sep, Oct</td><td>$1,200 – $6,000</td></tr>
+                <tr><td>Valensole plateau</td><td>Endless lavender rows in bloom</td><td>Late Jun – Jul</td><td>$900 – $4,500</td></tr>
+                <tr><td>Cassis &amp; the Calanques</td><td>Turquoise coves under white cliffs</td><td>May, Jun, Sep</td><td>$1,000 – $4,500</td></tr>
+                <tr><td>Luberon</td><td>Hilltop stone villages — Gordes, Roussillon, Les Baux</td><td>May, Jun, Sep, Oct</td><td>$800 – $4,000</td></tr>
+                <tr><td>Aix-en-Provence &amp; around</td><td>Elegant town base, fountains and plane trees</td><td>Apr – Oct</td><td>$800 – $3,800</td></tr>
+                <tr><td>Gorges du Verdon</td><td>Dramatic canyon over turquoise water</td><td>Jun, Sep</td><td>$800 – $3,800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a free viewpoint, a Provence-based photographer and a gîte or inland hotel; the upper end assumes a private terrace or venue hire, a coastal boutique or luxury mas, and a planner. The coast and the interior are not interchangeable — a Riviera package and a Luberon package are different vendors at different price points, and lavender season reprices the inland regions for a few weeks each summer.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every region above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/south-of-france" class="budget-cta-band-btn">Browse South of France proposal spots by region →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, region-wide</h2>
+        <p>Whichever region you choose, the proposal breaks into the same categories. Here is the honest South-of-France-wide range for each, category by category.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Spot / venue access (public viewpoint ↔ private terrace hire)</span><span>$0 – $1,000</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$350 – $1,200</span></div>
+          <div class="budget-breakdown-row"><span>Hotel (3 nights)</span><span>$270 – $3,000+</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner</span><span>$150 – $800</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; champagne</span><span>$80 – $300</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $600</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with hotel stay</span><span>$800 – $6,000+</span></div>
+        </div>
+        <p>Just the moment — a photographer, a small setup and a dinner — runs roughly $800 to $2,500 across the region. Add a three-night stay and the range opens to about $1,400 to $6,000 or more, depending on whether you are booking an inland gîte or a coastal boutique on the Riviera.</p>
       </div>
 
       <div class="budget-section">
@@ -184,12 +316,37 @@
         </div>
       </div>
 
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in the South of France cost?</summary>
+          <p>Roughly $800 to $2,500 for the moment alone — a photographer, a small setup and a dinner — and about $1,400 to $6,000 or more once you add a three-night stay. Two things move the number most: whether you base inland in Provence or on the Côte d'Azur, and whether you travel in lavender season or the cheaper shoulder months on either side of it. The table above breaks it down region by region and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest region in the South of France to propose?</summary>
+          <p>Inland Provence — the Luberon, Aix-en-Provence and the Gorges du Verdon — is meaningfully cheaper than the coast. The signature viewpoints are free: a hilltop village like Gordes or Les Baux, a lavender-field margin at dawn, a canyon overlook. A well-planned proposal here runs about $800 to $1,500 including a Provence-based photographer and a dinner, against $1,200 and up on the Riviera.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in the South of France?</summary>
+          <p>About $350 to $1,200 for a two-to-three-hour session, and the single best line item in the budget. A standalone Provence session commonly runs around €499. Booking a photographer already based in Provence — Aix-en-Provence, Avignon, Gordes — rather than importing one from Paris or the coast keeps it to the lower end, and Provence-based photographers charge a 20 to 40% premium over other French regions, so search by town, not by country. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>When is lavender season, and does it cost more?</summary>
+          <p>The Valensole plateau and Luberon lavender peak from late June through July. Accommodation across that corridor runs roughly 30 to 50% higher at peak bloom, and the small pool of local photographers books out weeks ahead. Travelling in late May, early June or September trades a few weeks of full bloom for materially lower rates — and the fields themselves are free to stand in at first light either way.</p>
+        </details>
+        <details>
+          <summary>Is the Côte d'Azur more expensive than inland Provence?</summary>
+          <p>Yes, and mostly through the hotel. A boutique room in Nice, Antibes or Saint-Tropez averages $250 to $450 a night in season, against $90 to $180 for a comparable inland stay — so three nights on the coast can cost $750 to $1,200 more than three inland for the same standard of room. The Riviera earns its price for coastal glamour; the Luberon delivers stone-village romance for far less. If you want the full done-for-you route, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
       <div class="budget-pg-prose">
-        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific lavender fields, hilltop terraces, and coastal coves that fit each of these budgets — with notes on access, timing, and what to book ahead — live on the destination page below.</p>
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific lavender fields, hilltop terraces, and coastal coves that fit each of these budgets — with notes on access, timing, and what to book ahead — live on the destination page, sorted by region.</p>
       </div>
 
       <div class="budget-pg-links">
-        <a href="/destinations/south-of-france" class="budget-pg-link budget-pg-link-accent">Browse South of France proposal spots →</a>
+        <a href="/destinations/south-of-france" class="budget-pg-link budget-pg-link-accent">Browse South of France proposal spots by region →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
         <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
