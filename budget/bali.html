@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Bali Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in Bali actually costs in 2026 — photographer, villa access, dinner, and everything in between.">
+  <meta name="description" content="An honest breakdown of what a proposal in Bali actually costs in 2026 — area by area, from Uluwatu and Ubud to Jimbaran, Seminyak and Nusa Penida. Photographer, villa, private dinner, décor and planner costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/bali">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Bali Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in Bali actually costs in 2026 — photographer, villa access, dinner, and everything in between.",
+    "description": "An honest breakdown of what a proposal in Bali actually costs in 2026 — area by area, from Uluwatu and Ubud to Jimbaran, Seminyak and Nusa Penida.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Bali cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A full private Bali proposal setup — one hour of photography (around $240 to $280), a private dinner setup (around $700 to $800) and floral décor (from around $850) — typically lands between $1,800 and $2,400. Add three nights in a private villa and the total runs roughly $2,200 to $4,000 or more. Bali is a genuine discount on equivalent quality in Europe, but it is no longer a sub-$1,000 destination."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does a Bali proposal cost more than people expect?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because in Bali the biggest line item is not the photographer or the villa — it is the private décor and dinner setup. Fresh floral décor from around $850 and a candlelit private dinner setup around $700 to $800 together make up most of the floor. The photographer is cheap by global standards ($240 to $280 for an hour) and villas are affordable ($400 to $1,800 for three nights), so the setup is what moves the number."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Bali?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Around $240 to $280 for one hour, and among the best value in the world for proposal work. One hour is genuinely enough for the moment plus a short couple shoot. Book the photographer first — the best are gone in July, August and December — because it is the line in the budget that earns itself back."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where should you stay, and what does a villa cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A private villa runs roughly $400 to $1,800 for three nights depending on the area. Ubud jungle villas with infinity pools and Uluwatu clifftop villas over the ocean are the classic proposal stays; Uluwatu is the premium address. Note that public beaches in Bali are never truly private — for a beach moment you want a villa beach club with exclusive access, not Kuta or Seminyak."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a Bali helicopter proposal cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scenic helicopter charters from Ngurah Rai Airport start around $1,050 (from about 13,900,000 IDR) and rise with route and duration — over Ubud's rice terraces, the south coast or Mt Agung, with the moment in the air or at a private landing. A premium add-on that sits above the standard ground-based budget."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,171 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Indonesia</span>
+      <span class="pg-eyebrow">Budget Guide · Bali</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in Bali Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>The premium end of the Bali proposal market is driven by private villa experiences with curated floral décor, dedicated butlers, and pool-side setups — the kind of thing that costs several thousand dollars to stage in Europe or the US. Sunset-hour slots at the most photographed spots are booked months in advance by operators who add a significant margin. Photography rates for the internationally marketed Bali photographers — those with large followings and full-package proposal offerings — have risen substantially as demand from destination couples has grown.</p>
-        <p>Bali remains one of the most value-dense proposal destinations on this list. A full setup — a private villa terrace, a vetted photographer for an hour, a private dinner setup and a floral arrangement — typically lands between $1,800 and $2,400, considerably less than the same quality would cost in Italy or France. Local Balinese photographers charge around $240 to $280 for 1 hour, which is enough for the moment plus a short couple shoot. The rice terraces in Tabanan (Jatiluwih) offer some of the most photogenic backdrops on the island for minimal entry fees.</p>
+        <p>Bali is one of the best value-for-money luxury proposal destinations in the world — a private villa sunset setup that would cost $5,000 in Europe can be arranged here for around $1,200. But the budget is shaped differently from Europe's, and knowing how is what keeps you from overspending. The single biggest line item in a Bali proposal is not the photographer or the villa — it is the private décor and dinner setup. The photographer is cheap by global standards, villas are affordable, and the flowers-and-dinner production is where most of the money goes.</p>
+        <p>None of that is fixed. A simpler floral setup instead of a heart arch, a self-booked sunset dinner on Jimbaran Bay, one hour of photography rather than three, or a villa in Ubud rather than a clifftop in Uluwatu — each of these moves the total by hundreds of dollars without touching what actually ends up in the photographs. Bali is also a sunset destination, not a sunrise one: only about one couple in twenty here wants to be up before dawn, so you rarely pay a premium for first-light logistics.</p>
+        <p>The table below breaks the cost down area by area, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to spend it, and every one of these settings has its spots waiting on the <a href="/destinations/bali">Bali proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">A high value-for-money luxury proposal destination. Private villa sunset setups that would cost $5,000 in Europe can be arranged in Bali for around $1,200. For the full category-by-category breakdown, see the <a href="/destinations/bali" style="color:var(--accent);">Bali destination page</a>.</p>
+            <p class="budget-dest-tagline">A high value-for-money luxury proposal destination where the private setup — not the photographer — is the biggest line item. Sunset-driven, villa-based, and a real discount on European quality. Here is the honest baseline. For the spots themselves, see the <a href="/destinations/bali">Bali destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$1,800 – $4,000+</div>
         </div>
       </div>
+
+      <!-- COST BY AREA -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by area</h2>
+        <p>The typical all-in cost for a full setup plus a short villa stay, by area. Uluwatu's clifftop villas are the premium address; Ubud, Jimbaran and the beach towns run a little lower; Nusa Penida is the most dramatic and the most do-it-yourself, because elaborate décor setups can't practically be staged on the neighbour islands.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Uluwatu</td><td>Clifftop villas, temples, cinematic ocean sunsets</td><td>Apr – Oct</td><td>$2,000 – $4,500</td></tr>
+                <tr><td>Ubud</td><td>Jungle villas, rice terraces, infinity pools</td><td>Apr – Oct</td><td>$1,800 – $4,000</td></tr>
+                <tr><td>Jimbaran &amp; Nusa Dua</td><td>Sunset seafood on the sand, calm resort coast</td><td>Apr – Oct</td><td>$1,800 – $4,000</td></tr>
+                <tr><td>Seminyak &amp; Canggu</td><td>Stylish beach clubs, sunset cocktails</td><td>Apr – Oct</td><td>$1,700 – $3,800</td></tr>
+                <tr><td>Nusa Penida</td><td>Dramatic clifftops, do-it-yourself (no décor setups)</td><td>Apr – Oct</td><td>$1,200 – $2,800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover a private setup plus a short villa stay. The lower end assumes a simpler floral setup, a self-booked dinner and a mid-range villa; the upper end assumes a clifftop villa, a full private dinner-and-décor production and a coordinator. Nusa Penida sits lower because its drama is free but staged setups aren't practical there — it is a photographer-and-a-cliff proposal, not a décor one.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every area above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/bali" class="budget-cta-band-btn">Browse Bali proposal spots →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, island-wide</h2>
+        <p>Whichever area you choose, the proposal breaks into the same categories. Here is the honest Bali-wide range for each — and note how differently it stacks up from Europe: the décor and dinner setup, not the photographer or the villa, is the big number.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Private access / guide</span><span>$30 – $300</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (1 hr)</span><span>$240 – $280</span></div>
+          <div class="budget-breakdown-row"><span>Villa / hotel (3 nights)</span><span>$400 – $1,800</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner setup</span><span>$300 – $800</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; décor (from)</span><span>$300 – $1,200+</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $700</span></div>
+          <div class="budget-breakdown-row total"><span>Full setup / with villa stay</span><span>$1,800 – $4,000+</span></div>
+        </div>
+        <p>A full private setup — one hour of photography, a private dinner setup and floral décor — typically lands between $1,800 and $2,400. Add three nights in a private villa and the range opens to about $2,200 to $4,000 or more, depending on whether you book an Ubud jungle villa or an Uluwatu clifftop. One hour of photography is intentional: most couples find it is genuinely enough for the moment plus a short couple shoot.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>The private décor and dinner setup.</strong> This is the Bali line item Europe doesn't have at this scale. Fresh floral décor from around $850 and a candlelit private dinner setup around $700–$800 together make up most of the floor. A heart arch or other premium décor element pushes the décor line past $1,200.</li>
+          <li><strong>An Uluwatu clifftop villa.</strong> The most sought-after proposal address on the island — ocean-edge villas with private infinity pools run at the top of the villa range. Ubud jungle villas deliver an equally photogenic setting for less.</li>
+          <li><strong>Booking a villa beach club for privacy.</strong> Public beaches in Bali are never truly private — Kuta, Seminyak and Padang Padang are crowded. A guaranteed-private beach moment means paying for exclusive villa-beach-club access.</li>
+          <li><strong>Peak booking months (July, August, December).</strong> The best photographers and villas fill first for these months. Book the photographer six to eight weeks ahead — leaving it to the week before is the single most common Bali proposal mistake.</li>
+          <li><strong>A helicopter charter.</strong> A scenic flight over the rice terraces or south coast starts around $1,050 and rises from there — a spectacular add-on that sits well above the standard ground-based budget.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Over-producing the florals.</strong> A heart arch and a wall of flowers add up fast and date quickly. In a setting this dramatic — a clifftop, a rice terrace, an infinity pool at golden hour — a restrained floral setup photographs better and costs a third as much.</li>
+          <li><strong>Assuming a public beach will be private.</strong> It won't. Couples plan a "secret" beach moment at Seminyak or Padang Padang and find a crowd. Either pay for a villa beach club or choose a clifftop or villa terrace where privacy is actually deliverable.</li>
+          <li><strong>Booking three hours of photography.</strong> One hour genuinely covers the moment and a short couple shoot. Paying for a half-day of coverage is money that would do more on the setting or the dinner.</li>
+          <li><strong>Arranging the dinner through a tour operator.</strong> A sunset table on Jimbaran Bay booked directly with the restaurant costs far less than the same table arranged through a middleman — book it yourself and confirm the exact table position in advance.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in Bali on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Keep the florals simple.</strong> Skip the heart arch. A clean floral setup and a few candles at golden hour let the landscape do the work — and it is the fastest way to take several hundred dollars off the total.</li>
+          <li><strong>Book your own sunset dinner on Jimbaran Bay.</strong> Fresh seafood, tables on the sand, and the beach quiets after 8pm. Reserve directly with a good restaurant instead of paying a coordinator markup.</li>
+          <li><strong>One hour of photography is enough.</strong> Book a Bali-based photographer directly for a single hour at around $240–$280 — the best value in the budget — rather than a half-day package.</li>
+          <li><strong>Choose Ubud or Canggu over an Uluwatu clifftop.</strong> A jungle villa with an infinity pool in Ubud, or a stylish villa in Canggu, photographs beautifully for less than an ocean-edge Uluwatu estate.</li>
+          <li><strong>Plan for sunset, not sunrise.</strong> Bali's light is best in the evening and you avoid any dawn-logistics premium. You only need a full <a href="/blog/proposal-packages">proposal package</a> when you'd rather hand the florist, photographer and timing to a coordinator.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$2,300 — Ubud jungle villa, sunset setup, 3 nights</div>
+        <p class="budget-breakdown-sub">A private villa terrace at golden hour, a restrained floral setup, one hour of photography</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Ubud private villa, 3 nights @ $200</span><span>$600</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Bali-based, 1 hr)</span><span>$260</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner setup, villa terrace</span><span>$750</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; décor (simple)</span><span>$500</span></div>
+          <div class="budget-breakdown-row"><span>Private access / guide</span><span>$80</span></div>
+          <div class="budget-breakdown-row"><span>Transfers &amp; incidentals</span><span>$110</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$2,300</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$3,900 — Uluwatu clifftop villa, full setup, 3 nights</div>
+        <p class="budget-breakdown-sub">An ocean-edge villa, a full private dinner-and-décor production, a coordinator</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Uluwatu clifftop villa, 3 nights @ $500</span><span>$1,500</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Bali-based, 1 hr)</span><span>$280</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner setup, cliff edge</span><span>$800</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; premium décor</span><span>$900</span></div>
+          <div class="budget-breakdown-row"><span>Coordinator / planner</span><span>$300</span></div>
+          <div class="budget-breakdown-row"><span>Transfers &amp; incidentals</span><span>$120</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$3,900</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Bali cost?</summary>
+          <p>A full private setup — one hour of photography (around $240 to $280), a private dinner setup (around $700 to $800) and floral décor (from around $850) — typically lands between $1,800 and $2,400. Add three nights in a private villa and the total runs roughly $2,200 to $4,000 or more. Bali is a genuine discount on equivalent quality in Europe, but it is no longer a sub-$1,000 destination. The table above breaks it down area by area and category by category.</p>
+        </details>
+        <details>
+          <summary>Why does a Bali proposal cost more than people expect?</summary>
+          <p>Because the biggest line item is not the photographer or the villa — it is the private décor and dinner setup. Fresh floral décor from around $850 and a candlelit private dinner setup around $700 to $800 together make up most of the floor. The photographer is cheap by global standards ($240 to $280 for an hour) and villas are affordable ($400 to $1,800 for three nights), so the setup is what moves the number — and it is also the easiest place to save.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Bali?</summary>
+          <p>Around $240 to $280 for one hour, and among the best value in the world for proposal work. One hour is genuinely enough for the moment plus a short couple shoot. Book the photographer first — the best are gone in July, August and December — because it is the line in the budget that earns itself back. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>Where should you stay, and what does a villa cost?</summary>
+          <p>A private villa runs roughly $400 to $1,800 for three nights depending on the area. Ubud jungle villas with infinity pools and Uluwatu clifftop villas over the ocean are the classic proposal stays; Uluwatu is the premium address. Note that public beaches in Bali are never truly private — for a beach moment you want a villa beach club with exclusive access, not Kuta or Seminyak.</p>
+        </details>
+        <details>
+          <summary>What does a Bali helicopter proposal cost?</summary>
+          <p>Scenic helicopter charters from Ngurah Rai Airport start around $1,050 (from about 13,900,000 IDR) and rise with route and duration — over Ubud's rice terraces, the south coast or Mt Agung, with the moment in the air or at a private landing. A premium add-on that sits above the standard ground-based budget. If you'd rather hand the whole thing off, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific clifftops, jungle villas, rice terraces and beach tables that fit each of these budgets — with notes on access, timing and what to book ahead — live on the destination page, area by area.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/bali" class="budget-pg-link">Browse Bali proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/bali" class="budget-pg-link budget-pg-link-accent">Browse Bali proposal spots →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>

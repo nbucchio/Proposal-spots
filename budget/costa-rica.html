@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Costa Rica Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in Costa Rica actually costs in 2026 — cloud forest access, photographer, eco-lodge, and private dinner.">
+  <meta name="description" content="An honest breakdown of what a proposal in Costa Rica actually costs in 2026 — region by region, from Arenal and Monteverde to Manuel Antonio and Guanacaste. Photographer, eco-lodge, dinner and access costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/costa-rica">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Costa Rica Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in Costa Rica actually costs in 2026 — cloud forest access, photographer, eco-lodge, and private dinner.",
+    "description": "An honest breakdown of what a proposal in Costa Rica actually costs in 2026 — region by region, from Arenal and Monteverde to Manuel Antonio and Guanacaste.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Costa Rica cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $320 to $920 for the moment alone (a local photographer, a small setup and a dinner) and about $690 to $2,500 or more once you add a three-night eco-lodge stay. A luxury Guanacaste beach resort pushes the top toward $4,000, but Costa Rica is one of the best-value dramatic proposal destinations in the world — cloud forests, volcanoes and Pacific beaches at a fraction of the European price."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest way to propose in Costa Rica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Base in Monteverde or Arenal at an eco-lodge, travel in the green season (May to November), hire a local photographer, and use the natural setting — a cloud-forest bridge at dawn, a volcano viewpoint, a public beach at sunset — rather than a built setup. A beautiful Costa Rica proposal this way can be done for around $500 to $800 all in."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Costa Rica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $150 to $400 for a two-to-three-hour session — among the most affordable of any destination on this list. Local photographers work Arenal, Monteverde, Manuel Antonio and Guanacaste regularly and know the light and the wildlife timing. Book early for the December-to-April dry season, when demand peaks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best and cheapest time to propose in Costa Rica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The dry season, December to April, has the most reliable weather and the highest prices. The green season, May to November, is lush, far cheaper and quieter — you simply plan the proposal around the mornings, as the rain tends to come in the afternoon. On the Pacific side the green season still delivers plenty of clear golden-hour light."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is the most dramatic place to propose in Costa Rica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Monteverde cloud-forest hanging bridges are the single most dramatic setting — private early access before 7am means no tour groups, just mist, jungle and howler monkeys. Arenal's volcano, the jungle-meets-Pacific cliffs of Manuel Antonio, and the golden Guanacaste beaches at sunset are the other headline settings, each an easy day from its lodges."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,169 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Central America</span>
+      <span class="pg-eyebrow">Budget Guide · Costa Rica</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in Costa Rica Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>Costa Rica's premium eco-lodges — particularly those in the Monteverde cloud forest and the Osa Peninsula — charge significantly more than standard Central American accommodation due to their remote locations and the logistics involved in maintaining them. Reaching the hanging bridges of Monteverde or the hidden beaches of Corcovado National Park typically requires private transport, a knowledgeable local guide, and advance coordination that adds to the overall cost. Photography rates have risen as Costa Rica's proposal market has matured: the country now has a well-established community of photographers who specifically cater to international proposal couples and price accordingly.</p>
-        <p>Outside the premium tier, Costa Rica is remarkably good value. La Fortuna near Arenal volcano offers spectacular accommodation with direct volcano views from around $80 a night. Local photography talent is exceptional and genuinely affordable compared to European or North American markets. The Pacific beaches of the Nicoya Peninsula — Nosara, Santa Teresa, Samara — offer some of the most cinematic proposal backdrops in the Americas for almost nothing in location cost. The cloud forest, the lava fields, the Pacific cliff walks: the country's natural drama does the heavy lifting so the budget doesn't have to.</p>
+        <p>Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forests, Pacific cliffs, volcanoes and hidden beaches — at a fraction of the price of European equivalents. It is one of the few places where the moment itself can genuinely be done for under $1,000 without cutting a single corner, because the setting does almost all the work and the local photographers, guides and lodges charge local rates. What you actually pay comes down to three choices: which region, which season, and whether you keep it to an eco-lodge or reach for a luxury Guanacaste beach resort.</p>
+        <p>The table below breaks the cost down region by region, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to spend it, and every one of these settings has its spots waiting on the <a href="/destinations/costa-rica">Costa Rica proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">Costa Rica offers some of the most dramatic and private proposal settings in the Americas — cloud forests, Pacific cliffs, hidden beaches — at a fraction of the price of European equivalents. For the full category-by-category breakdown, see the <a href="/destinations/costa-rica" style="color:var(--accent);">Costa Rica destination page</a>.</p>
+            <p class="budget-dest-tagline">Cloud forests, volcanoes and Pacific beaches, at a fraction of the European price — the rare dramatic destination where the moment itself can be done for under $1,000. Here is the honest baseline. For the spots themselves, see the <a href="/destinations/costa-rica">Costa Rica destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$400 – $4,000+</div>
         </div>
       </div>
+
+      <!-- COST BY REGION -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by region</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by region. Guanacaste sits at the top because of its luxury beach resorts; Arenal, Manuel Antonio, the Osa coast and Monteverde are gentler on the budget, because their signature settings — volcano, jungle, cloud forest — cost little or nothing to reach and the eco-lodges are well priced.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Guanacaste</td><td>Golden beaches, sunsets, luxury resorts (Papagayo, Tamarindo, Nosara)</td><td>Dec – Apr</td><td>$700 – $4,000</td></tr>
+                <tr><td>Arenal / La Fortuna</td><td>Volcano views, hanging bridges, hot springs</td><td>Dec – Apr</td><td>$500 – $3,000</td></tr>
+                <tr><td>Manuel Antonio</td><td>Jungle meets the Pacific, beach and clifftop</td><td>Dec – Apr</td><td>$500 – $3,000</td></tr>
+                <tr><td>Osa &amp; Santa Teresa</td><td>Remote wild coast, surf, deep seclusion</td><td>Dec – Apr</td><td>$500 – $3,000</td></tr>
+                <tr><td>Monteverde</td><td>Cloud forest, mist, hanging bridges, howler monkeys</td><td>Dec – Apr</td><td>$400 – $2,500</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a natural setting, a local photographer and an eco-lodge; the upper end assumes a luxury beach resort, a private beach dinner setup and a coordinator. Costa Rica's regions are far apart — chaining Arenal, Monteverde and Guanacaste in one trip adds real transfer time and cost, so pick one and go deep.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every region above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/costa-rica" class="budget-cta-band-btn">Browse Costa Rica proposal spots →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, country-wide</h2>
+        <p>Whichever region you choose, the proposal breaks into the same categories. Here is the honest Costa-Rica-wide range for each, category by category.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Private guide / access</span><span>$50 – $150</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$150 – $400</span></div>
+          <div class="budget-breakdown-row"><span>Eco-lodge / hotel (3 nights)</span><span>$400 – $1,800</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner</span><span>$80 – $300</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; setup</span><span>$40 – $150</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $500</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with lodge stay</span><span>$400 – $4,000+</span></div>
+        </div>
+        <p>Just the moment — a local photographer, a small setup and a dinner, at a natural setting you reach with a guide — runs roughly $320 to $920. Add a three-night eco-lodge stay and the range opens to about $690 to $2,500, or up toward $4,000 once you move to a luxury Guanacaste beach resort. The photographer, at $150 to $400, is among the best value of any destination.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>A luxury Guanacaste beach resort.</strong> The Papagayo and Tamarindo resorts are the country's most expensive stays — the difference between a $600 eco-lodge trip and a $3,000+ one is almost entirely the address on the beach.</li>
+          <li><strong>Dry-season peak (December–April).</strong> The most reliable weather and the highest rates of the year, especially over the Christmas and Easter holiday weeks. The green season costs meaningfully less.</li>
+          <li><strong>Chaining multiple regions.</strong> Arenal, Monteverde and Guanacaste are each hours apart by road, sometimes a domestic flight. A trip that tries to do all three stacks up transfer time and cost fast — and rushes the proposal.</li>
+          <li><strong>Flying in a non-local photographer.</strong> Local Costa Rican proposal photographers charge $150–$400 and know the wildlife and light timing. An imported photographer's travel and lodging can multiply that line for no better result.</li>
+          <li><strong>Private guided early access.</strong> Beating the tour groups to the Monteverde bridges or a reserve before 7am is worth every dollar — but it is a real line item ($50–$150) that a midday visit doesn't carry.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Booking a luxury beach resort by default.</strong> Guanacaste's resorts are beautiful, but a Monteverde cloud-forest lodge or an Arenal volcano-view eco-lodge has more character and photographs just as well for a third of the nightly rate.</li>
+          <li><strong>Trying to see the whole country in five days.</strong> Costa Rica rewards depth, not distance. A proposal squeezed onto a transfer day between regions is rushed and travel-worn. Pick one region and give it two clear mornings.</li>
+          <li><strong>Over-building the setup.</strong> This is a nature destination — the volcano, the mist, the surf do the work a flower wall would do elsewhere. A restrained setup keeps the focus on the setting and the cost down.</li>
+          <li><strong>Paying dry-season holiday rates.</strong> Christmas and Easter weeks are the most expensive of the year. Shift a couple of weeks either side, or into the green season, for a real discount.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in Costa Rica on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Choose Monteverde or Arenal and stay at an eco-lodge.</strong> The signature setting is the cloud forest or the volcano, and the eco-lodges are well priced. A full proposal here can be done beautifully for around $500 to $800.</li>
+          <li><strong>Travel in the green season (May–November).</strong> Lush, quiet and much cheaper. Plan the proposal for the morning — the rain, when it comes, tends to arrive in the afternoon — and you keep the light and lose the crowds.</li>
+          <li><strong>Use the natural setting, not a built one.</strong> A cloud-forest bridge at dawn, a volcano viewpoint, a public beach at sunset — these cost little or nothing and outshine any staged décor.</li>
+          <li><strong>Hire a local photographer directly.</strong> Search by region — Arenal, Monteverde, Manuel Antonio, Tamarindo — not "Costa Rica proposal photographer." Local search surfaces the people who charge local rates and know the timing.</li>
+          <li><strong>Pick one region and go deep.</strong> Skipping the cross-country transfers saves both money and the rushed feeling. You only need a full <a href="/blog/proposal-packages">proposal package</a> when you'd rather hand the guide, photographer and dinner to a coordinator.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$750 — Monteverde, cloud forest at dawn, 3 nights</div>
+        <p class="budget-breakdown-sub">An eco-lodge, private early access to the hanging bridges, a local photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Eco-lodge (Monteverde), 3 nights @ $130</span><span>$390</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (local, 2 hrs)</span><span>$200</span></div>
+          <div class="budget-breakdown-row"><span>Private cloud-forest access (before 7am)</span><span>$60</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner for two, lodge restaurant</span><span>$60</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$40</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$750</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$2,600 — Guanacaste, beach resort, 3 nights</div>
+        <p class="budget-breakdown-sub">A Papagayo-area resort, a private beach dinner setup at sunset, a photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Guanacaste beach resort, 3 nights @ $500</span><span>$1,500</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Guanacaste-based, 3 hrs)</span><span>$400</span></div>
+          <div class="budget-breakdown-row"><span>Private beach dinner setup</span><span>$300</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; décor</span><span>$150</span></div>
+          <div class="budget-breakdown-row"><span>Private access / coordination</span><span>$150</span></div>
+          <div class="budget-breakdown-row"><span>Transfers &amp; incidentals</span><span>$100</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$2,600</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Costa Rica cost?</summary>
+          <p>Roughly $320 to $920 for the moment alone — a local photographer, a small setup and a dinner — and about $690 to $2,500 or more once you add a three-night eco-lodge stay. A luxury Guanacaste beach resort pushes the top toward $4,000, but Costa Rica is one of the best-value dramatic proposal destinations in the world. The table above breaks it down region by region and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest way to propose in Costa Rica?</summary>
+          <p>Base in Monteverde or Arenal at an eco-lodge, travel in the green season (May to November), hire a local photographer, and use the natural setting — a cloud-forest bridge at dawn, a volcano viewpoint, a public beach at sunset — rather than a built setup. A beautiful Costa Rica proposal this way can be done for around $500 to $800 all in.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Costa Rica?</summary>
+          <p>About $150 to $400 for a two-to-three-hour session — among the most affordable of any destination on this list. Local photographers work Arenal, Monteverde, Manuel Antonio and Guanacaste regularly and know the light and the wildlife timing. Book early for the December-to-April dry season. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>When is the best and cheapest time to propose in Costa Rica?</summary>
+          <p>The dry season, December to April, has the most reliable weather and the highest prices. The green season, May to November, is lush, far cheaper and quieter — you simply plan the proposal around the mornings, as the rain tends to come in the afternoon. On the Pacific side the green season still delivers plenty of clear golden-hour light.</p>
+        </details>
+        <details>
+          <summary>Where is the most dramatic place to propose in Costa Rica?</summary>
+          <p>The Monteverde cloud-forest hanging bridges are the single most dramatic setting — private early access before 7am means no tour groups, just mist, jungle and howler monkeys. Arenal's volcano, the jungle-meets-Pacific cliffs of Manuel Antonio, and the golden Guanacaste beaches at sunset are the other headline settings. If you'd rather hand it all off, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific cloud-forest bridges, volcano viewpoints, jungle beaches and clifftop terraces that fit each of these budgets — with notes on access, timing and what to book ahead — live on the destination page, region by region.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/costa-rica" class="budget-pg-link">Browse Costa Rica proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/costa-rica" class="budget-pg-link budget-pg-link-accent">Browse Costa Rica proposal spots →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>
