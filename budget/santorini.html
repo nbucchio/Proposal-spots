@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Santorini Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in Santorini actually costs in 2026 — photographer, venue, hotel, dinner, and everything in between.">
+  <meta name="description" content="An honest breakdown of what a proposal in Santorini actually costs in 2026 — village by village, from Oia and Imerovigli to Firostefani, Fira and the beaches. Photographer, cave-suite, terrace, dinner and planner costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/santorini">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Santorini Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in Santorini actually costs in 2026 — photographer, venue, hotel, dinner, and everything in between.",
+    "description": "An honest breakdown of what a proposal in Santorini actually costs in 2026 — village by village, from Oia and Imerovigli to Firostefani, Fira and the beaches.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Santorini cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $800 to $2,500 for the moment alone (a photographer, a small setup and a dinner) and about $1,300 to $8,000 or more once you add a three-night caldera stay. Two things move the number most: which village you sleep in — Oia is the island's most expensive address — and whether you travel in the July–August peak or the cheaper shoulder months on either side."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest way to propose in Santorini?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stay in Imerovigli, Firostefani or Fira instead of Oia — the caldera view is the same and the rooms cost 30 to 50% less — and propose at the Oia viewpoint before 7am, when it is empty and free. A well-planned Santorini proposal this way runs about $900 to $1,500 including a Santorini-based photographer and a caldera-view dinner."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Santorini?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $350 to $1,100 for a one-to-two-hour session, among the highest rates in Greece because of the demand for the island's light. A photographer who works Santorini regularly but is not marketed internationally charges 40 to 50% less than the globally known names, with equivalent results. Book six to eight weeks ahead — the best are gone in peak season."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is an Oia cave suite, and where should you stay?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oia caldera cave suites run from about $330 a night up to $1,200 or more at peak. The trick is that Imerovigli and Firostefani sit on the same caldera rim with the same sunset view, from roughly $150 to $350 a night — so you can have the exact view for a fraction of the Oia price, then walk or drive to Oia for the proposal itself."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best and cheapest time to propose in Santorini?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Late April to early June and September to October — warm, clear, far fewer crowds, and hotel rates well below the July–August peak, when prices are highest and the Oia viewpoint is shoulder-to-shoulder at sunset. Whatever month you choose, dawn beats the crowds: the caldera is silent and pink at 6:30am."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,171 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Greece</span>
+      <span class="pg-eyebrow">Budget Guide · Santorini</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in Santorini Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
         <p>Santorini commands premium prices because demand is relentless and supply — real caldera-view privacy — is genuinely limited. Cave suites and clifftop villa terraces with direct Aegean views are some of the most sought-after accommodation in Greece, and peak-season rates reflect this. Photographers who specialise in Santorini proposals charge among the highest rates in the Greek market, because couples specifically seek out those with experience navigating the island's famous light. Access to private terraces above the caldera — the only way to avoid the tourist crowds at the Oia viewpoint — involves either paying for a stay at a villa property or negotiating separate terrace access, which is rarely free.</p>
         <p>A beautiful Santorini proposal does not require the most expensive options. The caldera view itself costs nothing — arriving in Oia before 7am gives you the same scenery as a private terrace, without the crowds or access fees. Photographers who work Santorini regularly but aren't marketed to international audiences charge 40–50% less than the internationally known names, with equivalent results. Accommodation in Firostefani or Imerovigli rather than central Oia is significantly cheaper while maintaining the same caldera views. A well-timed, well-located proposal here can be extraordinary for under $1,000.</p>
+        <p>The table below breaks the cost down village by village, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to stand when you ask, and every one of these settings has its spots waiting on the <a href="/destinations/greece">Santorini proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">The most photographed proposal backdrop on earth. Premium views command premium prices — but there are ways to do it beautifully without the most expensive options. For the full category-by-category breakdown, see the <a href="/destinations/greece" style="color:var(--accent);">Santorini destination page</a>.</p>
+            <p class="budget-dest-tagline">The most photographed proposal backdrop on earth. Premium views command premium prices — but the same caldera sunset is far cheaper two villages over, and free at dawn. Here is the honest baseline before any of those choices are made. For the spots themselves, see the <a href="/destinations/greece">Santorini destination page</a>.</p>
           </div>
           <div class="budget-dest-range-badge">$800 – $8,000+</div>
         </div>
       </div>
+
+      <!-- COST BY VILLAGE -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by village</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by village. Oia commands the island's highest rates because of the name and the sunset crowds; Imerovigli and Firostefani sit on the same caldera rim with the same view for meaningfully less, and the beach and inland villages are the real value.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Village</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Oia</td><td>The iconic caldera sunset, blue domes, cave suites</td><td>Apr – Jun, Sep, Oct</td><td>$1,500 – $8,000</td></tr>
+                <tr><td>Imerovigli</td><td>Highest point on the caldera, quiet, dramatic</td><td>Apr – Oct</td><td>$1,200 – $6,000</td></tr>
+                <tr><td>Firostefani</td><td>Same caldera view as Oia, better value</td><td>Apr – Oct</td><td>$1,000 – $5,000</td></tr>
+                <tr><td>Fira</td><td>Central and lively, cheaper caldera stays</td><td>Apr – Oct</td><td>$900 – $4,500</td></tr>
+                <tr><td>Beaches &amp; inland</td><td>Black-sand beaches, vineyards, Pyrgos village (Kamari, Perissa)</td><td>May – Oct</td><td>$700 – $3,500</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a free dawn viewpoint, a Santorini-based photographer and an Imerovigli or Fira stay; the upper end assumes a private caldera terrace, an Oia cave suite and a planner. Oia and Imerovigli share the same view — most of the price difference in the table is the address, not the scenery.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every village above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/greece" class="budget-cta-band-btn">Browse Santorini proposal spots →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, island-wide</h2>
+        <p>Whichever village you choose, the proposal breaks into the same categories. Here is the honest Santorini-wide range for each, category by category.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Spot / terrace access (free Oia dawn viewpoint ↔ private caldera terrace)</span><span>$0 – $800</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (1–2 hrs)</span><span>$350 – $1,100</span></div>
+          <div class="budget-breakdown-row"><span>Hotel (3 nights)</span><span>$250 – $3,600+</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner</span><span>$120 – $600</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; champagne</span><span>$80 – $300</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $700</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with hotel stay</span><span>$800 – $8,000+</span></div>
+        </div>
+        <p>Just the moment — a photographer, a small setup and a dinner, at the free Oia viewpoint at dawn — runs roughly $800 to $2,500. Add a three-night caldera stay and the range opens to about $1,300 to $8,000 or more, depending on whether you book an Imerovigli suite or an Oia cave suite.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>The Oia address.</strong> Oia is the single most expensive place to sleep on Santorini — caldera cave suites run from about $330 a night to $1,200 or more in peak season. Imerovigli and Firostefani, one and two villages along the same rim, deliver the identical sunset view for 30–50% less.</li>
+          <li><strong>Private caldera terrace access.</strong> The famous Oia viewpoint is packed from late afternoon, so couples pay for a private terrace to get a clean shot — either bundled into a villa stay or charged separately. It is the difference between a $1,500 and a $3,000 proposal, and it is free at dawn.</li>
+          <li><strong>Flying in an international photographer.</strong> Santorini's globally marketed proposal photographers charge 40–50% more than the equally skilled locals who shoot the same caldera every week and know the exact light window. The premium is the marketing, not the images.</li>
+          <li><strong>Peak season (July–August).</strong> The highest rates of the year and the worst crowds at the Oia viewpoint at sunset. Even the private workarounds cost more, and the light is harsher.</li>
+          <li><strong>A full-service hotel proposal package.</strong> Boutique properties in Imerovigli and Firostefani bundle a private terrace, dinner and setup from around $800 up to $2,500 — beautiful and effortless, but a premium over booking the photographer and a restaurant terrace yourself.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Booking Oia by default.</strong> Oia is extraordinary, but you are paying for the postcode. Imerovigli and Firostefani photograph the same caldera and the same sunset for a fraction of the nightly rate — and Oia is a short walk or taxi away for the moment itself.</li>
+          <li><strong>Paying for a private terrace when dawn is free.</strong> The public Oia viewpoint is empty and glowing at 6:30am. A sunrise proposal buys you the privacy that an afternoon private-terrace hire would otherwise cost several hundred dollars to fake.</li>
+          <li><strong>Hiring an international photographer over a local.</strong> The Santorini-based photographer knows the calendars, the crowds and the exact minute the light turns — and charges half of what a flown-in name does.</li>
+          <li><strong>Proposing at the July–August peak.</strong> The most expensive, most crowded, harshest-light weeks of the year. May, early June and late September deliver better conditions at a real discount.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in Santorini on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Stay in Imerovigli, Firostefani or Fira, not Oia.</strong> The same caldera view, 30–50% cheaper per night — the single biggest saving available on the island. Spend the difference on the photographer and the dinner.</li>
+          <li><strong>Propose at the free Oia viewpoint at dawn.</strong> Before 7am the most famous viewpoint on earth is empty and free. No terrace fee, no crowd, the best light of the day.</li>
+          <li><strong>Hire a Santorini-based photographer directly.</strong> Search "Santorini proposal photographer," not "destination proposal photographer" — local search surfaces the people who charge local rates and already know the timing windows.</li>
+          <li><strong>Travel in the shoulder season — late April to early June, or late September into October.</strong> Warm light, calm crowds, and hotel rates well below the July–August peak.</li>
+          <li><strong>Skip the private terrace; book a caldera-view taverna instead.</strong> A dinner table on the rim gives you the setting without the villa-terrace premium. You only need a full <a href="/blog/proposal-packages">proposal package</a> when you cannot be on the island early to scout.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$1,300 — Imerovigli, dawn viewpoint, 3 nights</div>
+        <p class="budget-breakdown-sub">A caldera-view room two villages from Oia, a sunrise proposal at the free viewpoint</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Imerovigli caldera-view hotel, 3 nights @ $180</span><span>$540</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Santorini-based, dawn, 1.5 hrs)</span><span>$450</span></div>
+          <div class="budget-breakdown-row"><span>Oia dawn viewpoint (arrive 6:30am — free)</span><span>$0</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner, caldera-view taverna</span><span>$180</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$90</span></div>
+          <div class="budget-breakdown-row"><span>Transfers &amp; incidentals</span><span>$40</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$1,300</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$4,600 — Oia cave suite, private terrace, 3 nights</div>
+        <p class="budget-breakdown-sub">A caldera cave suite in Oia, a private terrace at golden hour, a specialist photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Oia cave suite, 3 nights @ $900</span><span>$2,700</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Oia specialist, 2 hrs)</span><span>$850</span></div>
+          <div class="budget-breakdown-row"><span>Private caldera terrace access &amp; setup</span><span>$400</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner for two</span><span>$350</span></div>
+          <div class="budget-breakdown-row"><span>Flowers, champagne &amp; styling</span><span>$200</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination</span><span>$100</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$4,600</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Santorini cost?</summary>
+          <p>Roughly $800 to $2,500 for the moment alone — a photographer, a small setup and a dinner — and about $1,300 to $8,000 or more once you add a three-night caldera stay. Two things move the number most: which village you sleep in — Oia is the island's most expensive address — and whether you travel in the July–August peak or the cheaper shoulder months. The table above breaks it down village by village and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest way to propose in Santorini?</summary>
+          <p>Stay in Imerovigli, Firostefani or Fira instead of Oia — the caldera view is the same and the rooms cost 30 to 50% less — and propose at the Oia viewpoint before 7am, when it is empty and free. A well-planned Santorini proposal this way runs about $900 to $1,500 including a Santorini-based photographer and a caldera-view dinner.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Santorini?</summary>
+          <p>About $350 to $1,100 for a one-to-two-hour session, among the highest rates in Greece because of the demand for the island's light. A photographer who works Santorini regularly but is not marketed internationally charges 40 to 50% less than the globally known names, with equivalent results. Book six to eight weeks ahead. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>How much is an Oia cave suite, and where should you stay?</summary>
+          <p>Oia caldera cave suites run from about $330 a night up to $1,200 or more at peak. The trick is that Imerovigli and Firostefani sit on the same caldera rim with the same sunset view, from roughly $150 to $350 a night — so you can have the exact view for a fraction of the Oia price, then walk or drive to Oia for the proposal itself.</p>
+        </details>
+        <details>
+          <summary>When is the best and cheapest time to propose in Santorini?</summary>
+          <p>Late April to early June and September to October — warm, clear, far fewer crowds, and hotel rates well below the July–August peak, when prices are highest and the Oia viewpoint is shoulder-to-shoulder at sunset. Whatever month you choose, dawn beats the crowds: the caldera is silent and pink at 6:30am. If you would rather hand it all off, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific terraces, cave suites, viewpoints and caldera-rim tables that fit each of these budgets — with notes on access, timing and what to book ahead — live on the destination page, village by village.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/greece" class="budget-pg-link">Browse Santorini proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/greece" class="budget-pg-link budget-pg-link-accent">Browse Santorini proposal spots →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>
