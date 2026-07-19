@@ -87,8 +87,8 @@ export default async function handler(req, res) {
   </url>`).join('');
 
   const budgetUrls = [
-    'algarve', 'bali', 'costa-rica', 'italy', 'maldives', 'new-york',
-    'nicaragua', 'patagonia', 'santorini', 'south-of-france', 'switzerland', 'tulum'
+    'bali', 'costa-rica', 'italy', 'maldives', 'new-york',
+    'nicaragua', 'patagonia', 'portugal', 'santorini', 'south-of-france', 'switzerland', 'tulum'
   ].map(slug => `
   <url>
     <loc>https://www.proposalspots.com/budget/${slug}</loc>
