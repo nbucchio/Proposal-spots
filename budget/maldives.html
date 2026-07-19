@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in the Maldives Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in the Maldives actually costs in 2026 — sandbank access, photographer, water villa, and seaplane transfer.">
+  <meta name="description" content="An honest breakdown of what a proposal in the Maldives actually costs in 2026 — resort tier by resort tier, plus overwater villa, private sandbank, seaplane, photographer and the service charge everyone forgets. Sample trip budgets included.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/maldives">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in the Maldives Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in the Maldives actually costs in 2026 — sandbank access, photographer, water villa, and seaplane transfer.",
+    "description": "An honest breakdown of what a proposal in the Maldives actually costs in 2026 — resort tier by resort tier, plus overwater villa, private sandbank, seaplane, photographer and the service charge everyone forgets.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in the Maldives cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A four-night water villa stay with a proposal setup and a photographer starts at roughly $5,000 to $7,000 in shoulder season and runs $9,000 to $25,000 or more in peak at a premium resort. A near-Malé speedboat resort can bring a full proposal trip closer to $3,000 to $4,000. The villa is the swing factor — the proposal setup itself is a small fraction of the total."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is a Maldives proposal so much more than other destinations?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because the proposal is inseparable from the resort. You are already paying $300 to $5,000 a night for an overwater villa, so the setup — a private sandbank, a dinner, a photographer, at $2,000 to $5,000 — is a small share of the trip. Then a 23% service charge and GST plus a green tax are added to nearly every bill, which is the cost most couples forget to budget for."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a private sandbank proposal or setup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The private sandbank charter is usually $600 to $2,500 depending on the resort and how far the sandbank sits from the lagoon. A full proposal package — the sandbank or beach setup, a private dinner and a photographer — typically runs $1,500 to $5,000. The resort delivers the setup ahead of you and you have roughly 90 minutes to two hours before the tide returns."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in the Maldives?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $400 to $1,500 for a two-to-three-hour session, usually the resort's in-house photographer or one it works with regularly. If you want to bring an external photographer, confirm with the property first that they will be allowed onsite — some resorts restrict outside vendors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Seaplane or speedboat: which transfer is cheaper for a Maldives proposal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Speedboat. Resorts near Malé reach by speedboat run any time of day and skip the seaplane fee; farther-atoll resorts require a seaplane at roughly $350 to $600 per person round-trip and only fly in daylight. Choosing a near-Malé speedboat resort is one of the biggest single savings on a Maldives proposal trip."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,169 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Indian Ocean</span>
+      <span class="pg-eyebrow">Budget Guide · Maldives</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in the Maldives Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>The Maldives is structurally expensive in a way no other destination on this list is. There is almost no budget accommodation — the country's entire tourism model is built around full-board overwater resort pricing. Getting to your resort from Malé International Airport requires either a seaplane (the most cinematic arrival, and the most expensive) or a speedboat, and these transfers add meaningful cost before you've spent a single night. Sandbank proposals — the iconic empty strip of white sand surrounded by turquoise water — are among the most spectacular proposal settings in the world, but access is arranged through resort concierges who add a setup premium. Photography at this end of the market also reflects resort-level pricing.</p>
-        <p>The Maldives does have a genuine lower-cost tier. Mid-range resort islands like Thulusdhoo or Maafushi, accessible by public or private speedboat from Malé rather than by seaplane, can halve the transport cost and bring nightly rates down significantly. Some inhabited local islands have guesthouses from which you can arrange private boat access to sandbanks directly — bypassing the resort markup entirely. Travelling in shoulder season (May or November, just before and after monsoon) cuts nightly rates by 30–40% at most properties. The scenery is identical year-round.</p>
+        <p>A Maldives proposal is really a resort decision, because the whole thing happens on one island and the villa is by far the biggest line in the budget. A four-night water villa stay with a proposal setup and a photographer starts at roughly $5,000 to $7,000 in shoulder season and runs $9,000 to $25,000 or more in peak at a premium resort. The proposal setup itself — a private sandbank, a dinner, a photographer — is only a small share of that. What actually moves the number is the resort tier, the season, and whether you reach the island by speedboat or seaplane.</p>
+        <p>There is one cost almost everyone forgets: a service charge and GST of around 23%, plus a small green tax, are added to nearly every bill. On a Maldives trip that is a four-figure line of its own, so it belongs in the budget from the start rather than as a surprise at checkout. The table below breaks the cost down by resort tier, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Every one of these settings has its spots waiting on the <a href="/destinations/maldives">Maldives proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">The highest-cost destination on our list — and the one where every penny of it is visible. If your budget allows, this is the proposal that requires the least effort and delivers the most impact. For the full category-by-category breakdown, see the <a href="/destinations/maldives" style="color:var(--accent);">Maldives destination page</a>.</p>
+            <p class="budget-dest-tagline">The proposal is inseparable from the resort — the overwater villa is the budget, and the setup is a small fraction of it. Choose the tier, the season and the transfer, and the number follows. For the spots themselves, see the <a href="/destinations/maldives">Maldives destination page</a>.</p>
           </div>
-          <div class="budget-dest-range-badge">$2,000 – $15,000+</div>
+          <div class="budget-dest-range-badge">$3,000 – $25,000+</div>
         </div>
       </div>
+
+      <!-- COST BY RESORT TIER -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by resort tier</h2>
+        <p>The Maldives has no meaningful regions for a proposal — every atoll is turquoise and every villa sits over the same lagoon. What differs is the resort tier, which sets almost the entire budget. Here is the typical all-in cost of a four-night proposal trip, by tier.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Resort tier</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical trip (4 nights)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Ultra-luxury</td><td>Private-island feel, dedicated proposal team (Soneva Jani, Joali, Cheval Blanc)</td><td>Nov – Apr</td><td>$12,000 – $25,000+</td></tr>
+                <tr><td>Premium overwater</td><td>Polished service, serious house reefs (Six Senses, COMO)</td><td>Nov – Apr</td><td>$7,000 – $12,000</td></tr>
+                <tr><td>Classic overwater</td><td>The signature water-villa proposal, mid-luxury</td><td>Nov – Apr</td><td>$5,000 – $8,000</td></tr>
+                <tr><td>Near-Malé (speedboat)</td><td>First overwater villa, flexible and cheaper transfers</td><td>Year-round</td><td>$3,000 – $6,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Trips are four nights, two people, including the villa, a proposal setup, a photographer, transfers and the ~23% service charge and taxes. The lower end assumes shoulder season and a near-Malé speedboat resort; the upper end assumes a peak-season ultra-luxury island reached by seaplane. Peak (December–March, and holiday weeks) can lift any tier by 30–60%.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every resort above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/maldives" class="budget-cta-band-btn">Browse Maldives proposal spots →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, for a 4-night trip</h2>
+        <p>Whichever resort you choose, the trip breaks into the same categories. Note how one line — the villa — dwarfs the others, and how the service charge is a real number rather than a rounding error.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Overwater villa (4 nights)</span><span>$1,600 – $20,000+</span></div>
+          <div class="budget-breakdown-row"><span>Private sandbank charter / proposal setup</span><span>$600 – $2,500</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$400 – $1,500</span></div>
+          <div class="budget-breakdown-row"><span>Seaplane or speedboat transfer (couple, return)</span><span>$200 – $1,200</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner &amp; dining</span><span>$300 – $800</span></div>
+          <div class="budget-breakdown-row"><span>Service charge &amp; taxes (≈ 23% + green tax)</span><span>added to all of the above</span></div>
+          <div class="budget-breakdown-row total"><span>Four-night proposal trip</span><span>$3,000 – $25,000+</span></div>
+        </div>
+        <p>The villa is the budget. Everything else — the sandbank, the photographer, the dinner — sits within a few thousand dollars across the whole range, while the villa swings from about $400 a night at a near-Malé resort to $5,000 a night at an ultra-luxury island. Choose the resort first; the rest follows.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>The resort tier.</strong> This is almost the entire decision. An ultra-luxury island (Soneva Jani, Joali, Cheval Blanc Randheli) at $2,000–$5,000 a night is a completely different budget from a near-Malé overwater resort at $400–$700 — for the same lagoon and the same sunset.</li>
+          <li><strong>A seaplane-transfer resort.</strong> Farther atolls require a seaplane at roughly $350–$600 per person round-trip, and those resorts tend to charge more per night too. Near-Malé speedboat resorts avoid both.</li>
+          <li><strong>Peak season (December–March, and holiday weeks).</strong> Villa rates rise 30–60% over shoulder and green season. The same water villa can double between May and February.</li>
+          <li><strong>The 23% service charge and taxes.</strong> A service charge and GST of around 23%, plus a green tax, are added to nearly every bill. On a five-figure trip that is a four-figure line — the single most-forgotten Maldives cost.</li>
+          <li><strong>Signature add-ons.</strong> A private sandbank charter, an underwater-restaurant dinner or a full floral setup are the extras that lift the setup from $1,500 toward $5,000.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Not budgeting for the ~23% service charge.</strong> It is added to the villa, the dining and most extras, and it turns a $10,000 trip into a $12,000 one. Build it in from the start so it is a plan, not a checkout shock.</li>
+          <li><strong>Choosing a far seaplane resort for the "remote" feel.</strong> A near-Malé speedboat resort delivers the same overwater villa and the same lagoon, arrives any time of day, and skips the seaplane fee entirely — often for a materially lower nightly rate.</li>
+          <li><strong>Over-scaling the setup at an already-expensive resort.</strong> At an ultra-luxury island the setting is already the spectacle. A restrained sandbank setup photographs as beautifully as a maximal one, and the money is better left in the trip.</li>
+          <li><strong>Booking peak holiday weeks.</strong> Christmas, New Year and Easter are the most expensive dates of the year. A shift into shoulder season is the biggest lever you have on the villa rate.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in the Maldives on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Choose a near-Malé speedboat resort.</strong> The same overwater villa and lagoon, a cheaper nightly rate, no seaplane fee, and a flexible arrival time. This is the single biggest saving available in the Maldives.</li>
+          <li><strong>Travel in the green or shoulder season (May–October).</strong> Villa rates drop sharply. You accept the chance of a passing shower in exchange for a materially smaller bill — and the lagoon is just as blue between them.</li>
+          <li><strong>Use the resort's own photographer and setup.</strong> They know the tide windows and the best sandbank, and you avoid the cost and the permissions hassle of bringing someone in.</li>
+          <li><strong>Keep the setup simple.</strong> The sandbank and the lagoon are the production. A clean setup at golden hour needs no more than flowers, a table and the light.</li>
+          <li><strong>Budget the 23% upfront.</strong> Knowing the service charge is coming lets you pick the villa tier that lands your true all-in where you want it. You only need a full <a href="/blog/proposal-packages">proposal package</a> when you'd rather the resort handle every detail.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$5,100 — near-Malé water villa, sandbank proposal, 4 nights</div>
+        <p class="budget-breakdown-sub">A speedboat resort in shoulder season, a private sandbank setup, the resort photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Overwater villa, 4 nights @ $600</span><span>$2,400</span></div>
+          <div class="budget-breakdown-row"><span>Private sandbank charter + setup</span><span>$850</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (resort, 2 hrs)</span><span>$500</span></div>
+          <div class="budget-breakdown-row"><span>Speedboat transfer (couple, return)</span><span>$300</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner</span><span>$250</span></div>
+          <div class="budget-breakdown-row"><span>Service charge &amp; green tax (≈ 23%)</span><span>$800</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$5,100</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$14,000 — ultra-luxury island, seaplane, full setup, 4 nights</div>
+        <p class="budget-breakdown-sub">A private-island resort, a seaplane arrival, a full private sandbank-and-dinner production</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Ultra-luxury overwater villa, 4 nights @ $1,800</span><span>$7,200</span></div>
+          <div class="budget-breakdown-row"><span>Private sandbank charter + full setup</span><span>$1,800</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (in-house, 3 hrs)</span><span>$1,200</span></div>
+          <div class="budget-breakdown-row"><span>Seaplane transfer (couple, return)</span><span>$900</span></div>
+          <div class="budget-breakdown-row"><span>Private dining experiences</span><span>$600</span></div>
+          <div class="budget-breakdown-row"><span>Service charge &amp; green tax (≈ 23%)</span><span>$2,300</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$14,000</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in the Maldives cost?</summary>
+          <p>A four-night water villa stay with a proposal setup and a photographer starts at roughly $5,000 to $7,000 in shoulder season and runs $9,000 to $25,000 or more in peak at a premium resort. A near-Malé speedboat resort can bring a full proposal trip closer to $3,000 to $4,000. The villa is the swing factor — the proposal setup itself is a small fraction of the total. The table above breaks it down by resort tier and category.</p>
+        </details>
+        <details>
+          <summary>Why is a Maldives proposal so much more than other destinations?</summary>
+          <p>Because the proposal is inseparable from the resort. You are already paying $300 to $5,000 a night for an overwater villa, so the setup — a private sandbank, a dinner, a photographer, at $2,000 to $5,000 — is a small share of the trip. Then a 23% service charge and GST plus a green tax are added to nearly every bill, which is the cost most couples forget to budget for.</p>
+        </details>
+        <details>
+          <summary>How much is a private sandbank proposal or setup?</summary>
+          <p>The private sandbank charter is usually $600 to $2,500 depending on the resort and how far the sandbank sits from the lagoon. A full proposal package — the sandbank or beach setup, a private dinner and a photographer — typically runs $1,500 to $5,000. The resort delivers the setup ahead of you and you have roughly 90 minutes to two hours before the tide returns.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in the Maldives?</summary>
+          <p>About $400 to $1,500 for a two-to-three-hour session, usually the resort's in-house photographer or one it works with regularly. If you want to bring an external photographer, confirm with the property first that they will be allowed onsite — some resorts restrict outside vendors. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>Seaplane or speedboat: which transfer is cheaper for a Maldives proposal?</summary>
+          <p>Speedboat. Resorts near Malé reach by speedboat run any time of day and skip the seaplane fee; farther-atoll resorts require a seaplane at roughly $350 to $600 per person round-trip and only fly in daylight. Choosing a near-Malé speedboat resort is one of the biggest single savings on a Maldives proposal trip. If you'd rather the resort handle everything, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is which resort to spend it at. The specific overwater villas, private sandbanks and lagoon terraces that fit each of these budgets — with notes on transfers, timing and what to book ahead — live on the destination page.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/maldives" class="budget-pg-link">Browse Maldives proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/maldives" class="budget-pg-link budget-pg-link-accent">Browse Maldives proposal spots →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>

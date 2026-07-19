@@ -24,7 +24,8 @@
     { "source": "/destinations/Patagonia",       "destination": "/destinations/patagonia",        "permanent": true },
     { "source": "/budget-guide",                 "destination": "/budget",                        "permanent": true },
     { "source": "/amalfi-coast",                 "destination": "/destinations/amalfi-coast",     "permanent": true },
-    { "source": "/budget/amalfi-coast",          "destination": "/budget/italy",                  "permanent": true }
+    { "source": "/budget/amalfi-coast",          "destination": "/budget/italy",                  "permanent": true },
+    { "source": "/budget/algarve",               "destination": "/budget/portugal",               "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -59,7 +60,7 @@
     { "source": "/budget/tulum", "destination": "/budget/tulum.html" },
     { "source": "/budget/costa-rica", "destination": "/budget/costa-rica.html" },
     { "source": "/budget/nicaragua", "destination": "/budget/nicaragua.html" },
-    { "source": "/budget/algarve", "destination": "/budget/algarve.html" },
+    { "source": "/budget/portugal", "destination": "/budget/portugal.html" },
     { "source": "/budget/south-of-france", "destination": "/budget/south-of-france.html" },
     { "source": "/budget/switzerland", "destination": "/budget/switzerland.html" },
     { "source": "/budget/new-york", "destination": "/budget/new-york.html" },

@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Much Does a Proposal in Tulum Cost? (2026 Guide) — Proposal Spots</title>
-  <meta name="description" content="A honest breakdown of what a proposal in Tulum actually costs in 2026 — cenote access, photographer, eco-lodge, and dinner setup.">
+  <meta name="description" content="An honest breakdown of what a proposal in Tulum actually costs in 2026 — area by area, from the beach hotel zone and cenotes to the jungle lodges and Sian Ka'an. Photographer, hotel, cenote access, dinner and setup costs, plus sample trip budgets.">
   <link rel="canonical" href="https://www.proposalspots.com/budget/tulum">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,11 +50,58 @@
     .budget-pg-prose { margin-bottom: 48px; }
     .budget-pg-prose p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
     .budget-pg-prose p:last-child { margin-bottom: 0; }
+    .budget-pg-prose a { color: var(--accent); text-decoration: none; }
 
     .budget-dest-block { margin-bottom: 40px; }
     .budget-dest-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
     .budget-dest-tagline { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--mid); max-width: 480px; }
+    .budget-dest-tagline a { color: var(--accent); text-decoration: none; }
     .budget-dest-range-badge { background: var(--ink); color: var(--bg); font-family: 'Cormorant', serif; font-size: 16px; padding: 8px 20px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+    .budget-section { margin-bottom: 48px; }
+    .budget-section-h2 { font-family: 'Cormorant', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 300; color: var(--ink); margin-bottom: 18px; }
+    .budget-section p { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--mid); margin-bottom: 20px; }
+    .budget-section p:last-child { margin-bottom: 0; }
+    .budget-section p a { color: var(--accent); text-decoration: none; }
+    .budget-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .budget-list li { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mid); padding-left: 20px; position: relative; }
+    .budget-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+    .budget-list li strong { color: var(--ink); font-weight: 500; }
+    .budget-list li a { color: var(--accent); text-decoration: none; }
+
+    /* region cost table */
+    .budget-region-table { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .budget-region-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .budget-region-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; }
+    .budget-region-table th { text-align: left; padding: 12px 16px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 500; border-bottom: 1px solid var(--hairline); background: rgba(26,22,18,0.04); white-space: nowrap; }
+    .budget-region-table td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--mid); vertical-align: top; }
+    .budget-region-table tr:last-child td { border-bottom: none; }
+    .budget-region-table td:first-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-region-table td:last-child { color: var(--ink); white-space: nowrap; }
+    .budget-region-note { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+
+    .budget-breakdown { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+    .budget-breakdown-label { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-breakdown-sub { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-bottom: 16px; }
+    .budget-breakdown-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); background: var(--white); }
+    .budget-breakdown-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+    .budget-breakdown-row span:last-child { color: var(--ink); font-weight: 400; white-space: nowrap; }
+    .budget-breakdown-row.total { background: var(--bg2); font-weight: 500; color: var(--ink); border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .budget-breakdown-row.total span { color: var(--ink); font-weight: 500; }
+
+    /* mid-page CTA band */
+    .budget-cta-band { text-align: center; background: var(--bg2); border-radius: 12px; padding: 36px 32px; margin-bottom: 48px; }
+    .budget-cta-band-label { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+    .budget-cta-band-title { font-family: 'Cormorant', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 300; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .budget-cta-band-btn { display: inline-block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg); background: var(--accent); text-decoration: none; border-radius: 100px; padding: 14px 30px; transition: opacity 0.18s; }
+    .budget-cta-band-btn:hover { opacity: 0.88; }
+
+    .budget-faq { margin-bottom: 48px; }
+    .budget-faq details { border-bottom: 1px solid var(--hairline); }
+    .budget-faq summary { font-family: 'Cormorant', serif; font-size: 20px; font-weight: 400; color: var(--ink); padding: 22px 0; cursor: pointer; list-style: none; }
+    .budget-faq summary::-webkit-details-marker { display: none; }
+    .budget-faq details p { font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.85; padding-bottom: 22px; }
+    .budget-faq details p a { color: var(--accent); text-decoration: none; }
 
     .budget-pg-links { display: flex; flex-direction: column; gap: 14px; }
     .budget-pg-link { display: inline-block; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: 100px; padding: 13px 26px; transition: border-color 0.18s, color 0.18s; width: fit-content; }
@@ -74,12 +121,60 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How Much Does a Proposal in Tulum Cost? (2026 Guide)",
-    "description": "A honest breakdown of what a proposal in Tulum actually costs in 2026 — cenote access, photographer, eco-lodge, and dinner setup.",
+    "description": "An honest breakdown of what a proposal in Tulum actually costs in 2026 — area by area, from the beach hotel zone and cenotes to the jungle lodges and Sian Ka'an.",
     "author": {
       "@type": "Organization",
       "name": "Proposal Spots"
     },
     "datePublished": "2026-04-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a proposal in Tulum cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Roughly $410 to $1,300 for the moment alone (a local photographer, private cenote access and a small setup) and about $950 to $3,400 or more once you add a three-night eco-lodge or beach-hotel stay. What moves the number most is where you sleep — the beach hotel zone is far pricier than a jungle lodge or Tulum town — and whether you propose at a cenote at dawn or on the beach."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest way to propose in Tulum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stay at a jungle eco-lodge or in Tulum Pueblo rather than the beach hotel zone, propose at a cenote with private access before 7am, and hire a local photographer. Travel in the dry season but outside the sargassum months. A beautiful Tulum proposal this way can be done for around $700 to $900 all in."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is a proposal photographer in Tulum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About $200 to $600 for a two-to-three-hour session, with Riviera Maya proposal packages commonly starting around $749 including a setup. Local photographers cover the cenotes, the ruins and the beach and know the light and the crowds — book one based in Tulum or Playa del Carmen rather than flying someone in."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best time to propose in Tulum, and what about the seaweed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The dry season, November to April, has the best weather. The catch is sargassum seaweed, which can wash up on the beaches roughly April through August and change how a beach proposal looks on the day. The cenotes and jungle are completely unaffected — which is one more reason the cenote at dawn is the most reliable Tulum setting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a private cenote proposal cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Private early-morning cenote access runs about $60 to $200 with a guide. It is a small premium and the single best-value line in a Tulum budget: a cenote is empty and turquoise before 7am and a crowded theme park by 11am, so the early slot is the difference between a photo nobody back home has seen and a queue."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -90,25 +185,169 @@
   <div class="budget-pg-wrap">
     <div class="budget-pg-inner">
 
-      <span class="pg-eyebrow">Budget Guide · Mexico</span>
+      <span class="pg-eyebrow">Budget Guide · Tulum</span>
       <h1 class="budget-pg-h1">How Much Does a Proposal in Tulum Cost? (2026 Guide)</h1>
 
       <div class="budget-pg-prose">
-        <p>Tulum's boutique eco-lodge market operates at European price points despite a Mexican address. The hotels along the beach road — the ones with open-air palapa rooms, private plunge pools, and direct Caribbean access — can run $400–$600 per night during peak season, making them comparable to luxury accommodation in Italy or Greece. Private cenote access before the public opening hours involves arrangement fees, a dedicated guide, and a photographer surcharge for working with the unique underground light — all reasonable costs, but ones that add up quickly. Tulum has become one of the most Instagrammed proposal destinations in the Americas, which has driven photographer rates and venue setup costs upward over the past few years.</p>
-        <p>The cenotes themselves charge modest public entry fees and are most beautiful in the two hours immediately after they open, before tour groups arrive. Staying in Tulum pueblo (the town) rather than the beach strip cuts accommodation costs by 60–70% while still giving you full access to all the beach and cenote locations — just a short bike or scooter ride away. Excellent local photographers who work the cenote circuit regularly charge a fraction of the internationally marketed rates, and often know the locations better. The jungle and cenote settings are so naturally spectacular that modest photography is still extraordinary photography.</p>
+        <p>Tulum can be one of the most affordable dramatic proposal destinations or one of the pricier boho-luxe ones, and the difference is almost entirely where you sleep. The beach hotel zone — the strip of design hotels on the sand — commands rates several times higher than a jungle eco-lodge or a room in Tulum town, for the same cenotes and the same coastline a short drive away. The signature Tulum setting, a turquoise cenote at dawn, costs almost nothing to reach and outshines anything you could stage. What you actually pay comes down to the hotel zone, the season, and whether you propose at a cenote or on the beach.</p>
+        <p>The table below breaks the cost down area by area, then line by line, so you can see exactly where the money goes — and where it doesn't need to. Once you know the shape of it, the only decision left is where to spend it, and every one of these settings has its spots waiting on the <a href="/destinations/tulum">Tulum proposal spots page</a>.</p>
       </div>
 
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <p class="budget-dest-tagline">A destination that has transformed from a backpacker stop into one of the most sophisticated proposal markets in the Americas. Private cenote access and jungle eco-lodge proposals are Tulum's signatures. For the full category-by-category breakdown, see the <a href="/destinations/tulum" style="color:var(--accent);">Tulum destination page</a>.</p>
+            <p class="budget-dest-tagline">Cenotes, jungle eco-lodges and a quiet southern beach toward Sian Ka'an — where the setting is nearly free and the hotel zone is the real cost. Private early-morning cenote access is the line that pays itself back. For the spots themselves, see the <a href="/destinations/tulum">Tulum destination page</a>.</p>
           </div>
-          <div class="budget-dest-range-badge">$500 – $5,000+</div>
+          <div class="budget-dest-range-badge">$410 – $3,400+</div>
         </div>
       </div>
+
+      <!-- COST BY AREA -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What a proposal costs by area</h2>
+        <p>The typical all-in cost for the moment plus a short trip, by area. The beach hotel zone sits at the top because of its boho-luxe nightly rates; the cenotes, jungle lodges and Tulum town are the value, because the settings cost little to reach and the stays are a fraction of the beachfront.</p>
+        <div class="budget-region-table">
+          <div class="budget-region-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Best for</th>
+                  <th>Best months</th>
+                  <th>Typical cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Beach hotel zone</td><td>Boho-luxe beachfront, sunrise on the sand</td><td>Nov – Apr</td><td>$700 – $3,400</td></tr>
+                <tr><td>Sian Ka'an &amp; southern beach</td><td>Wild biosphere coast, deep seclusion</td><td>Nov – Apr</td><td>$500 – $2,800</td></tr>
+                <tr><td>Jungle eco-lodges</td><td>Canopy stays, cenote-adjacent, private</td><td>Nov – Apr</td><td>$500 – $2,500</td></tr>
+                <tr><td>Cenotes (Dos Ojos, Gran Cenote)</td><td>Turquoise sinkholes, private dawn access</td><td>Nov – Apr</td><td>$410 – $2,000</td></tr>
+                <tr><td>Tulum Pueblo &amp; inland</td><td>Value base, town restaurants, ruins nearby</td><td>Nov – Apr</td><td>$410 – $1,800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="budget-region-note">Ranges cover the proposal moment plus a short trip. The lower end assumes a cenote or town setting, a local photographer and a jungle lodge; the upper end assumes a beach-hotel-zone stay, a private beach dinner setup and a coordinator. The cenotes and jungle are the same low cost from any base — the beachfront address is what moves the number.</p>
+      </div>
+
+      <!-- MID-PAGE CTA -->
+      <div class="budget-cta-band">
+        <span class="budget-cta-band-label">Start with the setting</span>
+        <div class="budget-cta-band-title">Every area above has its spots — vetted, private, and ready to book.</div>
+        <a href="/destinations/tulum" class="budget-cta-band-btn">Browse Tulum proposal spots →</a>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">The line items, area-wide</h2>
+        <p>Whichever area you choose, the proposal breaks into the same categories. Here is the honest Tulum-wide range for each, category by category.</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Private cenote / guide access</span><span>$60 – $200</span></div>
+          <div class="budget-breakdown-row"><span>Proposal photographer (2–3 hrs)</span><span>$200 – $600</span></div>
+          <div class="budget-breakdown-row"><span>Hotel / eco-lodge (3 nights)</span><span>$600 – $2,400</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner setup</span><span>$100 – $400</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; décor</span><span>$50 – $150</span></div>
+          <div class="budget-breakdown-row"><span>Planner / coordination fee</span><span>$0 – $500</span></div>
+          <div class="budget-breakdown-row total"><span>Just the moment / with hotel stay</span><span>$410 – $3,400+</span></div>
+        </div>
+        <p>Just the moment — a local photographer, private cenote access and a small setup — runs roughly $410 to $1,300. Add a three-night stay and the range opens to about $950 to $3,400 or more, depending on whether you book a jungle lodge or a beach-hotel-zone room. The private cenote access, at $60 to $200, is the best-value line in the whole budget.</p>
+      </div>
+
+      <!-- WHAT DRIVES COSTS UP -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">What drives costs up</h2>
+        <ul class="budget-list">
+          <li><strong>The beach hotel zone.</strong> Tulum's design hotels on the sand run several times a jungle lodge's nightly rate — often for a generator-powered room with the same cenotes a short drive inland. The beachfront address is the biggest single swing in the budget.</li>
+          <li><strong>Peak dry season (December–March).</strong> The best weather and the highest rates, especially over the Christmas and New Year weeks. Rates soften noticeably either side.</li>
+          <li><strong>Private cenote access with a guide.</strong> Beating the tour buses to a cenote before 7am is the best money you'll spend — but it is a real line ($60–$200) that a midday visit doesn't carry.</li>
+          <li><strong>Flying in a non-local photographer.</strong> Local Riviera Maya proposal photographers charge $200–$600 and know the cenotes, the ruins and the light. An imported photographer's travel multiplies that for no better result.</li>
+          <li><strong>Sargassum workarounds.</strong> In the seaweed months, a clean beach can mean paying for a hotel that rakes its sand, a boat trip, or simply moving the moment to a cenote — the last of which costs nothing.</li>
+        </ul>
+      </div>
+
+      <!-- WHERE PEOPLE OVERSPEND -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Where people overspend</h2>
+        <ul class="budget-list">
+          <li><strong>Booking the beach hotel zone by default.</strong> A jungle eco-lodge or a room in Tulum town is a fraction of the beachfront rate, and the cenotes — the real Tulum setting — are the same short drive from either. Sleep inland, propose at the cenote.</li>
+          <li><strong>Proposing on the beach in sargassum season.</strong> From roughly April to August the seaweed can blanket the sand. Couples who set their heart on a beach proposal in those months either pay for a cleaned-beach hotel or are disappointed — a dawn cenote sidesteps it entirely.</li>
+          <li><strong>Visiting the cenote at midday.</strong> The same cenote is empty at 6:30am and a crowded queue by 11am. The $60–$200 private early slot is a fraction of what people spend trying to fix a crowded photo afterward.</li>
+          <li><strong>Hiring a non-local photographer.</strong> The Tulum-based photographer knows which cenote is calm on which morning and how to work the light — and charges local rates.</li>
+        </ul>
+      </div>
+
+      <!-- LOWER BUDGET -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">How to propose in Tulum on a lower budget</h2>
+        <ul class="budget-list">
+          <li><strong>Stay at a jungle eco-lodge or in Tulum Pueblo.</strong> A fraction of the beach-zone rate for the same access to the cenotes and the ruins. The single biggest saving in Tulum.</li>
+          <li><strong>Propose at a cenote at dawn.</strong> Private early access is cheap and the setting is unmatched — turquoise water, light shafts, and nobody else there. It is also immune to the beach seaweed.</li>
+          <li><strong>Travel in the dry season, outside the sargassum months.</strong> Aim for late autumn or early spring for the best combination of clear weather and clean beaches.</li>
+          <li><strong>Hire a local photographer directly.</strong> Search "Tulum proposal photographer," not "destination proposal photographer" — local search surfaces the people who charge local rates and know the cenotes.</li>
+          <li><strong>Book the dinner yourself.</strong> A table at a good Tulum-town or beach-club restaurant booked directly beats a coordinator markup. You only need a full <a href="/blog/proposal-packages">proposal package</a> when you'd rather hand the cenote timing and setup to someone on the ground.</li>
+        </ul>
+      </div>
+
+      <!-- SAMPLE BREAKDOWNS -->
+      <div class="budget-section">
+        <h2 class="budget-section-h2">Sample trip breakdowns — two budget levels</h2>
+
+        <div class="budget-breakdown-label">~$850 — cenote at dawn, jungle lodge, 3 nights</div>
+        <p class="budget-breakdown-sub">A jungle eco-lodge, private early cenote access, a local photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Jungle eco-lodge, 3 nights @ $130</span><span>$390</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Tulum-based, 2 hrs)</span><span>$250</span></div>
+          <div class="budget-breakdown-row"><span>Private cenote access (before 7am)</span><span>$80</span></div>
+          <div class="budget-breakdown-row"><span>Private dinner for two</span><span>$80</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; small setup</span><span>$50</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$850</span></div>
+        </div>
+
+        <div class="budget-breakdown-label">~$2,600 — beach hotel zone, private beach setup, 3 nights</div>
+        <p class="budget-breakdown-sub">A boho-luxe beachfront hotel, a private beach dinner at sunset, a photographer</p>
+        <div class="budget-breakdown">
+          <div class="budget-breakdown-row"><span>Beach-zone hotel, 3 nights @ $450</span><span>$1,350</span></div>
+          <div class="budget-breakdown-row"><span>Photographer (Riviera Maya, 3 hrs)</span><span>$550</span></div>
+          <div class="budget-breakdown-row"><span>Private beach dinner setup</span><span>$350</span></div>
+          <div class="budget-breakdown-row"><span>Flowers &amp; décor</span><span>$150</span></div>
+          <div class="budget-breakdown-row"><span>Private cenote / guide access</span><span>$120</span></div>
+          <div class="budget-breakdown-row"><span>Transfers &amp; incidentals</span><span>$80</span></div>
+          <div class="budget-breakdown-row total"><span>Estimated total</span><span>$2,600</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="budget-faq">
+        <details>
+          <summary>How much does a proposal in Tulum cost?</summary>
+          <p>Roughly $410 to $1,300 for the moment alone — a local photographer, private cenote access and a small setup — and about $950 to $3,400 or more once you add a three-night eco-lodge or beach-hotel stay. What moves the number most is where you sleep — the beach hotel zone is far pricier than a jungle lodge or Tulum town — and whether you propose at a cenote at dawn or on the beach. The table above breaks it down area by area and category by category.</p>
+        </details>
+        <details>
+          <summary>What is the cheapest way to propose in Tulum?</summary>
+          <p>Stay at a jungle eco-lodge or in Tulum Pueblo rather than the beach hotel zone, propose at a cenote with private access before 7am, and hire a local photographer. Travel in the dry season but outside the sargassum months. A beautiful Tulum proposal this way can be done for around $700 to $900 all in.</p>
+        </details>
+        <details>
+          <summary>How much is a proposal photographer in Tulum?</summary>
+          <p>About $200 to $600 for a two-to-three-hour session, with Riviera Maya proposal packages commonly starting around $749 including a setup. Local photographers cover the cenotes, the ruins and the beach and know the light and the crowds — book one based in Tulum or Playa del Carmen rather than flying someone in. See our guide to hiring a <a href="/blog/destination-engagement-photographer">destination proposal photographer</a>.</p>
+        </details>
+        <details>
+          <summary>When is the best time to propose in Tulum, and what about the seaweed?</summary>
+          <p>The dry season, November to April, has the best weather. The catch is sargassum seaweed, which can wash up on the beaches roughly April through August and change how a beach proposal looks on the day. The cenotes and jungle are completely unaffected — which is one more reason the cenote at dawn is the most reliable Tulum setting.</p>
+        </details>
+        <details>
+          <summary>How much does a private cenote proposal cost?</summary>
+          <p>Private early-morning cenote access runs about $60 to $200 with a guide. It is a small premium and the single best-value line in a Tulum budget: a cenote is empty and turquoise before 7am and a crowded theme park by 11am, so the early slot is the difference between a photo nobody back home has seen and a queue. If you'd rather hand it all off, see how <a href="/blog/proposal-packages">proposal packages actually work</a>.</p>
+        </details>
+      </div>
+
+      <div class="budget-pg-prose">
+        <p>Once you know what a trip like this actually costs, the only decision left is where to spend it. The specific cenotes, jungle terraces, beach stretches and ruins that fit each of these budgets — with notes on access, timing and what to book ahead — live on the destination page, area by area.</p>
+      </div>
+
       <div class="budget-pg-links">
-        <a href="/destinations/tulum" class="budget-pg-link">Browse Tulum proposal spots →</a>
-        <a href="/checklist" class="budget-pg-link budget-pg-link-accent">Download the free proposal checklist →</a>
+        <a href="/destinations/tulum" class="budget-pg-link budget-pg-link-accent">Browse Tulum proposal spots →</a>
+        <a href="/checklist" class="budget-pg-link">Download the free proposal checklist →</a>
+        <a href="/budget" class="budget-pg-link">See all destination budgets →</a>
       </div>
 
     </div>
