@@ -171,13 +171,13 @@ function includesList(includedItems) {
       </ul>`;
 }
 
-// Sample data for previewing / test-sending. This first send is a real
-// booking: The Jungle Escape (Bali) / 24 August 2026 / The Moment package,
-// with that package's actual included-items list. Add-ons and special note
-// are left blank here (they auto-hide when empty). Customer name, partner
-// name, and the P.S. couple name are placeholders to confirm before sending.
+// Sample data for the first practice send. Customer details are the real
+// booking (Jerome / partner Flora / birthday note); the spot, date and
+// package are set to The Jungle Escape / 24 August 2026 / The Moment (the
+// original booking's date wasn't available and will be updated later), with
+// that package's actual included-items list. Add-ons auto-hide when blank.
 export const SAMPLE_BOOKING = {
-  customerFirstName: "Alex",
+  customerFirstName: "Jerome",
   spotName: "The Jungle Escape",
   confirmedDate: "24 August 2026",
   packageName: "The Moment",
@@ -195,9 +195,9 @@ export const SAMPLE_BOOKING = {
     "Music (personalized playlist)",
   ],
   addons: "",
-  specialRequest: "",
-  partnerName: "Jerome",
-  partnerFirstNameOfCouple: "Sam",
+  specialRequest: "This date is also my birthday",
+  partnerName: "Verena",
+  partnerFirstNameOfCouple: "Flora",
   customerEmail: "",
 };
 
