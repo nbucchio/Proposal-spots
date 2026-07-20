@@ -148,17 +148,55 @@ function detailLine(emoji, label, value) {
       </p>`;
 }
 
-// Sample data for previewing / test-sending. Jerome / Jungle Escape /
-// 22–24 August 2026, per the brief.
+// Bulleted list of what's included in the selected package. Accepts either an
+// array of items or a comma-separated string (the format the Packages table
+// stores). Renders nothing when empty.
+function includesList(includedItems) {
+  const items = Array.isArray(includedItems)
+    ? includedItems
+    : String(includedItems || "")
+        .split(",")
+        .map((s) => s.trim());
+  const filled = items.filter(Boolean);
+  if (!filled.length) return "";
+  const lis = filled
+    .map(
+      (item) =>
+        `<li style="margin:0 0 4px;">${escapeHtml(item)}</li>`
+    )
+    .join("");
+  return `
+      <ul style="margin:0 0 10px 22px;padding:0;font-size:14px;color:#1C1C1C;line-height:1.5;">
+        ${lis}
+      </ul>`;
+}
+
+// Sample data for previewing / test-sending. This first send is a real
+// booking: The Jungle Escape (Bali) / 24 August 2026 / The Moment package,
+// with that package's actual included-items list. Add-ons and special note
+// are left blank here (they auto-hide when empty). Customer name, partner
+// name, and the P.S. couple name are placeholders to confirm before sending.
 export const SAMPLE_BOOKING = {
   customerFirstName: "Alex",
-  spotName: "Jungle Escape",
-  confirmedDate: "22–24 August 2026",
-  packageName: "The Experience",
-  addons: "Private photographer, Champagne on arrival",
-  specialRequest: "Please have the rose petals arranged before sunset.",
+  spotName: "The Jungle Escape",
+  confirmedDate: "24 August 2026",
+  packageName: "The Moment",
+  includedItems: [
+    "Private Dinner",
+    "Setup & Styling",
+    "Venue usage fee",
+    "Professional photographer (full session + edited selection within 14 days)",
+    "Flower Bouquet",
+    "Floral décor (fresh rose petals & mixed roses)",
+    "Candlelight ambiance",
+    "Fairy lights",
+    "Teardown & cleaning",
+    "On-site assistant",
+    "Music (personalized playlist)",
+  ],
+  addons: "",
+  specialRequest: "",
   partnerName: "Jerome",
-  partnerBusinessName: "Jungle Escape Retreats",
   partnerFirstNameOfCouple: "Sam",
   customerEmail: "",
 };
@@ -169,10 +207,10 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
     spotName,
     confirmedDate,
     packageName,
+    includedItems,
     addons,
     specialRequest,
     partnerName,
-    partnerBusinessName,
     partnerFirstNameOfCouple,
     logoUrl,
   } = booking;
@@ -181,6 +219,7 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
     detailLine("📍", "Proposal Spot", spotName),
     detailLine("💍", "Date", confirmedDate),
     detailLine("🎁", "Package", packageName),
+    includesList(includedItems),
     detailLine("✨", "Add-ons", addons),
     detailLine("📝", "Special note", specialRequest),
   ].join("");
@@ -204,10 +243,9 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
       </div>
 
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
-        ${escapeHtml(partnerName || "Your partner")} of
-        <strong>${escapeHtml(partnerBusinessName || "our partner team")}</strong>
+        <strong>${escapeHtml(partnerName || "Your partner")}</strong>
         will be overseeing everything on the ground to make sure the moment
-        unfolds exactly as it should. They'll reach out to you directly to
+        unfolds exactly as it should, and will reach out to you directly to
         coordinate the finer details.
       </p>
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
