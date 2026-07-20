@@ -132,6 +132,115 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
   </div>`;
 }
 
+// --- Booking Confirmed (customer-facing) -----------------------------------
+// Reuses the exact same visual shell as the partner confirmation above:
+// the cream #F4F1EB canvas, the white #FFFFFF card with the #D8D2C8 border
+// and 12px radius, the centered 220px logo (LOGO_URL), the Helvetica body,
+// #1C1C1C ink, and the #A55A4A terracotta accent. Only the copy differs.
+
+// One emoji-labelled line inside the details card. Renders nothing when the
+// value is empty so an optional field (e.g. special note) can be omitted.
+function detailLine(emoji, label, value) {
+  if (!value) return "";
+  return `
+      <p style="margin:0 0 10px;font-size:14px;color:#1C1C1C;line-height:1.5;">
+        ${emoji} <strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}
+      </p>`;
+}
+
+// Sample data for previewing / test-sending. Jerome / Jungle Escape /
+// 22–24 August 2026, per the brief.
+export const SAMPLE_BOOKING = {
+  customerFirstName: "Alex",
+  spotName: "Jungle Escape",
+  confirmedDate: "22–24 August 2026",
+  packageName: "The Experience",
+  addons: "Private photographer, Champagne on arrival",
+  specialRequest: "Please have the rose petals arranged before sunset.",
+  partnerName: "Jerome",
+  partnerBusinessName: "Jungle Escape Retreats",
+  partnerFirstNameOfCouple: "Sam",
+  customerEmail: "",
+};
+
+export function renderBookingConfirmedEmailHtml(booking = {}) {
+  const {
+    customerFirstName,
+    spotName,
+    confirmedDate,
+    packageName,
+    addons,
+    specialRequest,
+    partnerName,
+    partnerBusinessName,
+    partnerFirstNameOfCouple,
+    logoUrl,
+  } = booking;
+
+  const detailsCard = [
+    detailLine("📍", "Proposal Spot", spotName),
+    detailLine("💍", "Date", confirmedDate),
+    detailLine("🎁", "Package", packageName),
+    detailLine("✨", "Add-ons", addons),
+    detailLine("📝", "Special note", specialRequest),
+  ].join("");
+
+  return `
+  <div style="background:#F4F1EB;padding:32px 16px;font-family:Georgia,'Times New Roman',serif;">
+    <div style="max-width:560px;margin:0 auto;background:#FFFFFF;border:1px solid #D8D2C8;border-radius:12px;padding:32px;">
+      <div style="text-align:center;margin:0 0 24px;">
+        <img src="${logoUrl || LOGO_URL}" alt="Proposal Spots" width="220" style="width:220px;max-width:60%;height:auto;" />
+      </div>
+
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1C1C1C;">
+        Hi ${escapeHtml(customerFirstName || "there")},
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1C1C1C;">
+        It's official — everything is locked in, and we could not be more thrilled for you.
+      </p>
+
+      <div style="background:#f5f0e8;border:1px solid #D8D2C8;border-radius:8px;padding:16px;margin:16px 0;font-family:Helvetica,Arial,sans-serif;">
+        ${detailsCard}
+      </div>
+
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
+        ${escapeHtml(partnerName || "Your partner")} of
+        <strong>${escapeHtml(partnerBusinessName || "our partner team")}</strong>
+        will be overseeing everything on the ground to make sure the moment
+        unfolds exactly as it should. They'll reach out to you directly to
+        coordinate the finer details.
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
+        If anything at all comes up in the meantime, just reply to this email or
+        reach us at
+        <a href="mailto:hello@proposalspots.com" style="color:#A55A4A;">hello@proposalspots.com</a>.
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;margin-top:24px;">
+        With so much excitement for what's ahead,<br />The Proposal Spots Team
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C99;margin-top:24px;">
+        P.S. — ${escapeHtml(partnerFirstNameOfCouple || "they")} is going to say yes. 💍
+      </p>
+    </div>
+  </div>`;
+}
+
+export async function sendBookingConfirmed(booking) {
+  if (!booking?.customerEmail) return;
+  if (!process.env.RESEND_API_KEY) {
+    console.error("Missing RESEND_API_KEY — skipping booking confirmed email.");
+    return;
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  await resend.emails.send({
+    from: FROM_ADDRESS,
+    to: booking.customerEmail,
+    subject: `Your proposal is confirmed at ${booking.spotName} 💍`,
+    html: renderBookingConfirmedEmailHtml(booking),
+  });
+}
+
 export async function sendPartnerConfirmation({ spot, tiers }) {
   if (!spot?.partnerEmail) return;
   if (!process.env.RESEND_API_KEY) {
