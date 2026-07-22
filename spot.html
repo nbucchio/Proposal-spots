@@ -1965,7 +1965,6 @@ nav {
         <div class="sdp-included" id="sdp-included-section" style="display:none">
           <span class="sdp-incl-label">What's included</span>
           <div id="sdp-included-list"></div>
-          <p class="sdp-incl-bridge">When you enquire, your concierge will guide you through photography, dinner, and any other additions.</p>
         </div>
 
         <!-- Access -->
@@ -2986,10 +2985,14 @@ function populateSpot(s) {
   const stepTierEl = document.getElementById('sdp-step-tier');
   const step1El    = document.getElementById('sdp-step-1');
   const stepEnhEl  = document.getElementById('sdp-step-enhance');
+  const step1NumEl = step1El && step1El.querySelector('.sdp-step-num');
+  const step2NumEl = step2El && step2El.querySelector('.sdp-step-num');
   if (isTiered) {
     if (step1El)   step1El.style.display   = 'none';
     if (stepTierEl) stepTierEl.style.display = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
+    // Tiered is a numbered flow — keep the step numbers visible
+    if (step2NumEl) step2NumEl.style.display = '';
     _tieredSelectedIdx = 0;
     _renderTierSelectorHTML(s.packages);
     _renderTierAddons(s);
@@ -2998,6 +3001,10 @@ function populateSpot(s) {
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none';
+    // Single Price isn't a numbered sequence — hide the step numbers so
+    // "The Moment" doesn't read as item 01 of the What's Included list
+    if (step1NumEl) step1NumEl.style.display = 'none';
+    if (step2NumEl) step2NumEl.style.display = 'none';
   }
 
   setTimeout(renderProposalDateStep, 50);
@@ -3672,30 +3679,45 @@ function openEnquiryModal() {
   const photoSection  = document.getElementById('enq-photo-section');
   const isTieredEnq   = !!(currentSpot?.['Pricing Model'] === 'Tiered' && currentSpot?.packages?.length);
 
+  // Photography quote is only offered on tiered listings; single-price listings
+  // are all-inclusive, so the section stays hidden everywhere it can't apply.
+  if (photoSection) photoSection.style.display = 'none';
+
   if (isTieredEnq) {
     if (addonsSection) addonsSection.style.display = 'none';
-    if (photoSection)  photoSection.style.display  = 'none';
   } else {
-    if (photoSection) photoSection.style.display = '';
-    const spot      = currentSpot;
-    const spotAddons = spot?.['Add-ons'] || [];
-    const priceText  = spot?.['Add-on Prices'] || '';
-    const priceMap = {};
-    priceText.split('\n').forEach(line => {
-      const parts = line.split('|').map(s => s.trim());
-      if (parts.length === 2) {
-        priceMap[parts[0]] = parts[1];
-        priceMap[parts[0].toLowerCase()] = parts[1];
-      }
-    });
-    const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
-    if (addonsSection && addonsList && addonItems.length) {
-      addonsList.innerHTML = addonItems.map(item => {
-        const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
+    const spot = currentSpot;
+    // Prefer the structured Addon 1–4 fields (same source the tiered flow uses),
+    // then fall back to the legacy Add-ons / Add-on Prices fields.
+    const addonDefs = [];
+    for (let i = 1; i <= 4; i++) {
+      const aName = spot?.['Addon ' + i + ' Name'];
+      if (aName) addonDefs.push({ name: String(aName).trim(), price: spot['Addon ' + i + ' Price'] || null });
+    }
+    if (!addonDefs.length) {
+      const spotAddons = spot?.['Add-ons'] || [];
+      const priceText  = spot?.['Add-on Prices'] || '';
+      const priceMap = {};
+      priceText.split('\n').forEach(line => {
+        const parts = line.split('|').map(s => s.trim());
+        if (parts.length === 2) {
+          priceMap[parts[0]] = parts[1];
+          priceMap[parts[0].toLowerCase()] = parts[1];
+        }
+      });
+      const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
+      addonItems.forEach(item => {
+        const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()] || null;
+        addonDefs.push({ name: item, price });
+      });
+    }
+    if (addonsSection && addonsList && addonDefs.length) {
+      addonsList.innerHTML = addonDefs.map(({ name, price }) => {
+        const priceAttr  = price ? ` data-price="${String(price).replace(/"/g, '&quot;')}"` : '';
         const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price on Request' : '+' + price}</span>` : '<span class="enq-addon-price">Price on Request</span>';
         return `<label class="enq-addon-check">
-          <input type="checkbox" value="${item}">
-          <span>${item}</span>${priceLabel}
+          <input type="checkbox" value="${name}"${priceAttr}>
+          <span>${name}</span>${priceLabel}
         </label>`;
       }).join('');
       addonsSection.style.display = '';
@@ -3765,7 +3787,7 @@ async function submitEnquiry() {
       if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
     });
     addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
-      const price = _addonPriceMap[cb.value];
+      const price = cb.dataset.price || _addonPriceMap[cb.value];
       return price ? `${cb.value} (${price})` : cb.value;
     });
   }
