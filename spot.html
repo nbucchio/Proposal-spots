@@ -3737,7 +3737,12 @@ function closeEnquiryModal() {
   document.body.style.overflow = '';
 }
 
+let _enqSubmitting = false;
 async function submitEnquiry() {
+  // Guard against double-submits (e.g. a double-tap on mobile), which would
+  // otherwise create duplicate Bookings records and send duplicate emails.
+  if (_enqSubmitting) return;
+
   const first = document.getElementById('enq-first')?.value?.trim();
   const last = document.getElementById('enq-last')?.value?.trim();
   const email = document.getElementById('enq-email')?.value?.trim();
@@ -3755,10 +3760,26 @@ async function submitEnquiry() {
   const selectedTierName = selectedTierPkg ? selectedTierPkg['Tier Name'] : null;
 
   // The "Package Selected" value written to Airtable (a single-select field).
-  // Tiered uses the chosen tier name; single-price is always "The Moment". The
-  // price shown in the confirmation email is added in the Airtable email template
-  // from the linked spot — it must NOT be baked into this single-select value.
+  // Tiered uses the chosen tier name; single-price is always "The Moment".
   const packageSelected = isTieredSubmit ? selectedTierName : 'The Moment';
+
+  // "Package Display" is a free-text field used by the confirmation email so it
+  // can show the price alongside the package. Single-price → "The Moment — <price>";
+  // tiered → "<Tier Name> — <package price>". Falls back to the plain name when no
+  // price is set. (The single-select above can't hold per-spot price strings.)
+  const _pkgCurrency = currentSpot?.['Price Currency'];
+  let packageDisplay;
+  if (isTieredSubmit) {
+    const _tierPrice = selectedTierPkg && selectedTierPkg['Price'];
+    packageDisplay = _tierPrice
+      ? selectedTierName + ' — ' + formatPrice(_tierPrice, _pkgCurrency)
+      : (selectedTierName || '');
+  } else {
+    const _momentPrice = currentSpot?.['Price Moment'];
+    packageDisplay = _momentPrice
+      ? 'The Moment — ' + formatPrice(_momentPrice, _pkgCurrency)
+      : 'The Moment';
+  }
 
   let addons = [];
   if (isTieredSubmit) {
@@ -3804,12 +3825,18 @@ async function submitEnquiry() {
     addons: addons,
     selectedTier: selectedTierName,
     packageSelected: packageSelected,
+    packageDisplay: packageDisplay,
     pricingModel: currentSpot?.['Pricing Model'] || 'Single Price',
     contactPreference: getContactPreference(),
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
   };
+
+  _enqSubmitting = true;
+  const submitBtn = document.getElementById('enq-submit');
+  const submitBtnLabel = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
   try {
     const response = await fetch('/api/enquiry', {
@@ -3831,6 +3858,11 @@ async function submitEnquiry() {
   } catch (err) {
     console.error('Enquiry submit error:', err);
     alert('Network error. Please try again.');
+  } finally {
+    // Re-enable so the customer can retry after an error. On success the form is
+    // hidden and replaced by the success panel, so this button is out of view.
+    _enqSubmitting = false;
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtnLabel; }
   }
 }
 

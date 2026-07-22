@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, packageSelected, pricingModel, contactPreference, photographyQuote,
+    proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, packageSelected, packageDisplay, pricingModel, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
 
@@ -61,6 +61,7 @@ export default async function handler(req, res) {
               'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
               'Pricing Model':       pricingModel || 'Single Price',
               ...(packageLabel ? { 'Package Selected': packageLabel } : {}),
+              ...(packageDisplay ? { 'Package Display': packageDisplay } : {}),
               ...(photographyQuote && photographyQuote !== 'No' ? { 'Photography Quote Request': photographyQuote } : {}),
               ...(spotId ? { 'Linked Spot': [spotId] } : {}),
               ...(Array.isArray(hotelIds) && hotelIds.length ? { 'Linked Hotel': hotelIds } : {}),
