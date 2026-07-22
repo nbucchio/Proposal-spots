@@ -171,11 +171,70 @@ function includesList(includedItems) {
       </ul>`;
 }
 
+// "Securing Your Date" deposit section. Rendered ONLY for bookings whose
+// partner is on the new "Deposit at Booking" payment model; legacy
+// (invoice-after-event) partners get nothing here at all. Uses the email's
+// existing visual system — Helvetica body, #1C1C1C ink, #A55A4A accent,
+// #D8D2C8 hairline, 8px radius — rather than introducing a new component.
+function depositSection(booking) {
+  const {
+    spotName,
+    confirmedDate,
+    totalDepositAmount,
+    totalDepositPercent,
+    refundDeadlineDays,
+    partnerBusinessName,
+    partnerName,
+    paymentLink,
+    paymentModel,
+  } = booking;
+
+  // Gate: show only for the new payment model (Airtable value
+  // "New – Deposit at Booking"); omit for "Legacy – Invoice After Event".
+  const isNewPaymentModel = String(paymentModel || "")
+    .trim()
+    .toLowerCase()
+    .startsWith("new");
+  if (!isNewPaymentModel) return "";
+
+  return `
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;color:#1C1C1C;margin:24px 0 8px;">
+        Securing Your Date
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 12px;">
+        To officially lock in <strong>${escapeHtml(spotName)}</strong> for
+        <strong>${escapeHtml(confirmedDate)}</strong>, we ask for a deposit of
+        <strong>${escapeHtml(totalDepositAmount)}</strong>
+        (${escapeHtml(totalDepositPercent)}% of your package). This one payment
+        goes directly to Proposal Spots — no separate charge from the venue at
+        this stage.
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 16px;">
+        <strong>Refund policy:</strong> Fully refundable up to
+        ${escapeHtml(refundDeadlineDays)} days before your proposal. After that,
+        it's non-refundable, since we and
+        ${escapeHtml(partnerBusinessName || "our partner")} hold that date
+        exclusively for you from this point on.
+      </p>
+      <p style="text-align:center;margin:0 0 16px;">
+        <a href="${escapeHtml(paymentLink || "#")}" style="display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#A55A4A;text-decoration:none;border:1px solid #A55A4A;border-radius:8px;padding:12px 28px;">
+          👉 Secure Your Date — Pay Deposit
+        </a>
+      </p>
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 8px;">
+        Once received, your date is 100% locked in and
+        ${escapeHtml(partnerName || "your partner")} will reach out to finalize
+        the details.
+      </p>`;
+}
+
 // Sample data for the first practice send. Customer details are the real
 // booking (Jerome / partner Flora / birthday note); the spot, date and
 // package are set to The Jungle Escape / 24 August 2026 / The Moment (the
 // original booking's date wasn't available and will be updated later), with
 // that package's actual included-items list. Add-ons auto-hide when blank.
+// This spot's partner (Forever Promises, Bali) is on the LEGACY payment
+// model, so the deposit section is correctly omitted for this booking.
 export const SAMPLE_BOOKING = {
   customerFirstName: "Jerome",
   spotName: "The Jungle Escape",
@@ -197,8 +256,24 @@ export const SAMPLE_BOOKING = {
   addons: "",
   specialRequest: "This date is also my birthday",
   partnerName: "Verena",
+  partnerBusinessName: "Forever Promises, Bali",
   partnerFirstNameOfCouple: "Flora",
+  paymentModel: "Legacy – Invoice After Event",
   customerEmail: "",
+};
+
+// Illustrative preview of the NEW payment-model variant, so the deposit
+// section can be previewed before a real new-model booking exists. The
+// deposit amount/percent, refund window and payment link below are
+// PLACEHOLDERS — the real values come from Airtable (percent, refund window)
+// or still need wiring (deposit amount = price × %, and the Wise link).
+export const SAMPLE_BOOKING_DEPOSIT = {
+  ...SAMPLE_BOOKING,
+  paymentModel: "New – Deposit at Booking",
+  totalDepositAmount: "$540 USD",
+  totalDepositPercent: 30,
+  refundDeadlineDays: 14,
+  paymentLink: "https://wise.com/pay/r/placeholder-example",
 };
 
 export function renderBookingConfirmedEmailHtml(booking = {}) {
@@ -241,7 +316,7 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
       <div style="background:#f5f0e8;border:1px solid #D8D2C8;border-radius:8px;padding:16px;margin:16px 0;font-family:Helvetica,Arial,sans-serif;">
         ${detailsCard}
       </div>
-
+      ${depositSection(booking)}
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
         <strong>${escapeHtml(partnerName || "Your partner")}</strong>
         will be overseeing everything on the ground to make sure the moment
