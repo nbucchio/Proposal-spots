@@ -171,6 +171,50 @@ function includesList(includedItems) {
       </ul>`;
 }
 
+// Itemised pricing: the package plus any booked add-ons, then a Total.
+// Uses the same label-left / value-right hairline table as the partner
+// confirmation email (see `row` above). Prices are numbers in the spot's
+// currency (priceCurrency); formatPrice adds the right symbol. Renders
+// nothing if there's no package price and no priced add-ons.
+function pricingTable(booking) {
+  const { packageName, packagePrice, addonItems, priceCurrency } = booking;
+  const cur = priceCurrency || "USD";
+  const items = [];
+  let total = 0;
+
+  if (packagePrice) {
+    total += Number(packagePrice) || 0;
+    items.push({ label: packageName || "Package", amount: Number(packagePrice) });
+  }
+  (addonItems || []).forEach((a) => {
+    if (!a || !a.name) return;
+    const amt = Number(a.price) || 0;
+    total += amt;
+    items.push({ label: a.name, amount: a.price ? amt : null });
+  });
+
+  if (!items.length) return "";
+
+  const rows = items
+    .map(
+      (li) => `
+      <tr>
+        <td style="padding:6px 0;color:#1C1C1C;font-size:14px;vertical-align:top;">${escapeHtml(li.label)}</td>
+        <td style="padding:6px 0;color:#1C1C1C;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top;">${li.amount != null ? escapeHtml(formatPrice(li.amount, cur)) : "—"}</td>
+      </tr>`
+    )
+    .join("");
+
+  return `
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 2px;border-top:1px solid #D8D2C8;font-family:Helvetica,Arial,sans-serif;">
+        ${rows}
+        <tr>
+          <td style="padding:8px 0 0;border-top:1px solid #D8D2C8;color:#1C1C1C;font-size:14px;font-weight:600;">Total</td>
+          <td style="padding:8px 0 0;border-top:1px solid #D8D2C8;color:#1C1C1C;font-size:14px;font-weight:600;text-align:right;white-space:nowrap;">${escapeHtml(formatPrice(total, cur))}</td>
+        </tr>
+      </table>`;
+}
+
 // "Securing Your Date" deposit section. Rendered ONLY for bookings whose
 // partner is on the new "Deposit at Booking" payment model; legacy
 // (invoice-after-event) partners get nothing here at all. Uses the email's
@@ -253,8 +297,10 @@ export const SAMPLE_BOOKING = {
     "On-site assistant",
     "Music (personalized playlist)",
   ],
-  addons: "",
   specialRequest: "This date is also my birthday",
+  priceCurrency: "IDR",
+  packagePrice: 17520000,
+  addonItems: [],
   partnerName: "Verena",
   partnerBusinessName: "Forever Promises, Bali",
   partnerFirstNameOfCouple: "Flora",
@@ -267,10 +313,17 @@ export const SAMPLE_BOOKING = {
 // deposit amount/percent, refund window and payment link below are
 // PLACEHOLDERS — the real values come from Airtable (percent, refund window)
 // or still need wiring (deposit amount = price × %, and the Wise link).
+// Two real Jungle Escape add-ons are shown as "booked" here to demonstrate
+// add-on pricing rows. Package Rp17,520,000 + Rp5,400,000 + Rp3,480,000 =
+// Rp26,400,000 total; the 30% deposit = Rp7,920,000.
 export const SAMPLE_BOOKING_DEPOSIT = {
   ...SAMPLE_BOOKING,
+  addonItems: [
+    { name: "Live Singer, Guitarist or Violinist", price: 5400000 },
+    { name: "Pyrotechnics (6 shots)", price: 3480000 },
+  ],
   paymentModel: "New – Deposit at Booking",
-  totalDepositAmount: "$540 USD",
+  totalDepositAmount: "Rp7,920,000",
   totalDepositPercent: 30,
   refundDeadlineDays: 14,
   paymentLink: "https://wise.com/pay/r/placeholder-example",
@@ -283,7 +336,6 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
     confirmedDate,
     packageName,
     includedItems,
-    addons,
     specialRequest,
     partnerName,
     partnerFirstNameOfCouple,
@@ -295,8 +347,8 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
     detailLine("💍", "Date", confirmedDate),
     detailLine("🎁", "Package", packageName),
     includesList(includedItems),
-    detailLine("✨", "Add-ons", addons),
     detailLine("📝", "Special note", specialRequest),
+    pricingTable(booking),
   ].join("");
 
   return `
