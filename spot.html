@@ -1741,6 +1741,17 @@ nav {
   flex-shrink: 0;
 }
 
+/* ── Single-price "add to your moment" add-ons (right panel) ── */
+#sdp-moment-addons-list { margin-top: 14px; }
+.sdp-moment-addons-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
 /* ── Mobile tier card scaffolding (hidden on desktop) ────── */
 .sdp-tier-left-info {
   display: flex;
@@ -1965,7 +1976,6 @@ nav {
         <div class="sdp-included" id="sdp-included-section" style="display:none">
           <span class="sdp-incl-label">What's included</span>
           <div id="sdp-included-list"></div>
-          <p class="sdp-incl-bridge">When you enquire, your concierge will guide you through photography, dinner, and any other additions.</p>
         </div>
 
         <!-- Access -->
@@ -2986,10 +2996,14 @@ function populateSpot(s) {
   const stepTierEl = document.getElementById('sdp-step-tier');
   const step1El    = document.getElementById('sdp-step-1');
   const stepEnhEl  = document.getElementById('sdp-step-enhance');
+  const step1NumEl = step1El && step1El.querySelector('.sdp-step-num');
+  const step2NumEl = step2El && step2El.querySelector('.sdp-step-num');
   if (isTiered) {
     if (step1El)   step1El.style.display   = 'none';
     if (stepTierEl) stepTierEl.style.display = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
+    // Tiered is a numbered flow — keep the step numbers visible
+    if (step2NumEl) step2NumEl.style.display = '';
     _tieredSelectedIdx = 0;
     _renderTierSelectorHTML(s.packages);
     _renderTierAddons(s);
@@ -2998,6 +3012,11 @@ function populateSpot(s) {
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none';
+    // Single Price isn't a numbered sequence — hide the step numbers so
+    // "The Moment" doesn't read as item 01 of the What's Included list
+    if (step1NumEl) step1NumEl.style.display = 'none';
+    if (step2NumEl) step2NumEl.style.display = 'none';
+    _renderMomentAddons(s);
   }
 
   setTimeout(renderProposalDateStep, 50);
@@ -3284,7 +3303,7 @@ function updateSelectionSummary() {
   if (pd1) lines.push('Proposal: ' + fmt(pd1));
   if (pd2) lines.push('Backup: ' + fmt(pd2));
 
-  document.querySelectorAll('#sdp-tier-addons input:checked').forEach(cb => {
+  document.querySelectorAll('#sdp-tier-addons input:checked, #sdp-moment-addons-list input:checked').forEach(cb => {
     const row = cb.closest('.sdp-tier-addon-row');
     const priceEl = row ? row.querySelector('.sdp-tier-addon-price') : null;
     const priceText = priceEl ? ' ' + priceEl.textContent.trim() : '';
@@ -3644,6 +3663,18 @@ function openEnquiryModal() {
     }
   }
 
+  // Single-price: recap the add-ons chosen in the right panel so they're visible
+  // in the enquiry review before submitting.
+  if (!isTieredSum && sumAddons) {
+    const picked = [...document.querySelectorAll('#sdp-moment-addons-list input:checked')].map(cb => cb.value);
+    const addonsValEl = document.getElementById('enq-sum-addons-val');
+    if (picked.length && addonsValEl) {
+      addonsValEl.textContent = picked.join(', ');
+      sumAddons.style.display = '';
+      sumEl.style.display = '';
+    }
+  }
+
   // Reset the modal proposal-date picker each time the modal opens
   selectedProposalDates = [];
   _enqProposalPref = '';
@@ -3666,43 +3697,16 @@ function openEnquiryModal() {
     enqHotelSection.style.display = 'none';
   }
 
-  // Dynamic add-ons from current spot (hidden for tiered pricing — already selected in sidebar)
   const addonsSection = document.getElementById('enq-addons-section');
   const addonsList    = document.getElementById('enq-addons-list');
   const photoSection  = document.getElementById('enq-photo-section');
-  const isTieredEnq   = !!(currentSpot?.['Pricing Model'] === 'Tiered' && currentSpot?.packages?.length);
 
-  if (isTieredEnq) {
-    if (addonsSection) addonsSection.style.display = 'none';
-    if (photoSection)  photoSection.style.display  = 'none';
-  } else {
-    if (photoSection) photoSection.style.display = '';
-    const spot      = currentSpot;
-    const spotAddons = spot?.['Add-ons'] || [];
-    const priceText  = spot?.['Add-on Prices'] || '';
-    const priceMap = {};
-    priceText.split('\n').forEach(line => {
-      const parts = line.split('|').map(s => s.trim());
-      if (parts.length === 2) {
-        priceMap[parts[0]] = parts[1];
-        priceMap[parts[0].toLowerCase()] = parts[1];
-      }
-    });
-    const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
-    if (addonsSection && addonsList && addonItems.length) {
-      addonsList.innerHTML = addonItems.map(item => {
-        const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
-        const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price on Request' : '+' + price}</span>` : '<span class="enq-addon-price">Price on Request</span>';
-        return `<label class="enq-addon-check">
-          <input type="checkbox" value="${item}">
-          <span>${item}</span>${priceLabel}
-        </label>`;
-      }).join('');
-      addonsSection.style.display = '';
-    } else if (addonsSection) {
-      addonsSection.style.display = 'none';
-    }
-  }
+  // Add-ons and the photography quote are selected in the right-hand panel now
+  // (single-price under "The Moment", tiered under "Enhance your experience"),
+  // so neither section renders inside the enquiry modal.
+  if (photoSection)  photoSection.style.display  = 'none';
+  if (addonsSection) addonsSection.style.display = 'none';
+  if (addonsList)    addonsList.innerHTML = '';
 
   // Pre-fill email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
@@ -3733,7 +3737,12 @@ function closeEnquiryModal() {
   document.body.style.overflow = '';
 }
 
+let _enqSubmitting = false;
 async function submitEnquiry() {
+  // Guard against double-submits (e.g. a double-tap on mobile), which would
+  // otherwise create duplicate Bookings records and send duplicate emails.
+  if (_enqSubmitting) return;
+
   const first = document.getElementById('enq-first')?.value?.trim();
   const last = document.getElementById('enq-last')?.value?.trim();
   const email = document.getElementById('enq-email')?.value?.trim();
@@ -3750,6 +3759,28 @@ async function submitEnquiry() {
   const selectedTierPkg = isTieredSubmit ? (currentSpot.packages[_tieredSelectedIdx] || null) : null;
   const selectedTierName = selectedTierPkg ? selectedTierPkg['Tier Name'] : null;
 
+  // The "Package Selected" value written to Airtable (a single-select field).
+  // Tiered uses the chosen tier name; single-price is always "The Moment".
+  const packageSelected = isTieredSubmit ? selectedTierName : 'The Moment';
+
+  // "Package Display" is a free-text field used by the confirmation email so it
+  // can show the price alongside the package. Single-price → "The Moment — <price>";
+  // tiered → "<Tier Name> — <package price>". Falls back to the plain name when no
+  // price is set. (The single-select above can't hold per-spot price strings.)
+  const _pkgCurrency = currentSpot?.['Price Currency'];
+  let packageDisplay;
+  if (isTieredSubmit) {
+    const _tierPrice = selectedTierPkg && selectedTierPkg['Price'];
+    packageDisplay = _tierPrice
+      ? selectedTierName + ' — ' + formatPrice(_tierPrice, _pkgCurrency)
+      : (selectedTierName || '');
+  } else {
+    const _momentPrice = currentSpot?.['Price Moment'];
+    packageDisplay = _momentPrice
+      ? 'The Moment — ' + formatPrice(_momentPrice, _pkgCurrency)
+      : 'The Moment';
+  }
+
   let addons = [];
   if (isTieredSubmit) {
     // Collect addons selected in the listing-page sidebar enhance step
@@ -3758,14 +3789,9 @@ async function submitEnquiry() {
       return price ? `${cb.value} (${price})` : cb.value;
     });
   } else {
-    const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
-    const _addonPriceMap = {};
-    _addonPriceText.split('\n').forEach(line => {
-      const parts = line.split('|').map(s => s.trim());
-      if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
-    });
-    addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
-      const price = _addonPriceMap[cb.value];
+    // Single-price add-ons are selected in the right panel under "The Moment"
+    addons = [...document.querySelectorAll('#sdp-moment-addons-list input:checked')].map(cb => {
+      const price = cb.dataset.price;
       return price ? `${cb.value} (${price})` : cb.value;
     });
   }
@@ -3798,12 +3824,19 @@ async function submitEnquiry() {
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
+    packageSelected: packageSelected,
+    packageDisplay: packageDisplay,
     pricingModel: currentSpot?.['Pricing Model'] || 'Single Price',
     contactPreference: getContactPreference(),
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
   };
+
+  _enqSubmitting = true;
+  const submitBtn = document.getElementById('enq-submit');
+  const submitBtnLabel = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
   try {
     const response = await fetch('/api/enquiry', {
@@ -3825,6 +3858,11 @@ async function submitEnquiry() {
   } catch (err) {
     console.error('Enquiry submit error:', err);
     alert('Network error. Please try again.');
+  } finally {
+    // Re-enable so the customer can retry after an error. On success the form is
+    // hidden and replaced by the success panel, so this button is out of view.
+    _enqSubmitting = false;
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtnLabel; }
   }
 }
 
@@ -4103,6 +4141,63 @@ function _updatePriceFromTier(packages) {
   if (priceEl)    priceEl.innerHTML    = priceHtml;
   if (barPriceEl) barPriceEl.innerHTML = priceHtml;
   _updateConvertLink(pkg['Price'], currency);
+}
+
+// Single-price add-ons: rendered as checkable rows in the right panel directly
+// under "The Moment" (mirrors the tiered add-on rows). Checking a row updates the
+// "Your selection" summary; the headline price stays fixed at the Moment's price.
+function _renderMomentAddons(spot) {
+  var container = document.getElementById('sdp-moment-addons-list');
+  if (!container) return;
+
+  // Prefer the structured Addon 1–4 fields, then fall back to the legacy Add-ons field.
+  var addonDefs = [];
+  for (var i = 1; i <= 4; i++) {
+    var aName = spot['Addon ' + i + ' Name'];
+    if (aName) addonDefs.push({ name: String(aName).trim(), price: spot['Addon ' + i + ' Price'] });
+  }
+  if (!addonDefs.length) {
+    var rawAddons = spot['Add-ons'] || [];
+    var addonNames = Array.isArray(rawAddons) ? rawAddons : String(rawAddons).split(/[|·,]/).map(function(s) { return s.trim(); }).filter(Boolean);
+    var priceText = spot['Add-on Prices'] || '';
+    var priceMap = {};
+    priceText.split('\n').forEach(function(line) {
+      var parts = line.split('|').map(function(s) { return s.trim(); });
+      if (parts.length === 2) priceMap[parts[0].toLowerCase()] = parts[1];
+    });
+    addonNames.forEach(function(n) {
+      addonDefs.push({ name: n, price: priceMap[n.toLowerCase()] || null });
+    });
+  }
+
+  if (!addonDefs.length) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  var rows = addonDefs.map(function(a) {
+    var pLabel = '';
+    var pAttr = '';
+    if (a.price !== null && a.price !== undefined && a.price !== '') {
+      if (typeof a.price === 'number') {
+        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pAttr  = formatPrice(a.price, spot['Price Currency']);
+      } else {
+        var ps = String(a.price);
+        pLabel = '+' + ps;
+        pAttr  = ps.startsWith('$') ? ps : '$' + ps;
+      }
+    }
+    return '<label class="sdp-tier-addon-row">' +
+      '<input type="checkbox" value="' + a.name + '" ' + (pAttr ? 'data-price="' + pAttr + '" ' : '') + 'onchange="updateSelectionSummary()">' +
+      '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
+      '<span class="sdp-tier-addon-price">' + (pLabel || 'Price on Request') + '</span>' +
+    '</label>';
+  }).join('');
+
+  container.innerHTML = '<span class="sdp-moment-addons-label">Add to your moment — optional</span>' + rows;
+  container.style.display = '';
 }
 
 function _renderTierAddons(spot) {
