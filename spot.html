@@ -886,6 +886,17 @@ nav {
   letter-spacing: 0.03em;
 }
 
+.sdp-deposit-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 8px;
+  letter-spacing: 0.03em;
+}
+
 .sdp-seasonal-label {
   font-family: 'Jost', sans-serif;
   font-size: 10px;
@@ -2119,6 +2130,9 @@ nav {
             <p class="sdp-trust-note">
               ✦ No payment until you've approved your full quote
             </p>
+            <!-- Deposit disclosure — only rendered for partners on the new
+                 deposit-at-booking payment model (see populateSpot). -->
+            <p class="sdp-deposit-note" id="sdp-deposit-note" style="display:none"></p>
 
             <!-- Hotel revealed -->
             <div id="sdp-hotel-block" style="display:none;margin-top:16px;padding:12px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--hairline)">
@@ -2780,6 +2794,16 @@ function mapSpotFromAirtable(r) {
     'Addon 4 Name': f['Addon 4 Name'] || null,
     'Addon 4 Price': f['Addon 4 Price'] || null,
     'Rain Check': f['Rain Check'] || '',
+    // Payment model — lookup from the linked Partner record. Returns an array
+    // like ["New – Deposit at Booking"] or ["Legacy – Invoice After Event"].
+    // Normalized to a single string. Drives the deposit-disclosure line.
+    'Partner Payment Model': Array.isArray(f['Partner Payment Model'])
+      ? (f['Partner Payment Model'][0] || '')
+      : (f['Partner Payment Model'] || ''),
+    // Refund window in days for the deposit disclosure. NOTE: this Airtable
+    // field does not exist yet — until it's created the value stays null and
+    // the deposit line is suppressed (no broken "[X]").
+    'Refund Window Days': f['Refund Window (Days)'] || null,
     packages: r.packages || [],
   };
 }
@@ -2896,6 +2920,25 @@ function populateSpot(s) {
   document.getElementById('sdp-concierge-price').innerHTML = _priceHtml;
   document.getElementById('sdp-bar-price').innerHTML = _priceHtml;
   _updateConvertLink(s['Price Moment'], s['Price Currency']);
+
+  // Deposit disclosure — only for partners on the new deposit-at-booking model.
+  // Legacy (post-event invoice) partners render nothing here. The refund window
+  // comes from Airtable; if it's not set the line stays hidden rather than
+  // showing a placeholder.
+  var depositNote = document.getElementById('sdp-deposit-note');
+  if (depositNote) {
+    var paymentModel = s['Partner Payment Model'] || '';
+    var refundDays = s['Refund Window Days'];
+    var isNewModel = paymentModel.indexOf('Deposit at Booking') !== -1;
+    if (isNewModel && refundDays) {
+      depositNote.textContent =
+        'Confirmed with a refundable deposit — fully refundable up to ' +
+        refundDays + ' days before your date.';
+      depositNote.style.display = '';
+    } else {
+      depositNote.style.display = 'none';
+    }
+  }
 
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
