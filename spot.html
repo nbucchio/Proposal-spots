@@ -3754,6 +3754,12 @@ async function submitEnquiry() {
   const selectedTierPkg = isTieredSubmit ? (currentSpot.packages[_tieredSelectedIdx] || null) : null;
   const selectedTierName = selectedTierPkg ? selectedTierPkg['Tier Name'] : null;
 
+  // The "Package Selected" value written to Airtable (a single-select field).
+  // Tiered uses the chosen tier name; single-price is always "The Moment". The
+  // price shown in the confirmation email is added in the Airtable email template
+  // from the linked spot — it must NOT be baked into this single-select value.
+  const packageSelected = isTieredSubmit ? selectedTierName : 'The Moment';
+
   let addons = [];
   if (isTieredSubmit) {
     // Collect addons selected in the listing-page sidebar enhance step
@@ -3797,6 +3803,7 @@ async function submitEnquiry() {
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
+    packageSelected: packageSelected,
     pricingModel: currentSpot?.['Pricing Model'] || 'Single Price',
     contactPreference: getContactPreference(),
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),

@@ -15,9 +15,14 @@ export default async function handler(req, res) {
   const {
     spotName, firstName, lastName, email, phone,
     partner, country, hotelCheckin, hotelCheckout,
-    proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, pricingModel, contactPreference, photographyQuote,
+    proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, packageSelected, pricingModel, contactPreference, photographyQuote,
     spotId, hotelIds,
   } = req.body || {};
+
+  // "Package Selected" feeds the confirmation email. Tiered listings send a tier
+  // name; single-price listings send "The Moment — <price>". Fall back to the tier
+  // name for older clients that don't send packageSelected.
+  const packageLabel = packageSelected || selectedTier || '';
 
   if (!firstName || !lastName || !email || !phone) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -33,6 +38,10 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          // typecast lets Airtable create the single-select option for a new
+          // "Package Selected" value (e.g. "The Moment") instead of rejecting the
+          // whole record — otherwise a booking could fail to save.
+          typecast: true,
           records: [{
             fields: {
               'Customer First Name': firstName,
@@ -51,14 +60,14 @@ export default async function handler(req, res) {
               'Special Requests':    notes || '',
               'Add-ons Selected':    Array.isArray(addons) ? addons.join(', ') : (addons || ''),
               'Pricing Model':       pricingModel || 'Single Price',
-              ...(selectedTier ? { 'Package Selected': selectedTier } : {}),
+              ...(packageLabel ? { 'Package Selected': packageLabel } : {}),
               ...(photographyQuote && photographyQuote !== 'No' ? { 'Photography Quote Request': photographyQuote } : {}),
               ...(spotId ? { 'Linked Spot': [spotId] } : {}),
               ...(Array.isArray(hotelIds) && hotelIds.length ? { 'Linked Hotel': hotelIds } : {}),
               'Source':              'Website',
               'Internal Notes':      [
                 spotName     ? `Spot: ${spotName}`           : '',
-                selectedTier ? `Package: ${selectedTier}`    : '',
+                packageLabel ? `Package: ${packageLabel}`    : '',
               ].filter(Boolean).join('\n') || '',
             },
           }],
