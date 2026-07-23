@@ -11062,7 +11062,14 @@ function renderSSBDestinations(destinations) {
   var available  = [];
   var comingSoon = [];
   clean.forEach(function(d) {
-    (ssbDestinationHasSpots(d, liveCountries) ? available : comingSoon).push(d);
+    // A destination is "available" if it is not flagged coming_soon in Airtable.
+    // This mirrors the nav dropdown grouping so both are driven by the same
+    // single source of truth. Fall back to the live-spots heuristic only when
+    // the flag is not explicitly set on the record.
+    var isAvailable = (typeof d.coming_soon === 'boolean')
+      ? !d.coming_soon
+      : ssbDestinationHasSpots(d, liveCountries);
+    (isAvailable ? available : comingSoon).push(d);
   });
 
   var html = ssbDdItem('', 'Any Destination', 'ssbPickDest');
