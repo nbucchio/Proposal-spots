@@ -786,6 +786,10 @@ export default function Page() {
 
                 <div>
                   <Label hint="comma separated">What's included</Label>
+                  <p className="-mt-1 mb-2 text-xs text-ink/50">
+                    Everything the price above already covers, at no extra
+                    charge.
+                  </p>
                   <textarea
                     className={inputClass}
                     rows={2}
@@ -799,6 +803,10 @@ export default function Page() {
 
                 <div>
                   <Label hint="optional, up to 4">Add-ons</Label>
+                  <p className="-mt-1 mb-2 text-xs text-ink/50">
+                    Optional extras a couple can add on top for an additional
+                    charge — not part of the price above.
+                  </p>
                   <div className="space-y-2">
                     {spot.addons.map((addon, i) => (
                       <div key={i} className="grid grid-cols-3 gap-2">
