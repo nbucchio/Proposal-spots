@@ -879,7 +879,7 @@ export default function Page() {
                       onChange={(e) =>
                         updateSpot({ depositPercent: e.target.value })
                       }
-                      placeholder="e.g. 30"
+                      placeholder="e.g. 5"
                     />
                     <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
                       %
