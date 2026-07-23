@@ -75,6 +75,21 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
     row("Availability", availabilityValue),
     row("Currency", spot.priceCurrency),
     row("Pricing model", spot.pricingModel),
+    row("Requires deposit", spot.requiresDeposit),
+    spot.requiresDeposit === "Yes"
+      ? row(
+          "Deposit required",
+          spot.depositPercent ? `${spot.depositPercent}% of total` : ""
+        )
+      : "",
+    spot.requiresDeposit === "Yes"
+      ? row(
+          "Refundable up to",
+          spot.refundWindowDays
+            ? `${spot.refundWindowDays} days before the date`
+            : ""
+        )
+      : "",
     spot.pricingModel === "Single Price"
       ? row(
           "Price",
