@@ -17,8 +17,18 @@ export async function POST(request) {
       [SPOT_FIELDS.RAIN_CHECK]: body.rainCheck,
       [SPOT_FIELDS.PRICING_MODEL]: body.pricingModel,
       [SPOT_FIELDS.PRICE_CURRENCY]: body.priceCurrency,
+      [SPOT_FIELDS.DEPOSIT_REQUIRED]: body.requiresDeposit === "Yes",
       [SPOT_FIELDS.STATUS]: "Draft",
     };
+
+    if (body.requiresDeposit === "Yes") {
+      // Airtable percent fields store fractions (0.2 === 20%), so the
+      // whole-number percentage the partner types is divided by 100.
+      if (body.depositPercent)
+        fields[SPOT_FIELDS.DEPOSIT_PERCENT] = Number(body.depositPercent) / 100;
+      if (body.refundWindowDays)
+        fields[SPOT_FIELDS.REFUND_WINDOW_DAYS] = Number(body.refundWindowDays);
+    }
 
     if (body.availabilityType === "Seasonal") {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];

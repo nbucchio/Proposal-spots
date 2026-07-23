@@ -110,6 +110,8 @@ const BEST_TIME_OPTIONS = ["Sunrise", "Sunset", "Mid-day", "Any"];
 
 const PREFERRED_CONTACT_OPTIONS = ["Email", "WhatsApp"];
 
+const DEPOSIT_OPTIONS = ["No", "Yes"];
+
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
 
 const PRICING_MODEL_INFO = [
@@ -166,6 +168,9 @@ const EMPTY_SPOT = {
   availableMonths: [],
   rainCheck: "",
   pricingModel: "",
+  requiresDeposit: "",
+  depositPercent: "",
+  refundWindowDays: "",
   priceCurrency: "USD",
   priceMoment: "",
   includedItems: "",
@@ -333,6 +338,26 @@ export default function Page() {
     if (!spot.pricingModel) {
       setError("Choose a pricing model before continuing.");
       return;
+    }
+
+    if (!spot.requiresDeposit) {
+      setError(
+        "Let us know whether this spot requires a deposit to hold the date."
+      );
+      return;
+    }
+
+    if (spot.requiresDeposit === "Yes") {
+      if (!String(spot.depositPercent).trim()) {
+        setError("Please enter the deposit amount required to hold the date.");
+        return;
+      }
+      if (!String(spot.refundWindowDays).trim()) {
+        setError(
+          "Please enter the refund window for the deposit (in days before the date)."
+        );
+        return;
+      }
     }
 
     setStep(spot.pricingModel === "Tiered" ? "packages" : "review");
@@ -801,6 +826,75 @@ export default function Page() {
             )}
           </section>
 
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">Deposit</h2>
+
+            <div className="rounded-lg border border-sage/40 bg-sage/5 p-4 text-xs leading-relaxed text-ink/70">
+              When a couple books this spot through Proposal Spots, we collect a
+              deposit from them directly to confirm the booking — this is also
+              how our commission is handled, so there's nothing for you to
+              invoice or chase afterwards. For most partners, that's all that's
+              needed to hold the date. If this particular spot involves a venue
+              booking or anything that genuinely requires a deposit on your
+              side, just let us know below — we'll collect your portion from the
+              couple at the same time and send it straight to you.
+            </div>
+
+            <div>
+              <Label>Does this spot require a deposit to hold the date?</Label>
+              <div className="flex gap-2">
+                {DEPOSIT_OPTIONS.map((d) => (
+                  <Chip
+                    key={d}
+                    label={d}
+                    selected={spot.requiresDeposit === d}
+                    onClick={() => updateSpot({ requiresDeposit: d })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {spot.requiresDeposit === "Yes" && (
+              <div className="grid grid-cols-2 gap-4 rounded-lg border border-line bg-white/40 p-5">
+                <div>
+                  <Label hint="% of the total">Deposit required</Label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      className={inputClass}
+                      style={{ paddingRight: "2.25rem" }}
+                      value={spot.depositPercent}
+                      onChange={(e) =>
+                        updateSpot({ depositPercent: e.target.value })
+                      }
+                      placeholder="e.g. 30"
+                    />
+                    <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
+                      %
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <Label hint="days before the date">Refundable up to</Label>
+                  <input
+                    type="number"
+                    min="0"
+                    className={inputClass}
+                    value={spot.refundWindowDays}
+                    onChange={(e) =>
+                      updateSpot({ refundWindowDays: e.target.value })
+                    }
+                    placeholder="e.g. 30"
+                  />
+                </div>
+              </div>
+            )}
+          </section>
+
           <button
             type="submit"
             className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
@@ -1016,6 +1110,25 @@ export default function Page() {
             />
             <ReviewRow label="Currency" value={spot.priceCurrency} />
             <ReviewRow label="Pricing model" value={spot.pricingModel} />
+            <ReviewRow label="Requires deposit" value={spot.requiresDeposit} />
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow
+                label="Deposit required"
+                value={
+                  spot.depositPercent ? `${spot.depositPercent}% of total` : ""
+                }
+              />
+            )}
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow
+                label="Refundable up to"
+                value={
+                  spot.refundWindowDays
+                    ? `${spot.refundWindowDays} days before the date`
+                    : ""
+                }
+              />
+            )}
             {spot.pricingModel === "Single Price" && (
               <ReviewRow
                 label="Price"
