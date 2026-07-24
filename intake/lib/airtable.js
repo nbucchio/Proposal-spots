@@ -31,6 +31,7 @@ export const SPOT_FIELDS = {
   DEPOSIT_REQUIRED: "Partner Deposit Required",
   DEPOSIT_PERCENT: "Partner's Required Deposit %",
   REFUND_WINDOW_DAYS: "Refund Window (Days)",
+  DEPOSIT_NOTES: "Deposit Notes",
   PRICE_CURRENCY: "Price Currency",
   PRICE_MOMENT: "Price Moment",
   INCLUDED_ITEMS: "Included Items",

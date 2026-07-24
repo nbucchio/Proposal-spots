@@ -28,6 +28,8 @@ export async function POST(request) {
         fields[SPOT_FIELDS.DEPOSIT_PERCENT] = Number(body.depositPercent) / 100;
       if (body.refundWindowDays)
         fields[SPOT_FIELDS.REFUND_WINDOW_DAYS] = Number(body.refundWindowDays);
+      if (body.depositNotes)
+        fields[SPOT_FIELDS.DEPOSIT_NOTES] = body.depositNotes;
     }
 
     if (body.availabilityType === "Seasonal") {

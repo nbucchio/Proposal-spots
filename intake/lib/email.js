@@ -90,6 +90,9 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
             : ""
         )
       : "",
+    spot.requiresDeposit === "Yes"
+      ? row("Deposit notes", spot.depositNotes)
+      : "",
     spot.pricingModel === "Single Price"
       ? row(
           "Price",

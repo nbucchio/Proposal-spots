@@ -171,6 +171,7 @@ const EMPTY_SPOT = {
   requiresDeposit: "",
   depositPercent: "",
   refundWindowDays: "",
+  depositNotes: "",
   priceCurrency: "USD",
   priceMoment: "",
   includedItems: "",
@@ -832,6 +833,14 @@ export default function Page() {
                 </div>
               </div>
             )}
+
+            {spot.pricingModel === "Tiered" && (
+              <div className="rounded-lg border border-line bg-white/40 p-5">
+                <p className="text-sm font-medium text-ink">
+                  You'll set your tier pricing on the next step.
+                </p>
+              </div>
+            )}
           </section>
 
           <hr className="border-line" />
@@ -865,38 +874,52 @@ export default function Page() {
             </div>
 
             {spot.requiresDeposit === "Yes" && (
-              <div className="grid grid-cols-2 gap-4 rounded-lg border border-line bg-white/40 p-5">
-                <div>
-                  <Label hint="% of the total">Deposit required</Label>
-                  <div className="relative">
+              <div className="space-y-4 rounded-lg border border-line bg-white/40 p-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label hint="% of the total">Deposit required</Label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        className={inputClass}
+                        style={{ paddingRight: "2.25rem" }}
+                        value={spot.depositPercent}
+                        onChange={(e) =>
+                          updateSpot({ depositPercent: e.target.value })
+                        }
+                        placeholder="e.g. 5"
+                      />
+                      <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
+                        %
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <Label hint="days before the date">Refundable up to</Label>
                     <input
                       type="number"
                       min="0"
-                      max="100"
                       className={inputClass}
-                      style={{ paddingRight: "2.25rem" }}
-                      value={spot.depositPercent}
+                      value={spot.refundWindowDays}
                       onChange={(e) =>
-                        updateSpot({ depositPercent: e.target.value })
+                        updateSpot({ refundWindowDays: e.target.value })
                       }
-                      placeholder="e.g. 5"
+                      placeholder="e.g. 30"
                     />
-                    <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
-                      %
-                    </span>
                   </div>
                 </div>
                 <div>
-                  <Label hint="days before the date">Refundable up to</Label>
-                  <input
-                    type="number"
-                    min="0"
+                  <Label hint="optional">Notes</Label>
+                  <textarea
                     className={inputClass}
-                    value={spot.refundWindowDays}
+                    rows={2}
+                    value={spot.depositNotes}
                     onChange={(e) =>
-                      updateSpot({ refundWindowDays: e.target.value })
+                      updateSpot({ depositNotes: e.target.value })
                     }
-                    placeholder="e.g. 30"
+                    placeholder="Anything we should know — e.g. the amount is negotiable, only applies to peak dates, or refund exceptions."
                   />
                 </div>
               </div>
@@ -1136,6 +1159,9 @@ export default function Page() {
                     : ""
                 }
               />
+            )}
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow label="Deposit notes" value={spot.depositNotes} />
             )}
             {spot.pricingModel === "Single Price" && (
               <ReviewRow
