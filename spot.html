@@ -278,6 +278,7 @@ nav {
   filter: blur(26px) brightness(0.7);
   transform: scale(1.18);
   z-index: 0;
+  display: none;
 }
 
 .sdp-gallery-main-img {
@@ -285,9 +286,14 @@ nav {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   z-index: 1;
 }
+
+/* Portrait photos only: show the whole photo with a blurred fill behind.
+   Landscape/square keep the edge-to-edge cover with no blur. */
+.sdp-gallery-viewer.is-portrait .sdp-gallery-bg { display: block; }
+.sdp-gallery-viewer.is-portrait .sdp-gallery-main-img { object-fit: contain; }
 
 .sdp-gallery-arrow {
   position: absolute;
@@ -3114,8 +3120,18 @@ function renderGalleryFrame() {
   if (!photo) return;
 
   const optimized = optimizeAirtableImage(photo.url || '', 1400);
-  document.getElementById('sdp-gallery-main').src = optimized;
-  document.getElementById('sdp-gallery-bg').src = optimized;
+  const viewer = document.getElementById('sdp-gallery-viewer');
+  const mainImg = document.getElementById('sdp-gallery-main');
+  const bgImg = document.getElementById('sdp-gallery-bg');
+
+  // Portrait photos get the "contain + blurred fill" treatment; landscape
+  // and square photos keep the edge-to-edge cover (no blur).
+  const markPortrait = (w, h) => viewer.classList.toggle('is-portrait', !!(w && h && h > w));
+  mainImg.onload = () => markPortrait(mainImg.naturalWidth, mainImg.naturalHeight);
+  if (photo.width && photo.height) markPortrait(photo.width, photo.height);
+
+  mainImg.src = optimized;
+  bgImg.src = optimized;
   document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
 
   // Dots
