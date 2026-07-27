@@ -243,6 +243,20 @@ nav {
 .sdp-vibe-chip.hotel-tag .sdp-chip-val {
   color: #A55A4A;
 }
+/* Budget meter — 3 terracotta bars, filled to the spot's tier */
+.sdp-budget-bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 13px;
+}
+.sdp-bar {
+  width: 16px;
+  height: 5px;
+  border-radius: 1.5px;
+  background: rgba(165, 90, 74, 0.16);
+}
+.sdp-bar.on { background: #A55A4A; }
 
 .sdp-body {
   max-width: 1200px;
@@ -1941,7 +1955,7 @@ nav {
         <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Budget</span>
-          <span class="sdp-chip-val" id="sdp-budget">—</span>
+          <span class="sdp-budget-bars" id="sdp-budget"><span class="sdp-bar"></span><span class="sdp-bar"></span><span class="sdp-bar"></span></span>
         </div>
       </div>
       <div class="sdp-vibe-chip">
@@ -2753,12 +2767,9 @@ function mapSpotFromAirtable(r) {
     : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
     : rawPrivacy;
 
-  const rawBudget = f['Budget'] || '';
-  const budget = rawBudget === 'Free' ? 'Free'
-    : rawBudget === 'Moderate' ? '$$'
-    : rawBudget === 'Expensive' ? '$$$'
-    : rawBudget === 'Luxury' ? '$$$$'
-    : rawBudget;
+  // Budget is one of three CRM tiers — Affordable / Premium / Luxury —
+  // rendered as a 3-bar terracotta meter (see _renderBudget).
+  const budget = f['Budget'] || '';
 
   const bestTime = Array.isArray(f['Best Time'])
     ? f['Best Time']
@@ -2833,6 +2844,33 @@ function toSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+// Fills the budget chip's 3-bar meter for the spot's tier.
+// Affordable = 1 bar, Premium = 2, Luxury = 3. The tier word stays out of
+// sight (tooltip + aria-label only); anything unexpected falls back to text.
+function _renderBudget(name) {
+  var el = document.getElementById('sdp-budget');
+  if (!el) return;
+  var levels = { 'Affordable': 1, 'Premium': 2, 'Luxury': 3 };
+  var lvl = levels[name] || 0;
+  if (!lvl) {
+    el.className = 'sdp-chip-val';
+    el.textContent = name || '—';
+    el.removeAttribute('role');
+    el.removeAttribute('aria-label');
+    el.removeAttribute('title');
+    return;
+  }
+  el.className = 'sdp-budget-bars';
+  el.setAttribute('role', 'img');
+  el.setAttribute('aria-label', 'Budget: ' + name + ' (' + lvl + ' of 3)');
+  el.setAttribute('title', name);
+  var html = '';
+  for (var i = 1; i <= 3; i++) {
+    html += '<span class="sdp-bar' + (i <= lvl ? ' on' : '') + '"></span>';
+  }
+  el.innerHTML = html;
+}
+
 function populateSpot(s) {
   // Hero
   const bg = document.getElementById('sdp-hero-bg');
@@ -2873,7 +2911,7 @@ function populateSpot(s) {
   document.getElementById('sdp-line-summary').textContent = s['Line Summary'] || '';
 
   // Stats
-  document.getElementById('sdp-budget').textContent = s.Budget || '—';
+  _renderBudget(s.Budget);
   document.getElementById('sdp-privacy').textContent = s.Privacy || '—';
   document.getElementById('sdp-effort').textContent = s['Access & Effort'] || '—';
   const times = Array.isArray(s['Best Time']) ? s['Best Time'].join(', ') : (s['Best Time'] || '—');
