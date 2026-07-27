@@ -263,16 +263,30 @@ nav {
 .sdp-gallery-viewer {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 460px;
   background: var(--bg2);
   border-radius: 12px;
   overflow: hidden;
 }
 
-.sdp-gallery-main-img {
+.sdp-gallery-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(26px) brightness(0.7);
+  transform: scale(1.18);
+  z-index: 0;
+}
+
+.sdp-gallery-main-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
 }
 
 .sdp-gallery-arrow {
@@ -1531,7 +1545,7 @@ nav {
   .sdp-vibe-strip::-webkit-scrollbar { display: none; }
   .sdp-vibe-chip { min-width: 120px; flex-shrink: 0; padding: 16px 18px; }
   /* Gallery viewer shorter on mobile */
-  .sdp-gallery-viewer { height: 260px; }
+  .sdp-gallery-viewer { height: 340px; }
   .sdp-gallery-dots { display: none; }
   /* About text: reduce from 23px editorial size */
   .sdp-about-text { font-size: 18px; }
@@ -1964,6 +1978,7 @@ nav {
         <!-- Gallery -->
         <div class="sdp-gallery" id="sdp-gallery-section" style="display:none">
           <div class="sdp-gallery-viewer" id="sdp-gallery-viewer">
+            <img class="sdp-gallery-bg" id="sdp-gallery-bg" src="" alt="" aria-hidden="true">
             <img class="sdp-gallery-main-img" id="sdp-gallery-main" src="" alt="Proposal experience">
             <div class="sdp-gallery-arrow prev" onclick="event.stopPropagation(); galleryPrev()">&#8249;</div>
             <div class="sdp-gallery-arrow next" onclick="event.stopPropagation(); galleryNext()">&#8250;</div>
@@ -3098,7 +3113,9 @@ function renderGalleryFrame() {
   const photo = _galleryPhotos[_galleryIndex];
   if (!photo) return;
 
-  document.getElementById('sdp-gallery-main').src = optimizeAirtableImage(photo.url || '', 1400);
+  const optimized = optimizeAirtableImage(photo.url || '', 1400);
+  document.getElementById('sdp-gallery-main').src = optimized;
+  document.getElementById('sdp-gallery-bg').src = optimized;
   document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
 
   // Dots
