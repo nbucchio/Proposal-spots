@@ -39,7 +39,7 @@ The routes it serves (URLs are unchanged — each maps to the `[action]` segment
 |-----|:---:|-------|
 | `PINTEREST_APP_ID` | no | Client ID. Defaults to `1568781` if unset. |
 | `PINTEREST_APP_SECRET` | **YES** | From developers.pinterest.com → My apps → Proposal Spots → Manage. **Never commit.** |
-| `PINTEREST_REDIRECT_URI` | no | Must exactly match the redirect registered in the Pinterest app, e.g. `https://proposalspots.com/api/pinterest/callback`. If unset, it's derived from the request host. |
+| `PINTEREST_REDIRECT_URI` | no | Must exactly match the redirect registered in the Pinterest app, e.g. `https://www.proposalspots.com/api/pinterest/callback` (www is the canonical domain). If unset, it's derived from the request host. |
 | `PINTEREST_ACCESS_TOKEN` | **YES** | Filled in after the OAuth flow (see below). |
 | `PINTEREST_REFRESH_TOKEN` | **YES** | Filled in after the OAuth flow. Lasts 60 days, refreshable indefinitely; the wrapper auto-refreshes on 401. |
 | `PINTEREST_PUBLISH_SECRET` | optional | If set, `/api/pinterest/publish` requires it via `?secret=` or `x-publish-secret` header. |
@@ -52,7 +52,7 @@ See `.env.example` in the repo root for the full list.
 
 1. **Register the redirect URI** in the Pinterest app settings
    (developers.pinterest.com → Proposal Spots → configure OAuth): add
-   `https://proposalspots.com/api/pinterest/callback` (and any preview domain you
+   `https://www.proposalspots.com/api/pinterest/callback` (and any preview domain you
    want to test from).
 2. In Vercel, set `PINTEREST_APP_SECRET` (and `PINTEREST_REDIRECT_URI` if you
    want to pin it explicitly). Redeploy.
