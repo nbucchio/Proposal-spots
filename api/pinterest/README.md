@@ -19,11 +19,17 @@ Two phases:
 | File | What it is |
 |------|------------|
 | `lib/pinterest.js` | The reusable wrapper — OAuth + board/pin helpers. The only file that talks to Pinterest. |
-| `api/pinterest/connect.js` | Start OAuth. Redirects to Pinterest's consent screen. |
-| `api/pinterest/callback.js` | OAuth redirect target. Exchanges the code for tokens and shows them to paste into Vercel. |
-| `api/pinterest/test.js` | **The proof route.** Creates a "Bali" board + one pin. This is what the demo video shows. |
-| `api/pinterest/boards.js` | Lists your boards as JSON (sanity check / grab a board_id). |
-| `api/pinterest/publish.js` | Phase 2. Parametric publish: give it title/description/image/link/board. |
+| `api/pinterest/[action].js` | **One** serverless function handling all the routes below, dispatched by the URL's last path segment. It's a single file because Vercel's free plan caps a deployment at 12 serverless functions. |
+
+The routes it serves (URLs are unchanged — each maps to the `[action]` segment):
+
+| URL | What it does |
+|-----|--------------|
+| `/api/pinterest/connect` | Start OAuth. Redirects to Pinterest's consent screen. |
+| `/api/pinterest/callback` | OAuth redirect target. Exchanges the code for tokens and shows them to paste into Vercel. |
+| `/api/pinterest/test` | **The proof route.** Creates a "Bali" board + one pin. This is what the demo video shows. |
+| `/api/pinterest/boards` | Lists your boards as JSON (sanity check / grab a board_id). |
+| `/api/pinterest/publish` | Phase 2. Parametric publish: give it title/description/image/link/board. |
 
 ---
 
