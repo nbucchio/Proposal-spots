@@ -197,14 +197,33 @@ async function runSandboxTest(req, res) {
   const link = q.link || TEST_DEFAULTS.link;
 
   try {
-    // Find or create the board (idempotent so re-running doesn't pile up dupes).
+    // Find or create the board.
+    // Note: the Pinterest SANDBOX is unreliable at listing boards (GET /boards
+    // often returns nothing even when boards exist), so findBoardByName can come
+    // back empty and we then try to create a board that's actually already there.
+    // Pinterest rejects that with code 58 ("You already have a board with this
+    // name!"). When that happens we can't look the existing board up, so we retry
+    // once with a unique suffix — that keeps the demo producing a fresh board+pin
+    // no matter how many times it's run.
     let boardObj = await findBoardByName(board, null);
     let boardCreated = false;
     if (!boardObj) {
-      boardObj = await createBoard(
-        { name: board, description: TEST_DEFAULTS.boardDescription, privacy: 'PUBLIC' },
-        null
-      );
+      try {
+        boardObj = await createBoard(
+          { name: board, description: TEST_DEFAULTS.boardDescription, privacy: 'PUBLIC' },
+          null
+        );
+      } catch (err) {
+        if (/"code":\s*58|already have a board with this name/i.test(err.message)) {
+          const uniqueName = `${board} ${Math.random().toString(36).slice(2, 6)}`;
+          boardObj = await createBoard(
+            { name: uniqueName, description: TEST_DEFAULTS.boardDescription, privacy: 'PUBLIC' },
+            null
+          );
+        } else {
+          throw err;
+        }
+      }
       boardCreated = true;
     }
 
@@ -245,8 +264,11 @@ async function runSandboxTest(req, res) {
     return sendHtml(res, 500, page('Test failed', `
       <h1>Sandbox test failed</h1>
       <div class="err">${esc(err.message)}</div>
-      <p>Most likely the access token isn't set yet. Connect first:</p>
-      <a class="btn" href="/api/pinterest/connect">Connect Pinterest</a>`));
+      <p>If this mentions a missing/invalid token, reconnect and repaste the tokens
+      into Vercel (remember: sandbox and production use different tokens). Otherwise
+      the message above from Pinterest explains what went wrong.</p>
+      <a class="btn" href="/api/pinterest/connect">Reconnect Pinterest</a>
+      &nbsp; <a class="btn" href="/api/pinterest/test?board=Bali%20Proposals">Retry with a fresh board name</a>`));
   }
 }
 
