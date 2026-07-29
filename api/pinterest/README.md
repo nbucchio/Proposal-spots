@@ -42,9 +42,32 @@ The routes it serves (URLs are unchanged — each maps to the `[action]` segment
 | `PINTEREST_REDIRECT_URI` | no | Must exactly match the redirect registered in the Pinterest app, e.g. `https://www.proposalspots.com/api/pinterest/callback` (www is the canonical domain). If unset, it's derived from the request host. |
 | `PINTEREST_ACCESS_TOKEN` | **YES** | Filled in after the OAuth flow (see below). |
 | `PINTEREST_REFRESH_TOKEN` | **YES** | Filled in after the OAuth flow. Lasts 60 days, refreshable indefinitely; the wrapper auto-refreshes on 401. |
+| `PINTEREST_MODE` | no | `sandbox` (default) or `production`. See below. |
 | `PINTEREST_PUBLISH_SECRET` | optional | If set, `/api/pinterest/publish` requires it via `?secret=` or `x-publish-secret` header. |
 
 See `.env.example` in the repo root for the full list.
+
+---
+
+## Sandbox vs. production (IMPORTANT while on Trial access)
+
+Pinterest has two API environments, and Trial-access apps can only use one:
+
+- **Sandbox** (`api-sandbox.pinterest.com`) — required while the app is on
+  **Trial access**. Boards/pins created here are private test data. If a
+  Trial-access app calls production it gets `403 code 29: "Apps with Trial
+  access may not create Pins in production ... use API Sandbox instead."`
+- **Production** (`api.pinterest.com`) — only usable once Pinterest approves
+  **Standard access**. This is where real, public pins get created.
+
+`PINTEREST_MODE` selects which one (default `sandbox`). The consent screen is on
+`www.pinterest.com` either way — only the API host changes.
+
+**Tokens are environment-specific.** A token minted against the sandbox works
+only on the sandbox, and a production token only on production. So whenever you
+change `PINTEREST_MODE`, you must re-run the OAuth connect flow and replace the
+stored tokens. (When Standard access is approved: set `PINTEREST_MODE=production`,
+redeploy, reconnect, paste the new tokens, redeploy.)
 
 ---
 
