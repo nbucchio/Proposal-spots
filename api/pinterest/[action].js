@@ -185,7 +185,7 @@ const TEST_DEFAULTS = {
     'Curated proposal locations at proposalspots.com.',
   image:
     'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?q=80&w=1000&auto=format&fit=crop',
-  link: 'https://proposalspots.com/destinations/bali',
+  link: 'https://www.proposalspots.com/destinations/bali',
 };
 
 async function runSandboxTest(req, res) {
