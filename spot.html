@@ -49,6 +49,8 @@
   --divider:  #E4E0D8;
   --accent:   #8C7B64;
   --accent2:  #B5A48C;
+  --terra:    #A55A4A;
+  --terra-soft: rgba(165,90,74,0.10);
   --shadow:   rgba(28,28,28,0.06);
 }
 
@@ -421,6 +423,10 @@ nav {
 
 .sdp-included {
   margin-bottom: 48px;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 30px 30px 32px;
 }
 
 .sdp-lbl {
@@ -447,30 +453,51 @@ nav {
 
 .sdp-incl-row {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 11px 0;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
   border-bottom: 0.5px solid var(--hairline);
 }
 
-.sdp-incl-row:last-of-type { border-bottom: none; }
+.sdp-incl-row:first-of-type { padding-top: 0; }
+.sdp-incl-row:last-of-type { padding-bottom: 0; border-bottom: none; }
 
-.sdp-incl-num {
-  font-family: 'Cormorant', serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--muted);
+/* Terracotta check, drawn in CSS so it tracks the brand hue exactly */
+.sdp-incl-check {
   flex-shrink: 0;
-  min-width: 22px;
-  line-height: 1.3;
+  width: 17px;
+  height: 17px;
+  position: relative;
+  margin-top: 2px;
+}
+.sdp-incl-check::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--terra);
+  border-width: 0 1.6px 1.6px 0;
+  transform: rotate(43deg);
 }
 
-.sdp-incl-text {
+.sdp-incl-title {
   font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 14.5px;
+  font-weight: 500;
   color: var(--ink);
+  letter-spacing: 0.005em;
+  line-height: 1.35;
+}
+
+.sdp-incl-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--muted);
   line-height: 1.5;
+  margin-top: 3px;
 }
 
 .sdp-incl-bridge {
@@ -2937,9 +2964,22 @@ function populateSpot(s) {
     const includedItems = s['Included Items'] || '';
     if (includedItems) {
       const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
-      includedList.innerHTML = lines.map((line, i) => {
-        const num = String(i + 1).padStart(2, '0');
-        return '<div class="sdp-incl-row"><span class="sdp-incl-num">' + num + '</span><span class="sdp-incl-text">' + line + '</span></div>';
+      includedList.innerHTML = lines.map((line) => {
+        // Each item is authored as "Title — description"; split so the
+        // benefit reads bold and the detail sits lighter beneath it.
+        let sepIdx = line.indexOf(' — ');
+        let sepLen = 3;
+        if (sepIdx === -1) { sepIdx = line.indexOf('—'); sepLen = 1; }
+        let title = line, desc = '';
+        if (sepIdx !== -1) {
+          title = line.slice(0, sepIdx).trim();
+          desc = line.slice(sepIdx + sepLen).trim();
+          if (desc) desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+        }
+        let row = '<div class="sdp-incl-row"><span class="sdp-incl-check"></span><div>'
+                + '<div class="sdp-incl-title">' + title + '</div>';
+        if (desc) row += '<div class="sdp-incl-desc">' + desc + '</div>';
+        return row + '</div></div>';
       }).join('');
       includedSection.style.display = '';
     } else {
