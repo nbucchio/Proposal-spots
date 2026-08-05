@@ -1642,6 +1642,78 @@ nav.scrolled {
   object-position: center;
   display: block;
 }
+/* "Why Proposal Spots" set inside the archway — desktop + mobile.
+   Type is sized in container units (cqw) so it scales with the arch and
+   always stays inside the circle at any viewport width. */
+.why-arch { display: block; }
+.seo-editorial-wrap { display: none; }
+.why-arch-band {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  aspect-ratio: 2670 / 1780;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0d0d;
+  container-type: inline-size;
+}
+.why-arch-band img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.why-arch-glow {
+  position: absolute;
+  left: 50%;
+  top: 29%;
+  transform: translate(-50%, -50%);
+  width: 52%;
+  height: 34%;
+  background: radial-gradient(ellipse at center,
+    rgba(247, 240, 228, 0.55) 0%,
+    rgba(247, 240, 228, 0.22) 42%,
+    rgba(247, 240, 228, 0) 72%);
+  pointer-events: none;
+}
+.why-arch-copy {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+  width: 62%;
+  max-width: 560px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.3cqw, 16px);
+}
+.why-arch-copy .section-eyebrow {
+  color: #4a4139;
+  margin-bottom: 0;
+  font-size: clamp(7px, 0.95cqw, 11px);
+  letter-spacing: clamp(0.14em, 0.3cqw, 0.30em);
+}
+.why-arch-rule {
+  width: clamp(20px, 2.8cqw, 34px);
+  height: 1px;
+  background: rgba(36, 31, 26, 0.4);
+}
+.why-arch-copy h2 {
+  font-family: 'Cormorant', serif;
+  font-weight: 300;
+  color: #241f1a;
+  font-size: clamp(15px, 3.3cqw, 40px);
+  line-height: 1.22;
+  letter-spacing: 0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+.why-arch-copy h2 em { font-style: italic; font-weight: 400; }
 /* Legacy selectors kept for compatibility */
 .seo-text h2 {
   font-family: 'Cormorant', serif;
@@ -5637,8 +5709,33 @@ footer {
   </div>
 </div>
 
-<!-- SEO SECTION — Editorial split: text left, photo right -->
+<!-- SEO SECTION — Editorial: desktop shows text inside the archway, mobile keeps the split -->
 <div class="section-wrap alt" style="overflow:hidden;">
+  <!-- Desktop: "Why Proposal Spots" set inside the arch -->
+  <div class="why-arch">
+    <div class="why-arch-band">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/images/optimized/why-arch-800.webp 800w, /images/optimized/why-arch-1200.webp 1200w, /images/optimized/why-arch-1600.webp 1600w, /images/optimized/why-arch-2400.webp 2400w"
+          sizes="(max-width: 1240px) 100vw, 1200px">
+        <img
+          src="/images/optimized/why-arch-1600.jpg"
+          alt="A couple beneath a stone archway framing Mount Ararat at sunset"
+          loading="lazy"
+          decoding="async"
+          width="2670"
+          height="1780">
+      </picture>
+      <div class="why-arch-glow"></div>
+      <div class="why-arch-copy">
+        <span class="section-eyebrow">Why Proposal Spots</span>
+        <div class="why-arch-rule"></div>
+        <h2>We don't list everything.<br><em>Only what's worth the question.</em></h2>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile: original split (text left, photo right) -->
   <div class="seo-editorial-wrap">
     <div class="seo-editorial-text">
       <span class="section-eyebrow">Why Proposal Spots</span>
