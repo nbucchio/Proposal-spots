@@ -2965,11 +2965,21 @@ function populateSpot(s) {
     if (includedItems) {
       const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
       includedList.innerHTML = lines.map((line) => {
-        // Each item is authored as "Title — description"; split so the
-        // benefit reads bold and the detail sits lighter beneath it.
-        let sepIdx = line.indexOf(' — ');
-        let sepLen = 3;
-        if (sepIdx === -1) { sepIdx = line.indexOf('—'); sepLen = 1; }
+        // Each item may be authored as "Title — description"; split so the
+        // benefit reads bold and the detail sits lighter beneath it. Accept a
+        // hyphen, en-dash or em-dash as the separator, but only when it's
+        // wrapped in spaces — so mid-word hyphens ("90-minute", "best-kept")
+        // are never mistaken for a separator. Lines with no separator render
+        // as a title only.
+        let sepIdx = -1, sepLen = 0;
+        const spaced = line.match(/\s+[-–—]\s+/);
+        if (spaced) {
+          sepIdx = spaced.index;
+          sepLen = spaced[0].length;
+        } else {
+          const bare = line.search(/[–—]/); // bare en/em dash only, never a lone hyphen
+          if (bare !== -1) { sepIdx = bare; sepLen = 1; }
+        }
         let title = line, desc = '';
         if (sepIdx !== -1) {
           title = line.slice(0, sepIdx).trim();
