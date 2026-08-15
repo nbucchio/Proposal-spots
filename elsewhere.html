@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>Elsewhere — More Proposal Spots | Proposal Spots</title>
+  <meta name="description" content="Newly added proposal spots from places we've just started covering — vetted locations that don't yet have a full destination guide. New spots land here first.">
+  <meta property="og:title" content="Elsewhere — More Proposal Spots | Proposal Spots">
+  <meta property="og:description" content="Beyond our destination guides: real, vetted proposal spots from places we've just started covering.">
+  <link rel="canonical" href="https://www.proposalspots.com/elsewhere">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="/lib/imageUtils.js"></script>
+  <script src="/nav.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f1eb;
+      --bg3: #e7e2d8;
+      --white: #ffffff;
+      --ink: #1a1612;
+      --mid: #6b6560;
+      --muted: #9e9992;
+      --hairline: rgba(26,22,18,0.1);
+      --accent: #a55a4a;
+    }
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+    #nav-root { position: relative; z-index: 100; }
+
+    .pg-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .els-wrap { padding-bottom: 80px; }
+    .els-hero { text-align: center; padding: 96px 40px 40px; max-width: 720px; margin: 0 auto; }
+    .els-hero-title { font-family: 'Cormorant', serif; font-size: clamp(38px,5vw,64px); font-weight: 300; color: var(--ink); margin: 14px 0 18px; }
+    .els-hero-title em { font-style: italic; }
+    .els-hero-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+
+    .els-body { max-width: 1200px; margin: 0 auto; padding: 24px 40px 0; }
+    .els-loading { text-align: center; padding: 60px 20px; color: var(--muted); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+    /* ── Place group header (matches destination "similar" rule) ── */
+    .els-group { margin-bottom: 56px; }
+    .els-group-rule { display: flex; align-items: center; gap: 18px; margin-bottom: 26px; }
+    .els-group-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+    .els-group-line { flex: 1; height: 1px; background: var(--ink); opacity: 0.35; }
+
+    /* ── SPOT CARDS (mirrors destination pages) ── */
+    .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+    .spot-card { display: block; text-decoration: none; color: inherit; overflow: hidden; cursor: pointer; background: none; border: none; }
+    .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
+    .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+    .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
+    .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
+    .spot-card-body { display: flex; align-items: center; height: 30px; padding: 4px 12px 12px; }
+    .spot-card-name { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 400; color: #1a1612; text-align: center; line-height: 1.2; padding: 18px 12px 3px; margin: 0; }
+    .spot-card-location { display: block; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(150, 145, 140); text-align: center; padding: 0 12px 0; background: transparent; }
+    .spot-card-location::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.12); margin: 14px auto 0; max-width: 220px; }
+    .spot-card-strip-item { display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1; min-width: 0; }
+    .spot-card-strip-text { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; color: rgba(28,28,28,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .spot-card-strip-divider { width: 0.5px; height: 14px; background: rgba(28,28,28,0.15); flex-shrink: 0; }
+    @media(max-width:768px){ .spot-card-img { aspect-ratio: 7/6; } }
+
+    .pg-cta-btn {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .pg-cta-btn:hover { opacity: 0.8; }
+
+    @media (max-width: 768px) {
+      .els-hero { padding: 76px 24px 32px; }
+      .els-body { padding: 20px 20px 0; }
+    }
+  </style>
+  <link rel="stylesheet" href="/mobile.min.css">
+</head>
+<body>
+
+  <div id="nav-root"></div>
+
+  <div class="els-wrap">
+
+    <div class="els-hero">
+      <span class="pg-eyebrow">Beyond our destination guides</span>
+      <h1 class="els-hero-title"><em>Elsewhere</em></h1>
+      <p class="els-hero-sub">A handful of places we've just started covering — real, vetted proposal spots that don't yet have a full destination guide of their own. New spots often land here first, before a destination grows enough to earn its own page.</p>
+    </div>
+
+    <div class="els-body">
+      <div id="els-listing">
+        <div class="els-loading">Loading spots…</div>
+      </div>
+    </div>
+
+    <!-- Browse All Spots CTA -->
+    <div style="text-align:center; padding: 40px 40px 8px;">
+      <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.26em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:20px;">Looking for a specific place?</span>
+      <a href="/destinations" class="pg-cta-btn" style="font-size:11px;letter-spacing:0.14em;padding:16px 44px;border-radius:100px;">Browse all destinations →</a>
+    </div>
+
+  </div>
+
+  <script>
+  (function () {
+    // ── 1. Aliases already covered by a dedicated destination page ──────────────
+    // Union of the DEST_ALIASES declared on each /destinations/<slug> page. Any
+    // spot matching one of these belongs on that destination's page, so it is
+    // excluded from Elsewhere. Kept in sync with the destination pages; new
+    // dedicated destinations are ALSO folded in dynamically from /api/destinations
+    // below, so a spot leaves Elsewhere automatically once its page exists.
+    var SEED_ALIASES = [
+      'italy','amalfi','positano','ravello','praiano','campania',
+      'indonesia','bali','ubud','seminyak','canggu','uluwatu',
+      'costa rica','costa-rica','central america',
+      'greece','santorini','oia','fira','cyclades',
+      'hawaii',
+      'london','united kingdom','uk','england',
+      'maldives','indian ocean',
+      'nicaragua',
+      'paris','ile-de-france',
+      'patagonia','argentina','chile','torres del paine','el chalten','el chaltén',
+      'el calafate','bariloche','ushuaia','fitz roy','perito moreno','puerto natales',
+      'los glaciares','tierra del fuego',
+      'portugal','algarve',
+      'france','provence','south of france',"côte d'azur","cote d'azur",'nice',
+      'switzerland','swiss','alps','bernese','grindelwald','zurich','geneva',
+      'mexico','tulum','quintana roo',
+      'new york','usa','united states','nyc','manhattan','brooklyn','los angeles',
+      'california','hollywood','santa monica','malibu'
+    ];
+
+    var STOP_TOKENS = { the:1, and:1, for:1, our:1, spots:1, proposal:1, coast:1, city:1,
+                        town:1, south:1, north:1, east:1, west:1 };
+
+    function norm(s) { return String(s == null ? '' : s).toLowerCase().trim(); }
+
+    // Build the covered-alias set: seed + tokens derived from live destinations.
+    function buildCoveredSet(destinations) {
+      var set = {};
+      SEED_ALIASES.forEach(function (a) { var v = norm(a); if (v) set[v] = 1; });
+      (destinations || []).forEach(function (d) {
+        var slug = norm(d.destination_slug);
+        if (slug) { set[slug] = 1; set[slug.replace(/-/g, ' ')] = 1; }
+        // Optional Airtable field for edge-case aliases (comma-separated).
+        norm(d.match_aliases).split(',').forEach(function (t) {
+          t = t.trim(); if (t) set[t] = 1;
+        });
+        // Tokens from the display name (keep meaningful words only).
+        norm(d.display_name).split(/[^a-z0-9']+/).forEach(function (t) {
+          if (t && t.length >= 4 && !STOP_TOKENS[t]) set[t] = 1;
+        });
+      });
+      return Object.keys(set);
+    }
+
+    // Same loose match the destination pages use, but guarded against empty
+    // strings so a blank Country/Region can never match every alias.
+    function isCovered(country, region, aliases) {
+      var c = norm(country), r = norm(region);
+      if (!c && !r) return false;
+      return aliases.some(function (a) {
+        if (c && (c === a || c.indexOf(a) !== -1 || a.indexOf(c) !== -1)) return true;
+        if (r && (r === a || r.indexOf(a) !== -1 || a.indexOf(r) !== -1)) return true;
+        return false;
+      });
+    }
+
+    // ── 2. Spot-card rendering (mirrors the destination pages) ──────────────────
+    var privacyEmojiMap = { 'Private':'🔒','Light Crowd':'👥','Moderate Crowd':'👥👥','Everyone Will See':'👥👥👥' };
+    var FX_TO_USD = { USD:1, EUR:1.08, GBP:1.27, IDR:0.000063, MXN:0.055, CHF:1.13, CRC:0.0019, NIO:0.027, AUD:0.66, CAD:0.74, JPY:0.0067, THB:0.028, MVR:0.065, HRK:0.15, HUF:0.0028, PLN:0.25, CZK:0.043 };
+    function toUSD(amount, ccy) { var rate = FX_TO_USD[ccy]; return amount * (rate == null ? 1 : rate); }
+    function formatStartingPrice(amount, ccy) {
+      var usd = toUSD(amount, ccy);
+      var floored = Math.floor(usd / 10) * 10;
+      return '$' + floored.toLocaleString() + '+';
+    }
+    function momentStartingPriceText(s) {
+      var pkgs = Array.isArray(s.packages) ? s.packages : [];
+      var moment = pkgs.find(function (p) { return p && p['Tier Name'] === 'The Moment'; });
+      var price = (moment && moment.Price != null && moment.Price !== '') ? moment.Price : null;
+      if (price == null && s['Price Moment'] != null && s['Price Moment'] !== '') price = s['Price Moment'];
+      if (price == null) return '';
+      return formatStartingPrice(Number(price), s['Price Currency']);
+    }
+    function optImg(u) { return (typeof optimizeAirtableImage === 'function') ? optimizeAirtableImage(u) : u; }
+
+    function buildSpotCard(s) {
+      var cardPhoto = optImg(s['Spot Card Photo'] || s['Cover Photo'] || '');
+      var imgStyle = cardPhoto
+        ? "background-image:url('" + cardPhoto + "');background-size:cover;background-position:" + (s['Card Position'] || 'center center') + ";"
+        : "background:" + (s.coverGradient || '#1e2835') + ";";
+      var badge = s.badge ? '<span class="spot-card-badge">' + s.badge + '</span>' : '';
+      var privacy = s.Privacy || '';
+      var vibe = Array.isArray(s.Vibe) ? s.Vibe[0] : (s.Vibe || '');
+      var slug = norm(s.Slug).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+              || norm(s.Name).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
+      var allImgs = [cardPhoto].concat((s['Gallery Photos'] || []).map(optImg)).filter(Boolean);
+      var hasMultiple = allImgs.length > 1;
+      var imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(allImgs) + "' data-index=\"0\"" : '';
+      var scHtml = hasMultiple ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button><button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button><div class="sc-dots">' + allImgs.map(function(_,i){return '<div class="sc-dot'+(i===0?' active':'')+'"></div>';}).join('') + '</div>' : '';
+      var stripHtml = hasMultiple
+        ? '<div class="sc-strip">' + allImgs.map(function(url){return '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + url.replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"></div></div>';}).join('') + '<div class="sc-frame"><div class="img-bg" style="background-image:url(\'' + allImgs[0].replace(/'/g,"\\'") + '\');background-size:cover;background-position:' + (s['Card Position']||'center center') + '"></div></div></div>'
+        : '<div class="img-bg" style="' + imgStyle + '"></div>';
+      return '<a class="spot-card" href="/spots/' + slug + '" style="cursor:pointer">' +
+               '<div class="spot-card-img" ' + imgsAttr + '>' + stripHtml + badge + scHtml + '</div>' +
+               '<div class="spot-card-name">' + (s.Name || '') + '</div>' +
+               '<div class="spot-card-location">' + (s.Region || '') + (s.Region && s.Country ? ', ' : '') + (s.Country || '') + '</div>' +
+               '<div class="spot-card-body">' +
+                 '<div class="spot-card-strip-item"><span class="spot-card-strip-text">' + privacy + '</span></div>' +
+                 '<div class="spot-card-strip-divider"></div>' +
+                 '<div class="spot-card-strip-item"><span class="spot-card-strip-text">' + momentStartingPriceText(s) + '</span></div>' +
+                 '<div class="spot-card-strip-divider"></div>' +
+                 '<div class="spot-card-strip-item"><span class="spot-card-strip-text">' + vibe + '</span></div>' +
+               '</div>' +
+             '</a>';
+    }
+
+    function normalizeSpot(r) {
+      var f = r.fields || r;
+      var id = r.id || f['Slug'] || '';
+      var rawPrivacy = f['Privacy'] || '';
+      var privacy = rawPrivacy.indexOf('Private') !== -1 ? 'Private'
+        : rawPrivacy.indexOf('Light') !== -1 ? 'Light Crowd'
+        : rawPrivacy.indexOf('Moderate') !== -1 ? 'Moderate Crowd'
+        : rawPrivacy.indexOf('Everyone') !== -1 ? 'Everyone Will See'
+        : rawPrivacy;
+      var rawBudget = f['Budget'] || '';
+      var budget = rawBudget === 'Moderate' ? 'Premium' : rawBudget === 'Expensive' ? 'Luxury' : rawBudget;
+      return {
+        id: id,
+        Slug:  f['Slug'] || f['slug'] || '',
+        Name:  f['Spot Name'] || f['Name'] || '',
+        Country: f['Country'] || '',
+        Region:  f['Region / Town'] || f['Region'] || '',
+        Vibe:    f['Vibe'] || '',
+        Privacy: privacy,
+        Budget:  budget,
+        'Cover Photo':     (f['Cover Photo'] && f['Cover Photo'][0] && f['Cover Photo'][0].url) || f['Cover Photo'] || null,
+        'Spot Card Photo': (f['Spot Card Photo'] && f['Spot Card Photo'][0] && f['Spot Card Photo'][0].url) || f['Spot Card Photo'] || null,
+        'Gallery Photos':  (f['Gallery Photos'] || []).map(function(p){ return typeof p === 'string' ? p : ((p && p.url) || ''); }).filter(Boolean).slice(0, 3),
+        'Card Position':   f['Card Position'] || 'center center',
+        badge:             f['Badge'] || null,
+        coverGradient:     f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
+        'Price Moment':    f['Price Moment'] || null,
+        'Price Currency':  f['Price Currency'] || null,
+        packages:          Array.isArray(r.packages) ? r.packages : []
+      };
+    }
+
+    function render(spots) {
+      var host = document.getElementById('els-listing');
+      if (!spots.length) {
+        host.innerHTML = '<div class="els-loading">Every spot we cover already has a destination guide. Check back soon — new places land here first.</div>';
+        return;
+      }
+      // Group by place: "Region, Country" (fall back to whichever exists).
+      var groups = {};
+      var order = [];
+      spots.forEach(function (s) {
+        var region = (s.Region || '').trim();
+        var country = (s.Country || '').trim();
+        var label = region && country ? (region + ', ' + country) : (country || region || 'More Spots');
+        if (!groups[label]) { groups[label] = []; order.push(label); }
+        groups[label].push(s);
+      });
+      order.sort(function (a, b) { return a.localeCompare(b); });
+      host.innerHTML = order.map(function (label) {
+        return '<section class="els-group">' +
+                 '<div class="els-group-rule"><span class="els-group-label">' + label + '</span><span class="els-group-line"></span></div>' +
+                 '<div class="spots-grid">' + groups[label].map(buildSpotCard).join('') + '</div>' +
+               '</section>';
+      }).join('');
+    }
+
+    // ── 3. Load destinations (for coverage) + spots, then render the remainder ──
+    Promise.all([
+      fetch('/api/destinations').then(function (r) { return r.json(); }).catch(function () { return {}; }),
+      fetch('/api/spots').then(function (r) { return r.json(); })
+    ]).then(function (results) {
+      var destData = results[0] || {};
+      var spotData = results[1] || {};
+      var aliases = buildCoveredSet(destData.destinations || []);
+      var records = spotData.records || spotData.spots || [];
+      var uncovered = records
+        .map(normalizeSpot)
+        .filter(function (s) { return s.Name; })
+        .filter(function (s) { return !isCovered(s.Country, s.Region, aliases); });
+      render(uncovered);
+    }).catch(function (e) {
+      console.error('[elsewhere] load failed', e);
+      document.getElementById('els-listing').innerHTML =
+        '<div class="els-loading">Unable to load spots right now.</div>';
+    });
+  })();
+  </script>
+
+<script src="/spot-card-carousel.js" defer></script>
+<script src="/wa-float.js" defer></script>
+</body>
+</html>

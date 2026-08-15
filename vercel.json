@@ -33,6 +33,7 @@
     { "source": "/spots/:slug", "destination": "/api/spot-page?slug=:slug" },
     { "source": "/stories/:slug", "destination": "/stories/index.html" },
     { "source": "/destinations", "destination": "/destinations.html" },
+    { "source": "/elsewhere", "destination": "/elsewhere.html" },
     { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
     { "source": "/destinations/greece", "destination": "/destinations/greece.html" },
     { "source": "/destinations/bali", "destination": "/destinations/bali.html" },

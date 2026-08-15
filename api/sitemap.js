@@ -116,6 +116,11 @@ export default async function handler(req, res) {
     <priority>0.9</priority>
   </url>${destinationUrls}${blogUrls}
   <url>
+    <loc>https://www.proposalspots.com/elsewhere</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.proposalspots.com/inspiration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
