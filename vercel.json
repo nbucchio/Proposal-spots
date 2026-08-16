@@ -41,6 +41,7 @@
     { "source": "/destinations/switzerland", "destination": "/destinations/switzerland.html" },
     { "source": "/destinations/costa-rica", "destination": "/destinations/costa-rica.html" },
     { "source": "/destinations/nicaragua", "destination": "/destinations/nicaragua.html" },
+    { "source": "/destinations/panama", "destination": "/destinations/panama.html" },
     { "source": "/destinations/portugal", "destination": "/destinations/portugal.html" },
     { "source": "/destinations/south-of-france", "destination": "/destinations/south-of-france.html" },
     { "source": "/destinations/united-states", "destination": "/destinations/united-states.html" },
