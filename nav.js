@@ -290,6 +290,9 @@
 
   var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations →</a>';
 
+  // "Elsewhere": newly onboarded spots that don't yet have a dedicated page.
+  var elsewhereLink = '<a href="/elsewhere" style="color:#6B6660;display:block;margin-bottom:9px">Elsewhere — newly added spots →</a>';
+
   var howItWorksLink = '<a href="/how-it-works" class="nav-link-right">How It Works</a>';
 
   var faqLink = isIndex
@@ -360,7 +363,7 @@
         '</a>' +
         '<div class="nav-dest-dropdown" id="nav-dest-dropdown">' +
           '<div class="nav-dest-grid">' + destItems + '</div>' +
-          '<div class="nav-dest-footer">' + viewAllDest + '</div>' +
+          '<div class="nav-dest-footer">' + elsewhereLink + viewAllDest + '</div>' +
         '</div>' +
       '</div>' +
       howItWorksLink +
@@ -374,6 +377,7 @@
       '</button>' +
       '<div class="nav-mobile-menu" id="nav-mobile-menu">' +
         '<a href="/destinations" class="nav-mobile-link">Destinations</a>' +
+        '<a href="/elsewhere" class="nav-mobile-link">Elsewhere</a>' +
         '<a href="/how-it-works" class="nav-mobile-link">How It Works</a>' +
         '<a href="/inspiration.html" class="nav-mobile-link">Inspiration</a>' +
         mobileFaqLink +
