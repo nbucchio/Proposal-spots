@@ -414,6 +414,114 @@ nav {
 }
 @media (max-width: 768px) { .sdp-rain-check-block { padding: 28px 24px; } }
 
+/* How payment works — mirrors the rain-check block, with numbered steps */
+#sdp-payflow-section { scroll-margin-top: 90px; }
+.sdp-payflow-block {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 48px;
+}
+.sdp-payflow-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sdp-payflow-icon { color: var(--accent); flex-shrink: 0; }
+.sdp-payflow-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sdp-payflow-divider {
+  height: 0.5px;
+  background: var(--hairline);
+  margin-bottom: 26px;
+}
+.sdp-payflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 640px;
+}
+.sdp-payflow-step { display: flex; gap: 16px; align-items: flex-start; }
+.sdp-payflow-num {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--terra-soft);
+  color: var(--terra);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sdp-payflow-step-text { display: flex; flex-direction: column; gap: 4px; }
+.sdp-payflow-step-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.sdp-payflow-step-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+.sdp-payflow-step-body strong { font-weight: 500; color: var(--ink); }
+.sdp-payflow-refund {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.sdp-payflow-refund::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: currentColor;
+}
+.sdp-payflow-refund.ok { color: var(--accent); }
+.sdp-payflow-refund.no { color: var(--mid); }
+.sdp-payflow-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.sdp-payflow-jump {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--terra);
+  text-decoration: none;
+}
+.sdp-payflow-jump:hover { text-decoration: underline; }
+@media (max-width: 768px) { .sdp-payflow-block { padding: 28px 24px; } }
+
 .sdp-about { margin-bottom: 72px; }
 .sdp-about-text {
   font-family: 'Cormorant', serif;
@@ -947,16 +1055,6 @@ nav {
   letter-spacing: 0.03em;
 }
 
-.sdp-deposit-note {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--muted);
-  line-height: 1.6;
-  text-align: center;
-  margin-top: 8px;
-  letter-spacing: 0.03em;
-}
 
 .sdp-seasonal-label {
   font-family: 'Jost', sans-serif;
@@ -2079,6 +2177,47 @@ nav {
             <p id="sdp-rain-check-text" class="sdp-rain-check-body"></p>
           </div>
         </div>
+
+        <!-- How payment works — breathable, plain-language payment/deposit flow.
+             Steps 1–2 show for every listing; step 3 (the deposit) only for
+             partners on the deposit-at-booking model. Populated in populateSpot. -->
+        <div id="sdp-payflow-section" style="display:none">
+          <div class="sdp-payflow-block">
+            <div class="sdp-payflow-header">
+              <svg class="sdp-payflow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <path d="M2 10h20"/>
+              </svg>
+              <span class="sdp-payflow-lbl">How payment works</span>
+            </div>
+            <div class="sdp-payflow-divider"></div>
+            <div class="sdp-payflow-steps">
+              <div class="sdp-payflow-step">
+                <span class="sdp-payflow-num">1</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">Submit your inquiry — free, no commitment</span>
+                  <span class="sdp-payflow-step-body">You're just telling us you're interested. Nothing is booked and nothing is charged — this is not a payment.</span>
+                </div>
+              </div>
+              <div class="sdp-payflow-step">
+                <span class="sdp-payflow-num">2</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">We send your full quote within 24 hours</span>
+                  <span class="sdp-payflow-step-body">Itemised and clear. Review everything, ask questions, and adjust the details. Still no payment — you're never locked in at this stage.</span>
+                </div>
+              </div>
+              <div class="sdp-payflow-step" id="sdp-payflow-step3" style="display:none">
+                <span class="sdp-payflow-num">3</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">A deposit confirms your booking — only when you're ready</span>
+                  <span class="sdp-payflow-step-body">Once you're completely happy, you lock in your date with a <strong id="sdp-payflow-pct">—</strong> deposit. The remaining balance is settled later, directly with your host.</span>
+                  <span class="sdp-payflow-refund" id="sdp-payflow-refund" style="display:none"></span>
+                  <span class="sdp-payflow-note" id="sdp-payflow-note" style="display:none"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Right sidebar -->
@@ -2190,11 +2329,11 @@ nav {
             <!-- CTAs -->
             <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan This Proposal →</button>
             <p class="sdp-trust-note">
-              ✦ No payment until you've approved your full quote
+              ✦ This is an inquiry — you won't be charged today
             </p>
-            <!-- Deposit disclosure — only rendered for partners on the new
-                 deposit-at-booking payment model (see populateSpot). -->
-            <p class="sdp-deposit-note" id="sdp-deposit-note" style="display:none"></p>
+            <!-- Jumps to the full "How payment works" section in the left
+                 column. Shown once a spot loads (see populateSpot). -->
+            <a class="sdp-payflow-jump" id="sdp-payflow-jump" href="#sdp-payflow-section" style="display:none">See how payment works ↓</a>
 
             <!-- Hotel revealed -->
             <div id="sdp-hotel-block" style="display:none;margin-top:16px;padding:12px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--hairline)">
@@ -2859,10 +2998,19 @@ function mapSpotFromAirtable(r) {
     'Partner Payment Model': Array.isArray(f['Partner Payment Model'])
       ? (f['Partner Payment Model'][0] || '')
       : (f['Partner Payment Model'] || ''),
-    // Refund window in days for the deposit disclosure. NOTE: this Airtable
-    // field does not exist yet — until it's created the value stays null and
-    // the deposit line is suppressed (no broken "[X]").
-    'Refund Window Days': f['Refund Window (Days)'] || null,
+    // Refund window in days for the deposit disclosure. Number (0 allowed) or
+    // null. 0 = non-refundable (must be preserved, not coerced to null); blank
+    // = unknown, so no refund claim is shown.
+    'Refund Window Days':
+      typeof f['Refund Window (Days)'] === 'number' ? f['Refund Window (Days)'] : null,
+    // Total % the customer pays at booking — already combines our commission +
+    // any partner deposit into one figure (never itemised). Airtable percent
+    // formula returns a fraction (e.g. 0.15 = 15%).
+    'Total Customer Deposit Pct':
+      typeof f['Total Customer Deposit %'] === 'number' ? f['Total Customer Deposit %'] : null,
+    // Optional free-text deposit context from the partner (e.g. reschedule
+    // grace period). Shown as an italic note under step 3 when present.
+    'Deposit Notes': f['Deposit Notes'] || '',
     packages: r.packages || [],
   };
 }
@@ -3030,22 +3178,61 @@ function populateSpot(s) {
   document.getElementById('sdp-bar-price').innerHTML = _priceHtml;
   _updateConvertLink(s['Price Moment'], s['Price Currency']);
 
-  // Deposit disclosure — only for partners on the new deposit-at-booking model.
-  // Legacy (post-event invoice) partners render nothing here. The refund window
-  // comes from Airtable; if it's not set the line stays hidden rather than
-  // showing a placeholder.
-  var depositNote = document.getElementById('sdp-deposit-note');
-  if (depositNote) {
+  // "How payment works" — steps 1–2 show for every listing (universal trust).
+  // Step 3 (the deposit) is gated strictly on the deposit-at-booking model:
+  // Legacy partners are invoiced after the event and take no deposit from the
+  // customer here, even though their Total Customer Deposit % formula still
+  // computes a value — so the payment model, not the %, decides step 3.
+  var payflowSection = document.getElementById('sdp-payflow-section');
+  if (payflowSection) {
+    payflowSection.style.display = '';
+    var payflowJump = document.getElementById('sdp-payflow-jump');
+    if (payflowJump) payflowJump.style.display = '';
+
     var paymentModel = s['Partner Payment Model'] || '';
-    var refundDays = s['Refund Window Days'];
     var isNewModel = paymentModel.indexOf('Deposit at Booking') !== -1;
-    if (isNewModel && refundDays) {
-      depositNote.textContent =
-        'Confirmed with a refundable deposit — fully refundable up to ' +
-        refundDays + ' days before your date.';
-      depositNote.style.display = '';
-    } else {
-      depositNote.style.display = 'none';
+    var depositPct = s['Total Customer Deposit Pct']; // fraction (0.15) or null
+    var refundDays = s['Refund Window Days'];         // number (0 allowed) or null
+    var depositNotes = s['Deposit Notes'] || '';
+
+    var step3 = document.getElementById('sdp-payflow-step3');
+    if (step3) {
+      if (isNewModel && typeof depositPct === 'number' && depositPct > 0) {
+        var pctEl = document.getElementById('sdp-payflow-pct');
+        if (pctEl) pctEl.textContent = Math.round(depositPct * 100) + '%';
+
+        var refundEl = document.getElementById('sdp-payflow-refund');
+        if (refundEl) {
+          if (typeof refundDays === 'number' && refundDays > 0) {
+            refundEl.textContent =
+              'Fully refundable up to ' + refundDays + ' days before your date';
+            refundEl.className = 'sdp-payflow-refund ok';
+            refundEl.style.display = '';
+          } else if (refundDays === 0) {
+            refundEl.textContent =
+              'Non-refundable — so you only ever pay once you’re completely certain';
+            refundEl.className = 'sdp-payflow-refund no';
+            refundEl.style.display = '';
+          } else {
+            // Refund window unknown (blank) — make no refund claim.
+            refundEl.style.display = 'none';
+          }
+        }
+
+        var noteEl = document.getElementById('sdp-payflow-note');
+        if (noteEl) {
+          if (depositNotes) {
+            noteEl.textContent = depositNotes;
+            noteEl.style.display = '';
+          } else {
+            noteEl.style.display = 'none';
+          }
+        }
+
+        step3.style.display = '';
+      } else {
+        step3.style.display = 'none';
+      }
     }
   }
 
