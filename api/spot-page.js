@@ -12,6 +12,12 @@ function escape(str) {
     .replace(/>/g, '&gt;');
 }
 
+// Mirror the client-side toSlug() in spot.html so the server-rendered canonical
+// matches exactly what the page would set at runtime.
+function toSlug(name) {
+  return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 function serveOriginal(res, html) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.status(200).send(html);
@@ -87,14 +93,34 @@ export default async function handler(req, res) {
     const title = metaTit  || name  || 'Proposal Spot — Proposal Spots';
     const desc  = metaDesc || (summary ? summary.slice(0, 155) : 'Discover this stunning proposal location at Proposal Spots.');
 
+    // Self-referencing canonical for this specific spot. Without this the raw HTML
+    // ships the hardcoded default (/spots/) and Googlebot — which doesn't wait for
+    // the client-side JS that patches it — treats every spot as a duplicate of the
+    // listing page. Prefer the record's Slug, fall back to the Name, matching spot.html.
+    const canonicalSlug = toSlug(f['Slug'] || name);
+    const canonicalUrl  = 'https://www.proposalspots.com/spots/' + canonicalSlug;
+
     const eTitle    = escape(title);
     const eDesc     = escape(desc);
     const eCoverUrl = escape(coverUrl);
+    const eCanonical= escape(canonicalUrl);
 
     // Replace <title>
     html = html.replace(
       /<title[^>]*>[\s\S]*?<\/title>/i,
       `<title>${eTitle}</title>`
+    );
+
+    // Replace the canonical link (id="canonical-link") with this spot's own URL
+    html = html.replace(
+      /<link[^>]+id=["']canonical-link["'][^>]*>/i,
+      `<link id="canonical-link" rel="canonical" href="${eCanonical}">`
+    );
+
+    // Replace og:url (id="og-url") to match the canonical
+    html = html.replace(
+      /<meta[^>]+id=["']og-url["'][^>]*>/i,
+      `<meta id="og-url" property="og:url" content="${eCanonical}">`
     );
 
     // Replace <meta name="description">
