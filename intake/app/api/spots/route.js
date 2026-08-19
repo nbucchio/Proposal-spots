@@ -32,6 +32,21 @@ export async function POST(request) {
         fields[SPOT_FIELDS.DEPOSIT_NOTES] = body.depositNotes;
     }
 
+    // How/when the partner collects the remaining balance from the couple.
+    // Applies to every listing (the deposit is only ever a fraction of the
+    // price), so this is set regardless of whether a hold deposit is required.
+    if (body.balanceTiming)
+      fields[SPOT_FIELDS.BALANCE_TIMING] = body.balanceTiming;
+    if (
+      body.balanceTiming === "A set time before the date" &&
+      body.balanceDueDaysBefore
+    )
+      fields[SPOT_FIELDS.BALANCE_DUE_DAYS] = Number(body.balanceDueDaysBefore);
+    if (body.balancePaymentMethods?.length)
+      fields[SPOT_FIELDS.BALANCE_METHODS] = body.balancePaymentMethods;
+    if (body.balancePaymentDetails)
+      fields[SPOT_FIELDS.BALANCE_DETAILS] = body.balancePaymentDetails;
+
     if (body.availabilityType === "Seasonal") {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];
     }

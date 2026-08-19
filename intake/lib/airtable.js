@@ -32,6 +32,10 @@ export const SPOT_FIELDS = {
   DEPOSIT_PERCENT: "Partner's Required Deposit %",
   REFUND_WINDOW_DAYS: "Refund Window (Days)",
   DEPOSIT_NOTES: "Deposit Notes",
+  BALANCE_TIMING: "Balance Collection Timing",
+  BALANCE_DUE_DAYS: "Balance Due Days Before",
+  BALANCE_METHODS: "Balance Payment Methods",
+  BALANCE_DETAILS: "Balance Payment Details",
   PRICE_CURRENCY: "Price Currency",
   PRICE_MOMENT: "Price Moment",
   INCLUDED_ITEMS: "Included Items",
@@ -65,6 +69,22 @@ export const PRIVACY_CHOICES = [
 export const BEST_TIME_CHOICES = ["Sunrise", "Sunset", "Mid-day", "Any"];
 
 export const PREFERRED_CONTACT_CHOICES = ["Email", "WhatsApp"];
+
+export const BALANCE_TIMING_CHOICES = [
+  "Once the date is confirmed",
+  "A set time before the date",
+  "On arrival / day of",
+  "After the experience",
+];
+
+export const BALANCE_METHOD_CHOICES = [
+  "Bank transfer",
+  "Card (link or in person)",
+  "Cash",
+  "PayPal / Wise / Revolut",
+  "I send an invoice",
+  "Other",
+];
 
 export const PACKAGE_FIELDS = {
   NAME: "Name",
