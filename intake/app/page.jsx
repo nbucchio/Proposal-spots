@@ -112,6 +112,22 @@ const PREFERRED_CONTACT_OPTIONS = ["Email", "WhatsApp"];
 
 const DEPOSIT_OPTIONS = ["No", "Yes"];
 
+const BALANCE_TIMING_OPTIONS = [
+  "Once the date is confirmed",
+  "A set time before the date",
+  "On arrival / day of",
+  "After the experience",
+];
+
+const BALANCE_METHOD_OPTIONS = [
+  "Bank transfer",
+  "Card (link or in person)",
+  "Cash",
+  "PayPal / Wise / Revolut",
+  "I send an invoice",
+  "Other",
+];
+
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
 
 const PRICING_MODEL_INFO = [
@@ -172,6 +188,10 @@ const EMPTY_SPOT = {
   depositPercent: "",
   refundWindowDays: "",
   depositNotes: "",
+  balanceTiming: "",
+  balanceDueDaysBefore: "",
+  balancePaymentMethods: [],
+  balancePaymentDetails: "",
   priceCurrency: "USD",
   priceMoment: "",
   includedItems: "",
@@ -359,6 +379,30 @@ export default function Page() {
         );
         return;
       }
+    }
+
+    if (!spot.balanceTiming) {
+      setError("Let us know when you collect the remaining balance.");
+      return;
+    }
+    if (
+      spot.balanceTiming === "A set time before the date" &&
+      !String(spot.balanceDueDaysBefore).trim()
+    ) {
+      setError(
+        "Please enter how many days before the date the balance is due."
+      );
+      return;
+    }
+    if (spot.balancePaymentMethods.length === 0) {
+      setError("Select at least one way the couple can pay you the balance.");
+      return;
+    }
+    if (!spot.balancePaymentDetails.trim()) {
+      setError(
+        "Please add the payment details we'll share with the couple in their confirmation."
+      );
+      return;
     }
 
     setStep(spot.pricingModel === "Tiered" ? "packages" : "review");
@@ -926,6 +970,81 @@ export default function Page() {
             )}
           </section>
 
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">
+              Collecting the rest
+            </h2>
+
+            <div className="rounded-lg border border-sage/40 bg-sage/5 p-4 text-xs leading-relaxed text-ink/70">
+              The deposit above confirms the booking. After that, we introduce
+              the couple to you directly and you collect the remaining balance
+              the way you normally do. Tell us how and when, so we can set the
+              couple's expectations in their booking-confirmation email — no
+              back-and-forth needed later.
+            </div>
+
+            <div>
+              <Label>When do you collect the remaining balance?</Label>
+              <div className="flex flex-wrap gap-2">
+                {BALANCE_TIMING_OPTIONS.map((t) => (
+                  <Chip
+                    key={t}
+                    label={t}
+                    selected={spot.balanceTiming === t}
+                    onClick={() => updateSpot({ balanceTiming: t })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {spot.balanceTiming === "A set time before the date" && (
+              <div className="max-w-[220px]">
+                <Label hint="days before the date">How many days before?</Label>
+                <input
+                  type="number"
+                  min="0"
+                  className={inputClass}
+                  value={spot.balanceDueDaysBefore}
+                  onChange={(e) =>
+                    updateSpot({ balanceDueDaysBefore: e.target.value })
+                  }
+                  placeholder="e.g. 7"
+                />
+              </div>
+            )}
+
+            <div>
+              <Label>How can the couple pay you the balance?</Label>
+              <div className="flex flex-wrap gap-2">
+                {BALANCE_METHOD_OPTIONS.map((m) => (
+                  <Chip
+                    key={m}
+                    label={m}
+                    selected={spot.balancePaymentMethods.includes(m)}
+                    onClick={() =>
+                      toggleArrayValue("balancePaymentMethods", m)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label hint="shared with the couple">Payment details</Label>
+              <textarea
+                className={inputClass}
+                rows={3}
+                value={spot.balancePaymentDetails}
+                onChange={(e) =>
+                  updateSpot({ balancePaymentDetails: e.target.value })
+                }
+                placeholder="Written for the couple — e.g. Remaining balance due 7 days before your date by bank transfer; I'll email an invoice once your date is confirmed."
+              />
+            </div>
+          </section>
+
           <button
             type="submit"
             className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
@@ -1163,6 +1282,25 @@ export default function Page() {
             {spot.requiresDeposit === "Yes" && (
               <ReviewRow label="Deposit notes" value={spot.depositNotes} />
             )}
+            <ReviewRow label="Balance collected" value={spot.balanceTiming} />
+            {spot.balanceTiming === "A set time before the date" && (
+              <ReviewRow
+                label="Balance due"
+                value={
+                  spot.balanceDueDaysBefore
+                    ? `${spot.balanceDueDaysBefore} days before the date`
+                    : ""
+                }
+              />
+            )}
+            <ReviewRow
+              label="Balance payment methods"
+              value={spot.balancePaymentMethods.join(", ")}
+            />
+            <ReviewRow
+              label="Balance payment details"
+              value={spot.balancePaymentDetails}
+            />
             {spot.pricingModel === "Single Price" && (
               <ReviewRow
                 label="Price"

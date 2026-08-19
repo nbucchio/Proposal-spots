@@ -93,6 +93,20 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
     spot.requiresDeposit === "Yes"
       ? row("Deposit notes", spot.depositNotes)
       : "",
+    row("Balance collected", spot.balanceTiming),
+    spot.balanceTiming === "A set time before the date"
+      ? row(
+          "Balance due",
+          spot.balanceDueDaysBefore
+            ? `${spot.balanceDueDaysBefore} days before the date`
+            : ""
+        )
+      : "",
+    row(
+      "Balance payment methods",
+      (spot.balancePaymentMethods || []).join(", ")
+    ),
+    row("Balance payment details", spot.balancePaymentDetails),
     spot.pricingModel === "Single Price"
       ? row(
           "Price",
