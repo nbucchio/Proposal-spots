@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4P287X7WZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4P287X7WZB');
+</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>Proposal Spots Map — Find Where to Propose</title>
+  <meta name="description" content="Explore every Proposal Spots location on the map. Filter by destination, vibe and budget, then zoom into a region to see curated proposal spots nearby.">
+  <meta property="og:title" content="Proposal Spots Map — Find Where to Propose">
+  <meta property="og:description" content="Explore every Proposal Spots location on the map. Filter by destination, vibe and budget, then zoom into a region to see curated proposal spots nearby.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proposalspots.com/map">
+  <link rel="canonical" href="https://www.proposalspots.com/map">
+  <meta name="robots" content="noindex,follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+
+  <script src="/lib/imageUtils.js"></script>
+  <script src="/nav.js" defer></script>
+  <script src="/spot-card-carousel.js" defer></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f1eb;
+    --bg2: #EDEAE2;
+    --bg3: #E8E4DB;
+    --white: #FDFCFA;
+    --ink: #1a1612;
+    --ink2: #2E2C2A;
+    --mid: #6b6560;
+    --muted: #9E9890;
+    --hairline: rgba(26,22,18,0.1);
+    --divider: #E4E0D8;
+    --accent: #a55a4a;
+
+    --topbar-h: 132px;   /* filter bar + continent pills, desktop */
+  }
+
+  html { font-size: 16px; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  #nav-root { position: relative; z-index: 500; }
+
+  /* ============================================================
+     TOP BAR — search (destination / vibe / budget) + continents
+     ============================================================ */
+  /* nav.js renders a FIXED pill nav at top:20px, height 52px, so the top bar
+     has to reserve room for it or the nav floats over the search field and
+     swallows its clicks. --topbar-h is re-measured at runtime. */
+  .map-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 400;
+    background: var(--bg);
+    border-bottom: 1px solid var(--hairline);
+    padding-top: 84px;
+  }
+
+  .map-search-row {
+    display: flex;
+    justify-content: center;
+    padding: 16px 24px 12px;
+  }
+
+  .msb-wrap {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 780px;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    position: relative;
+  }
+
+  .msb-segment {
+    flex: 1 1 0;
+    position: relative;
+    padding: 10px 22px;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: background 0.18s ease;
+    min-width: 0;
+  }
+  .msb-segment:hover { background: var(--bg2); }
+  .msb-segment.open  { background: var(--bg2); }
+
+  .msb-label {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.55;
+    margin-bottom: 3px;
+  }
+  .msb-value {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .msb-value.placeholder { opacity: 0.45; }
+
+  /* Destination is a real text input so it can behave like Airbnb's typeahead */
+  #msb-dest-input {
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+    padding: 0;
+  }
+  #msb-dest-input::placeholder { color: var(--ink); opacity: 0.45; }
+
+  .msb-div {
+    width: 1px;
+    background: var(--hairline);
+    margin: 12px 0;
+    flex: 0 0 1px;
+  }
+
+  .msb-btn {
+    flex: 0 0 auto;
+    margin: 6px 6px 6px 0;
+    padding: 0 22px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+    white-space: nowrap;
+  }
+  .msb-btn:hover { opacity: 0.6; }
+
+  /* Dropdowns */
+  .msb-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 260px;
+    max-height: 340px;
+    overflow-y: auto;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 8px 0;
+    z-index: 60;
+  }
+  .msb-segment.open .msb-dropdown { display: block; }
+  #msb-dest-dd { min-width: 300px; }
+
+  .msb-dd-item {
+    display: block;
+    padding: 9px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.14s ease;
+  }
+  .msb-dd-item:hover,
+  .msb-dd-item.active { background: var(--bg2); }
+  .msb-dd-item.selected { color: var(--accent); }
+
+  .msb-dd-group {
+    padding: 10px 18px 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.4;
+  }
+  .msb-dd-sub {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.4;
+    margin-top: 2px;
+  }
+  .msb-dd-empty {
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--ink);
+    opacity: 0.5;
+  }
+
+  /* Continent pills */
+  .map-pills-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 24px 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+  }
+  .map-pills-row::-webkit-scrollbar { display: none; }
+
+  .map-pill {
+    flex: 0 0 auto;
+    padding: 7px 18px;
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, border-color 0.18s ease;
+  }
+  .map-pill:hover { opacity: 0.6; }
+  .map-pill.active {
+    border-color: var(--ink);
+    background: var(--bg2);
+    color: var(--ink);
+  }
+
+  /* ============================================================
+     SPLIT LAYOUT
+     ============================================================ */
+  .map-shell {
+    display: flex;
+    align-items: stretch;
+    height: calc(100vh - var(--topbar-h));
+    min-height: 420px;
+  }
+
+  .map-results {
+    flex: 1 1 58%;
+    min-width: 0;
+    overflow-y: auto;
+    padding: 20px 24px 60px;
+  }
+
+  .map-results-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .map-results-count {
+    font-family: 'Cormorant', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .map-results-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--ink);
+    opacity: 0.5;
+  }
+
+  .spots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 24px;
+  }
+  @media (min-width: 1500px) {
+    .spots-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .map-results-empty {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .map-results-empty h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+  .map-results-empty p {
+    font-size: 13px;
+    opacity: 0.55;
+    margin-bottom: 20px;
+  }
+
+  .map-reset-btn {
+    padding: 9px 22px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+  }
+  .map-reset-btn:hover { opacity: 0.6; }
+
+  .map-pane {
+    flex: 1 1 42%;
+    position: relative;
+    min-width: 0;
+    background: var(--bg3);
+  }
+  #map { position: absolute; inset: 0; }
+
+  /* Search-as-you-move toggle, floating on the map */
+  .map-move-toggle {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .map-move-toggle input { accent-color: var(--accent); cursor: pointer; }
+
+  /* ============================================================
+     MARKERS — price pills, brand styled
+     ============================================================ */
+  /* Mapbox writes its own transform onto the marker element to position it,
+     so the pin itself must be an inner node — otherwise our hover scale and
+     spiderfy offsets overwrite the positioning and the pin jumps. */
+  .pin-wrap { will-change: transform; }
+
+  .pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 11px;
+    background: var(--white);
+    border: 1px solid rgba(26,22,18,0.22);
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+    will-change: transform;
+  }
+  .pin:hover,
+  .pin.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    z-index: 3;
+  }
+
+  .pin-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    background: var(--white);
+    border: 1px solid rgba(26,22,18,0.22);
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+  }
+  .pin-cluster:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  /* Card popup shown when a pin is clicked (desktop) */
+  .map-popup .mapboxgl-popup-content {
+    padding: 0;
+    background: transparent;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+  .map-popup .mapboxgl-popup-tip { display: none; }
+  .map-popup-card {
+    width: 230px;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .map-popup-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--bg3) center/cover no-repeat;
+    display: block;
+  }
+  .map-popup-body { padding: 10px 12px 12px; }
+  .map-popup-name {
+    font-family: 'Cormorant', serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .map-popup-loc {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgb(150,145,140);
+    margin-bottom: 6px;
+  }
+  .map-popup-meta {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: rgb(150,145,140);
+  }
+  .mapboxgl-popup-close-button {
+    font-size: 20px;
+    color: var(--ink);
+    padding: 2px 8px;
+    right: 2px;
+    top: 2px;
+  }
+
+  /* ============================================================
+     SPOT CARDS — copied from index.html so the panel matches /search
+     ============================================================ */
+  .spot-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    cursor: pointer;
+    background: transparent;
+  }
+  .spot-card-img {
+    aspect-ratio: 4/5;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    container-type: inline-size;
+  }
+  .sc-strip { position: absolute; top: 0; left: 0; height: 100%; display: flex; }
+  .sc-frame { flex: 0 0 100cqw; height: 100%; position: relative; overflow: hidden; }
+  .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .spot-card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(10,8,5,0.82) 100%);
+    pointer-events: none;
+  }
+  .spot-card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(165,90,74,0.82);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 100px;
+    z-index: 2;
+  }
+  .spot-card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    height: auto;
+    padding: 4px 12px 14px;
+    border-top: none;
+    background: transparent;
+  }
+  .spot-card-name {
+    font-family: 'Cormorant', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #1a1612;
+    text-align: center;
+    line-height: 1.2;
+    padding: 18px 12px 3px;
+    margin: 0;
+  }
+  .spot-card-strip-item {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; flex: 0 0 auto;
+  }
+  .spot-card-strip-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgb(150, 145, 140);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .spot-card-strip-divider {
+    width: 1px; height: 13px;
+    background: rgba(26,22,18,0.18);
+    flex-shrink: 0;
+  }
+  .spot-card-location {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(150, 145, 140);
+    text-align: center;
+    padding: 0 12px 0;
+    background: transparent;
+  }
+  .spot-card-location::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: rgba(26,22,18,0.12);
+    margin: 14px auto 0;
+    max-width: 220px;
+  }
+  .sc-arrow {
+    position: absolute; top: 50%;
+    transform: translateY(-50%);
+    width: 28px; height: 28px;
+    background: rgba(253,252,250,0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: none; border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; line-height: 1;
+    color: rgba(28,28,28,0.8);
+    z-index: 4; opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none; padding: 0;
+  }
+  .spot-card:hover .sc-arrow { opacity: 1; pointer-events: auto; }
+  .sc-arrow:hover { background: rgba(253,252,250,0.98); }
+  .sc-arrow-prev { left: 8px; }
+  .sc-arrow-next { right: 8px; }
+  .sc-dots {
+    position: absolute; bottom: 10px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 5px; z-index: 4; pointer-events: none;
+  }
+  .sc-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(253,252,250,0.45);
+    transition: background 0.2s;
+  }
+  .sc-dot.active { background: rgba(253,252,250,0.92); }
+
+  /* Card <-> pin hover link */
+  .spot-card.is-hovered .spot-card-img { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+  /* ============================================================
+     MOBILE — list by default, fullscreen map on demand (Airbnb)
+     ============================================================ */
+  .map-mobile-toggle {
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    z-index: 450;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+  }
+  .map-mobile-toggle:hover { opacity: 0.75; }
+
+  /* Horizontal card tray over the map on mobile */
+  .map-tray {
+    display: none;
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 6;
+    padding: 12px 16px 20px;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .map-tray::-webkit-scrollbar { display: none; }
+  .map-tray .spot-card {
+    flex: 0 0 74vw;
+    max-width: 300px;
+    scroll-snap-align: center;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .map-tray .spot-card-img { aspect-ratio: 16/10; border-radius: 0; }
+  .map-tray .spot-card-name { font-size: 18px; padding: 10px 10px 2px; }
+  .map-tray .spot-card-body { padding: 2px 10px 12px; gap: 12px; }
+
+  @media (max-width: 1024px) {
+    :root { --topbar-h: 124px; }
+
+    .map-shell { display: block; height: auto; }
+
+    .map-results {
+      display: block;
+      height: auto;
+      overflow: visible;
+      padding: 18px 18px 120px;
+    }
+    .spots-grid { grid-template-columns: 1fr; gap: 22px; }
+
+    .map-pane {
+      position: fixed;
+      inset: var(--topbar-h) 0 0 0;
+      z-index: 300;
+      display: none;
+    }
+
+    /* map mode */
+    body.map-mode-map .map-results { display: none; }
+    body.map-mode-map .map-pane { display: block; }
+    body.map-mode-map .map-tray { display: flex; }
+
+    .map-mobile-toggle { display: flex; }
+
+    .map-search-row { padding: 12px 14px 10px; }
+    .msb-wrap { flex-wrap: wrap; border-radius: 20px; }
+    .msb-segment { flex: 1 1 100%; padding: 9px 16px; border-radius: 16px; }
+    .msb-div { display: none; }
+    .msb-btn {
+      flex: 1 1 100%;
+      margin: 8px 8px 10px;
+      padding: 11px 0;
+    }
+    .msb-dropdown { position: static; width: 100%; min-width: 0; border: none; border-top: 1px solid var(--hairline); border-radius: 0; max-height: 240px; }
+    #msb-dest-dd { min-width: 0; }
+
+    .map-pills-row { justify-content: flex-start; padding: 0 14px 12px; }
+    .map-move-toggle { top: 10px; font-size: 10px; padding: 8px 13px; }
+    .spot-card-img { aspect-ratio: 7/6; }
+    .sc-arrow { display: none !important; }
+  }
+
+  /* Loading state */
+  .map-loading {
+    padding: 60px 20px;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    opacity: 0.5;
+  }
+
+  /* Shown only if the Mapbox token has not been set yet */
+  .map-token-notice {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 30px;
+    text-align: center;
+    background: var(--bg3);
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+  }
+  .map-token-notice strong { font-weight: 400; }
+  .map-token-notice code {
+    font-size: 12px;
+    background: var(--bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<div class="map-topbar">
+  <div class="map-search-row">
+    <div class="msb-wrap" id="msb-wrap">
+
+      <!-- Destination: free-text typeahead over our own inventory -->
+      <div class="msb-segment" id="msb-dest-seg">
+        <span class="msb-label">Destination</span>
+        <input type="text" id="msb-dest-input" placeholder="Search destinations" autocomplete="off" spellcheck="false">
+        <div class="msb-dropdown" id="msb-dest-dd"></div>
+      </div>
+
+      <div class="msb-div"></div>
+
+      <!-- Vibe -->
+      <div class="msb-segment" id="msb-vibe-seg">
+        <span class="msb-label">Vibe</span>
+        <span class="msb-value placeholder" id="msb-vibe-val">Any Vibe</span>
+        <div class="msb-dropdown" id="msb-vibe-dd"></div>
+      </div>
+
+      <div class="msb-div"></div>
+
+      <!-- Budget -->
+      <div class="msb-segment" id="msb-budget-seg">
+        <span class="msb-label">Budget</span>
+        <span class="msb-value placeholder" id="msb-budget-val">Any Budget</span>
+        <div class="msb-dropdown" id="msb-budget-dd"></div>
+      </div>
+
+      <button class="msb-btn" id="msb-btn" type="button">Search &rarr;</button>
+    </div>
+  </div>
+
+  <div class="map-pills-row" id="map-pills-row"></div>
+</div>
+
+<div class="map-shell">
+  <div class="map-results" id="map-results">
+    <div class="map-loading" id="map-loading">Loading spots&hellip;</div>
+
+    <div class="map-results-head" id="map-results-head" style="display:none">
+      <div class="map-results-count" id="map-results-count"></div>
+      <div class="map-results-note" id="map-results-note"></div>
+    </div>
+
+    <div class="spots-grid" id="map-grid"></div>
+
+    <div class="map-results-empty" id="map-empty" style="display:none">
+      <h3>No spots in view</h3>
+      <p>Try zooming out, or clearing a filter.</p>
+      <button class="map-reset-btn" id="map-reset">Clear filters</button>
+    </div>
+  </div>
+
+  <div class="map-pane">
+    <div id="map"></div>
+    <label class="map-move-toggle" id="map-move-toggle">
+      <input type="checkbox" id="map-move-check" checked>
+      <span>Search as I move the map</span>
+    </label>
+    <div class="map-tray" id="map-tray"></div>
+  </div>
+</div>
+
+<button class="map-mobile-toggle" id="map-mobile-toggle" type="button">
+  <span id="map-mobile-toggle-text">Map</span>
+</button>
+
+<script>
+/* ==============================================================
+   Proposal Spots — Map page
+   Split map + list search, modelled on Airbnb, in our own system.
+   ============================================================== */
+
+/* --------------------------------------------------------------
+   1. Mapbox token
+   Public (pk.) tokens are safe in client code — restrict it to
+   proposalspots.com in the Mapbox dashboard under URL restrictions.
+   -------------------------------------------------------------- */
+var MAPBOX_TOKEN = 'PASTE_MAPBOX_PUBLIC_TOKEN_HERE';
+
+/* --------------------------------------------------------------
+   2. Country -> continent
+   Derived here rather than from Destination Heroes, which does not
+   yet cover every country we have listings in (Croatia, Morocco,
+   Spain are missing there).
+   -------------------------------------------------------------- */
+var COUNTRY_CONTINENT = {
+  'Portugal': 'Europe',
+  'Italy': 'Europe',
+  'Switzerland': 'Europe',
+  'Greece': 'Europe',
+  'France': 'Europe',
+  'Croatia': 'Europe',
+  'Spain': 'Europe',
+  'United Kingdom': 'Europe',
+  'England': 'Europe',
+  'Mexico': 'North America',
+  'United States': 'North America',
+  'USA': 'North America',
+  'Canada': 'North America',
+  'Hawaii': 'North America',
+  'Costa Rica': 'Central America',
+  'Nicaragua': 'Central America',
+  'Panama': 'Central America',
+  'Belize': 'Central America',
+  'Guatemala': 'Central America',
+  'Patagonia (Chile/Argentina)': 'South America',
+  'Chile': 'South America',
+  'Argentina': 'South America',
+  'Brazil': 'South America',
+  'Colombia': 'South America',
+  'Peru': 'South America',
+  'Indonesia': 'Asia',
+  'Thailand': 'Asia',
+  'Japan': 'Asia',
+  'Maldives': 'Asia',
+  'Sri Lanka': 'Asia',
+  'Vietnam': 'Asia',
+  'Philippines': 'Asia',
+  'Morocco': 'Africa',
+  'South Africa': 'Africa',
+  'Tanzania': 'Africa',
+  'Kenya': 'Africa',
+  'Egypt': 'Africa',
+  'Mauritius': 'Africa',
+  'Seychelles': 'Africa',
+  'Australia': 'Oceania',
+  'New Zealand': 'Oceania',
+  'Fiji': 'Oceania',
+  'French Polynesia': 'Oceania'
+};
+
+/* Display order for the pills */
+var CONTINENT_ORDER = ['Europe', 'Asia', 'North America', 'Central America', 'South America', 'Africa', 'Oceania'];
+
+function continentOf(s) {
+  return COUNTRY_CONTINENT[(s.Country || '').trim()] || '';
+}
+
+/* Base list matches the homepage search bar. The live list is rebuilt from
+   the actual spots at load time, because Airtable carries vibes the homepage
+   list never had (Vineyard, Waterfall, Castle ...). */
+var VIBES = ['Beach','Mountain','Cliff','Lake','Volcano','Ocean','City','Jungle','Luxury','Hiking','Rural','Boat','Desert'];
+
+function buildVibeList() {
+  var seen = {};
+  allSpots.forEach(function (s) {
+    var pool = [];
+    if (Array.isArray(s.Vibe)) pool = pool.concat(s.Vibe); else if (s.Vibe) pool.push(s.Vibe);
+    pool = pool.concat(s['Vibe Secondary All'] || []);
+    pool.forEach(function (v) {
+      var name = String(v || '').trim();
+      if (name) seen[name] = true;
+    });
+  });
+  var found = Object.keys(seen).sort();
+  return found.length ? found : VIBES;
+}
+var BUDGETS = [
+  { slug: 'affordable', value: 'Affordable', label: '$ Affordable' },
+  { slug: 'premium',    value: 'Premium',    label: '$$ Premium' },
+  { slug: 'luxury',     value: 'Luxury',     label: '$$$ Luxury' }
+];
+
+/* --------------------------------------------------------------
+   3. State
+   -------------------------------------------------------------- */
+var allSpots = [];
+var state = {
+  destination: '',
+  vibe: '',
+  budget: '',
+  continent: '',
+  searchAsMove: true
+};
+
+var map = null;
+var markers = [];          /* { spot, marker, el } for every mappable spot */
+var clusterMarkers = [];   /* pooled cluster markers, rebuilt on each pass */
+var activePopup = null;
+var mapReady = false;
+var pendingFit = true;     /* fit to results the first time only */
+
+/* --------------------------------------------------------------
+   4. Data — mirrors fetchFromAirtable() in index.html so cards
+   render identically, plus Latitude / Longitude for the map.
+   -------------------------------------------------------------- */
+async function fetchSpots() {
+  try {
+    var response = await fetch('/api/spots');
+    if (!response.ok) { console.error('API error:', response.status); return []; }
+    var data = await response.json();
+    if (!data.records || !data.records.length) return [];
+
+    return data.records.map(function (r) {
+      var f = r.fields;
+
+      var rawPrivacy = f['Privacy'] || '';
+      var privacy = rawPrivacy.indexOf('Private') > -1 ? 'Private'
+        : rawPrivacy.indexOf('Light') > -1 ? 'Light Crowd'
+        : rawPrivacy.indexOf('Moderate') > -1 ? 'Moderate Crowd'
+        : rawPrivacy.indexOf('Everyone') > -1 ? 'Everyone Will See'
+        : rawPrivacy;
+
+      var rawBudget = f['Budget'] || '';
+      var budget = rawBudget === 'Moderate' ? 'Premium'
+        : rawBudget === 'Expensive' ? 'Luxury'
+        : rawBudget;
+
+      var vibeSecondaryArr = Array.isArray(f['Vibe Secondary'])
+        ? f['Vibe Secondary'].filter(Boolean)
+        : (f['Vibe Secondary'] ? [f['Vibe Secondary']] : []);
+
+      var otherVibeArr = Array.isArray(f['Other Vibe'])
+        ? f['Other Vibe']
+        : (f['Other Vibe'] ? [f['Other Vibe']] : []);
+
+      var lat = f['Latitude'];
+      var lng = f['Longitude'];
+      /* Formula fields return {error} objects when they cannot resolve */
+      if (lat && typeof lat === 'object') lat = null;
+      if (lng && typeof lng === 'object') lng = null;
+
+      return {
+        id: r.id,
+        Name: f['Spot Name'] || f['Name'] || '',
+        Slug: f['Slug'] || '',
+        Country: f['Country'] || '',
+        Region: f['Region / Town'] || f['Region'] || '',
+        Vibe: f['Vibe'] || '',
+        'Vibe Secondary': vibeSecondaryArr[0] || '',
+        'Vibe Secondary All': vibeSecondaryArr,
+        'Other Vibe': otherVibeArr,
+        Privacy: privacy,
+        Budget: budget,
+        'Cover Photo': (f['Cover Photo'] && f['Cover Photo'][0] && f['Cover Photo'][0].url) || null,
+        'Spot Card Photo': (f['Spot Card Photo'] && f['Spot Card Photo'][0] && f['Spot Card Photo'][0].url) || null,
+        'Card Position': f['Card Position'] || 'center center',
+        'Gallery Photos': (f['Gallery Photos'] || []),
+        'Google Maps Link': f['Google Maps Link'] || '',
+        Latitude: (lat === '' || lat === undefined) ? null : lat,
+        Longitude: (lng === '' || lng === undefined) ? null : lng,
+        badge: f['Badge'] || null,
+        coverGradient: f['Cover Gradient'] || 'linear-gradient(160deg,#28342c,#1e2835)',
+        'Price Moment': f['Price Moment'] || null,
+        'Price Currency': f['Price Currency'] || null,
+        editorsPick: !!(f['Editors Pick']),
+        packages: Array.isArray(r.packages) ? r.packages : []
+      };
+    });
+  } catch (err) {
+    console.error('API fetch failed:', err);
+    return [];
+  }
+}
+
+function hasCoords(s) {
+  return typeof s.Latitude === 'number' && typeof s.Longitude === 'number'
+    && !isNaN(s.Latitude) && !isNaN(s.Longitude);
+}
+
+/* --------------------------------------------------------------
+   5. Pricing helpers — same rules as index.html
+   -------------------------------------------------------------- */
+var FX_TO_USD = {
+  USD: 1, EUR: 1.08, GBP: 1.27, IDR: 0.000063, MXN: 0.055, CHF: 1.13,
+  CRC: 0.0019, NIO: 0.027, AUD: 0.66, CAD: 0.74, JPY: 0.0067, THB: 0.028, MVR: 0.065
+};
+function toUSD(amount, ccy) {
+  var rate = FX_TO_USD[ccy];
+  if (rate === undefined) rate = 1;
+  return amount * rate;
+}
+function formatStartingPrice(amount, ccy) {
+  var usd = toUSD(amount, ccy);
+  var floored = Math.floor(usd / 10) * 10;
+  return '$' + floored.toLocaleString() + '+';
+}
+function momentPriceValue(s) {
+  var pkgs = Array.isArray(s.packages) ? s.packages : [];
+  var moment = null;
+  for (var i = 0; i < pkgs.length; i++) {
+    if (pkgs[i] && pkgs[i]['Tier Name'] === 'The Moment') { moment = pkgs[i]; break; }
+  }
+  var price = (moment && moment.Price != null && moment.Price !== '') ? moment.Price : null;
+  if (price == null && s['Price Moment'] != null && s['Price Moment'] !== '') price = s['Price Moment'];
+  return price;
+}
+function momentStartingPriceText(s) {
+  var price = momentPriceValue(s);
+  if (price == null) return '';
+  return formatStartingPrice(Number(price), s['Price Currency']);
+}
+
+/* --------------------------------------------------------------
+   6. Spot card — same markup as index.html buildSpotCard()
+   -------------------------------------------------------------- */
+function getCardImgs(s) {
+  var main = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || '');
+  var gallery = (s['Gallery Photos'] || []).map(function (p) {
+    if (typeof p === 'string') return optimizeAirtableImage(p);
+    return optimizeAirtableImage((p && p.url) || '');
+  }).filter(Boolean).slice(0, 3);
+  return [main].concat(gallery).filter(Boolean);
+}
+
+function spotSlug(s) {
+  return (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    || s.id || '';
+}
+
+function buildSpotCard(s, index) {
+  var cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
+  var badge = s.badge ? '<span class="spot-card-badge">' + s.badge + '</span>' : '';
+  var privacy = s.Privacy || '';
+  var vibe = Array.isArray(s['Vibe']) ? s['Vibe'][0] : (s['Vibe'] || '');
+  var imgs = getCardImgs(s);
+  var hasMultiple = imgs.length > 1;
+  var imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
+  var lazyLoad = (index || 0) >= 3 ? ' loading="lazy"' : '';
+  var pos = s['Card Position'] || 'center center';
+  var slug = spotSlug(s);
+
+  var scHtml = hasMultiple
+    ? '<button class="sc-arrow sc-arrow-prev" onclick="event.stopPropagation();scPrev(this)">&#8249;</button>'
+      + '<button class="sc-arrow sc-arrow-next" onclick="event.stopPropagation();scNext(this)">&#8250;</button>'
+      + '<div class="sc-dots">'
+      + imgs.map(function (_, i) { return '<div class="sc-dot' + (i === 0 ? ' active' : '') + '"></div>'; }).join('')
+      + '</div>'
+    : '';
+
+  var stripHtml;
+  if (hasMultiple) {
+    stripHtml = '<div class="sc-strip">'
+      + imgs.map(function (url, i) {
+          var u400 = url.replace('width=800,', 'width=400,');
+          var frameLazy = (i === 0) ? lazyLoad : ' loading="lazy"';
+          return '<div class="sc-frame"><img class="img-bg" src="' + url.replace(/"/g, '&quot;')
+            + '" srcset="' + u400.replace(/"/g, '&quot;') + ' 400w, ' + url.replace(/"/g, '&quot;') + ' 800w"'
+            + ' sizes="(max-width: 600px) 400px, 800px" alt="" fetchpriority="low"' + frameLazy
+            + ' style="object-fit:cover;width:100%;height:100%;object-position:' + pos + '"></div>';
+        }).join('')
+      + '<div class="sc-frame"><img class="img-bg" src="' + imgs[0].replace(/"/g, '&quot;')
+      + '" srcset="' + imgs[0].replace('width=800,', 'width=400,').replace(/"/g, '&quot;') + ' 400w, '
+      + imgs[0].replace(/"/g, '&quot;') + ' 800w" sizes="(max-width: 600px) 400px, 800px" alt=""'
+      + ' fetchpriority="low" loading="lazy" style="object-fit:cover;width:100%;height:100%;object-position:' + pos + '"></div>'
+      + '</div>';
+  } else if (cardPhoto) {
+    stripHtml = '<img class="img-bg" src="' + cardPhoto.replace(/"/g, '&quot;')
+      + '" srcset="' + cardPhoto.replace('width=800,', 'width=400,').replace(/"/g, '&quot;') + ' 400w, '
+      + cardPhoto.replace(/"/g, '&quot;') + ' 800w" sizes="(max-width: 600px) 400px, 800px" alt=""'
+      + ' fetchpriority="low"' + lazyLoad + ' style="object-fit:cover;width:100%;height:100%;object-position:' + pos + '">';
+  } else {
+    stripHtml = '<div class="img-bg" style="background:' + (s.coverGradient || 'var(--bg3)') + '"></div>';
+  }
+
+  /* Only render strip segments that actually have a value. Plenty of spots
+     have no Privacy or no Moment price, and rendering them anyway leaves
+     stray dividers floating with nothing between them. */
+  var stripParts = [privacy, momentStartingPriceText(s), vibe].filter(function (p) {
+    return p && String(p).trim();
+  });
+  var bodyHtml = stripParts.map(function (p) {
+    return '<div class="spot-card-strip-item"><span class="spot-card-strip-text">' + p + '</span></div>';
+  }).join('<div class="spot-card-strip-divider"></div>');
+
+  var locBits = [s.Region, s.Country].filter(function (p) { return p && String(p).trim(); });
+
+  return ''
+    + '<a class="spot-card" data-spot-id="' + s.id + '" href="/spots/' + slug + '" style="cursor:pointer">'
+    +   '<div class="spot-card-img" ' + imgsAttr + '>'
+    +     stripHtml + badge + scHtml
+    +   '</div>'
+    +   '<div class="spot-card-name">' + (s.Name || '') + '</div>'
+    +   '<div class="spot-card-location">' + locBits.join(', ') + '</div>'
+    +   '<div class="spot-card-body">' + bodyHtml + '</div>'
+    + '</a>';
+}
+
+/* --------------------------------------------------------------
+   7. Filtering
+   -------------------------------------------------------------- */
+function matchesVibe(s, vibe) {
+  if (!vibe) return true;
+  var v = vibe.toLowerCase();
+  var pool = [];
+  if (Array.isArray(s.Vibe)) pool = pool.concat(s.Vibe); else if (s.Vibe) pool.push(s.Vibe);
+  pool = pool.concat(s['Vibe Secondary All'] || []).concat(s['Other Vibe'] || []);
+  for (var i = 0; i < pool.length; i++) {
+    if (String(pool[i]).toLowerCase().indexOf(v) > -1) return true;
+  }
+  return false;
+}
+
+function matchesDestination(s, q) {
+  if (!q) return true;
+  var t = q.toLowerCase().trim();
+  return (s.Name || '').toLowerCase().indexOf(t) > -1
+    || (s.Region || '').toLowerCase().indexOf(t) > -1
+    || (s.Country || '').toLowerCase().indexOf(t) > -1
+    || continentOf(s).toLowerCase().indexOf(t) > -1;
+}
+
+/* Spots passing the filter bar + pills, ignoring the viewport */
+function getFilteredSpots() {
+  return allSpots.filter(function (s) {
+    if (state.vibe && !matchesVibe(s, state.vibe)) return false;
+    if (state.budget && s.Budget !== state.budget) return false;
+    if (state.continent && continentOf(s) !== state.continent) return false;
+    if (state.destination && !matchesDestination(s, state.destination)) return false;
+    return true;
+  });
+}
+
+/* Of those, the ones currently inside the map viewport */
+function getVisibleSpots(filtered) {
+  if (!state.searchAsMove || !map || !mapReady) return filtered;
+  var b = map.getBounds();
+  if (!b) return filtered;
+  return filtered.filter(function (s) {
+    return hasCoords(s) && b.contains([s.Longitude, s.Latitude]);
+  });
+}
+
+/* --------------------------------------------------------------
+   8. Rendering the results panel
+   -------------------------------------------------------------- */
+function renderResults() {
+  var filtered = getFilteredSpots();
+  var visible = getVisibleSpots(filtered);
+
+  var grid = document.getElementById('map-grid');
+  var head = document.getElementById('map-results-head');
+  var countEl = document.getElementById('map-results-count');
+  var noteEl = document.getElementById('map-results-note');
+  var empty = document.getElementById('map-empty');
+  var loading = document.getElementById('map-loading');
+
+  if (loading) loading.style.display = 'none';
+  head.style.display = 'flex';
+
+  var n = visible.length;
+  countEl.textContent = n === 0 ? 'No spots' : (n + (n === 1 ? ' spot' : ' spots'));
+
+  var noCoords = filtered.filter(function (s) { return !hasCoords(s); }).length;
+  var noteBits = [];
+  if (state.searchAsMove && mapReady) noteBits.push('in this area');
+  if (noCoords) noteBits.push(noCoords + ' not yet mapped');
+  noteEl.textContent = noteBits.join(' · ');
+
+  grid.innerHTML = visible.map(function (s, i) { return buildSpotCard(s, i); }).join('');
+  empty.style.display = n === 0 ? 'block' : 'none';
+
+  renderTray(visible);
+  wireCardHovers();
+  syncMarkers(filtered, visible);
+}
+
+function renderTray(visible) {
+  var tray = document.getElementById('map-tray');
+  if (!tray) return;
+  tray.innerHTML = visible.map(function (s, i) { return buildSpotCard(s, i); }).join('');
+}
+
+/* Hovering a card highlights its pin, and vice versa */
+function wireCardHovers() {
+  document.querySelectorAll('#map-grid .spot-card').forEach(function (card) {
+    var id = card.getAttribute('data-spot-id');
+    card.addEventListener('mouseenter', function () { setActiveSpot(id, true); });
+    card.addEventListener('mouseleave', function () { setActiveSpot(id, false); });
+  });
+}
+
+function setActiveSpot(id, on) {
+  markers.forEach(function (m) {
+    if (m.spot.id === id) m.el.classList.toggle('is-active', !!on);
+  });
+}
+
+function setActiveCard(id, on) {
+  document.querySelectorAll('#map-grid .spot-card[data-spot-id="' + id + '"]').forEach(function (c) {
+    c.classList.toggle('is-hovered', !!on);
+  });
+}
+
+/* --------------------------------------------------------------
+   9. Map
+   -------------------------------------------------------------- */
+function initMap() {
+  if (!MAPBOX_TOKEN || MAPBOX_TOKEN.indexOf('PASTE_') === 0) {
+    var pane = document.getElementById('map');
+    pane.innerHTML = '<div class="map-token-notice">'
+      + '<strong>Map needs a Mapbox token</strong>'
+      + '<span>Create a free token at mapbox.com, then set <code>MAPBOX_TOKEN</code> at the top of map.html.</span>'
+      + '<span>The listings panel works without it.</span>'
+      + '</div>';
+    return;
+  }
+
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: [10, 30],
+    zoom: 1.4,
+    attributionControl: false,
+    cooperativeGestures: false
+  });
+
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+
+  map.on('load', function () {
+    applyBrandMapStyle();
+    mapReady = true;
+    buildMarkers();
+    if (pendingFit) { fitToSpots(getFilteredSpots()); pendingFit = false; }
+    renderResults();
+  });
+
+  /* Re-filter the list whenever the viewport settles */
+  map.on('moveend', function () {
+    if (!mapReady) return;
+    if (state.searchAsMove) renderResults();
+    else placeMarkers();
+  });
+  map.on('zoomend', function () { if (mapReady) placeMarkers(); });
+}
+
+/* Nudge the basemap toward our cream palette so it does not read
+   as a generic Google/Mapbox map. Layer names vary between styles,
+   so every write is guarded. */
+function applyBrandMapStyle() {
+  var tints = [
+    ['land', 'background-color', '#EFEBE3'],
+    ['background', 'background-color', '#EFEBE3'],
+    ['water', 'fill-color', '#D9DEDB'],
+    ['landuse', 'fill-color', '#E8E4DB'],
+    ['national-park', 'fill-color', '#E2E4DA'],
+    ['landcover', 'fill-color', '#E5E6DC']
+  ];
+  tints.forEach(function (t) {
+    try {
+      if (map.getLayer(t[0])) map.setPaintProperty(t[0], t[1], t[2]);
+    } catch (e) { /* layer not in this style — fine */ }
+  });
+}
+
+function fitToSpots(spots) {
+  var pts = spots.filter(hasCoords);
+  if (!map || !pts.length) return;
+  if (pts.length === 1) {
+    map.easeTo({ center: [pts[0].Longitude, pts[0].Latitude], zoom: 9, duration: 600 });
+    return;
+  }
+  var b = new mapboxgl.LngLatBounds();
+  pts.forEach(function (s) { b.extend([s.Longitude, s.Latitude]); });
+  map.fitBounds(b, { padding: 70, maxZoom: 11, duration: 700 });
+}
+
+function buildMarkers() {
+  markers.forEach(function (m) { m.marker.remove(); });
+  markers = [];
+
+  allSpots.filter(hasCoords).forEach(function (s) {
+    var wrap = document.createElement('div');
+    wrap.className = 'pin-wrap';
+
+    var el = document.createElement('div');
+    el.className = 'pin';
+    var price = momentStartingPriceText(s);
+    el.textContent = price || (s.Name || '').split(' ').slice(0, 2).join(' ');
+    wrap.appendChild(el);
+
+    el.addEventListener('mouseenter', function () { setActiveCard(s.id, true); });
+    el.addEventListener('mouseleave', function () { setActiveCard(s.id, false); });
+    el.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openSpotPopup(s);
+      scrollCardIntoView(s.id);
+    });
+
+    var marker = new mapboxgl.Marker({ element: wrap })
+      .setLngLat([s.Longitude, s.Latitude])
+      .addTo(map);
+
+    markers.push({ spot: s, marker: marker, el: el, wrap: wrap });
+  });
+}
+
+/* Show/hide markers to match the current filters, then cluster them */
+function syncMarkers(filtered, visible) {
+  if (!mapReady) return;
+  var allowed = {};
+  filtered.forEach(function (s) { allowed[s.id] = true; });
+  markers.forEach(function (m) {
+    m.allowed = !!allowed[m.spot.id];
+  });
+  placeMarkers();
+}
+
+/* --------------------------------------------------------------
+   10. Clustering
+   Greedy pixel-distance grouping. With ~50 spots this is cheap and
+   avoids another dependency. It also gives us somewhere sensible to
+   handle spots that share identical coordinates.
+   -------------------------------------------------------------- */
+var CLUSTER_RADIUS_PX = 46;
+
+function placeMarkers() {
+  if (!map || !mapReady) return;
+
+  clusterMarkers.forEach(function (m) { m.remove(); });
+  clusterMarkers = [];
+  clearSpiderfy();
+
+  var active = markers.filter(function (m) { return m.allowed !== false; });
+  markers.forEach(function (m) { m.wrap.style.display = 'none'; });
+
+  /* Project to screen space once */
+  var pts = active.map(function (m) {
+    var p = map.project([m.spot.Longitude, m.spot.Latitude]);
+    return { m: m, x: p.x, y: p.y, used: false };
+  });
+
+  var groups = [];
+  for (var i = 0; i < pts.length; i++) {
+    if (pts[i].used) continue;
+    var group = [pts[i]];
+    pts[i].used = true;
+    for (var j = i + 1; j < pts.length; j++) {
+      if (pts[j].used) continue;
+      var dx = pts[j].x - pts[i].x;
+      var dy = pts[j].y - pts[i].y;
+      if (Math.sqrt(dx * dx + dy * dy) < CLUSTER_RADIUS_PX) {
+        group.push(pts[j]);
+        pts[j].used = true;
+      }
+    }
+    groups.push(group);
+  }
+
+  groups.forEach(function (group) {
+    if (group.length === 1) {
+      group[0].m.wrap.style.display = '';
+      return;
+    }
+
+    /* Are they all at (essentially) the same coordinate? If so no amount
+       of zooming separates them, so fan them out instead. */
+    var identical = group.every(function (p) {
+      return Math.abs(p.m.spot.Latitude - group[0].m.spot.Latitude) < 0.0004
+        && Math.abs(p.m.spot.Longitude - group[0].m.spot.Longitude) < 0.0004;
+    });
+
+    if (identical && map.getZoom() >= 12) {
+      spiderfy(group);
+      return;
+    }
+
+    var sumLat = 0, sumLng = 0;
+    group.forEach(function (p) { sumLat += p.m.spot.Latitude; sumLng += p.m.spot.Longitude; });
+
+    var cwrap = document.createElement('div');
+    cwrap.className = 'pin-wrap';
+    var el = document.createElement('div');
+    el.className = 'pin-cluster';
+    el.textContent = group.length;
+    cwrap.appendChild(el);
+    el.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (identical) {
+        map.easeTo({ center: [sumLng / group.length, sumLat / group.length], zoom: 13.5, duration: 600 });
+        return;
+      }
+      var b = new mapboxgl.LngLatBounds();
+      group.forEach(function (p) { b.extend([p.m.spot.Longitude, p.m.spot.Latitude]); });
+      map.fitBounds(b, { padding: 90, maxZoom: 15, duration: 600 });
+    });
+
+    var cm = new mapboxgl.Marker({ element: cwrap })
+      .setLngLat([sumLng / group.length, sumLat / group.length])
+      .addTo(map);
+    clusterMarkers.push(cm);
+  });
+}
+
+/* Fan co-located spots out in a ring so each is clickable */
+function spiderfy(group) {
+  var n = group.length;
+  var radius = 30 + n * 4;
+  group.forEach(function (p, i) {
+    var angle = (2 * Math.PI * i) / n - Math.PI / 2;
+    p.m.wrap.style.display = '';
+    /* Offset the inner pin only — the wrapper carries Mapbox's positioning */
+    p.m.el.style.transform = 'translate(' + (Math.cos(angle) * radius).toFixed(1) + 'px,'
+      + (Math.sin(angle) * radius).toFixed(1) + 'px)';
+    p.m.el.dataset.spiderfied = '1';
+  });
+}
+
+/* Clear spiderfy offsets whenever we re-place markers */
+function clearSpiderfy() {
+  markers.forEach(function (m) {
+    if (m.el.dataset.spiderfied) {
+      m.el.style.transform = '';
+      delete m.el.dataset.spiderfied;
+    }
+  });
+}
+
+function openSpotPopup(s) {
+  if (activePopup) { activePopup.remove(); activePopup = null; }
+  var img = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo'] || '');
+  var html = ''
+    + '<a class="map-popup-card" href="/spots/' + spotSlug(s) + '">'
+    +   '<span class="map-popup-img" style="background-image:url(\'' + img + '\')"></span>'
+    +   '<span class="map-popup-body">'
+    +     '<span class="map-popup-name">' + (s.Name || '') + '</span>'
+    +     '<span class="map-popup-loc">' + (s.Region || '') + ', ' + (s.Country || '') + '</span>'
+    +     '<span class="map-popup-meta">' + [s.Privacy, momentStartingPriceText(s)].filter(Boolean).join(' · ') + '</span>'
+    +   '</span>'
+    + '</a>';
+
+  activePopup = new mapboxgl.Popup({ offset: 18, closeButton: true, className: 'map-popup', maxWidth: '250px' })
+    .setLngLat([s.Longitude, s.Latitude])
+    .setHTML(html)
+    .addTo(map);
+}
+
+function scrollCardIntoView(id) {
+  var card = document.querySelector('#map-grid .spot-card[data-spot-id="' + id + '"]');
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  var tray = document.getElementById('map-tray');
+  var trayCard = tray && tray.querySelector('.spot-card[data-spot-id="' + id + '"]');
+  if (trayCard) trayCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
+/* --------------------------------------------------------------
+   11. Destination typeahead over our own inventory
+   -------------------------------------------------------------- */
+function buildDestIndex() {
+  var countries = {}, regions = {};
+  allSpots.forEach(function (s) {
+    if (s.Country) countries[s.Country] = (countries[s.Country] || 0) + 1;
+    if (s.Region) {
+      var key = s.Region.replace(/\s+/g, ' ').trim();
+      if (!regions[key]) regions[key] = { count: 0, country: s.Country };
+      regions[key].count++;
+    }
+  });
+
+  var out = [];
+  Object.keys(countries).sort().forEach(function (c) {
+    out.push({ type: 'Country', label: c, sub: continentOf({ Country: c }) + ' · ' + countries[c] + ' spots', q: c });
+  });
+  Object.keys(regions).sort().forEach(function (r) {
+    out.push({ type: 'Region', label: r, sub: regions[r].country + ' · ' + regions[r].count + ' spots', q: r });
+  });
+  allSpots.forEach(function (s) {
+    if (s.Name) out.push({ type: 'Spot', label: s.Name, sub: (s.Region || '') + ', ' + (s.Country || ''), q: s.Name, spot: s });
+  });
+  return out;
+}
+
+var destIndex = [];
+var destHighlight = -1;
+
+function renderDestDropdown(query) {
+  var dd = document.getElementById('msb-dest-dd');
+  var q = (query || '').toLowerCase().trim();
+
+  var matches = destIndex.filter(function (d) {
+    return !q || d.label.toLowerCase().indexOf(q) > -1;
+  });
+
+  /* Rank whole-word / prefix matches first, like Airbnb does */
+  if (q) {
+    matches.sort(function (a, b) {
+      var ap = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+      var bp = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+      if (ap !== bp) return ap - bp;
+      return a.label.length - b.label.length;
+    });
+  }
+
+  matches = matches.slice(0, 24);
+
+  if (!matches.length) {
+    dd.innerHTML = '<div class="msb-dd-empty">No destinations match &ldquo;' + escapeHtml(query) + '&rdquo;</div>';
+    return;
+  }
+
+  var html = '';
+  var lastType = '';
+  matches.forEach(function (d, i) {
+    if (d.type !== lastType) {
+      html += '<div class="msb-dd-group">' + (d.type === 'Spot' ? 'Spots' : d.type === 'Region' ? 'Regions' : 'Countries') + '</div>';
+      lastType = d.type;
+    }
+    html += '<div class="msb-dd-item" data-idx="' + i + '" data-q="' + escapeHtml(d.q) + '">'
+      + escapeHtml(d.label)
+      + '<span class="msb-dd-sub">' + escapeHtml(d.sub || '') + '</span>'
+      + '</div>';
+  });
+  dd.innerHTML = html;
+
+  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
+    item.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      pickDestination(item.getAttribute('data-q'));
+    });
+  });
+  destHighlight = -1;
+}
+
+function escapeHtml(str) {
+  return String(str === undefined || str === null ? '' : str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function pickDestination(q) {
+  state.destination = q || '';
+  var input = document.getElementById('msb-dest-input');
+  if (input) input.value = state.destination;
+  closeAllDropdowns();
+  applyFilters(true);
+}
+
+/* --------------------------------------------------------------
+   12. Filter bar wiring
+   -------------------------------------------------------------- */
+function closeAllDropdowns() {
+  document.querySelectorAll('.msb-segment').forEach(function (seg) { seg.classList.remove('open'); });
+}
+
+function buildVibeDropdown() {
+  var dd = document.getElementById('msb-vibe-dd');
+  var html = '<div class="msb-dd-item" data-val="">Any Vibe</div>';
+  buildVibeList().forEach(function (v) {
+    html += '<div class="msb-dd-item" data-val="' + v + '">' + v + '</div>';
+  });
+  dd.innerHTML = html;
+  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var val = item.getAttribute('data-val');
+      state.vibe = val;
+      var el = document.getElementById('msb-vibe-val');
+      el.textContent = val || 'Any Vibe';
+      el.classList.toggle('placeholder', !val);
+      closeAllDropdowns();
+      applyFilters(true);
+    });
+  });
+}
+
+function buildBudgetDropdown() {
+  var dd = document.getElementById('msb-budget-dd');
+  var html = '<div class="msb-dd-item" data-val="">Any Budget</div>';
+  BUDGETS.forEach(function (b) {
+    html += '<div class="msb-dd-item" data-val="' + b.value + '">' + b.label + '</div>';
+  });
+  dd.innerHTML = html;
+  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var val = item.getAttribute('data-val');
+      state.budget = val;
+      var label = 'Any Budget';
+      BUDGETS.forEach(function (b) { if (b.value === val) label = b.label; });
+      var el = document.getElementById('msb-budget-val');
+      el.textContent = label;
+      el.classList.toggle('placeholder', !val);
+      closeAllDropdowns();
+      applyFilters(true);
+    });
+  });
+}
+
+function buildContinentPills() {
+  var row = document.getElementById('map-pills-row');
+  var counts = {};
+  allSpots.forEach(function (s) {
+    var c = continentOf(s);
+    if (c) counts[c] = (counts[c] || 0) + 1;
+  });
+
+  var present = CONTINENT_ORDER.filter(function (c) { return counts[c]; });
+
+  var html = '<button class="map-pill' + (state.continent ? '' : ' active') + '" data-cont="">All</button>';
+  present.forEach(function (c) {
+    html += '<button class="map-pill' + (state.continent === c ? ' active' : '') + '" data-cont="' + c + '">' + c + '</button>';
+  });
+  row.innerHTML = html;
+
+  row.querySelectorAll('.map-pill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      state.continent = pill.getAttribute('data-cont');
+      row.querySelectorAll('.map-pill').forEach(function (p) {
+        p.classList.toggle('active', p === pill);
+      });
+      applyFilters(true);
+    });
+  });
+}
+
+/* Re-run filters; optionally refit the map to the new result set */
+function applyFilters(refit) {
+  syncUrl();
+  if (refit && mapReady) {
+    var filtered = getFilteredSpots();
+    if (filtered.filter(hasCoords).length) {
+      /* Refit without triggering a bounds-filtered render mid-flight */
+      var wasMove = state.searchAsMove;
+      state.searchAsMove = false;
+      fitToSpots(filtered);
+      state.searchAsMove = wasMove;
+      map.once('moveend', function () { renderResults(); });
+    }
+  }
+  renderResults();
+}
+
+function syncUrl() {
+  var p = new URLSearchParams();
+  if (state.destination) p.set('destination', state.destination);
+  if (state.vibe) p.set('vibe', state.vibe);
+  if (state.budget) p.set('budget', state.budget);
+  if (state.continent) p.set('continent', state.continent);
+  var qs = p.toString();
+  history.replaceState(null, '', '/map' + (qs ? '?' + qs : ''));
+}
+
+function readUrl() {
+  var p = new URLSearchParams(window.location.search);
+
+  var dest = p.get('destination') || '';
+  if (dest) {
+    /* Homepage links use slugs (south-of-france); turn those back into text */
+    state.destination = dest.indexOf('-') > -1 && dest === dest.toLowerCase()
+      ? dest.replace(/-/g, ' ')
+      : dest;
+    var input = document.getElementById('msb-dest-input');
+    if (input) input.value = state.destination;
+  }
+
+  var vibe = p.get('vibe') || '';
+  if (vibe) {
+    state.vibe = vibe.charAt(0).toUpperCase() + vibe.slice(1).toLowerCase();
+    var vEl = document.getElementById('msb-vibe-val');
+    vEl.textContent = state.vibe;
+    vEl.classList.remove('placeholder');
+  }
+
+  var budget = p.get('budget') || '';
+  if (budget) {
+    BUDGETS.forEach(function (b) {
+      if (b.slug === budget.toLowerCase() || b.value.toLowerCase() === budget.toLowerCase()) {
+        state.budget = b.value;
+        var bEl = document.getElementById('msb-budget-val');
+        bEl.textContent = b.label;
+        bEl.classList.remove('placeholder');
+      }
+    });
+  }
+
+  var cont = p.get('continent') || '';
+  if (cont) state.continent = cont;
+}
+
+/* Measure the real top-bar height instead of hardcoding it, so the split
+   view and the mobile full-screen map always line up under it. */
+function syncTopbarHeight() {
+  var tb = document.querySelector('.map-topbar');
+  if (!tb) return;
+  document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight + 'px');
+}
+
+/* --------------------------------------------------------------
+   13. Mobile list <-> map
+   -------------------------------------------------------------- */
+function wireMobileToggle() {
+  var btn = document.getElementById('map-mobile-toggle');
+  var label = document.getElementById('map-mobile-toggle-text');
+  btn.addEventListener('click', function () {
+    var toMap = !document.body.classList.contains('map-mode-map');
+    document.body.classList.toggle('map-mode-map', toMap);
+    label.textContent = toMap ? 'List' : 'Map';
+    if (toMap && map) {
+      setTimeout(function () {
+        map.resize();
+        if (!mapReady) return;
+        fitToSpots(getFilteredSpots());
+      }, 60);
+    }
+  });
+}
+
+/* --------------------------------------------------------------
+   14. Boot
+   -------------------------------------------------------------- */
+function wireChrome() {
+  /* Segment open/close */
+  document.getElementById('msb-vibe-seg').addEventListener('click', function (e) {
+    if (e.target.closest('.msb-dropdown')) return;
+    var open = this.classList.contains('open');
+    closeAllDropdowns();
+    this.classList.toggle('open', !open);
+  });
+  document.getElementById('msb-budget-seg').addEventListener('click', function (e) {
+    if (e.target.closest('.msb-dropdown')) return;
+    var open = this.classList.contains('open');
+    closeAllDropdowns();
+    this.classList.toggle('open', !open);
+  });
+
+  var input = document.getElementById('msb-dest-input');
+  input.addEventListener('focus', function () {
+    closeAllDropdowns();
+    document.getElementById('msb-dest-seg').classList.add('open');
+    renderDestDropdown(input.value);
+  });
+  input.addEventListener('input', function () {
+    document.getElementById('msb-dest-seg').classList.add('open');
+    renderDestDropdown(input.value);
+  });
+  input.addEventListener('keydown', function (e) {
+    var items = document.querySelectorAll('#msb-dest-dd .msb-dd-item');
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!items.length) return;
+      destHighlight += (e.key === 'ArrowDown' ? 1 : -1);
+      if (destHighlight < 0) destHighlight = items.length - 1;
+      if (destHighlight >= items.length) destHighlight = 0;
+      items.forEach(function (it, i) { it.classList.toggle('active', i === destHighlight); });
+      items[destHighlight].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      /* Enter takes the highlighted row, else the first suggestion, else the
+         raw text — so typing "ital" and hitting Enter resolves to Italy. */
+      if (destHighlight > -1 && items[destHighlight]) {
+        pickDestination(items[destHighlight].getAttribute('data-q'));
+      } else if (items.length) {
+        pickDestination(items[0].getAttribute('data-q'));
+      } else {
+        pickDestination(input.value);
+      }
+    } else if (e.key === 'Escape') {
+      closeAllDropdowns();
+    }
+  });
+
+  document.getElementById('msb-btn').addEventListener('click', function () {
+    pickDestination(document.getElementById('msb-dest-input').value);
+  });
+
+  document.addEventListener('mousedown', function (e) {
+    if (!e.target.closest('#msb-wrap')) closeAllDropdowns();
+  });
+
+  document.getElementById('map-move-check').addEventListener('change', function () {
+    state.searchAsMove = this.checked;
+    renderResults();
+  });
+
+  document.getElementById('map-reset').addEventListener('click', function () {
+    state.destination = ''; state.vibe = ''; state.budget = ''; state.continent = '';
+    document.getElementById('msb-dest-input').value = '';
+    var vEl = document.getElementById('msb-vibe-val');
+    vEl.textContent = 'Any Vibe'; vEl.classList.add('placeholder');
+    var bEl = document.getElementById('msb-budget-val');
+    bEl.textContent = 'Any Budget'; bEl.classList.add('placeholder');
+    buildContinentPills();
+    applyFilters(true);
+  });
+
+  window.addEventListener('resize', function () {
+    syncTopbarHeight();
+    if (map) map.resize();
+  });
+}
+
+(async function boot() {
+  wireChrome();
+  wireMobileToggle();
+  readUrl();
+
+  allSpots = await fetchSpots();
+  destIndex = buildDestIndex();
+  buildVibeDropdown();
+  buildBudgetDropdown();
+  buildContinentPills();
+  syncTopbarHeight();
+
+  var mapped = allSpots.filter(hasCoords).length;
+  console.log('Loaded ' + allSpots.length + ' spots, ' + mapped + ' with coordinates.');
+
+  initMap();
+  renderResults();
+})();
+</script>
+</body>
+</html>

@@ -32,6 +32,7 @@
     { "source": "/robots.txt", "destination": "/robots.txt" },
     { "source": "/spots/:slug", "destination": "/api/spot-page?slug=:slug" },
     { "source": "/stories/:slug", "destination": "/stories/index.html" },
+    { "source": "/map", "destination": "/map.html" },
     { "source": "/destinations", "destination": "/destinations.html" },
     { "source": "/elsewhere", "destination": "/elsewhere.html" },
     { "source": "/destinations/amalfi-coast", "destination": "/destinations/amalfi-coast.html" },
