@@ -944,7 +944,7 @@
    Public (pk.) tokens are safe in client code — restrict it to
    proposalspots.com in the Mapbox dashboard under URL restrictions.
    -------------------------------------------------------------- */
-var MAPBOX_TOKEN = 'PASTE_MAPBOX_PUBLIC_TOKEN_HERE';
+var MAPBOX_TOKEN = 'pk.eyJ1IjoicHJvcG9zYWxzcG90cyIsImEiOiJjbXQxcjNmNTEwanByMnlvaGxscGJjYWtxIn0.Ge3dzMLKklBnAyHR3O1odw';
 
 /* --------------------------------------------------------------
    2. Country -> continent
@@ -1384,6 +1384,18 @@ function initMap() {
       + '<strong>Map needs a Mapbox token</strong>'
       + '<span>Create a free token at mapbox.com, then set <code>MAPBOX_TOKEN</code> at the top of map.html.</span>'
       + '<span>The listings panel works without it.</span>'
+      + '</div>';
+    return;
+  }
+
+  /* mapbox-gl.js itself failed to load — offline, a content blocker, or the
+     CDN being unreachable. The listings panel works fully without the map, so
+     degrade gracefully instead of throwing and taking the whole page down. */
+  if (typeof mapboxgl === 'undefined') {
+    document.getElementById('map').innerHTML = '<div class="map-token-notice">'
+      + '<strong>Map could not load</strong>'
+      + '<span>Check your connection or any content blocker, then refresh.</span>'
+      + '<span>Every listing is still shown in the panel.</span>'
       + '</div>';
     return;
   }
