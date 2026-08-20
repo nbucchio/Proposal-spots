@@ -280,6 +280,7 @@
   var isIndex = path === '/' || path === '/index.html';
   var isInspiration = path === '/inspiration.html' || path.endsWith('inspiration.html');
   var isStoriesSection = path.startsWith('/stories') || path.endsWith('stories.html');
+  var isMap = path === '/map' || path.endsWith('map.html');
 
   // ── 3. Build nav HTML ─────────────────────────────────────────────────────────
   var logoHref = isIndex ? '#' : '/';
@@ -298,6 +299,8 @@
   var faqLink = isIndex
     ? '<a href="#" id="nav-faq" onclick="goToFaq(); return false;" class="nav-link-right">FAQ</a>'
     : '<a href="/#faq" class="nav-link-right">FAQ</a>';
+
+  var mapClass = 'nav-link-right' + (isMap ? ' nav-active' : '');
 
   var inspirationClass = 'nav-link-right' + ((isInspiration || isStoriesSection) ? ' nav-active' : '');
 
@@ -366,6 +369,7 @@
           '<div class="nav-dest-footer">' + elsewhereLink + viewAllDest + '</div>' +
         '</div>' +
       '</div>' +
+      '<a href="/map" class="' + mapClass + '">Map</a>' +
       howItWorksLink +
       '<a href="/inspiration.html" class="' + inspirationClass + '">Inspiration</a>' +
       faqLink +
@@ -378,6 +382,7 @@
       '<div class="nav-mobile-menu" id="nav-mobile-menu">' +
         '<a href="/destinations" class="nav-mobile-link">Destinations</a>' +
         '<a href="/elsewhere" class="nav-mobile-link">Elsewhere</a>' +
+        '<a href="/map" class="nav-mobile-link">Map</a>' +
         '<a href="/how-it-works" class="nav-mobile-link">How It Works</a>' +
         '<a href="/inspiration.html" class="nav-mobile-link">Inspiration</a>' +
         mobileFaqLink +
