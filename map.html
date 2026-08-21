@@ -694,32 +694,180 @@
   .map-mobile-toggle:hover { opacity: 0.75; }
 
   /* Collapsed bottom sheet over the map (Airbnb shows the result count here) */
-  .map-sheet {
-    display: none;
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    z-index: 7;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px 22px;
-    background: var(--bg);
-    border: none;
-    border-top: 1px solid var(--hairline);
-    border-radius: 16px 16px 0 0;
-    cursor: pointer;
-    font-family: 'Cormorant', serif;
-  }
+  /* Desktop: the sheet is not a box at all — the list sits in the grid
+     exactly as before. Everything that makes it a sheet is mobile-only. */
+  .map-sheet { display: contents; }
+  .map-sheet-grab { display: none; }
   .map-sheet-handle {
-    width: 44px; height: 4px;
+    width: 40px; height: 4px;
     border-radius: 100px;
-    background: rgba(26,22,18,0.18);
+    background: rgba(26,22,18,0.20);
   }
   .map-sheet-label {
     font-family: 'Cormorant', serif;
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 400;
     color: var(--ink);
+  }
+
+  /* ---------- Mobile filter sheet ---------- */
+  .fsheet {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: var(--bg);
+    flex-direction: column;
+  }
+  body.fsheet-open .fsheet { display: flex; }
+  body.fsheet-open { overflow: hidden; }
+
+  .fsheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+  }
+  .fsheet-title {
+    font-family: 'Cormorant', serif;
+    font-size: 19px;
+    color: var(--ink);
+  }
+  .fsheet-close {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--hairline);
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .fsheet-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fpanel {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(26,22,18,0.05);
+    font-family: 'Jost', sans-serif;
+    width: 100%;
+  }
+  .fpanel-collapsed {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 20px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .fp-label { font-size: 12px; color: var(--ink); opacity: 0.55; }
+  .fp-value {
+    font-size: 13px;
+    color: var(--ink);
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .fpanel-open { padding: 18px 18px 16px; }
+  .fp-title {
+    font-family: 'Cormorant', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+
+  .fp-search {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    padding: 11px 14px;
+    color: var(--ink);
+  }
+  .fp-search input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .fp-list { margin-top: 6px; max-height: 320px; overflow-y: auto; }
+  .fp-opts { display: flex; flex-direction: column; }
+
+  .fp-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 4px;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+  }
+  .fp-item:last-child { border-bottom: none; }
+  .fp-item.is-on { color: var(--accent); }
+  .fp-item-sub { font-size: 11px; opacity: 0.5; }
+  .fp-group {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    padding: 12px 4px 5px;
+  }
+  .fp-empty { padding: 14px 4px; font-size: 13px; opacity: 0.6; }
+
+  .fsheet-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--hairline);
+    background: var(--bg);
+  }
+  .fsheet-reset {
+    border: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px 4px;
+  }
+  .fsheet-search {
+    border: none;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    padding: 13px 30px;
+    border-radius: 100px;
+    cursor: pointer;
   }
 
   /* Horizontal card tray over the map on mobile */
@@ -753,11 +901,18 @@
 
     .map-shell { display: block; height: auto; }
 
+    /* The grab bar already states the count; a second copy inside the list
+       just repeats it. */
+    .map-results-head { display: none !important; }
+
     .map-results {
       display: block;
+      flex: 1 1 auto;
+      min-height: 0;
       height: auto;
-      overflow: visible;
-      padding: 18px 18px 120px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 18px 120px;
     }
     .spots-grid { grid-template-columns: 1fr; gap: 22px; }
 
@@ -765,16 +920,42 @@
       position: fixed;
       inset: var(--topbar-h) 0 0 0;
       z-index: 300;
-      display: none;
+      display: block;
     }
 
-    /* map mode */
-    body.map-mode-map .map-results { display: none; }
-    body.map-mode-map .map-pane { display: block; }
-    /* Sheet shows the count; the tray only slides up when a pin is tapped */
-    body.map-mode-map .map-sheet { display: flex; }
-    body.map-mode-map.map-tray-open .map-sheet { display: none; }
-    body.map-mode-map.map-tray-open .map-tray { display: flex; }
+    /* The sheet's position IS the mode: peeked shows the map, lifted shows
+       the list. Both stay mounted, so dragging between them is instant and
+       the map never has to re-initialise. */
+    .map-sheet {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0; right: 0;
+      top: var(--topbar-h);
+      height: calc(100dvh - var(--topbar-h));
+      z-index: 320;
+      background: var(--bg);
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -10px 34px rgba(26,22,18,0.16);
+      transform: translateY(var(--sheet-y, 0px));
+    }
+    .map-sheet.is-snapping { transition: transform 0.34s cubic-bezier(0.32,0.72,0,1); }
+
+    .map-sheet-grab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px 12px;
+      flex: 0 0 auto;
+      cursor: grab;
+      /* Let the handle own vertical gestures so the drag never fights scroll */
+      touch-action: none;
+    }
+
+    /* Tapping a pin swaps the sheet for that spot's card */
+    body.map-tray-open .map-sheet { opacity: 0; pointer-events: none; }
+    body.map-tray-open .map-tray { display: flex; }
 
     .map-mobile-toggle { display: flex; }
     /* The sheet already offers the way back to the list */
@@ -782,11 +963,10 @@
 
     .map-search-row { padding: 12px 14px 10px; }
 
-    /* Collapsed by default; the full form appears once expanded */
+    /* The compact pill is the only search affordance on mobile; tapping it
+       opens the full-screen filter sheet rather than expanding in place. */
     .msb-compact { display: flex; }
-    .msb-wrap { display: none; flex-wrap: wrap; border-radius: 20px; }
-    body.msb-open .msb-compact { display: none; }
-    body.msb-open .msb-wrap { display: flex; }
+    .msb-wrap { display: none; }
     .msb-segment { flex: 1 1 100%; padding: 9px 16px; border-radius: 16px; }
     .msb-div { display: none; }
     .msb-btn {
@@ -894,6 +1074,14 @@
 </div>
 
 <div class="map-shell">
+  <!-- On mobile this is the sheet that rides over the map; on desktop it
+       collapses to nothing (display:contents) and the list is a plain column. -->
+  <div class="map-sheet" id="map-sheet">
+    <div class="map-sheet-grab" id="map-sheet-grab">
+      <span class="map-sheet-handle"></span>
+      <span class="map-sheet-label" id="map-sheet-label"></span>
+    </div>
+
   <div class="map-results" id="map-results">
     <div class="map-loading" id="map-loading">Loading spots&hellip;</div>
 
@@ -910,6 +1098,7 @@
       <button class="map-reset-btn" id="map-reset">Clear filters</button>
     </div>
   </div>
+  </div>
 
   <div class="map-pane">
     <div id="map"></div>
@@ -921,11 +1110,23 @@
     <!-- Mobile: card tray, revealed when a pin is tapped -->
     <div class="map-tray" id="map-tray"></div>
 
-    <!-- Mobile: collapsed sheet showing the count; tap to go back to the list -->
-    <button class="map-sheet" id="map-sheet" type="button">
-      <span class="map-sheet-handle"></span>
-      <span class="map-sheet-label" id="map-sheet-label"></span>
+  </div>
+</div>
+
+<!-- Mobile filter sheet: one section open, the rest collapsed to label/value -->
+<div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Search filters">
+  <div class="fsheet-head">
+    <span class="fsheet-title">Find your spot</span>
+    <button class="fsheet-close" id="fsheet-close" type="button" aria-label="Close">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M5 5l14 14M19 5L5 19"/>
+      </svg>
     </button>
+  </div>
+  <div class="fsheet-body" id="fsheet-body"></div>
+  <div class="fsheet-foot">
+    <button class="fsheet-reset" id="fsheet-reset" type="button">Reset</button>
+    <button class="fsheet-search" id="fsheet-search" type="button">Search</button>
   </div>
 </div>
 
@@ -1332,9 +1533,13 @@ function renderTray(visible) {
 
   var label = document.getElementById('map-sheet-label');
   if (label) {
-    label.textContent = visible.length === 0
+    var n = visible.length;
+    /* Carries the qualifier too, since the list header is hidden on mobile.
+       Same condition renderResults uses for its note. */
+    var qualifier = (state.searchAsMove && mapReady) ? ' in this area' : '';
+    label.textContent = n === 0
       ? 'No spots in view'
-      : visible.length + (visible.length === 1 ? ' spot' : ' spots');
+      : n + (n === 1 ? ' spot' : ' spots') + qualifier;
   }
 }
 
@@ -1860,11 +2065,6 @@ function buildContinentPills() {
 function applyFilters(refit) {
   syncUrl();
   syncCompactLabel();
-  /* On mobile, collapse the expanded form back to the summary pill */
-  if (window.innerWidth <= 1024 && document.body.classList.contains('msb-open')) {
-    document.body.classList.remove('msb-open');
-    syncTopbarHeight();
-  }
   if (refit && mapReady) {
     var filtered = getFilteredSpots();
     if (filtered.filter(hasCoords).length) {
@@ -1937,33 +2137,329 @@ function syncTopbarHeight() {
 /* --------------------------------------------------------------
    13. Mobile list <-> map
    -------------------------------------------------------------- */
-function setMobileMode(toMap) {
-  var label = document.getElementById('map-mobile-toggle-text');
-  document.body.classList.toggle('map-mode-map', toMap);
-  if (!toMap) closeTray();
-  if (label) label.textContent = toMap ? 'List' : 'Map';
+/* The sheet tracks the finger rather than toggling, so the map behind it
+   stays live and coming back down is immediate — the way Airbnb's does. */
+var PEEK_PX = 88;      /* fallback until the grab bar has been measured */
+var sheetY = 0;        /* current translateY, px */
+var sheetMax = 0;      /* translateY when lowered to the peek */
+var drag = null;
+var dragMoved = false;
+
+function isMobileView() { return window.innerWidth <= 1024; }
+
+function measureSheet() {
+  var el = document.getElementById('map-sheet');
+  if (!el) return;
+  /* Show exactly the grab bar when lowered. Measuring it beats a constant:
+     a slice of the list peeking under the handle repeats the count that the
+     handle is already showing. */
+  var grab = document.getElementById('map-sheet-grab');
+  var peek = grab && grab.offsetHeight ? grab.offsetHeight : PEEK_PX;
+  sheetMax = Math.max(0, el.offsetHeight - peek);
 }
+
+function setSheetY(y, snapping) {
+  var el = document.getElementById('map-sheet');
+  if (!el) return;
+  sheetY = Math.min(sheetMax, Math.max(0, y));
+  el.classList.toggle('is-snapping', !!snapping);
+  el.style.setProperty('--sheet-y', sheetY + 'px');
+
+  var lowered = sheetMax > 0 && sheetY > sheetMax * 0.5;
+  document.body.classList.toggle('map-mode-map', lowered);
+  var label = document.getElementById('map-mobile-toggle-text');
+  if (label) label.textContent = lowered ? 'List' : 'Map';
+}
+
+function snapSheet(where) {
+  measureSheet();
+  if (where === 'peek') {
+    setSheetY(sheetMax, true);
+    if (map) setTimeout(function () { map.resize(); }, 60);
+  } else {
+    setSheetY(0, true);
+    closeTray();
+  }
+}
+
+/* Kept so existing callers keep working; the sheet position is now the mode. */
+function setMobileMode(toMap) { snapSheet(toMap ? 'peek' : 'full'); }
 
 function wireMobileToggle() {
   var btn = document.getElementById('map-mobile-toggle');
-  var label = document.getElementById('map-mobile-toggle-text');
-
-  /* The collapsed sheet is the main way back to the list, as on Airbnb */
-  var sheet = document.getElementById('map-sheet');
-  if (sheet) sheet.addEventListener('click', function () { setMobileMode(false); });
-
   btn.addEventListener('click', function () {
-    var toMap = !document.body.classList.contains('map-mode-map');
-    document.body.classList.toggle('map-mode-map', toMap);
-    if (!toMap) closeTray();
-    label.textContent = toMap ? 'List' : 'Map';
-    if (toMap && map) {
-      setTimeout(function () {
-        map.resize();
-        if (!mapReady) return;
-        fitToSpots(getFilteredSpots());
-      }, 60);
+    snapSheet(document.body.classList.contains('map-mode-map') ? 'full' : 'peek');
+  });
+
+  var grab = document.getElementById('map-sheet-grab');
+  var list = document.getElementById('map-results');
+  if (!grab || !list) return;
+
+  /* Release velocity is measured over a short trailing window rather than
+     the gap between the last two events. Touch events can arrive several to
+     the millisecond, which makes a single-pair delta read as zero and loses
+     the flick. */
+  var VELOCITY_WINDOW_MS = 80;
+
+  function start(y) {
+    measureSheet();
+    drag = { y: y, base: sheetY, samples: [{ y: y, t: Date.now() }] };
+    dragMoved = false;
+    var el = document.getElementById('map-sheet');
+    if (el) el.classList.remove('is-snapping');
+  }
+  function move(y) {
+    if (!drag) return;
+    var now = Date.now();
+    drag.samples.push({ y: y, t: now });
+    while (drag.samples.length > 2 && now - drag.samples[0].t > VELOCITY_WINDOW_MS) {
+      drag.samples.shift();
     }
+    if (Math.abs(y - drag.y) > 4) dragMoved = true;
+    setSheetY(drag.base + (y - drag.y), false);
+  }
+  function releaseVelocity() {
+    var s = drag.samples;
+    if (s.length < 2) return 0;
+    var dt = s[s.length - 1].t - s[0].t;
+    if (dt <= 0) return 0;                      /* too fast to measure */
+    return (s[s.length - 1].y - s[0].y) / dt;   /* px per ms, + is downward */
+  }
+  function end() {
+    if (!drag) return;
+    var v = releaseVelocity();
+    drag = null;
+    if (!dragMoved) return;
+    /* A decisive flick beats position, the way native sheets behave. */
+    if (Math.abs(v) > 0.45) snapSheet(v > 0 ? 'peek' : 'full');
+    else snapSheet(sheetY > sheetMax * 0.5 ? 'peek' : 'full');
+  }
+
+  grab.addEventListener('touchstart', function (e) { start(e.touches[0].clientY); }, { passive: true });
+  grab.addEventListener('touchmove', function (e) { move(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
+  grab.addEventListener('touchend', end);
+  grab.addEventListener('touchcancel', end);
+
+  /* Tap the grab bar too, for anyone who doesn't think to drag it. */
+  grab.addEventListener('click', function () {
+    if (!dragMoved) snapSheet(document.body.classList.contains('map-mode-map') ? 'full' : 'peek');
+  });
+
+  /* Dragging down from the top of the list lowers the sheet; once it is
+     back up, the same gesture returns to scrolling the list. */
+  list.addEventListener('touchstart', function (e) {
+    if (list.scrollTop <= 0) start(e.touches[0].clientY);
+  }, { passive: true });
+  list.addEventListener('touchmove', function (e) {
+    if (!drag) return;
+    var y = e.touches[0].clientY;
+    if (y < drag.y && sheetY <= 0) { drag = null; return; }   /* let it scroll */
+    move(y);
+    e.preventDefault();
+  }, { passive: false });
+  list.addEventListener('touchend', end);
+  list.addEventListener('touchcancel', end);
+
+  measureSheet();
+  setSheetY(0, false);
+  window.addEventListener('resize', function () {
+    if (!isMobileView()) return;
+    var lowered = document.body.classList.contains('map-mode-map');
+    measureSheet();
+    setSheetY(lowered ? sheetMax : 0, false);
+  });
+}
+
+/* --------------------------------------------------------------
+   13b. Mobile filter sheet
+   One section open at a time, the rest collapsed to a label/value
+   row — the same shape as Airbnb's search sheet.
+   -------------------------------------------------------------- */
+var FSECTIONS = [
+  { key: 'dest',   label: 'Destination', title: 'Where to?' },
+  { key: 'vibe',   label: 'Vibe',        title: 'What&rsquo;s the vibe?' },
+  { key: 'budget', label: 'Budget',      title: 'What&rsquo;s the budget?' }
+];
+var fOpen = 'dest';
+
+function fValue(key) {
+  if (key === 'dest') return state.destination || 'Anywhere';
+  if (key === 'vibe') return state.vibe || 'Any Vibe';
+  var out = 'Any Budget';
+  BUDGETS.forEach(function (b) { if (b.value === state.budget) out = b.label; });
+  return out;
+}
+
+function openFilterSheet() {
+  fOpen = 'dest';
+  renderFilterSheet();
+  document.body.classList.add('fsheet-open');
+}
+
+function closeFilterSheet() {
+  document.body.classList.remove('fsheet-open');
+}
+
+function fItem(val, label, on) {
+  return '<button class="fp-item' + (on ? ' is-on' : '') + '" data-val="' + escapeHtml(val) + '" type="button">'
+    + '<span>' + label + '</span>'
+    + (on ? '<span class="fp-item-sub">Selected</span>' : '')
+    + '</button>';
+}
+
+function renderFilterSheet() {
+  var body = document.getElementById('fsheet-body');
+  if (!body) return;
+  var html = '';
+
+  FSECTIONS.forEach(function (sec) {
+    if (sec.key !== fOpen) {
+      html += '<button class="fpanel fpanel-collapsed" data-sec="' + sec.key + '" type="button">'
+        + '<span class="fp-label">' + sec.label + '</span>'
+        + '<span class="fp-value">' + escapeHtml(fValue(sec.key)) + '</span>'
+        + '</button>';
+      return;
+    }
+
+    html += '<div class="fpanel fpanel-open"><h3 class="fp-title">' + sec.title + '</h3>';
+
+    if (sec.key === 'dest') {
+      html += '<div class="fp-search">'
+        + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">'
+        + '<circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>'
+        + '<input type="text" id="fsheet-dest" placeholder="Search destinations" '
+        + 'value="' + escapeHtml(state.destination) + '" autocomplete="off" spellcheck="false">'
+        + '</div>'
+        + '<div class="fp-list" id="fsheet-dest-list"></div>';
+    } else if (sec.key === 'vibe') {
+      html += '<div class="fp-opts">' + fItem('', 'Any Vibe', !state.vibe);
+      buildVibeList().forEach(function (v) { html += fItem(v, escapeHtml(v), state.vibe === v); });
+      html += '</div>';
+    } else {
+      html += '<div class="fp-opts">' + fItem('', 'Any Budget', !state.budget);
+      BUDGETS.forEach(function (b) { html += fItem(b.value, escapeHtml(b.label), state.budget === b.value); });
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+
+  body.innerHTML = html;
+  wireFilterPanels();
+  if (fOpen === 'dest') renderFsheetDest(state.destination || '');
+}
+
+function renderFsheetDest(q) {
+  var list = document.getElementById('fsheet-dest-list');
+  if (!list) return;
+  var needle = (q || '').toLowerCase().trim();
+
+  var matches = destIndex.filter(function (d) {
+    return !needle || d.label.toLowerCase().indexOf(needle) > -1;
+  });
+  if (needle) {
+    matches.sort(function (a, b) {
+      var ap = a.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
+      var bp = b.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
+      if (ap !== bp) return ap - bp;
+      return a.label.length - b.label.length;
+    });
+  }
+  matches = matches.slice(0, 30);
+
+  if (!matches.length) {
+    list.innerHTML = '<div class="fp-empty">No destinations match &ldquo;' + escapeHtml(q) + '&rdquo;</div>';
+    return;
+  }
+
+  var html = '';
+  var lastType = '';
+  matches.forEach(function (d) {
+    if (d.type !== lastType) {
+      html += '<div class="fp-group">'
+        + (d.type === 'Spot' ? 'Spots' : d.type === 'Region' ? 'Regions' : 'Countries')
+        + '</div>';
+      lastType = d.type;
+    }
+    html += '<button class="fp-item" data-q="' + escapeHtml(d.q) + '" type="button">'
+      + '<span>' + escapeHtml(d.label) + '</span>'
+      + '<span class="fp-item-sub">' + escapeHtml(d.sub || '') + '</span>'
+      + '</button>';
+  });
+  list.innerHTML = html;
+
+  list.querySelectorAll('.fp-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      state.destination = item.getAttribute('data-q') || '';
+      fOpen = 'vibe';
+      renderFilterSheet();
+    });
+  });
+}
+
+function wireFilterPanels() {
+  var body = document.getElementById('fsheet-body');
+
+  body.querySelectorAll('.fpanel-collapsed').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      fOpen = btn.getAttribute('data-sec');
+      renderFilterSheet();
+    });
+  });
+
+  var input = document.getElementById('fsheet-dest');
+  if (input) {
+    input.addEventListener('input', function () {
+      state.destination = input.value;
+      renderFsheetDest(input.value);
+    });
+  }
+
+  if (fOpen === 'vibe' || fOpen === 'budget') {
+    body.querySelectorAll('.fpanel-open .fp-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var val = item.getAttribute('data-val') || '';
+        if (fOpen === 'vibe') { state.vibe = val; fOpen = 'budget'; }
+        else { state.budget = val; }
+        renderFilterSheet();
+      });
+    });
+  }
+}
+
+function wireFilterSheet() {
+  var close = document.getElementById('fsheet-close');
+  var reset = document.getElementById('fsheet-reset');
+  var search = document.getElementById('fsheet-search');
+  if (close) close.addEventListener('click', closeFilterSheet);
+
+  if (reset) reset.addEventListener('click', function () {
+    state.destination = '';
+    state.vibe = '';
+    state.budget = '';
+    state.continent = '';
+    buildContinentPills();
+    renderFilterSheet();
+  });
+
+  if (search) search.addEventListener('click', function () {
+    /* Push the sheet's choices back onto the desktop bar so the two views
+       never disagree if the window is later widened. */
+    var di = document.getElementById('msb-dest-input');
+    if (di) di.value = state.destination;
+    var vv = document.getElementById('msb-vibe-val');
+    if (vv) {
+      vv.textContent = state.vibe || 'Any Vibe';
+      vv.classList.toggle('placeholder', !state.vibe);
+    }
+    var bv = document.getElementById('msb-budget-val');
+    if (bv) {
+      var lbl = 'Any Budget';
+      BUDGETS.forEach(function (b) { if (b.value === state.budget) lbl = b.label; });
+      bv.textContent = lbl;
+      bv.classList.toggle('placeholder', !state.budget);
+    }
+    closeFilterSheet();
+    applyFilters(true);
   });
 }
 
@@ -2029,13 +2525,8 @@ function wireChrome() {
     if (!e.target.closest('#msb-wrap')) closeAllDropdowns();
   });
 
-  /* Compact mobile pill expands into the full search form */
-  document.getElementById('msb-compact').addEventListener('click', function () {
-    document.body.classList.add('msb-open');
-    syncTopbarHeight();
-    var input = document.getElementById('msb-dest-input');
-    if (input) input.focus();
-  });
+  /* Compact mobile pill opens the full-screen filter sheet */
+  document.getElementById('msb-compact').addEventListener('click', openFilterSheet);
 
   /* Tapping the map dismisses the pin card */
   var mapEl = document.getElementById('map');
@@ -2066,6 +2557,7 @@ function wireChrome() {
 (async function boot() {
   wireChrome();
   wireMobileToggle();
+  wireFilterSheet();
   readUrl();
 
   allSpots = await fetchSpots();
