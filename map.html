@@ -715,18 +715,37 @@
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 900;
+    /* nav.js pins #navbar at z-index 10000; the sheet has to clear it or the
+       nav pill sits over this header and swallows taps meant for the X. */
+    z-index: 10050;
     background: var(--bg);
     flex-direction: column;
   }
   body.fsheet-open .fsheet { display: flex; }
   body.fsheet-open { overflow: hidden; }
+  /* Belt and braces: the nav is also hidden outright while the sheet is up. */
+  body.fsheet-open #navbar,
+  body.fsheet-open .nav-backdrop,
+  body.fsheet-open .map-mobile-toggle { display: none !important; }
+
+  .fsheet.is-dragging { transition: none; }
+  .fsheet.is-closing { transition: transform 0.2s ease-in; }
 
   .fsheet-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 14px 16px 10px;
+    flex: 0 0 auto;
+    touch-action: none;    /* the header owns vertical gestures */
+  }
+  .fsheet-grip {
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 40px; height: 4px;
+    border-radius: 100px;
+    background: rgba(26,22,18,0.18);
   }
   .fsheet-title {
     font-family: 'Cormorant', serif;
@@ -734,6 +753,7 @@
     color: var(--ink);
   }
   .fsheet-close {
+    position: relative;
     width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
     border: 1px solid var(--hairline);
@@ -741,6 +761,12 @@
     background: var(--white);
     color: var(--ink);
     cursor: pointer;
+  }
+  /* Keeps the 32px circle but gives it a 48px target, over Apple's 44 minimum */
+  .fsheet-close::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
   }
 
   .fsheet-body {
@@ -1115,7 +1141,8 @@
 
 <!-- Mobile filter sheet: one section open, the rest collapsed to label/value -->
 <div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Search filters">
-  <div class="fsheet-head">
+  <div class="fsheet-head" id="fsheet-head">
+    <span class="fsheet-grip" aria-hidden="true"></span>
     <span class="fsheet-title">Find your spot</span>
     <button class="fsheet-close" id="fsheet-close" type="button" aria-label="Close">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1460,6 +1487,11 @@ function matchesVibe(s, vibe) {
     if (String(pool[i]).toLowerCase().indexOf(v) > -1) return true;
   }
   return false;
+}
+
+/* "1 spots" reads as a bug to anyone who sees it. */
+function spotCount(n) {
+  return n + (n === 1 ? ' spot' : ' spots');
 }
 
 function matchesDestination(s, q) {
@@ -1907,10 +1939,10 @@ function buildDestIndex() {
 
   var out = [];
   Object.keys(countries).sort().forEach(function (c) {
-    out.push({ type: 'Country', label: c, sub: continentOf({ Country: c }) + ' · ' + countries[c] + ' spots', q: c });
+    out.push({ type: 'Country', label: c, sub: continentOf({ Country: c }) + ' · ' + spotCount(countries[c]), q: c });
   });
   Object.keys(regions).sort().forEach(function (r) {
-    out.push({ type: 'Region', label: r, sub: regions[r].country + ' · ' + regions[r].count + ' spots', q: r });
+    out.push({ type: 'Region', label: r, sub: regions[r].country + ' · ' + spotCount(regions[r].count), q: r });
   });
   allSpots.forEach(function (s) {
     if (s.Name) out.push({ type: 'Spot', label: s.Name, sub: (s.Region || '') + ', ' + (s.Country || ''), q: s.Name, spot: s });
@@ -2294,10 +2326,126 @@ function openFilterSheet() {
   fOpen = 'dest';
   renderFilterSheet();
   document.body.classList.add('fsheet-open');
+  bindViewportSync();
 }
 
 function closeFilterSheet() {
   document.body.classList.remove('fsheet-open');
+  unbindViewportSync();
+  var el = document.getElementById('fsheet');
+  if (el) {
+    el.classList.remove('is-dragging', 'is-closing');
+    el.style.transform = '';
+  }
+}
+
+/* iOS keeps position:fixed pinned to the layout viewport, so an open keyboard
+   hides the footer — and with it the Search button, which is the whole point
+   of typing. Tracking visualViewport keeps the footer just above the keyboard. */
+function syncSheetToViewport() {
+  var vv = window.visualViewport;
+  var el = document.getElementById('fsheet');
+  if (!vv || !el) return;
+  el.style.height = vv.height + 'px';
+  el.style.top = vv.offsetTop + 'px';
+}
+
+function bindViewportSync() {
+  if (!window.visualViewport) return;
+  window.visualViewport.addEventListener('resize', syncSheetToViewport);
+  window.visualViewport.addEventListener('scroll', syncSheetToViewport);
+  syncSheetToViewport();
+}
+
+function unbindViewportSync() {
+  var el = document.getElementById('fsheet');
+  if (el) { el.style.height = ''; el.style.top = ''; }
+  if (!window.visualViewport) return;
+  window.visualViewport.removeEventListener('resize', syncSheetToViewport);
+  window.visualViewport.removeEventListener('scroll', syncSheetToViewport);
+}
+
+/* Applies whatever the sheet currently holds and closes it. Shared by the
+   Search button and the keyboard's search key. */
+function runFilterSearch() {
+  /* Push the sheet's choices back onto the desktop bar so the two views
+     never disagree if the window is later widened. */
+  var di = document.getElementById('msb-dest-input');
+  if (di) di.value = state.destination;
+  var vv = document.getElementById('msb-vibe-val');
+  if (vv) {
+    vv.textContent = state.vibe || 'Any Vibe';
+    vv.classList.toggle('placeholder', !state.vibe);
+  }
+  var bv = document.getElementById('msb-budget-val');
+  if (bv) {
+    var lbl = 'Any Budget';
+    BUDGETS.forEach(function (b) { if (b.value === state.budget) lbl = b.label; });
+    bv.textContent = lbl;
+    bv.classList.toggle('placeholder', !state.budget);
+  }
+  closeFilterSheet();
+  applyFilters(true);
+}
+
+function wireFilterSheet() {
+  var close = document.getElementById('fsheet-close');
+  var reset = document.getElementById('fsheet-reset');
+  var search = document.getElementById('fsheet-search');
+  var head = document.getElementById('fsheet-head');
+  var el = document.getElementById('fsheet');
+
+  if (close) close.addEventListener('click', closeFilterSheet);
+  if (search) search.addEventListener('click', runFilterSearch);
+
+  if (reset) reset.addEventListener('click', function () {
+    state.destination = '';
+    state.vibe = '';
+    state.budget = '';
+    state.continent = '';
+    buildContinentPills();
+    renderFilterSheet();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.body.classList.contains('fsheet-open')) {
+      closeFilterSheet();
+    }
+  });
+
+  /* Swipe the header down to dismiss, so the X is never the only way out. */
+  if (head && el) {
+    var from = null;
+    head.addEventListener('touchstart', function (e) {
+      from = e.touches[0].clientY;
+      el.classList.add('is-dragging');
+    }, { passive: true });
+
+    head.addEventListener('touchmove', function (e) {
+      if (from === null) return;
+      var dy = e.touches[0].clientY - from;
+      if (dy <= 0) return;                 /* only downward closes */
+      el.style.transform = 'translateY(' + dy + 'px)';
+      e.preventDefault();
+    }, { passive: false });
+
+    function release(e) {
+      if (from === null) return;
+      var y = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : from;
+      var dy = y - from;
+      from = null;
+      el.classList.remove('is-dragging');
+      if (dy > 90) {
+        el.classList.add('is-closing');
+        el.style.transform = 'translateY(100%)';
+        setTimeout(closeFilterSheet, 200);
+      } else {
+        el.style.transform = '';
+      }
+    }
+    head.addEventListener('touchend', release);
+    head.addEventListener('touchcancel', release);
+  }
 }
 
 function fItem(val, label, on) {
@@ -2327,8 +2475,9 @@ function renderFilterSheet() {
       html += '<div class="fp-search">'
         + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">'
         + '<circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>'
-        + '<input type="text" id="fsheet-dest" placeholder="Search destinations" '
-        + 'value="' + escapeHtml(state.destination) + '" autocomplete="off" spellcheck="false">'
+        + '<input type="search" id="fsheet-dest" placeholder="Search destinations" '
+        + 'value="' + escapeHtml(state.destination) + '" autocomplete="off" spellcheck="false" '
+        + 'enterkeyhint="search" inputmode="search">'
         + '</div>'
         + '<div class="fp-list" id="fsheet-dest-list"></div>';
     } else if (sec.key === 'vibe') {
@@ -2389,8 +2538,10 @@ function renderFsheetDest(q) {
 
   list.querySelectorAll('.fp-item').forEach(function (item) {
     item.addEventListener('click', function () {
+      /* Deliberately stays on this section. Every filter here is optional, so
+         someone after just "Sorrento" should be one tap from Search rather
+         than pushed through vibe and budget first. */
       state.destination = item.getAttribute('data-q') || '';
-      fOpen = 'vibe';
       renderFilterSheet();
     });
   });
@@ -2412,56 +2563,31 @@ function wireFilterPanels() {
       state.destination = input.value;
       renderFsheetDest(input.value);
     });
+    /* The typed text is the query — no suggestion has to be picked. iOS shows
+       a search key for enterkeyhint="search"; honour it, since the footer can
+       sit behind the keyboard. */
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        input.blur();
+        runFilterSearch();
+      }
+    });
   }
 
   if (fOpen === 'vibe' || fOpen === 'budget') {
     body.querySelectorAll('.fpanel-open .fp-item').forEach(function (item) {
       item.addEventListener('click', function () {
         var val = item.getAttribute('data-val') || '';
-        if (fOpen === 'vibe') { state.vibe = val; fOpen = 'budget'; }
-        else { state.budget = val; }
-        renderFilterSheet();
+        if (fOpen === 'vibe') state.vibe = val;
+        else state.budget = val;
+        renderFilterSheet();   /* stays open; Search is always one tap away */
       });
     });
   }
 }
 
-function wireFilterSheet() {
-  var close = document.getElementById('fsheet-close');
-  var reset = document.getElementById('fsheet-reset');
-  var search = document.getElementById('fsheet-search');
-  if (close) close.addEventListener('click', closeFilterSheet);
 
-  if (reset) reset.addEventListener('click', function () {
-    state.destination = '';
-    state.vibe = '';
-    state.budget = '';
-    state.continent = '';
-    buildContinentPills();
-    renderFilterSheet();
-  });
-
-  if (search) search.addEventListener('click', function () {
-    /* Push the sheet's choices back onto the desktop bar so the two views
-       never disagree if the window is later widened. */
-    var di = document.getElementById('msb-dest-input');
-    if (di) di.value = state.destination;
-    var vv = document.getElementById('msb-vibe-val');
-    if (vv) {
-      vv.textContent = state.vibe || 'Any Vibe';
-      vv.classList.toggle('placeholder', !state.vibe);
-    }
-    var bv = document.getElementById('msb-budget-val');
-    if (bv) {
-      var lbl = 'Any Budget';
-      BUDGETS.forEach(function (b) { if (b.value === state.budget) lbl = b.label; });
-      bv.textContent = lbl;
-      bv.classList.toggle('placeholder', !state.budget);
-    }
-    closeFilterSheet();
-    applyFilters(true);
-  });
-}
 
 /* --------------------------------------------------------------
    14. Boot
