@@ -1394,6 +1394,7 @@ var BUDGETS = [
 var allSpots = [];
 var state = {
   destination: '',
+  placeLabel: '',   /* a geocoded place: shown, but never used to filter */
   vibes: [],        /* multi-select: 53 listings narrow to zero very fast */
   budgets: [],
   continent: '',
@@ -1751,7 +1752,7 @@ function syncCompactLabel() {
   var main = document.getElementById('msb-compact-main');
   var sub = document.getElementById('msb-compact-sub');
   if (!main || !sub) return;
-  main.textContent = state.destination || 'Search destinations';
+  main.textContent = state.destination || state.placeLabel || 'Search destinations';
   var bits = [vibeSummary(), budgetSummary()];
   if (state.continent) bits.push(state.continent);
   sub.textContent = bits.join(' · ');
@@ -2558,6 +2559,113 @@ function runFilterSearch() {
    Airbnb hands the whole screen over to the search instead, which is
    what this is.
    -------------------------------------------------------------- */
+/* --------------------------------------------------------------
+   13d. Global place lookup
+   Our index only knows the 13 countries we actually have spots in, so
+   "Long Island" or "California" matched nothing. Mapbox geocoding fills
+   in the rest of the world, the way a map search behaves. Results that
+   hold real listings stay on top; a bare place just moves the map.
+   -------------------------------------------------------------- */
+var GEO_MIN_CHARS = 3;
+var GEO_DEBOUNCE_MS = 250;
+var geoTimer = null;
+var geoCache = {};
+var geoSeq = 0;
+
+function geocodePlaces(q, cb) {
+  var key = q.toLowerCase().trim();
+  if (geoCache[key]) { cb(geoCache[key]); return; }
+  if (!MAPBOX_TOKEN || MAPBOX_TOKEN.indexOf('PASTE_') === 0) { cb([]); return; }
+
+  var seq = ++geoSeq;
+  var url = 'https://api.mapbox.com/search/geocode/v6/forward'
+    + '?q=' + encodeURIComponent(q)
+    + '&limit=6&autocomplete=true'
+    + '&types=country,region,district,place,locality,neighborhood'
+    + '&access_token=' + MAPBOX_TOKEN;
+
+  fetch(url)
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (seq !== geoSeq) return;          /* a later keystroke already won */
+      /* Tolerant of both geocoding response shapes: v6 puts the name under
+         properties, v5 uses text/place_name/center at the feature level. */
+      var out = ((data && data.features) || []).map(function (f) {
+        var p = f.properties || {};
+        var c = (f.geometry && f.geometry.coordinates) || f.center || [];
+        var label = p.name || p.name_preferred || f.text || '';
+        var sub = p.place_formatted || p.full_address || f.place_name || '';
+        /* v5's place_name repeats the name; trim it so the row is not "Paris, Paris, France" */
+        if (label && sub.indexOf(label + ', ') === 0) sub = sub.slice(label.length + 2);
+        return {
+          label: label,
+          sub: sub,
+          lng: Number(c[0]),
+          lat: Number(c[1]),
+          bbox: p.bbox || f.bbox || null
+        };
+      }).filter(function (d) { return d.label && isFinite(d.lat) && isFinite(d.lng); });
+      geoCache[key] = out;
+      cb(out);
+    })
+    .catch(function () { cb([]); });      /* offline or blocked: our own list still works */
+}
+
+function placeRowsHtml(places, q) {
+  var html = '<div class="fp-group">Elsewhere on the map</div>';
+  places.forEach(function (d) {
+    html += '<button class="fp-item" type="button"'
+      + ' data-lat="' + d.lat + '" data-lng="' + d.lng + '"'
+      + (d.bbox ? ' data-bbox="' + escapeHtml(d.bbox.join(',')) + '"' : '')
+      + ' data-label="' + escapeHtml(d.label) + '">'
+      + '<span>' + highlightMatch(d.label, q) + '</span>'
+      + '<span class="fp-item-sub">' + escapeHtml(d.sub) + '</span>'
+      + '</button>';
+  });
+  return html;
+}
+
+/* A geocoded place is not a filter — nothing in the catalogue is called
+   "Long Island". Move the map there instead and let what is in view speak. */
+function pickPlace(el) {
+  var lat = parseFloat(el.getAttribute('data-lat'));
+  var lng = parseFloat(el.getAttribute('data-lng'));
+  var bbox = (el.getAttribute('data-bbox') || '').split(',').map(parseFloat);
+  var label = el.getAttribute('data-label') || '';
+
+  state.destination = '';
+  state.placeLabel = label;
+  closeDestSearch();
+  closeFilterSheet();
+  syncDesktopBar();
+  applyFilters(false);
+
+  if (!map) return;
+  if (bbox.length === 4 && bbox.every(isFinite)) {
+    map.fitBounds([[bbox[0], bbox[1]], [bbox[2], bbox[3]]], { padding: 60, maxZoom: 9, duration: 700 });
+  } else if (isFinite(lat) && isFinite(lng)) {
+    map.easeTo({ center: [lng, lat], zoom: 7, duration: 700 });
+  }
+}
+
+function wireDestRows(list) {
+  var near = list.querySelector('[data-near]');
+  if (near) near.addEventListener('click', function () { useMyLocation(list); });
+
+  list.querySelectorAll('.fp-item[data-q]').forEach(function (item) {
+    item.addEventListener('click', function () {
+      state.destination = item.getAttribute('data-q') || '';
+      state.placeLabel = '';
+      closeDestSearch();
+      renderFilterSheet();
+    });
+  });
+
+  list.querySelectorAll('.fp-item[data-lat]').forEach(function (item) {
+    item.addEventListener('click', function () { pickPlace(item); });
+  });
+}
+
 function highlightMatch(label, q) {
   var needle = (q || '').trim();
   if (!needle) return escapeHtml(label);
@@ -2678,18 +2786,25 @@ function closeDestSearch() {
 function renderDestSearch(q) {
   var list = document.getElementById('dsearch-list');
   if (!list) return;
-  list.innerHTML = destListHtml(q, !(q || '').trim());
+  var needle = (q || '').trim();
 
-  var near = list.querySelector('[data-near]');
-  if (near) near.addEventListener('click', function () { useMyLocation(list); });
+  /* Our own spots render straight away; the wider world is a network call,
+     so it lands a moment later rather than holding up every keystroke. */
+  list.innerHTML = destListHtml(q, !needle);
+  wireDestRows(list);
 
-  list.querySelectorAll('.fp-item[data-q]').forEach(function (item) {
-    item.addEventListener('click', function () {
-      state.destination = item.getAttribute('data-q') || '';
-      closeDestSearch();
-      renderFilterSheet();
+  clearTimeout(geoTimer);
+  if (needle.length < GEO_MIN_CHARS) return;
+
+  geoTimer = setTimeout(function () {
+    geocodePlaces(needle, function (places) {
+      if (!places.length) return;
+      var input = document.getElementById('dsearch-input');
+      if (!input || input.value.trim() !== needle) return;   /* stale reply */
+      list.insertAdjacentHTML('beforeend', placeRowsHtml(places, needle));
+      wireDestRows(list);
     });
-  });
+  }, GEO_DEBOUNCE_MS);
 }
 
 function wireDestSearch() {
@@ -2710,6 +2825,7 @@ function wireDestSearch() {
   if (input) {
     input.addEventListener('input', function () {
       state.destination = input.value;
+      state.placeLabel = '';
       renderDestSearch(input.value);
     });
     /* Whatever is typed is the query — nothing has to be picked. */
@@ -2735,6 +2851,7 @@ function wireFilterSheet() {
 
   if (reset) reset.addEventListener('click', function () {
     state.destination = '';
+    state.placeLabel = '';
     state.vibes = [];
     state.budgets = [];
     state.continent = '';
@@ -2786,15 +2903,41 @@ function wireFilterSheet() {
   }
 }
 
+/* A tick rather than the word "Selected": with multi-select several rows can
+   be on at once, and a column of repeated words reads as noise. */
+var TICK_SVG = '<svg class="fp-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+  + 'stroke="currentColor" stroke-width="2.2"><path d="M4 12.5l5.5 5.5L20 7"/></svg>';
+
 function fItem(val, label, on) {
-  /* A tick rather than the word "Selected": with multi-select several rows
-     can be on at once, and repeated words read as noise. */
-  var tick = '<svg class="fp-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" '
-    + 'stroke="currentColor" stroke-width="2.2"><path d="M4 12.5l5.5 5.5L20 7"/></svg>';
   return '<button class="fp-item' + (on ? ' is-on' : '') + '" data-val="' + escapeHtml(val) + '" type="button">'
     + '<span>' + label + '</span>'
-    + (on ? tick : '')
+    + (on ? TICK_SVG : '')
     + '</button>';
+}
+
+/* Toggling repaints the rows in place. Re-rendering the sheet would throw the
+   list back to the top, losing your place halfway down the vibes. */
+function refreshOptionRows() {
+  var body = document.getElementById('fsheet-body');
+  if (!body) return;
+  var arr = fOpen === 'vibe' ? state.vibes : state.budgets;
+
+  body.querySelectorAll('.fpanel-open .fp-item').forEach(function (item) {
+    var val = item.getAttribute('data-val') || '';
+    var on = val ? arr.indexOf(val) > -1 : !arr.length;
+    item.classList.toggle('is-on', on);
+    var tick = item.querySelector('.fp-tick');
+    if (on && !tick) item.insertAdjacentHTML('beforeend', TICK_SVG);
+    if (!on && tick) tick.parentNode.removeChild(tick);
+  });
+
+  /* The collapsed rows carry the summary, so they move with it. */
+  body.querySelectorAll('.fpanel-collapsed').forEach(function (btn) {
+    var v = btn.querySelector('.fp-value');
+    if (v) v.textContent = fValue(btn.getAttribute('data-sec'));
+  });
+
+  syncDesktopBar();
 }
 
 function renderFilterSheet() {
@@ -2862,6 +3005,7 @@ function renderFsheetDest(q) {
       /* Stays on this section: every filter is optional, so someone after
          just "Sorrento" should be one tap from Search. */
       state.destination = item.getAttribute('data-q') || '';
+      state.placeLabel = '';
       renderFilterSheet();
     });
   });
@@ -2898,7 +3042,7 @@ function wireFilterPanels() {
         var arr = fOpen === 'vibe' ? state.vibes : state.budgets;
         if (!val) arr.length = 0;      /* the "Any" row clears the whole set */
         else toggleIn(arr, val);
-        renderFilterSheet();   /* stays open; Search is always one tap away */
+        refreshOptionRows();   /* in place, so the list keeps its position */
       });
     });
   }
@@ -2981,7 +3125,7 @@ function wireChrome() {
   });
 
   document.getElementById('map-reset').addEventListener('click', function () {
-    state.destination = ''; state.vibes = []; state.budgets = []; state.continent = '';
+    state.destination = ''; state.placeLabel = ''; state.vibes = []; state.budgets = []; state.continent = '';
     /* Rebuild rather than relabel: the dropdowns carry per-option ticks now,
        so writing the summary alone would leave them looking still-selected. */
     syncDesktopBar();
