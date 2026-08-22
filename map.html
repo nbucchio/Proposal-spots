@@ -1407,6 +1407,11 @@ var clusterMarkers = [];   /* pooled cluster markers, rebuilt on each pass */
 var activePopup = null;
 var mapReady = false;
 var pendingFit = true;     /* fit to results the first time only */
+/* The viewport filter only starts once someone actually moves the map. A
+   phone cannot show the whole globe at once (Mapbox floors zoom at 0), so
+   filtering by bounds on load would always hide spots on the far side of
+   the world and undercount the catalogue before anyone has done anything. */
+var userMovedMap = false;
 
 /* --------------------------------------------------------------
    4. Data — mirrors fetchFromAirtable() in index.html so cards
@@ -1688,7 +1693,7 @@ function getFilteredSpots() {
 
 /* Of those, the ones currently inside the map viewport */
 function getVisibleSpots(filtered) {
-  if (!state.searchAsMove || !map || !mapReady) return filtered;
+  if (!state.searchAsMove || !map || !mapReady || !userMovedMap) return filtered;
   var b = map.getBounds();
   if (!b) return filtered;
   return filtered.filter(function (s) {
@@ -1718,7 +1723,7 @@ function renderResults() {
 
   var noCoords = filtered.filter(function (s) { return !hasCoords(s); }).length;
   var noteBits = [];
-  if (state.searchAsMove && mapReady) noteBits.push('in this area');
+  if (state.searchAsMove && mapReady && userMovedMap) noteBits.push('in this area');
   if (noCoords) noteBits.push(noCoords + ' not yet mapped');
   noteEl.textContent = noteBits.join(' · ');
 
@@ -1740,7 +1745,7 @@ function renderTray(visible) {
     var n = visible.length;
     /* Carries the qualifier too, since the list header is hidden on mobile.
        Same condition renderResults uses for its note. */
-    var qualifier = (state.searchAsMove && mapReady) ? ' in this area' : '';
+    var qualifier = (state.searchAsMove && mapReady && userMovedMap) ? ' in this area' : '';
     label.textContent = n === 0
       ? 'No spots in view'
       : n + (n === 1 ? ' spot' : ' spots') + qualifier;
@@ -1831,9 +1836,12 @@ function initMap() {
     renderResults();
   });
 
-  /* Re-filter the list whenever the viewport settles */
-  map.on('moveend', function () {
+  /* Re-filter the list whenever the viewport settles. originalEvent is only
+     present for a real gesture, which keeps our own opening fitBounds from
+     counting as the user narrowing the search. */
+  map.on('moveend', function (e) {
     if (!mapReady) return;
+    if (e && e.originalEvent) userMovedMap = true;
     if (state.searchAsMove) renderResults();
     else placeMarkers();
   });
@@ -1866,6 +1874,23 @@ function fitToSpots(spots) {
     map.easeTo({ center: [pts[0].Longitude, pts[0].Latitude], zoom: 9, duration: 600 });
     return;
   }
+  var lngs = pts.map(function (s) { return s.Longitude; });
+  var west = Math.min.apply(null, lngs);
+  var east = Math.max.apply(null, lngs);
+
+  /* Costa Rica to Bali is 200 degrees of longitude. A bounding box that wide
+     can be read as going either way round the globe, and fitBounds picking
+     the short way lands on the empty Pacific. Show a plain world view. */
+  if (east - west > 180) {
+    var w = (map.getContainer() && map.getContainer().offsetWidth) || window.innerWidth;
+    map.easeTo({
+      center: [10, 15],
+      zoom: Math.max(0, Math.log(w / 512) / Math.LN2 - 0.15),
+      duration: 700
+    });
+    return;
+  }
+
   var b = new mapboxgl.LngLatBounds();
   pts.forEach(function (s) { b.extend([s.Longitude, s.Latitude]); });
   map.fitBounds(b, { padding: 70, maxZoom: 11, duration: 700 });
