@@ -728,6 +728,84 @@
   body.fsheet-open .nav-backdrop,
   body.fsheet-open .map-mobile-toggle { display: none !important; }
 
+  /* ---------- Full-screen destination search ---------- */
+  .dsearch {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10060;          /* above the filter sheet, which is above the nav */
+    background: var(--bg);
+    flex-direction: column;
+  }
+  body.dsearch-open .dsearch { display: flex; }
+  body.dsearch-open { overflow: hidden; }
+  body.dsearch-open #navbar,
+  body.dsearch-open .nav-backdrop { display: none !important; }
+
+  .dsearch-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .dsearch-back {
+    flex: 0 0 auto;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .dsearch-field {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    background: var(--white);
+    padding: 10px 14px;
+    color: var(--ink);
+  }
+  .dsearch-field input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;         /* never below 16px — iOS zooms otherwise */
+    color: var(--ink);
+  }
+  .dsearch-field input::-webkit-search-cancel-button { display: none; }
+  .dsearch-clear {
+    flex: 0 0 auto;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(26,22,18,0.08);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .dsearch-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 18px 24px;
+  }
+  .dsearch-list .fp-item { padding: 14px 4px; }
+
+  .fp-item strong { font-weight: 600; }
+  .fp-near { border-bottom: 1px solid var(--hairline); }
+  .fp-near-title { display: block; }
+  .fp-near svg { color: var(--accent); }
+
   .fsheet.is-dragging { transition: none; }
   .fsheet.is-closing { transition: transform 0.2s ease-in; }
 
@@ -808,12 +886,23 @@
   }
   .fpanel-open { padding: 18px 18px 16px; }
   .fp-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
     font-family: 'Cormorant', serif;
     font-size: 22px;
     font-weight: 400;
     margin: 0 0 14px;
     color: var(--ink);
+    text-align: left;
   }
+  .fp-title svg { opacity: 0.4; flex: 0 0 auto; }
+  .fp-tick { color: var(--accent); flex: 0 0 auto; }
 
   .fp-search {
     display: flex;
@@ -831,10 +920,15 @@
     outline: none;
     background: transparent;
     font-family: 'Jost', sans-serif;
-    font-size: 14px;
+    /* 16px is not a style choice: iOS Safari force-zooms the page when a
+       focused input is smaller, which is what made typing unusable. */
+    font-size: 16px;
     color: var(--ink);
   }
-  .fp-list { margin-top: 6px; max-height: 320px; overflow-y: auto; }
+  /* Capped so the other collapsed rows stay on screen. Without this the
+     vibe list runs past the fold and Budget looks like it does not exist. */
+  .fp-list, .fp-opts { max-height: 38vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .fp-list { margin-top: 6px; }
   .fp-opts { display: flex; flex-direction: column; }
 
   .fp-item {
@@ -874,6 +968,16 @@
     border-top: 1px solid var(--hairline);
     background: var(--bg);
   }
+  .msb-dd-item.is-on {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .msb-dd-item.is-on::after {
+    content: '✓';
+    float: right;
+    margin-left: 10px;
+  }
+
   .fsheet-reset {
     border: none;
     background: transparent;
@@ -993,6 +1097,8 @@
        opens the full-screen filter sheet rather than expanding in place. */
     .msb-compact { display: flex; }
     .msb-wrap { display: none; }
+    /* Same reason as .fp-search input — never below 16px on iOS. */
+    #msb-dest-input, .fsheet input, .dsearch input { font-size: 16px; }
     .msb-segment { flex: 1 1 100%; padding: 9px 16px; border-radius: 16px; }
     .msb-div { display: none; }
     .msb-btn {
@@ -1139,6 +1245,30 @@
   </div>
 </div>
 
+<!-- Full-screen destination search, opened from the sheet's destination field -->
+<div class="dsearch" id="dsearch" role="dialog" aria-modal="true" aria-label="Search destinations">
+  <div class="dsearch-bar">
+    <button class="dsearch-back" id="dsearch-back" type="button" aria-label="Back">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M15 5l-7 7 7 7"/>
+      </svg>
+    </button>
+    <div class="dsearch-field">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path>
+      </svg>
+      <input type="search" id="dsearch-input" placeholder="Search destinations"
+             autocomplete="off" spellcheck="false" enterkeyhint="search" inputmode="search">
+      <button class="dsearch-clear" id="dsearch-clear" type="button" aria-label="Clear">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M5 5l14 14M19 5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dsearch-list" id="dsearch-list"></div>
+</div>
+
 <!-- Mobile filter sheet: one section open, the rest collapsed to label/value -->
 <div class="fsheet" id="fsheet" role="dialog" aria-modal="true" aria-label="Search filters">
   <div class="fsheet-head" id="fsheet-head">
@@ -1264,8 +1394,8 @@ var BUDGETS = [
 var allSpots = [];
 var state = {
   destination: '',
-  vibe: '',
-  budget: '',
+  vibes: [],        /* multi-select: 53 listings narrow to zero very fast */
+  budgets: [],
   continent: '',
   searchAsMove: true
 };
@@ -1489,6 +1619,47 @@ function matchesVibe(s, vibe) {
   return false;
 }
 
+function toggleIn(arr, val) {
+  var i = arr.indexOf(val);
+  if (i > -1) arr.splice(i, 1); else arr.push(val);
+  return arr;
+}
+
+/* One label for both the desktop bar and the mobile sheet, so a multi
+   selection reads the same everywhere. */
+function vibeSummary() {
+  if (!state.vibes.length) return 'Any Vibe';
+  if (state.vibes.length === 1) return state.vibes[0];
+  return state.vibes.length + ' vibes';
+}
+
+function budgetSummary() {
+  if (!state.budgets.length) return 'Any Budget';
+  if (state.budgets.length === 1) {
+    var out = state.budgets[0];
+    BUDGETS.forEach(function (b) { if (b.value === state.budgets[0]) out = b.label; });
+    return out;
+  }
+  return state.budgets.length + ' budgets';
+}
+
+/* Mirrors state onto the desktop bar. The sheet and the bar are two views
+   of one model, so this is the single place that writes the bar. */
+function syncDesktopBar() {
+  var di = document.getElementById('msb-dest-input');
+  if (di) di.value = state.destination;
+  var vv = document.getElementById('msb-vibe-val');
+  if (vv) {
+    vv.textContent = vibeSummary();
+    vv.classList.toggle('placeholder', !state.vibes.length);
+  }
+  var bv = document.getElementById('msb-budget-val');
+  if (bv) {
+    bv.textContent = budgetSummary();
+    bv.classList.toggle('placeholder', !state.budgets.length);
+  }
+}
+
 /* "1 spots" reads as a bug to anyone who sees it. */
 function spotCount(n) {
   return n + (n === 1 ? ' spot' : ' spots');
@@ -1506,8 +1677,8 @@ function matchesDestination(s, q) {
 /* Spots passing the filter bar + pills, ignoring the viewport */
 function getFilteredSpots() {
   return allSpots.filter(function (s) {
-    if (state.vibe && !matchesVibe(s, state.vibe)) return false;
-    if (state.budget && s.Budget !== state.budget) return false;
+    if (state.vibes.length && !state.vibes.some(function (v) { return matchesVibe(s, v); })) return false;
+    if (state.budgets.length && state.budgets.indexOf(s.Budget) === -1) return false;
     if (state.continent && continentOf(s) !== state.continent) return false;
     if (state.destination && !matchesDestination(s, state.destination)) return false;
     return true;
@@ -1581,7 +1752,7 @@ function syncCompactLabel() {
   var sub = document.getElementById('msb-compact-sub');
   if (!main || !sub) return;
   main.textContent = state.destination || 'Search destinations';
-  var bits = [state.vibe || 'Any vibe', state.budget || 'Any budget'];
+  var bits = [vibeSummary(), budgetSummary()];
   if (state.continent) bits.push(state.continent);
   sub.textContent = bits.join(' · ');
 }
@@ -2022,48 +2193,53 @@ function closeAllDropdowns() {
   document.querySelectorAll('.msb-segment').forEach(function (seg) { seg.classList.remove('open'); });
 }
 
-function buildVibeDropdown() {
-  var dd = document.getElementById('msb-vibe-dd');
-  var html = '<div class="msb-dd-item" data-val="">Any Vibe</div>';
-  buildVibeList().forEach(function (v) {
-    html += '<div class="msb-dd-item" data-val="' + v + '">' + v + '</div>';
-  });
-  dd.innerHTML = html;
-  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
-    item.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var val = item.getAttribute('data-val');
-      state.vibe = val;
-      var el = document.getElementById('msb-vibe-val');
-      el.textContent = val || 'Any Vibe';
-      el.classList.toggle('placeholder', !val);
-      closeAllDropdowns();
-      applyFilters(true);
+/* Both dropdowns are multi-select, so a click toggles and the menu stays
+   open. "Any" is the clear-all row rather than a value of its own. */
+function buildToggleDropdown(ddId, options, selected, onChange) {
+  var dd = document.getElementById(ddId);
+  if (!dd) return;
+
+  function render() {
+    var html = '<div class="msb-dd-item' + (!selected().length ? ' is-on' : '') + '" data-val="">'
+      + options.anyLabel + '</div>';
+    options.items().forEach(function (o) {
+      html += '<div class="msb-dd-item' + (selected().indexOf(o.value) > -1 ? ' is-on' : '') + '" '
+        + 'data-val="' + escapeHtml(o.value) + '">' + escapeHtml(o.label) + '</div>';
     });
-  });
+    dd.innerHTML = html;
+
+    dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var val = item.getAttribute('data-val');
+        if (!val) selected().length = 0;
+        else toggleIn(selected(), val);
+        render();
+        onChange();
+        syncDesktopBar();
+        applyFilters(true);
+      });
+    });
+  }
+  render();
+}
+
+function buildVibeDropdown() {
+  buildToggleDropdown('msb-vibe-dd', {
+    anyLabel: 'Any Vibe',
+    items: function () {
+      return buildVibeList().map(function (v) { return { value: v, label: v }; });
+    }
+  }, function () { return state.vibes; }, function () {});
 }
 
 function buildBudgetDropdown() {
-  var dd = document.getElementById('msb-budget-dd');
-  var html = '<div class="msb-dd-item" data-val="">Any Budget</div>';
-  BUDGETS.forEach(function (b) {
-    html += '<div class="msb-dd-item" data-val="' + b.value + '">' + b.label + '</div>';
-  });
-  dd.innerHTML = html;
-  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
-    item.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var val = item.getAttribute('data-val');
-      state.budget = val;
-      var label = 'Any Budget';
-      BUDGETS.forEach(function (b) { if (b.value === val) label = b.label; });
-      var el = document.getElementById('msb-budget-val');
-      el.textContent = label;
-      el.classList.toggle('placeholder', !val);
-      closeAllDropdowns();
-      applyFilters(true);
-    });
-  });
+  buildToggleDropdown('msb-budget-dd', {
+    anyLabel: 'Any Budget',
+    items: function () {
+      return BUDGETS.map(function (b) { return { value: b.value, label: b.label }; });
+    }
+  }, function () { return state.budgets; }, function () {});
 }
 
 function buildContinentPills() {
@@ -2114,8 +2290,8 @@ function applyFilters(refit) {
 function syncUrl() {
   var p = new URLSearchParams();
   if (state.destination) p.set('destination', state.destination);
-  if (state.vibe) p.set('vibe', state.vibe);
-  if (state.budget) p.set('budget', state.budget);
+  if (state.vibes.length) p.set('vibe', state.vibes.join(','));
+  if (state.budgets.length) p.set('budget', state.budgets.join(','));
   if (state.continent) p.set('continent', state.continent);
   var qs = p.toString();
   history.replaceState(null, '', '/map' + (qs ? '?' + qs : ''));
@@ -2136,23 +2312,25 @@ function readUrl() {
 
   var vibe = p.get('vibe') || '';
   if (vibe) {
-    state.vibe = vibe.charAt(0).toUpperCase() + vibe.slice(1).toLowerCase();
-    var vEl = document.getElementById('msb-vibe-val');
-    vEl.textContent = state.vibe;
-    vEl.classList.remove('placeholder');
+    state.vibes = vibe.split(',').map(function (v) {
+      v = v.trim();
+      return v ? v.charAt(0).toUpperCase() + v.slice(1).toLowerCase() : '';
+    }).filter(Boolean);
   }
 
   var budget = p.get('budget') || '';
   if (budget) {
-    BUDGETS.forEach(function (b) {
-      if (b.slug === budget.toLowerCase() || b.value.toLowerCase() === budget.toLowerCase()) {
-        state.budget = b.value;
-        var bEl = document.getElementById('msb-budget-val');
-        bEl.textContent = b.label;
-        bEl.classList.remove('placeholder');
-      }
+    budget.split(',').forEach(function (raw) {
+      var key = raw.trim().toLowerCase();
+      BUDGETS.forEach(function (b) {
+        if ((b.slug === key || b.value.toLowerCase() === key) && state.budgets.indexOf(b.value) === -1) {
+          state.budgets.push(b.value);
+        }
+      });
     });
   }
+
+  syncDesktopBar();
 
   var cont = p.get('continent') || '';
   if (cont) state.continent = cont;
@@ -2316,10 +2494,8 @@ var fOpen = 'dest';
 
 function fValue(key) {
   if (key === 'dest') return state.destination || 'Anywhere';
-  if (key === 'vibe') return state.vibe || 'Any Vibe';
-  var out = 'Any Budget';
-  BUDGETS.forEach(function (b) { if (b.value === state.budget) out = b.label; });
-  return out;
+  if (key === 'vibe') return vibeSummary();
+  return budgetSummary();
 }
 
 function openFilterSheet() {
@@ -2368,24 +2544,183 @@ function unbindViewportSync() {
 /* Applies whatever the sheet currently holds and closes it. Shared by the
    Search button and the keyboard's search key. */
 function runFilterSearch() {
-  /* Push the sheet's choices back onto the desktop bar so the two views
-     never disagree if the window is later widened. */
-  var di = document.getElementById('msb-dest-input');
-  if (di) di.value = state.destination;
-  var vv = document.getElementById('msb-vibe-val');
-  if (vv) {
-    vv.textContent = state.vibe || 'Any Vibe';
-    vv.classList.toggle('placeholder', !state.vibe);
-  }
-  var bv = document.getElementById('msb-budget-val');
-  if (bv) {
-    var lbl = 'Any Budget';
-    BUDGETS.forEach(function (b) { if (b.value === state.budget) lbl = b.label; });
-    bv.textContent = lbl;
-    bv.classList.toggle('placeholder', !state.budget);
-  }
+  /* The bar and the sheet are two views of one model. */
+  syncDesktopBar();
+  buildVibeDropdown();
+  buildBudgetDropdown();
   closeFilterSheet();
   applyFilters(true);
+}
+
+/* --------------------------------------------------------------
+   13c. Full-screen destination search
+   Typing inside the accordion means the keyboard covers most of it.
+   Airbnb hands the whole screen over to the search instead, which is
+   what this is.
+   -------------------------------------------------------------- */
+function highlightMatch(label, q) {
+  var needle = (q || '').trim();
+  if (!needle) return escapeHtml(label);
+  var i = label.toLowerCase().indexOf(needle.toLowerCase());
+  if (i < 0) return escapeHtml(label);
+  return escapeHtml(label.slice(0, i))
+    + '<strong>' + escapeHtml(label.slice(i, i + needle.length)) + '</strong>'
+    + escapeHtml(label.slice(i + needle.length));
+}
+
+function distanceKm(aLat, aLng, bLat, bLng) {
+  var R = 6371, toRad = Math.PI / 180;
+  var dLat = (bLat - aLat) * toRad, dLng = (bLng - aLng) * toRad;
+  var la1 = aLat * toRad, la2 = bLat * toRad;
+  var h = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+    + Math.cos(la1) * Math.cos(la2) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+function nearMeRow() {
+  return '<button class="fp-item fp-near" data-near="1" type="button">'
+    + '<span><span class="fp-near-title">Spots nearest me</span>'
+    + '<span class="fp-item-sub">Use my location</span></span>'
+    + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+    + 'stroke-width="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>'
+    + '</button>';
+}
+
+/* The listings sit in 13 countries, so a radius from most places on earth
+   finds nothing. Jump to the country holding the closest spot instead: it
+   always lands somewhere with results, at a zoom worth panning around. */
+function useMyLocation(statusEl) {
+  function say(msg) { if (statusEl) statusEl.innerHTML = '<div class="fp-empty">' + msg + '</div>'; }
+
+  if (!navigator.geolocation) { say('This browser cannot share your location.'); return; }
+  say('Finding your nearest spots&hellip;');
+
+  navigator.geolocation.getCurrentPosition(function (pos) {
+    var mappable = allSpots.filter(hasCoords);
+    if (!mappable.length) { say('No spots are mapped yet.'); return; }
+
+    var best = null, bestD = Infinity;
+    mappable.forEach(function (s) {
+      var d = distanceKm(pos.coords.latitude, pos.coords.longitude, s.Latitude, s.Longitude);
+      if (d < bestD) { bestD = d; best = s; }
+    });
+    if (!best) { say('Could not work out your nearest spot.'); return; }
+
+    state.destination = best.Country || best.Region || '';
+    closeDestSearch();
+    closeFilterSheet();
+    syncDesktopBar();
+    applyFilters(true);
+  }, function (err) {
+    say('Could not get your location. '
+      + (err && err.code === 1 ? 'Permission was declined.' : 'Please try again.'));
+  }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+}
+
+function destMatches(q) {
+  var needle = (q || '').toLowerCase().trim();
+  var matches = destIndex.filter(function (d) {
+    return !needle || d.label.toLowerCase().indexOf(needle) > -1;
+  });
+  if (needle) {
+    matches.sort(function (a, b) {
+      var ap = a.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
+      var bp = b.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
+      if (ap !== bp) return ap - bp;
+      return a.label.length - b.label.length;
+    });
+  }
+  return matches;
+}
+
+function destListHtml(q, withNearMe) {
+  var matches = destMatches(q).slice(0, 40);
+  var html = withNearMe ? nearMeRow() : '';
+
+  if (!matches.length) {
+    return html + '<div class="fp-empty">No destinations match &ldquo;' + escapeHtml(q) + '&rdquo;.'
+      + ' You can still search for it.</div>';
+  }
+
+  var lastType = '';
+  matches.forEach(function (d) {
+    if (d.type !== lastType) {
+      html += '<div class="fp-group">'
+        + (d.type === 'Spot' ? 'Spots' : d.type === 'Region' ? 'Regions' : 'Countries')
+        + '</div>';
+      lastType = d.type;
+    }
+    html += '<button class="fp-item" data-q="' + escapeHtml(d.q) + '" type="button">'
+      + '<span>' + highlightMatch(d.label, q) + '</span>'
+      + '<span class="fp-item-sub">' + escapeHtml(d.sub || '') + '</span>'
+      + '</button>';
+  });
+  return html;
+}
+
+function openDestSearch() {
+  var input = document.getElementById('dsearch-input');
+  document.body.classList.add('dsearch-open');
+  if (input) {
+    input.value = state.destination || '';
+    renderDestSearch(input.value);
+    /* iOS only raises the keyboard for a focus inside the tap's own gesture */
+    input.focus();
+  }
+}
+
+function closeDestSearch() {
+  document.body.classList.remove('dsearch-open');
+  var input = document.getElementById('dsearch-input');
+  if (input) input.blur();
+}
+
+function renderDestSearch(q) {
+  var list = document.getElementById('dsearch-list');
+  if (!list) return;
+  list.innerHTML = destListHtml(q, !(q || '').trim());
+
+  var near = list.querySelector('[data-near]');
+  if (near) near.addEventListener('click', function () { useMyLocation(list); });
+
+  list.querySelectorAll('.fp-item[data-q]').forEach(function (item) {
+    item.addEventListener('click', function () {
+      state.destination = item.getAttribute('data-q') || '';
+      closeDestSearch();
+      renderFilterSheet();
+    });
+  });
+}
+
+function wireDestSearch() {
+  var back = document.getElementById('dsearch-back');
+  var clear = document.getElementById('dsearch-clear');
+  var input = document.getElementById('dsearch-input');
+
+  if (back) back.addEventListener('click', closeDestSearch);
+
+  if (clear) clear.addEventListener('click', function () {
+    if (!input) return;
+    input.value = '';
+    state.destination = '';
+    renderDestSearch('');
+    input.focus();
+  });
+
+  if (input) {
+    input.addEventListener('input', function () {
+      state.destination = input.value;
+      renderDestSearch(input.value);
+    });
+    /* Whatever is typed is the query — nothing has to be picked. */
+    input.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      input.blur();
+      closeDestSearch();
+      runFilterSearch();
+    });
+  }
 }
 
 function wireFilterSheet() {
@@ -2400,9 +2735,12 @@ function wireFilterSheet() {
 
   if (reset) reset.addEventListener('click', function () {
     state.destination = '';
-    state.vibe = '';
-    state.budget = '';
+    state.vibes = [];
+    state.budgets = [];
     state.continent = '';
+    syncDesktopBar();
+    buildVibeDropdown();
+    buildBudgetDropdown();
     buildContinentPills();
     renderFilterSheet();
   });
@@ -2449,9 +2787,13 @@ function wireFilterSheet() {
 }
 
 function fItem(val, label, on) {
+  /* A tick rather than the word "Selected": with multi-select several rows
+     can be on at once, and repeated words read as noise. */
+  var tick = '<svg class="fp-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    + 'stroke="currentColor" stroke-width="2.2"><path d="M4 12.5l5.5 5.5L20 7"/></svg>';
   return '<button class="fp-item' + (on ? ' is-on' : '') + '" data-val="' + escapeHtml(val) + '" type="button">'
     + '<span>' + label + '</span>'
-    + (on ? '<span class="fp-item-sub">Selected</span>' : '')
+    + (on ? tick : '')
     + '</button>';
 }
 
@@ -2469,24 +2811,33 @@ function renderFilterSheet() {
       return;
     }
 
-    html += '<div class="fpanel fpanel-open"><h3 class="fp-title">' + sec.title + '</h3>';
+    html += '<div class="fpanel fpanel-open">'
+      + '<button class="fp-title" data-collapse="1" type="button">' + sec.title
+      + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+      + 'stroke-width="1.8"><path d="M6 15l6-6 6 6"/></svg>'
+      + '</button>';
 
     if (sec.key === 'dest') {
       html += '<div class="fp-search">'
         + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">'
         + '<circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>'
-        + '<input type="search" id="fsheet-dest" placeholder="Search destinations" '
-        + 'value="' + escapeHtml(state.destination) + '" autocomplete="off" spellcheck="false" '
-        + 'enterkeyhint="search" inputmode="search">'
+        /* readonly: tapping opens the full-screen search rather than raising
+           the keyboard under the accordion, where it hides everything. */
+        + '<input type="text" id="fsheet-dest" placeholder="Search destinations" readonly '
+        + 'value="' + escapeHtml(state.destination) + '">'
         + '</div>'
         + '<div class="fp-list" id="fsheet-dest-list"></div>';
     } else if (sec.key === 'vibe') {
-      html += '<div class="fp-opts">' + fItem('', 'Any Vibe', !state.vibe);
-      buildVibeList().forEach(function (v) { html += fItem(v, escapeHtml(v), state.vibe === v); });
+      html += '<div class="fp-opts">' + fItem('', 'Any Vibe', !state.vibes.length);
+      buildVibeList().forEach(function (v) {
+        html += fItem(v, escapeHtml(v), state.vibes.indexOf(v) > -1);
+      });
       html += '</div>';
     } else {
-      html += '<div class="fp-opts">' + fItem('', 'Any Budget', !state.budget);
-      BUDGETS.forEach(function (b) { html += fItem(b.value, escapeHtml(b.label), state.budget === b.value); });
+      html += '<div class="fp-opts">' + fItem('', 'Any Budget', !state.budgets.length);
+      BUDGETS.forEach(function (b) {
+        html += fItem(b.value, escapeHtml(b.label), state.budgets.indexOf(b.value) > -1);
+      });
       html += '</div>';
     }
     html += '</div>';
@@ -2495,52 +2846,21 @@ function renderFilterSheet() {
   body.innerHTML = html;
   wireFilterPanels();
   if (fOpen === 'dest') renderFsheetDest(state.destination || '');
+  syncDesktopBar();
 }
 
 function renderFsheetDest(q) {
   var list = document.getElementById('fsheet-dest-list');
   if (!list) return;
-  var needle = (q || '').toLowerCase().trim();
+  list.innerHTML = destListHtml(q, true);
 
-  var matches = destIndex.filter(function (d) {
-    return !needle || d.label.toLowerCase().indexOf(needle) > -1;
-  });
-  if (needle) {
-    matches.sort(function (a, b) {
-      var ap = a.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
-      var bp = b.label.toLowerCase().indexOf(needle) === 0 ? 0 : 1;
-      if (ap !== bp) return ap - bp;
-      return a.label.length - b.label.length;
-    });
-  }
-  matches = matches.slice(0, 30);
+  var near = list.querySelector('[data-near]');
+  if (near) near.addEventListener('click', function () { useMyLocation(list); });
 
-  if (!matches.length) {
-    list.innerHTML = '<div class="fp-empty">No destinations match &ldquo;' + escapeHtml(q) + '&rdquo;</div>';
-    return;
-  }
-
-  var html = '';
-  var lastType = '';
-  matches.forEach(function (d) {
-    if (d.type !== lastType) {
-      html += '<div class="fp-group">'
-        + (d.type === 'Spot' ? 'Spots' : d.type === 'Region' ? 'Regions' : 'Countries')
-        + '</div>';
-      lastType = d.type;
-    }
-    html += '<button class="fp-item" data-q="' + escapeHtml(d.q) + '" type="button">'
-      + '<span>' + escapeHtml(d.label) + '</span>'
-      + '<span class="fp-item-sub">' + escapeHtml(d.sub || '') + '</span>'
-      + '</button>';
-  });
-  list.innerHTML = html;
-
-  list.querySelectorAll('.fp-item').forEach(function (item) {
+  list.querySelectorAll('.fp-item[data-q]').forEach(function (item) {
     item.addEventListener('click', function () {
-      /* Deliberately stays on this section. Every filter here is optional, so
-         someone after just "Sorrento" should be one tap from Search rather
-         than pushed through vibe and budget first. */
+      /* Stays on this section: every filter is optional, so someone after
+         just "Sorrento" should be one tap from Search. */
       state.destination = item.getAttribute('data-q') || '';
       renderFilterSheet();
     });
@@ -2557,30 +2877,27 @@ function wireFilterPanels() {
     });
   });
 
+  /* Tapping the open section's heading closes it, so every section can be
+     shut and Search is never buried under a long list. */
+  var title = body.querySelector('.fp-title[data-collapse]');
+  if (title) title.addEventListener('click', function () {
+    fOpen = null;
+    renderFilterSheet();
+  });
+
   var input = document.getElementById('fsheet-dest');
   if (input) {
-    input.addEventListener('input', function () {
-      state.destination = input.value;
-      renderFsheetDest(input.value);
-    });
-    /* The typed text is the query — no suggestion has to be picked. iOS shows
-       a search key for enterkeyhint="search"; honour it, since the footer can
-       sit behind the keyboard. */
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        input.blur();
-        runFilterSearch();
-      }
-    });
+    input.addEventListener('click', openDestSearch);
+    input.addEventListener('focus', openDestSearch);
   }
 
   if (fOpen === 'vibe' || fOpen === 'budget') {
     body.querySelectorAll('.fpanel-open .fp-item').forEach(function (item) {
       item.addEventListener('click', function () {
         var val = item.getAttribute('data-val') || '';
-        if (fOpen === 'vibe') state.vibe = val;
-        else state.budget = val;
+        var arr = fOpen === 'vibe' ? state.vibes : state.budgets;
+        if (!val) arr.length = 0;      /* the "Any" row clears the whole set */
+        else toggleIn(arr, val);
         renderFilterSheet();   /* stays open; Search is always one tap away */
       });
     });
@@ -2664,12 +2981,12 @@ function wireChrome() {
   });
 
   document.getElementById('map-reset').addEventListener('click', function () {
-    state.destination = ''; state.vibe = ''; state.budget = ''; state.continent = '';
-    document.getElementById('msb-dest-input').value = '';
-    var vEl = document.getElementById('msb-vibe-val');
-    vEl.textContent = 'Any Vibe'; vEl.classList.add('placeholder');
-    var bEl = document.getElementById('msb-budget-val');
-    bEl.textContent = 'Any Budget'; bEl.classList.add('placeholder');
+    state.destination = ''; state.vibes = []; state.budgets = []; state.continent = '';
+    /* Rebuild rather than relabel: the dropdowns carry per-option ticks now,
+       so writing the summary alone would leave them looking still-selected. */
+    syncDesktopBar();
+    buildVibeDropdown();
+    buildBudgetDropdown();
     buildContinentPills();
     applyFilters(true);
   });
@@ -2684,6 +3001,7 @@ function wireChrome() {
   wireChrome();
   wireMobileToggle();
   wireFilterSheet();
+  wireDestSearch();
   readUrl();
 
   allSpots = await fetchSpots();
