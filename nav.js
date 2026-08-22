@@ -249,10 +249,15 @@
     '}',
     '.filter-backdrop.active { display: block; }',
     '@media (max-width: 680px) {',
-    '  nav#navbar { padding: 0 12px; display: flex; align-items: center; justify-content: space-between; }',
-    '  .nav-logo { font-size: 9px; letter-spacing: 0.2em; padding-left: 20px; }',
-    '  .nav-link-right:not(.nav-destinations-btn) { display: none; }',
-    '  .nav-destinations-btn { font-size: 12px; padding: 7px 10px; }',
+    '  nav#navbar { padding: 0 10px; display: flex; align-items: center; justify-content: space-between; }',
+    /* Carrying Map as well as Destinations leaves no slack at 320px, so the
+       logo gives up the padding it was only using decoratively. */
+    '  .nav-logo { font-size: 9px; letter-spacing: 0.14em; padding-left: 6px; }',
+    '  .nav-link-right:not(.nav-destinations-btn):not(.nav-map-btn) { display: none; }',
+    '  .nav-destinations-btn { font-size: 12px; padding: 7px 7px; }',
+    '  .nav-map-btn { font-size: 12px; padding: 7px 7px; }',
+    '  .nav-links { gap: 0; flex: 0 1 auto; min-width: 0; }',
+    '  .nav-right { flex: 0 0 auto; }',
     '  .nav-cta { display: none; }',
     '  .nav-hamburger { display: flex; }',
     '  .nav-dest-dropdown {',
@@ -271,6 +276,12 @@
     '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 12px; padding: 10px 8px; }',
     '  .nav-dest-grid a span { font-size: 9px; }',
     '  .nav-backdrop.mobile-dest-active { z-index: 10001; }',
+    '}',
+    '@media (max-width: 360px) {',
+    /* Take the last few pixels out of padding, not out of the tap targets. */
+    '  nav#navbar { padding: 0 6px; }',
+    '  .nav-logo { font-size: 8px; letter-spacing: 0.1em; padding-left: 0; }',
+    '  .nav-destinations-btn, .nav-map-btn { font-size: 11px; padding: 8px 5px; }',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -300,7 +311,7 @@
     ? '<a href="#" id="nav-faq" onclick="goToFaq(); return false;" class="nav-link-right">FAQ</a>'
     : '<a href="/#faq" class="nav-link-right">FAQ</a>';
 
-  var mapClass = 'nav-link-right' + (isMap ? ' nav-active' : '');
+  var mapClass = 'nav-link-right nav-map-btn' + (isMap ? ' nav-active' : '');
 
   var inspirationClass = 'nav-link-right' + ((isInspiration || isStoriesSection) ? ' nav-active' : '');
 
