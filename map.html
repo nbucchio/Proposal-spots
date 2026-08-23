@@ -285,8 +285,37 @@
     overflow-x: auto;
     scrollbar-width: none;
     justify-content: center;
+    position: relative;
   }
   .map-pills-row::-webkit-scrollbar { display: none; }
+  /* Desktop only: the mobile filter sheet already carries its own Reset, and
+     this row scrolls on a phone. Positioned out of flow so the pills stay
+     centred — with margin-left:auto they shifted left the moment it appeared. */
+  .map-clear {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: -7px;
+    flex: 0 0 auto;
+    padding: 7px 13px;
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    opacity: 0.72;
+    cursor: pointer;
+    transition: opacity 0.18s, background 0.18s;
+    white-space: nowrap;
+  }
+  .map-clear:hover { opacity: 1; background: var(--bg2); }
+  @media (min-width: 1025px) { .map-clear { display: inline-flex; } }
 
   .map-pill {
     flex: 0 0 auto;
@@ -968,6 +997,39 @@
     border-top: 1px solid var(--hairline);
     background: var(--bg);
   }
+  /* The destination dropdown uses the same rows as the mobile search view. */
+  #msb-dest-dd .fp-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 14px;
+    border: none;
+    border-bottom: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+  }
+  #msb-dest-dd .fp-item:hover,
+  #msb-dest-dd .fp-item.active { background: var(--bg2); }
+  #msb-dest-dd .fp-item strong { font-weight: 600; }
+  #msb-dest-dd .fp-item-sub { font-size: 10px; opacity: 0.5; white-space: nowrap; }
+  #msb-dest-dd .fp-group {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    padding: 10px 14px 4px;
+  }
+  #msb-dest-dd .fp-empty { padding: 12px 14px; font-size: 12px; opacity: 0.6; }
+  #msb-dest-dd .fp-near { border-bottom: 1px solid var(--hairline); }
+  #msb-dest-dd .fp-near-title { display: block; }
+  #msb-dest-dd .fp-near svg { color: var(--accent); }
+
   .msb-dd-item.is-on {
     color: var(--accent);
     font-weight: 500;
@@ -1625,6 +1687,32 @@ function matchesVibe(s, vibe) {
   return false;
 }
 
+function anyFilterActive() {
+  return !!(state.destination || state.placeLabel || state.continent
+    || state.vibes.length || state.budgets.length);
+}
+
+/* Everything a "start over" should undo, in one place, so the empty-state
+   button and the pills-row button cannot fall out of step. */
+function clearAllFilters(refit) {
+  state.destination = '';
+  state.placeLabel = '';
+  state.vibes = [];
+  state.budgets = [];
+  state.continent = '';
+  syncDesktopBar();
+  buildVibeDropdown();
+  buildBudgetDropdown();
+  buildContinentPills();
+  applyFilters(false);
+  /* The viewport is a filter too once it has been moved, so starting over
+     goes back to the world rather than leaving you zoomed into one town. */
+  if (refit && mapReady) {
+    userMovedMap = false;
+    fitToSpots(getFilteredSpots());
+  }
+}
+
 function toggleIn(arr, val) {
   var i = arr.indexOf(val);
   if (i > -1) arr.splice(i, 1); else arr.push(val);
@@ -2152,48 +2240,14 @@ var destHighlight = -1;
 
 function renderDestDropdown(query) {
   var dd = document.getElementById('msb-dest-dd');
-  var q = (query || '').toLowerCase().trim();
-
-  var matches = destIndex.filter(function (d) {
-    return !q || d.label.toLowerCase().indexOf(q) > -1;
-  });
-
-  /* Rank whole-word / prefix matches first, like Airbnb does */
-  if (q) {
-    matches.sort(function (a, b) {
-      var ap = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
-      var bp = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
-      if (ap !== bp) return ap - bp;
-      return a.label.length - b.label.length;
-    });
-  }
-
-  matches = matches.slice(0, 24);
-
-  if (!matches.length) {
-    dd.innerHTML = '<div class="msb-dd-empty">No destinations match &ldquo;' + escapeHtml(query) + '&rdquo;</div>';
-    return;
-  }
-
-  var html = '';
-  var lastType = '';
-  matches.forEach(function (d, i) {
-    if (d.type !== lastType) {
-      html += '<div class="msb-dd-group">' + (d.type === 'Spot' ? 'Spots' : d.type === 'Region' ? 'Regions' : 'Countries') + '</div>';
-      lastType = d.type;
-    }
-    html += '<div class="msb-dd-item" data-idx="' + i + '" data-q="' + escapeHtml(d.q) + '">'
-      + escapeHtml(d.label)
-      + '<span class="msb-dd-sub">' + escapeHtml(d.sub || '') + '</span>'
-      + '</div>';
-  });
-  dd.innerHTML = html;
-
-  dd.querySelectorAll('.msb-dd-item').forEach(function (item) {
-    item.addEventListener('mousedown', function (e) {
-      e.preventDefault();
-      pickDestination(item.getAttribute('data-q'));
-    });
+  if (!dd) return;
+  /* Same rows as the mobile search view, including global places and
+     "spots nearest me" — one renderer, so the two cannot drift again. */
+  fillDestList(dd, query, function () {
+    var input = document.getElementById('msb-dest-input');
+    if (input) input.value = state.destination;
+    closeAllDropdowns();
+    applyFilters(true);
   });
   destHighlight = -1;
 }
@@ -2282,6 +2336,7 @@ function buildContinentPills() {
   present.forEach(function (c) {
     html += '<button class="map-pill' + (state.continent === c ? ' active' : '') + '" data-cont="' + c + '">' + c + '</button>';
   });
+
   row.innerHTML = html;
 
   row.querySelectorAll('.map-pill').forEach(function (pill) {
@@ -2293,12 +2348,37 @@ function buildContinentPills() {
       applyFilters(true);
     });
   });
+
+  syncClearButton();
+}
+
+var CLEAR_BTN_HTML = '<button class="map-clear" id="map-clear" type="button">'
+  + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+  + '<path d="M5 5l14 14M19 5L5 19"/></svg>Clear all</button>';
+
+/* Added and removed on its own rather than as part of the pills markup:
+   choosing a vibe or a destination never rebuilds that row, so a button
+   baked into it would only ever appear when a continent changed. */
+function syncClearButton() {
+  var row = document.getElementById('map-pills-row');
+  if (!row) return;
+  var btn = document.getElementById('map-clear');
+  var wanted = anyFilterActive();
+
+  if (wanted && !btn) {
+    row.insertAdjacentHTML('beforeend', CLEAR_BTN_HTML);
+    document.getElementById('map-clear')
+      .addEventListener('click', function () { clearAllFilters(true); });
+  } else if (!wanted && btn) {
+    btn.parentNode.removeChild(btn);
+  }
 }
 
 /* Re-run filters; optionally refit the map to the new result set */
 function applyFilters(refit) {
   syncUrl();
   syncCompactLabel();
+  syncClearButton();
   if (refit && mapReady) {
     var filtered = getFilteredSpots();
     if (filtered.filter(hasCoords).length) {
@@ -2660,6 +2740,7 @@ function pickPlace(el) {
 
   state.destination = '';
   state.placeLabel = label;
+  closeAllDropdowns();
   closeDestSearch();
   closeFilterSheet();
   syncDesktopBar();
@@ -2673,7 +2754,13 @@ function pickPlace(el) {
   }
 }
 
-function wireDestRows(list) {
+/* One set of rows for both surfaces. The desktop dropdown and the mobile
+   search view differ only in what happens after a pick, so that is the only
+   thing the caller supplies — otherwise the two drift apart, which is exactly
+   how desktop ended up without global place search. */
+function wireDestRows(list, afterPick) {
+  afterPick = afterPick || function () {};
+
   var near = list.querySelector('[data-near]');
   if (near) near.addEventListener('click', function () { useMyLocation(list); });
 
@@ -2681,14 +2768,45 @@ function wireDestRows(list) {
     item.addEventListener('click', function () {
       state.destination = item.getAttribute('data-q') || '';
       state.placeLabel = '';
-      closeDestSearch();
-      renderFilterSheet();
+      afterPick();
     });
   });
 
   list.querySelectorAll('.fp-item[data-lat]').forEach(function (item) {
     item.addEventListener('click', function () { pickPlace(item); });
   });
+}
+
+/* Shared by both surfaces: our own spots render at once, the wider world
+   is appended when the network answers. */
+function fillDestList(list, q, afterPick) {
+  var needle = (q || '').trim();
+  list.innerHTML = destListHtml(q, !needle);
+  wireDestRows(list, afterPick);
+
+  clearTimeout(geoTimer);
+  if (needle.length < GEO_MIN_CHARS) return;
+
+  geoTimer = setTimeout(function () {
+    geocodePlaces(needle, function (places) {
+      if (!places.length) return;
+      if (currentDestQuery() !== needle) return;      /* a stale reply */
+      /* "No destinations match" was written before these arrived; leaving it
+         above a list of matches reads as a contradiction. */
+      var empty = list.querySelector('.fp-empty');
+      if (empty) empty.parentNode.removeChild(empty);
+      list.insertAdjacentHTML('beforeend', placeRowsHtml(places, needle));
+      wireDestRows(list, afterPick);
+    });
+  }, GEO_DEBOUNCE_MS);
+}
+
+/* Whichever destination field is currently in play. */
+function currentDestQuery() {
+  var ds = document.getElementById('dsearch-input');
+  if (document.body.classList.contains('dsearch-open') && ds) return ds.value.trim();
+  var di = document.getElementById('msb-dest-input');
+  return di ? di.value.trim() : '';
 }
 
 function highlightMatch(label, q) {
@@ -2740,6 +2858,7 @@ function useMyLocation(statusEl) {
     if (!best) { say('Could not work out your nearest spot.'); return; }
 
     state.destination = best.Country || best.Region || '';
+    closeAllDropdowns();
     closeDestSearch();
     closeFilterSheet();
     syncDesktopBar();
@@ -2771,7 +2890,7 @@ function destListHtml(q, withNearMe) {
   var html = withNearMe ? nearMeRow() : '';
 
   if (!matches.length) {
-    return html + '<div class="fp-empty">No destinations match &ldquo;' + escapeHtml(q) + '&rdquo;.'
+    return html + '<div class="fp-empty">No spots in &ldquo;' + escapeHtml(q) + '&rdquo; yet.'
       + ' You can still search for it.</div>';
   }
 
@@ -2811,25 +2930,10 @@ function closeDestSearch() {
 function renderDestSearch(q) {
   var list = document.getElementById('dsearch-list');
   if (!list) return;
-  var needle = (q || '').trim();
-
-  /* Our own spots render straight away; the wider world is a network call,
-     so it lands a moment later rather than holding up every keystroke. */
-  list.innerHTML = destListHtml(q, !needle);
-  wireDestRows(list);
-
-  clearTimeout(geoTimer);
-  if (needle.length < GEO_MIN_CHARS) return;
-
-  geoTimer = setTimeout(function () {
-    geocodePlaces(needle, function (places) {
-      if (!places.length) return;
-      var input = document.getElementById('dsearch-input');
-      if (!input || input.value.trim() !== needle) return;   /* stale reply */
-      list.insertAdjacentHTML('beforeend', placeRowsHtml(places, needle));
-      wireDestRows(list);
-    });
-  }, GEO_DEBOUNCE_MS);
+  fillDestList(list, q, function () {
+    closeDestSearch();
+    renderFilterSheet();
+  });
 }
 
 function wireDestSearch() {
@@ -3104,7 +3208,8 @@ function wireChrome() {
     renderDestDropdown(input.value);
   });
   input.addEventListener('keydown', function (e) {
-    var items = document.querySelectorAll('#msb-dest-dd .msb-dd-item');
+    /* Rows are .fp-item now, shared with the mobile search view. */
+    var items = document.querySelectorAll('#msb-dest-dd .fp-item');
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       if (!items.length) return;
@@ -3117,13 +3222,12 @@ function wireChrome() {
       e.preventDefault();
       /* Enter takes the highlighted row, else the first suggestion, else the
          raw text — so typing "ital" and hitting Enter resolves to Italy. */
-      if (destHighlight > -1 && items[destHighlight]) {
-        pickDestination(items[destHighlight].getAttribute('data-q'));
-      } else if (items.length) {
-        pickDestination(items[0].getAttribute('data-q'));
-      } else {
-        pickDestination(input.value);
-      }
+      /* Click the row rather than reading data-q off it: a row can be one of
+         our spots, a geocoded place, or "nearest me", and each already has
+         its own handler. */
+      var target = (destHighlight > -1 && items[destHighlight]) ? items[destHighlight] : items[0];
+      if (target) target.click();
+      else pickDestination(input.value);
     } else if (e.key === 'Escape') {
       closeAllDropdowns();
     }
@@ -3150,14 +3254,7 @@ function wireChrome() {
   });
 
   document.getElementById('map-reset').addEventListener('click', function () {
-    state.destination = ''; state.placeLabel = ''; state.vibes = []; state.budgets = []; state.continent = '';
-    /* Rebuild rather than relabel: the dropdowns carry per-option ticks now,
-       so writing the summary alone would leave them looking still-selected. */
-    syncDesktopBar();
-    buildVibeDropdown();
-    buildBudgetDropdown();
-    buildContinentPills();
-    applyFilters(true);
+    clearAllFilters(true);
   });
 
   window.addEventListener('resize', function () {
