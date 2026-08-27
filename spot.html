@@ -4201,6 +4201,25 @@ async function submitEnquiry() {
       localStorage.setItem('savedEmail', email);
       document.getElementById('enq-form').style.display = 'none';
       document.getElementById('enq-success').style.display = '';
+
+      // GA4 conversion — fired only after the Airtable write confirms success,
+      // so it counts a real enquiry, not a form load or a failed attempt.
+      try {
+        const _leadValue = isTieredSubmit
+          ? _parseAmount(selectedTierPkg && selectedTierPkg['Price'])
+          : _parseAmount(currentSpot && currentSpot['Price Moment']);
+        const _leadParams = {
+          currency: 'USD',
+          spot_name: data.spotName,
+          destination: (currentSpot && currentSpot.Country) || '',
+        };
+        if (typeof _leadValue === 'number' && isFinite(_leadValue)) {
+          _leadParams.value = _leadValue;
+        }
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', _leadParams);
+      } catch (_gaErr) {
+        // Analytics must never break the confirmed-enquiry flow.
+      }
     } else {
       const errData = await response.json().catch(() => ({}));
       console.error('Enquiry API error:', response.status, errData);

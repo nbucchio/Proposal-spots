@@ -8608,6 +8608,27 @@ async function submitEnquiry() {
       return;
     } else {
       console.log('✅ Airtable success — record ID:', data.id);
+
+      // GA4 conversion — fired only after the Airtable write confirms success,
+      // so it counts a real enquiry, not a form load or a failed attempt.
+      try {
+        const _rawValue = spot && spot['Price Moment'];
+        const _valueMatch = _rawValue != null
+          ? String(_rawValue).replace(/,/g, '').match(/[\d.]+/)
+          : null;
+        const _leadParams = {
+          currency: 'USD',
+          spot_name: spotName,
+          destination: (spot && spot.Country) || '',
+        };
+        if (_valueMatch) {
+          const _leadValue = parseFloat(_valueMatch[0]);
+          if (isFinite(_leadValue)) _leadParams.value = _leadValue;
+        }
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', _leadParams);
+      } catch (_gaErr) {
+        // Analytics must never break the confirmed-enquiry flow.
+      }
     }
 
     savedEmail = email;
