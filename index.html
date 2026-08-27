@@ -8625,7 +8625,7 @@ async function submitEnquiry() {
           const _leadValue = parseFloat(_valueMatch[0]);
           if (isFinite(_leadValue)) _leadParams.value = _leadValue;
         }
-        if (typeof gtag === 'function') gtag('event', 'generate_lead', _leadParams);
+        if (typeof gtag === 'function') gtag('event', 'qualify_lead', _leadParams);
       } catch (_gaErr) {
         // Analytics must never break the confirmed-enquiry flow.
       }
