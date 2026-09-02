@@ -49,6 +49,7 @@
     { "source": "/destinations/united-states", "destination": "/destinations/united-states.html" },
     { "source": "/destinations/italy", "destination": "/destinations/italy.html" },
     { "source": "/destinations/hawaii", "destination": "/destinations/hawaii.html" },
+    { "source": "/destinations/iceland", "destination": "/destinations/iceland.html" },
     { "source": "/destinations/london", "destination": "/destinations/london.html" },
     { "source": "/destinations/paris", "destination": "/destinations/paris.html" },
     { "source": "/destinations/patagonia", "destination": "/destinations/patagonia.html" },
