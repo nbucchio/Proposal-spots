@@ -17,18 +17,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-  <title>Portugal Proposal — Curated Proposal Spots</title>
-  <meta name="description" content="Where to propose in Portugal: Benagil sea cave, Cabo da Roca, the Douro Valley, and Lisbon rooftops. Cost ranges, best timing, and photographer tips.">
-  <meta property="og:title" content="Portugal Proposal — Curated Proposal Spots">
-  <meta property="og:description" content="Where to propose in Portugal: Benagil sea cave, Cabo da Roca, the Douro Valley, and Lisbon rooftops. Cost ranges, best timing, and photographer tips.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop">
-  <link rel="canonical" href="https://www.proposalspots.com/destinations/portugal">
+  <title>Iceland Proposal: Best Spots, Packages and Times</title>
+  <meta name="description" content="Planning an Iceland proposal? Blue ice caves under Vatnajökull, the hidden Kvernufoss cavern, and Diamond Beach are the top spots. Northern lights or midnight sun.">
+  <meta property="og:title" content="Iceland Proposal: Best Spots, Packages and Times">
+  <meta property="og:description" content="Blue ice caves under Vatnajökull, the hidden cavern behind Kvernufoss, and the glacier gems of Diamond Beach are the top Iceland proposal spots. Northern lights season or the midnight sun.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1470&auto=format&fit=crop">
+  <meta property="og:url" content="https://www.proposalspots.com/destinations/iceland">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.proposalspots.com/destinations/iceland">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="/lib/imageUtils.js"></script>
-  
+
   <script src="/nav.js" defer></script>
+  <script>window.__destHeroPosition = 'center';</script>
   <script src="/destination-hero.js?v=20260605" defer></script>
   <script src="/destination-notify.js" defer></script>
   <script src="/destination-gallery.js" defer></script>
@@ -48,20 +51,30 @@
       --accent: #a55a4a;
     }
     html { font-size: 16px; }
-    body { background: var(--bg); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
     #nav-root { position: relative; z-index: 100; }
 
+    /* ── EYEBROW ── */
     .pg-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: #A55A4A; display: block; margin-bottom: 18px; }
 
+    /* ── BACK BUTTON ── */
     .story-back-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,241,235,0.7); background: none; border: 1px solid rgba(244,241,235,0.2); border-radius: 100px; padding: 10px 18px; cursor: pointer; margin: 32px 40px; transition: color 0.2s; text-decoration: none; position: absolute; top: 60px; left: 0; z-index: 10; }
     .story-back-btn:hover { color: var(--white); border-color: rgba(244,241,235,0.5); }
 
+    /* ── HERO ── */
     .dest-landing-hero { position: relative; min-height: 60vh; display: flex; align-items: flex-end; overflow: hidden; background-size: cover !important; background-position: center !important; background-color: #0a0a0a; }
-    .dest-landing-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,16,24,0.65) 0%, rgba(10,16,24,0.18) 50%, rgba(10,16,24,0.28) 100%); z-index: 1; }
+    .dest-landing-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,20,8,0.65) 0%, rgba(8,20,8,0.18) 50%, rgba(8,20,8,0.28) 100%); z-index: 1; }
     .dest-landing-hero-content { position: relative; z-index: 2; padding: 80px 60px; max-width: 700px; }
     .dest-landing-title { font-family: 'Cormorant', serif; font-size: clamp(42px, 7vw, 80px); font-weight: 300; color: var(--bg); line-height: 1.0; margin-bottom: 16px; }
     .dest-landing-sub { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: rgba(244,241,235,0.65); line-height: 1.8; max-width: 500px; }
 
+    /* ── FILTER BAR ── */
     .dest-landing-body { padding: 0 40px; max-width: 1200px; margin: 0 auto; }
     .dest-landing-filter-bar { position: static; background: var(--bg); padding: 20px 0; border-bottom: 1px solid var(--hairline); margin-bottom: 40px; }
     .dest-landing-spots-wrap { min-height: 300px; padding-bottom: 80px; }
@@ -86,12 +99,15 @@
     .results-empty p { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; color: var(--mid); margin-bottom: 20px; }
     .spots-loading { text-align: center; padding: 60px 20px; color: var(--mid); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
 
+    /* ── SPOT CARDS ── */
     .spots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
     .spot-card { display: block; text-decoration: none; color: inherit; overflow: hidden; cursor: pointer; background: none; border: none; }
     .spot-card-img { aspect-ratio: 4/5; min-height: 200px; background: var(--bg3); position: relative; overflow: hidden; border-radius: 4px; }
     .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
     .spot-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(18,14,10,0.72) 100%); pointer-events: none; }
     .spot-card-badge { position: absolute; top: 12px; left: 12px; background: rgba(165,90,74,0.82); backdrop-filter: blur(8px); color: #fff; font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; z-index: 2; }
+    .spot-save { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; background: rgba(253,252,250,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(253,252,250,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: rgba(244,241,235,0.85); z-index: 2; cursor: pointer; transition: background 0.15s; }
+    .spot-save:hover { background: rgba(253,252,250,0.28); }
     .spot-card-body { display: flex; align-items: center; height: 30px; padding: 4px 12px 12px; }
     .spot-card-name { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 400; color: #1a1612; text-align: center; line-height: 1.2; padding: 18px 12px 3px; margin: 0; }
     .spot-card-location { display: block; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(150, 145, 140); text-align: center; padding: 0 12px 0; background: transparent; }
@@ -113,6 +129,7 @@
     .dest-similar-pill:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
     @media(max-width:480px){ .dest-similar { padding: 44px 20px 48px; } .dest-similar-pill { padding: 10px 18px; font-size: 12.5px; } }
 
+    /* ── HIGHLIGHTS ── */
     .dest-highlights { background: var(--white); padding: 80px 40px 60px; border-top: 1px solid var(--hairline); }
     .dest-highlights-inner { max-width: 1000px; margin: 0 auto; }
     .dest-highlights-header { text-align: center; margin-bottom: 56px; }
@@ -125,11 +142,9 @@
     .dest-hl-icon { font-size: 18px; margin-bottom: 10px; display:block; }
     .dest-hl-title { font-family:'Cormorant',serif; font-size:18px; font-weight:400; color:var(--ink); margin-bottom:8px; line-height:1.2; }
     .dest-hl-body { font-family:'Jost',sans-serif; font-size:11.5px; font-weight:300; color:var(--mid); line-height:1.78; }
-    .dest-highlights-tip { background: rgba(165,90,74,0.06); border-left: 2px solid #A55A4A; padding: 24px 28px; max-width:680px; margin:0 auto; }
-    .dest-highlights-tip-label { font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:#A55A4A; display:block; margin-bottom:8px; }
-    .dest-highlights-tip-text { font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--ink); line-height:1.8; }
     @media(max-width:640px){ .dest-highlights { padding:60px 24px 48px; } }
 
+    /* ── GALLERY ── */
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
     .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -145,6 +160,7 @@
     @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } }
     @media(max-width: 480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
 
+    /* ── BUDGET ── */
     .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
     .dest-landing-budget-inner { max-width: 960px; margin: 0 auto; }
     .dest-landing-budget-header { text-align: center; margin-bottom: 48px; }
@@ -162,13 +178,15 @@
     .budget-row-total { background: rgba(26,22,18,0.04); font-weight: 500; }
     .budget-tip { font-family: 'Cormorant', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.55; color: var(--ink); padding: 22px 0 0; margin-top: 22px; border-top: 1px solid var(--hairline); }
     .budget-tip strong { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .dest-quick-answer { font-family: 'Cormorant', serif; font-size: 19px; font-weight: 400; font-style: italic; line-height: 1.6; color: var(--ink); margin: 0 0 32px; padding: 4px 0 0; }
+    .dest-quick-answer .qa-lead { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; font-style: normal; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline; margin-right: 10px; }
     .pg-cta-btn { display: inline-block; margin-top: 32px; background: var(--ink); color: var(--bg); border: none; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 32px; border-radius: 24px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
     .pg-cta-btn:hover { opacity: 0.8; }
 
     @media(max-width:640px) {
       .dest-landing-hero-content { padding: 60px 24px; }
       .dest-landing-body { padding: 0 20px; }
-      .dest-landing-budget { padding: 60px 20px; }
+      .dest-landing-budget { padding: 60px 20px !important; margin-top: 0 !important; }
       .story-back-btn { margin: 20px; top: 40px; }
       .budget-dest-header { flex-direction: column; }
     }
@@ -208,98 +226,74 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is the Algarve good for proposals?",
+        "name": "Where is the best place to propose in Iceland?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Algarve is Europe's best-value proposal destination — extraordinary Atlantic sea caves, golden sandstone cliffs, and an hour of evening light that rivals anything on the Amalfi Coast, at roughly half the price."
+          "text": "The ideal setting depends on the season and the kind of couple you are. For a winter proposal, a privately chartered Sapphire Blue Ice Cave beneath the Vatnajökull glacier is unmatched, a cathedral of blue ice open only from November through March. For dramatic waterfall scenery without the crowds of Seljalandsfoss, the hidden cavern behind Kvernufoss on the South Coast is the quiet choice. Diamond Beach, where glacier ice washes up on black sand near Jökulsárlón, and the black timber Búðakirkja church on the Snæfellsnes Peninsula are the most photogenic road-accessible options. For total seclusion, a private helicopter landing on a glacier summit or the remote Brennisteinsalda ridge in the Highlands puts you alone in the landscape."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the most private proposal spot in the Algarve?",
+        "name": "What do Iceland proposal and honeymoon packages include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The golden-hour kayak approach to Benagil Cave, after the tour boats have left for the day, offers complete privacy with one of the most extraordinary natural interiors in Europe. Clifftop spots above Praia do Camilo and Praia da Marinha are equally dramatic with significantly less foot traffic."
+          "text": "A full-service Iceland package usually covers concept planning, site scouting and daily weather monitoring, private 4x4 super-jeep or helicopter transfers to your chosen setting, any commercial filming permits or private landowner access, two to four hours of professional photography with aerial drone coverage, and an on-site setup with wind-resistant flowers, wool blankets and a champagne toast. Because the weather turns quickly, a good planner also builds in a sheltered backup location for every outdoor moment."
         }
       },
       {
         "@type": "Question",
-        "name": "How far in advance should I book an Algarve proposal?",
+        "name": "How much does a proposal photographer cost in Iceland?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "4–6 weeks is typically sufficient. Peak summer (July–August) sees more visitors and photographer availability tightens. Spring and autumn proposals can often be arranged with shorter lead times."
+          "text": "A professional proposal or engagement photographer in Iceland typically charges $1,500 to $3,500 for a two to three hour session. That rate reflects specialised low-light and foul-weather gear, long drive times out of Reykjavík, real-time lighting planning around a narrow golden hour, and discreet coordination to protect the surprise. An all-day session across several locations with drone video and full guiding runs from $4,000 to $6,500."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the best time of year to propose in the Algarve?",
+        "name": "When is the best time to propose in Iceland, Northern Lights season or midnight sun?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "May, June, and September through October. The Atlantic light in late spring and early autumn is extraordinary — golden and directional in a way that harsh summer midday sun doesn't provide. Crowds are noticeably thinner, and prices are lower than peak summer."
+          "text": "Neither season is better outright; they suit completely different priorities. Choose the midnight sun from late May through July if you want endless golden light, mild temperatures, green landscapes, open Highland roads and the freedom to stage a private waterfall shoot at 11pm with no crowds. Choose the Northern Lights season from September through mid-April if you want snow-covered scenery, natural blue ice caves and dark skies lit by the aurora. Daylight swings enormously between them, from about 21 hours at the summer solstice to roughly 4 hours at the winter solstice, so the season shapes your entire itinerary."
         }
       },
       {
         "@type": "Question",
-        "name": "Where is the most romantic place to propose in Portugal?",
+        "name": "Can you plan a proposal under the Northern Lights?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Benagil sea cave in the Algarve for something entirely unique: a natural skylight opens in the cave ceiling and floods the interior with light, accessible by kayak after tour boats clear at 5pm. Cabo da Roca on the Sintra coast for a clifftop Atlantic moment at the westernmost point of mainland Europe. A Douro Valley quinta terrace at harvest time (September and October) for the most private vineyard setting in the country. Lisbon's Miradouro da Graca in the last hour before sunset for a city proposal with the full Alfama roofline and the Tagus estuary in frame."
+          "text": "Yes, but flexibility is essential. The aurora cannot be scheduled or guaranteed, so a successful lights proposal means reserving a multi-day window and working with a private guide who tracks live solar wind data and cloud cover through the Icelandic Meteorological Office at vedur.is. Photographers shoot on manual with wide-aperture lenses and long exposures, using subtle handheld light on the couple, so you need to stay still through each frame. Aurora visibility requires both geomagnetic activity and clear local skies, which is why the aurora is best treated as a highlight rather than a promise."
         }
       },
       {
         "@type": "Question",
-        "name": "How much does a Portugal proposal cost?",
+        "name": "Is Iceland good for proposals and honeymoons?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A self-planned Algarve moment costs almost nothing beyond a kayak rental (30 to 60 euros). With a photographer, plan for $300 to $700 for the moment alone. A proposal photographer in Portugal runs $200 to $500 for two to three hours. Add a three-night clifftop hotel stay and the total range opens to $700 to $3,000 or more. A Portugal proposal package bundling planner, photographer, flowers, and setup starts around $800."
+          "text": "Iceland is one of the world's premier romantic destinations for couples who love dramatic scenery, outdoor adventure and Nordic spa culture. Within a compact island you can move between glaciers, volcanoes, waterfalls, black sand beaches and geothermal springs, then retreat to boutique properties like The Retreat at Blue Lagoon, Eleven Deplar Farm or Torfhús Retreat. It rewards couples who see weather and wildness as part of the romance rather than an obstacle."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the best time of year to propose in Portugal?",
+        "name": "What is the most private proposal spot in Iceland?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "May, June, September, and October across all regions. Those months give you the warmest directional light, the thinnest crowds, and accommodation prices 20 to 30 percent lower than the July to August peak. For the Douro Valley specifically, September is the harvest window and the best of the year. For the Algarve coast, shoulder season has the same extraordinary light as summer but without the crowds at the coves and cliffs."
+          "text": "For absolute isolation, a privately chartered helicopter landing on a glacier or crater summit, such as Þrísjökull or the Hengill geothermal area, or a private super-jeep run into a Highland gorge, leaves you entirely alone in the landscape. Among road-accessible settings, the hidden cavern behind Kvernufoss and the eastern basalt columns of Stuðlagil Canyon at first light offer far more privacy than the major tourist stops on the Ring Road."
         }
       },
       {
         "@type": "Question",
-        "name": "Should I propose in the Algarve, Lisbon, or the Douro Valley?",
+        "name": "How far in advance should I book an Iceland proposal or honeymoon?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Algarve for the most cinematic natural setting: Benagil sea cave, Ponta da Piedade sea arches, and hidden coves accessible by kayak. Lisbon for a city proposal with no logistics complications: the Alfama miradouros are free, walkable, and beautiful in the last hour of light. The Douro Valley for the most private and most atmospheric option: a wine estate terrace during harvest with the entire valley visible in every direction. Sintra and Cabo da Roca are worth a half day from Lisbon if the weather is clear."
+          "text": "High-end Iceland itineraries should be booked 6 to 12 months ahead. The top boutique properties such as The Retreat at Blue Lagoon, Eleven Deplar Farm and Torfhús Retreat have very small room counts and sell out well in advance for the peak summer midnight sun weeks and the winter aurora holidays. Premier proposal photographers, certified ice cave guides and private helicopter charters also have limited availability and book up early."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I access the Benagil sea cave for a proposal?",
+        "name": "Do I need a passport or visa for Iceland as a US citizen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "By kayak or paddleboard from Benagil beach, a ten-minute paddle around the headland. Kayak rentals cost 30 to 60 euros for two people. Tour boats run from 8am to around 5pm; after that, private kayak access gives you the cave to yourselves. For a proposal, go after 5pm. Check local wave conditions the day before because a two-metre Atlantic swell closes the cave entrance. The cave has one small sand beach inside and the natural skylight lights the interior for roughly two hours either side of direct sun angle overhead."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need a permit to propose in Portugal?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Portugal has no photography permit requirement for couples at public beaches, clifftops, or national parks. A professional photographer operating commercially may need to notify park authorities at certain protected sites, but this is the photographer's responsibility. Ask when you book to confirm they are familiar with any site-specific rules. Private quinta experiences in the Douro require advance booking and occasionally a small access fee agreed at booking."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Should I hire a photographer for a Portugal proposal?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "If you want to remember the setting as more than a phone snap, yes. A proposal photographer in Portugal runs $200 to $500 for two to three hours and is the single best line item in any Portugal proposal budget. Algarve photographers who know Benagil cave timing and Ponta da Piedade light angles are worth hiring locally rather than bringing someone from outside the region. Book 6 to 8 weeks ahead in shoulder season, when the good ones fill."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a Portugal proposal package include?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Most Portugal proposal packages cover a local planner who scouts and books the spot, a photographer for two to three hours, a small setup (flowers, candles, sometimes champagne), and logistical coordination on the day. Some include a private dinner reservation or a boat charter in the Algarve. Others are photographer-only with no planning element. The most important question to ask is what specific location the photographer knows well. A Portugal proposal package that bundles all elements starts around $800."
+          "text": "US citizens do not need a tourist visa for stays up to 90 days within any 180-day period in the Schengen Area. Your passport must be valid for at least three months beyond your planned departure date. The European Travel Information and Authorization System, ETIAS, is not yet in effect, with launch expected in late 2026 or 2027."
         }
       }
     ]
@@ -325,8 +319,8 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Portugal",
-        "item": "https://www.proposalspots.com/destinations/portugal"
+        "name": "Iceland",
+        "item": "https://www.proposalspots.com/destinations/iceland"
       }
     ]
   }
@@ -335,86 +329,65 @@
   {
     "@context": "https://schema.org",
     "@type": "TouristDestination",
-    "name": "Portugal",
-    "description": "A proposal destination spanning Atlantic sea caves in the Algarve, clifftop headlands at Sintra and Cabo da Roca, historic Lisbon rooftops, Douro Valley vineyards, and the subtropical island of Madeira.",
-    "url": "https://www.proposalspots.com/destinations/portugal",
-    "touristType": "Couples",
-    "includesAttraction": [
-      {
-        "@type": "TouristAttraction",
-        "name": "Benagil Sea Cave, Algarve"
-      },
-      {
-        "@type": "TouristAttraction",
-        "name": "Ponta da Piedade, Lagos"
-      },
-      {
-        "@type": "TouristAttraction",
-        "name": "Cabo da Roca, Sintra"
-      },
-      {
-        "@type": "TouristAttraction",
-        "name": "Alfama and Lisbon Rooftops"
-      },
-      {
-        "@type": "TouristAttraction",
-        "name": "Douro Valley Quintas"
-      },
-      {
-        "@type": "TouristAttraction",
-        "name": "Madeira"
-      }
-    ]
+    "name": "Iceland",
+    "description": "A subarctic North Atlantic island of glaciers, volcanoes, waterfalls, black sand beaches and geothermal lagoons, known for the Vatnajökull ice caves, the Golden Circle, the South Coast, the Snæfellsnes Peninsula and the Central Highlands. One of the world's most dramatic proposal and honeymoon settings, split between the Northern Lights season and the endless daylight of the midnight sun.",
+    "url": "https://www.proposalspots.com/destinations/iceland",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "64.9631",
+      "longitude": "-19.0208"
+    },
+    "touristType": "Romantic travelers, couples planning proposals"
   }
   </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Best Places to Propose in Portugal",
-    "description": "Named proposal spots in Portugal, ranked by setting type and privacy.",
+    "name": "Best Iceland Proposal Spots",
+    "description": "The top proposal locations in Iceland, curated for setting, privacy, and photographer access.",
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Benagil Sea Cave, Algarve",
-        "description": "A sea cave with a natural skylight in its domed ceiling, accessible by kayak from Benagil beach. After tour boats clear at 5pm, the interior is entirely private. The cave sits 10 minutes by paddle from the beach, near Lagos."
+        "name": "Sapphire Blue Ice Cave (Vatnajökull National Park)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Ponta da Piedade, Lagos",
-        "description": "Golden limestone sea arches in shallow turquoise water, most dramatic in the last hour of sunlight. Boat access from Lagos marina gives the full view from the water."
+        "name": "Kvernufoss Gorge Cavern (Skógar, South Coast)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Cabo da Roca, Sintra",
-        "description": "The westernmost point of mainland Europe. A clifftop lighthouse above open Atlantic, facing due west for a direct sunset view. A 25-minute drive from Sintra town."
+        "name": "Diamond Beach (Breiðamerkursandur, Jökulsárlón)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Miradouro da Graca, Lisbon",
-        "description": "A rooftop viewpoint in the Alfama neighbourhood with the full Lisbon roofline and the Tagus estuary in frame. Free, walkable, and best in the last 90 minutes before sunset."
+        "name": "Búðakirkja Black Church (Snæfellsnes Peninsula)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": "Douro Valley Quintas (Quinta do Crasto, Quinta Nova)",
-        "description": "Private wine estate terraces in the Douro Valley, bookable directly for private dinners and proposal experiences. Most atmospheric during the September to October harvest season, when the valley turns gold."
+        "name": "Brennisteinsalda Rhyolite Crest (Landmannalaugar Highlands)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 6,
-        "name": "Praia da Marinha, Algarve",
-        "description": "Consistently rated one of the most beautiful small beaches in Europe. Steep cliff access, narrow beach, extraordinary rock formations. Near-private on weekday mornings in May or September."
+        "name": "Öxarárfoss Viewpoint Ledge (Þingvellir National Park)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       },
       {
         "@type": "ListItem",
         "position": 7,
-        "name": "Ponta de Sao Lourenco, Madeira",
-        "description": "A peninsula trail at the eastern tip of Madeira with dramatic Atlantic cliffs on both sides. Complete seclusion, no vehicle access, best in morning light."
+        "name": "Dyrhólaey Upper Promontory (Vík í Mýrdal)",
+        "url": "https://www.proposalspots.com/destinations/iceland"
       }
     ]
   }
@@ -429,8 +402,8 @@
     <a href="/destinations" class="story-back-btn">← All Destinations</a>
     <div class="dest-landing-hero-content">
       <span class="pg-eyebrow">Europe</span>
-      <h1 class="dest-landing-title">Portugal</h1>
-      <p class="dest-landing-sub">Sea caves with natural skylights, sandstone sea arches glowing amber at sunset, and Atlantic cliffs that drop straight into impossibly clear water. Europe's best-value proposal coastline.</p>
+      <h1 class="dest-landing-title">Iceland</h1>
+      <p class="dest-landing-sub">Blue ice caves under a glacier, waterfalls you can stand behind, black sand beaches scattered with ice, and geothermal lagoons steaming into the cold. A country lit by the midnight sun in summer and the aurora in winter.</p>
     </div>
   </div>
 
@@ -485,7 +458,7 @@
         <p>No spots match your filters.</p>
         <button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;margin-top:16px;">Clear Filters</button>
       </div>
-      <div id="dest-landing-coming-soon" data-destination-name="Portugal" style="display:none;text-align:center;padding:100px 20px 80px;">
+      <div id="dest-landing-coming-soon" data-destination-name="Iceland" style="display:none;text-align:center;padding:100px 20px 80px;">
         <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#A55A4A;display:block;margin-bottom:24px;">Coming Soon</span>
         <p style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,46px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:16px;">We're curating something<br><em>extraordinary</em> here.</p>
         <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.8;max-width:460px;margin:0 auto 36px;">Our editors are on the ground, vetting only the spots worth proposing at. This destination opens soon.</p>
@@ -505,14 +478,14 @@
   <section class="dest-similar">
     <div class="dest-similar-inner">
       <div class="dest-similar-rule">
-        <span class="dest-similar-rule-label">If not Portugal</span>
+        <span class="dest-similar-rule-label">If not Iceland</span>
         <span class="dest-similar-rule-line"></span>
       </div>
       <div class="dest-similar-pills">
-        <a href="/destinations/italy" class="dest-similar-pill">Italy</a>
-        <a href="/destinations/greece" class="dest-similar-pill">Greece</a>
-        <a href="/destinations/south-of-france" class="dest-similar-pill">South of France</a>
+        <a href="/destinations/switzerland" class="dest-similar-pill">Switzerland</a>
+        <a href="/destinations/patagonia" class="dest-similar-pill">Patagonia</a>
         <a href="/destinations/amalfi-coast" class="dest-similar-pill">Amalfi Coast</a>
+        <a href="/destinations/hawaii" class="dest-similar-pill">Hawaii</a>
         <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
     </div>
@@ -522,19 +495,19 @@
     <span class="dest-gallery-eyebrow">The setting</span>
     <div class="dest-gallery-grid">
       <div class="dest-gallery-col">
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1569406829354-eb0cc9e653e8?q=80&w=900&auto=format&fit=crop'); return false;" href="#" class="is-portrait">
-          <img src="https://images.unsplash.com/photo-1569406829354-eb0cc9e653e8?q=80&w=900&auto=format&fit=crop" alt="Hidden sea cave entrance, Benagil, Algarve" loading="lazy">
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1374&auto=format&fit=crop" alt="Kirkjufell mountain and waterfall, Iceland" loading="lazy">
         </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1541323474343-589d15554a63?q=80&w=900&auto=format&fit=crop'); return false;" href="#" class="is-landscape">
-          <img src="https://images.unsplash.com/photo-1541323474343-589d15554a63?q=80&w=900&auto=format&fit=crop" alt="Sea arches and golden limestone cliffs, Algarve Portugal" loading="lazy">
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1483347756197-71ef80e95f73?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1483347756197-71ef80e95f73?q=80&w=1374&auto=format&fit=crop" alt="Northern Lights over an Icelandic landscape" loading="lazy">
         </a>
       </div>
       <div class="dest-gallery-col">
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop'); return false;" href="#" class="is-landscape">
-          <img src="https://images.unsplash.com/photo-1709113646175-dac6673b88f7?q=80&w=1332&auto=format&fit=crop" alt="Dramatic Atlantic coastline of the Algarve at golden hour" loading="lazy">
+        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1476610182048-b716b8518aae?q=80&w=1468&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?q=80&w=1468&auto=format&fit=crop" alt="Waterfall on the Icelandic South Coast" loading="lazy">
         </a>
-        <a onclick="openLightbox('https://images.unsplash.com/photo-1535911061633-d2516c0023d4?q=80&w=900&auto=format&fit=crop'); return false;" href="#" class="is-landscape">
-          <img src="https://images.unsplash.com/photo-1535911061633-d2516c0023d4?q=80&w=900&auto=format&fit=crop" alt="Ponta da Piedade sea stacks glowing at sunset, Algarve" loading="lazy">
+        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1531168556467-80aace0d0144?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+          <img src="https://images.unsplash.com/photo-1531168556467-80aace0d0144?q=80&w=1470&auto=format&fit=crop" alt="Volcanic Icelandic terrain at golden hour" loading="lazy">
         </a>
       </div>
     </div>
@@ -547,39 +520,39 @@
     <div class="dest-highlights-inner">
       <div class="dest-highlights-header">
         <span class="pg-eyebrow" style="text-align:center">Make the most of it</span>
-        <h2 class="dest-highlights-title">How do you experience the Algarve?</h2>
-        <p class="dest-highlights-sub">The Algarve is best explored by kayak, by rental car, and by simply stopping whenever the view demands it. Here's how to find the coast that the holiday brochures haven't reached yet.</p>
+        <h2 class="dest-highlights-title">How do you experience Iceland?</h2>
+        <p class="dest-highlights-sub">Two seasons of light, a coastline of waterfalls and ice, geothermal water, and a wild interior you can only reach with the right vehicle.</p>
       </div>
       <div class="dest-highlights-grid">
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🚣</span>
-          <div class="dest-hl-title">Kayak the coast</div>
-          <p class="dest-hl-body">The only way to access many of the Algarve's best spots is from the water. A kayak lets you enter sea caves, reach hidden beaches, and find coves that the cliff paths don't reach. Half-day private guided kayak is the single best activity on this coast.</p>
+          <span class="dest-hl-icon">🌌</span>
+          <div class="dest-hl-title">Northern Lights</div>
+          <p class="dest-hl-body">From September through mid-April the dark returns and the aurora can appear over snowfields and frozen falls. Nothing is guaranteed, so the couples who see it plan a flexible multi-night window and hire a guide who chases clear skies by live solar wind and cloud data.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🌅</span>
-          <div class="dest-hl-title">Ponta da Piedade at sunset</div>
-          <p class="dest-hl-body">The sea arches at Ponta da Piedade — golden limestone stacks in shallow turquoise water — at the last hour of sunlight are the most extraordinary landscape on the Algarve. Boat access from Lagos gives you the full view.</p>
+          <span class="dest-hl-icon">☀️</span>
+          <div class="dest-hl-title">Midnight sun</div>
+          <p class="dest-hl-body">From late May through July the sun barely sets, and the golden hour stretches from late evening past midnight. You can stand alone at an iconic waterfall at 11pm, with soft pastel light and none of the daytime tour buses in frame.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🏖</span>
-          <div class="dest-hl-title">Praia da Marinha</div>
-          <p class="dest-hl-body">Consistently rated one of the most beautiful small beaches in Europe. The walk down the cliff is steep, the beach is narrow, and on a weekday in May it's nearly yours. The rock formations are extraordinary.</p>
+          <span class="dest-hl-icon">♨️</span>
+          <div class="dest-hl-title">Geothermal lagoons</div>
+          <p class="dest-hl-body">The Retreat at Blue Lagoon on the Reykjanes Peninsula hides a private mineral lagoon inside eight-hundred-year-old lava, steps from a five-star suite. Warm water in cold air is the most effortless romantic setting in the country, whatever the weather does outside.</p>
+        </div>
+        <div class="dest-hl-item">
+          <span class="dest-hl-icon">🧊</span>
+          <div class="dest-hl-title">Glacier ice caves</div>
+          <p class="dest-hl-body">Beneath Vatnajökull, meltwater carves blue chambers that open only from November through March. A private early-access charter with a certified mountain guide gives you a cathedral of translucent ice entirely to yourselves before the group tours arrive.</p>
         </div>
         <div class="dest-hl-item">
           <span class="dest-hl-icon">🌊</span>
-          <div class="dest-hl-title">Sagres and the Southwest</div>
-          <p class="dest-hl-body">The southwestern tip of continental Europe — the Cabo de São Vicente lighthouse above sheer 50-metre cliffs — is one of the most dramatically positioned spots on the continent. At sunset, facing the Atlantic, it feels like the edge of the world.</p>
+          <div class="dest-hl-title">South Coast waterfalls</div>
+          <p class="dest-hl-body">The stretch from the Golden Circle to Jökulsárlón strings together waterfalls, black sand beaches and glacier lagoons. Skip the crowds at Seljalandsfoss for the hidden cavern behind Kvernufoss, or time Diamond Beach for the empty light of dawn.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🍽</span>
-          <div class="dest-hl-title">The fish restaurants of Ferragudo</div>
-          <p class="dest-hl-body">The village of Ferragudo — across the river from Portimão, accessible by small boat — has old-school fish restaurants on the quay that feel untouched by tourism. A long lunch here, watching the fishing boats, is one of the great Algarve meals.</p>
-        </div>
-        <div class="dest-hl-item">
-          <span class="dest-hl-icon">🔦</span>
-          <div class="dest-hl-title">Benagil after hours</div>
-          <p class="dest-hl-body">The Benagil cave tour boats stop running at 5pm. After that, private kayak access into the cave — with the skylight turning the dome of the cave gold — is entirely achievable and entirely private.</p>
+          <span class="dest-hl-icon">⛰️</span>
+          <div class="dest-hl-title">The Highlands</div>
+          <p class="dest-hl-body">The uninhabited interior of rhyolite peaks and steaming vents opens only in high summer, reached by super-jeep or helicopter. Landmannalaugar and the ridges above it deliver the most remote, most private setting Iceland has, with no one else for miles.</p>
         </div>
       </div>
     </div>
@@ -587,7 +560,7 @@
 
   <section class="dest-expert-take">
     <div class="dest-expert-take-inner">
-      <p class="dest-expert-statement">The Algarve is Europe's best-value proposal destination, and it isn't close.</p>
+      <p class="dest-expert-statement">In Iceland you propose by the light you choose: the midnight sun that never sets, or the aurora that only the dark reveals.</p>
     </div>
   </section>
 
@@ -595,20 +568,20 @@
     <div class="dest-faq-inner">
       <span class="dest-faq-label">Questions &amp; Answers</span>
       <details>
-        <summary>Is the Algarve good for proposals?</summary>
-        <p class="dest-faq-answer">The Algarve is Europe's best-value proposal destination — extraordinary Atlantic sea caves, golden sandstone cliffs, and an hour of evening light that rivals anything on the Amalfi Coast, at roughly half the price.</p>
+        <summary>Is Iceland good for proposals?</summary>
+        <p class="dest-faq-answer">Iceland is one of the most dramatic romantic destinations anywhere, ideal for couples who love wild scenery and outdoor adventure. A compact island holds glaciers, volcanoes, waterfalls, black sand beaches and geothermal lagoons, with boutique lodges like The Retreat at Blue Lagoon and Eleven Deplar Farm to return to. It rewards couples who treat weather and wildness as part of the story rather than a problem.</p>
       </details>
       <details>
-        <summary>What is the most private proposal spot in the Algarve?</summary>
-        <p class="dest-faq-answer">The golden-hour kayak approach to Benagil Cave, after the tour boats have left for the day, offers complete privacy with one of the most extraordinary natural interiors in Europe. Clifftop spots above Praia do Camilo and Praia da Marinha are equally dramatic with significantly less foot traffic.</p>
+        <summary>What is the most private proposal spot in Iceland?</summary>
+        <p class="dest-faq-answer">A privately chartered helicopter landing on a glacier or crater summit leaves you entirely alone in the landscape, as does a super-jeep run into a Highland gorge. Among road-accessible settings, the hidden cavern behind Kvernufoss and the basalt columns of Stuðlagil Canyon at first light offer far more privacy than the busy stops along the Ring Road.</p>
       </details>
       <details>
-        <summary>How far in advance should I book an Algarve proposal?</summary>
-        <p class="dest-faq-answer">4–6 weeks is typically sufficient. Peak summer (July–August) sees more visitors and photographer availability tightens. Spring and autumn proposals can often be arranged with shorter lead times.</p>
+        <summary>How far in advance should I book an Iceland proposal?</summary>
+        <p class="dest-faq-answer">Plan on 6 to 12 months for a high-end trip. The top boutique properties have very small room counts and fill early for the peak summer midnight sun weeks and the winter aurora holidays. Premier photographers, certified ice cave guides and private helicopter charters also have limited availability and book up well ahead.</p>
       </details>
       <details>
-        <summary>What is the best time of year to propose in the Algarve?</summary>
-        <p class="dest-faq-answer">May, June, and September through October. The Atlantic light in late spring and early autumn is extraordinary — golden and directional in a way that harsh summer midday sun doesn't provide. Crowds are noticeably thinner, and prices are lower than peak summer.</p>
+        <summary>Northern Lights season or midnight sun?</summary>
+        <p class="dest-faq-answer">It comes down to the light you want. The midnight sun of late May through July gives endless golden evenings, mild weather and open Highland roads, but no aurora. The Northern Lights season of September through mid-April gives snow, natural blue ice caves and dark skies for the aurora, but short days and careful winter driving. Daylight runs from around 21 hours in June to roughly 4 hours in December, so the season shapes everything.</p>
       </details>
     </div>
   </section>
@@ -617,126 +590,144 @@
     <div class="dest-landing-budget-inner">
       <div class="dest-landing-budget-header">
         <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
-        <h2 class="dest-landing-budget-title">How much does a proposal in the Algarve cost?</h2>
+        <h2 class="dest-landing-budget-title">How much does a proposal in Iceland cost?</h2>
         <p class="dest-landing-budget-sub">What a proposal actually costs here — broken down honestly, category by category. No surprises.</p>
       </div>
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <h3 class="budget-dest-name">The Algarve</h3>
-            <p class="budget-dest-tagline">Europe's best-value luxury proposal destination. The Atlantic coastline rivals the Amalfi Coast — at roughly half the price.</p>
+            <h3 class="budget-dest-name">Iceland</h3>
+            <p class="budget-dest-tagline">Iceland is one of the world's most expensive destinations, and the logistics of remote terrain, specialised 4x4 transport and imported goods show up in every line. The range below runs from a single-day staging to a three-night luxury itinerary.</p>
           </div>
-          <div class="budget-dest-range-badge">$300 – $3,000+</div>
+          <div class="budget-dest-range-badge">$3,850 – $26,800+</div>
         </div>
         <div class="budget-table">
           <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
-          <div class="budget-row"><span>Kayak / boat rental</span><span>$40 – $120</span><span>Included</span></div>
-          <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$200 – $500</span><span>$200 – $500</span></div>
-          <div class="budget-row"><span>Hotel (3 nights, clifftop)</span><span>—</span><span>$400 – $1,500</span></div>
-          <div class="budget-row"><span>Private dinner</span><span>$80 – $250</span><span>$100 – $300</span></div>
-          <div class="budget-row"><span>Flowers &amp; champagne</span><span>$40 – $100</span><span>Often included</span></div>
-          <div class="budget-row budget-row-total"><span>Estimated total</span><span>$360 – $970</span><span>$700 – $2,300+</span></div>
+          <div class="budget-row"><span>Guide, vehicle &amp; site access</span><span>$1,200 – $2,500</span><span>$2,500 – $6,500</span></div>
+          <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$1,500 – $3,500</span><span>$2,200 – $4,500</span></div>
+          <div class="budget-row"><span>Hotel (3 nights)</span><span>—</span><span>$2,400 – $9,500</span></div>
+          <div class="budget-row"><span>Fine dining for two</span><span>$350 – $600</span><span>$1,200 – $2,800</span></div>
+          <div class="budget-row"><span>Floral styling &amp; production</span><span>$800 – $1,800</span><span>$1,500 – $3,500</span></div>
+          <div class="budget-row budget-row-total"><span>Estimated total</span><span>$3,850 – $8,400</span><span>$9,800 – $26,800+</span></div>
         </div>
-        <p class="budget-tip"><strong>Proposal Spots tip</strong>The Benagil Cave at golden hour — after tour boats leave — costs almost nothing and looks extraordinary. Golden hour kayak access is the move.</p>
+        <p class="budget-tip"><strong>A note on transport</strong>Most of the cost here is getting you to the setting. A modified super-jeep, a glacier permit or a private helicopter transfer is what turns a public landmark into a private one, and it is the single line that moves the total the most.</p>
       </div>
       <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Portugal proposal spot →</a>
-        <a href="/budget/portugal" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;">See the full Portugal cost breakdown →</a>
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Iceland proposal spot →</a>
         <a href="/budget" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
       </div>
     </div>
   </div>
 
-  <section style="background:var(--bg);padding:80px 40px;border-top:1px solid var(--hairline);">
+  <!-- ── SEO CONTENT BLOCK ── -->
+
+  <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">Why propose in Portugal?</h2>
+      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Iceland?</h2>
 
-      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 28px;">The top places for a portugal proposal are Benagil sea cave in the Algarve (kayak in after 5pm, when tour boats clear and the natural skylight floods the interior), Cabo da Roca on the Sintra coast (the westernmost point of mainland Europe, facing due west at sunset), and a private quinta terrace in the Douro Valley during harvest season in September and October. A portugal proposal runs from $300 for a self-planned Algarve moment to $3,000 or more when you add hotel, photographer, and a vineyard dinner in the Douro.</p>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The standout settings are a private blue ice cave under Vatnajökull, the hidden cavern behind Kvernufoss on the South Coast, and the glacier gems of Diamond Beach on black sand. A staged proposal moment starts around $3,850 and climbs past $8,000 for a Highland or glacier setup. Add three nights in a five-star lodge and a full trip runs $9,800 to $26,800 or more, depending on whether you choose a boutique suite or an all-inclusive wilderness lodge.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Portugal gives you three completely different proposal settings within a three-hour drive: Atlantic sea caves and sandstone cliffs in the Algarve, hilltop palaces and Atlantic clifftops around Sintra, and a river valley covered in vineyards to the north. No other country in Western Europe offers that range without an additional flight.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Few places on earth put this much raw landscape within reach of a comfortable base. In a single trip you can stand behind a waterfall, walk on a black sand beach scattered with glacier ice, soak in a private geothermal lagoon, and watch the sky do something extraordinary at either end of the day. The catch, and the appeal, is that Iceland is genuinely wild, and the best moments take planning to reach.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">A marriage proposal in portugal also makes financial sense. The Algarve coastline matches the <a href="/destinations/italy" style="color:var(--accent);text-decoration:underline;">Amalfi Coast</a> for sheer visual drama at roughly half the cost. Photographers start lower than in France or Italy, private quintas in the Douro charge less than comparable estates in Tuscany, and the country has no photography permit requirements that add cost or complication to planning.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The landmarks along the Ring Road fill with tour buses during the day, so real privacy is a matter of timing and access. That means arriving at first light or late in the summer evening, walking the extra distance most visitors skip, or chartering a super-jeep or helicopter into terrain that ordinary rental cars cannot reach. A blue ice cave booked as a private early-access tour, a Highland ridge reached by air, or a hidden gorge at dawn all give you the landscape to yourselves.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">The best places to propose in portugal are specific. Benagil cave is famous because a natural skylight opens in the cave ceiling and floods the interior with light. Cabo da Roca sits above the Atlantic on a clifftop marked by a lighthouse, and on a clear evening the sun drops into the ocean directly ahead. The Douro Valley quintas are private wine estates where you can book a terrace dinner among the vineyards with the valley visible in every direction. These are not vague gestures at scenic landscapes. They are named places with specific reasons to be there at specific times.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:0;">Lisbon and Alfama work for the couple who wants a city proposal without compromise. The miradouros of Alfama, especially Miradouro da Graca and Portas do Sol, give you orange rooftops and the Tagus estuary in a single frame, accessible on foot and free. That combination is hard to match anywhere in Europe at any price point. See <a href="/blog/how-to-plan-a-proposal" style="color:var(--accent);text-decoration:underline;">how to plan a proposal</a> for the full framework before you pick the setting.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Photography here is a specialist craft, shaped by the low sun and fast-changing weather. A local <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> typically runs $1,500 to $3,500 for a two to three hour session, more for all-day coverage with drone video, and the good ones plan the light in real time and carry gear built for wind and cold.</p>
     </div>
   </section>
 
   <section style="background:var(--white);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">When is the best time to propose in Portugal?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Iceland?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">May, June, September, and October. Across all regions in Portugal, those four months give you the warmest directional light, the thinnest crowds, and accommodation prices 20 to 30 percent lower than the July to August peak. Shoulder season here is not a compromise. It is the better trip.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The single most important decision in Iceland is which light you want, because the country runs on two opposite seasons. In the Northern Lights season the sky goes dark enough for the aurora. In the midnight sun season the sun never really sets. The daylight difference between them is enormous: around 21 hours of light at the summer solstice against roughly 4 hours at the winter solstice, a seventeen-hour swing that reshapes the entire day. That split, aurora in the dark or the sun that never sets, is the first thing to settle, and it decides everything else about the trip.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For Benagil and the Algarve coves: tour boats clear by 5pm. After that, private kayak access gives you the cave, the coves near Lagos, and the Ponta da Piedade sea arches with no company. In June and July, sunset sits around 9pm and golden hour starts around 7:30pm. In May and September, the window lands earlier (6:30 to 8pm) and the light quality is gentler. Either way, the late-afternoon approach is the private one. For exact times on your specific date, the <a href="https://www.timeanddate.com/sun/portugal/faro" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">sunrise and sunset tables for Faro</a> are accurate to the minute.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The midnight sun runs from late May through July, when the sun dips just below the horizon and the light never fully leaves. It gives couples remarkable freedom: an engagement session at 11:30pm or 2am under a soft golden sky, iconic waterfalls and coastal cliffs without the crowds, and the whole road network open, including the Highland F-roads that only clear once the late-spring snowmelt subsides. The trade-off is that the aurora is impossible in this season, and the best boutique hotels book out far ahead.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For Sintra and Cabo da Roca: arrive two hours before sunset. The drive from Sintra to Cabo da Roca takes 25 minutes. The car park is free. Foggy mornings are common in the Sintra hills even in summer; afternoons are almost always clear. The cliffs face due west, so Cabo da Roca catches the full sunset with no visual obstruction.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The Northern Lights season begins in September and deepens until the December solstice, when daylight narrows to about four hours. The low winter sun skims the southern horizon and casts a long, soft golden light across snow and frozen falls for hours at a stretch. Natural blue ice caves under Vatnajökull are stable and open for guided visits from November through March. The Highland tracks close, rural driving demands constant attention, and the aurora can never be promised, since it needs both solar activity and clear skies. North Atlantic storm fronts can grey out the sky for days, so any aurora plan needs a flexible, multi-night window.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For the Douro Valley: September and October are the harvest window. The vineyards are at peak colour, the quintas are working, and the valley carries the smell of fermented grapes from the cellars. A private quinta terrace in late afternoon light in late September is one of the more extraordinary proposal settings in Europe. Book a quinta experience directly or through a Douro wine tour operator.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:0;">For Madeira: January through April. The island is in full flower, the cliffs are green, and the levada walks above Ponta de Sao Lourenco offer trails with complete seclusion. Madeira has its own microclimate by municipality; check the forecast for your specific area the day before.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Three windows stand out. September is the top shoulder-season month, with 12 to 14 hours of daylight, mild weather, open roads and the first dark skies for early aurora. Late February through March is the best winter window, with longer days than midwinter, stable snowpack, active ice caves and dark nights for the lights. Late June into early July is the peak of summer, 24-hour light, comfortable temperatures, open F-roads and the freedom to stage a private celebration late into the night.</p>
     </div>
   </section>
 
   <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">What should you know before you go?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">What should you know before you go?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Benagil cave access. Tour operators run group kayak and paddleboard tours from Benagil beach from around 8am to 5pm. A private two-person kayak rental costs 30 to 60 euros and lets you go at any time. The paddle from Benagil beach to the cave takes 10 minutes around the headland. Wave conditions matter: check local surf reports the day before, because a two-metre Atlantic swell closes the cave entrance. The visit takes 45 minutes round trip and the cave has one small sand beach inside. For privacy, arrive just after the last tour boats leave (typically 5 to 5:30pm).</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Iceland is almost entirely cashless. The currency is the Icelandic króna, but cards and mobile payments work everywhere, from luxury hotels to rural parking meters, and you never really need paper money. Bring a card with an embedded chip and a four-digit PIN, which is required at the automated fuel pumps outside the main towns. Everyone in hospitality speaks fluent English, so there is no language barrier for bookings or guides.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">No permits needed. Portugal has no commercial photography permit requirement for couples at public beaches, clifftops, or national parks. A professional <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:underline;">destination proposal photographer</a> may need to declare commercial activity at certain protected sites, but they will handle that. Ask when you book to confirm they know any site-specific rules at your chosen location.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For US citizens, no visa is needed for tourism up to 90 days within any 180-day window in the Schengen Area, and your passport must stay valid at least three months beyond your departure. The ETIAS travel authorization is not yet in effect, with launch expected in late 2026 or 2027. International flights land at Keflavík airport, about 50 kilometres southwest of Reykjavík, so arrange a private transfer or pickup rather than assuming a quick hop into town.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Book 6 to 8 weeks ahead. The best Algarve photographers, Douro quinta experiences, and Sintra-area guides fill during shoulder season. Ten to twelve weeks is more comfortable for May and September weekends. For a <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:underline;">proposal package</a> that bundles planner, photographer, and setup, book as early as travel is confirmed.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Getting around is the part that shapes the trip. The Ring Road circles the island for roughly 1,322 kilometres at a 90 km/h limit, and weather can easily double any drive time. The Highland F-roads are legally 4x4 only and open in summer alone, and driving off marked tracks onto the fragile moss is strictly illegal, with fines up to around $2,500. Winter driving needs a proper AWD vehicle on studded tyres, and every planner checks road.is, safetravel.is and vedur.is daily for closures, weather and aurora forecasts. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for how planners handle transport and permits.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:24px;">Douro Valley access. The valley is a two-hour drive from Porto or reachable by train to Pinhao. Private quinta experiences are bookable directly with estates like Quinta do Crasto, Quinta Nova, and Quinta do Vallado. A private terrace dinner runs 80 to 200 euros and requires advance booking. Quinta da Pacheca also welcomes private proposal visits with pre-arranged experiences.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Two practical details for a celebration. Alcohol is sold only in licensed venues and state-run Vínbúðin shops, which keep short hours, so the simplest move is to buy champagne at the Keflavík arrivals duty-free on the way in. And the weather is genuinely volatile: gusts can top 50 to 70 mph, strong enough to catch a car door, so hold doors firmly with both hands in high wind and always keep a sheltered indoor backup for any outdoor plan. Tipping is not customary, though 10 to 15 percent is appreciated for exceptional private guiding or photography.</p>
+    </div>
+  </section>
 
-      <div style="overflow-x:auto;margin-bottom:48px;">
-        <table style="width:100%;border-collapse:collapse;border:1px solid var(--hairline);border-radius:10px;overflow:hidden;font-family:'Jost',sans-serif;font-size:12px;font-weight:300;">
+  <section style="background:var(--white);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Who is this destination NOT right for?</h2>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Iceland is not the place for a warm-weather beach holiday. Summer highs rarely climb past the low sixties Fahrenheit, cold rain and biting wind are possible in any season, and a beach here calls for thermal layers rather than swimwear. If your partner dreams of sunbathing and warm ocean swims, somewhere like <a href="/destinations/hawaii" style="color:var(--accent);text-decoration:none;">Hawaii</a> or the <a href="/destinations/amalfi-coast" style="color:var(--accent);text-decoration:none;">Amalfi Coast</a> will suit far better.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">It is also not the value pick for a budget-conscious luxury trip. High import taxes, high wages and a short high season push up the cost of hotels, private transport and dining, and money simply goes further in Southern Europe or Southeast Asia. If you want spacious suites, private drivers and daily fine dining without a premium price, <a href="/destinations/portugal" style="color:var(--accent);text-decoration:none;">Portugal</a> or <a href="/destinations/bali" style="color:var(--accent);text-decoration:none;">Bali</a> is the smarter match.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">And it does not suit couples who want to unpack once and stay put. Iceland's waterfalls, canyons and glaciers are separated by hundreds of kilometres, often three to six hours of driving a day, and in winter that comes with icy roads and strong crosswinds. If a single self-contained resort for a week is the dream, a place like <a href="/destinations/maldives" style="color:var(--accent);text-decoration:none;">the Maldives</a> fits the brief better than a road trip across a subarctic island.</p>
+
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Two more honest cautions. Anyone expecting a guaranteed aurora will be disappointed, because prolonged winter storms can hide the sky for days, and the lights are always a possibility rather than a certainty. And from late November through January the country sees nineteen to twenty hours of darkness a day, which can feel draining for anyone sensitive to low light or short winter days.</p>
+    </div>
+  </section>
+
+  <section style="background:var(--bg);padding:80px 40px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Iceland proposal spots compare?</h2>
+      <div style="border:1px solid var(--hairline);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:0;">
+        <table style="width:100%;min-width:620px;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
           <thead>
-            <tr style="background:rgba(26,22,18,0.04);border-bottom:1px solid var(--hairline);">
-              <th style="text-align:left;padding:12px 14px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">Region</th>
-              <th style="text-align:left;padding:12px 14px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">Best for</th>
-              <th style="text-align:left;padding:12px 14px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">Privacy</th>
-              <th style="text-align:left;padding:12px 14px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">Best time of day</th>
-              <th style="text-align:left;padding:12px 14px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">Rough cost</th>
+            <tr style="background:rgba(26,22,18,0.04);">
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Setting</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Best for</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Privacy</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Best time</th>
+              <th style="text-align:left;padding:13px 18px;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--hairline);">Rough cost</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid var(--hairline);">
-              <td style="padding:14px;color:var(--ink);font-weight:400;line-height:1.5;">Algarve coast<br><span style="color:var(--mid);font-size:11px;font-weight:300;">Benagil, Ponta da Piedade, Lagos</span></td>
-              <td style="padding:14px;color:var(--mid);">Sea caves and sandstone cliffs</td>
-              <td style="padding:14px;color:var(--mid);">High (post-5pm)</td>
-              <td style="padding:14px;color:var(--mid);">Late afternoon</td>
-              <td style="padding:14px;color:var(--mid);">$300 to $700</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--hairline);">
-              <td style="padding:14px;color:var(--ink);font-weight:400;">Sintra and Cabo da Roca</td>
-              <td style="padding:14px;color:var(--mid);">Westernmost Europe, Atlantic clifftop</td>
-              <td style="padding:14px;color:var(--mid);">Moderate (popular at sunset)</td>
-              <td style="padding:14px;color:var(--mid);">2 hrs before sunset</td>
-              <td style="padding:14px;color:var(--mid);">$200 to $500</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--hairline);">
-              <td style="padding:14px;color:var(--ink);font-weight:400;">Lisbon and Alfama</td>
-              <td style="padding:14px;color:var(--mid);">Urban rooftops and city romance</td>
-              <td style="padding:14px;color:var(--mid);">Light crowd at golden hour</td>
-              <td style="padding:14px;color:var(--mid);">Last 90 min before sunset</td>
-              <td style="padding:14px;color:var(--mid);">$200 to $600</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--hairline);">
-              <td style="padding:14px;color:var(--ink);font-weight:400;line-height:1.5;">Douro Valley<br><span style="color:var(--mid);font-size:11px;font-weight:300;">Quinta do Crasto, Quinta Nova</span></td>
-              <td style="padding:14px;color:var(--mid);">Private vineyard terrace, harvest season</td>
-              <td style="padding:14px;color:var(--mid);">High (private quinta)</td>
-              <td style="padding:14px;color:var(--mid);">Late afternoon, Sept to Oct</td>
-              <td style="padding:14px;color:var(--mid);">$300 to $1,000</td>
+            <tr>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Sapphire blue ice cave (Vatnajökull)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High-adventure winter couples</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (private early-access charter)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Nov to Mar, 10:30am to 1:30pm</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$3,200 to $6,500</td>
             </tr>
             <tr>
-              <td style="padding:14px;color:var(--ink);font-weight:400;">Madeira</td>
-              <td style="padding:14px;color:var(--mid);">Subtropical cliffs and levada walks</td>
-              <td style="padding:14px;color:var(--mid);">High (remote trails)</td>
-              <td style="padding:14px;color:var(--mid);">Morning or afternoon</td>
-              <td style="padding:14px;color:var(--mid);">$400 to $900 (plus flights)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Kvernufoss gorge cavern (Skógar)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">A quiet waterfall walk, no crowds</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (hidden canyon)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer 7 to 8:30am / winter midday</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$1,500 to $3,200</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Diamond Beach (Breiðamerkursandur)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Ice gems on black sand</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Low to medium (walk from the lot)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer dawn / winter midday</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$2,500 to $4,800</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Búðakirkja black church (Snæfellsnes)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Minimalist Nordic architecture</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Medium (public, quiet at dawn/dusk)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer late evening / winter midday</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$1,600 to $3,500</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--ink);font-weight:400;">Brennisteinsalda crest (Landmannalaugar)</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Remote Highland wilderness</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">High (super-jeep or helicopter)</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Jul to Aug, 8:30 to 11pm (midnight sun)</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">$3,500 to $7,500</td>
             </tr>
           </tbody>
         </table>
@@ -744,82 +735,55 @@
     </div>
   </section>
 
-  <section style="background:var(--white);padding:80px 40px;">
-    <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">How much does a Portugal proposal cost?</h2>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">A self-planned Algarve moment costs almost nothing. A kayak rental to Benagil cave is 30 to 60 euros. A bottle of wine on a cliff at Ponta da Piedade costs nothing to access. The dramatic setting is free. What adds cost is the photographer, the hotel, and any private experiences.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">A photographer in the Algarve or Lisbon runs $200 to $500 for two to three hours, which is 30 to 40 percent less than a comparable photographer in France or Italy. A Douro quinta private terrace dinner costs 80 to 200 euros. A Sintra-area guide or proposal coordinator costs 150 to 400 euros for logistics alone.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Total ranges: just the moment (photographer, small setup) is $300 to $900 across most of Portugal. Add a three-night hotel stay at a clifftop property in the Algarve or a quinta in the Douro and the range opens to $700 to $3,000 or more. The budget table above breaks down the Algarve specifically, category by category. A portugal proposal package that bundles planner, photographer, flowers, and setup starts around $800 and climbs with the venue. See <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:underline;">how proposal packages work</a> for a full breakdown of what is and is not typically included.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:0;">Where to put the money: the photographer and the location. The ring is in one photograph. The Benagil cave or the Cabo da Roca clifftop or the Douro vineyard is in every photograph, every retelling, and the story your partner tells for thirty years. That is where Portugal's value is most visible.</p>
-    </div>
-  </section>
-
-  <section style="background:var(--bg);padding:80px 40px;">
-    <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:24px;letter-spacing:0.01em;">Who is Portugal NOT right for?</h2>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone arriving for three nights with no rental car. Portugal's best proposal spots are spread across a country the size of Indiana. Benagil is two hours from Lisbon, and the Douro is two more hours north of Porto. Without a car you are limited to what Lisbon itself offers. That is still a strong proposal location, but it is not the full range of what places to propose in portugal can offer.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone proposing at Benagil or Ponta da Piedade in July or August without a timing plan. Both spots in high summer at peak hours have tour boats running continuously and crowds on every accessible beach. The post-5pm private window still works, but it requires deliberate timing. If you are unwilling to plan around the crowds, the Algarve in July is not the right match.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Anyone who needs guaranteed sunshine at Sintra. The Sintra hills have their own microclimate and fog in any month, even on days that are sunny in Lisbon. Cabo da Roca in cloud is just a clifftop in cloud. If weather certainty matters most, the southern Algarve around Lagos and Portimao has the highest sunshine hours and lowest rainfall in Portugal.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:0;">Anyone expecting the immediate scale and grandeur of Paris or Rome. Portugal's cities are quieter and more residential. Lisbon has the romance of a hillside city, but it is not a grand European capital in that mould. If the dream is immediate luxury and scale, <a href="/destinations/italy" style="color:var(--accent);text-decoration:underline;">Italy</a> is a better match. Portugal rewards the couple who wants something less discovered.</p>
-    </div>
-  </section>
-
   <div class="dest-faq" style="background:var(--white);padding:80px 40px;">
     <div class="dest-faq-inner" style="border-top:none;padding-top:0;">
-      <span class="dest-faq-label">Portugal Proposal: Questions Answered</span>
+      <span class="dest-faq-label">Iceland Proposal: Questions Answered</span>
       <details>
-        <summary>Where is the most romantic place to propose in Portugal?</summary>
-        <p class="dest-faq-answer">Benagil sea cave in the Algarve for something entirely unique: a natural skylight in the cave ceiling floods the interior with light, accessible by kayak after tour boats clear at 5pm. Cabo da Roca on the Sintra coast for a clifftop Atlantic moment at the westernmost point of mainland Europe, facing due west at sunset. A Douro Valley quinta terrace at harvest time (September and October) for the most private vineyard setting in the country. Lisbon's Miradouro da Graca in the last hour before sunset for a city proposal with the full Alfama roofline and the Tagus estuary in frame. The best one is whichever matches your partner.</p>
+        <summary>Where is the best place to propose in Iceland?</summary>
+        <p class="dest-faq-answer">It depends on the season and your style. For a winter proposal, a privately chartered blue ice cave under Vatnajökull is a cathedral of blue ice open only from November through March. For dramatic waterfall scenery without the crowds, the hidden cavern behind Kvernufoss on the South Coast is the quiet pick. Diamond Beach, where glacier ice washes up on black sand, and the black timber Búðakirkja church on Snæfellsnes are the most photogenic road-accessible options, and a private helicopter landing on a glacier or the remote Brennisteinsalda ridge gives you total seclusion.</p>
       </details>
       <details>
-        <summary>How much does a Portugal proposal cost?</summary>
-        <p class="dest-faq-answer">A self-planned Algarve moment costs almost nothing beyond a kayak rental (30 to 60 euros). With a photographer, plan for $300 to $700 for the moment alone across most of Portugal. A proposal photographer in Portugal runs $200 to $500 for two to three hours. Add a three-night clifftop hotel stay and the total range opens to $700 to $3,000 or more. A Portugal proposal package bundling planner, photographer, flowers, and setup starts around $800. Douro quinta private dinner experiences add 80 to 200 euros. Madeira adds flights on top of that.</p>
+        <summary>What do Iceland proposal and honeymoon packages include?</summary>
+        <p class="dest-faq-answer">A full-service package generally covers concept planning, site scouting and weather monitoring, private 4x4 super-jeep or helicopter transfers, any filming permits or private landowner access, two to four hours of photography with aerial drone coverage, and an on-site setup with wind-resistant flowers, wool blankets and a champagne toast. Because conditions change fast, a good planner also builds in a sheltered backup for every outdoor moment. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for a full breakdown.</p>
       </details>
       <details>
-        <summary>What is the best time of year to propose in Portugal?</summary>
-        <p class="dest-faq-answer">May, June, September, and October across all regions. Those months give the best light, the smallest crowds, and accommodation prices 20 to 30 percent lower than the July to August peak. For the Douro Valley specifically, September is the harvest window. For Sintra and Cabo da Roca, any clear afternoon in May or June is excellent. For the Algarve coast, shoulder season gives the same extraordinary light as summer but without the crowds at the coves and clifftops.</p>
+        <summary>How much does a proposal photographer cost in Iceland?</summary>
+        <p class="dest-faq-answer">A professional proposal or engagement photographer in Iceland typically charges $1,500 to $3,500 for a two to three hour session, reflecting specialised low-light and foul-weather gear, long drive times out of Reykjavík and real-time lighting planning. An all-day session across multiple locations with drone video runs from $4,000 to $6,500. See our guide to hiring a <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> before you book.</p>
       </details>
       <details>
-        <summary>Algarve, Lisbon, or the Douro Valley: which is best for a proposal?</summary>
-        <p class="dest-faq-answer">The Algarve for the most cinematic natural setting: Benagil sea cave, Ponta da Piedade sea arches, and hidden coves accessible by kayak from Lagos. Lisbon for a city proposal with no logistics complications: the Alfama miradouros are free, walkable, and beautiful in the last hour of light. The Douro Valley for the most private and atmospheric option: a wine estate terrace during harvest with the entire valley below. Sintra and Cabo da Roca are worth a half day from Lisbon if the weather is clear in the afternoon.</p>
+        <summary>When is the best time to propose in Iceland, Northern Lights or midnight sun?</summary>
+        <p class="dest-faq-answer">Neither is better outright; they suit different priorities. The midnight sun of late May through July gives endless golden light, mild weather and open Highland roads, but no aurora. The Northern Lights season of September through mid-April gives snow, natural blue ice caves and dark skies for the aurora, but short days and careful winter driving. Daylight runs from about 21 hours at the June solstice to roughly 4 hours in December, so the season decides the shape of the whole trip.</p>
       </details>
       <details>
-        <summary>How do I access the Benagil sea cave for a proposal?</summary>
-        <p class="dest-faq-answer">By kayak or paddleboard from Benagil beach, a ten-minute paddle around the headland. Kayak rentals from beach operators cost 30 to 60 euros for two people. Tour boats run group visits from 8am to around 5pm; after that, private kayak access gives you the cave with no other visitors. For a proposal, arrive just after 5pm. Check local wave conditions the day before: a two-metre Atlantic swell closes the cave entrance. The cave has one small sand beach inside and the natural skylight lights the interior for roughly two hours either side of the direct sun angle overhead.</p>
+        <summary>Can you plan a proposal under the Northern Lights?</summary>
+        <p class="dest-faq-answer">Yes, with flexibility. The aurora cannot be scheduled, so a lights proposal means reserving a multi-day window and hiring a private guide who tracks live solar wind and cloud cover through vedur.is. Photographers shoot on manual with wide-aperture lenses and long exposures, lighting the couple with subtle handheld light, so you both need to hold still through each frame. Since the aurora needs both solar activity and clear skies, plan meaningful daytime activities so the trip stands on its own whatever the night does.</p>
       </details>
       <details>
-        <summary>Do I need a permit to propose in Portugal?</summary>
-        <p class="dest-faq-answer">No. Portugal has no photography permit requirement for couples at public beaches, clifftops, or national parks. A professional photographer operating commercially may need to notify park authorities at certain protected sites, but that is the photographer's responsibility. Ask when you book to confirm they are familiar with any site-specific rules. Private quinta experiences in the Douro require advance booking and occasionally a small access fee agreed at booking.</p>
+        <summary>What is the most private proposal spot in Iceland?</summary>
+        <p class="dest-faq-answer">For absolute isolation, a privately chartered helicopter landing on a glacier or crater summit, or a super-jeep run into a Highland gorge, leaves you entirely alone. Among road-accessible settings, the hidden cavern behind Kvernufoss and the eastern basalt columns of Stuðlagil Canyon at first light are far quieter than the major Ring Road stops.</p>
       </details>
       <details>
-        <summary>Should I hire a photographer for a Portugal proposal?</summary>
-        <p class="dest-faq-answer">If you want to remember the setting as more than a phone snap, yes. A proposal photographer in Portugal runs $200 to $500 for two to three hours and is the single best line item in any Portugal proposal budget. Algarve photographers who know Benagil cave timing and Ponta da Piedade light angles are worth hiring locally rather than bringing someone from outside the region. Book 6 to 8 weeks ahead in shoulder season, when the good ones fill. For what to look for when booking, see the <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:underline;">destination engagement photographer guide</a>.</p>
+        <summary>How far in advance should I book an Iceland proposal?</summary>
+        <p class="dest-faq-answer">Plan on 6 to 12 months for a high-end trip. Top boutique properties such as The Retreat at Blue Lagoon, Eleven Deplar Farm and Torfhús Retreat have very small room counts and fill early for the peak summer midnight sun weeks and the winter aurora holidays. Premier photographers, certified ice cave guides and private helicopter charters also book up well ahead.</p>
       </details>
       <details>
-        <summary>What does a Portugal proposal package include?</summary>
-        <p class="dest-faq-answer">Most portugal proposal packages cover a local planner who scouts and books the spot, a photographer for two to three hours, a small setup (flowers, candles, sometimes champagne), and logistical coordination on the day. Some include a private dinner reservation or a boat charter in the Algarve. Others are photographer-only with no planning element. The most important question to ask any vendor is which specific location they know well and have worked before. <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:underline;">Read how proposal packages actually work</a> before you book.</p>
+        <summary>Do I need a passport or visa for Iceland?</summary>
+        <p class="dest-faq-answer">US citizens do not need a tourist visa for stays up to 90 days within any 180-day period in the Schengen Area. Your passport must be valid for at least three months beyond your planned departure date. The ETIAS travel authorization is not yet in effect, with launch expected in late 2026 or 2027. The <a href="https://www.visiticeland.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">official Iceland tourism board</a> maintains current entry information.</p>
       </details>
     </div>
   </div>
 
   <section style="background:var(--bg);padding:48px 40px 56px;text-align:center;">
     <div style="max-width:720px;margin:0 auto;">
-      <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">Start here</span>
-      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Portugal proposal starts with the right spot.</h2>
-      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Portugal proposal spot →</a>
+      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Iceland proposal starts with the right spot.</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Iceland proposal spot →</a>
         <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:14px 36px;margin-top:0;">Browse by destination →</a>
       </div>
     </div>
   </section>
+
+  <!-- ── END SEO CONTENT BLOCK ── -->
 
   <div class="dest-browse">
     <div class="dest-browse-inner">
@@ -849,7 +813,7 @@
 
   <script>
     const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
-    const DEST_ALIASES = ['portugal','algarve'];
+    const DEST_ALIASES = ['iceland','reykjavik','reykjavík','vatnajökull','vatnajokull','snæfellsnes','snaefellsnes','reykjanes','skógar','skogar','landmannalaugar','jökulsárlón','jokulsarlon','þingvellir','thingvellir','golden circle','blue lagoon'];
 
     function toggleDLPanel(panelId, pillId) {
       document.querySelectorAll('.results-inline-panel').forEach(p => {
@@ -908,6 +872,7 @@
       JPY: 0.0067,
       THB: 0.028,
       MVR: 0.065,
+      ISK: 0.0072,
     };
     function toUSD(amount, ccy) {
       const rate = FX_TO_USD[ccy] ?? 1;
