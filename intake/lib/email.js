@@ -306,9 +306,8 @@ function depositSection(booking) {
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 12px;">
         <strong>Refund policy:</strong> Fully refundable up to
         ${escapeHtml(refundDeadlineDays)} days before your proposal. After that,
-        it's non-refundable, since we and
-        ${escapeHtml(partnerBusinessName || "our partner")} hold that date
-        exclusively for you from this point on.
+        it's non-refundable, since we hold that date exclusively for you from
+        this point on.
       </p>`
     : "";
 
@@ -327,8 +326,7 @@ function depositSection(booking) {
         To officially lock in <strong>${escapeHtml(spotName)}</strong> for
         <strong>${escapeHtml(confirmedDate)}</strong>, we ask for a deposit of
         <strong>${escapeHtml(formatPrice(deposit, cur))}</strong>
-        (${escapeHtml(pct)}% of your total). This one payment goes directly to
-        Proposal Spots — no separate charge from the venue at this stage.
+        (${escapeHtml(pct)}% of your total).
       </p>
       ${refundLine}
       ${balanceLine}
@@ -371,6 +369,7 @@ export const SAMPLE_BOOKING = {
   addonItems: [],
   partnerName: "Champika",
   partnerBusinessName: "Champika Rathnayaka Photography",
+  partnerMarket: "Sri Lanka",
   partnerFirstNameOfCouple: "James",
   paymentModel: "New – Deposit at Booking",
   totalDepositPercent: 50,
@@ -404,6 +403,7 @@ export const SAMPLE_BOOKING_LEGACY = {
   packagePrice: 17520000,
   partnerName: "Verena",
   partnerBusinessName: "Forever Promises, Bali",
+  partnerMarket: "Bali, Indonesia",
   partnerFirstNameOfCouple: "Flora",
   paymentModel: "Legacy – Invoice After Event",
   totalDepositPercent: 0,
@@ -422,6 +422,7 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
     includedItems,
     specialRequest,
     partnerName,
+    partnerMarket,
     partnerFirstNameOfCouple,
     logoUrl,
   } = booking;
@@ -454,10 +455,11 @@ export function renderBookingConfirmedEmailHtml(booking = {}) {
       </div>
       ${depositSection(booking)}
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
-        <strong>${escapeHtml(partnerName || "Your partner")}</strong>
-        will be overseeing everything on the ground to make sure the moment
-        unfolds exactly as it should, and will reach out to you directly to
-        coordinate the finer details.
+        <strong>${escapeHtml(partnerName || "Your partner")}</strong> is our local
+        partner${partnerMarket ? ` in ${escapeHtml(partnerMarket)}` : ""}, and will
+        be overseeing everything on the ground to make sure the moment unfolds
+        exactly as it should, and will reach out to you directly to coordinate
+        the finer details.
       </p>
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;">
         If anything at all comes up in the meantime, just reply to this email or
