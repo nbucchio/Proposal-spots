@@ -110,6 +110,24 @@ const BEST_TIME_OPTIONS = ["Sunrise", "Sunset", "Mid-day", "Any"];
 
 const PREFERRED_CONTACT_OPTIONS = ["Email", "WhatsApp"];
 
+const DEPOSIT_OPTIONS = ["No", "Yes"];
+
+const BALANCE_TIMING_OPTIONS = [
+  "Once the date is confirmed",
+  "A set time before the date",
+  "On arrival / day of",
+  "After the experience",
+];
+
+const BALANCE_METHOD_OPTIONS = [
+  "Bank transfer",
+  "Card (link or in person)",
+  "Cash",
+  "PayPal / Wise / Revolut",
+  "I send an invoice",
+  "Other",
+];
+
 const TIER_NAMES = ["The Moment", "The Experience", "The Unforgettable"];
 
 const PRICING_MODEL_INFO = [
@@ -166,6 +184,14 @@ const EMPTY_SPOT = {
   availableMonths: [],
   rainCheck: "",
   pricingModel: "",
+  requiresDeposit: "",
+  depositPercent: "",
+  refundWindowDays: "",
+  depositNotes: "",
+  balanceTiming: "",
+  balanceDueDaysBefore: "",
+  balancePaymentMethods: [],
+  balancePaymentDetails: "",
   priceCurrency: "USD",
   priceMoment: "",
   includedItems: "",
@@ -332,6 +358,50 @@ export default function Page() {
 
     if (!spot.pricingModel) {
       setError("Choose a pricing model before continuing.");
+      return;
+    }
+
+    if (!spot.requiresDeposit) {
+      setError(
+        "Let us know whether this spot requires a deposit to hold the date."
+      );
+      return;
+    }
+
+    if (spot.requiresDeposit === "Yes") {
+      if (!String(spot.depositPercent).trim()) {
+        setError("Please enter the deposit amount required to hold the date.");
+        return;
+      }
+      if (!String(spot.refundWindowDays).trim()) {
+        setError(
+          "Please enter the refund window for the deposit (in days before the date)."
+        );
+        return;
+      }
+    }
+
+    if (!spot.balanceTiming) {
+      setError("Let us know when you collect the remaining balance.");
+      return;
+    }
+    if (
+      spot.balanceTiming === "A set time before the date" &&
+      !String(spot.balanceDueDaysBefore).trim()
+    ) {
+      setError(
+        "Please enter how many days before the date the balance is due."
+      );
+      return;
+    }
+    if (spot.balancePaymentMethods.length === 0) {
+      setError("Select at least one way the couple can pay you the balance.");
+      return;
+    }
+    if (!spot.balancePaymentDetails.trim()) {
+      setError(
+        "Please add the payment details we'll share with the couple in their confirmation."
+      );
       return;
     }
 
@@ -761,6 +831,10 @@ export default function Page() {
 
                 <div>
                   <Label hint="comma separated">What's included</Label>
+                  <p className="-mt-1 mb-2 text-xs text-ink/50">
+                    Everything the price above already covers, at no extra
+                    charge.
+                  </p>
                   <textarea
                     className={inputClass}
                     rows={2}
@@ -774,6 +848,10 @@ export default function Page() {
 
                 <div>
                   <Label hint="optional, up to 4">Add-ons</Label>
+                  <p className="-mt-1 mb-2 text-xs text-ink/50">
+                    Optional extras a couple can add on top for an additional
+                    charge — not part of the price above.
+                  </p>
                   <div className="space-y-2">
                     {spot.addons.map((addon, i) => (
                       <div key={i} className="grid grid-cols-3 gap-2">
@@ -799,6 +877,172 @@ export default function Page() {
                 </div>
               </div>
             )}
+
+            {spot.pricingModel === "Tiered" && (
+              <div className="rounded-lg border border-line bg-white/40 p-5">
+                <p className="text-sm font-medium text-ink">
+                  You'll set your tier pricing on the next step.
+                </p>
+              </div>
+            )}
+          </section>
+
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">Deposit</h2>
+
+            <div className="rounded-lg border border-sage/40 bg-sage/5 p-4 text-xs leading-relaxed text-ink/70">
+              When a couple books this spot through Proposal Spots, we collect a
+              deposit from them directly to confirm the booking — this is also
+              how our commission is handled, so there's nothing for you to
+              invoice or chase afterwards. For most partners, that's all that's
+              needed to hold the date. If this particular spot involves a venue
+              booking or anything that genuinely requires a deposit on your
+              side, just let us know below — we'll collect your portion from the
+              couple at the same time and send it straight to you.
+            </div>
+
+            <div>
+              <Label>Does this spot require a deposit to hold the date?</Label>
+              <div className="flex gap-2">
+                {DEPOSIT_OPTIONS.map((d) => (
+                  <Chip
+                    key={d}
+                    label={d}
+                    selected={spot.requiresDeposit === d}
+                    onClick={() => updateSpot({ requiresDeposit: d })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {spot.requiresDeposit === "Yes" && (
+              <div className="space-y-4 rounded-lg border border-line bg-white/40 p-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label hint="% of the total">Deposit required</Label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        className={inputClass}
+                        style={{ paddingRight: "2.25rem" }}
+                        value={spot.depositPercent}
+                        onChange={(e) =>
+                          updateSpot({ depositPercent: e.target.value })
+                        }
+                        placeholder="e.g. 5"
+                      />
+                      <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">
+                        %
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <Label hint="days before the date">Refundable up to</Label>
+                    <input
+                      type="number"
+                      min="0"
+                      className={inputClass}
+                      value={spot.refundWindowDays}
+                      onChange={(e) =>
+                        updateSpot({ refundWindowDays: e.target.value })
+                      }
+                      placeholder="e.g. 30"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label hint="optional">Notes</Label>
+                  <textarea
+                    className={inputClass}
+                    rows={2}
+                    value={spot.depositNotes}
+                    onChange={(e) =>
+                      updateSpot({ depositNotes: e.target.value })
+                    }
+                    placeholder="Anything we should know — e.g. the amount is negotiable, only applies to peak dates, or refund exceptions."
+                  />
+                </div>
+              </div>
+            )}
+          </section>
+
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">
+              Collecting the rest
+            </h2>
+
+            <div className="rounded-lg border border-sage/40 bg-sage/5 p-4 text-xs leading-relaxed text-ink/70">
+              The deposit above confirms the booking. After that, we introduce
+              the couple to you directly and you collect the remaining balance
+              the way you normally do. Tell us how and when, so we can set the
+              couple's expectations in their booking-confirmation email — no
+              back-and-forth needed later.
+            </div>
+
+            <div>
+              <Label>When do you collect the remaining balance?</Label>
+              <div className="flex flex-wrap gap-2">
+                {BALANCE_TIMING_OPTIONS.map((t) => (
+                  <Chip
+                    key={t}
+                    label={t}
+                    selected={spot.balanceTiming === t}
+                    onClick={() => updateSpot({ balanceTiming: t })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {spot.balanceTiming === "A set time before the date" && (
+              <div className="max-w-[220px]">
+                <Label hint="days before the date">How many days before?</Label>
+                <input
+                  type="number"
+                  min="0"
+                  className={inputClass}
+                  value={spot.balanceDueDaysBefore}
+                  onChange={(e) =>
+                    updateSpot({ balanceDueDaysBefore: e.target.value })
+                  }
+                  placeholder="e.g. 7"
+                />
+              </div>
+            )}
+
+            <div>
+              <Label>How can the couple pay you the balance?</Label>
+              <div className="flex flex-wrap gap-2">
+                {BALANCE_METHOD_OPTIONS.map((m) => (
+                  <Chip
+                    key={m}
+                    label={m}
+                    selected={spot.balancePaymentMethods.includes(m)}
+                    onClick={() =>
+                      toggleArrayValue("balancePaymentMethods", m)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label hint="shared with the couple">Payment details</Label>
+              <textarea
+                className={inputClass}
+                rows={3}
+                value={spot.balancePaymentDetails}
+                onChange={(e) =>
+                  updateSpot({ balancePaymentDetails: e.target.value })
+                }
+                placeholder="Written for the couple — e.g. Remaining balance due 7 days before your date by bank transfer; I'll email an invoice once your date is confirmed."
+              />
+            </div>
           </section>
 
           <button
@@ -1016,6 +1260,47 @@ export default function Page() {
             />
             <ReviewRow label="Currency" value={spot.priceCurrency} />
             <ReviewRow label="Pricing model" value={spot.pricingModel} />
+            <ReviewRow label="Requires deposit" value={spot.requiresDeposit} />
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow
+                label="Deposit required"
+                value={
+                  spot.depositPercent ? `${spot.depositPercent}% of total` : ""
+                }
+              />
+            )}
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow
+                label="Refundable up to"
+                value={
+                  spot.refundWindowDays
+                    ? `${spot.refundWindowDays} days before the date`
+                    : ""
+                }
+              />
+            )}
+            {spot.requiresDeposit === "Yes" && (
+              <ReviewRow label="Deposit notes" value={spot.depositNotes} />
+            )}
+            <ReviewRow label="Balance collected" value={spot.balanceTiming} />
+            {spot.balanceTiming === "A set time before the date" && (
+              <ReviewRow
+                label="Balance due"
+                value={
+                  spot.balanceDueDaysBefore
+                    ? `${spot.balanceDueDaysBefore} days before the date`
+                    : ""
+                }
+              />
+            )}
+            <ReviewRow
+              label="Balance payment methods"
+              value={spot.balancePaymentMethods.join(", ")}
+            />
+            <ReviewRow
+              label="Balance payment details"
+              value={spot.balancePaymentDetails}
+            />
             {spot.pricingModel === "Single Price" && (
               <ReviewRow
                 label="Price"

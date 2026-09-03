@@ -49,6 +49,8 @@
   --divider:  #E4E0D8;
   --accent:   #8C7B64;
   --accent2:  #B5A48C;
+  --terra:    #A55A4A;
+  --terra-soft: rgba(165,90,74,0.10);
   --shadow:   rgba(28,28,28,0.06);
 }
 
@@ -243,6 +245,20 @@ nav {
 .sdp-vibe-chip.hotel-tag .sdp-chip-val {
   color: #A55A4A;
 }
+/* Budget meter — 3 terracotta bars, filled to the spot's tier */
+.sdp-budget-bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 13px;
+}
+.sdp-bar {
+  width: 16px;
+  height: 5px;
+  border-radius: 1.5px;
+  background: rgba(165, 90, 74, 0.16);
+}
+.sdp-bar.on { background: #A55A4A; }
 
 .sdp-body {
   max-width: 1200px;
@@ -263,17 +279,37 @@ nav {
 .sdp-gallery-viewer {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 460px;
   background: var(--bg2);
   border-radius: 12px;
   overflow: hidden;
 }
 
-.sdp-gallery-main-img {
+.sdp-gallery-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(26px) brightness(0.7);
+  transform: scale(1.18);
+  z-index: 0;
+  display: none;
 }
+
+.sdp-gallery-main-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Portrait photos only: show the whole photo with a blurred fill behind.
+   Landscape/square keep the edge-to-edge cover with no blur. */
+.sdp-gallery-viewer.is-portrait .sdp-gallery-bg { display: block; }
+.sdp-gallery-viewer.is-portrait .sdp-gallery-main-img { object-fit: contain; }
 
 .sdp-gallery-arrow {
   position: absolute;
@@ -378,6 +414,114 @@ nav {
 }
 @media (max-width: 768px) { .sdp-rain-check-block { padding: 28px 24px; } }
 
+/* How payment works — mirrors the rain-check block, with numbered steps */
+#sdp-payflow-section { scroll-margin-top: 90px; }
+.sdp-payflow-block {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 48px;
+}
+.sdp-payflow-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sdp-payflow-icon { color: var(--accent); flex-shrink: 0; }
+.sdp-payflow-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sdp-payflow-divider {
+  height: 0.5px;
+  background: var(--hairline);
+  margin-bottom: 26px;
+}
+.sdp-payflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 640px;
+}
+.sdp-payflow-step { display: flex; gap: 16px; align-items: flex-start; }
+.sdp-payflow-num {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--terra-soft);
+  color: var(--terra);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sdp-payflow-step-text { display: flex; flex-direction: column; gap: 4px; }
+.sdp-payflow-step-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.sdp-payflow-step-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+.sdp-payflow-step-body strong { font-weight: 500; color: var(--ink); }
+.sdp-payflow-refund {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.sdp-payflow-refund::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: currentColor;
+}
+.sdp-payflow-refund.ok { color: var(--accent); }
+.sdp-payflow-refund.no { color: var(--mid); }
+.sdp-payflow-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.sdp-payflow-jump {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--terra);
+  text-decoration: none;
+}
+.sdp-payflow-jump:hover { text-decoration: underline; }
+@media (max-width: 768px) { .sdp-payflow-block { padding: 28px 24px; } }
+
 .sdp-about { margin-bottom: 72px; }
 .sdp-about-text {
   font-family: 'Cormorant', serif;
@@ -387,6 +531,10 @@ nav {
 
 .sdp-included {
   margin-bottom: 48px;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 30px 30px 32px;
 }
 
 .sdp-lbl {
@@ -413,30 +561,51 @@ nav {
 
 .sdp-incl-row {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 11px 0;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
   border-bottom: 0.5px solid var(--hairline);
 }
 
-.sdp-incl-row:last-of-type { border-bottom: none; }
+.sdp-incl-row:first-of-type { padding-top: 0; }
+.sdp-incl-row:last-of-type { padding-bottom: 0; border-bottom: none; }
 
-.sdp-incl-num {
-  font-family: 'Cormorant', serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--muted);
+/* Terracotta check, drawn in CSS so it tracks the brand hue exactly */
+.sdp-incl-check {
   flex-shrink: 0;
-  min-width: 22px;
-  line-height: 1.3;
+  width: 17px;
+  height: 17px;
+  position: relative;
+  margin-top: 2px;
+}
+.sdp-incl-check::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--terra);
+  border-width: 0 1.6px 1.6px 0;
+  transform: rotate(43deg);
 }
 
-.sdp-incl-text {
+.sdp-incl-title {
   font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 14.5px;
+  font-weight: 500;
   color: var(--ink);
+  letter-spacing: 0.005em;
+  line-height: 1.35;
+}
+
+.sdp-incl-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--muted);
   line-height: 1.5;
+  margin-top: 3px;
 }
 
 .sdp-incl-bridge {
@@ -885,6 +1054,7 @@ nav {
   margin-top: 12px;
   letter-spacing: 0.03em;
 }
+
 
 .sdp-seasonal-label {
   font-family: 'Jost', sans-serif;
@@ -1520,7 +1690,7 @@ nav {
   .sdp-vibe-strip::-webkit-scrollbar { display: none; }
   .sdp-vibe-chip { min-width: 120px; flex-shrink: 0; padding: 16px 18px; }
   /* Gallery viewer shorter on mobile */
-  .sdp-gallery-viewer { height: 260px; }
+  .sdp-gallery-viewer { height: 340px; }
   .sdp-gallery-dots { display: none; }
   /* About text: reduce from 23px editorial size */
   .sdp-about-text { font-size: 18px; }
@@ -1741,6 +1911,17 @@ nav {
   flex-shrink: 0;
 }
 
+/* ── Single-price "add to your moment" add-ons (right panel) ── */
+#sdp-moment-addons-list { margin-top: 14px; }
+.sdp-moment-addons-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
 /* ── Mobile tier card scaffolding (hidden on desktop) ────── */
 .sdp-tier-left-info {
   display: flex;
@@ -1899,7 +2080,7 @@ nav {
         <span style="width:4px;height:4px;border-radius:50%;background:#b08060;display:inline-block;flex-shrink:0"></span>
         <div class="sdp-chip-text">
           <span class="sdp-chip-lbl">Budget</span>
-          <span class="sdp-chip-val" id="sdp-budget">—</span>
+          <span class="sdp-budget-bars" id="sdp-budget"><span class="sdp-bar"></span><span class="sdp-bar"></span><span class="sdp-bar"></span></span>
         </div>
       </div>
       <div class="sdp-vibe-chip">
@@ -1942,6 +2123,7 @@ nav {
         <!-- Gallery -->
         <div class="sdp-gallery" id="sdp-gallery-section" style="display:none">
           <div class="sdp-gallery-viewer" id="sdp-gallery-viewer">
+            <img class="sdp-gallery-bg" id="sdp-gallery-bg" src="" alt="" aria-hidden="true">
             <img class="sdp-gallery-main-img" id="sdp-gallery-main" src="" alt="Proposal experience">
             <div class="sdp-gallery-arrow prev" onclick="event.stopPropagation(); galleryPrev()">&#8249;</div>
             <div class="sdp-gallery-arrow next" onclick="event.stopPropagation(); galleryNext()">&#8250;</div>
@@ -1965,7 +2147,6 @@ nav {
         <div class="sdp-included" id="sdp-included-section" style="display:none">
           <span class="sdp-incl-label">What's included</span>
           <div id="sdp-included-list"></div>
-          <p class="sdp-incl-bridge">When you enquire, your concierge will guide you through photography, dinner, and any other additions.</p>
         </div>
 
         <!-- Access -->
@@ -1994,6 +2175,47 @@ nav {
             </div>
             <div class="sdp-rain-check-divider"></div>
             <p id="sdp-rain-check-text" class="sdp-rain-check-body"></p>
+          </div>
+        </div>
+
+        <!-- How payment works — breathable, plain-language payment/deposit flow.
+             Steps 1–2 show for every listing; step 3 (the deposit) only for
+             partners on the deposit-at-booking model. Populated in populateSpot. -->
+        <div id="sdp-payflow-section" style="display:none">
+          <div class="sdp-payflow-block">
+            <div class="sdp-payflow-header">
+              <svg class="sdp-payflow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <path d="M2 10h20"/>
+              </svg>
+              <span class="sdp-payflow-lbl">How payment works</span>
+            </div>
+            <div class="sdp-payflow-divider"></div>
+            <div class="sdp-payflow-steps">
+              <div class="sdp-payflow-step">
+                <span class="sdp-payflow-num">1</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">Submit your inquiry — free, no commitment</span>
+                  <span class="sdp-payflow-step-body">You're just telling us you're interested. Nothing is booked and nothing is charged — this is not a payment.</span>
+                </div>
+              </div>
+              <div class="sdp-payflow-step">
+                <span class="sdp-payflow-num">2</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">We send your full quote within 24 hours</span>
+                  <span class="sdp-payflow-step-body">Itemised and clear. Review everything, ask questions, and adjust the details. Still no payment — you're never locked in at this stage.</span>
+                </div>
+              </div>
+              <div class="sdp-payflow-step" id="sdp-payflow-step3" style="display:none">
+                <span class="sdp-payflow-num">3</span>
+                <div class="sdp-payflow-step-text">
+                  <span class="sdp-payflow-step-title">A deposit confirms your booking — only when you're ready</span>
+                  <span class="sdp-payflow-step-body">Once you're completely happy, you lock in your date with a <strong id="sdp-payflow-pct">—</strong> deposit. The remaining balance is settled later, directly with your host.</span>
+                  <span class="sdp-payflow-refund" id="sdp-payflow-refund" style="display:none"></span>
+                  <span class="sdp-payflow-note" id="sdp-payflow-note" style="display:none"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2107,8 +2329,11 @@ nav {
             <!-- CTAs -->
             <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan This Proposal →</button>
             <p class="sdp-trust-note">
-              ✦ No payment until you've approved your full quote
+              ✦ This is an inquiry — you won't be charged today
             </p>
+            <!-- Jumps to the full "How payment works" section in the left
+                 column. Shown once a spot loads (see populateSpot). -->
+            <a class="sdp-payflow-jump" id="sdp-payflow-jump" href="#sdp-payflow-section" style="display:none">See how payment works ↓</a>
 
             <!-- Hotel revealed -->
             <div id="sdp-hotel-block" style="display:none;margin-top:16px;padding:12px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--hairline)">
@@ -2708,12 +2933,9 @@ function mapSpotFromAirtable(r) {
     : rawPrivacy.includes('Everyone') ? 'Everyone Will See'
     : rawPrivacy;
 
-  const rawBudget = f['Budget'] || '';
-  const budget = rawBudget === 'Free' ? 'Free'
-    : rawBudget === 'Moderate' ? '$$'
-    : rawBudget === 'Expensive' ? '$$$'
-    : rawBudget === 'Luxury' ? '$$$$'
-    : rawBudget;
+  // Budget is one of three CRM tiers — Affordable / Premium / Luxury —
+  // rendered as a 3-bar terracotta meter (see _renderBudget).
+  const budget = f['Budget'] || '';
 
   const bestTime = Array.isArray(f['Best Time'])
     ? f['Best Time']
@@ -2770,12 +2992,58 @@ function mapSpotFromAirtable(r) {
     'Addon 4 Name': f['Addon 4 Name'] || null,
     'Addon 4 Price': f['Addon 4 Price'] || null,
     'Rain Check': f['Rain Check'] || '',
+    // Payment model — lookup from the linked Partner record. Returns an array
+    // like ["New – Deposit at Booking"] or ["Legacy – Invoice After Event"].
+    // Normalized to a single string. Drives the deposit-disclosure line.
+    'Partner Payment Model': Array.isArray(f['Partner Payment Model'])
+      ? (f['Partner Payment Model'][0] || '')
+      : (f['Partner Payment Model'] || ''),
+    // Refund window in days for the deposit disclosure. Number (0 allowed) or
+    // null. 0 = non-refundable (must be preserved, not coerced to null); blank
+    // = unknown, so no refund claim is shown.
+    'Refund Window Days':
+      typeof f['Refund Window (Days)'] === 'number' ? f['Refund Window (Days)'] : null,
+    // Total % the customer pays at booking — already combines our commission +
+    // any partner deposit into one figure (never itemised). Airtable percent
+    // formula returns a fraction (e.g. 0.15 = 15%).
+    'Total Customer Deposit Pct':
+      typeof f['Total Customer Deposit %'] === 'number' ? f['Total Customer Deposit %'] : null,
+    // Optional free-text deposit context from the partner (e.g. reschedule
+    // grace period). Shown as an italic note under step 3 when present.
+    'Deposit Notes': f['Deposit Notes'] || '',
     packages: r.packages || [],
   };
 }
 
 function toSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+// Fills the budget chip's 3-bar meter for the spot's tier.
+// Affordable = 1 bar, Premium = 2, Luxury = 3. The tier word stays out of
+// sight (tooltip + aria-label only); anything unexpected falls back to text.
+function _renderBudget(name) {
+  var el = document.getElementById('sdp-budget');
+  if (!el) return;
+  var levels = { 'Affordable': 1, 'Premium': 2, 'Luxury': 3 };
+  var lvl = levels[name] || 0;
+  if (!lvl) {
+    el.className = 'sdp-chip-val';
+    el.textContent = name || '—';
+    el.removeAttribute('role');
+    el.removeAttribute('aria-label');
+    el.removeAttribute('title');
+    return;
+  }
+  el.className = 'sdp-budget-bars';
+  el.setAttribute('role', 'img');
+  el.setAttribute('aria-label', 'Budget: ' + name + ' (' + lvl + ' of 3)');
+  el.setAttribute('title', name);
+  var html = '';
+  for (var i = 1; i <= 3; i++) {
+    html += '<span class="sdp-bar' + (i <= lvl ? ' on' : '') + '"></span>';
+  }
+  el.innerHTML = html;
 }
 
 function populateSpot(s) {
@@ -2818,7 +3086,7 @@ function populateSpot(s) {
   document.getElementById('sdp-line-summary').textContent = s['Line Summary'] || '';
 
   // Stats
-  document.getElementById('sdp-budget').textContent = s.Budget || '—';
+  _renderBudget(s.Budget);
   document.getElementById('sdp-privacy').textContent = s.Privacy || '—';
   document.getElementById('sdp-effort').textContent = s['Access & Effort'] || '—';
   const times = Array.isArray(s['Best Time']) ? s['Best Time'].join(', ') : (s['Best Time'] || '—');
@@ -2844,9 +3112,32 @@ function populateSpot(s) {
     const includedItems = s['Included Items'] || '';
     if (includedItems) {
       const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
-      includedList.innerHTML = lines.map((line, i) => {
-        const num = String(i + 1).padStart(2, '0');
-        return '<div class="sdp-incl-row"><span class="sdp-incl-num">' + num + '</span><span class="sdp-incl-text">' + line + '</span></div>';
+      includedList.innerHTML = lines.map((line) => {
+        // Each item may be authored as "Title — description"; split so the
+        // benefit reads bold and the detail sits lighter beneath it. Accept a
+        // hyphen, en-dash or em-dash as the separator, but only when it's
+        // wrapped in spaces — so mid-word hyphens ("90-minute", "best-kept")
+        // are never mistaken for a separator. Lines with no separator render
+        // as a title only.
+        let sepIdx = -1, sepLen = 0;
+        const spaced = line.match(/\s+[-–—]\s+/);
+        if (spaced) {
+          sepIdx = spaced.index;
+          sepLen = spaced[0].length;
+        } else {
+          const bare = line.search(/[–—]/); // bare en/em dash only, never a lone hyphen
+          if (bare !== -1) { sepIdx = bare; sepLen = 1; }
+        }
+        let title = line, desc = '';
+        if (sepIdx !== -1) {
+          title = line.slice(0, sepIdx).trim();
+          desc = line.slice(sepIdx + sepLen).trim();
+          if (desc) desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+        }
+        let row = '<div class="sdp-incl-row"><span class="sdp-incl-check"></span><div>'
+                + '<div class="sdp-incl-title">' + title + '</div>';
+        if (desc) row += '<div class="sdp-incl-desc">' + desc + '</div>';
+        return row + '</div></div>';
       }).join('');
       includedSection.style.display = '';
     } else {
@@ -2886,6 +3177,64 @@ function populateSpot(s) {
   document.getElementById('sdp-concierge-price').innerHTML = _priceHtml;
   document.getElementById('sdp-bar-price').innerHTML = _priceHtml;
   _updateConvertLink(s['Price Moment'], s['Price Currency']);
+
+  // "How payment works" — steps 1–2 show for every listing (universal trust).
+  // Step 3 (the deposit) is gated strictly on the deposit-at-booking model:
+  // Legacy partners are invoiced after the event and take no deposit from the
+  // customer here, even though their Total Customer Deposit % formula still
+  // computes a value — so the payment model, not the %, decides step 3.
+  var payflowSection = document.getElementById('sdp-payflow-section');
+  if (payflowSection) {
+    payflowSection.style.display = '';
+    var payflowJump = document.getElementById('sdp-payflow-jump');
+    if (payflowJump) payflowJump.style.display = '';
+
+    var paymentModel = s['Partner Payment Model'] || '';
+    var isNewModel = paymentModel.indexOf('Deposit at Booking') !== -1;
+    var depositPct = s['Total Customer Deposit Pct']; // fraction (0.15) or null
+    var refundDays = s['Refund Window Days'];         // number (0 allowed) or null
+    var depositNotes = s['Deposit Notes'] || '';
+
+    var step3 = document.getElementById('sdp-payflow-step3');
+    if (step3) {
+      if (isNewModel && typeof depositPct === 'number' && depositPct > 0) {
+        var pctEl = document.getElementById('sdp-payflow-pct');
+        if (pctEl) pctEl.textContent = Math.round(depositPct * 100) + '%';
+
+        var refundEl = document.getElementById('sdp-payflow-refund');
+        if (refundEl) {
+          if (typeof refundDays === 'number' && refundDays > 0) {
+            refundEl.textContent =
+              'Fully refundable up to ' + refundDays + ' days before your date';
+            refundEl.className = 'sdp-payflow-refund ok';
+            refundEl.style.display = '';
+          } else if (refundDays === 0) {
+            refundEl.textContent =
+              'Non-refundable — so you only ever pay once you’re completely certain';
+            refundEl.className = 'sdp-payflow-refund no';
+            refundEl.style.display = '';
+          } else {
+            // Refund window unknown (blank) — make no refund claim.
+            refundEl.style.display = 'none';
+          }
+        }
+
+        var noteEl = document.getElementById('sdp-payflow-note');
+        if (noteEl) {
+          if (depositNotes) {
+            noteEl.textContent = depositNotes;
+            noteEl.style.display = '';
+          } else {
+            noteEl.style.display = 'none';
+          }
+        }
+
+        step3.style.display = '';
+      } else {
+        step3.style.display = 'none';
+      }
+    }
+  }
 
   // Gallery
   renderGallery(s['Gallery Photos'] || []);
@@ -2986,10 +3335,14 @@ function populateSpot(s) {
   const stepTierEl = document.getElementById('sdp-step-tier');
   const step1El    = document.getElementById('sdp-step-1');
   const stepEnhEl  = document.getElementById('sdp-step-enhance');
+  const step1NumEl = step1El && step1El.querySelector('.sdp-step-num');
+  const step2NumEl = step2El && step2El.querySelector('.sdp-step-num');
   if (isTiered) {
     if (step1El)   step1El.style.display   = 'none';
     if (stepTierEl) stepTierEl.style.display = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
+    // Tiered is a numbered flow — keep the step numbers visible
+    if (step2NumEl) step2NumEl.style.display = '';
     _tieredSelectedIdx = 0;
     _renderTierSelectorHTML(s.packages);
     _renderTierAddons(s);
@@ -2998,6 +3351,11 @@ function populateSpot(s) {
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none';
+    // Single Price isn't a numbered sequence — hide the step numbers so
+    // "The Moment" doesn't read as item 01 of the What's Included list
+    if (step1NumEl) step1NumEl.style.display = 'none';
+    if (step2NumEl) step2NumEl.style.display = 'none';
+    _renderMomentAddons(s);
   }
 
   setTimeout(renderProposalDateStep, 50);
@@ -3036,7 +3394,19 @@ function renderGalleryFrame() {
   const photo = _galleryPhotos[_galleryIndex];
   if (!photo) return;
 
-  document.getElementById('sdp-gallery-main').src = optimizeAirtableImage(photo.url || '', 1400);
+  const optimized = optimizeAirtableImage(photo.url || '', 1400);
+  const viewer = document.getElementById('sdp-gallery-viewer');
+  const mainImg = document.getElementById('sdp-gallery-main');
+  const bgImg = document.getElementById('sdp-gallery-bg');
+
+  // Portrait photos get the "contain + blurred fill" treatment; landscape
+  // and square photos keep the edge-to-edge cover (no blur).
+  const markPortrait = (w, h) => viewer.classList.toggle('is-portrait', !!(w && h && h > w));
+  mainImg.onload = () => markPortrait(mainImg.naturalWidth, mainImg.naturalHeight);
+  if (photo.width && photo.height) markPortrait(photo.width, photo.height);
+
+  mainImg.src = optimized;
+  bgImg.src = optimized;
   document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
 
   // Dots
@@ -3284,7 +3654,7 @@ function updateSelectionSummary() {
   if (pd1) lines.push('Proposal: ' + fmt(pd1));
   if (pd2) lines.push('Backup: ' + fmt(pd2));
 
-  document.querySelectorAll('#sdp-tier-addons input:checked').forEach(cb => {
+  document.querySelectorAll('#sdp-tier-addons input:checked, #sdp-moment-addons-list input:checked').forEach(cb => {
     const row = cb.closest('.sdp-tier-addon-row');
     const priceEl = row ? row.querySelector('.sdp-tier-addon-price') : null;
     const priceText = priceEl ? ' ' + priceEl.textContent.trim() : '';
@@ -3644,6 +4014,18 @@ function openEnquiryModal() {
     }
   }
 
+  // Single-price: recap the add-ons chosen in the right panel so they're visible
+  // in the enquiry review before submitting.
+  if (!isTieredSum && sumAddons) {
+    const picked = [...document.querySelectorAll('#sdp-moment-addons-list input:checked')].map(cb => cb.value);
+    const addonsValEl = document.getElementById('enq-sum-addons-val');
+    if (picked.length && addonsValEl) {
+      addonsValEl.textContent = picked.join(', ');
+      sumAddons.style.display = '';
+      sumEl.style.display = '';
+    }
+  }
+
   // Reset the modal proposal-date picker each time the modal opens
   selectedProposalDates = [];
   _enqProposalPref = '';
@@ -3666,43 +4048,16 @@ function openEnquiryModal() {
     enqHotelSection.style.display = 'none';
   }
 
-  // Dynamic add-ons from current spot (hidden for tiered pricing — already selected in sidebar)
   const addonsSection = document.getElementById('enq-addons-section');
   const addonsList    = document.getElementById('enq-addons-list');
   const photoSection  = document.getElementById('enq-photo-section');
-  const isTieredEnq   = !!(currentSpot?.['Pricing Model'] === 'Tiered' && currentSpot?.packages?.length);
 
-  if (isTieredEnq) {
-    if (addonsSection) addonsSection.style.display = 'none';
-    if (photoSection)  photoSection.style.display  = 'none';
-  } else {
-    if (photoSection) photoSection.style.display = '';
-    const spot      = currentSpot;
-    const spotAddons = spot?.['Add-ons'] || [];
-    const priceText  = spot?.['Add-on Prices'] || '';
-    const priceMap = {};
-    priceText.split('\n').forEach(line => {
-      const parts = line.split('|').map(s => s.trim());
-      if (parts.length === 2) {
-        priceMap[parts[0]] = parts[1];
-        priceMap[parts[0].toLowerCase()] = parts[1];
-      }
-    });
-    const addonItems = Array.isArray(spotAddons) ? spotAddons : spotAddons.split(/[|·,]/).map(s => s.trim()).filter(Boolean);
-    if (addonsSection && addonsList && addonItems.length) {
-      addonsList.innerHTML = addonItems.map(item => {
-        const price = priceMap[item] || priceMap[item.toLowerCase()] || priceMap[item.trim()] || priceMap[item.trim().toLowerCase()];
-        const priceLabel = price ? `<span class="enq-addon-price">${price === 'TBD' ? 'Price on Request' : '+' + price}</span>` : '<span class="enq-addon-price">Price on Request</span>';
-        return `<label class="enq-addon-check">
-          <input type="checkbox" value="${item}">
-          <span>${item}</span>${priceLabel}
-        </label>`;
-      }).join('');
-      addonsSection.style.display = '';
-    } else if (addonsSection) {
-      addonsSection.style.display = 'none';
-    }
-  }
+  // Add-ons and the photography quote are selected in the right-hand panel now
+  // (single-price under "The Moment", tiered under "Enhance your experience"),
+  // so neither section renders inside the enquiry modal.
+  if (photoSection)  photoSection.style.display  = 'none';
+  if (addonsSection) addonsSection.style.display = 'none';
+  if (addonsList)    addonsList.innerHTML = '';
 
   // Pre-fill email
   if (savedEmail) document.getElementById('enq-email').value = savedEmail;
@@ -3733,7 +4088,12 @@ function closeEnquiryModal() {
   document.body.style.overflow = '';
 }
 
+let _enqSubmitting = false;
 async function submitEnquiry() {
+  // Guard against double-submits (e.g. a double-tap on mobile), which would
+  // otherwise create duplicate Bookings records and send duplicate emails.
+  if (_enqSubmitting) return;
+
   const first = document.getElementById('enq-first')?.value?.trim();
   const last = document.getElementById('enq-last')?.value?.trim();
   const email = document.getElementById('enq-email')?.value?.trim();
@@ -3750,6 +4110,28 @@ async function submitEnquiry() {
   const selectedTierPkg = isTieredSubmit ? (currentSpot.packages[_tieredSelectedIdx] || null) : null;
   const selectedTierName = selectedTierPkg ? selectedTierPkg['Tier Name'] : null;
 
+  // The "Package Selected" value written to Airtable (a single-select field).
+  // Tiered uses the chosen tier name; single-price is always "The Moment".
+  const packageSelected = isTieredSubmit ? selectedTierName : 'The Moment';
+
+  // "Package Display" is a free-text field used by the confirmation email so it
+  // can show the price alongside the package. Single-price → "The Moment — <price>";
+  // tiered → "<Tier Name> — <package price>". Falls back to the plain name when no
+  // price is set. (The single-select above can't hold per-spot price strings.)
+  const _pkgCurrency = currentSpot?.['Price Currency'];
+  let packageDisplay;
+  if (isTieredSubmit) {
+    const _tierPrice = selectedTierPkg && selectedTierPkg['Price'];
+    packageDisplay = _tierPrice
+      ? selectedTierName + ' — ' + formatPrice(_tierPrice, _pkgCurrency)
+      : (selectedTierName || '');
+  } else {
+    const _momentPrice = currentSpot?.['Price Moment'];
+    packageDisplay = _momentPrice
+      ? 'The Moment — ' + formatPrice(_momentPrice, _pkgCurrency)
+      : 'The Moment';
+  }
+
   let addons = [];
   if (isTieredSubmit) {
     // Collect addons selected in the listing-page sidebar enhance step
@@ -3758,14 +4140,9 @@ async function submitEnquiry() {
       return price ? `${cb.value} (${price})` : cb.value;
     });
   } else {
-    const _addonPriceText = currentSpot?.['Add-on Prices'] || '';
-    const _addonPriceMap = {};
-    _addonPriceText.split('\n').forEach(line => {
-      const parts = line.split('|').map(s => s.trim());
-      if (parts.length === 2) _addonPriceMap[parts[0]] = parts[1];
-    });
-    addons = [...document.querySelectorAll('#enq-addons-list input:checked')].map(cb => {
-      const price = _addonPriceMap[cb.value];
+    // Single-price add-ons are selected in the right panel under "The Moment"
+    addons = [...document.querySelectorAll('#sdp-moment-addons-list input:checked')].map(cb => {
+      const price = cb.dataset.price;
       return price ? `${cb.value} (${price})` : cb.value;
     });
   }
@@ -3798,12 +4175,19 @@ async function submitEnquiry() {
     notes: document.getElementById('enq-notes')?.value?.trim() || '',
     addons: addons,
     selectedTier: selectedTierName,
+    packageSelected: packageSelected,
+    packageDisplay: packageDisplay,
     pricingModel: currentSpot?.['Pricing Model'] || 'Single Price',
     contactPreference: getContactPreference(),
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
   };
+
+  _enqSubmitting = true;
+  const submitBtn = document.getElementById('enq-submit');
+  const submitBtnLabel = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
   try {
     const response = await fetch('/api/enquiry', {
@@ -3817,6 +4201,25 @@ async function submitEnquiry() {
       localStorage.setItem('savedEmail', email);
       document.getElementById('enq-form').style.display = 'none';
       document.getElementById('enq-success').style.display = '';
+
+      // GA4 conversion — fired only after the Airtable write confirms success,
+      // so it counts a real enquiry, not a form load or a failed attempt.
+      try {
+        const _leadValue = isTieredSubmit
+          ? _parseAmount(selectedTierPkg && selectedTierPkg['Price'])
+          : _parseAmount(currentSpot && currentSpot['Price Moment']);
+        const _leadParams = {
+          currency: 'USD',
+          spot_name: data.spotName,
+          destination: (currentSpot && currentSpot.Country) || '',
+        };
+        if (typeof _leadValue === 'number' && isFinite(_leadValue)) {
+          _leadParams.value = _leadValue;
+        }
+        if (typeof gtag === 'function') gtag('event', 'qualify_lead', _leadParams);
+      } catch (_gaErr) {
+        // Analytics must never break the confirmed-enquiry flow.
+      }
     } else {
       const errData = await response.json().catch(() => ({}));
       console.error('Enquiry API error:', response.status, errData);
@@ -3825,6 +4228,11 @@ async function submitEnquiry() {
   } catch (err) {
     console.error('Enquiry submit error:', err);
     alert('Network error. Please try again.');
+  } finally {
+    // Re-enable so the customer can retry after an error. On success the form is
+    // hidden and replaced by the success panel, so this button is out of view.
+    _enqSubmitting = false;
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtnLabel; }
   }
 }
 
@@ -4103,6 +4511,63 @@ function _updatePriceFromTier(packages) {
   if (priceEl)    priceEl.innerHTML    = priceHtml;
   if (barPriceEl) barPriceEl.innerHTML = priceHtml;
   _updateConvertLink(pkg['Price'], currency);
+}
+
+// Single-price add-ons: rendered as checkable rows in the right panel directly
+// under "The Moment" (mirrors the tiered add-on rows). Checking a row updates the
+// "Your selection" summary; the headline price stays fixed at the Moment's price.
+function _renderMomentAddons(spot) {
+  var container = document.getElementById('sdp-moment-addons-list');
+  if (!container) return;
+
+  // Prefer the structured Addon 1–4 fields, then fall back to the legacy Add-ons field.
+  var addonDefs = [];
+  for (var i = 1; i <= 4; i++) {
+    var aName = spot['Addon ' + i + ' Name'];
+    if (aName) addonDefs.push({ name: String(aName).trim(), price: spot['Addon ' + i + ' Price'] });
+  }
+  if (!addonDefs.length) {
+    var rawAddons = spot['Add-ons'] || [];
+    var addonNames = Array.isArray(rawAddons) ? rawAddons : String(rawAddons).split(/[|·,]/).map(function(s) { return s.trim(); }).filter(Boolean);
+    var priceText = spot['Add-on Prices'] || '';
+    var priceMap = {};
+    priceText.split('\n').forEach(function(line) {
+      var parts = line.split('|').map(function(s) { return s.trim(); });
+      if (parts.length === 2) priceMap[parts[0].toLowerCase()] = parts[1];
+    });
+    addonNames.forEach(function(n) {
+      addonDefs.push({ name: n, price: priceMap[n.toLowerCase()] || null });
+    });
+  }
+
+  if (!addonDefs.length) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  var rows = addonDefs.map(function(a) {
+    var pLabel = '';
+    var pAttr = '';
+    if (a.price !== null && a.price !== undefined && a.price !== '') {
+      if (typeof a.price === 'number') {
+        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pAttr  = formatPrice(a.price, spot['Price Currency']);
+      } else {
+        var ps = String(a.price);
+        pLabel = '+' + ps;
+        pAttr  = ps.startsWith('$') ? ps : '$' + ps;
+      }
+    }
+    return '<label class="sdp-tier-addon-row">' +
+      '<input type="checkbox" value="' + a.name + '" ' + (pAttr ? 'data-price="' + pAttr + '" ' : '') + 'onchange="updateSelectionSummary()">' +
+      '<span class="sdp-tier-addon-name">' + a.name + '</span>' +
+      '<span class="sdp-tier-addon-price">' + (pLabel || 'Price on Request') + '</span>' +
+    '</label>';
+  }).join('');
+
+  container.innerHTML = '<span class="sdp-moment-addons-label">Add to your moment — optional</span>' + rows;
+  container.style.display = '';
 }
 
 function _renderTierAddons(spot) {

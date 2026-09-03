@@ -17,8 +17,35 @@ export async function POST(request) {
       [SPOT_FIELDS.RAIN_CHECK]: body.rainCheck,
       [SPOT_FIELDS.PRICING_MODEL]: body.pricingModel,
       [SPOT_FIELDS.PRICE_CURRENCY]: body.priceCurrency,
+      [SPOT_FIELDS.DEPOSIT_REQUIRED]: body.requiresDeposit === "Yes",
       [SPOT_FIELDS.STATUS]: "Draft",
     };
+
+    if (body.requiresDeposit === "Yes") {
+      // Airtable percent fields store fractions (0.2 === 20%), so the
+      // whole-number percentage the partner types is divided by 100.
+      if (body.depositPercent)
+        fields[SPOT_FIELDS.DEPOSIT_PERCENT] = Number(body.depositPercent) / 100;
+      if (body.refundWindowDays)
+        fields[SPOT_FIELDS.REFUND_WINDOW_DAYS] = Number(body.refundWindowDays);
+      if (body.depositNotes)
+        fields[SPOT_FIELDS.DEPOSIT_NOTES] = body.depositNotes;
+    }
+
+    // How/when the partner collects the remaining balance from the couple.
+    // Applies to every listing (the deposit is only ever a fraction of the
+    // price), so this is set regardless of whether a hold deposit is required.
+    if (body.balanceTiming)
+      fields[SPOT_FIELDS.BALANCE_TIMING] = body.balanceTiming;
+    if (
+      body.balanceTiming === "A set time before the date" &&
+      body.balanceDueDaysBefore
+    )
+      fields[SPOT_FIELDS.BALANCE_DUE_DAYS] = Number(body.balanceDueDaysBefore);
+    if (body.balancePaymentMethods?.length)
+      fields[SPOT_FIELDS.BALANCE_METHODS] = body.balancePaymentMethods;
+    if (body.balancePaymentDetails)
+      fields[SPOT_FIELDS.BALANCE_DETAILS] = body.balancePaymentDetails;
 
     if (body.availabilityType === "Seasonal") {
       fields[SPOT_FIELDS.AVAILABLE_MONTHS] = body.availableMonths || [];

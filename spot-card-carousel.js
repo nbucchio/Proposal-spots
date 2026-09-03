@@ -92,6 +92,15 @@
     if (el) _setIndex(el, parseInt(el.dataset.index || '0', 10) + 1, true);
   };
 
+  // Spot cards are wrapped in an <a> link. The arrow buttons stop event
+  // propagation, but that doesn't cancel the anchor's default navigation —
+  // so without this a click on an arrow would follow the link to the
+  // listing instead of just advancing the carousel. Cancel that default in
+  // the capture phase (before the anchor navigates) for any arrow click.
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.sc-arrow')) e.preventDefault();
+  }, true);
+
   var _tEl = null, _tx = 0, _ty = 0, _horiz = false;
 
   document.addEventListener('touchstart', function (e) {

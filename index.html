@@ -912,11 +912,11 @@ nav.scrolled {
 .dest-browse { background: var(--white); padding: 64px 40px 72px; border-top: 1px solid var(--hairline); }
 .dest-browse-inner { max-width: 1040px; margin: 0 auto; }
 .dest-browse-label { display: block; text-align: center; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: #A55A4A; margin-bottom: 36px; }
-.dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 32px; }
+.dest-browse-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 32px; }
 .dest-browse-grid a { display: block; padding: 13px 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.18s; }
 .dest-browse-grid a:hover { color: #A55A4A; }
-@media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, auto); } }
-@media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } .dest-browse-grid { grid-template-columns: 1fr; grid-template-rows: repeat(16, auto); column-gap: 0; } }
+@media(max-width:768px){ .dest-browse-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, auto); } }
+@media(max-width:480px){ .dest-browse { padding: 48px 24px 56px; } .dest-browse-grid { grid-template-columns: 1fr; grid-template-rows: repeat(18, auto); column-gap: 0; } }
 
 /* ─────────────────────────────────────
    MARKETS GRID
@@ -1642,6 +1642,78 @@ nav.scrolled {
   object-position: center;
   display: block;
 }
+/* "Why Proposal Spots" set inside the archway — desktop + mobile.
+   Type is sized in container units (cqw) so it scales with the arch and
+   always stays inside the circle at any viewport width. */
+.why-arch { display: block; }
+.seo-editorial-wrap { display: none; }
+.why-arch-band {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  aspect-ratio: 2670 / 1780;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0d0d;
+  container-type: inline-size;
+}
+.why-arch-band img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.why-arch-glow {
+  position: absolute;
+  left: 50%;
+  top: 29%;
+  transform: translate(-50%, -50%);
+  width: 52%;
+  height: 34%;
+  background: radial-gradient(ellipse at center,
+    rgba(247, 240, 228, 0.55) 0%,
+    rgba(247, 240, 228, 0.22) 42%,
+    rgba(247, 240, 228, 0) 72%);
+  pointer-events: none;
+}
+.why-arch-copy {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+  width: 62%;
+  max-width: 560px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.3cqw, 16px);
+}
+.why-arch-copy .section-eyebrow {
+  color: #4a4139;
+  margin-bottom: 0;
+  font-size: clamp(7px, 0.95cqw, 11px);
+  letter-spacing: clamp(0.14em, 0.3cqw, 0.30em);
+}
+.why-arch-rule {
+  width: clamp(20px, 2.8cqw, 34px);
+  height: 1px;
+  background: rgba(36, 31, 26, 0.4);
+}
+.why-arch-copy h2 {
+  font-family: 'Cormorant', serif;
+  font-weight: 300;
+  color: #241f1a;
+  font-size: clamp(15px, 3.3cqw, 40px);
+  line-height: 1.22;
+  letter-spacing: 0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+.why-arch-copy h2 em { font-style: italic; font-weight: 400; }
 /* Legacy selectors kept for compatibility */
 .seo-text h2 {
   font-family: 'Cormorant', serif;
@@ -5637,8 +5709,33 @@ footer {
   </div>
 </div>
 
-<!-- SEO SECTION — Editorial split: text left, photo right -->
+<!-- SEO SECTION — Editorial: desktop shows text inside the archway, mobile keeps the split -->
 <div class="section-wrap alt" style="overflow:hidden;">
+  <!-- Desktop: "Why Proposal Spots" set inside the arch -->
+  <div class="why-arch">
+    <div class="why-arch-band">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/images/optimized/why-arch-800.webp 800w, /images/optimized/why-arch-1200.webp 1200w, /images/optimized/why-arch-1600.webp 1600w, /images/optimized/why-arch-2400.webp 2400w"
+          sizes="(max-width: 1240px) 100vw, 1200px">
+        <img
+          src="/images/optimized/why-arch-1600.jpg"
+          alt="A couple beneath a stone archway framing Mount Ararat at sunset"
+          loading="lazy"
+          decoding="async"
+          width="2670"
+          height="1780">
+      </picture>
+      <div class="why-arch-glow"></div>
+      <div class="why-arch-copy">
+        <span class="section-eyebrow">Why Proposal Spots</span>
+        <div class="why-arch-rule"></div>
+        <h2>We don't list everything.<br><em>Only what's worth the question.</em></h2>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile: original split (text left, photo right) -->
   <div class="seo-editorial-wrap">
     <div class="seo-editorial-text">
       <span class="section-eyebrow">Why Proposal Spots</span>
@@ -6542,14 +6639,17 @@ footer {
         <a href="/destinations/costa-rica">Costa Rica</a>
         <a href="/destinations/greece">Greece</a>
         <a href="/destinations/hawaii">Hawaii</a>
+        <a href="/destinations/iceland">Iceland</a>
         <a href="/destinations/italy">Italy</a>
         <a href="/destinations/london">London</a>
         <a href="/destinations/maldives">Maldives</a>
         <a href="/destinations/nicaragua">Nicaragua</a>
+        <a href="/destinations/panama">Panama</a>
         <a href="/destinations/paris">Paris</a>
         <a href="/destinations/patagonia">Patagonia</a>
         <a href="/destinations/portugal">Portugal</a>
         <a href="/destinations/south-of-france">South of France</a>
+        <a href="/destinations/sri-lanka">Sri Lanka</a>
         <a href="/destinations/switzerland">Switzerland</a>
         <a href="/destinations/tulum">Tulum</a>
         <a href="/destinations/united-states">United States</a>
@@ -8510,6 +8610,27 @@ async function submitEnquiry() {
       return;
     } else {
       console.log('✅ Airtable success — record ID:', data.id);
+
+      // GA4 conversion — fired only after the Airtable write confirms success,
+      // so it counts a real enquiry, not a form load or a failed attempt.
+      try {
+        const _rawValue = spot && spot['Price Moment'];
+        const _valueMatch = _rawValue != null
+          ? String(_rawValue).replace(/,/g, '').match(/[\d.]+/)
+          : null;
+        const _leadParams = {
+          currency: 'USD',
+          spot_name: spotName,
+          destination: (spot && spot.Country) || '',
+        };
+        if (_valueMatch) {
+          const _leadValue = parseFloat(_valueMatch[0]);
+          if (isFinite(_leadValue)) _leadParams.value = _leadValue;
+        }
+        if (typeof gtag === 'function') gtag('event', 'qualify_lead', _leadParams);
+      } catch (_gaErr) {
+        // Analytics must never break the confirmed-enquiry flow.
+      }
     }
 
     savedEmail = email;
@@ -11062,7 +11183,14 @@ function renderSSBDestinations(destinations) {
   var available  = [];
   var comingSoon = [];
   clean.forEach(function(d) {
-    (ssbDestinationHasSpots(d, liveCountries) ? available : comingSoon).push(d);
+    // A destination is "available" if it is not flagged coming_soon in Airtable.
+    // This mirrors the nav dropdown grouping so both are driven by the same
+    // single source of truth. Fall back to the live-spots heuristic only when
+    // the flag is not explicitly set on the record.
+    var isAvailable = (typeof d.coming_soon === 'boolean')
+      ? !d.coming_soon
+      : ssbDestinationHasSpots(d, liveCountries);
+    (isAvailable ? available : comingSoon).push(d);
   });
 
   var html = ssbDdItem('', 'Any Destination', 'ssbPickDest');

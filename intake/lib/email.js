@@ -75,6 +75,38 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
     row("Availability", availabilityValue),
     row("Currency", spot.priceCurrency),
     row("Pricing model", spot.pricingModel),
+    row("Requires deposit", spot.requiresDeposit),
+    spot.requiresDeposit === "Yes"
+      ? row(
+          "Deposit required",
+          spot.depositPercent ? `${spot.depositPercent}% of total` : ""
+        )
+      : "",
+    spot.requiresDeposit === "Yes"
+      ? row(
+          "Refundable up to",
+          spot.refundWindowDays
+            ? `${spot.refundWindowDays} days before the date`
+            : ""
+        )
+      : "",
+    spot.requiresDeposit === "Yes"
+      ? row("Deposit notes", spot.depositNotes)
+      : "",
+    row("Balance collected", spot.balanceTiming),
+    spot.balanceTiming === "A set time before the date"
+      ? row(
+          "Balance due",
+          spot.balanceDueDaysBefore
+            ? `${spot.balanceDueDaysBefore} days before the date`
+            : ""
+        )
+      : "",
+    row(
+      "Balance payment methods",
+      (spot.balancePaymentMethods || []).join(", ")
+    ),
+    row("Balance payment details", spot.balancePaymentDetails),
     spot.pricingModel === "Single Price"
       ? row(
           "Price",
