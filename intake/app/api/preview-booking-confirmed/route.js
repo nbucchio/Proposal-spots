@@ -39,6 +39,20 @@ export async function GET(request) {
   const html = renderBookingConfirmedEmailHtml(booking);
 
   if (sendTo) {
+    // Safety: this is only a test/preview endpoint. Never let it act as an
+    // open email-sender on the production domain — actual sends are allowed
+    // only on preview deployments and local dev. Real customer confirmations
+    // will go through the dedicated (authenticated) send path, not this route.
+    if (process.env.VERCEL_ENV === "production") {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "Test sends are disabled on production. Use a preview deployment to test-send.",
+        },
+        { status: 403 }
+      );
+    }
     try {
       await sendBookingConfirmed(booking);
       return NextResponse.json({ ok: true, sentTo: sendTo });
