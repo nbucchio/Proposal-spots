@@ -2855,9 +2855,29 @@ async function initPage() {
   // Show loading
   document.getElementById('loading-spinner').style.display = 'block';
 
+  // Preview mode: /spots/<slug>?preview=<secret> renders DRAFT (unpublished)
+  // spots via the secret-gated /api/spot-preview feed, so a listing can be
+  // shown to a partner exactly as it will look live — without being public.
+  // The public feed (/api/spots) stays Published-only, so nothing leaks into
+  // the browse grid, search, or sitemap.
+  const previewKey = new URLSearchParams(window.location.search).get('preview');
+  if (previewKey) {
+    // Keep the draft out of Google even if the link gets shared around.
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.setAttribute('name', 'robots');
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.setAttribute('content', 'noindex, nofollow');
+  }
+  const spotsEndpoint = previewKey
+    ? '/api/spot-preview?key=' + encodeURIComponent(previewKey)
+    : '/api/spots';
+
   // Fetch spots
   try {
-    const response = await fetch('/api/spots');
+    const response = await fetch(spotsEndpoint);
     if (!response.ok) throw new Error('API error');
     const data = await response.json();
     allSpots = data.records.map(r => mapSpotFromAirtable(r));
