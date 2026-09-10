@@ -53,6 +53,8 @@ export const SPOT_FIELDS = {
   PREFERRED_CONTACT: "Preferred Contact Method",
   PARTNER_EMAIL: "Partner Email",
   PARTNER_WHATSAPP: "Partner WhatsApp",
+  MEDIA_USAGE_CONSENT: "Media Usage Consent",
+  CREDIT_OPT_IN: "Credit / Name Opt-In",
   STATUS: "Status",
 };
 

@@ -18,6 +18,8 @@ export async function POST(request) {
       [SPOT_FIELDS.PRICING_MODEL]: body.pricingModel,
       [SPOT_FIELDS.PRICE_CURRENCY]: body.priceCurrency,
       [SPOT_FIELDS.DEPOSIT_REQUIRED]: body.requiresDeposit === "Yes",
+      [SPOT_FIELDS.MEDIA_USAGE_CONSENT]: body.mediaUsageConsent === true,
+      [SPOT_FIELDS.CREDIT_OPT_IN]: body.creditOptIn === true,
       [SPOT_FIELDS.STATUS]: "Draft",
     };
 

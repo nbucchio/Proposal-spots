@@ -195,6 +195,8 @@ const EMPTY_SPOT = {
   priceCurrency: "USD",
   priceMoment: "",
   includedItems: "",
+  mediaUsageConsent: false,
+  creditOptIn: false,
   addons: [
     { name: "", price: "" },
     { name: "", price: "" },
@@ -401,6 +403,13 @@ export default function Page() {
     if (!spot.balancePaymentDetails.trim()) {
       setError(
         "Please add the payment details we'll share with the couple in their confirmation."
+      );
+      return;
+    }
+
+    if (!spot.mediaUsageConsent) {
+      setError(
+        "Please confirm we can use your photos and videos for this listing before submitting."
       );
       return;
     }
@@ -1045,6 +1054,43 @@ export default function Page() {
             </div>
           </section>
 
+          <hr className="border-line" />
+
+          <section className="space-y-5">
+            <h2 className="font-display text-xl italic text-ink">
+              Photos &amp; credit
+            </h2>
+
+            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-white/40 p-4">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4 flex-shrink-0"
+                checked={spot.mediaUsageConsent}
+                onChange={(e) =>
+                  updateSpot({ mediaUsageConsent: e.target.checked })
+                }
+              />
+              <span className="text-sm leading-relaxed text-ink">
+                I confirm Proposal Spots can use the photos and videos I submit
+                for this listing on the Proposal Spots website, Instagram,
+                Pinterest, and in marketing materials.
+              </span>
+            </label>
+
+            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-white/40 p-4">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4 flex-shrink-0"
+                checked={spot.creditOptIn}
+                onChange={(e) => updateSpot({ creditOptIn: e.target.checked })}
+              />
+              <span className="text-sm leading-relaxed text-ink">
+                You're welcome to name or credit me / my business in social
+                posts featuring this listing.
+              </span>
+            </label>
+          </section>
+
           <button
             type="submit"
             className="w-full rounded-md bg-wine px-5 py-3 text-sm font-medium tracking-wide text-parchment transition-opacity hover:opacity-90"
@@ -1323,6 +1369,18 @@ export default function Page() {
                     : a.name
                 )
                 .join(", ")}
+            />
+            <ReviewRow
+              label="Photo & video usage"
+              value={spot.mediaUsageConsent ? "Consented" : ""}
+            />
+            <ReviewRow
+              label="Name / credit in social posts"
+              value={
+                spot.creditOptIn
+                  ? "Happy to be credited"
+                  : "Prefers not to be credited"
+              }
             />
           </div>
 

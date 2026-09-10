@@ -119,6 +119,11 @@ export function renderConfirmationEmailHtml({ spot, tiers, logoUrl }) {
       ? row("What's included", spot.includedItems)
       : "",
     row("Add-ons", addonsValue),
+    row("Photo & video usage", spot.mediaUsageConsent ? "Consented" : ""),
+    row(
+      "Name / credit in social posts",
+      spot.creditOptIn ? "Happy to be credited" : "Prefers not to be credited"
+    ),
   ].join("");
 
   const tiersHtml =
