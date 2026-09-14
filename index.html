@@ -8612,22 +8612,34 @@ async function submitEnquiry() {
       console.log('✅ Airtable success — record ID:', data.id);
 
       // GA4 conversion — fired only after the Airtable write confirms success,
-      // so it counts a real enquiry, not a form load or a failed attempt.
+      // so it counts a real enquiry, not a form load or a failed attempt. Sent
+      // server-side via /api/track-lead (a first-party call ad blockers don't
+      // touch) instead of a client-side gtag call, so the conversion isn't
+      // dropped by ad blockers / tracking protection. The browser's GA client_id
+      // is passed along so the server event stays attributed to this session.
       try {
         const _rawValue = spot && spot['Price Moment'];
         const _valueMatch = _rawValue != null
           ? String(_rawValue).replace(/,/g, '').match(/[\d.]+/)
           : null;
-        const _leadParams = {
-          currency: 'USD',
-          spot_name: spotName,
-          destination: (spot && spot.Country) || '',
-        };
-        if (_valueMatch) {
-          const _leadValue = parseFloat(_valueMatch[0]);
-          if (isFinite(_leadValue)) _leadParams.value = _leadValue;
-        }
-        if (typeof gtag === 'function') gtag('event', 'qualify_lead', _leadParams);
+        let _clientId = '';
+        try {
+          const _m = document.cookie.match(/_ga=GA\d\.\d\.(\d+\.\d+)/);
+          _clientId = _m ? _m[1] : '';
+        } catch (_c) {}
+        fetch('/api/track-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true,
+          body: JSON.stringify({
+            event: 'qualify_lead',
+            source: 'website',
+            clientId: _clientId,
+            value: _valueMatch ? parseFloat(_valueMatch[0]) : undefined,
+            spotName: spotName,
+            destination: (spot && spot.Country) || '',
+          }),
+        }).catch(function () {});
       } catch (_gaErr) {
         // Analytics must never break the confirmed-enquiry flow.
       }
