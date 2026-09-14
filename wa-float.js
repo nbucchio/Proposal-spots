@@ -31,4 +31,35 @@
   }
   var timer = setTimeout(reveal, 2000);
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Track WhatsApp taps as a GA4 "contact_whatsapp" event (kept separate from
+  // the qualify_lead form conversion). Delegated to any WhatsApp link on the
+  // page — the float button above and any inline wa.me links. Fires server-side
+  // via /api/track-lead (a first-party call), so ad blockers can't drop it.
+  document.addEventListener('click', function (e) {
+    var link = e.target && e.target.closest
+      ? e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="whatsapp://"]')
+      : null;
+    if (!link) return;
+    try {
+      var clientId = '';
+      try {
+        var m = document.cookie.match(/_ga=GA\d\.\d\.(\d+\.\d+)/);
+        clientId = m ? m[1] : '';
+      } catch (_c) {}
+      var nameEl = document.getElementById('sdp-name');
+      fetch('/api/track-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          event: 'contact_whatsapp',
+          source: 'whatsapp',
+          clientId: clientId,
+          spotName: (nameEl && nameEl.textContent.trim()) || '',
+          pagePath: location.pathname + location.search
+        })
+      }).catch(function () {});
+    } catch (_e) {}
+  }, true);
 })();
