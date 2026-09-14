@@ -11001,7 +11001,7 @@ function renderVibesCarousel(vibes) {
   if (clean.length === 0) return;
 
   var html = clean.map(function(v, i) {
-    var href = v.href || ('/search?vibe=' + encodeURIComponent(v.airtableValue));
+    var href = v.href || ('/map?vibe=' + encodeURIComponent(v.airtableValue));
     var loading = 'lazy';
     var label = String(v.displayLabel);
     var num   = v.number || String(i + 1).padStart(2, '0');
