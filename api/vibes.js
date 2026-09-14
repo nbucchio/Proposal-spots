@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         displayLabel,
         airtableValue: vibeName,
         image: imageUrl,
-        href: `/search?vibe=${encodeURIComponent(vibeName)}`
+        href: `/map?vibe=${encodeURIComponent(vibeName)}`
       });
       return acc;
     }, []);
