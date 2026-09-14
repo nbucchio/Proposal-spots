@@ -1,3 +1,47 @@
+// GA4 Measurement Protocol — server-side conversion send. Fires the same
+// "qualify_lead" event from the server (not the browser), so ad blockers and
+// tracking protection can't suppress it. The API secret lives ONLY in the
+// GA4_MP_API_SECRET env var — never hardcode it (this is a public repo).
+async function sendGa4Lead({ clientId, value, spotName, destination }) {
+  const MEASUREMENT_ID = 'G-4P287X7WZB';
+  const API_SECRET = process.env.GA4_MP_API_SECRET;
+  if (!API_SECRET) return; // not configured — skip quietly
+
+  const params = {
+    currency: 'USD',
+    spot_name: spotName || '',
+    destination: destination || '',
+    // Marks the event as engaged so GA4 counts it in reports and attribution.
+    engagement_time_msec: 1,
+  };
+  const numericValue = typeof value === 'number'
+    ? value
+    : parseFloat(String(value ?? '').replace(/[^0-9.]/g, ''));
+  if (Number.isFinite(numericValue)) params.value = numericValue;
+
+  const payload = {
+    // Reuse the browser's GA client_id (passed from the page) so this event
+    // stitches to the same GA4 user/session for campaign attribution. Fall back
+    // to a synthetic id so a blocked-cookie booking still records the conversion.
+    client_id: clientId || `${Date.now()}.${Math.floor(Math.random() * 1e10)}`,
+    events: [{ name: 'qualify_lead', params }],
+  };
+
+  try {
+    await fetch(
+      `https://www.google-analytics.com/mp/collect?measurement_id=${MEASUREMENT_ID}&api_secret=${encodeURIComponent(API_SECRET)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+  } catch (err) {
+    // Analytics must never break a confirmed booking.
+    console.error('[enquiry] GA4 Measurement Protocol send failed:', err.message);
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -17,6 +61,7 @@ export default async function handler(req, res) {
     partner, country, hotelCheckin, hotelCheckout,
     proposalDates, proposalDatePref, interestedDates, notes, addons, selectedTier, packageSelected, packageDisplay, pricingModel, contactPreference, photographyQuote,
     spotId, hotelIds,
+    gaClientId, gaValue, gaDestination,
   } = req.body || {};
 
   // "Package Selected" feeds the confirmation email. Tiered listings send a tier
@@ -82,6 +127,19 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
+
+    // Server-side GA4 conversion — sent only after the Airtable write confirms,
+    // so it counts a real enquiry, never a form load or a failed attempt. Awaited
+    // (not fire-and-forget) because the serverless function may otherwise exit
+    // before the request completes; it never throws, so a booking still succeeds
+    // even if GA is unreachable.
+    await sendGa4Lead({
+      clientId:    gaClientId,
+      value:       gaValue,
+      spotName:    spotName,
+      destination: gaDestination,
+    });
+
     return res.status(200).json({ success: true, id: data.records[0].id });
   } catch (err) {
     return res.status(500).json({ error: err.message });

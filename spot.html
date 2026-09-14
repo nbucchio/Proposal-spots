@@ -4108,6 +4108,18 @@ function closeEnquiryModal() {
   document.body.style.overflow = '';
 }
 
+// Reads the GA4 client_id from the _ga cookie (format: GA1.1.<id>.<ts>) so the
+// server-side conversion can be stitched to this browser's GA session. Returns
+// '' when GA is blocked and the cookie was never set.
+function _readGaClientId() {
+  try {
+    const m = document.cookie.match(/_ga=GA\d\.\d\.(\d+\.\d+)/);
+    return m ? m[1] : '';
+  } catch (_e) {
+    return '';
+  }
+}
+
 let _enqSubmitting = false;
 async function submitEnquiry() {
   // Guard against double-submits (e.g. a double-tap on mobile), which would
@@ -4202,6 +4214,14 @@ async function submitEnquiry() {
     photographyQuote: isTieredSubmit ? 'No' : getPhotoQuoteValue(),
     spotId: currentSpotId,
     hotelIds: currentSpot?.['Linked Hotel IDs'] || [],
+    // For the server-side GA4 conversion (see /api/enquiry): the browser's GA
+    // client_id so the server event attributes to this session, the numeric
+    // booking value, and the spot's destination country.
+    gaClientId: _readGaClientId(),
+    gaValue: (isTieredSubmit
+      ? _parseAmount(selectedTierPkg && selectedTierPkg['Price'])
+      : _parseAmount(currentSpot && currentSpot['Price Moment'])),
+    gaDestination: (currentSpot && currentSpot.Country) || '',
   };
 
   _enqSubmitting = true;
@@ -4221,25 +4241,12 @@ async function submitEnquiry() {
       localStorage.setItem('savedEmail', email);
       document.getElementById('enq-form').style.display = 'none';
       document.getElementById('enq-success').style.display = '';
-
-      // GA4 conversion — fired only after the Airtable write confirms success,
-      // so it counts a real enquiry, not a form load or a failed attempt.
-      try {
-        const _leadValue = isTieredSubmit
-          ? _parseAmount(selectedTierPkg && selectedTierPkg['Price'])
-          : _parseAmount(currentSpot && currentSpot['Price Moment']);
-        const _leadParams = {
-          currency: 'USD',
-          spot_name: data.spotName,
-          destination: (currentSpot && currentSpot.Country) || '',
-        };
-        if (typeof _leadValue === 'number' && isFinite(_leadValue)) {
-          _leadParams.value = _leadValue;
-        }
-        if (typeof gtag === 'function') gtag('event', 'qualify_lead', _leadParams);
-      } catch (_gaErr) {
-        // Analytics must never break the confirmed-enquiry flow.
-      }
+      // The GA4 "qualify_lead" conversion is now sent server-side from
+      // /api/enquiry (Measurement Protocol), so ad blockers and tracking
+      // protection in the visitor's browser can't drop it the way they drop a
+      // client-side gtag call. The browser's GA client_id was passed in the
+      // request body (data.gaClientId) to keep the server event attributed to
+      // this session. No client-side gtag event here — it would double-count.
     } else {
       const errData = await response.json().catch(() => ({}));
       console.error('Enquiry API error:', response.status, errData);
