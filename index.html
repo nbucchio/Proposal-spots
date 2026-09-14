@@ -1237,6 +1237,37 @@ nav.scrolled {
   gap: 20px;
   width: 100%;
 }
+/* Editor's Picks — centered main header (country labels stay left) */
+#spots-header.picks-centered { justify-content: center; text-align: center; }
+#spots-header.picks-centered .section-meta { align-items: center; }
+/* Editor's Picks — grouped by country into horizontal shelves */
+.spots-grid.is-grouped { display: block; }
+.pick-group { margin-bottom: 52px; }
+.pick-group:last-child { margin-bottom: 0; }
+.pick-group-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; }
+.pick-group-label {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(21px, 2.5vw, 31px);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+.pick-shelf {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  scroll-padding-left: 1px;
+}
+.pick-shelf::-webkit-scrollbar { display: none; }
+.pick-shelf > .spot-card {
+  flex: 0 0 calc((100% - 40px) / 3);
+  scroll-snap-align: start;
+}
 .spot-card {
   display: block;
   text-decoration: none;
@@ -2458,6 +2489,9 @@ footer {
   .vibe-card { flex-basis: 65%; }
   .vibes-arrow { display: none; }
   .spots-grid { grid-template-columns: repeat(2, 1fr); }
+  .pick-group { margin-bottom: 40px; }
+  .pick-group-head { margin-bottom: 16px; }
+  .pick-shelf > .spot-card { flex-basis: 72%; }
   .seo-editorial-wrap { grid-template-columns: 1fr; min-height: unset; }
   .seo-editorial-text { padding: 56px 24px 48px; order: 2; }
   .seo-editorial-photo-wrap { aspect-ratio: 16/9; order: 1; border-radius: 0; }
@@ -2474,6 +2508,7 @@ footer {
 }
 @media (max-width: 480px) {
   .spots-grid { grid-template-columns: 1fr; }
+  .pick-shelf > .spot-card { flex-basis: 80%; }
   .vibe-card { flex-basis: 75%; }
   .market-spot-card { flex-basis: 75%; }
   .footer-top { grid-template-columns: 1fr; }
@@ -5691,10 +5726,143 @@ footer {
   </div>
 </div>
 
+<!-- ============================================================
+     MAP CTA — full-bleed live mini-map → /map
+     ============================================================ -->
+<style>
+  .map-cta{ position:relative; width:100%; height:clamp(440px,60vh,600px); overflow:hidden; background:var(--bg2); cursor:pointer; }
+  #map-cta-map{ position:absolute; inset:0; }
+  .map-cta-fallback{ position:absolute; inset:0; background:
+      radial-gradient(120% 120% at 70% 20%, #efe9df 0%, #e4ddd0 55%, #d8cfbf 100%); }
+  .map-cta-scrim{ position:absolute; inset:0; pointer-events:none; z-index:2;
+    background:
+      radial-gradient(120% 90% at 50% 55%, rgba(244,241,235,0) 45%, rgba(244,241,235,0.32) 82%, rgba(244,241,235,0.5) 100%); }
+  .map-cta-inner{ position:absolute; inset:0; z-index:3; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:40px 24px; pointer-events:none; }
+  .map-cta-panel{ pointer-events:auto; background:rgba(24,22,20,0.9);
+    -webkit-backdrop-filter:blur(5px) saturate(1.05); backdrop-filter:blur(5px) saturate(1.05);
+    border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:38px 46px 42px; max-width:560px;
+    box-shadow:0 30px 70px -30px rgba(0,0,0,0.55); }
+  .map-cta-eyebrow{ font-family:'Jost',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; color:#c9846f; display:block; margin-bottom:16px; }
+  .map-cta-title{ font-family:'Cormorant',serif; font-weight:300; font-size:clamp(30px,4.4vw,52px); line-height:1.08; color:#F4F1EB; margin-bottom:14px; letter-spacing:0.01em; }
+  .map-cta-title strong{ font-weight:500; }
+  .map-cta-sub{ font-family:'Jost',sans-serif; font-size:13px; font-weight:300; line-height:1.75; color:rgba(244,241,235,0.62); max-width:400px; margin:0 auto 26px; }
+  .map-cta-btn{ display:inline-flex; align-items:center; gap:9px; background:#A55A4A; color:#fff; text-decoration:none;
+    font-family:'Jost',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.16em; text-transform:uppercase;
+    padding:14px 28px; border-radius:100px; transition:transform .18s ease, background .18s ease; }
+  .map-cta-btn:hover{ background:#8f4c3e; transform:translateY(-1px); }
+  .map-cta-btn svg{ width:14px; height:14px; }
+  .map-cta-pin{ display:flex; align-items:center; gap:5px; padding:5px 11px; background:#FDFCFA;
+    border:1px solid rgba(28,28,28,0.22); border-radius:100px; font-family:'Jost',sans-serif; font-size:11px; font-weight:400;
+    color:var(--ink); white-space:nowrap; box-shadow:0 6px 16px -8px rgba(28,28,28,0.4); }
+  .map-cta-pin.is-accent{ background:#A55A4A; border-color:#A55A4A; color:#fff; }
+  .map-cta-pin .dot{ width:5px; height:5px; border-radius:50%; background:#A55A4A; }
+  .map-cta-pin.is-accent .dot{ background:#fff; }
+  /* mobile globe view uses bare terracotta dots (labels would crowd) */
+  .map-cta-dot{ width:10px; height:10px; border-radius:50%; background:#A55A4A;
+    box-shadow:0 0 0 4px rgba(165,90,74,0.22), 0 1px 4px rgba(0,0,0,0.35); }
+  @media(max-width:640px){
+    .map-cta{ height:clamp(400px,64vh,520px); }
+    .map-cta-panel{ padding:30px 26px 34px; }
+  }
+</style>
+<section class="map-cta" id="map-cta" onclick="if(!event.target.closest('a')) window.location.href='/map'">
+  <div id="map-cta-map"><div class="map-cta-fallback"></div></div>
+  <div class="map-cta-scrim"></div>
+  <div class="map-cta-inner">
+    <div class="map-cta-panel">
+      <span class="map-cta-eyebrow">Explore spatially</span>
+      <h2 class="map-cta-title">Find your spot<br>on the <strong>map</strong></h2>
+      <p class="map-cta-sub">Every hand-picked proposal spot, plotted. Discover by place, by coastline, by how close it sits to the next.</p>
+      <a class="map-cta-btn" href="/map">
+        Open the map
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var MAPBOX_TOKEN = 'pk.eyJ1IjoicHJvcG9zYWxzcG90cyIsImEiOiJjbXQxcjNmNTEwanByMnlvaGxscGJjYWtxIn0.Ge3dzMLKklBnAyHR3O1odw';
+  // Desktop: tighter Mediterranean framing with labelled pills.
+  var CTA_PINS = [
+    { name:'Amalfi',    lng:14.60, lat:40.63, accent:true  },
+    { name:'Santorini', lng:25.43, lat:36.39, accent:false },
+    { name:'Lisbon',    lng:-9.14, lat:38.72, accent:false },
+    { name:'Paris',     lng: 2.35, lat:48.85, accent:false },
+    { name:'Rome',      lng:12.50, lat:41.90, accent:false },
+    { name:'Provence',  lng: 5.45, lat:43.83, accent:false }
+  ];
+  // Mobile: pulled back to the globe, bare dots spread across the world.
+  var GLOBE_PINS = [
+    { lng:14.60, lat:40.63 }, { lng: 2.35, lat:48.85 }, { lng:-9.14, lat:38.72 },
+    { lng:25.43, lat:36.39 }, { lng:-87.47, lat:20.21 }, { lng:115.17, lat:-8.41 },
+    { lng:-19.02, lat:64.96 }, { lng:73.22, lat:3.20 }, { lng:-72.50, lat:-50.90 }
+  ];
+  var section = document.getElementById('map-cta');
+  if (!section) return;
+  var started = false;
+  var isMobile = window.matchMedia('(max-width:640px)').matches;
+
+  function loadScript(src){ return new Promise(function(res,rej){
+    var s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s);
+  }); }
+  function loadCss(href){ if(document.querySelector('link[href="'+href+'"]'))return;
+    var l=document.createElement('link'); l.rel='stylesheet'; l.href=href; document.head.appendChild(l); }
+
+  function initMap(){
+    if (typeof mapboxgl === 'undefined') return;
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    var view = isMobile ? { center:[12, 25], zoom:1.55 } : { center:[9, 42.2], zoom:3.15 };
+    var map = new mapboxgl.Map({
+      container: 'map-cta-map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      projection: 'globe',
+      center: view.center, zoom: view.zoom,
+      interactive: false, attributionControl: false
+    });
+    map.on('style.load', function(){
+      // soft atmosphere so the globe reads as a 3D earth
+      try { map.setFog({ 'color':'rgb(244,241,235)', 'high-color':'rgb(214,204,190)',
+        'horizon-blend':0.08, 'space-color':'rgb(237,234,226)', 'star-intensity':0 }); } catch(e){}
+    });
+    map.on('load', function(){
+      var fb = section.querySelector('.map-cta-fallback'); if (fb) fb.remove();
+      if (isMobile) {
+        GLOBE_PINS.forEach(function(p){
+          var el=document.createElement('div'); el.className='map-cta-dot';
+          new mapboxgl.Marker({ element: el }).setLngLat([p.lng,p.lat]).addTo(map);
+        });
+      } else {
+        CTA_PINS.forEach(function(p){
+          var el=document.createElement('div');
+          el.className='map-cta-pin'+(p.accent?' is-accent':'');
+          el.innerHTML='<span class="dot"></span>'+p.name;
+          new mapboxgl.Marker({ element: el }).setLngLat([p.lng,p.lat]).addTo(map);
+        });
+      }
+    });
+  }
+
+  function start(){
+    if (started) return; started = true;
+    loadCss('https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css');
+    loadScript('https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js').then(initMap).catch(function(){});
+  }
+
+  if ('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ start(); io.disconnect(); } });
+    }, { rootMargin:'300px 0px' });
+    io.observe(section);
+  } else { start(); }
+})();
+</script>
+
 <!-- EDITOR'S PICKS — rendered from data -->
 <div class="section-wrap white">
   <div class="section">
-    <div class="section-header">
+    <div class="section-header" id="spots-header">
       <div class="section-meta">
         <span class="section-eyebrow" id="spots-eyebrow">Hand-selected</span>
         <h2 class="section-title" id="spots-title">Editor's <strong>Picks</strong></h2>
@@ -7466,7 +7634,8 @@ function momentStartingPriceText(s) {
   return formatStartingPrice(Number(price), s['Price Currency']);
 }
 
-function buildSpotCard(s, index) {
+function buildSpotCard(s, index, opts) {
+  const noCarousel = !!(opts && opts.noCarousel);
   const cardPhoto = optimizeAirtableImage(s['Spot Card Photo'] || s['Cover Photo']);
   const imgStyle = cardPhoto
     ? `background-image:url('${cardPhoto}');background-size:cover;background-position:${s['Card Position'] || 'center center'};`
@@ -7479,7 +7648,7 @@ function buildSpotCard(s, index) {
   const price    = s['Moment Price'] || s['Price'] || '';
   const priceStr = price ? `From $${Math.round(Number(price)).toLocaleString()}` : (s.Budget || '');
   const imgs     = getCardImgs(s);
-  const hasMultiple = imgs.length > 1;
+  const hasMultiple = !noCarousel && imgs.length > 1;
   const imgsAttr = hasMultiple ? "data-images='" + JSON.stringify(imgs) + "' data-index=\"0\"" : '';
   const lazyLoad = (index || 0) >= 3 ? ' loading="lazy"' : '';
   const slug = (s.Slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || (s.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || s.id || '';
@@ -7575,6 +7744,7 @@ function renderSpots(spots) {
   const countEl = document.getElementById('spots-count');
   const eyebrow = document.getElementById('spots-eyebrow');
   const title   = document.getElementById('spots-title');
+  const header  = document.getElementById('spots-header');
 
   const filtersActive = state.vibe.size > 0 || state.privacy.size > 0 ||
     state.budget.size > 0 || state.food.size > 0 || state.time.size > 0 ||
@@ -7587,13 +7757,12 @@ function renderSpots(spots) {
     if (eyebrow) eyebrow.textContent = 'Filtered results';
     if (title) title.innerHTML = `<strong>${spotsToRender.length}</strong> spot${spotsToRender.length !== 1 ? 's' : ''} found`;
     if (countEl) countEl.style.display = 'none';
+    if (header) header.classList.remove('picks-centered');
   } else {
     if (eyebrow) eyebrow.textContent = 'Hand-selected';
     if (title) title.innerHTML = `Editor\'s <strong>Picks</strong>`;
-    if (countEl) {
-      countEl.innerHTML = `<strong>${spotsToRender.length}</strong> spots`;
-      countEl.style.display = '';
-    }
+    if (countEl) countEl.style.display = 'none';
+    if (header) header.classList.add('picks-centered');
   }
 
   if (!spotsToRender.length) {
@@ -7608,7 +7777,40 @@ function renderSpots(spots) {
     'Moderate Crowd': '👥👥', 'Everyone Will See': '👥👥👥'
   };
 
-  grid.innerHTML = spotsToRender.map((s, i) => buildSpotCard(s, i)).join('');
+  if (filtersActive) {
+    grid.classList.remove('is-grouped');
+    grid.innerHTML = spotsToRender.map((s, i) => buildSpotCard(s, i)).join('');
+  } else {
+    grid.classList.add('is-grouped');
+    grid.innerHTML = buildEditorsPicksGrouped(spotsToRender);
+  }
+}
+
+// Editor's Picks: group picks by country into horizontal shelves.
+// Country order follows first appearance (Airtable curation order); the
+// strongest listings surface first within each shelf. 3 fit per row on
+// desktop, ~1.3 on mobile — extras scroll horizontally with snap.
+function buildEditorsPicksGrouped(spots) {
+  const order = [];
+  const groups = {};
+  spots.forEach(function(s){
+    const country = ((s.Country || '').trim()) || 'Elsewhere';
+    if (!groups[country]) { groups[country] = []; order.push(country); }
+    groups[country].push(s);
+  });
+  let idx = 0;
+  return order.map(function(country){
+    const items = groups[country];
+    // Single cover image per card (no swipe carousel) so the horizontal
+    // shelf swipe isn't hijacked by the in-card image swipe — tap to open.
+    const cards = items.map(function(s){ return buildSpotCard(s, idx++, { noCarousel: true }); }).join('');
+    return '<section class="pick-group">'
+      + '<div class="pick-group-head">'
+      +   '<span class="pick-group-label">' + country + '</span>'
+      + '</div>'
+      + '<div class="pick-shelf">' + cards + '</div>'
+      + '</section>';
+  }).join('');
 }
 
 let spotReturnPage = 'home';
