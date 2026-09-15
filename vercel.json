@@ -22,6 +22,7 @@
     { "source": "/destinations/Hawaii",          "destination": "/destinations/hawaii",           "permanent": true },
     { "source": "/destinations/London",          "destination": "/destinations/london",           "permanent": true },
     { "source": "/destinations/Patagonia",       "destination": "/destinations/patagonia",        "permanent": true },
+    { "source": "/destinations/Spain",           "destination": "/destinations/spain",            "permanent": true },
     { "source": "/budget-guide",                 "destination": "/budget",                        "permanent": true },
     { "source": "/amalfi-coast",                 "destination": "/destinations/amalfi-coast",     "permanent": true },
     { "source": "/budget/amalfi-coast",          "destination": "/budget/italy",                  "permanent": true },
