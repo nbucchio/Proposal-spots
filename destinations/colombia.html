@@ -17,14 +17,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-  <title>Iceland Proposal: Best Spots, Packages and Times</title>
-  <meta name="description" content="Planning an Iceland proposal? Blue ice caves under Vatnajökull, the hidden Kvernufoss cavern, and Diamond Beach are the top spots. Northern lights or midnight sun.">
-  <meta property="og:title" content="Iceland Proposal: Best Spots, Packages and Times">
-  <meta property="og:description" content="Blue ice caves under Vatnajökull, the hidden cavern behind Kvernufoss, and the glacier gems of Diamond Beach are the top Iceland proposal spots. Northern lights season or the midnight sun.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1470&auto=format&fit=crop">
-  <meta property="og:url" content="https://www.proposalspots.com/destinations/iceland">
+  <title>Colombia Proposal: Best Spots, Packages and Times</title>
+  <meta name="description" content="Planning a Colombia proposal? Cartagena's walled city, the Cocora Valley wax palms, and Guatapé's lakefront decks are the top spots. Moments from $900.">
+  <meta property="og:title" content="Colombia Proposal: Best Spots, Packages and Times">
+  <meta property="og:description" content="Cartagena's colonial ramparts, the Cocora Valley wax palms, Guatapé's lakefront sky decks, and Providencia's reef islands are the top Colombia proposal spots. Moments from $900, stays to $8,500+.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1583531352515-8884af319dc1?q=80&w=1470&auto=format&fit=crop">
+  <meta property="og:url" content="https://www.proposalspots.com/destinations/colombia">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://www.proposalspots.com/destinations/iceland">
+  <link rel="canonical" href="https://www.proposalspots.com/destinations/colombia">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -147,18 +147,15 @@
     /* ── GALLERY ── */
     .dest-gallery { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .dest-gallery-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: block; text-align: center; margin-bottom: 40px; }
-    .dest-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .dest-gallery-col { display: flex; flex-direction: column; gap: 12px; }
-    .dest-gallery-grid a { display: block; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
-    .dest-gallery-grid a.is-portrait { aspect-ratio: 2 / 3; }
-    .dest-gallery-grid a.is-landscape { aspect-ratio: 3 / 2; }
-    .dest-gallery-grid img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
-    .dest-gallery-grid a:hover img { transform: scale(1.04); filter: brightness(1); }
+    .dest-gallery-masonry { columns: 3; column-gap: 12px; }
+    .dest-gallery-masonry a { display: block; break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 4px; cursor: zoom-in; }
+    .dest-gallery-masonry img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s ease; filter: brightness(0.88); }
+    .dest-gallery-masonry a:hover img { transform: scale(1.04); filter: brightness(1); }
     .dest-gallery-lightbox { position: fixed; inset: 0; background: rgba(10,8,6,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .dest-gallery-lightbox.open { opacity: 1; pointer-events: all; }
     .dest-gallery-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
-    @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } }
-    @media(max-width: 480px) { .dest-gallery-grid { grid-template-columns: 1fr; } }
+    @media(max-width: 768px) { .dest-gallery { padding: 60px 20px; } .dest-gallery-masonry { columns: 2; } }
+    @media(max-width: 480px) { .dest-gallery-masonry { columns: 1; } }
 
     /* ── BUDGET ── */
     .dest-landing-budget { background: var(--white); padding: 80px 40px; margin: 0; }
@@ -226,74 +223,66 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Where is the best place to propose in Iceland?",
+        "name": "Where is the best place to propose in Colombia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The ideal setting depends on the season and the kind of couple you are. For a winter proposal, a privately chartered Sapphire Blue Ice Cave beneath the Vatnajökull glacier is unmatched, a cathedral of blue ice open only from November through March. For dramatic waterfall scenery without the crowds of Seljalandsfoss, the hidden cavern behind Kvernufoss on the South Coast is the quiet choice. Diamond Beach, where glacier ice washes up on black sand near Jökulsárlón, and the black timber Búðakirkja church on the Snæfellsnes Peninsula are the most photogenic road-accessible options. For total seclusion, a private helicopter landing on a glacier summit or the remote Brennisteinsalda ridge in the Highlands puts you alone in the landscape."
+          "text": "The two most requested Colombia proposal settings are Cartagena and the Cocora Valley. In Cartagena, a private sunset sail off the Rosario Islands or an early-morning shoot along the coral-stone ramparts of the Baluarte de Santo Domingo delivers classic colonial character. In the coffee region, the upper ridgeline meadows of the Valle de Cocora near Salento frame 60-metre Quindio wax palms rising through morning Andean mist. For a modern lakeside setting, the private sky decks of Bosko above the Guatape reservoir near Medellin are hard to beat, and for reef-island seclusion the viewing deck on Cayo Cangrejo off Providencia looks over the Sea of Seven Colors."
         }
       },
       {
         "@type": "Question",
-        "name": "What do Iceland proposal and honeymoon packages include?",
+        "name": "What do Colombia proposal and honeymoon packages include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A full-service Iceland package usually covers concept planning, site scouting and daily weather monitoring, private 4x4 super-jeep or helicopter transfers to your chosen setting, any commercial filming permits or private landowner access, two to four hours of professional photography with aerial drone coverage, and an on-site setup with wind-resistant flowers, wool blankets and a champagne toast. Because the weather turns quickly, a good planner also builds in a sheltered backup location for every outdoor moment."
+          "text": "A typical Colombia package bundles bilingual local coordination, private access or a boat charter to your chosen spot, an on-site setup with flowers, candles and chilled champagne, a private multi-course dinner, and a 2 to 3 hour engagement photographer with editing and full usage rights. Higher-end tiers add private live Andean or acoustic musicians, luxury SUV airport transfers, and boutique hotel bookings. A staged moment on its own runs roughly $900 to $4,500, while a three-night stay with the moment included ranges from about $2,000 for a boutique colonial suite to $8,500 and up for a signature suite at a property like Sofitel Legend Santa Clara or Hacienda Bambusa."
         }
       },
       {
         "@type": "Question",
-        "name": "How much does a proposal photographer cost in Iceland?",
+        "name": "How much does a proposal photographer cost in Colombia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A professional proposal or engagement photographer in Iceland typically charges $1,500 to $3,500 for a two to three hour session. That rate reflects specialised low-light and foul-weather gear, long drive times out of Reykjavík, real-time lighting planning around a narrow golden hour, and discreet coordination to protect the surprise. An all-day session across several locations with drone video and full guiding runs from $4,000 to $6,500."
+          "text": "A dedicated Colombia proposal photographer typically charges between $250 and $450 for a 1.5 to 2 hour portrait session in the main hubs of Cartagena, Bogota or Medellin, usually delivering 30 to 60 edited high-resolution images. Comprehensive editorial shoots with drone footage, a cinema clip and multi-location coverage generally run $550 to $950. Book 4 to 6 weeks ahead to secure a golden-hour slot, and expect a travel fee when a city photographer shoots out in the coffee region, Providencia or the Pacific coast."
         }
       },
       {
         "@type": "Question",
-        "name": "When is the best time to propose in Iceland, Northern Lights season or midnight sun?",
+        "name": "When is the best time of year to propose in Colombia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Neither season is better outright; they suit completely different priorities. Choose the midnight sun from late May through July if you want endless golden light, mild temperatures, green landscapes, open Highland roads and the freedom to stage a private waterfall shoot at 11pm with no crowds. Choose the Northern Lights season from September through mid-April if you want snow-covered scenery, natural blue ice caves and dark skies lit by the aurora. Daylight swings enormously between them, from about 21 hours at the summer solstice to roughly 4 hours at the winter solstice, so the season shapes your entire itinerary."
+          "text": "Colombia's climate runs by altitude rather than by season, so the choice is less about the month and more about the region. That said, the country has two nationwide dry windows: December through March, the most reliable stretch, which brings sunny days to the Caribbean coast and clear mornings across the Andes, and a secondary window in July and August that is ideal for hiking the interior and, on the Pacific, for humpback whale watching. Cartagena stays hot and tropical year-round, Medellin holds a spring-like warmth, the coffee region is mild and green, and Bogota stays cool at altitude."
         }
       },
       {
         "@type": "Question",
-        "name": "Can you plan a proposal under the Northern Lights?",
+        "name": "Is Colombia safe and good for proposals and honeymoons?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, but flexibility is essential. The aurora cannot be scheduled or guaranteed, so a successful lights proposal means reserving a multi-day window and working with a private guide who tracks live solar wind data and cloud cover through the Icelandic Meteorological Office at vedur.is. Photographers shoot on manual with wide-aperture lenses and long exposures, using subtle handheld light on the couple, so you need to stay still through each frame. Aurora visibility requires both geomagnetic activity and clear local skies, which is why the aurora is best treated as a highlight rather than a promise."
+          "text": "Colombia is a welcoming and increasingly popular destination for proposals and honeymoons, provided travelers follow standard situational guidelines. Couples should use registered private drivers or app-based transport, avoid walking through unmonitored areas late at night, and keep expensive items discreet in crowded public plazas. Staying at established luxury properties and working with dedicated local guides makes for a smooth, secure trip, and the country's real draw is its range: a colonial coast, an Andean coffee region, a modern lake district and Caribbean reef islands within one border."
         }
       },
       {
         "@type": "Question",
-        "name": "Is Iceland good for proposals and honeymoons?",
+        "name": "What is the most private proposal spot in Colombia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Iceland is one of the world's premier romantic destinations for couples who love dramatic scenery, outdoor adventure and Nordic spa culture. Within a compact island you can move between glaciers, volcanoes, waterfalls, black sand beaches and geothermal springs, then retreat to boutique properties like The Retreat at Blue Lagoon, Eleven Deplar Farm or Torfhús Retreat. It rewards couples who see weather and wildness as part of the romance rather than an obstacle."
+          "text": "The chartered private islets and day-catamarans of the Rosario Islands off Cartagena, and the remote volcanic bluffs of Nuqui on the Pacific coast, offer the highest levels of privacy. For mountain scenery, the elevated timber sky decks of eco-lodges like Bosko above Lake Guatape and the residential garden lawns of Hacienda Bambusa in the coffee region provide secluded settings reserved exclusively for resident guests."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the most private proposal spot in Iceland?",
+        "name": "How far in advance should I book a Colombia proposal or honeymoon?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For absolute isolation, a privately chartered helicopter landing on a glacier or crater summit, such as Þrísjökull or the Hengill geothermal area, or a private super-jeep run into a Highland gorge, leaves you entirely alone in the landscape. Among road-accessible settings, the hidden cavern behind Kvernufoss and the eastern basalt columns of Stuðlagil Canyon at first light offer far more privacy than the major tourist stops on the Ring Road."
+          "text": "For travel during the peak dry season from December through March, or around Holy Week, secure luxury suites and boutique hotels 4 to 6 months ahead. Properties with very limited inventory, such as Casa San Agustin, Bosko and the eight-room Hacienda Bambusa, often sell out their best suites half a year in advance. Photographers and bespoke decorators should be booked 4 to 6 weeks ahead to guarantee a golden-hour slot."
         }
       },
       {
         "@type": "Question",
-        "name": "How far in advance should I book an Iceland proposal or honeymoon?",
+        "name": "Do I need a passport or visa for Colombia as a US citizen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "High-end Iceland itineraries should be booked 6 to 12 months ahead. The top boutique properties such as The Retreat at Blue Lagoon, Eleven Deplar Farm and Torfhús Retreat have very small room counts and sell out well in advance for the peak summer midnight sun weeks and the winter aurora holidays. Premier proposal photographers, certified ice cave guides and private helicopter charters also have limited availability and book up early."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need a passport or visa for Iceland as a US citizen?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "US citizens do not need a tourist visa for stays up to 90 days within any 180-day period in the Schengen Area. Your passport must be valid for at least three months beyond your planned departure date. The European Travel Information and Authorization System, ETIAS, is not yet in effect, with launch expected in late 2026 or 2027."
+          "text": "US citizens do not need an advance visa for tourist stays of up to 90 days. Your passport must be valid on entry and carry at least two blank pages, and immigration may ask for proof of onward or return travel. All travelers must also complete the mandatory online Check-Mig immigration form through Migracion Colombia between 72 and 24 hours before their flight, which airlines consistently enforce before boarding."
         }
       }
     ]
@@ -319,8 +308,8 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Iceland",
-        "item": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Colombia",
+        "item": "https://www.proposalspots.com/destinations/colombia"
       }
     ]
   }
@@ -329,13 +318,13 @@
   {
     "@context": "https://schema.org",
     "@type": "TouristDestination",
-    "name": "Iceland",
-    "description": "A subarctic North Atlantic island of glaciers, volcanoes, waterfalls, black sand beaches and geothermal lagoons, known for the Vatnajökull ice caves, the Golden Circle, the South Coast, the Snæfellsnes Peninsula and the Central Highlands. One of the world's most dramatic proposal and honeymoon settings, split between the Northern Lights season and the endless daylight of the midnight sun.",
-    "url": "https://www.proposalspots.com/destinations/iceland",
+    "name": "Colombia",
+    "description": "A South American country meeting both the Caribbean Sea and the Pacific Ocean, known for the colonial walled city of Cartagena, the wax-palm meadows of the Cocora Valley in the coffee region, the flooded reservoir and granite monolith of Guatape near Medellin, the Andean capital of Bogota, and the reef islands of Providencia and San Andres. One of the most varied proposal and honeymoon settings in the Americas, spanning colonial ramparts, cloud-forest coffee estates, lakefront sky decks and Caribbean sandbars, with a climate defined by altitude rather than season.",
+    "url": "https://www.proposalspots.com/destinations/colombia",
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "64.9631",
-      "longitude": "-19.0208"
+      "latitude": "4.5709",
+      "longitude": "-74.2973"
     },
     "touristType": "Romantic travelers, couples planning proposals"
   }
@@ -344,50 +333,50 @@
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Best Iceland Proposal Spots",
-    "description": "The top proposal locations in Iceland, curated for setting, privacy, and photographer access.",
+    "name": "Best Colombia Proposal Spots",
+    "description": "The top proposal locations in Colombia, curated for setting, privacy, and photographer access.",
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Sapphire Blue Ice Cave (Vatnajökull National Park)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Baluarte de Santo Domingo Ramparts (Cartagena Walled City)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Kvernufoss Gorge Cavern (Skógar, South Coast)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Valle de Cocora Upper Ridgeline Meadow (Quindio, Coffee Region)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Diamond Beach (Breiðamerkursandur, Jökulsárlón)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Bosko Lakefront Sky Deck (Lake Guatape, Antioquia)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Búðakirkja Black Church (Snæfellsnes Peninsula)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Cayo Cangrejo Viewing Deck (Providencia)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": "Brennisteinsalda Rhyolite Crest (Landmannalaugar Highlands)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Salto del Mico Cliff Ledge (Barichara, Santander)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 6,
-        "name": "Öxarárfoss Viewpoint Ledge (Þingvellir National Park)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Private Islet Beach (Rosario Islands, Cartagena)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       },
       {
         "@type": "ListItem",
         "position": 7,
-        "name": "Dyrhólaey Upper Promontory (Vík í Mýrdal)",
-        "url": "https://www.proposalspots.com/destinations/iceland"
+        "name": "Hacienda Bambusa Plantation Grounds (Coffee Region)",
+        "url": "https://www.proposalspots.com/destinations/colombia"
       }
     ]
   }
@@ -401,9 +390,9 @@
   <div class="dest-landing-hero">
     <a href="/destinations" class="story-back-btn">← All Destinations</a>
     <div class="dest-landing-hero-content">
-      <span class="pg-eyebrow">Europe</span>
-      <h1 class="dest-landing-title">Iceland</h1>
-      <p class="dest-landing-sub">Blue ice caves under a glacier, waterfalls you can stand behind, black sand beaches scattered with ice, and geothermal lagoons steaming into the cold. A country lit by the midnight sun in summer and the aurora in winter.</p>
+      <span class="pg-eyebrow">South America</span>
+      <h1 class="dest-landing-title">Colombia</h1>
+      <p class="dest-landing-sub">Coral-stone ramparts above the Caribbean in Cartagena, wax palms rising through Andean mist in the coffee region, a modern lake district around Guatape, and reef islands over the Sea of Seven Colors. One country that changes with every altitude.</p>
     </div>
   </div>
 
@@ -458,7 +447,7 @@
         <p>No spots match your filters.</p>
         <button onclick="clearDLFilters()" style="background:none;border:1px solid var(--hairline);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid);padding:10px 20px;cursor:pointer;margin-top:16px;">Clear Filters</button>
       </div>
-      <div id="dest-landing-coming-soon" data-destination-name="Iceland" style="display:none;text-align:center;padding:100px 20px 80px;">
+      <div id="dest-landing-coming-soon" data-destination-name="Colombia" style="display:none;text-align:center;padding:100px 20px 80px;">
         <span style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#A55A4A;display:block;margin-bottom:24px;">Coming Soon</span>
         <p style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,46px);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:16px;">We're curating something<br><em>extraordinary</em> here.</p>
         <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--mid);line-height:1.8;max-width:460px;margin:0 auto 36px;">Our editors are on the ground, vetting only the spots worth proposing at. This destination opens soon.</p>
@@ -478,14 +467,14 @@
   <section class="dest-similar">
     <div class="dest-similar-inner">
       <div class="dest-similar-rule">
-        <span class="dest-similar-rule-label">If not Iceland</span>
+        <span class="dest-similar-rule-label">If not Colombia</span>
         <span class="dest-similar-rule-line"></span>
       </div>
       <div class="dest-similar-pills">
-        <a href="/destinations/switzerland" class="dest-similar-pill">Switzerland</a>
+        <a href="/destinations/costa-rica" class="dest-similar-pill">Costa Rica</a>
+        <a href="/destinations/panama" class="dest-similar-pill">Panama</a>
         <a href="/destinations/patagonia" class="dest-similar-pill">Patagonia</a>
-        <a href="/destinations/amalfi-coast" class="dest-similar-pill">Amalfi Coast</a>
-        <a href="/destinations/hawaii" class="dest-similar-pill">Hawaii</a>
+        <a href="/destinations/tulum" class="dest-similar-pill">Tulum</a>
         <a href="/destinations" class="dest-similar-pill">All destinations →</a>
       </div>
     </div>
@@ -493,23 +482,19 @@
 
   <div class="dest-gallery">
     <span class="dest-gallery-eyebrow">The setting</span>
-    <div class="dest-gallery-grid">
-      <div class="dest-gallery-col">
-        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=1374&auto=format&fit=crop" alt="Kirkjufell mountain and waterfall, Iceland" loading="lazy">
-        </a>
-        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1483347756197-71ef80e95f73?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1483347756197-71ef80e95f73?q=80&w=1374&auto=format&fit=crop" alt="Northern Lights over an Icelandic landscape" loading="lazy">
-        </a>
-      </div>
-      <div class="dest-gallery-col">
-        <a class="is-landscape" onclick="openLightbox('https://images.unsplash.com/photo-1476610182048-b716b8518aae?q=80&w=1468&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?q=80&w=1468&auto=format&fit=crop" alt="Waterfall on the Icelandic South Coast" loading="lazy">
-        </a>
-        <a class="is-portrait" onclick="openLightbox('https://images.unsplash.com/photo-1531168556467-80aace0d0144?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
-          <img src="https://images.unsplash.com/photo-1531168556467-80aace0d0144?q=80&w=1470&auto=format&fit=crop" alt="Volcanic Icelandic terrain at golden hour" loading="lazy">
-        </a>
-      </div>
+    <div class="dest-gallery-masonry">
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1583531352515-8884af319dc1?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1583531352515-8884af319dc1?q=80&w=1374&auto=format&fit=crop" alt="Colonial walled city of Cartagena, Colombia" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1596386461350-326ccb383e9f?q=80&w=1374&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1596386461350-326ccb383e9f?q=80&w=1374&auto=format&fit=crop" alt="Guatape and El Peñol reservoir, Colombia" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1533799805259-4b3f6d2b0e1a?q=80&w=1468&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1533799805259-4b3f6d2b0e1a?q=80&w=1468&auto=format&fit=crop" alt="Cocora Valley wax palms, Colombia coffee region" loading="lazy">
+      </a>
+      <a onclick="openLightbox('https://images.unsplash.com/photo-1518638150340-f706e86654de?q=80&w=1470&auto=format&fit=crop'); return false;" href="#">
+        <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?q=80&w=1470&auto=format&fit=crop" alt="Cartagena street at golden hour, Colombia" loading="lazy">
+      </a>
     </div>
     <div class="dest-gallery-lightbox" id="gallery-lightbox" onclick="closeLightbox()">
       <img id="gallery-lightbox-img" src="" alt="">
@@ -520,39 +505,39 @@
     <div class="dest-highlights-inner">
       <div class="dest-highlights-header">
         <span class="pg-eyebrow" style="text-align:center">Make the most of it</span>
-        <h2 class="dest-highlights-title">How do you experience Iceland?</h2>
-        <p class="dest-highlights-sub">Two seasons of light, a coastline of waterfalls and ice, geothermal water, and a wild interior you can only reach with the right vehicle.</p>
+        <h2 class="dest-highlights-title">How do you experience Colombia?</h2>
+        <p class="dest-highlights-sub">A colonial coast, an Andean coffee region, a modern lake district and Caribbean reef islands, all within a country whose climate you change simply by changing your altitude.</p>
       </div>
       <div class="dest-highlights-grid">
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🌌</span>
-          <div class="dest-hl-title">Northern Lights</div>
-          <p class="dest-hl-body">From September through mid-April the dark returns and the aurora can appear over snowfields and frozen falls. Nothing is guaranteed, so the couples who see it plan a flexible multi-night window and hire a guide who chases clear skies by live solar wind and cloud data.</p>
+          <span class="dest-hl-icon">🏛</span>
+          <div class="dest-hl-title">Cartagena and the walled city</div>
+          <p class="dest-hl-body">The 17th-century coral-stone ramparts of the old town, where the Baluarte de Santo Domingo faces the open Caribbean and the golden clocktower gate opens onto flower-hung colonial plazas. Rooftop terraces, horse-drawn dusk, and the most romantic city in the country.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">☀️</span>
-          <div class="dest-hl-title">Midnight sun</div>
-          <p class="dest-hl-body">From late May through July the sun barely sets, and the golden hour stretches from late evening past midnight. You can stand alone at an iconic waterfall at 11pm, with soft pastel light and none of the daytime tour buses in frame.</p>
+          <span class="dest-hl-icon">☕</span>
+          <div class="dest-hl-title">The coffee region</div>
+          <p class="dest-hl-body">The Eje Cafetero around Salento and Quindio, where 60-metre Quindio wax palms rise through the Cocora Valley mist and cacao and coffee haciendas like Bambusa hand a whole estate lawn to one couple. Willys jeeps, single-estate cupping tables, and cloud forest at dawn.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">♨️</span>
-          <div class="dest-hl-title">Geothermal lagoons</div>
-          <p class="dest-hl-body">The Retreat at Blue Lagoon on the Reykjanes Peninsula hides a private mineral lagoon inside eight-hundred-year-old lava, steps from a five-star suite. Warm water in cold air is the most effortless romantic setting in the country, whatever the weather does outside.</p>
+          <span class="dest-hl-icon">🚤</span>
+          <div class="dest-hl-title">Guatape and Antioquia</div>
+          <p class="dest-hl-body">The flooded reservoir near Medellin, its peninsulas stitched together by turquoise water and crowned by the granite monolith of El Peñol. Design-led eco-lodges like Bosko cantilever timber sky decks over the forest, and private boats slip into quiet coves at first light.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🧊</span>
-          <div class="dest-hl-title">Glacier ice caves</div>
-          <p class="dest-hl-body">Beneath Vatnajökull, meltwater carves blue chambers that open only from November through March. A private early-access charter with a certified mountain guide gives you a cathedral of translucent ice entirely to yourselves before the group tours arrive.</p>
+          <span class="dest-hl-icon">🌴</span>
+          <div class="dest-hl-title">Tayrona and the Sierra Nevada</div>
+          <p class="dest-hl-body">Where the Caribbean rainforest tumbles onto golden sand near Santa Marta, granite boulders frame Playa Piscina, and the snow-capped Sierra Nevada rises straight from the sea. The trailhead, too, for the Lost City trek through Tayrona jungle.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">🌊</span>
-          <div class="dest-hl-title">South Coast waterfalls</div>
-          <p class="dest-hl-body">The stretch from the Golden Circle to Jökulsárlón strings together waterfalls, black sand beaches and glacier lagoons. Skip the crowds at Seljalandsfoss for the hidden cavern behind Kvernufoss, or time Diamond Beach for the empty light of dawn.</p>
+          <span class="dest-hl-icon">⛰</span>
+          <div class="dest-hl-title">Bogota and the high Andes</div>
+          <p class="dest-hl-body">The cool capital at 2,640 metres, with the Monserrate terrace looking across the city skyline at dusk and the sacred emerald crater of Laguna de Guatavita, the lake of the El Dorado legend, an hour north on the páramo.</p>
         </div>
         <div class="dest-hl-item">
-          <span class="dest-hl-icon">⛰️</span>
-          <div class="dest-hl-title">The Highlands</div>
-          <p class="dest-hl-body">The uninhabited interior of rhyolite peaks and steaming vents opens only in high summer, reached by super-jeep or helicopter. Landmannalaugar and the ridges above it deliver the most remote, most private setting Iceland has, with no one else for miles.</p>
+          <span class="dest-hl-icon">🐋</span>
+          <div class="dest-hl-title">Islands and the Pacific</div>
+          <p class="dest-hl-body">Chartered islets and sunset catamarans in the Rosario Islands off Cartagena, the reef-ringed Sea of Seven Colors around Providencia, and the wild black-sand coast of Nuqui in Chocó, where humpback whales breach offshore from July through October.</p>
         </div>
       </div>
     </div>
@@ -560,7 +545,7 @@
 
   <section class="dest-expert-take">
     <div class="dest-expert-take-inner">
-      <p class="dest-expert-statement">In Iceland you propose by the light you choose: the midnight sun that never sets, or the aurora that only the dark reveals.</p>
+      <p class="dest-expert-statement">In Colombia you don't change the season, you change your altitude.</p>
     </div>
   </section>
 
@@ -568,20 +553,20 @@
     <div class="dest-faq-inner">
       <span class="dest-faq-label">Questions &amp; Answers</span>
       <details>
-        <summary>Is Iceland good for proposals?</summary>
-        <p class="dest-faq-answer">Iceland is one of the most dramatic romantic destinations anywhere, ideal for couples who love wild scenery and outdoor adventure. A compact island holds glaciers, volcanoes, waterfalls, black sand beaches and geothermal lagoons, with boutique lodges like The Retreat at Blue Lagoon and Eleven Deplar Farm to return to. It rewards couples who treat weather and wildness as part of the story rather than a problem.</p>
+        <summary>Is Colombia good for proposals?</summary>
+        <p class="dest-faq-answer">Colombia is exceptional for couples who want genuine range inside one border. A single country holds the colonial coast of Cartagena, the Andean coffee region and its wax-palm valleys, the modern lake district of Guatape near Medellin, and the reef islands of Providencia, and because the climate is governed by altitude rather than season there is nearly always a region in its best light. Follow standard situational guidelines and it is a warm, welcoming place to propose.</p>
       </details>
       <details>
-        <summary>What is the most private proposal spot in Iceland?</summary>
-        <p class="dest-faq-answer">A privately chartered helicopter landing on a glacier or crater summit leaves you entirely alone in the landscape, as does a super-jeep run into a Highland gorge. Among road-accessible settings, the hidden cavern behind Kvernufoss and the basalt columns of Stuðlagil Canyon at first light offer far more privacy than the busy stops along the Ring Road.</p>
+        <summary>What is the most private proposal spot in Colombia?</summary>
+        <p class="dest-faq-answer">The chartered private islets and day-catamarans of the Rosario Islands off Cartagena, and the remote volcanic bluffs of Nuqui on the Pacific coast, offer the highest privacy. For mountain scenery, the elevated timber sky decks of eco-lodges like Bosko above Lake Guatape and the residential garden lawns of Hacienda Bambusa in the coffee region are reserved exclusively for resident guests.</p>
       </details>
       <details>
-        <summary>How far in advance should I book an Iceland proposal?</summary>
-        <p class="dest-faq-answer">Plan on 6 to 12 months for a high-end trip. The top boutique properties have very small room counts and fill early for the peak summer midnight sun weeks and the winter aurora holidays. Premier photographers, certified ice cave guides and private helicopter charters also have limited availability and book up well ahead.</p>
+        <summary>How far in advance should I book a Colombia proposal?</summary>
+        <p class="dest-faq-answer">4 to 6 months for the peak dry season, December through March, and around Holy Week. Limited-inventory properties such as Casa San Agustin, Bosko and the eight-room Hacienda Bambusa sell their best suites half a year ahead. Photographers and decorators should be booked 4 to 6 weeks in advance to lock a golden-hour slot.</p>
       </details>
       <details>
-        <summary>Northern Lights season or midnight sun?</summary>
-        <p class="dest-faq-answer">It comes down to the light you want. The midnight sun of late May through July gives endless golden evenings, mild weather and open Highland roads, but no aurora. The Northern Lights season of September through mid-April gives snow, natural blue ice caves and dark skies for the aurora, but short days and careful winter driving. Daylight runs from around 21 hours in June to roughly 4 hours in December, so the season shapes everything.</p>
+        <summary>What is the best time of year to propose in Colombia?</summary>
+        <p class="dest-faq-answer">Colombia's climate runs by altitude rather than season, so region matters more than month. The country has two nationwide dry windows: December through March, the most reliable stretch across the Caribbean coast and the Andes, and a secondary window in July and August that suits interior hiking and Pacific whale watching. Cartagena stays hot year-round, Medellin holds a spring-like warmth, the coffee region is mild, and Bogota stays cool.</p>
       </details>
     </div>
   </section>
@@ -590,30 +575,30 @@
     <div class="dest-landing-budget-inner">
       <div class="dest-landing-budget-header">
         <span class="pg-eyebrow" style="text-align:center">Plan with clarity</span>
-        <h2 class="dest-landing-budget-title">How much does a proposal in Iceland cost?</h2>
+        <h2 class="dest-landing-budget-title">How much does a proposal in Colombia cost?</h2>
         <p class="dest-landing-budget-sub">What a proposal actually costs here — broken down honestly, category by category. No surprises.</p>
       </div>
       <div class="budget-dest-block">
         <div class="budget-dest-header">
           <div>
-            <h3 class="budget-dest-name">Iceland</h3>
-            <p class="budget-dest-tagline">Iceland is one of the world's most expensive destinations, and the logistics of remote terrain, specialised 4x4 transport and imported goods show up in every line. The range below runs from a single-day staging to a three-night luxury itinerary.</p>
+            <h3 class="budget-dest-name">Colombia</h3>
+            <p class="budget-dest-tagline">The favorable exchange on the Colombian peso means US-dollar travelers get real customization for the money. The range below runs from a sunset staging on the Cartagena ramparts to a signature-suite weekend, and it reflects that spread honestly.</p>
           </div>
-          <div class="budget-dest-range-badge">$3,850 – $26,800+</div>
+          <div class="budget-dest-range-badge">$900 – $8,500+</div>
         </div>
         <div class="budget-table">
           <div class="budget-row budget-row-head"><span>Category</span><span>Just the Moment</span><span>Hotel &amp; Stay</span></div>
-          <div class="budget-row"><span>Guide, vehicle &amp; site access</span><span>$1,200 – $2,500</span><span>$2,500 – $6,500</span></div>
-          <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$1,500 – $3,500</span><span>$2,200 – $4,500</span></div>
-          <div class="budget-row"><span>Hotel (3 nights)</span><span>—</span><span>$2,400 – $9,500</span></div>
-          <div class="budget-row"><span>Fine dining for two</span><span>$350 – $600</span><span>$1,200 – $2,800</span></div>
-          <div class="budget-row"><span>Floral styling &amp; production</span><span>$800 – $1,800</span><span>$1,500 – $3,500</span></div>
-          <div class="budget-row budget-row-total"><span>Estimated total</span><span>$3,850 – $8,400</span><span>$9,800 – $26,800+</span></div>
+          <div class="budget-row"><span>Private access / permits</span><span>$150 – $2,500</span><span>Included – $2,500</span></div>
+          <div class="budget-row"><span>Photographer (2–3 hrs)</span><span>$250 – $950</span><span>$250 – $950</span></div>
+          <div class="budget-row"><span>Hotel (3 nights)</span><span>—</span><span>$750 – $2,800</span></div>
+          <div class="budget-row"><span>Private dinner</span><span>$140 – $700</span><span>$140 – $700</span></div>
+          <div class="budget-row"><span>Setup &amp; flowers</span><span>$180 – $1,500</span><span>Often included</span></div>
+          <div class="budget-row budget-row-total"><span>Estimated total</span><span>$900 – $4,500</span><span>$2,000 – $8,500+</span></div>
         </div>
-        <p class="budget-tip"><strong>A note on transport</strong>Most of the cost here is getting you to the setting. A modified super-jeep, a glacier permit or a private helicopter transfer is what turns a public landmark into a private one, and it is the single line that moves the total the most.</p>
+        <p class="budget-tip"><strong>A note on value</strong>Because prices are set in pesos and paid on the dollar, the same budget buys more here than in most of the region. A private Willys jeep and a nature-reserve guide in Cocora, or a chartered islet off Cartagena, cost a fraction of their Caribbean-resort equivalents, so spend tends to move toward the setting rather than the logistics.</p>
       </div>
       <div style="text-align:center;margin-top:48px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Iceland proposal spot →</a>
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:16px 44px;margin-top:0;">Find my Colombia proposal spot →</a>
         <a href="/budget" style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;">See all destination budgets</a>
       </div>
     </div>
@@ -624,29 +609,27 @@
   <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">The full picture</span>
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Iceland?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Why propose in Colombia?</h2>
 
-      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The standout settings are a private blue ice cave under Vatnajökull, the hidden cavern behind Kvernufoss on the South Coast, and the glacier gems of Diamond Beach on black sand. A staged proposal moment starts around $3,850 and climbs past $8,000 for a Highland or glacier setup. Add three nights in a five-star lodge and a full trip runs $9,800 to $26,800 or more, depending on whether you choose a boutique suite or an all-inclusive wilderness lodge.</p>
+      <p style="font-family:'Cormorant',serif;font-size:21px;font-weight:400;font-style:italic;line-height:1.55;color:var(--ink);margin:0 0 32px;">The standout settings are the coral-stone ramparts of Cartagena's walled city, the wax-palm ridgelines of the Cocora Valley in the coffee region, and the timber sky decks above Lake Guatape near Medellin. A staged proposal moment starts around $900 and climbs past $4,000 for a private-islet or full-terrace setup. Add a three-night stay and a full trip runs $2,000 to $8,500 depending on whether you choose a boutique colonial suite or a signature five-star room.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Few places on earth put this much raw landscape within reach of a comfortable base. In a single trip you can stand behind a waterfall, walk on a black sand beach scattered with glacier ice, soak in a private geothermal lagoon, and watch the sky do something extraordinary at either end of the day. The catch, and the appeal, is that Iceland is genuinely wild, and the best moments take planning to reach.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Few countries this varied sit so close to home. In a single trip you can move from a rooftop over the Caribbean in Cartagena to a wax-palm meadow in the Andes, then to a lakefront deck outside Medellin, and the domestic flights that stitch them together take 45 to 60 minutes rather than the winding overland hours the mountains would otherwise demand. It is a country built for a proposal that unfolds across more than one backdrop.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The landmarks along the Ring Road fill with tour buses during the day, so real privacy is a matter of timing and access. That means arriving at first light or late in the summer evening, walking the extra distance most visitors skip, or chartering a super-jeep or helicopter into terrain that ordinary rental cars cannot reach. A blue ice cave booked as a private early-access tour, a Highland ridge reached by air, or a hidden gorge at dawn all give you the landscape to yourselves.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The location is the decision that ends up in every photo and every retelling of the story. Cartagena delivers the classic version, colonial stone against the open sea at the exact moment the ramparts empty and the light turns gold. The Cocora Valley delivers the natural version, palms taller than any building rising through clearing mist before the day-trippers arrive. Guatape delivers the modern version, a private timber deck suspended over still water as the lake mist lifts at dawn.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Photography here is a specialist craft, shaped by the low sun and fast-changing weather. A local <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> typically runs $1,500 to $3,500 for a two to three hour session, more for all-day coverage with drone video, and the good ones plan the light in real time and carry gear built for wind and cold.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Photography conditions reward the golden hour in every region, and because Colombia sits near the equator that light lands at almost the same clock time all year. A local <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> typically runs $250 to $450 for a shorter city session and $550 to $950 for a full editorial shoot with drone footage, with a travel fee added when the shoot is out in the coffee region or on the islands.</p>
     </div>
   </section>
 
   <section style="background:var(--white);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Iceland?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">When is the best time to propose in Colombia?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The single most important decision in Iceland is which light you want, because the country runs on two opposite seasons. In the Northern Lights season the sky goes dark enough for the aurora. In the midnight sun season the sun never really sets. The daylight difference between them is enormous: around 21 hours of light at the summer solstice against roughly 4 hours at the winter solstice, a seventeen-hour swing that reshapes the entire day. That split, aurora in the dark or the sun that never sets, is the first thing to settle, and it decides everything else about the trip.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The single most useful thing to know about Colombia is that its climate is set by altitude, not by the calendar. Because the country sits on the equator, temperatures barely shift through the year in any one place; what changes is how high you are. Sea-level Cartagena and the Caribbean coast stay hot and tropical, the Andean mid-elevations of Medellin hold a spring-like warmth that gives the city its eternal-spring nickname, the coffee region is mild and green, and Bogota, at 2,640 metres, stays cool and crisp. You can experience all four in the same week without ever waiting for a season to turn.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The midnight sun runs from late May through July, when the sun dips just below the horizon and the light never fully leaves. It gives couples remarkable freedom: an engagement session at 11:30pm or 2am under a soft golden sky, iconic waterfalls and coastal cliffs without the crowds, and the whole road network open, including the Highland F-roads that only clear once the late-spring snowmelt subsides. The trade-off is that the aurora is impossible in this season, and the best boutique hotels book out far ahead.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">What does vary is rainfall, governed by the movement of the Intertropical Convergence Zone. That gives the interior and the coasts two dry windows and two wetter ones. The most reliable window runs from December through March, which brings sunny days to the Caribbean coast and clear mornings across the Andes and the coffee region, and it is the stretch most couples plan around. A secondary dry window falls in July and August, an ideal time for hiking the interior and, on the Pacific coast around Nuqui, for humpback whale watching as the migration peaks.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">The Northern Lights season begins in September and deepens until the December solstice, when daylight narrows to about four hours. The low winter sun skims the southern horizon and casts a long, soft golden light across snow and frozen falls for hours at a stretch. Natural blue ice caves under Vatnajökull are stable and open for guided visits from November through March. The Highland tracks close, rural driving demands constant attention, and the aurora can never be promised, since it needs both solar activity and clear skies. North Atlantic storm fronts can grey out the sky for days, so any aurora plan needs a flexible, multi-night window.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Three windows stand out. September is the top shoulder-season month, with 12 to 14 hours of daylight, mild weather, open roads and the first dark skies for early aurora. Late February through March is the best winter window, with longer days than midwinter, stable snowpack, active ice caves and dark nights for the lights. Late June into early July is the peak of summer, 24-hour light, comfortable temperatures, open F-roads and the freedom to stage a private celebration late into the night.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Daylight is remarkably steady because of that equatorial position: roughly twelve hours of light every day of the year, with sunrise near 6am and sunset near 6pm whatever the month. That makes an evening proposal easy to time to the minute. The one regional caveat is that lush, high-altitude places such as Salento and the Cocora Valley can draw afternoon mist and short showers even in a dry window, which is exactly why photographers there favor the crisp early-morning light between roughly 6:30 and 8am.</p>
     </div>
   </section>
 
@@ -654,13 +637,13 @@
     <div style="max-width:760px;margin:0 auto;">
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">What should you know before you go?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Iceland is almost entirely cashless. The currency is the Icelandic króna, but cards and mobile payments work everywhere, from luxury hotels to rural parking meters, and you never really need paper money. Bring a card with an embedded chip and a four-digit PIN, which is required at the automated fuel pumps outside the main towns. Everyone in hospitality speaks fluent English, so there is no language barrier for bookings or guides.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Colombia's currency is the peso. High-end hotels, upscale restaurants and boutiques widely accept Visa and Mastercard, with American Express at select luxury properties, but carry cash in pesos for rural transport such as Salento Willys jeeps and Guatape tuk-tuks, for national park fees, and for ticket booths at sights like the Piedra del Peñol, which do not take cards. Withdraw from bank-branch ATMs inside airports or shopping centers rather than street machines.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For US citizens, no visa is needed for tourism up to 90 days within any 180-day window in the Schengen Area, and your passport must stay valid at least three months beyond your departure. The ETIAS travel authorization is not yet in effect, with launch expected in late 2026 or 2027. International flights land at Keflavík airport, about 50 kilometres southwest of Reykjavík, so arrange a private transfer or pickup rather than assuming a quick hop into town.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">For US citizens, no advance visa is required for tourist stays up to 90 days. Your passport must be valid on entry with at least two blank pages, and you should carry proof of onward or return travel. Everyone must also complete the mandatory online Check-Mig form through Migracion Colombia between 72 and 24 hours before the flight, which airlines enforce at the gate.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Getting around is the part that shapes the trip. The Ring Road circles the island for roughly 1,322 kilometres at a 90 km/h limit, and weather can easily double any drive time. The Highland F-roads are legally 4x4 only and open in summer alone, and driving off marked tracks onto the fragile moss is strictly illegal, with fines up to around $2,500. Winter driving needs a proper AWD vehicle on studded tyres, and every planner checks road.is, safetravel.is and vedur.is daily for closures, weather and aurora forecasts. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for how planners handle transport and permits.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:20px;">Getting between regions is the part worth planning. Most travelers arrive through Bogota, Cartagena or Medellin, and because the Andes split into three ranges, overland drives between valleys are long and winding, with Bogota to Medellin taking 9 to 11 hours by road. Point-to-point domestic flights on carriers like Avianca, LATAM, Clic and SATENA cover the same ground in 45 to 60 minutes and are the way luxury itineraries preserve their time. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for how planners sequence these transfers.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Two practical details for a celebration. Alcohol is sold only in licensed venues and state-run Vínbúðin shops, which keep short hours, so the simplest move is to buy champagne at the Keflavík arrivals duty-free on the way in. And the weather is genuinely volatile: gusts can top 50 to 70 mph, strong enough to catch a car door, so hold doors firmly with both hands in high wind and always keep a sheltered indoor backup for any outdoor plan. Tipping is not customary, though 10 to 15 percent is appreciated for exceptional private guiding or photography.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:48px;">Two practical notes. Bogota and the Monserrate viewpoint at 3,150 metres sit high enough that travelers arriving straight from sea level may feel mild altitude effects, so keep the first day relaxed and save the celebration for the second evening. And follow common-sense local advice, summed up locally as no dar papaya: keep valuable watches and jewelry out of sight in crowded areas, use hotel transport or verified ride-hailing apps rather than hailing taxis on the street at night, and drink bottled water on the Caribbean coast and the islands, where the tap water is best avoided even though Bogota and Medellin's is safe.</p>
     </div>
   </section>
 
@@ -668,20 +651,18 @@
     <div style="max-width:760px;margin:0 auto;">
       <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">Who is this destination NOT right for?</h2>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Iceland is not the place for a warm-weather beach holiday. Summer highs rarely climb past the low sixties Fahrenheit, cold rain and biting wind are possible in any season, and a beach here calls for thermal layers rather than swimwear. If your partner dreams of sunbathing and warm ocean swims, somewhere like <a href="/destinations/hawaii" style="color:var(--accent);text-decoration:none;">Hawaii</a> or the <a href="/destinations/amalfi-coast" style="color:var(--accent);text-decoration:none;">Amalfi Coast</a> will suit far better.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">Colombia is not the right choice if your partner needs to wander completely carefree with valuable jewelry and never think about surroundings. Even in the upscale neighborhoods of Cartagena, Bogota and Medellin, the trip runs smoothest when you use pre-arranged transport, keep luxury items discreet, and steer clear of unmonitored areas after dark. Couples who want that fully unguarded feeling may be happier somewhere like Switzerland or the Hawaiian Islands.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">It is also not the value pick for a budget-conscious luxury trip. High import taxes, high wages and a short high season push up the cost of hotels, private transport and dining, and money simply goes further in Southern Europe or Southeast Asia. If you want spacious suites, private drivers and daily fine dining without a premium price, <a href="/destinations/portugal" style="color:var(--accent);text-decoration:none;">Portugal</a> or <a href="/destinations/bali" style="color:var(--accent);text-decoration:none;">Bali</a> is the smarter match.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">It is also not the place for couples who want to unpack once and stay put. Colombia's whole appeal is its regional variety, and truly experiencing it means pairing the colonial coast with the coffee region, Guatape or Bogota, which involves domestic flights, packing for several climates and a few transfers. If the dream is a single beachfront property for a week, an all-inclusive setting like <a href="/destinations/maldives" style="color:var(--accent);text-decoration:none;">the Maldives</a> is the closer match.</p>
 
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 20px;">And it does not suit couples who want to unpack once and stay put. Iceland's waterfalls, canyons and glaciers are separated by hundreds of kilometres, often three to six hours of driving a day, and in winter that comes with icy roads and strong crosswinds. If a single self-contained resort for a week is the dream, a place like <a href="/destinations/maldives" style="color:var(--accent);text-decoration:none;">the Maldives</a> fits the brief better than a road trip across a subarctic island.</p>
-
-      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">Two more honest cautions. Anyone expecting a guaranteed aurora will be disappointed, because prolonged winter storms can hide the sky for days, and the lights are always a possibility rather than a certainty. And from late November through January the country sees nineteen to twenty hours of darkness a day, which can feel draining for anyone sensitive to low light or short winter days.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--mid);line-height:1.85;margin:0 0 0;">And it is not for the traveler who expects uniformly polished, corporate-style luxury in every corner. City properties like Sofitel Legend Santa Clara and Four Seasons Casa Medina match top international standards, but the boutique lodges of Providencia, Nuqui and Tayrona lean toward rustic eco-luxury, with open-air architecture, occasional Wi-Fi gaps and unpaved access roads. Couples who prize seamless, manicured arrival over immersion and character may prefer somewhere like <a href="/destinations/amalfi-coast" style="color:var(--accent);text-decoration:none;">the Amalfi Coast</a> instead.</p>
     </div>
   </section>
 
   <section style="background:var(--bg);padding:80px 40px;">
     <div style="max-width:760px;margin:0 auto;">
       <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">At a glance</span>
-      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Iceland proposal spots compare?</h2>
+      <h2 style="font-family:'Cormorant',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--ink);line-height:1.15;margin:0 0 14px;">How do Colombia proposal spots compare?</h2>
       <div style="border:1px solid var(--hairline);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:0;">
         <table style="width:100%;min-width:620px;border-collapse:collapse;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;">
           <thead>
@@ -695,39 +676,39 @@
           </thead>
           <tbody>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Sapphire blue ice cave (Vatnajökull)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High-adventure winter couples</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (private early-access charter)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Nov to Mar, 10:30am to 1:30pm</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$3,200 to $6,500</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Baluarte de Santo Domingo (Cartagena)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Colonial and coastal romance</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Medium (with private terrace) to Low</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Dusk 5:15 to 5:50pm, or 6:15am</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$250 to $1,200</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Kvernufoss gorge cavern (Skógar)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">A quiet waterfall walk, no crowds</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (hidden canyon)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer 7 to 8:30am / winter midday</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$1,500 to $3,200</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Valle de Cocora upper ridge (Quindio)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Hikers and landscape purists</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Medium-High (quiet before 8:30am)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Morning, 6:30 to 8am</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$350 to $800</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Diamond Beach (Breiðamerkursandur)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Ice gems on black sand</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Low to medium (walk from the lot)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer dawn / winter midday</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$2,500 to $4,800</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Bosko lakefront sky deck (Guatape)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Design lovers and modern glampers</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (private guest suite deck)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Sunrise 6 to 6:45am, or dusk</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$500 to $1,200</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Búðakirkja black church (Snæfellsnes)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Minimalist Nordic architecture</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Medium (public, quiet at dawn/dusk)</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Summer late evening / winter midday</td>
-              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$1,600 to $3,500</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--ink);font-weight:400;">Cayo Cangrejo deck (Providencia)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Remote island and reef lovers</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">High (marine reserve visitor caps)</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">Mid-morning, 9:30 to 11:30am</td>
+              <td style="padding:13px 18px;border-bottom:1px solid var(--hairline);color:var(--mid);">$400 to $900</td>
             </tr>
             <tr>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--ink);font-weight:400;">Brennisteinsalda crest (Landmannalaugar)</td>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Remote Highland wilderness</td>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">High (super-jeep or helicopter)</td>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Jul to Aug, 8:30 to 11pm (midnight sun)</td>
-              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">$3,500 to $7,500</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--ink);font-weight:400;">Salto del Mico cliff (Barichara)</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Heritage seekers and a quiet pace</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">High at dawn, Medium by afternoon</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">Sunrise, 6 to 7am</td>
+              <td style="padding:13px 18px;border-bottom:none;color:var(--mid);">$250 to $550</td>
             </tr>
           </tbody>
         </table>
@@ -737,47 +718,47 @@
 
   <div class="dest-faq" style="background:var(--white);padding:80px 40px;">
     <div class="dest-faq-inner" style="border-top:none;padding-top:0;">
-      <span class="dest-faq-label">Iceland Proposal: Questions Answered</span>
+      <span class="dest-faq-label">Colombia Proposal: Questions Answered</span>
       <details>
-        <summary>Where is the best place to propose in Iceland?</summary>
-        <p class="dest-faq-answer">It depends on the season and your style. For a winter proposal, a privately chartered blue ice cave under Vatnajökull is a cathedral of blue ice open only from November through March. For dramatic waterfall scenery without the crowds, the hidden cavern behind Kvernufoss on the South Coast is the quiet pick. Diamond Beach, where glacier ice washes up on black sand, and the black timber Búðakirkja church on Snæfellsnes are the most photogenic road-accessible options, and a private helicopter landing on a glacier or the remote Brennisteinsalda ridge gives you total seclusion.</p>
+        <summary>Where is the best place to propose in Colombia?</summary>
+        <p class="dest-faq-answer">Cartagena and the Cocora Valley are the most requested. In Cartagena, a private sunset sail off the Rosario Islands or an early-morning shoot along the coral-stone ramparts of the Baluarte de Santo Domingo gives you classic colonial character. In the coffee region, the upper ridgeline meadows of the Cocora Valley near Salento frame 60-metre wax palms rising through Andean mist. For a modern lakeside setting, the private sky decks of Bosko above the Guatape reservoir near Medellin are hard to beat, and for reef-island seclusion, the viewing deck on Cayo Cangrejo off Providencia looks over the Sea of Seven Colors.</p>
       </details>
       <details>
-        <summary>What do Iceland proposal and honeymoon packages include?</summary>
-        <p class="dest-faq-answer">A full-service package generally covers concept planning, site scouting and weather monitoring, private 4x4 super-jeep or helicopter transfers, any filming permits or private landowner access, two to four hours of photography with aerial drone coverage, and an on-site setup with wind-resistant flowers, wool blankets and a champagne toast. Because conditions change fast, a good planner also builds in a sheltered backup for every outdoor moment. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for a full breakdown.</p>
+        <summary>What do Colombia proposal and honeymoon packages include?</summary>
+        <p class="dest-faq-answer">A typical package bundles bilingual local coordination, private access or a boat charter to your chosen spot, an on-site setup with flowers, candles and chilled champagne, a private multi-course dinner, and a 2 to 3 hour engagement photographer with editing and full usage rights. Higher-end tiers add private live musicians, luxury SUV transfers and boutique hotel bookings. A staged moment on its own runs roughly $900 to $4,500, while a three-night stay with the moment included ranges from about $2,000 for a boutique colonial suite to $8,500 and up for a signature five-star room. Read our <a href="/blog/proposal-packages" style="color:var(--accent);text-decoration:none;">guide to proposal packages</a> for a full breakdown.</p>
       </details>
       <details>
-        <summary>How much does a proposal photographer cost in Iceland?</summary>
-        <p class="dest-faq-answer">A professional proposal or engagement photographer in Iceland typically charges $1,500 to $3,500 for a two to three hour session, reflecting specialised low-light and foul-weather gear, long drive times out of Reykjavík and real-time lighting planning. An all-day session across multiple locations with drone video runs from $4,000 to $6,500. See our guide to hiring a <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> before you book.</p>
+        <summary>How much does a proposal photographer cost in Colombia?</summary>
+        <p class="dest-faq-answer">A dedicated Colombia proposal photographer charges roughly $250 to $450 for a 1.5 to 2 hour session in Cartagena, Bogota or Medellin, typically delivering 30 to 60 edited high-resolution images. Comprehensive editorial shoots with drone footage, a cinema clip and multi-location coverage generally run $550 to $950. A travel fee applies when a city photographer shoots out in the coffee region, Providencia or the Pacific coast. Book 4 to 6 weeks ahead to secure a golden-hour slot. See our guide to hiring a <a href="/blog/destination-engagement-photographer" style="color:var(--accent);text-decoration:none;">destination engagement photographer</a> before you book.</p>
       </details>
       <details>
-        <summary>When is the best time to propose in Iceland, Northern Lights or midnight sun?</summary>
-        <p class="dest-faq-answer">Neither is better outright; they suit different priorities. The midnight sun of late May through July gives endless golden light, mild weather and open Highland roads, but no aurora. The Northern Lights season of September through mid-April gives snow, natural blue ice caves and dark skies for the aurora, but short days and careful winter driving. Daylight runs from about 21 hours at the June solstice to roughly 4 hours in December, so the season decides the shape of the whole trip.</p>
+        <summary>When is the best month to propose in Colombia?</summary>
+        <p class="dest-faq-answer">Because Colombia's climate is governed by altitude rather than season, region matters more than month, but the country has two nationwide dry windows. December through March is the most reliable, with sunny days on the Caribbean coast and clear mornings across the Andes and the coffee region. A secondary window in July and August suits interior hiking and Pacific humpback whale watching. Cartagena stays hot year-round, Medellin holds a spring-like warmth, the coffee region is mild, and Bogota stays cool at altitude.</p>
       </details>
       <details>
-        <summary>Can you plan a proposal under the Northern Lights?</summary>
-        <p class="dest-faq-answer">Yes, with flexibility. The aurora cannot be scheduled, so a lights proposal means reserving a multi-day window and hiring a private guide who tracks live solar wind and cloud cover through vedur.is. Photographers shoot on manual with wide-aperture lenses and long exposures, lighting the couple with subtle handheld light, so you both need to hold still through each frame. Since the aurora needs both solar activity and clear skies, plan meaningful daytime activities so the trip stands on its own whatever the night does.</p>
+        <summary>Is Colombia good for a surprise proposal?</summary>
+        <p class="dest-faq-answer">Yes, and the geography helps. A chartered islet off Cartagena or a private catamaran in the Rosario Islands is reached only by boat, which keeps a staging hidden until the moment. The elevated sky decks at Bosko above Lake Guatape and the garden lawns of Hacienda Bambusa are reserved for resident guests, so a setup can be arranged with no one else in sight. On the Cartagena ramparts, an early corner bastion or a reserved rooftop terrace at dusk gives a public-feeling setting that is quietly cleared for just the two of you.</p>
       </details>
       <details>
-        <summary>What is the most private proposal spot in Iceland?</summary>
-        <p class="dest-faq-answer">For absolute isolation, a privately chartered helicopter landing on a glacier or crater summit, or a super-jeep run into a Highland gorge, leaves you entirely alone. Among road-accessible settings, the hidden cavern behind Kvernufoss and the eastern basalt columns of Stuðlagil Canyon at first light are far quieter than the major Ring Road stops.</p>
+        <summary>Which Colombia spot gives the highest privacy?</summary>
+        <p class="dest-faq-answer">The chartered private islets and day-catamarans of the Rosario Islands off Cartagena offer some of the most genuinely private settings in the country, along with the remote, boat-only volcanic coast of Nuqui on the Pacific. Among the mountain options, the private timber sky decks of Bosko above Lake Guatape and the residential lawns of Hacienda Bambusa in the coffee region deliver near-total seclusion reserved for resident guests, and the marine reserve around Cayo Cangrejo in Providencia caps daily visitor numbers.</p>
       </details>
       <details>
-        <summary>How far in advance should I book an Iceland proposal?</summary>
-        <p class="dest-faq-answer">Plan on 6 to 12 months for a high-end trip. Top boutique properties such as The Retreat at Blue Lagoon, Eleven Deplar Farm and Torfhús Retreat have very small room counts and fill early for the peak summer midnight sun weeks and the winter aurora holidays. Premier photographers, certified ice cave guides and private helicopter charters also book up well ahead.</p>
+        <summary>How far in advance should I book a Colombia proposal?</summary>
+        <p class="dest-faq-answer">For the peak dry season, December through March, and around Holy Week, book 4 to 6 months ahead. Limited-inventory properties such as Casa San Agustin, Bosko and the eight-room Hacienda Bambusa book their best suites up to half a year in advance. Photographers and bespoke decorators should be secured 4 to 6 weeks ahead to guarantee availability for a golden-hour shoot.</p>
       </details>
       <details>
-        <summary>Do I need a passport or visa for Iceland?</summary>
-        <p class="dest-faq-answer">US citizens do not need a tourist visa for stays up to 90 days within any 180-day period in the Schengen Area. Your passport must be valid for at least three months beyond your planned departure date. The ETIAS travel authorization is not yet in effect, with launch expected in late 2026 or 2027. The <a href="https://www.visiticeland.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">official Iceland tourism board</a> maintains current entry information.</p>
+        <summary>Do I need a passport or visa for Colombia?</summary>
+        <p class="dest-faq-answer">US citizens do not need an advance visa for tourist stays up to 90 days. Your passport must be valid on entry and carry at least two blank pages, and immigration may ask for proof of onward or return travel. All travelers must complete the mandatory online Check-Mig form through Migracion Colombia between 72 and 24 hours before their flight, which airlines enforce before boarding. Colombia's <a href="https://colombia.travel/en" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">official tourism board</a> maintains current entry information.</p>
       </details>
     </div>
   </div>
 
   <section style="background:var(--bg);padding:48px 40px 56px;text-align:center;">
     <div style="max-width:720px;margin:0 auto;">
-      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Iceland proposal starts with the right spot.</h2>
+      <h2 style="font-family:'Cormorant',serif;font-weight:300;font-size:26px;line-height:1.25;margin:0 0 20px;color:var(--ink);">Your Colombia proposal starts with the right spot.</h2>
       <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
-        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Iceland proposal spot →</a>
+        <a href="#spots" onclick="document.querySelector('.dest-landing-spots-wrap').scrollIntoView({behavior:'smooth'}); return false;" class="pg-cta-btn" style="background:#A55A4A;font-size:12px;padding:14px 36px;margin-top:0;">Find my Colombia proposal spot →</a>
         <a href="/destinations" class="pg-cta-btn" style="background:transparent;color:var(--ink);border:1px solid var(--ink);font-size:12px;padding:14px 36px;margin-top:0;">Browse by destination →</a>
       </div>
     </div>
@@ -806,6 +787,7 @@
         <a href="/destinations/portugal">Portugal</a>
         <a href="/destinations/south-of-france">South of France</a>
         <a href="/destinations/spain">Spain</a>
+        <a href="/destinations/sri-lanka">Sri Lanka</a>
         <a href="/destinations/switzerland">Switzerland</a>
         <a href="/destinations/tulum">Tulum</a>
         <a href="/destinations/united-states">United States</a>
@@ -815,7 +797,7 @@
 
   <script>
     const dlState = { vibe: new Set(), privacy: new Set(), budget: new Set() };
-    const DEST_ALIASES = ['iceland','reykjavik','reykjavík','vatnajökull','vatnajokull','snæfellsnes','snaefellsnes','reykjanes','skógar','skogar','landmannalaugar','jökulsárlón','jokulsarlon','þingvellir','thingvellir','golden circle','blue lagoon'];
+    const DEST_ALIASES = ['colombia','cartagena','medellin','medellín','bogota','bogotá','coffee region','eje cafetero','quindio','quindío','salento','cocora','guatape','guatapé','antioquia','tayrona','santa marta','sierra nevada','barichara','santander','providencia','san andres','san andrés','rosario islands','nuqui','nuquí','choco','chocó','south america'];
 
     function toggleDLPanel(panelId, pillId) {
       document.querySelectorAll('.results-inline-panel').forEach(p => {
@@ -869,12 +851,12 @@
       CHF: 1.13,
       CRC: 0.0019,
       NIO: 0.027,
+      COP: 0.00025,
       AUD: 0.66,
       CAD: 0.74,
       JPY: 0.0067,
       THB: 0.028,
       MVR: 0.065,
-      ISK: 0.0072,
     };
     function toUSD(amount, ccy) {
       const rate = FX_TO_USD[ccy] ?? 1;
