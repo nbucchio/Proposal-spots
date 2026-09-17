@@ -5655,6 +5655,14 @@ footer {
       -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
               mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
     }
+    /* Bottom: dissolve the globe into the section cream (--bg2) so it flows
+       seamlessly into the Browse-by-Vibe section below (same colour) with
+       no hard line — symmetric with the feathered top. */
+    .map-cta::after{
+      content:''; position:absolute; left:0; right:0; bottom:0; height:24%;
+      background:linear-gradient(to bottom, rgba(237,234,226,0) 0%, var(--bg2) 100%);
+      z-index:2; pointer-events:none;
+    }
     /* Stop the hero fading to an opaque cream strip, so the map melts into
        the photo's haze rather than a solid band. */
     .hero::after{
