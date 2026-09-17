@@ -57,6 +57,7 @@
     { "source": "/destinations/sri-lanka", "destination": "/destinations/sri-lanka.html" },
     { "source": "/destinations/spain", "destination": "/destinations/spain.html" },
     { "source": "/destinations/colombia", "destination": "/destinations/colombia.html" },
+    { "source": "/destinations/austria", "destination": "/destinations/austria.html" },
     { "source": "/destinations/:slug", "destination": "/destinations/index.html" },
     { "source": "/checklist", "destination": "/checklist.html" },
     { "source": "/how-it-works", "destination": "/how-it-works.html" },
