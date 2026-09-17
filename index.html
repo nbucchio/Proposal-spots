@@ -5603,129 +5603,6 @@ footer {
 }
 </style>
 
-<!-- THE PROCESS -->
-<style>
-.ps-process-steps { display:flex; gap:0; align-items:flex-start; text-align:left; }
-.ps-process-step { flex:1; }
-.ps-process-step-1 { padding-right:48px; }
-.ps-process-step-2 { padding:0 48px; }
-.ps-process-step-3 { padding-left:48px; }
-.ps-process-div { width:0.5px; background:rgba(28,28,28,0.10); align-self:stretch; flex-shrink:0; }
-.ps-process-link { font-family:'Jost',sans-serif; font-size:13px; font-weight:400; color:var(--accent); text-decoration:none; }
-.ps-process-link:hover { text-decoration:underline; }
-@media(max-width:768px){
-  .ps-process-steps { flex-direction:column; gap:40px; }
-  .ps-process-div { display:none; }
-  .ps-process-step-1,
-  .ps-process-step-2,
-  .ps-process-step-3 { padding:0; }
-  /* The mobile tagline below the hero already carries the card overhang,
-     so the section just needs a clean gap above its heading */
-  .ps-process-section { padding-top:44px !important; }
-}
-</style>
-<section class="ps-process-section" style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
-    <p style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin:0 0 16px;">The Process</p>
-    <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;font-style:italic;color:var(--ink);letter-spacing:0.01em;margin:0 0 64px;line-height:1.15;">From idea to unforgettable.</h2>
-    <div class="ps-process-steps">
-      <div class="ps-process-step ps-process-step-1">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">01</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">Find your spot.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">Browse by destination, vibe, or budget. Every location is vetted for privacy, light, and emotional impact.</p>
-      </div>
-      <div class="ps-process-div"></div>
-      <div class="ps-process-step ps-process-step-2">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">02</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">We handle everything.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">One enquiry. We confirm availability, coordinate setup, and brief your photographer.</p>
-      </div>
-      <div class="ps-process-div"></div>
-      <div class="ps-process-step ps-process-step-3">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">03</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">You show up. Everything is ready.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">The only thing left is the question.</p>
-      </div>
-    </div>
-    <div style="margin-top:56px;">
-      <a href="/how-it-works.html" class="ps-process-link">See how it all works &#8594;</a>
-    </div>
-  </div>
-</section>
-
-<!-- VIBES -->
-<div class="section-wrap alt" id="vibes-section">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-meta">
-        <span class="section-eyebrow">Expertly curated</span>
-        <h2 class="section-title">Browse by <strong>Vibe</strong></h2>
-      </div>
-    </div>
-    <div class="vibes-carousel-wrap">
-      <button type="button" class="vibes-arrow vibes-arrow-prev" id="vibes-prev" aria-label="Previous vibes" aria-disabled="true">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
-      </button>
-      <div class="vibes-carousel" id="vibes-carousel" role="region" aria-label="Browse by vibe"></div>
-      <button type="button" class="vibes-arrow vibes-arrow-next" id="vibes-next" aria-label="Next vibes">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURED MARKETS -->
-<div class="section-wrap" id="markets-section">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-meta">
-        <span class="section-eyebrow">Browse by destination</span>
-        <h2 class="section-title">Featured <strong>Markets</strong></h2>
-      </div>
-      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
-    </div>
-    <div class="markets-grid" style="cursor:pointer">
-      <a class="market-card" href="/destinations/portugal">
-        <div class="market-card-bg mc-portugal"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Portugal</span>
-        </div>
-      </a>
-      <a class="market-card" href="/destinations/tulum">
-        <div class="market-card-bg mc-tulum"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Mexico</span>
-          <span class="market-card-name">Tulum</span>
-        </div>
-      </a>
-      <a class="market-card" href="/destinations/italy">
-        <div class="market-card-bg mc-italy"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">Europe</span>
-          <span class="market-card-name">Italy</span>
-        </div>
-      </a>
-      <a class="market-card" href="/destinations/paris">
-        <div class="market-card-bg mc-paris"></div>
-        <div class="market-card-info">
-          <span class="market-card-region">France</span>
-          <span class="market-card-name">Paris</span>
-        </div>
-      </a>
-    </div>
-    <div class="markets-carousel-wrap" id="markets-carousel-wrap">
-      <button type="button" class="markets-arrow markets-arrow-prev" id="markets-prev" aria-label="Previous destinations" aria-disabled="true">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
-      </button>
-      <div class="markets-carousel" id="markets-carousel" role="region" aria-label="Browse all destinations"></div>
-      <button type="button" class="markets-arrow markets-arrow-next" id="markets-next" aria-label="Next destinations">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
-      </button>
-    </div>
-  </div>
-</div>
-
 <!-- ============================================================
      MAP CTA — full-bleed live mini-map → /map
      ============================================================ -->
@@ -5859,6 +5736,79 @@ footer {
 })();
 </script>
 
+<!-- VIBES -->
+<div class="section-wrap alt" id="vibes-section">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-meta">
+        <span class="section-eyebrow">Expertly curated</span>
+        <h2 class="section-title">Browse by <strong>Vibe</strong></h2>
+      </div>
+    </div>
+    <div class="vibes-carousel-wrap">
+      <button type="button" class="vibes-arrow vibes-arrow-prev" id="vibes-prev" aria-label="Previous vibes" aria-disabled="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
+      </button>
+      <div class="vibes-carousel" id="vibes-carousel" role="region" aria-label="Browse by vibe"></div>
+      <button type="button" class="vibes-arrow vibes-arrow-next" id="vibes-next" aria-label="Next vibes">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED MARKETS -->
+<div class="section-wrap" id="markets-section">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-meta">
+        <span class="section-eyebrow">Browse by destination</span>
+        <h2 class="section-title">Featured <strong>Markets</strong></h2>
+      </div>
+      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
+    </div>
+    <div class="markets-grid" style="cursor:pointer">
+      <a class="market-card" href="/destinations/portugal">
+        <div class="market-card-bg mc-portugal"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Portugal</span>
+        </div>
+      </a>
+      <a class="market-card" href="/destinations/tulum">
+        <div class="market-card-bg mc-tulum"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Mexico</span>
+          <span class="market-card-name">Tulum</span>
+        </div>
+      </a>
+      <a class="market-card" href="/destinations/italy">
+        <div class="market-card-bg mc-italy"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">Europe</span>
+          <span class="market-card-name">Italy</span>
+        </div>
+      </a>
+      <a class="market-card" href="/destinations/paris">
+        <div class="market-card-bg mc-paris"></div>
+        <div class="market-card-info">
+          <span class="market-card-region">France</span>
+          <span class="market-card-name">Paris</span>
+        </div>
+      </a>
+    </div>
+    <div class="markets-carousel-wrap" id="markets-carousel-wrap">
+      <button type="button" class="markets-arrow markets-arrow-prev" id="markets-prev" aria-label="Previous destinations" aria-disabled="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
+      </button>
+      <div class="markets-carousel" id="markets-carousel" role="region" aria-label="Browse all destinations"></div>
+      <button type="button" class="markets-arrow markets-arrow-next" id="markets-next" aria-label="Next destinations">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- EDITOR'S PICKS — rendered from data -->
 <div class="section-wrap white">
   <div class="section">
@@ -5876,6 +5826,56 @@ footer {
     </div>
   </div>
 </div>
+
+<!-- THE PROCESS -->
+<style>
+.ps-process-steps { display:flex; gap:0; align-items:flex-start; text-align:left; }
+.ps-process-step { flex:1; }
+.ps-process-step-1 { padding-right:48px; }
+.ps-process-step-2 { padding:0 48px; }
+.ps-process-step-3 { padding-left:48px; }
+.ps-process-div { width:0.5px; background:rgba(28,28,28,0.10); align-self:stretch; flex-shrink:0; }
+.ps-process-link { font-family:'Jost',sans-serif; font-size:13px; font-weight:400; color:var(--accent); text-decoration:none; }
+.ps-process-link:hover { text-decoration:underline; }
+@media(max-width:768px){
+  .ps-process-steps { flex-direction:column; gap:40px; }
+  .ps-process-div { display:none; }
+  .ps-process-step-1,
+  .ps-process-step-2,
+  .ps-process-step-3 { padding:0; }
+  /* The mobile tagline below the hero already carries the card overhang,
+     so the section just needs a clean gap above its heading */
+  .ps-process-section { padding-top:44px !important; }
+}
+</style>
+<section class="ps-process-section" style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
+    <p style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin:0 0 16px;">The Process</p>
+    <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;font-style:italic;color:var(--ink);letter-spacing:0.01em;margin:0 0 64px;line-height:1.15;">From idea to unforgettable.</h2>
+    <div class="ps-process-steps">
+      <div class="ps-process-step ps-process-step-1">
+        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">01</p>
+        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">Find your spot.</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">Browse by destination, vibe, or budget. Every location is vetted for privacy, light, and emotional impact.</p>
+      </div>
+      <div class="ps-process-div"></div>
+      <div class="ps-process-step ps-process-step-2">
+        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">02</p>
+        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">We handle everything.</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">One enquiry. We confirm availability, coordinate setup, and brief your photographer.</p>
+      </div>
+      <div class="ps-process-div"></div>
+      <div class="ps-process-step ps-process-step-3">
+        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">03</p>
+        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">You show up. Everything is ready.</h3>
+        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">The only thing left is the question.</p>
+      </div>
+    </div>
+    <div style="margin-top:56px;">
+      <a href="/how-it-works.html" class="ps-process-link">See how it all works &#8594;</a>
+    </div>
+  </div>
+</section>
 
 <!-- SEO SECTION — Editorial: desktop shows text inside the archway, mobile keeps the split -->
 <div class="section-wrap alt" style="overflow:hidden;">
