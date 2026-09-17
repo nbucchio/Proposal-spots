@@ -5642,25 +5642,21 @@ footer {
     .map-cta{ height:clamp(400px,64vh,520px); }
     .map-cta-panel{ padding:30px 26px 34px; }
   }
-  /* DESKTOP ONLY — the earth rises as a crisp sphere in front of the hero.
+  /* DESKTOP ONLY — hero dissolves softly into the map (no hard seam line).
      Mobile (<=768px) keeps the current stacked layout untouched. */
   @media(min-width:769px){
-    /* Pull the map up so a chunk of the globe crests above the fold on
-       landing, and sit it above the hero (z-index:10) in that overlap. */
+    /* Pull the map up into the hero's lower band and sit it above the hero
+       (z-index:10) so the feathered edge overlaps the photo. */
     .map-cta{
-      margin-top:-14vh;
+      margin-top:-13vh;
       z-index:11;
-      background:transparent;      /* hero photo shows around the sphere */
+      /* Feather the map's top so its cream atmosphere dissolves into the hero
+         haze instead of butting against it with a hard horizontal line. */
+      -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
+              mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
     }
-    /* No cream vignette over the overlap — keep the sphere crisp on the photo. */
-    .map-cta-scrim{ display:none; }
-    /* Warm the globe surface into the hero's cream/gold palette (crisp edge,
-       transparent space untouched; pins stay untinted as canvas siblings). */
-    #map-cta-map canvas{ filter:sepia(0.32) saturate(1.12) hue-rotate(-8deg) brightness(1.03); }
-    /* Anchor the CTA card low in the section so it stays below the fold
-       (you scroll into the full map + card as before). */
-    .map-cta-inner{ justify-content:flex-end; padding-bottom:7vh; }
-    /* Hero base stays soft (no opaque cream strip) so the globe reads over the photo. */
+    /* Stop the hero fading to an opaque cream strip, so the map melts into
+       the photo's haze rather than a solid band. */
     .hero::after{
       background:linear-gradient(to bottom, transparent 82%, rgba(245,240,232,0) 100%);
     }
@@ -5713,7 +5709,7 @@ footer {
   function initMap(){
     if (typeof mapboxgl === 'undefined') return;
     mapboxgl.accessToken = MAPBOX_TOKEN;
-    var view = isMobile ? { center:[12, 25], zoom:1.55 } : { center:[12, 24], zoom:2.5 };
+    var view = isMobile ? { center:[12, 25], zoom:1.55 } : { center:[9, 42.2], zoom:3.15 };
     var map = new mapboxgl.Map({
       container: 'map-cta-map',
       style: 'mapbox://styles/mapbox/light-v11',
@@ -5722,17 +5718,9 @@ footer {
       interactive: false, attributionControl: false
     });
     map.on('style.load', function(){
-      try {
-        if (isMobile) {
-          // Mobile unchanged: soft cream atmosphere so the globe reads as a 3D earth.
-          map.setFog({ 'color':'rgb(244,241,235)', 'high-color':'rgb(214,204,190)',
-            'horizon-blend':0.08, 'space-color':'rgb(237,234,226)', 'star-intensity':0 });
-        } else {
-          // Desktop: transparent space so ONLY the sphere shows in front of the hero photo.
-          map.setFog({ 'color':'rgba(244,241,235,0)', 'high-color':'rgba(214,204,190,0)',
-            'horizon-blend':0.03, 'space-color':'rgba(0,0,0,0)', 'star-intensity':0 });
-        }
-      } catch(e){}
+      // soft atmosphere so the globe reads as a 3D earth
+      try { map.setFog({ 'color':'rgb(244,241,235)', 'high-color':'rgb(214,204,190)',
+        'horizon-blend':0.08, 'space-color':'rgb(237,234,226)', 'star-intensity':0 }); } catch(e){}
     });
     map.on('load', function(){
       var fb = section.querySelector('.map-cta-fallback'); if (fb) fb.remove();
