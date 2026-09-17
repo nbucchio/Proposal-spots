@@ -5642,6 +5642,25 @@ footer {
     .map-cta{ height:clamp(400px,64vh,520px); }
     .map-cta-panel{ padding:30px 26px 34px; }
   }
+  /* DESKTOP ONLY — globe crests up into the hero for a seamless hand-off.
+     Mobile (<=768px) keeps the current stacked layout untouched. */
+  @media(min-width:769px){
+    /* Pull the map up so its top arc rises into the hero's lower band,
+       and sit it above the hero (z-index:10) within that overlap. */
+    .map-cta{
+      margin-top:-13vh;
+      z-index:11;
+      /* Feather the map's top so the globe atmosphere dissolves into the
+         hero haze instead of butting against it with a hard edge. */
+      -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
+              mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
+    }
+    /* Stop the hero fading to opaque cream at its base, so the rising globe
+       blends into the photo's haze rather than a solid cream strip. */
+    .hero::after{
+      background:linear-gradient(to bottom, transparent 82%, rgba(245,240,232,0) 100%);
+    }
+  }
 </style>
 <section class="map-cta" id="map-cta" onclick="if(!event.target.closest('a')) window.location.href='/map'">
   <div id="map-cta-map"><div class="map-cta-fallback"></div></div>
