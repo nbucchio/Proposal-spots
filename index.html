@@ -5648,12 +5648,15 @@ footer {
     /* Pull the map up so a chunk of the globe crests above the fold on
        landing, and sit it above the hero (z-index:10) in that overlap. */
     .map-cta{
-      margin-top:-28vh;
+      margin-top:-14vh;
       z-index:11;
       background:transparent;      /* hero photo shows around the sphere */
     }
     /* No cream vignette over the overlap — keep the sphere crisp on the photo. */
     .map-cta-scrim{ display:none; }
+    /* Warm the globe surface into the hero's cream/gold palette (crisp edge,
+       transparent space untouched; pins stay untinted as canvas siblings). */
+    #map-cta-map canvas{ filter:sepia(0.32) saturate(1.12) hue-rotate(-8deg) brightness(1.03); }
     /* Anchor the CTA card low in the section so it stays below the fold
        (you scroll into the full map + card as before). */
     .map-cta-inner{ justify-content:flex-end; padding-bottom:7vh; }
@@ -5710,7 +5713,7 @@ footer {
   function initMap(){
     if (typeof mapboxgl === 'undefined') return;
     mapboxgl.accessToken = MAPBOX_TOKEN;
-    var view = isMobile ? { center:[12, 25], zoom:1.55 } : { center:[9, 42.2], zoom:3.15 };
+    var view = isMobile ? { center:[12, 25], zoom:1.55 } : { center:[12, 24], zoom:2.5 };
     var map = new mapboxgl.Map({
       container: 'map-cta-map',
       style: 'mapbox://styles/mapbox/light-v11',
