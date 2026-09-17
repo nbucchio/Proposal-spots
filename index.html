@@ -5654,16 +5654,21 @@ footer {
     .map-cta{
       margin-top:-13vh;
       z-index:11;
-      /* Feather the map's top so its cream atmosphere dissolves into the hero
-         haze instead of butting against it with a hard horizontal line. */
-      -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
-              mask-image:linear-gradient(to bottom, transparent 0%, #000 20%);
+      /* Taller section so the centered CTA card drops below the fold on
+         landing (the globe still peeks the same amount — that's set by the
+         section TOP, not its height). You scroll into the full map + card. */
+      height:clamp(720px, 108vh, 1300px);
+      /* Feather the map's top with a FIXED height so the bleed amount stays
+         constant regardless of the taller section — dissolves into the hero
+         haze instead of a hard horizontal line. */
+      -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 13vh);
+              mask-image:linear-gradient(to bottom, transparent 0, #000 13vh);
     }
     /* Bottom: dissolve the globe into the section cream (--bg2) so it flows
        seamlessly into the Browse-by-Vibe section below (same colour) with
        no hard line — symmetric with the feathered top. */
     .map-cta::after{
-      content:''; position:absolute; left:0; right:0; bottom:0; height:24%;
+      content:''; position:absolute; left:0; right:0; bottom:0; height:16vh;
       background:linear-gradient(to bottom, rgba(237,234,226,0) 0%, var(--bg2) 100%);
       z-index:2; pointer-events:none;
     }
