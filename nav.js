@@ -182,27 +182,47 @@
     '  background: #A55A4A;',
     '}',
     '.nav-dest-footer a.nav-dest-viewall:hover { background: #8C4C3E; }',
-    /* ── Mobile accordion: continents stack, tap to expand spots ── */
+    /* ── Mobile drill-down: continent list, tap one to see its spots ── */
     /* On desktop the group wrapper is layout-transparent so the active panel */
-    /* fills the spots column directly; the accordion chrome only shows mobile. */
+    /* fills the spots column directly; the drill-down chrome only shows mobile. */
     '.nav-continent-group { display: contents; }',
     '.nav-continent-accordion-btn {',
-    '  display: none;',
+    '  display: none;',              /* shown only on mobile */
     '  width: 100%;',
     '  font-family: "Jost", sans-serif;',
-    '  font-size: 13px;',
+    '  font-size: 15px;',
     '  font-weight: 500;',
     '  color: #1C1C1C;',
-    '  letter-spacing: 0.03em;',
+    '  letter-spacing: 0.01em;',
     '  background: none;',
     '  border: none;',
     '  cursor: pointer;',
     '  align-items: center;',
     '  justify-content: space-between;',
-    '  padding: 14px 8px;',
+    '  padding: 16px 6px;',
     '}',
-    '.nav-continent-accordion-btn .nav-acc-caret { transition: transform 0.2s; flex-shrink: 0; }',
-    '.nav-continent-group.open .nav-acc-caret { transform: rotate(180deg); }',
+    '.nav-continent-accordion-btn .nav-acc-caret { color: #B7B0A6; flex-shrink: 0; transform: rotate(-90deg); }',
+    /* Back bar shown at the top of a drilled-in continent (mobile only) */
+    '.nav-mobile-back {',
+    '  display: none;',
+    '  width: 100%;',
+    '  align-items: center;',
+    '  gap: 8px;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 10px;',
+    '  font-weight: 500;',
+    '  letter-spacing: 0.16em;',
+    '  text-transform: uppercase;',
+    '  color: #6B6660;',
+    '  background: none;',
+    '  border: none;',
+    '  border-bottom: 1px solid #E4E0D8;',
+    '  cursor: pointer;',
+    '  padding: 4px 6px 14px;',
+    '  margin-bottom: 10px;',
+    '}',
+    '.nav-mobile-back .nav-back-caret { color: #A55A4A; flex-shrink: 0; }',
+    '.nav-mobile-back .nav-back-here { color: #1C1C1C; font-weight: 600; }',
     '.nav-link-right {',
     '  font-family: "Jost", sans-serif;',
     '  font-size: 11px;',
@@ -346,20 +366,27 @@
     '    border-radius: 16px;',
     '    z-index: 10002;',
     '  }',
-    /* Collapse the two-pane desktop layout into a single-column accordion */
+    /* Mobile is a two-level drill-down, not the desktop two-pane layout. */
     '  .nav-dest-panes { display: block; }',
-    '  .nav-dest-continents { display: none; }',
+    '  .nav-dest-continents { display: none; }',              /* desktop rail off */
     '  .nav-dest-spots { min-height: 0; }',
-    '  .nav-continent-group { display: block; border-bottom: 1px solid #EDEAE2; }',
-    '  .nav-continent-group:last-child { border-bottom: none; }',
-    '  .nav-continent-accordion-btn { display: flex; }',
-    /* Spot panels are hidden by default on mobile; only the open group shows */
+    '  .nav-continent-group { display: block; }',
+    /* Level 1: the continent list. Each continent is a full-width row. */
+    '  .nav-continent-accordion-btn { display: flex; border-bottom: 1px solid #EDEAE2; }',
+    '  .nav-continent-group:last-child .nav-continent-accordion-btn { border-bottom: none; }',
+    /* Spot panels stay hidden until a continent is drilled into. */
     '  .nav-dest-panel, .nav-dest-panel.active { display: none; }',
-    '  .nav-continent-group.open .nav-dest-panel, .nav-continent-group.open .nav-dest-panel.active {',
-    '    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 2px 0 12px;',
+    /* Level 2: drilled in — hide the continent list, show back bar + one panel. */
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-accordion-btn { display: none; }',
+    '  .nav-dest-dropdown.mobile-drilled .nav-mobile-back { display: flex; }',
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-group.mobile-open .nav-dest-panel,',
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-group.mobile-open .nav-dest-panel.active {',
+    '    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 0 0 4px;',
     '  }',
-    '  .nav-dest-panel a { min-height: 48px; align-items: center; font-size: 12px; padding: 10px 8px; }',
+    '  .nav-dest-panel a { min-height: 48px; align-items: center; font-size: 13px; padding: 11px 10px; }',
     '  .nav-dest-panel a span { font-size: 9px; }',
+    /* Footer only belongs on the top-level continent list, not inside a region. */
+    '  .nav-dest-dropdown.mobile-drilled .nav-dest-footer { display: none; }',
     '  .nav-dest-footer { flex-direction: column; gap: 8px; }',
     '  .nav-dest-footer a { width: 100%; text-align: center; }',
     '  .nav-backdrop.mobile-dest-active { z-index: 10001; }',
@@ -440,7 +467,14 @@
 
   function closeAllNavDropdowns() {
     var dd = document.getElementById('nav-dest-dropdown');
-    if (dd) dd.classList.remove('open');
+    if (dd) {
+      dd.classList.remove('open');
+      // Reset the mobile drill-down so it reopens on the continent list.
+      dd.classList.remove('mobile-drilled');
+      dd.querySelectorAll('.nav-continent-group.mobile-open').forEach(function (g) {
+        g.classList.remove('mobile-open');
+      });
+    }
     var menu = document.getElementById('nav-mobile-menu');
     if (menu) menu.classList.remove('open');
     backdrop.classList.remove('active');
@@ -568,12 +602,18 @@
           return html;
         };
 
+        // Mobile back bar: sits above the panels, only visible once drilled in.
+        var backCaret = '<svg class="nav-back-caret" width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L4 6l4 4"/></svg>';
+        var backHtml =
+          '<button type="button" class="nav-mobile-back" id="nav-mobile-back">' +
+            backCaret + 'All Regions<span class="nav-back-here" id="nav-back-here"></span>' +
+          '</button>';
+
         var railHtml  = '';
         var spotsHtml = '';
         ordered.forEach(function (cont, i) {
           var id = 'nav-cont-' + slugifyContinent(cont);
-          var active = i === 0 ? ' active' : '';
-          var open = i === 0 ? ' open' : '';   // first group starts open on mobile
+          var active = i === 0 ? ' active' : '';   // desktop default panel
 
           // Desktop left-rail button
           railHtml +=
@@ -582,10 +622,10 @@
               '<svg class="nav-continent-caret" width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4"/></svg>' +
             '</button>';
 
-          // Spots column: a mobile accordion header + the panel (shared markup).
+          // Spots column: mobile continent row + the panel (shared markup).
           spotsHtml +=
-            '<div class="nav-continent-group' + open + '">' +
-              '<button type="button" class="nav-continent-accordion-btn" data-group>' +
+            '<div class="nav-continent-group">' +
+              '<button type="button" class="nav-continent-accordion-btn" data-cont="' + escAttr(cont) + '">' +
                 escAttr(cont) +
                 '<svg class="nav-acc-caret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
               '</button>' +
@@ -594,7 +634,10 @@
         });
 
         if (railEl) railEl.innerHTML = railHtml;
-        spotsEl.innerHTML = spotsHtml;
+        spotsEl.innerHTML = backHtml + spotsHtml;
+
+        var dropdown = document.getElementById('nav-dest-dropdown');
+        var backHere = document.getElementById('nav-back-here');
 
         // Desktop: hovering (or focusing) a continent swaps the active panel.
         if (railEl) {
@@ -614,13 +657,32 @@
           });
         }
 
-        // Mobile: tapping an accordion header toggles that continent's group.
+        // Mobile: tapping a continent drills into just that continent's spots.
         spotsEl.querySelectorAll('.nav-continent-accordion-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
             var group = btn.parentNode;
-            group.classList.toggle('open');
+            spotsEl.querySelectorAll('.nav-continent-group').forEach(function (g) {
+              g.classList.toggle('mobile-open', g === group);
+            });
+            if (backHere) {
+              var cName = btn.getAttribute('data-cont') || '';
+              backHere.textContent = cName ? '  ·  ' + cName : '';
+            }
+            if (dropdown) dropdown.classList.add('mobile-drilled');
+            if (spotsEl.parentNode) spotsEl.parentNode.scrollTop = 0;
           });
         });
+
+        // Mobile back bar: return to the continent list.
+        var backBtn = document.getElementById('nav-mobile-back');
+        if (backBtn) {
+          backBtn.addEventListener('click', function () {
+            if (dropdown) dropdown.classList.remove('mobile-drilled');
+            spotsEl.querySelectorAll('.nav-continent-group').forEach(function (g) {
+              g.classList.remove('mobile-open');
+            });
+          });
+        }
       })
       .catch(function (e) { console.error('[nav] destinations load failed', e); });
   }());
@@ -679,6 +741,11 @@
       if (dd) {
         var willOpen = !dd.classList.contains('open');
         dd.classList.toggle('open');
+        // Always (re)open on the continent list, never mid drill-down.
+        dd.classList.remove('mobile-drilled');
+        dd.querySelectorAll('.nav-continent-group.mobile-open').forEach(function (g) {
+          g.classList.remove('mobile-open');
+        });
         backdrop.classList.toggle('active', willOpen);
         if (window.innerWidth <= 680) {
           backdrop.classList.toggle('mobile-dest-active', willOpen);
