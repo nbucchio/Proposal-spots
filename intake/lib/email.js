@@ -338,15 +338,29 @@ function depositSection(booking) {
   const deposit = depositAmount(booking);
   const pct = Number(totalDepositPercent) || 0;
 
-  const refundLine = refundDeadlineDays
-    ? `
+  // Refund policy line, driven by the spot's Refund Window (Days):
+  //   > 0  → deposit is refundable up to that many days before the date.
+  //   0    → deposit is explicitly NON-refundable; say so clearly.
+  //   blank/unknown (null/undefined) → suppress the line entirely.
+  const refundDays = Number(refundDeadlineDays);
+  const refundLine =
+    Number.isFinite(refundDays) && refundDays > 0
+      ? `
       <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 12px;">
         <strong>Refund policy:</strong> Fully refundable up to
         ${escapeHtml(refundDeadlineDays)} days before your proposal. After that,
         it's non-refundable, since we hold that date exclusively for you from
         this point on.
       </p>`
-    : "";
+      : refundDeadlineDays === 0 || refundDeadlineDays === "0"
+        ? `
+      <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1C;line-height:1.5;margin:0 0 12px;">
+        <strong>Refund policy:</strong> This deposit is
+        <strong>non-refundable</strong>. Once it's paid, your date is reserved
+        exclusively for you and we turn away other enquiries for it, so the
+        deposit cannot be refunded.
+      </p>`
+        : "";
 
   const balanceLine = balanceNote
     ? `
