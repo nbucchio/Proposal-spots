@@ -57,18 +57,57 @@
     '  background: #FDFCFA;',
     '  border: 1px solid #D8D2C8;',
     '  border-radius: 14px;',
-    '  padding: 34px 20px 20px;',
-    '  min-width: 420px;',
+    '  padding: 26px 18px 16px;',
+    '  min-width: 540px;',
     '  box-shadow: 0 16px 48px rgba(28,28,28,0.12);',
     '  z-index: 9000;',
     '}',
     '.nav-dest-dropdown.open { display: block; }',
+    /* ── Two-pane mega-menu (desktop): continents left, spots right ── */
+    '.nav-dest-panes {',
+    '  display: grid;',
+    '  grid-template-columns: 176px 1fr;',
+    '  gap: 14px;',
+    '}',
+    '.nav-dest-continents {',
+    '  display: flex;',
+    '  flex-direction: column;',
+    '  gap: 1px;',
+    '  border-right: 1px solid #E4E0D8;',
+    '  padding-right: 12px;',
+    '}',
+    '.nav-continent-btn {',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 12px;',
+    '  font-weight: 400;',
+    '  color: #6B6660;',
+    '  letter-spacing: 0.04em;',
+    '  text-align: left;',
+    '  background: none;',
+    '  border: none;',
+    '  cursor: pointer;',
+    '  padding: 9px 12px;',
+    '  border-radius: 8px;',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: space-between;',
+    '  gap: 8px;',
+    '  transition: background 0.15s, color 0.15s;',
+    '}',
+    '.nav-continent-btn:hover { background: #EDEAE2; color: #1C1C1C; }',
+    '.nav-continent-btn.active { background: #EDEAE2; color: #1C1C1C; font-weight: 500; }',
+    '.nav-continent-btn .nav-continent-caret { opacity: 0; transition: opacity 0.15s; flex-shrink: 0; }',
+    '.nav-continent-btn.active .nav-continent-caret { opacity: 1; }',
+    '.nav-dest-spots { min-height: 180px; }',
     '.nav-dest-grid {',
     '  display: grid;',
     '  grid-template-columns: 1fr 1fr;',
     '  gap: 2px;',
+    '  align-content: start;',
     '}',
-    '.nav-dest-grid a {',
+    '.nav-dest-panel { display: none; }',
+    '.nav-dest-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; align-content: start; }',
+    '.nav-dest-grid a, .nav-dest-panel a {',
     '  font-family: "Jost", sans-serif;',
     '  font-size: 12px;',
     '  font-weight: 400;',
@@ -83,11 +122,11 @@
     '  gap: 8px;',
     '  transition: background 0.15s;',
     '}',
-    '.nav-dest-grid a:hover { background: #EDEAE2; }',
-    '.nav-dest-grid a span { color: #9E9890; font-size: 10px; font-weight: 300; text-align: right; flex-shrink: 0; }',
-    '.nav-dest-grid a.coming-soon { color: #A55A4A; }',
-    '.nav-dest-grid a.coming-soon:hover { background: rgba(165,90,74,0.06); }',
-    '.nav-dest-grid a .nav-soon-tag {',
+    '.nav-dest-grid a:hover, .nav-dest-panel a:hover { background: #EDEAE2; }',
+    '.nav-dest-grid a span, .nav-dest-panel a span { color: #9E9890; font-size: 10px; font-weight: 300; text-align: right; flex-shrink: 0; }',
+    '.nav-dest-grid a.coming-soon, .nav-dest-panel a.coming-soon { color: #A55A4A; }',
+    '.nav-dest-grid a.coming-soon:hover, .nav-dest-panel a.coming-soon:hover { background: rgba(165,90,74,0.06); }',
+    '.nav-dest-grid a .nav-soon-tag, .nav-dest-panel a .nav-soon-tag {',
     '  font-family: "Jost", sans-serif;',
     '  font-size: 8px;',
     '  font-weight: 400;',
@@ -115,20 +154,75 @@
     '}',
     '.nav-dest-footer {',
     '  border-top: 1px solid #D8D2C8;',
-    '  margin-top: 12px;',
-    '  padding-top: 12px;',
-    '  text-align: center;',
+    '  margin-top: 16px;',
+    '  padding-top: 14px;',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: center;',
+    '  gap: 10px;',
     '}',
     '.nav-dest-footer a {',
     '  font-family: "Jost", sans-serif;',
     '  font-size: 10px;',
+    '  font-weight: 500;',
     '  letter-spacing: 0.14em;',
     '  text-transform: uppercase;',
-    '  color: #6B6660;',
     '  text-decoration: none;',
-    '  transition: color 0.15s;',
+    '  padding: 9px 16px;',
+    '  border-radius: 100px;',
+    '  transition: background 0.15s, color 0.15s, border-color 0.15s;',
     '}',
-    '.nav-dest-footer a:hover { color: #1C1C1C; }',
+    '.nav-dest-footer a.nav-dest-elsewhere {',
+    '  color: #6B6660;',
+    '  border: 1px solid #D8D2C8;',
+    '}',
+    '.nav-dest-footer a.nav-dest-elsewhere:hover { color: #1C1C1C; background: #EDEAE2; border-color: #C9C2B6; }',
+    '.nav-dest-footer a.nav-dest-viewall {',
+    '  color: #FDFCFA;',
+    '  background: #A55A4A;',
+    '}',
+    '.nav-dest-footer a.nav-dest-viewall:hover { background: #8C4C3E; }',
+    /* ── Mobile drill-down: continent list, tap one to see its spots ── */
+    /* On desktop the group wrapper is layout-transparent so the active panel */
+    /* fills the spots column directly; the drill-down chrome only shows mobile. */
+    '.nav-continent-group { display: contents; }',
+    '.nav-continent-accordion-btn {',
+    '  display: none;',              /* shown only on mobile */
+    '  width: 100%;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 15px;',
+    '  font-weight: 500;',
+    '  color: #1C1C1C;',
+    '  letter-spacing: 0.01em;',
+    '  background: none;',
+    '  border: none;',
+    '  cursor: pointer;',
+    '  align-items: center;',
+    '  justify-content: space-between;',
+    '  padding: 16px 6px;',
+    '}',
+    '.nav-continent-accordion-btn .nav-acc-caret { color: #B7B0A6; flex-shrink: 0; transform: rotate(-90deg); }',
+    /* Back bar shown at the top of a drilled-in continent (mobile only) */
+    '.nav-mobile-back {',
+    '  display: none;',
+    '  width: 100%;',
+    '  align-items: center;',
+    '  gap: 8px;',
+    '  font-family: "Jost", sans-serif;',
+    '  font-size: 10px;',
+    '  font-weight: 500;',
+    '  letter-spacing: 0.16em;',
+    '  text-transform: uppercase;',
+    '  color: #6B6660;',
+    '  background: none;',
+    '  border: none;',
+    '  border-bottom: 1px solid #E4E0D8;',
+    '  cursor: pointer;',
+    '  padding: 4px 6px 14px;',
+    '  margin-bottom: 10px;',
+    '}',
+    '.nav-mobile-back .nav-back-caret { color: #A55A4A; flex-shrink: 0; }',
+    '.nav-mobile-back .nav-back-here { color: #1C1C1C; font-weight: 600; }',
     '.nav-link-right {',
     '  font-family: "Jost", sans-serif;',
     '  font-size: 11px;',
@@ -272,9 +366,29 @@
     '    border-radius: 16px;',
     '    z-index: 10002;',
     '  }',
-    '  .nav-dest-grid { grid-template-columns: 1fr 1fr; gap: 4px; }',
-    '  .nav-dest-grid a { min-height: 48px; align-items: center; font-size: 12px; padding: 10px 8px; }',
-    '  .nav-dest-grid a span { font-size: 9px; }',
+    /* Mobile is a two-level drill-down, not the desktop two-pane layout. */
+    '  .nav-dest-panes { display: block; }',
+    '  .nav-dest-continents { display: none; }',              /* desktop rail off */
+    '  .nav-dest-spots { min-height: 0; }',
+    '  .nav-continent-group { display: block; }',
+    /* Level 1: the continent list. Each continent is a full-width row. */
+    '  .nav-continent-accordion-btn { display: flex; border-bottom: 1px solid #EDEAE2; }',
+    '  .nav-continent-group:last-child .nav-continent-accordion-btn { border-bottom: none; }',
+    /* Spot panels stay hidden until a continent is drilled into. */
+    '  .nav-dest-panel, .nav-dest-panel.active { display: none; }',
+    /* Level 2: drilled in — hide the continent list, show back bar + one panel. */
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-accordion-btn { display: none; }',
+    '  .nav-dest-dropdown.mobile-drilled .nav-mobile-back { display: flex; }',
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-group.mobile-open .nav-dest-panel,',
+    '  .nav-dest-dropdown.mobile-drilled .nav-continent-group.mobile-open .nav-dest-panel.active {',
+    '    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 0 0 4px;',
+    '  }',
+    '  .nav-dest-panel a { min-height: 48px; align-items: center; font-size: 13px; padding: 11px 10px; }',
+    '  .nav-dest-panel a span { font-size: 9px; }',
+    /* Footer only belongs on the top-level continent list, not inside a region. */
+    '  .nav-dest-dropdown.mobile-drilled .nav-dest-footer { display: none; }',
+    '  .nav-dest-footer { flex-direction: column; gap: 8px; }',
+    '  .nav-dest-footer a { width: 100%; text-align: center; }',
     '  .nav-backdrop.mobile-dest-active { z-index: 10001; }',
     '}',
     '@media (max-width: 360px) {',
@@ -300,10 +414,10 @@
   // Destinations populated asynchronously from /api/destinations.
   var destItems = '';
 
-  var viewAllDest = '<a href="/destinations" style="color:#A55A4A;font-weight:500">View all destinations →</a>';
+  var viewAllDest = '<a href="/destinations" class="nav-dest-viewall">View all destinations →</a>';
 
   // "Elsewhere": newly onboarded spots that don't yet have a dedicated page.
-  var elsewhereLink = '<a href="/elsewhere" style="color:#6B6660;display:block;margin-bottom:9px">Elsewhere — newly added spots →</a>';
+  var elsewhereLink = '<a href="/elsewhere" class="nav-dest-elsewhere">Elsewhere — newly added spots →</a>';
 
   var howItWorksLink = '<a href="/how-it-works" class="nav-link-right">How It Works</a>';
 
@@ -353,7 +467,14 @@
 
   function closeAllNavDropdowns() {
     var dd = document.getElementById('nav-dest-dropdown');
-    if (dd) dd.classList.remove('open');
+    if (dd) {
+      dd.classList.remove('open');
+      // Reset the mobile drill-down so it reopens on the continent list.
+      dd.classList.remove('mobile-drilled');
+      dd.querySelectorAll('.nav-continent-group.mobile-open').forEach(function (g) {
+        g.classList.remove('mobile-open');
+      });
+    }
     var menu = document.getElementById('nav-mobile-menu');
     if (menu) menu.classList.remove('open');
     backdrop.classList.remove('active');
@@ -376,7 +497,10 @@
           '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
         '</a>' +
         '<div class="nav-dest-dropdown" id="nav-dest-dropdown">' +
-          '<div class="nav-dest-grid">' + destItems + '</div>' +
+          '<div class="nav-dest-panes">' +
+            '<div class="nav-dest-continents" id="nav-dest-continents"></div>' +
+            '<div class="nav-dest-spots" id="nav-dest-spots">' + destItems + '</div>' +
+          '</div>' +
           '<div class="nav-dest-footer">' + elsewhereLink + viewAllDest + '</div>' +
         '</div>' +
       '</div>' +
@@ -410,35 +534,155 @@
     document.body.insertBefore(nav, document.body.firstChild);
   }
 
-  // ── Populate destinations dropdown from Airtable ─────────────────────────────
+  // ── Populate destinations dropdown from Airtable, grouped by continent ───────
   (function loadNavDestinations() {
+    // Preferred display order; anything not listed is appended alphabetically so
+    // a new/unexpected continent value never disappears from the menu.
+    var CONTINENT_ORDER = [
+      'Europe',
+      'North America',
+      'Central America',
+      'South America',
+      'Asia',
+      'Africa',
+      'Oceania'
+    ];
+    var OTHER_LABEL = 'Elsewhere';
+
+    var escAttr = function (s) {
+      return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+                      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    };
+    var slugifyContinent = function (name) {
+      return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'other';
+    };
+
+    var availableItem = function (d) {
+      return '<a href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
+             (d.display_name || '') + '</a>';
+    };
+    var comingSoonItem = function (d) {
+      return '<a class="coming-soon" href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
+             (d.display_name || '') +
+             ' <span class="nav-soon-tag">Soon</span></a>';
+    };
+
     fetch('/api/destinations')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var list = (data && data.destinations) || [];
-        var grid = nav.querySelector('.nav-dest-grid');
-        if (!grid) return;
+        var railEl  = document.getElementById('nav-dest-continents');
+        var spotsEl = document.getElementById('nav-dest-spots');
+        if (!spotsEl) return;
 
-        var available  = list.filter(function (d) { return !d.coming_soon; });
-        var comingSoon = list.filter(function (d) { return d.coming_soon; });
+        // Group destinations by continent, preserving the API's nav_order sort.
+        var groups = {};      // continent name -> { available:[], comingSoon:[] }
+        list.forEach(function (d) {
+          var cont = (d.Continent || '').trim() || OTHER_LABEL;
+          if (!groups[cont]) groups[cont] = { available: [], comingSoon: [] };
+          (d.coming_soon ? groups[cont].comingSoon : groups[cont].available).push(d);
+        });
 
-        var availableItem = function (d) {
-          return '<a href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
-                 (d.display_name || '') +
-                 ' <span>' + (d.Continent || '') + '</span></a>';
+        // Order the continents: preferred order first, then any extras A–Z.
+        var present = Object.keys(groups);
+        var ordered = CONTINENT_ORDER.filter(function (c) { return groups[c]; });
+        present.filter(function (c) { return CONTINENT_ORDER.indexOf(c) === -1; })
+               .sort()
+               .forEach(function (c) { ordered.push(c); });
+
+        if (!ordered.length) { spotsEl.innerHTML = ''; return; }
+
+        // Build the spot panel for one continent (available, then coming-soon).
+        var panelBody = function (g) {
+          var html = g.available.map(availableItem).join('');
+          if (g.comingSoon.length) {
+            html += '<div class="nav-dest-soon-label">Coming Soon</div>';
+            html += g.comingSoon.map(comingSoonItem).join('');
+          }
+          return html;
         };
-        var comingSoonItem = function (d) {
-          return '<a class="coming-soon" href="/destinations/' + encodeURIComponent(d.destination_slug) + '">' +
-                 (d.display_name || '') +
-                 ' <span class="nav-soon-tag">Soon</span></a>';
-        };
 
-        var html = available.map(availableItem).join('');
-        if (comingSoon.length) {
-          html += '<div class="nav-dest-soon-label">Coming Soon</div>';
-          html += comingSoon.map(comingSoonItem).join('');
+        // Mobile back bar: sits above the panels, only visible once drilled in.
+        var backCaret = '<svg class="nav-back-caret" width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L4 6l4 4"/></svg>';
+        var backHtml =
+          '<button type="button" class="nav-mobile-back" id="nav-mobile-back">' +
+            backCaret + 'All Regions<span class="nav-back-here" id="nav-back-here"></span>' +
+          '</button>';
+
+        var railHtml  = '';
+        var spotsHtml = '';
+        ordered.forEach(function (cont, i) {
+          var id = 'nav-cont-' + slugifyContinent(cont);
+          var active = i === 0 ? ' active' : '';   // desktop default panel
+
+          // Desktop left-rail button
+          railHtml +=
+            '<button type="button" class="nav-continent-btn' + active + '" data-panel="' + id + '">' +
+              escAttr(cont) +
+              '<svg class="nav-continent-caret" width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4"/></svg>' +
+            '</button>';
+
+          // Spots column: mobile continent row + the panel (shared markup).
+          spotsHtml +=
+            '<div class="nav-continent-group">' +
+              '<button type="button" class="nav-continent-accordion-btn" data-cont="' + escAttr(cont) + '">' +
+                escAttr(cont) +
+                '<svg class="nav-acc-caret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>' +
+              '</button>' +
+              '<div class="nav-dest-panel' + active + '" id="' + id + '">' + panelBody(groups[cont]) + '</div>' +
+            '</div>';
+        });
+
+        if (railEl) railEl.innerHTML = railHtml;
+        spotsEl.innerHTML = backHtml + spotsHtml;
+
+        var dropdown = document.getElementById('nav-dest-dropdown');
+        var backHere = document.getElementById('nav-back-here');
+
+        // Desktop: hovering (or focusing) a continent swaps the active panel.
+        if (railEl) {
+          var activatePanel = function (btn) {
+            var targetId = btn.getAttribute('data-panel');
+            railEl.querySelectorAll('.nav-continent-btn').forEach(function (b) {
+              b.classList.toggle('active', b === btn);
+            });
+            spotsEl.querySelectorAll('.nav-dest-panel').forEach(function (p) {
+              p.classList.toggle('active', p.id === targetId);
+            });
+          };
+          railEl.querySelectorAll('.nav-continent-btn').forEach(function (btn) {
+            btn.addEventListener('mouseenter', function () { activatePanel(btn); });
+            btn.addEventListener('focus', function () { activatePanel(btn); });
+            btn.addEventListener('click', function () { activatePanel(btn); });
+          });
         }
-        grid.innerHTML = html;
+
+        // Mobile: tapping a continent drills into just that continent's spots.
+        spotsEl.querySelectorAll('.nav-continent-accordion-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var group = btn.parentNode;
+            spotsEl.querySelectorAll('.nav-continent-group').forEach(function (g) {
+              g.classList.toggle('mobile-open', g === group);
+            });
+            if (backHere) {
+              var cName = btn.getAttribute('data-cont') || '';
+              backHere.textContent = cName ? '  ·  ' + cName : '';
+            }
+            if (dropdown) dropdown.classList.add('mobile-drilled');
+            if (spotsEl.parentNode) spotsEl.parentNode.scrollTop = 0;
+          });
+        });
+
+        // Mobile back bar: return to the continent list.
+        var backBtn = document.getElementById('nav-mobile-back');
+        if (backBtn) {
+          backBtn.addEventListener('click', function () {
+            if (dropdown) dropdown.classList.remove('mobile-drilled');
+            spotsEl.querySelectorAll('.nav-continent-group').forEach(function (g) {
+              g.classList.remove('mobile-open');
+            });
+          });
+        }
       })
       .catch(function (e) { console.error('[nav] destinations load failed', e); });
   }());
@@ -497,6 +741,11 @@
       if (dd) {
         var willOpen = !dd.classList.contains('open');
         dd.classList.toggle('open');
+        // Always (re)open on the continent list, never mid drill-down.
+        dd.classList.remove('mobile-drilled');
+        dd.querySelectorAll('.nav-continent-group.mobile-open').forEach(function (g) {
+          g.classList.remove('mobile-open');
+        });
         backdrop.classList.toggle('active', willOpen);
         if (window.innerWidth <= 680) {
           backdrop.classList.toggle('mobile-dest-active', willOpen);
