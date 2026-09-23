@@ -213,6 +213,15 @@
       </table>
     </div> -->
 
+    <!-- Featured listings CTA row (see /blog skill, Step 4c). Place mid-article.
+         Pulls live from /api/spots; pass only verified published Slug values.
+         Requires the /blog-spot-picks.js script near </body> (added below).
+    <section class="blog-spot-row"
+             data-spots="slug-one, slug-two, slug-three"
+             data-eyebrow="A few of our favorites"
+             data-title="Where these setups come to life"></section>
+    -->
+
   </div>
 
   <section class="post-faq">
@@ -237,6 +246,8 @@
 
 </article>
 
+<!-- Required only if the post uses the .blog-spot-row featured listings section above -->
+<script src="/blog-spot-picks.js" defer></script>
 <script src="/wa-float.js" defer></script>
 </body>
 </html>
