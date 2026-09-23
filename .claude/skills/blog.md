@@ -92,7 +92,9 @@ Content rules:
 - No AI-tell phrases (see voice.md, "Tells that it's AI-written")
 - No exclamation marks
 - No emojis
-- **No em-dashes or en-dashes ("—" or "–") anywhere in customer-facing content.** They read as AI-written. Use periods, commas, colons, or parentheses instead. Apply this to titles, meta descriptions, OG/Twitter descriptions, JSON-LD headlines and answers, body copy, FAQ Q&A, pull-quotes, and BLOG_POSTS card descriptions. Regular hyphens in compound words (e.g. "high-tide", "twenty-four") are fine.
+- **No em-dashes or en-dashes ("—" or "–") anywhere in customer-facing content.** They read as AI-written. Use periods, commas, colons, or parentheses instead. Apply this to titles, meta descriptions, OG/Twitter descriptions, JSON-LD headlines and answers, body copy, FAQ Q&A, and BLOG_POSTS card descriptions. Keep hyphenated compound words to a minimum too (a chain of them also reads as AI); a regular hyphen in a genuine compound (e.g. "high-tide") is fine when it is the natural spelling.
+- **No pull-quote callouts.** Do not use the `.post-pull` block (the centered italic quote between hairlines). It reads as AI-written filler. Let strong sentences live in the body copy.
+- **No boxed or indented callout blocks.** Do not use the `.post-quick-answer` box (the shaded rounded block) or any similar boxed/indented callout. If a post opens with a short summary, write it as a normal paragraph right after the intro, not inside a box. The comparison table (Step 5) is the only boxed element allowed.
 
 ---
 
@@ -164,6 +166,45 @@ Never remove the `.post-hero` block, the og:image/twitter:image meta tags, or th
 - Replace the `.post-photo-credit` paragraph with `<!-- TODO: hero image — Unsplash search failed for query "[topic]" -->`
 - Set `imageUrl: ""` in the BLOG_POSTS entry (the inspiration card will fall back to the hairline placeholder)
 - Flag the gap in the Step 12 completion report
+
+---
+
+## Step 4c — Featured listings CTA row (recommend real spots)
+
+Every post includes one row of real Proposal Spots listings mid-article. This turns editorial traffic into listing clicks and is a standard part of every post now. It uses the shared, reusable component `blog-spot-picks.js` — do not build a custom card block.
+
+### How it works
+
+Drop this one section into the post body, roughly in the middle (after a substantial section, before the closing/FAQ sections), then include the script once before `</body>`:
+
+```html
+<section class="blog-spot-row"
+         data-spots="slug-one, slug-two, slug-three"
+         data-eyebrow="A few of our favorites"
+         data-title="[short, tempting, post-specific line]"></section>
+```
+
+```html
+<script src="/blog-spot-picks.js" defer></script>
+```
+
+- The row pulls live from `/api/spots`, so photos, prices, names, and links stay in sync with Airtable automatically. **Never hard-code spot cards** — only pass slugs.
+- It renders the exact destination-page card style (3-up on desktop, horizontal swipe on mobile) and links each card to `/spots/{slug}`.
+- If a slug does not match a published spot, the row silently skips it (and logs a console warning); if none match, the whole row hides. So wrong slugs fail safe but show nothing — get them right.
+- `data-eyebrow` defaults to "A few of our favorites" (usually leave as is). `data-title` should be written fresh per post (e.g. "Where these winter moments come to life", "Places made for a Valentine's yes").
+
+### Choosing the three spots
+
+1. Pick 3 spots that genuinely fit the post's topic/mood, and vary the location (aim for three different regions or countries) so the row feels curated, not random.
+2. Prefer spots not already featured in recent posts, so the site showcases range.
+3. **Verify each against Airtable before using it** — the pasted `/spots/...` URL a human gives you is often NOT the canonical slug. Base `appN5GFcdPJvU1qff`, table `tblgpEUkpph612Hw5` (Proposal Spots). Confirm the spot's `Status` = `Published` and read its exact `Slug` field, and use that Slug value in `data-spots`. A quick check that each has a `Spot Card Photo` avoids blank-looking cards.
+4. If Airtable is unavailable, you may pass the slugs as given, but flag in the completion report that they are unverified so a human can eyeball the rendered row.
+
+### Placement and rules
+
+- One row per post, mid-article.
+- The `<section>` is theme-consistent by default (the component injects its own styles) — do not add custom CSS or restyle the cards.
+- The `<script src="/blog-spot-picks.js" defer></script>` line is required for the row to render; `blog/template.html` includes a commented example of both. Keep it before `</body>`, alongside `wa-float.js`.
 
 ---
 
@@ -269,6 +310,7 @@ Report:
 - Word count
 - Slug and URL
 - Internal links added (list them)
+- Featured listings row: the three spot slugs used, and whether each was verified against Airtable as Published (or flagged unverified)
 - Schema types applied
 - File saved location
 - Hero image: Unsplash URL + photographer name and profile URL (or "TODO — lookup failed" if it did)
