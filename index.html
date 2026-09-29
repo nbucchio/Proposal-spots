@@ -305,6 +305,17 @@ nav.scrolled {
   box-shadow: 0 16px 48px rgba(28,28,28,0.10);
 }
 .ssb-dropdown.open { display: block; }
+/* Desktop: the map section overlaps the bottom of the hero, so long lists
+   get a max-height (set in ssbFitDropdown) and scroll inside themselves
+   instead of scrolling the page. Scrollbar hidden to keep the look. */
+@media (min-width: 769px) {
+  .ssb-dropdown {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  .ssb-dropdown::-webkit-scrollbar { display: none; }
+}
 .ssb-dd-item {
   font-family: 'Jost', sans-serif;
   font-size: 12px;
@@ -10353,11 +10364,32 @@ function ssbToggle(seg) {
       var isOpen = segEl.classList.contains('open');
       segEl.classList.toggle('open', !isOpen);
       dd.classList.toggle('open', !isOpen);
+      if (!isOpen) ssbFitDropdown(dd);
     } else {
       segEl.classList.remove('open');
       dd.classList.remove('open');
     }
   });
+}
+
+// Desktop only: end the open dropdown at the hero's bottom edge (where the
+// map section fully covers it) so it looks unchanged, and pad its bottom by
+// the map overlap so the last items can scroll up clear of the fade.
+function ssbFitDropdown(dd) {
+  dd.style.maxHeight = '';
+  dd.style.paddingBottom = '';
+  if (window.matchMedia('(max-width: 768px)').matches) return;
+  var hero = dd.closest('.hero');
+  if (!hero) return;
+  var heroBottom = hero.getBoundingClientRect().bottom;
+  var ddTop = dd.getBoundingClientRect().top;
+  var avail = heroBottom - ddTop;
+  if (avail <= 0 || dd.scrollHeight <= avail) return;
+  var map = document.getElementById('map-cta');
+  var overlap = map ? Math.max(0, heroBottom - map.getBoundingClientRect().top) : 0;
+  dd.style.maxHeight = avail + 'px';
+  dd.style.paddingBottom = (overlap + 8) + 'px';
+  dd.scrollTop = 0;
 }
 
 function ssbCloseAll() {
