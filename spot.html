@@ -52,6 +52,10 @@
   --terra:    #A55A4A;
   --terra-soft: rgba(165,90,74,0.10);
   --shadow:   rgba(28,28,28,0.06);
+  /* package colours: ivory, sand, deeper sand */
+  --tier1-bg: #F5F1E9; --tier1-ink: #7A6C57; --tier1-rule: #BBAA90;
+  --tier2-bg: #E8DCC8; --tier2-ink: #6B5842; --tier2-rule: #A28C6B;
+  --tier3-bg: #D2BE9F; --tier3-ink: #4F402F; --tier3-rule: #7E6746;
 }
 
 html { scroll-behavior: smooth; }
@@ -1695,7 +1699,9 @@ nav {
   .sdp-back { left: 16px; }
   .sdp-heart-btn { right: 16px; }
   .sdp-vibe-strip { padding: 16px 20px; }
-  .sdp-body { padding: 24px 20px 100px; }
+  .sdp-body { padding: 32px 20px 100px; }
+  /* Same space under the photos as above them */
+  .sdp-gallery { margin-bottom: 32px; }
   .sdp-hero-name { font-size: clamp(24px, 5vw, 40px); }
   /* Vibe strip: horizontal scroll so chips never compress below readable width */
   .sdp-vibe-strip { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; padding: 0; }
@@ -1715,181 +1721,10 @@ nav {
 
 @media (max-width: 480px) {
   .sdp-hero { height: 44vh; }
-  /* Tiered pricing: stack left/right panels vertically */
-  .sdp-tier-row { grid-template-columns: 1fr; }
-  .sdp-tier-left { border-right: none; border-bottom: 1px solid var(--hairline); }
   /* Enquiry modal: reduce padding on small screens */
   .enq-modal { padding: 28px 20px; }
   /* Vibe chips: smaller padding on very small screens */
   .sdp-vibe-chip { min-width: 100px; padding: 14px 14px; }
-}
-
-/* ── Tiered Pricing — Left Panel ─────────────────────── */
-.sdp-tier-label {
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #9a8f7e;
-  display: block;
-  margin-bottom: 14px;
-}
-.sdp-tier-block {
-  border: 1px solid #d9d2c4;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.sdp-tier-row {
-  display: grid;
-  grid-template-columns: 210px 1fr;
-  border-bottom: 1px solid #d9d2c4;
-  position: relative;
-}
-.sdp-tier-row:last-child { border-bottom: none; }
-.sdp-tier-row-popular { border-top: 2px solid var(--accent); }
-.sdp-tier-left {
-  background: #eee8dc;
-  padding: 20px 16px;
-  border-right: 1px solid #d9d2c4;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.sdp-tier-right {
-  background: #f5f0e8;
-  padding: 20px 16px;
-}
-.sdp-tier-name {
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #9a8f7e;
-}
-.sdp-tier-price {
-  font-family: 'Cormorant', serif;
-  font-size: 28px;
-  font-weight: 300;
-  color: #1a1a18;
-  line-height: 1.1;
-}
-.sdp-tier-per {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 300;
-  color: #9a8f7e;
-}
-.sdp-tier-popular-badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #f5f0e8;
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 7px;
-  border-radius: 3px;
-  margin-bottom: 6px;
-  align-self: flex-start;
-}
-.sdp-tier-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: #1a1a18;
-  line-height: 1.5;
-  margin-bottom: 6px;
-}
-.sdp-tier-item:last-child { margin-bottom: 0; }
-.sdp-tier-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
-.sdp-tier-plus-note {
-  display: block;
-  width: fit-content;
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--mid);
-  background: var(--bg2);
-  border: 0.5px solid var(--hairline);
-  border-radius: 100px;
-  padding: 3px 8px;
-  margin-bottom: 10px;
-}
-.sdp-tier-pill-check {
-  color: #7a9b72;
-  margin-right: 3px;
-}
-.sdp-tier-footnote {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 300;
-  font-style: italic;
-  color: #9a8f7e;
-  margin-top: 12px;
-}
-
-/* ── Tiered Pricing — Right Panel selector ───────────── */
-.sdp-tier-sel-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 0.5px solid var(--hairline);
-  cursor: pointer;
-  transition: border-color 0.15s;
-  margin-bottom: 6px;
-}
-.sdp-tier-sel-row:last-child { margin-bottom: 0; }
-.sdp-tier-sel-row.selected { border: 2px solid var(--accent); }
-.sdp-tier-sel-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid var(--hairline);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, border-color 0.15s;
-}
-.sdp-tier-sel-row.selected .sdp-tier-sel-dot {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-.sdp-tier-sel-dot-inner {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #f5f0e8;
-  display: none;
-}
-.sdp-tier-sel-row.selected .sdp-tier-sel-dot-inner { display: block; }
-.sdp-tier-sel-name {
-  font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--ink);
-  flex: 1;
-}
-.sdp-tier-sel-price {
-  font-family: 'Cormorant', serif;
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--ink);
 }
 
 /* ── Tiered Pricing — Right Panel add-ons step ───────── */
@@ -1935,117 +1770,377 @@ nav {
   margin: 0 0 8px;
 }
 
-/* ── Mobile tier card scaffolding (hidden on desktop) ────── */
-.sdp-tier-left-info {
+/* ═══════════════════════════════════════════════════════════
+   Packages, booking card and enquiry pop-up refresh
+   (visual only: all behaviour lives in the page script)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Package colours: one solid colour per package row ───── */
+.sdp-tier-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 14px;
+}
+.sdp-tier-block {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.sdp-tier-row {
+  --t: var(--tier1-bg); --a: var(--tier1-ink); --r: var(--tier1-rule);
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  position: relative;
+  cursor: pointer;
+  background: var(--t);
+  border-bottom: 1px solid var(--hairline);
+}
+.sdp-tier-row.tier-2 { --t: var(--tier2-bg); --a: var(--tier2-ink); --r: var(--tier2-rule); }
+.sdp-tier-row.tier-3 { --t: var(--tier3-bg); --a: var(--tier3-ink); --r: var(--tier3-rule); }
+.sdp-tier-row:last-child { border-bottom: none; }
+.sdp-tier-row.mob-selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--r);
+  pointer-events: none;
+}
+.sdp-tier-block .sdp-tier-left {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex: 1;
+  gap: 6px;
+  padding: 22px 18px;
+  background: transparent;
+  border-right: 1px solid var(--hairline);
+  border-right-color: color-mix(in srgb, var(--r) 30%, transparent);
+  border-bottom: none;
 }
-.sdp-mob-radio,
-.sdp-mob-divider,
-.sdp-mob-popular-badge { display: none; }
+.sdp-tier-left-info { display: flex; flex-direction: column; gap: 3px; flex: 0 0 auto; min-width: 0; }
+.sdp-tier-pop {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--a);
+}
+.sdp-tier-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--a);
+}
+.sdp-tier-price {
+  font-family: 'Cormorant', serif;
+  font-size: 29px;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.sdp-tier-price.long { font-size: 22px; }
+.sdp-tier-block .sdp-tier-right { background: transparent; padding: 22px 20px; }
+.sdp-tier-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 7px;
+}
+.sdp-tier-item:last-child { margin-bottom: 0; }
+.sdp-tier-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--r);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.sdp-tier-plus-note {
+  display: block;
+  width: fit-content;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--a);
+  background: color-mix(in srgb, var(--r) 14%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--r) 45%, transparent);
+  border-radius: 100px;
+  padding: 3px 9px;
+  margin-bottom: 10px;
+}
+.sdp-tier-pill-check { margin-right: 3px; }
+.sdp-tier-extra { margin-top: 7px; }
+.sdp-tier-extra[hidden], .sdp-incl-extra[hidden] { display: none; }
+.sdp-see-all {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  padding: 2px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.sdp-see-all:hover { opacity: 0.6; }
+.sdp-incl-extra { margin-top: 15px; }
+.sdp-incl-extra .sdp-incl-row:first-child { padding-top: 0; }
+.sdp-mob-radio { display: none; }
+.sdp-tier-popular-badge, .sdp-mob-popular-badge, .sdp-mob-divider { display: none; }
 
-/* ── Mobile Tier Cards ≤ 767px ────────────────────────────── */
+/* ── Booking card ─────────────────────────────────────── */
+.sdp-concierge-card .sdp-concierge-top {
+  padding: 30px 28px 0;
+  border-bottom: none;
+  text-align: center;
+}
+.sdp-bk-title {
+  font-family: 'Cormorant', serif;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.sdp-concierge-top .sdp-payflow-jump { display: inline-block; margin-top: 0; font-size: 11px; }
+.sdp-concierge-top .sdp-payflow-jump[style*="display: none"], .sdp-concierge-top .sdp-payflow-jump[style*="display:none"] { display: none !important; }
+.sdp-concierge-top .sdp-concierge-hotel-tag { text-align: left; }
+.sdp-concierge-card .sdp-concierge-body { padding: 8px 28px 28px; counter-reset: stp; }
+.sdp-concierge-card .sdp-booking-step {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  column-gap: 8px;
+  margin: 30px 0 0;
+  padding: 0;
+  border-bottom: none;
+}
+.sdp-booking-step.numbered { counter-increment: stp; }
+.sdp-booking-step.numbered > .sdp-step-num::before { content: counter(stp); }
+.sdp-concierge-card .sdp-step-num {
+  font-family: 'Cormorant', serif;
+  font-size: 46px;
+  font-weight: 300;
+  line-height: 0.9;
+  color: #A55A4A;
+}
+.sdp-step-main { min-width: 0; }
+.sdp-concierge-card .sdp-step-main > .sdp-step-title { margin: 3px 0 14px; font-weight: 400; letter-spacing: 0.14em; }
+/* Hotel option: a quiet unnumbered row under the numbered steps */
+.sdp-concierge-card .sdp-booking-step.unnumbered {
+  display: block;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+}
+.sdp-booking-step.unnumbered .sdp-step-num { display: none; }
+.sdp-booking-step.unnumbered .sdp-step-header { margin-bottom: 0; }
+.sdp-booking-step.unnumbered .sdp-step-title { font-weight: 400; letter-spacing: 0.14em; }
+/* The selected rows already show what was picked */
+#sdp-pricing-block { display: none !important; }
+.sdp-moment-addons-label { display: none; }
+#sdp-moment-addons-list { margin-top: 0; }
+/* Package selector rows pick up the package colour */
+.sdp-tier-sel-row {
+  --t: var(--tier1-bg); --r: var(--tier1-rule);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.sdp-tier-sel-row.tier-2 { --t: var(--tier2-bg); --r: var(--tier2-rule); }
+.sdp-tier-sel-row.tier-3 { --t: var(--tier3-bg); --r: var(--tier3-rule); }
+.sdp-tier-sel-row:last-child { margin-bottom: 0; }
+.sdp-tier-sel-row:hover { border-color: var(--r); }
+.sdp-tier-sel-row.selected { border: 1px solid var(--r); background: var(--t); }
+.sdp-tier-sel-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.sdp-tier-sel-row.selected .sdp-tier-sel-dot { background: var(--r); border-color: var(--r); }
+.sdp-tier-sel-dot-inner { display: none; }
+.sdp-tier-sel-name { font-family: 'Jost', sans-serif; font-size: 11.5px; font-weight: 400; color: var(--ink); flex: 1; white-space: nowrap; }
+.sdp-tier-sel-price { font-family: 'Cormorant', serif; font-size: 14.5px; font-weight: 300; color: var(--ink); white-space: nowrap; }
+.sdp-tier-addon-row input[type="checkbox"] { accent-color: #A55A4A; }
+.sdp-tier-addon-name { font-size: 12.5px; }
+/* Estimated total + CTA */
+.sdp-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 26px;
+}
+.sdp-total-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.sdp-total-amount {
+  font-family: 'Cormorant', serif;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.sdp-total .sdp-convert-link { margin-bottom: 6px; }
+.sdp-total-note {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.sdp-concierge-card #sdp-book-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #A55A4A;
+  border: none;
+  border-radius: 100px;
+  padding: 16px 24px;
+  margin-top: 22px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.sdp-concierge-card #sdp-book-btn:hover { background: var(--ink); transform: translateY(-1px); }
+.sdp-concierge-card .sdp-trust-note { font-size: 11px; line-height: 1.5; margin-top: 12px; }
+
+/* ── Enquiry pop-up ───────────────────────────────────── */
+.enq-submit-btn {
+  font-weight: 400;
+  color: #fff;
+  background: #A55A4A;
+  border-radius: 100px;
+}
+.enq-submit-btn:hover { background: var(--ink); }
+body.enq-open nav#navbar { opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+
+/* Extra tiers list what they ADD, so they get plus signs instead of bullets */
+.sdp-tier-row.tier-2 .sdp-tier-dot,
+.sdp-tier-row.tier-3 .sdp-tier-dot {
+  position: relative;
+  width: 9px; height: 9px;
+  margin-top: 5px;
+  background: none;
+  border-radius: 0;
+}
+.sdp-tier-row.tier-2 .sdp-tier-dot::before,
+.sdp-tier-row.tier-3 .sdp-tier-dot::before,
+.sdp-tier-row.tier-2 .sdp-tier-dot::after,
+.sdp-tier-row.tier-3 .sdp-tier-dot::after {
+  content: '';
+  position: absolute;
+  background: var(--a);
+}
+.sdp-tier-row.tier-2 .sdp-tier-dot::before,
+.sdp-tier-row.tier-3 .sdp-tier-dot::before { left: 0; right: 0; top: 4px; height: 1px; }
+.sdp-tier-row.tier-2 .sdp-tier-dot::after,
+.sdp-tier-row.tier-3 .sdp-tier-dot::after { top: 0; bottom: 0; left: 4px; width: 1px; }
+
+/* Desktop: the chosen package is clearly marked */
+@media (min-width: 768px) {
+  .sdp-tier-row.mob-selected::after { border: 2px solid var(--a); }
+  .sdp-tier-row.mob-selected .sdp-tier-left::after {
+    content: '\2713  Selected';
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--a);
+    margin-top: 4px;
+  }
+}
+
+/* ── Mobile (phones) ──────────────────────────────────── */
 @media (max-width: 767px) {
-
-  /* Outer container becomes a simple flex column of cards */
   .sdp-tier-block {
     border: none;
     border-radius: 0;
     overflow: visible;
-    background: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-
-  /* Each tier row becomes a self-contained card */
-  .sdp-tier-row {
+  .sdp-tier-block .sdp-tier-row {
     display: block;
-    grid-template-columns: none;
+    border: 1px solid var(--hairline);
+    border-color: color-mix(in srgb, var(--r) 30%, var(--hairline));
     border-radius: 10px;
-    border: 1px solid #e0d9cf;
-    border-bottom: 1px solid #e0d9cf;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 18px 16px 16px;
+    transition: border-color 0.2s;
   }
-
-  /* Per-tier warm background tints */
-  .sdp-tier-row:nth-child(1) { background: #f5f0e8; }
-  .sdp-tier-row:nth-child(2) { background: #ede5d8; }
-  .sdp-tier-row:nth-child(3) { background: #e4d9c8; }
-
-  /* Selected state — gold border, radio filled */
-  .sdp-tier-row.mob-selected {
-    border: 1.5px solid #c9a96e;
-  }
-
-  /* Header area: radio + name/price side by side */
-  .sdp-tier-left {
-    display: flex;
+  .sdp-tier-block .sdp-tier-row.mob-selected { border: 1.5px solid var(--r); padding: 17.5px 15.5px 15.5px; }
+  .sdp-tier-row.mob-selected::after { display: none; }
+  .sdp-tier-block .sdp-tier-left {
     flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
-    background: transparent;
-    border-right: none;
-    border-bottom: none;
-    padding: 16px 16px 0;
+    padding: 0;
+    margin-bottom: 12px;
+    border: none;
   }
-
-  /* Items panel below divider */
-  .sdp-tier-right {
-    background: transparent;
-    padding: 0 16px 16px;
-  }
-
-  /* Radio circle */
   .sdp-mob-radio {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     border-radius: 50%;
-    border: 1px solid #c8bfb3;
+    border: 1px solid color-mix(in srgb, var(--a) 50%, transparent);
     flex-shrink: 0;
-    margin-top: 3px;
-    background: transparent;
-    transition: background 0.15s, border-color 0.15s;
-  }
-
-  .sdp-tier-row.mob-selected .sdp-mob-radio {
-    background: #c9a96e;
-    border-color: #c9a96e;
-  }
-
-  /* Thin divider between header and items */
-  .sdp-mob-divider {
-    display: block;
-    height: 1px;
-    background: #d9d2c4;
-    margin: 12px 16px;
-  }
-
-  /* Most Popular pill — mobile only */
-  .sdp-mob-popular-badge {
-    display: inline-block;
-    font-family: 'Jost', sans-serif;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.07em;
-    color: #c9a96e;
-    background: rgba(201, 169, 110, 0.12);
-    border-radius: 20px;
-    padding: 2px 8px;
-    align-self: flex-start;
     margin-top: 1px;
   }
-
-  /* Hide desktop popular badge on mobile */
-  .sdp-tier-popular-badge { display: none; }
-
-  /* Remove the desktop popular top-border accent on mobile */
-  .sdp-tier-row-popular { border-top: none; }
+  .sdp-tier-row.mob-selected .sdp-mob-radio { background: var(--r); border-color: var(--r); }
+  .sdp-tier-price { font-size: 25px; text-align: right; }
+  .sdp-tier-price.long { font-size: 21px; }
+  .sdp-tier-block .sdp-tier-right { padding: 0; }
+  .sdp-tier-block .sdp-tier-left-info { flex: 1; margin-right: auto; }
+  /* Enquiry pop-up: easy-to-hit close button */
+  .enq-close {
+    top: 12px; right: 12px;
+    width: 44px; height: 44px;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--hairline);
+  }
+  .enq-header { padding-right: 44px; }
 }
 </style>
 <link rel="stylesheet" href="/mobile.min.css">
@@ -2233,54 +2328,50 @@ nav {
       <!-- Right sidebar -->
       <div class="sdp-sidebar">
         <div class="sdp-concierge-card" id="sdp-concierge-card">
-          <!-- Price signal -->
+          <!-- Header: title + payment link -->
           <div class="sdp-concierge-top">
-            <span class="sdp-concierge-eyebrow">Proposal Package</span>
-            <div class="sdp-concierge-price-block">
-              <div class="sdp-concierge-price-row">
-                <div style="display:flex;align-items:baseline;gap:6px">
-                  <span class="sdp-concierge-from">from</span>
-                  <span class="sdp-concierge-price" id="sdp-concierge-price">—</span>
-                </div>
-                <a class="sdp-convert-link" id="sdp-convert-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none">Convert ↗</a>
-              </div>
-              <span class="sdp-concierge-note">No payment until you approve your quote</span>
-            </div>
+            <h3 class="sdp-bk-title">Check Availability</h3>
+            <a class="sdp-payflow-jump" id="sdp-payflow-jump" href="#sdp-payflow-section" style="display:none">See how payment works &darr;</a>
             <div class="sdp-concierge-hotel-tag" id="sdp-concierge-hotel-tag" style="display:none" onclick="showHotelInfo()">
               <span style="font-size:13px">🏨</span>
               <span>On-site hotel available — <span class="sdp-hotel-link">learn how it works</span></span>
             </div>
+            <!-- Package price is still written here by the pricing code; the visible figure is the estimated total below -->
+            <span id="sdp-concierge-price" hidden>—</span>
           </div>
 
           <div class="sdp-concierge-body">
-            <!-- Tiered: Step 01 — Select your package (hidden for Single Price) -->
-            <div class="sdp-booking-step" id="sdp-step-tier" style="display:none">
-              <div class="sdp-step-header">
-                <span class="sdp-step-num">01</span>
-                <div>
-                  <span class="sdp-step-title">Select your package</span>
-                  <span class="sdp-step-sub">Choose the experience that feels right</span>
-                </div>
+            <!-- Tiered: Select your package (hidden for Single Price) -->
+            <div class="sdp-booking-step numbered" id="sdp-step-tier" style="display:none">
+              <span class="sdp-step-num"></span>
+              <div class="sdp-step-main">
+                <span class="sdp-step-title">Select your package</span>
+                <div id="sdp-tier-selector"></div>
               </div>
-              <div id="sdp-tier-selector"></div>
             </div>
 
-            <!-- Step 1 (Single Price only) -->
-            <div class="sdp-booking-step" id="sdp-step-1">
-              <div class="sdp-step-header">
-                <span class="sdp-step-num">01</span>
-                <div>
-                  <span class="sdp-step-title">The Moment</span>
-                  <span class="sdp-step-sub">Everything taken care of, so you just show up</span>
-                </div>
+            <!-- Single Price: add-ons only (shown when the spot has add-ons) -->
+            <div class="sdp-booking-step numbered" id="sdp-step-1">
+              <span class="sdp-step-num"></span>
+              <div class="sdp-step-main">
+                <span class="sdp-step-title">Enhance your experience</span>
+                <div id="sdp-moment-addons-list" style="display:none"></div>
               </div>
-              <div id="sdp-moment-addons-list" style="display:none"></div>
+            </div>
+
+            <!-- Tiered: Enhance your experience (hidden for Single Price) -->
+            <div class="sdp-booking-step numbered" id="sdp-step-enhance" style="display:none">
+              <span class="sdp-step-num"></span>
+              <div class="sdp-step-main">
+                <span class="sdp-step-title">Enhance your experience</span>
+                <div id="sdp-tier-addons"></div>
+              </div>
             </div>
 
             <!-- Step 2: Hotel toggle -->
-            <div class="sdp-booking-step" id="sdp-step-2">
+            <div class="sdp-booking-step unnumbered" id="sdp-step-2">
               <div class="sdp-step-header" onclick="toggleHotelStep()" style="cursor:pointer;user-select:none">
-                <span class="sdp-step-num">02</span>
+                <span class="sdp-step-num"></span>
                 <div>
                   <span class="sdp-step-title">Add a hotel stay?</span>
                   <span class="sdp-step-sub">Include hotel nights in your enquiry</span>
@@ -2318,32 +2409,25 @@ nav {
               <p class="sdp-seasonal-label" id="sdp-seasonal-label" style="display:none"></p>
             </div>
 
-            <!-- Tiered: Step 03 — Enhance your experience (hidden for Single Price) -->
-            <div class="sdp-booking-step" id="sdp-step-enhance" style="display:none">
-              <div class="sdp-step-header">
-                <span class="sdp-step-num">03</span>
-                <div>
-                  <span class="sdp-step-title">Enhance your experience</span>
-                  <span class="sdp-step-sub">Optional add-ons for your proposal</span>
-                </div>
-              </div>
-              <div id="sdp-tier-addons"></div>
-            </div>
-
-            <!-- Selection summary -->
+            <!-- Selection summary: still filled by the page script, hidden by CSS (the selected rows already show it) -->
             <div class="sdp-selection-summary" id="sdp-pricing-block" style="display:none">
               <span class="sdp-selection-title">Your selection</span>
               <div id="sdp-selection-items"></div>
             </div>
 
-            <!-- CTAs -->
-            <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Plan This Proposal →</button>
-            <p class="sdp-trust-note">
-              ✦ This is an inquiry — you won't be charged today
-            </p>
-            <!-- Jumps to the full "How payment works" section in the left
-                 column. Shown once a spot loads (see populateSpot). -->
-            <a class="sdp-payflow-jump" id="sdp-payflow-jump" href="#sdp-payflow-section" style="display:none">See how payment works ↓</a>
+            <!-- Estimated total (package + any priced add-ons) -->
+            <div class="sdp-total" id="sdp-total-block">
+              <div class="sdp-total-main">
+                <span class="sdp-total-label">Estimated total</span>
+                <span class="sdp-total-amount" id="sdp-total-amount">—</span>
+              </div>
+              <a class="sdp-convert-link" id="sdp-convert-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none">Convert ↗</a>
+            </div>
+            <p class="sdp-total-note" id="sdp-total-note" style="display:none"></p>
+
+            <!-- CTA -->
+            <button class="sdp-btn-primary" id="sdp-book-btn" onclick="openEnquiryModal()">Send Message</button>
+            <p class="sdp-trust-note">This is an inquiry only. No payment.</p>
 
             <!-- Hotel revealed -->
             <div id="sdp-hotel-block" style="display:none;margin-top:16px;padding:12px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--hairline)">
@@ -2795,7 +2879,7 @@ nav {
     </div>
 
     <button class="enq-submit-btn" id="enq-submit" onclick="submitEnquiry()">
-      Send Enquiry →
+      Send Message
     </button>
     <p class="enq-legal">By submitting you agree to be contacted by Proposal Spots regarding your enquiry. We do not share your details.</p>
   </div>
@@ -3142,7 +3226,7 @@ function populateSpot(s) {
     const includedItems = s['Included Items'] || '';
     if (includedItems) {
       const lines = includedItems.split('\n').map(l => l.trim()).filter(Boolean);
-      includedList.innerHTML = lines.map((line) => {
+      var _inclRows = lines.map((line) => {
         // Each item may be authored as "Title — description"; split so the
         // benefit reads bold and the detail sits lighter beneath it. Accept a
         // hyphen, en-dash or em-dash as the separator, but only when it's
@@ -3168,7 +3252,15 @@ function populateSpot(s) {
                 + '<div class="sdp-incl-title">' + title + '</div>';
         if (desc) row += '<div class="sdp-incl-desc">' + desc + '</div>';
         return row + '</div></div>';
-      }).join('');
+      });
+      // More than 5 items: show the first 5 and tuck the rest behind "See all"
+      if (_inclRows.length > 5) {
+        includedList.innerHTML = _inclRows.slice(0, 5).join('') +
+          '<div class="sdp-incl-extra" hidden>' + _inclRows.slice(5).join('') + '</div>' +
+          '<button type="button" class="sdp-see-all" data-total="' + _inclRows.length + '" onclick="toggleSeeAll(event, this)">See all ' + _inclRows.length + '</button>';
+      } else {
+        includedList.innerHTML = _inclRows.join('');
+      }
       includedSection.style.display = '';
     } else {
       includedSection.style.display = 'none';
@@ -3371,21 +3463,18 @@ function populateSpot(s) {
     if (step1El)   step1El.style.display   = 'none';
     if (stepTierEl) stepTierEl.style.display = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
-    // Tiered is a numbered flow — keep the step numbers visible
-    if (step2NumEl) step2NumEl.style.display = '';
     _tieredSelectedIdx = 0;
     _renderTierSelectorHTML(s.packages);
     _renderTierAddons(s);
     _updatePriceFromTier(s.packages);
+    updateEstimatedTotal();
   } else {
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none';
-    // Single Price isn't a numbered sequence — hide the step numbers so
-    // "The Moment" doesn't read as item 01 of the What's Included list
-    if (step1NumEl) step1NumEl.style.display = 'none';
-    if (step2NumEl) step2NumEl.style.display = 'none';
+    // Step numbers come from CSS counters, so they renumber on their own
     _renderMomentAddons(s);
+    updateEstimatedTotal();
   }
 
   setTimeout(renderProposalDateStep, 50);
@@ -3622,6 +3711,12 @@ function formatPrice(n, currency) {
   return symbol + ' ' + Math.round(n).toLocaleString() + ' ' + code;
 }
 
+// Compact form for narrow rows (selector, add-ons): symbol + number, no currency code
+function formatPriceShort(n, currency) {
+  const { symbol } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
+  return symbol + Math.round(n).toLocaleString();
+}
+
 function formatPriceHTML(n, currency) {
   const { symbol, code } = CURRENCY_MAP[currency || 'USD'] || CURRENCY_MAP.USD;
   return symbol + ' ' + Math.round(n).toLocaleString() + '<span class="sdp-price-code">' + code + '</span>';
@@ -3732,6 +3827,42 @@ function updateSelectionSummary() {
 
   items.innerHTML = lines.map(l => `<div class="sdp-selection-item"><span class="sdp-selection-dot"></span><span>${l}</span></div>`).join('');
   block.style.display = lines.length ? '' : 'none';
+  updateEstimatedTotal();
+}
+
+// Estimated total shown above the CTA: the selected package plus any add-ons that
+// have a price. Add-ons "on request" and a hotel stay are noted, not summed.
+// Display only: nothing here is submitted with the enquiry.
+function updateEstimatedTotal() {
+  var amountEl = document.getElementById('sdp-total-amount');
+  var noteEl   = document.getElementById('sdp-total-note');
+  if (!amountEl || !currentSpot) return;
+  var currency = currentSpot['Price Currency'];
+  var tiered   = currentSpot['Pricing Model'] === 'Tiered' && currentSpot.packages && currentSpot.packages.length;
+  var base     = tiered
+    ? _parseAmount(currentSpot.packages[_tieredSelectedIdx] && currentSpot.packages[_tieredSelectedIdx]['Price'])
+    : _parseAmount(currentSpot['Price Moment']);
+  var note = [];
+  if (base === null) {
+    amountEl.textContent = 'Enquire';
+    _updateConvertLink(null, currency);
+  } else {
+    var total = base, onRequest = 0;
+    document.querySelectorAll('#sdp-tier-addons input:checked, #sdp-moment-addons-list input:checked').forEach(function(cb) {
+      var amt = _parseAmount(cb.getAttribute('data-price'));
+      if (amt === null) { onRequest++; } else { total += amt; }
+    });
+    amountEl.innerHTML = formatPriceHTML(total, currency);
+    _updateConvertLink(total, currency);
+    if (onRequest) note.push('+ ' + onRequest + ' add-on' + (onRequest > 1 ? 's' : '') + ' priced on request');
+  }
+  var ci = document.getElementById('sdp-checkin') && document.getElementById('sdp-checkin').value;
+  var co = document.getElementById('sdp-checkout') && document.getElementById('sdp-checkout').value;
+  if (ci && co) note.push('Hotel stay quoted separately');
+  if (noteEl) {
+    noteEl.textContent = note.join(' · ');
+    noteEl.style.display = note.length ? '' : 'none';
+  }
 }
 
 // ─────────────────────────────────────────────────────────
@@ -4148,12 +4279,14 @@ function openEnquiryModal() {
 
   document.getElementById('enq-overlay').classList.add('open');
   document.getElementById('enq-modal').classList.add('open');
+  document.body.classList.add('enq-open'); // hides the nav so the close button is never covered
   document.body.style.overflow = 'hidden';
 }
 
 function closeEnquiryModal() {
   document.getElementById('enq-overlay').classList.remove('open');
   document.getElementById('enq-modal').classList.remove('open');
+  document.body.classList.remove('enq-open');
   document.body.style.overflow = '';
 }
 
@@ -4514,6 +4647,9 @@ function renderTieredPackages(packages) {
   if (!section || !block) return;
   section.style.display = '';
 
+  var currency = currentSpot && currentSpot['Price Currency'];
+  var SHOW = 5; // more than this many items collapses behind "See all"
+
   block.innerHTML = packages.map(function(pkg, i) {
     var prevPkg   = i > 0 ? packages[i - 1] : null;
     var allItems  = (pkg['Includes'] || '').split(',').map(function(x) { return x.trim(); }).filter(Boolean);
@@ -4522,42 +4658,56 @@ function renderTieredPackages(packages) {
       return !prevItems.some(function(p) { return p.toLowerCase() === item.toLowerCase(); });
     });
 
-    var price         = pkg['Price'] ? formatPriceHTML(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
-    var isPopular     = (pkg['Tier Name'] || '').toLowerCase() === 'romantic';
-    var popularBadge  = isPopular ? '<span class="sdp-tier-popular-badge">POPULAR</span>' : '';
-    var popularClass  = isPopular ? ' sdp-tier-row-popular' : '';
+    var priceNum      = _parseAmount(pkg['Price']);
+    var price         = pkg['Price'] ? formatPriceHTML(pkg['Price'], currency) : 'Enquire';
+    var priceClass    = (priceNum !== null && priceNum >= 1000000) ? ' long' : '';
+    var popular       = (i === 1) ? '<span class="sdp-tier-pop">Most popular</span>' : '';
     var slugMatch     = window.location.pathname.match(/\/spots\/([^\/]+)/);
     var currentSlug   = slugMatch ? slugMatch[1].toLowerCase() : '';
     var plusBasePkg   = (currentSlug === 'private-jungle-cenote' && packages[0]) ? packages[0] : prevPkg;
     var plusNote      = (i > 0 && plusBasePkg)
       ? '<span class="sdp-tier-plus-note"><span class="sdp-tier-pill-check">✓</span>Includes everything in ' + plusBasePkg['Tier Name'] + '</span>'
       : '';
-    var itemsHtml = newItems.map(function(item) {
-      return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + item + '</span></div>';
-    }).join('');
+    var itemHtml = function(item) {
+      // Older listings repeat the previous tier ("Moment + Drone"): show just the extra
+      var text = item.replace(/^(the\s+)?(moment|experience)\s*\+\s*/i, '').trim();
+      text = text.charAt(0).toUpperCase() + text.slice(1);
+      return '<div class="sdp-tier-item"><span class="sdp-tier-dot"></span><span>' + text + '</span></div>';
+    };
+    var itemsHtml = newItems.slice(0, SHOW).map(itemHtml).join('');
+    if (newItems.length > SHOW) {
+      itemsHtml += '<div class="sdp-tier-extra" hidden>' + newItems.slice(SHOW).map(itemHtml).join('') + '</div>' +
+        '<button type="button" class="sdp-see-all" data-total="' + newItems.length + '" onclick="toggleSeeAll(event, this)">See all ' + newItems.length + '</button>';
+    }
 
-    // Mobile-only elements — hidden on desktop via CSS
-    var mobSelectedClass  = (i === _tieredSelectedIdx) ? ' mob-selected' : '';
-    var mobPopularBadge   = (i === 1) ? '<span class="sdp-mob-popular-badge">Most Popular</span>' : '';
+    var tierClass = 'tier-' + ((i % 3) + 1);
+    var selClass  = (i === _tieredSelectedIdx) ? ' mob-selected' : '';
 
-    return '<div class="sdp-tier-row' + popularClass + mobSelectedClass + '" data-tier-idx="' + i + '" onclick="selectMobileTier(' + i + ')">' +
+    return '<div class="sdp-tier-row ' + tierClass + selClass + '" data-tier-idx="' + i + '" onclick="selectMobileTier(' + i + ')">' +
       '<div class="sdp-tier-left">' +
         '<span class="sdp-mob-radio"></span>' +
         '<div class="sdp-tier-left-info">' +
-          popularBadge +
+          popular +
           '<span class="sdp-tier-name">' + pkg['Tier Name'] + '</span>' +
-          mobPopularBadge +
-          '<span class="sdp-tier-price">' + price + '</span>' +
-          '<span class="sdp-tier-per">per experience</span>' +
         '</div>' +
+        '<span class="sdp-tier-price' + priceClass + '">' + price + '</span>' +
       '</div>' +
-      '<div class="sdp-mob-divider"></div>' +
       '<div class="sdp-tier-right">' +
         plusNote +
         itemsHtml +
       '</div>' +
     '</div>';
   }).join('');
+}
+
+// "See all N" / "Show fewer" for long inclusion lists (hidden items stay in the page)
+function toggleSeeAll(ev, btn) {
+  if (ev) { ev.stopPropagation(); }
+  var extra = btn.previousElementSibling;
+  if (!extra) return;
+  var open = extra.hasAttribute('hidden');
+  if (open) { extra.removeAttribute('hidden'); } else { extra.setAttribute('hidden', ''); }
+  btn.textContent = open ? 'Show fewer' : 'See all ' + btn.getAttribute('data-total');
 }
 
 // ─────────────────────────────────────────────────────────
@@ -4568,8 +4718,8 @@ function _renderTierSelectorHTML(packages) {
   if (!container) return;
   container.innerHTML = packages.map(function(pkg, i) {
     var sel   = (i === _tieredSelectedIdx);
-    var price = pkg['Price'] ? formatPrice(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
-    return '<div class="sdp-tier-sel-row' + (sel ? ' selected' : '') + '" onclick="selectTier(' + i + ')">' +
+    var price = pkg['Price'] ? formatPriceShort(pkg['Price'], currentSpot && currentSpot['Price Currency']) : 'Enquire';
+    return '<div class="sdp-tier-sel-row tier-' + ((i % 3) + 1) + (sel ? ' selected' : '') + '" onclick="selectTier(' + i + ')">' +
       '<div class="sdp-tier-sel-dot"><div class="sdp-tier-sel-dot-inner"></div></div>' +
       '<span class="sdp-tier-sel-name">' + pkg['Tier Name'] + '</span>' +
       '<span class="sdp-tier-sel-price">' + price + '</span>' +
@@ -4616,18 +4766,21 @@ function _renderMomentAddons(spot) {
     });
   }
 
+  var step1 = document.getElementById('sdp-step-1');
   if (!addonDefs.length) {
     container.style.display = 'none';
     container.innerHTML = '';
+    if (step1) step1.style.display = 'none';
     return;
   }
+  if (step1) step1.style.display = '';
 
   var rows = addonDefs.map(function(a) {
     var pLabel = '';
     var pAttr = '';
     if (a.price !== null && a.price !== undefined && a.price !== '') {
       if (typeof a.price === 'number') {
-        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pLabel = '+' + formatPriceShort(a.price, spot['Price Currency']);
         pAttr  = formatPrice(a.price, spot['Price Currency']);
       } else {
         var ps = String(a.price);
@@ -4713,7 +4866,7 @@ function _renderTierAddons(spot) {
     var pAttr = '';
     if (a.price !== null && a.price !== undefined) {
       if (typeof a.price === 'number') {
-        pLabel = '+' + formatPrice(a.price, spot['Price Currency']);
+        pLabel = '+' + formatPriceShort(a.price, spot['Price Currency']);
         pAttr  = formatPrice(a.price, spot['Price Currency']);
       } else {
         var ps = String(a.price);
@@ -4736,6 +4889,10 @@ function selectTier(idx) {
   _renderTierSelectorHTML(packages);
   _renderTierAddons(currentSpot);
   _updatePriceFromTier(packages);
+  // Mirror the choice on the package rows in the left column
+  document.querySelectorAll('#sdp-tier-block .sdp-tier-row').forEach(function(row, i) {
+    row.classList.toggle('mob-selected', i === idx);
+  });
   updateSelectionSummary();
 }
 
@@ -4743,26 +4900,8 @@ function selectTier(idx) {
 //  MOBILE PACKAGE CARDS
 // ─────────────────────────────────────────────────────────
 function selectMobileTier(idx) {
-  // No-op on desktop — click handler exists in HTML but is suppressed here
-  if (window.innerWidth >= 768) return;
-  // Update visual state of mobile cards
-  var rows = document.querySelectorAll('#sdp-tier-block .sdp-tier-row');
-  rows.forEach(function(row, i) {
-    if (i === idx) {
-      row.classList.add('mob-selected');
-    } else {
-      row.classList.remove('mob-selected');
-    }
-  });
-  // Sync to sidebar selector and pricing
+  // Clicking a package row selects it (the sidebar and the row highlight stay in sync)
   selectTier(idx);
-  // Scroll to the booking / enquiry section after re-render settles
-  setTimeout(function() {
-    var concierge = document.getElementById('sdp-concierge-card');
-    if (concierge) {
-      concierge.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, 0);
 }
 
 // Init on load
