@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PhotoUploader from "./PhotoUploader";
 import {
   TIER_SHADES,
   CURRENCY_SYMBOLS,
@@ -305,6 +306,28 @@ export default function Page() {
   const [error, setError] = useState("");
 
   const [tiers, setTiers] = useState(EMPTY_TIERS);
+  const [photos, setPhotos] = useState({ cover: [], card: [], gallery: [] });
+
+  // Each uploader gets a setter for its own list. The updater form keeps
+  // simultaneous uploads from overwriting each other.
+  const photoSetter = (role) => (updater) =>
+    setPhotos((p) => ({ ...p, [role]: updater(p[role]) }));
+  const allPhotos = [...photos.cover, ...photos.card, ...photos.gallery];
+  const photosUploading = allPhotos.some((p) => p.status === "uploading");
+  const photosFailed = allPhotos.some((p) => p.status === "error");
+  const doneOf = (list) =>
+    list
+      .filter((p) => p.status === "done" && p.url)
+      .map((p) => ({ url: p.url, name: p.name }));
+  const photosPayload = {
+    cover: doneOf(photos.cover)[0] || null,
+    card: doneOf(photos.card)[0] || null,
+    gallery: doneOf(photos.gallery),
+  };
+  const uploadedPhotoCount =
+    (photosPayload.cover ? 1 : 0) +
+    (photosPayload.card ? 1 : 0) +
+    photosPayload.gallery.length;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -407,6 +430,19 @@ export default function Page() {
       return;
     }
 
+    if (photosUploading) {
+      setError(
+        "Your photos are still uploading. Please wait a moment, then continue."
+      );
+      return;
+    }
+    if (photosFailed) {
+      setError(
+        "One of your photos did not upload. Please retry it or remove it, then continue."
+      );
+      return;
+    }
+
     if (!spot.mediaUsageConsent) {
       setError(
         "Please confirm we can use your photos and videos for this listing before submitting."
@@ -451,7 +487,7 @@ export default function Page() {
       const res = await fetch("/api/spots", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(spot),
+        body: JSON.stringify({ ...spot, photos: photosPayload }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
@@ -507,6 +543,7 @@ export default function Page() {
   function startAnotherSpot() {
     setSpot(EMPTY_SPOT);
     setTiers(EMPTY_TIERS);
+    setPhotos({ cover: [], card: [], gallery: [] });
     setError("");
     setStep("spot");
   }
@@ -828,6 +865,10 @@ export default function Page() {
               <div className="space-y-5 rounded-lg border border-line bg-white/40 p-5">
                 <div>
                   <Label>Price</Label>
+                  <p className="-mt-1 mb-2 text-xs text-ink/50">
+                    Enter the price couples will pay. It should already include
+                    Proposal Spots&apos; 20% commission.
+                  </p>
                   <PriceInput
                     currency={spot.priceCurrency}
                     value={spot.priceMoment}
@@ -1061,6 +1102,41 @@ export default function Page() {
               Photos &amp; credit
             </h2>
 
+            <p className="text-sm leading-relaxed text-ink/70">
+              Photos help couples picture the moment. Please upload your own
+              originals, as large as you have them. We keep your files exactly
+              as you send them. Real photos only, please, no AI generated
+              images. JPG, PNG or WebP. Photos are optional here, and you can
+              always email them to us instead.
+            </p>
+
+            <PhotoUploader
+              role="cover"
+              title="Cover photo"
+              description="Your hero image, shown full width at the top of your listing. Choose a bright landscape photo of the spot itself, with the best part of the view on the left side. One photo."
+              max={1}
+              items={photos.cover}
+              setItems={photoSetter("cover")}
+            />
+
+            <PhotoUploader
+              role="card"
+              title="Spot card photo"
+              description="The photo couples see while browsing. Pick one that still looks beautiful as a tall, narrow crop. One photo. If you skip this one, we will use your cover photo."
+              max={1}
+              items={photos.card}
+              setItems={photoSetter("card")}
+            />
+
+            <PhotoUploader
+              role="gallery"
+              title="Gallery photos"
+              description="The setup, the view, the small details. Up to 10 photos. We recommend at least 4."
+              max={10}
+              items={photos.gallery}
+              setItems={photoSetter("gallery")}
+            />
+
             <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-white/40 p-4">
               <input
                 type="checkbox"
@@ -1169,6 +1245,10 @@ export default function Page() {
 
               <div>
                 <Label>Price</Label>
+                <p className="-mt-1 mb-2 text-xs text-ink/50">
+                  Enter the price couples will pay. It should already include
+                  Proposal Spots&apos; 20% commission.
+                </p>
                 <PriceInput
                   currency={spot.priceCurrency}
                   value={tier.price}
@@ -1371,6 +1451,22 @@ export default function Page() {
                 .join(", ")}
             />
             <ReviewRow
+              label="Photos"
+              value={
+                uploadedPhotoCount
+                  ? [
+                      photosPayload.cover ? "Cover" : "",
+                      photosPayload.card ? "Spot card" : "",
+                      photosPayload.gallery.length
+                        ? `${photosPayload.gallery.length} gallery`
+                        : "",
+                    ]
+                      .filter(Boolean)
+                      .join(", ")
+                  : "None uploaded yet"
+              }
+            />
+            <ReviewRow
               label="Photo & video usage"
               value={spot.mediaUsageConsent ? "Consented" : ""}
             />
@@ -1444,8 +1540,9 @@ export default function Page() {
               live on Proposal Spots.
             </p>
             <p className="mt-5 border-t border-line pt-5 text-sm text-ink/60">
-              If you haven't already sent us photos of this spot, please
-              email them to{" "}
+              {uploadedPhotoCount > 0
+                ? "Thank you for your photos. If you have more to share, please email them to "
+                : "If you haven't already sent us photos of this spot, please email them to "}{" "}
               <a
                 href="mailto:hello@proposalspots.com"
                 className="text-wine underline underline-offset-2"
