@@ -899,8 +899,9 @@ export default function Page() {
                 <div>
                   <Label hint="optional, up to 4">Add-ons</Label>
                   <p className="-mt-1 mb-2 text-xs text-ink/50">
-                    Optional extras a couple can add on top for an additional
-                    charge — not part of the price above.
+                    Want to offer extras? Add up to 4 below. These are optional
+                    extras a couple can add on top for an additional charge, and
+                    they are not part of the price above.
                   </p>
                   <div className="space-y-2">
                     {spot.addons.map((addon, i) => (
@@ -1202,7 +1203,7 @@ export default function Page() {
           </div>
 
           <div className="space-y-2 rounded-lg border border-line bg-white/40 p-5">
-            <Label hint="apply to every tier below, optional, up to 3">
+            <Label hint="apply to every tier below, optional, up to 4">
               Add-ons
             </Label>
             <p className="text-xs text-ink/50">
@@ -1210,7 +1211,7 @@ export default function Page() {
               available extras in each tier below.
             </p>
             <div className="space-y-2">
-              {spot.addons.slice(0, 3).map((addon, i) => (
+              {spot.addons.slice(0, 4).map((addon, i) => (
                 <div key={i} className="grid grid-cols-3 gap-2">
                   <input
                     className={inputClass + " col-span-2"}
