@@ -56,6 +56,11 @@ export const SPOT_FIELDS = {
   MEDIA_USAGE_CONSENT: "Media Usage Consent",
   CREDIT_OPT_IN: "Credit / Name Opt-In",
   STATUS: "Status",
+  // Attachment fields are addressed by field ID so a rename in Airtable
+  // cannot break uploads.
+  COVER_PHOTO: "fldcZJx9NbSSaX5pv",
+  SPOT_CARD_PHOTO: "fldQZcjtyPVcHnFzp",
+  GALLERY_PHOTOS: "fldLcnINiLsMs19MO",
 };
 
 // Exact Airtable single-select choice strings, including trailing spaces

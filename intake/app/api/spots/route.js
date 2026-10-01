@@ -76,6 +76,27 @@ export async function POST(request) {
       if (addon?.price) fields[`Addon ${n} Price`] = Number(addon.price);
     });
 
+    // Photos were uploaded straight to Vercel Blob from the partner's
+    // browser. Airtable fetches each file from its URL and keeps its own
+    // full size copy, so nothing is resized or recompressed on the way.
+    const isBlobUrl = (u) => {
+      try {
+        return new URL(u).hostname.endsWith(".public.blob.vercel-storage.com");
+      } catch {
+        return false;
+      }
+    };
+    const toAttachment = (p) =>
+      p && isBlobUrl(p.url) ? { url: p.url, filename: p.name } : null;
+
+    const photos = body.photos || {};
+    const cover = toAttachment(photos.cover);
+    const card = toAttachment(photos.card);
+    const gallery = (photos.gallery || []).slice(0, 10).map(toAttachment).filter(Boolean);
+    if (cover) fields[SPOT_FIELDS.COVER_PHOTO] = [cover];
+    if (card) fields[SPOT_FIELDS.SPOT_CARD_PHOTO] = [card];
+    if (gallery.length) fields[SPOT_FIELDS.GALLERY_PHOTOS] = gallery;
+
     const record = await createRecord(TABLES.PROPOSAL_SPOTS, fields);
 
     return NextResponse.json({ id: record.id });
