@@ -274,87 +274,68 @@ nav {
 .sdp-gallery {
   margin-bottom: 52px;
   position: relative;
+  min-width: 0;
 }
 
-.sdp-gallery-viewer {
+/* Swipe strip: every photo keeps its own shape at one shared height.
+   Native scroll-snap = finger-tracking, momentum and snapping handled by the
+   browser. scroll-snap-stop keeps a hard flick to one photo at a time. */
+.sdp-gallery-strip {
   position: relative;
-  width: 100%;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.sdp-gallery-strip::-webkit-scrollbar { display: none; }
+
+.sdp-gallery-frame {
+  flex: 0 0 auto;
   height: 460px;
-  background: var(--bg2);
+  max-width: 100%;
+  aspect-ratio: 3 / 2;
   border-radius: 12px;
   overflow: hidden;
+  background: var(--bg2);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  cursor: zoom-in;
 }
-
-.sdp-gallery-bg {
-  position: absolute;
-  inset: 0;
+.sdp-gallery-frame img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(26px) brightness(0.7);
-  transform: scale(1.18);
-  z-index: 0;
-  display: none;
 }
-
-.sdp-gallery-main-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-/* Portrait photos only: show the whole photo with a blurred fill behind.
-   Landscape/square keep the edge-to-edge cover with no blur. */
-.sdp-gallery-viewer.is-portrait .sdp-gallery-bg { display: block; }
-.sdp-gallery-viewer.is-portrait .sdp-gallery-main-img { object-fit: contain; }
 
 .sdp-gallery-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(28,28,28,0.5);
-  border: none;
-  color: white;
-  font-size: 32px;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  cursor: pointer;
+  border: 1px solid var(--hairline);
+  background: rgba(253,252,250,0.92);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  line-height: 1;
-  transition: background 0.2s;
+  cursor: pointer;
+  z-index: 3;
+  transition: opacity 0.2s;
 }
-
-.sdp-gallery-arrow:hover { background: rgba(28,28,28,0.85); }
+.sdp-gallery-arrow:hover { opacity: 0.7; }
 .sdp-gallery-arrow.prev { left: 12px; }
 .sdp-gallery-arrow.next { right: 12px; }
-
-.sdp-gallery-dots {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 5;
-}
-
-.sdp-gallery-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(244,241,235,0.5);
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.sdp-gallery-dot.active { background: rgba(244,241,235,0.95); }
+.sdp-gallery-arrow.is-hidden { opacity: 0; pointer-events: none; }
 
 .sdp-gallery-count {
   position: absolute;
@@ -370,6 +351,7 @@ nav {
   padding: 4px 10px;
   border-radius: 100px;
   z-index: 2;
+  pointer-events: none;
 }
 
 .spot-map-wrapper { margin-bottom: 48px; }
@@ -523,10 +505,40 @@ nav {
 @media (max-width: 768px) { .sdp-payflow-block { padding: 28px 24px; } }
 
 .sdp-about { margin-bottom: 72px; }
-.sdp-about-text {
+.sdp-about-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sdp-about-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--hairline);
+  margin: 14px 0 28px;
+}
+.sdp-about-body { max-width: 36em; }
+.sdp-about-body p {
   font-family: 'Cormorant', serif;
-  font-size: 23px; font-weight: 300;
-  color: var(--ink); line-height: 1.8;
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--ink2);
+  line-height: 1.7;
+  margin-bottom: 1.15em;
+}
+.sdp-about-body p:last-child { margin-bottom: 0; }
+.sdp-about-body p:first-child::first-letter {
+  float: left;
+  font-size: 4.4em;
+  line-height: 0.8;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--terra);
+  font-weight: 300;
 }
 
 .sdp-included {
@@ -1689,11 +1701,12 @@ nav {
   .sdp-vibe-strip { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; padding: 0; }
   .sdp-vibe-strip::-webkit-scrollbar { display: none; }
   .sdp-vibe-chip { min-width: 120px; flex-shrink: 0; padding: 16px 18px; }
-  /* Gallery viewer shorter on mobile */
-  .sdp-gallery-viewer { height: 340px; }
-  .sdp-gallery-dots { display: none; }
-  /* About text: reduce from 23px editorial size */
-  .sdp-about-text { font-size: 18px; }
+  /* Gallery strip: shorter frames, edge-to-edge swipe with the next photo peeking in */
+  .sdp-gallery-strip { gap: 10px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; }
+  .sdp-gallery-frame { height: 340px; max-width: 86%; }
+  .sdp-gallery-arrow { display: none; }
+  /* About text: slightly smaller on mobile */
+  .sdp-about-body p { font-size: 19px; }
   /* Enquiry form: single column on mobile */
   .enq-form-row { grid-template-columns: 1fr; }
   /* Bottom CTA bar: ensure 44px tap target */
@@ -2122,19 +2135,16 @@ nav {
       <div class="sdp-main">
         <!-- Gallery -->
         <div class="sdp-gallery" id="sdp-gallery-section" style="display:none">
-          <div class="sdp-gallery-viewer" id="sdp-gallery-viewer">
-            <img class="sdp-gallery-bg" id="sdp-gallery-bg" src="" alt="" aria-hidden="true">
-            <img class="sdp-gallery-main-img" id="sdp-gallery-main" src="" alt="Proposal experience">
-            <div class="sdp-gallery-arrow prev" onclick="event.stopPropagation(); galleryPrev()">&#8249;</div>
-            <div class="sdp-gallery-arrow next" onclick="event.stopPropagation(); galleryNext()">&#8250;</div>
-            <div class="sdp-gallery-dots" id="sdp-gallery-dots"></div>
-            <div class="sdp-gallery-count" id="sdp-gallery-count"></div>
-          </div>
+          <div class="sdp-gallery-strip" id="sdp-gallery-strip"></div>
+          <button type="button" class="sdp-gallery-arrow prev is-hidden" id="sdp-gallery-prev" aria-label="Previous photo">&#8249;</button>
+          <button type="button" class="sdp-gallery-arrow next" id="sdp-gallery-next" aria-label="Next photo">&#8250;</button>
+          <div class="sdp-gallery-count" id="sdp-gallery-count"></div>
         </div>
 
         <!-- About -->
-        <div class="sdp-about">
-          <p class="sdp-about-text" id="sdp-full-summary"></p>
+        <div class="sdp-about" id="sdp-about">
+          <span class="sdp-about-label">The experience</span>
+          <div class="sdp-about-body" id="sdp-full-summary"></div>
         </div>
 
         <!-- Tiered packages section — only for Pricing Model = Tiered -->
@@ -3113,7 +3123,7 @@ function populateSpot(s) {
   document.getElementById('sdp-time').textContent = times;
 
   // About
-  document.getElementById('sdp-full-summary').textContent = s['Full Summary'] || s['Line Summary'] || '';
+  renderSummary(s['Full Summary'] || s['Line Summary'] || '');
 
   // What's included vs Tiered packages
   const includedSection = document.getElementById('sdp-included-section');
@@ -3397,78 +3407,116 @@ function goBack() {
 // ─────────────────────────────────────────────────────────
 //  GALLERY
 // ─────────────────────────────────────────────────────────
+function renderSummary(text) {
+  const wrap = document.getElementById('sdp-about');
+  const body = document.getElementById('sdp-full-summary');
+  body.textContent = '';
+  // Airtable long-text keeps the editor's line breaks as \n; each becomes a paragraph.
+  const paras = String(text || '').split(/\n+/).map(function(t) { return t.trim(); }).filter(Boolean);
+  wrap.style.display = paras.length ? '' : 'none';
+  paras.forEach(function(t) {
+    const p = document.createElement('p');
+    p.textContent = t;
+    body.appendChild(p);
+  });
+}
+
 function renderGallery(photos) {
-  _galleryPhotos = photos;
+  _galleryPhotos = photos || [];
   _galleryIndex = 0;
 
-  if (!photos || photos.length === 0) {
-    document.getElementById('sdp-gallery-section').style.display = 'none';
+  const section = document.getElementById('sdp-gallery-section');
+  const strip = document.getElementById('sdp-gallery-strip');
+  strip.textContent = '';
+
+  if (!_galleryPhotos.length) {
+    section.style.display = 'none';
     return;
   }
+  section.style.display = '';
 
-  document.getElementById('sdp-gallery-section').style.display = '';
-  renderGalleryFrame();
+  // Each photo gets its own frame in its own shape (ratio clamped so extreme
+  // panoramas / tall shots don't dominate). Frames share one height.
+  const clampRatio = function(w, h) { return Math.max(0.75, Math.min(1.6, w / h)); };
+  _galleryPhotos.forEach(function(photo, i) {
+    const frame = document.createElement('div');
+    frame.className = 'sdp-gallery-frame';
+    if (photo.width && photo.height) frame.style.aspectRatio = clampRatio(photo.width, photo.height).toFixed(3);
+
+    const img = document.createElement('img');
+    img.alt = 'Proposal experience photo ' + (i + 1);
+    img.decoding = 'async';
+    if (i > 0) img.loading = 'lazy';
+    // No dimensions from Airtable: take the shape from the loaded image.
+    if (!(photo.width && photo.height)) {
+      img.onload = function() {
+        if (img.naturalWidth && img.naturalHeight) {
+          frame.style.aspectRatio = clampRatio(img.naturalWidth, img.naturalHeight).toFixed(3);
+          updateGalleryUI();
+        }
+      };
+    }
+    img.src = optimizeAirtableImage(photo.url || '', 1400);
+
+    frame.appendChild(img);
+    frame.addEventListener('click', function() { openLightbox(i); });
+    strip.appendChild(frame);
+  });
+
+  strip.scrollLeft = 0;
+  updateGalleryUI();
 }
 
-function renderGalleryFrame() {
-  const photo = _galleryPhotos[_galleryIndex];
-  if (!photo) return;
-
-  const optimized = optimizeAirtableImage(photo.url || '', 1400);
-  const viewer = document.getElementById('sdp-gallery-viewer');
-  const mainImg = document.getElementById('sdp-gallery-main');
-  const bgImg = document.getElementById('sdp-gallery-bg');
-
-  // Portrait photos get the "contain + blurred fill" treatment; landscape
-  // and square photos keep the edge-to-edge cover (no blur).
-  const markPortrait = (w, h) => viewer.classList.toggle('is-portrait', !!(w && h && h > w));
-  mainImg.onload = () => markPortrait(mainImg.naturalWidth, mainImg.naturalHeight);
-  if (photo.width && photo.height) markPortrait(photo.width, photo.height);
-
-  mainImg.src = optimized;
-  bgImg.src = optimized;
-  document.getElementById('sdp-gallery-count').textContent = (_galleryIndex + 1) + ' / ' + _galleryPhotos.length;
-
-  // Dots
-  const dotsEl = document.getElementById('sdp-gallery-dots');
-  dotsEl.innerHTML = _galleryPhotos.map((_, i) =>
-    `<div class="sdp-gallery-dot${i === _galleryIndex ? ' active' : ''}" onclick="galleryGoto(${i})"></div>`
-  ).join('');
+function _galleryFramePos(i) {
+  const frames = document.getElementById('sdp-gallery-strip').children;
+  return frames[i].offsetLeft - frames[0].offsetLeft;
 }
 
-function galleryPrev() {
-  _galleryIndex = (_galleryIndex - 1 + _galleryPhotos.length) % _galleryPhotos.length;
-  renderGalleryFrame();
+function updateGalleryUI() {
+  const strip = document.getElementById('sdp-gallery-strip');
+  const n = _galleryPhotos.length;
+  if (!strip || !n || !strip.children.length) return;
+
+  const atStart = strip.scrollLeft <= 2;
+  const atEnd = strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 2;
+
+  let idx = 0, best = Infinity;
+  for (let i = 0; i < n; i++) {
+    const d = Math.abs(_galleryFramePos(i) - strip.scrollLeft);
+    if (d < best) { best = d; idx = i; }
+  }
+  if (atEnd && strip.scrollWidth > strip.clientWidth + 2) idx = n - 1;
+  _galleryIndex = idx;
+
+  const multi = strip.scrollWidth > strip.clientWidth + 2;
+  document.getElementById('sdp-gallery-count').textContent = multi ? (idx + 1) + ' / ' + n : '';
+  document.getElementById('sdp-gallery-prev').classList.toggle('is-hidden', !multi || atStart);
+  document.getElementById('sdp-gallery-next').classList.toggle('is-hidden', !multi || atEnd);
 }
 
-function galleryNext() {
-  _galleryIndex = (_galleryIndex + 1) % _galleryPhotos.length;
-  renderGalleryFrame();
+function galleryScrollTo(i, smooth) {
+  const strip = document.getElementById('sdp-gallery-strip');
+  if (!strip || !strip.children.length) return;
+  i = Math.max(0, Math.min(_galleryPhotos.length - 1, i));
+  strip.scrollTo({ left: _galleryFramePos(i), behavior: smooth ? 'smooth' : 'auto' });
 }
 
-function galleryGoto(i) {
-  _galleryIndex = i;
-  renderGalleryFrame();
-}
+function galleryPrev() { galleryScrollTo(_galleryIndex - 1, true); }
+function galleryNext() { galleryScrollTo(_galleryIndex + 1, true); }
 
 (function() {
-  var _touchStartX = 0, _touchStartY = 0;
-  function onTouchStart(e) {
-    _touchStartX = e.touches[0].clientX;
-    _touchStartY = e.touches[0].clientY;
-  }
-  function onTouchEnd(e) {
-    if (window.innerWidth > 768) return;
-    var dx = e.changedTouches[0].clientX - _touchStartX;
-    var dy = e.changedTouches[0].clientY - _touchStartY;
-    if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy)) return;
-    if (dx < 0) galleryNext(); else galleryPrev();
-  }
   document.addEventListener('DOMContentLoaded', function() {
-    var el = document.getElementById('sdp-gallery-viewer');
-    if (!el) return;
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchend', onTouchEnd, { passive: true });
+    const strip = document.getElementById('sdp-gallery-strip');
+    if (!strip) return;
+    let ticking = false;
+    strip.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() { ticking = false; updateGalleryUI(); });
+    }, { passive: true });
+    window.addEventListener('resize', updateGalleryUI);
+    document.getElementById('sdp-gallery-prev').addEventListener('click', galleryPrev);
+    document.getElementById('sdp-gallery-next').addEventListener('click', galleryNext);
   });
 })();
 
@@ -3512,6 +3560,7 @@ function openLightbox(index) {
 
 function closeLightbox() {
   document.getElementById('sdp-lightbox').classList.remove('open');
+  galleryScrollTo(_lightboxIndex, false);
 }
 
 function lightboxPrev() {
