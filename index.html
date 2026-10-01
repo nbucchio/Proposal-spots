@@ -894,6 +894,38 @@ nav.scrolled {
 }
 .section-title strong { font-weight: 500; }
 
+/* Centered section header (Find Your Vibe / Find Your Destination) */
+.section-header.section-header--center {
+  flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; margin-bottom: 40px;
+}
+.section-header--center .section-title {
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+}
+.section-header--center .section-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mid); line-height: 1.6;
+  max-width: 380px; margin: 0 auto;
+}
+.section-cta-wrap { display: flex; justify-content: center; margin-top: 40px; }
+.section-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400;
+  letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+  color: #fff; background: #A55A4A;
+  padding: 15px 34px; border-radius: 100px;
+  transition: background 0.2s, transform 0.2s;
+}
+.section-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.section-cta span { transition: transform 0.2s; }
+.section-cta:hover span { transform: translateX(3px); }
+
 .section-results {
   font-family: 'Jost', sans-serif;
   font-size: 11px;
@@ -2494,7 +2526,7 @@ footer {
   .section { padding: 64px 20px; }
   /* Remove gap between Browse by Vibe and Featured Markets on mobile */
   #vibes-section .section { padding-bottom: 0 !important; }
-  #markets-section .section { padding-top: 0 !important; }
+  #markets-section .section { padding-top: 56px !important; }
   .market-spot-card { flex-basis: 65%; }
   .markets-arrow { display: none; }
   .vibe-card { flex-basis: 65%; }
@@ -2508,6 +2540,8 @@ footer {
   .seo-editorial-photo-wrap { aspect-ratio: 16/9; order: 1; border-radius: 0; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .section-header.section-header--center { align-items: center; gap: 0; margin-bottom: 28px; }
+  .section-cta-wrap { margin-top: 32px; }
   .filter-pills-row { overflow-x: auto; scrollbar-width: none; }
   .filter-pills-row::-webkit-scrollbar { display: none; }
   /* Footer padding scaled for mobile */
@@ -2529,7 +2563,7 @@ footer {
   /* Section padding at 40px per mobile spec */
   .section { padding: 40px 16px; }
   #vibes-section .section { padding-bottom: 0 !important; }
-  #markets-section .section { padding-top: 0 !important; }
+  #markets-section .section { padding-top: 56px !important; }
   /* Tighter hero padding on smallest screens */
   .hero { padding: 96px 16px 48px; }
   .hero-title { font-size: clamp(32px, 9vw, 44px); }
@@ -5786,10 +5820,10 @@ footer {
 <!-- VIBES -->
 <div class="section-wrap alt" id="vibes-section">
   <div class="section">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <div class="section-meta">
-        <span class="section-eyebrow">Expertly curated</span>
-        <h2 class="section-title">Browse by <strong>Vibe</strong></h2>
+        <h2 class="section-title">Find Your Vibe</h2>
+        <p class="section-sub">Choose the feeling first.</p>
       </div>
     </div>
     <div class="vibes-carousel-wrap">
@@ -5807,12 +5841,11 @@ footer {
 <!-- FEATURED MARKETS -->
 <div class="section-wrap" id="markets-section">
   <div class="section">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <div class="section-meta">
-        <span class="section-eyebrow">Browse by destination</span>
-        <h2 class="section-title">Featured <strong>Markets</strong></h2>
+        <h2 class="section-title">Find Your Destination</h2>
+        <p class="section-sub">Where in the world will you say it?</p>
       </div>
-      <a href="/destinations" class="section-link" style="color:#A55A4A;font-weight:500">All destinations →</a>
     </div>
     <div class="markets-grid" style="cursor:pointer">
       <a class="market-card" href="/destinations/portugal">
@@ -5852,6 +5885,9 @@ footer {
       <button type="button" class="markets-arrow markets-arrow-next" id="markets-next" aria-label="Next destinations">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
       </button>
+    </div>
+    <div class="section-cta-wrap">
+      <a href="/destinations" class="section-cta">All destinations <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </div>
