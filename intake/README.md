@@ -18,9 +18,9 @@ AIRTABLE_BASE_ID=appyZ3CKlGqvHjpWp
 
 `AIRTABLE_BASE_ID` above points at the SANDBOX base
 ("Proposal Spots (Copy)"). Table and field IDs are identical between
-the sandbox and production base (Airtable preserved them on
-duplication), so promoting to production later is just swapping this
-one value to the production base ID — no code changes needed.
+the sandbox and production base (Airtable preserved them on duplication),
+so promoting to production later is just swapping this one value to the
+production base ID — no code changes needed.
 
 Token scopes required: `data.records:read`, `data.records:write`,
 `schema.bases:read`, restricted to only the base you're pointing at.
@@ -58,3 +58,18 @@ project, then redeploy (Vercel will prompt you).
 
 New records are always saved as Status = Draft — nothing is
 partner-published live automatically.
+
+## Photo uploads
+
+The form lets partners upload a cover photo, a spot card photo and up to 10
+gallery photos. Files go from the partner's browser straight to Vercel Blob
+(no resizing or re-encoding), and the spot record then receives the file URLs
+in its Cover Photo, Spot Card Photo and Gallery Photos attachment fields.
+Airtable keeps its own full size copy of each file.
+
+Required environment variable (added automatically when a Blob store is
+connected to this project with the read-write token option ticked):
+
+```
+BLOB_READ_WRITE_TOKEN=...
+```
