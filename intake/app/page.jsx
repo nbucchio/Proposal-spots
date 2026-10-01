@@ -423,12 +423,6 @@ export default function Page() {
       setError("Select at least one way the couple can pay you the balance.");
       return;
     }
-    if (!spot.balancePaymentDetails.trim()) {
-      setError(
-        "Please add the payment details we'll share with the couple in their confirmation."
-      );
-      return;
-    }
 
     if (photosUploading) {
       setError(
@@ -1083,7 +1077,7 @@ export default function Page() {
             </div>
 
             <div>
-              <Label hint="shared with the couple">Payment details</Label>
+              <Label hint="optional, shared with the couple">Payment details</Label>
               <textarea
                 className={inputClass}
                 rows={3}
