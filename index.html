@@ -868,6 +868,9 @@ nav.scrolled {
   margin: 0 auto;
   padding: 88px 48px;
 }
+/* Equal breathing room: map -> Find Your Vibe title, and vibe carousel -> Find Your Destination title */
+#vibes-section .section { padding-top: 88px; padding-bottom: 0; }
+#markets-section .section { padding-top: 88px; }
 
 .section-header {
   display: flex; align-items: flex-end;
@@ -2422,13 +2425,6 @@ footer {
   .ssb-btn-text { display: none; }
   .ssb-btn-icon { display: block; color: #fff; }
 
-  /* Section below hero needs space for the overlapping capsule
-     and must sit below the fold on initial load */
-  #markets-section {
-    padding-top: 55px;
-    margin-top: 40px;
-  }
-
   /* Dropdown — drops down directly below the tapped row. Positioned
      absolutely (not fixed) so it can overlay the section below the hero
      instead of being clipped at the viewport edge. */
@@ -2525,8 +2521,8 @@ footer {
   .intent-toggle { justify-content: center; }
   .section { padding: 64px 20px; }
   /* Remove gap between Browse by Vibe and Featured Markets on mobile */
-  #vibes-section .section { padding-bottom: 0 !important; }
-  #markets-section .section { padding-top: 56px !important; }
+  #vibes-section .section { padding-top: 64px !important; padding-bottom: 0 !important; }
+  #markets-section .section { padding-top: 64px !important; }
   .market-spot-card { flex-basis: 65%; }
   .markets-arrow { display: none; }
   .vibe-card { flex-basis: 65%; }
@@ -2562,7 +2558,7 @@ footer {
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   /* Section padding at 40px per mobile spec */
   .section { padding: 40px 16px; }
-  #vibes-section .section { padding-bottom: 0 !important; }
+  #vibes-section .section { padding-top: 56px !important; padding-bottom: 0 !important; }
   #markets-section .section { padding-top: 56px !important; }
   /* Tighter hero padding on smallest screens */
   .hero { padding: 96px 16px 48px; }
@@ -5906,6 +5902,9 @@ footer {
     <div id="spots-empty" style="display:none; text-align:center; padding: 48px 0;">
       <p style="font-family:'Cormorant',serif; font-size:20px; color:var(--mid); font-weight:300;">No spots match your filters.</p>
       <button onclick="clearAllFilters()" style="margin-top:16px; background:none; border:1px solid var(--hairline); font-family:'Jost',sans-serif; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--mid); padding:10px 20px; cursor:pointer;">Clear Filters</button>
+    </div>
+    <div class="section-cta-wrap">
+      <a href="/destinations" class="cta-pill">All destinations &rarr;</a>
     </div>
   </div>
 </div>
