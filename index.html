@@ -898,18 +898,21 @@ nav.scrolled {
 .section-title strong { font-weight: 500; }
 
 /* Centered section header (Find Your Vibe / Find Your Destination) */
-.section-header.section-header--center {
+.section-header.section-header--center,
+.section-header.picks-centered {
   flex-direction: column; align-items: center; justify-content: center;
   text-align: center; margin-bottom: 40px;
 }
-.section-header--center .section-title {
+.section-header--center .section-title,
+.picks-centered .section-title {
   font-size: clamp(38px, 5.5vw, 68px);
   font-weight: 300;
   line-height: 1.0;
   letter-spacing: -0.01em;
   margin: 0 0 14px;
 }
-.section-header--center .section-sub {
+.section-header--center .section-sub,
+.picks-centered .section-sub {
   font-family: 'Jost', sans-serif;
   font-size: 11px; font-weight: 300;
   letter-spacing: 0.1em; text-transform: uppercase;
@@ -1284,8 +1287,6 @@ nav.scrolled {
   width: 100%;
 }
 /* Editor's Picks — centered main header (country labels stay left) */
-#spots-header.picks-centered { justify-content: center; text-align: center; }
-#spots-header.picks-centered .section-meta { align-items: center; }
 /* Editor's Picks — grouped by country into horizontal shelves */
 .spots-grid.is-grouped { display: block; }
 .pick-group { margin-bottom: 52px; }
@@ -2523,6 +2524,7 @@ footer {
   /* Remove gap between Browse by Vibe and Featured Markets on mobile */
   #vibes-section .section { padding-top: 64px !important; padding-bottom: 0 !important; }
   #markets-section .section { padding-top: 64px !important; }
+  #picks-section .section { padding-bottom: 72px !important; }
   .market-spot-card { flex-basis: 65%; }
   .markets-arrow { display: none; }
   .vibe-card { flex-basis: 65%; }
@@ -2536,7 +2538,7 @@ footer {
   .seo-editorial-photo-wrap { aspect-ratio: 16/9; order: 1; border-radius: 0; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
-  .section-header.section-header--center { align-items: center; gap: 0; margin-bottom: 28px; }
+  .section-header.section-header--center, .section-header.picks-centered { align-items: center; gap: 0; margin-bottom: 28px; }
   .section-cta-wrap { margin-top: 32px; }
   .filter-pills-row { overflow-x: auto; scrollbar-width: none; }
   .filter-pills-row::-webkit-scrollbar { display: none; }
@@ -2560,6 +2562,7 @@ footer {
   .section { padding: 40px 16px; }
   #vibes-section .section { padding-top: 56px !important; padding-bottom: 0 !important; }
   #markets-section .section { padding-top: 56px !important; }
+  #picks-section .section { padding-bottom: 72px !important; }
   /* Tighter hero padding on smallest screens */
   .hero { padding: 96px 16px 48px; }
   .hero-title { font-size: clamp(32px, 9vw, 44px); }
@@ -5889,12 +5892,13 @@ footer {
 </div>
 
 <!-- EDITOR'S PICKS — rendered from data -->
-<div class="section-wrap white">
+<div class="section-wrap white" id="picks-section">
   <div class="section">
-    <div class="section-header" id="spots-header">
+    <div class="section-header picks-centered" id="spots-header">
       <div class="section-meta">
-        <span class="section-eyebrow" id="spots-eyebrow">Hand-selected</span>
-        <h2 class="section-title" id="spots-title">Editor's <strong>Picks</strong></h2>
+        <span class="section-eyebrow" id="spots-eyebrow" style="display:none"></span>
+        <h2 class="section-title" id="spots-title">Hand-Picked Spots</h2>
+        <p class="section-sub" id="spots-sub">The ones we'd choose ourselves.</p>
       </div>
       <span class="section-results" id="spots-count" style="display:none"></span>
     </div>
@@ -5904,7 +5908,7 @@ footer {
       <button onclick="clearAllFilters()" style="margin-top:16px; background:none; border:1px solid var(--hairline); font-family:'Jost',sans-serif; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--mid); padding:10px 20px; cursor:pointer;">Clear Filters</button>
     </div>
     <div class="section-cta-wrap">
-      <a href="/destinations" class="cta-pill">All destinations &rarr;</a>
+      <a href="/destinations" class="section-cta">All destinations <span aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </div>
@@ -7832,6 +7836,7 @@ function renderSpots(spots) {
   const countEl = document.getElementById('spots-count');
   const eyebrow = document.getElementById('spots-eyebrow');
   const title   = document.getElementById('spots-title');
+  const sub     = document.getElementById('spots-sub');
   const header  = document.getElementById('spots-header');
 
   const filtersActive = state.vibe.size > 0 || state.privacy.size > 0 ||
@@ -7842,13 +7847,15 @@ function renderSpots(spots) {
   const spotsToRender = filtersActive ? spots : spots.filter(s => s.editorsPick);
 
   if (filtersActive) {
-    if (eyebrow) eyebrow.textContent = 'Filtered results';
+    if (eyebrow) { eyebrow.textContent = 'Filtered results'; eyebrow.style.display = ''; }
+    if (sub) sub.style.display = 'none';
     if (title) title.innerHTML = `<strong>${spotsToRender.length}</strong> spot${spotsToRender.length !== 1 ? 's' : ''} found`;
     if (countEl) countEl.style.display = 'none';
     if (header) header.classList.remove('picks-centered');
   } else {
-    if (eyebrow) eyebrow.textContent = 'Hand-selected';
-    if (title) title.innerHTML = `Editor\'s <strong>Picks</strong>`;
+    if (eyebrow) eyebrow.style.display = 'none';
+    if (sub) sub.style.display = '';
+    if (title) title.textContent = 'Hand-Picked Spots';
     if (countEl) countEl.style.display = 'none';
     if (header) header.classList.add('picks-centered');
   }
