@@ -1699,7 +1699,9 @@ nav {
   .sdp-back { left: 16px; }
   .sdp-heart-btn { right: 16px; }
   .sdp-vibe-strip { padding: 16px 20px; }
-  .sdp-body { padding: 24px 20px 100px; }
+  .sdp-body { padding: 32px 20px 100px; }
+  /* Same space under the photos as above them */
+  .sdp-gallery { margin-bottom: 32px; }
   .sdp-hero-name { font-size: clamp(24px, 5vw, 40px); }
   /* Vibe strip: horizontal scroll so chips never compress below readable width */
   .sdp-vibe-strip { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; padding: 0; }
@@ -2049,6 +2051,43 @@ nav {
 }
 .enq-submit-btn:hover { background: var(--ink); }
 body.enq-open nav#navbar { opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+
+/* Extra tiers list what they ADD, so they get plus signs instead of bullets */
+.sdp-tier-row.tier-2 .sdp-tier-dot,
+.sdp-tier-row.tier-3 .sdp-tier-dot {
+  position: relative;
+  width: 9px; height: 9px;
+  margin-top: 5px;
+  background: none;
+  border-radius: 0;
+}
+.sdp-tier-row.tier-2 .sdp-tier-dot::before,
+.sdp-tier-row.tier-3 .sdp-tier-dot::before,
+.sdp-tier-row.tier-2 .sdp-tier-dot::after,
+.sdp-tier-row.tier-3 .sdp-tier-dot::after {
+  content: '';
+  position: absolute;
+  background: var(--a);
+}
+.sdp-tier-row.tier-2 .sdp-tier-dot::before,
+.sdp-tier-row.tier-3 .sdp-tier-dot::before { left: 0; right: 0; top: 4px; height: 1px; }
+.sdp-tier-row.tier-2 .sdp-tier-dot::after,
+.sdp-tier-row.tier-3 .sdp-tier-dot::after { top: 0; bottom: 0; left: 4px; width: 1px; }
+
+/* Desktop: the chosen package is clearly marked */
+@media (min-width: 768px) {
+  .sdp-tier-row.mob-selected::after { border: 2px solid var(--a); }
+  .sdp-tier-row.mob-selected .sdp-tier-left::after {
+    content: '\2713  Selected';
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--a);
+    margin-top: 4px;
+  }
+}
 
 /* ── Mobile (phones) ──────────────────────────────────── */
 @media (max-width: 767px) {
