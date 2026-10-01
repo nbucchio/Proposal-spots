@@ -5915,50 +5915,46 @@ footer {
 
 <!-- THE PROCESS -->
 <style>
-.ps-process-steps { display:flex; gap:0; align-items:flex-start; text-align:left; }
-.ps-process-step { flex:1; }
-.ps-process-step-1 { padding-right:48px; }
-.ps-process-step-2 { padding:0 48px; }
-.ps-process-step-3 { padding-left:48px; }
-.ps-process-div { width:0.5px; background:rgba(28,28,28,0.10); align-self:stretch; flex-shrink:0; }
-.ps-process-link { font-family:'Jost',sans-serif; font-size:13px; font-weight:400; color:var(--accent); text-decoration:none; }
-.ps-process-link:hover { text-decoration:underline; }
+.ps-process-section { width:100%; background:var(--bg); padding:96px 0; text-align:center; }
+.ps-process-inner { max-width:1100px; margin:0 auto; padding:0 40px; }
+.ps-process-title { font-family:'Cormorant',serif; font-size:clamp(38px,5.5vw,68px); font-weight:300; color:var(--ink); line-height:1.0; letter-spacing:-0.01em; margin:0 0 14px; }
+.ps-process-sub { font-family:'Jost',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); line-height:1.6; max-width:380px; margin:0 auto 56px; }
+.ps-process-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:960px; margin:0 auto; }
+.ps-process-step .ps-process-num { font-family:'Cormorant',serif; font-size:96px; font-weight:300; line-height:1; color:#A55A4A; margin:0 0 8px; max-width:none; }
+.ps-process-step h3 { font-family:'Cormorant',serif; font-size:26px; font-weight:400; line-height:1.15; color:var(--ink); letter-spacing:0.01em; margin:0 0 10px; }
+.ps-process-step p { font-family:'Jost',sans-serif; font-size:14px; font-weight:300; color:rgba(28,28,28,0.65); line-height:1.7; margin:0 auto; max-width:280px; }
+.ps-process-cta-wrap { display:flex; justify-content:center; margin-top:56px; }
 @media(max-width:768px){
-  .ps-process-steps { flex-direction:column; gap:40px; }
-  .ps-process-div { display:none; }
-  .ps-process-step-1,
-  .ps-process-step-2,
-  .ps-process-step-3 { padding:0; }
-  /* The mobile tagline below the hero already carries the card overhang,
-     so the section just needs a clean gap above its heading */
-  .ps-process-section { padding-top:44px !important; }
+  .ps-process-section { padding:64px 0 !important; }
+  .ps-process-inner { padding:0 20px; }
+  .ps-process-sub { margin-bottom:40px; }
+  .ps-process-steps { grid-template-columns:1fr; gap:44px; }
+  .ps-process-cta-wrap { margin-top:44px; }
 }
 </style>
-<section class="ps-process-section" style="width:100%;background:var(--bg);padding:80px 0;text-align:center;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
-    <p style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin:0 0 16px;">The Process</p>
-    <h2 style="font-family:'Cormorant',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;font-style:italic;color:var(--ink);letter-spacing:0.01em;margin:0 0 64px;line-height:1.15;">From idea to unforgettable.</h2>
+<section class="ps-process-section">
+  <div class="ps-process-inner">
+    <h2 class="ps-process-title">The Process</h2>
+    <p class="ps-process-sub">From idea to unforgettable.</p>
     <div class="ps-process-steps">
-      <div class="ps-process-step ps-process-step-1">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">01</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">Find your spot.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">Browse by destination, vibe, or budget. Every location is vetted for privacy, light, and emotional impact.</p>
+      <div class="ps-process-step">
+        <p class="ps-process-num">1</p>
+        <h3>Find your spot</h3>
+        <p>Browse by destination, vibe, or budget. Every location is vetted for privacy, light, and emotional impact.</p>
       </div>
-      <div class="ps-process-div"></div>
-      <div class="ps-process-step ps-process-step-2">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">02</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">We handle everything.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">One enquiry. We confirm availability, coordinate setup, and brief your photographer.</p>
+      <div class="ps-process-step">
+        <p class="ps-process-num">2</p>
+        <h3>We handle everything</h3>
+        <p>One enquiry. We confirm availability, coordinate setup, and brief your photographer.</p>
       </div>
-      <div class="ps-process-div"></div>
-      <div class="ps-process-step ps-process-step-3">
-        <p style="font-family:'Cormorant',serif;font-size:48px;font-weight:400;color:rgba(28,28,28,0.12);margin:0 0 20px;line-height:1;">03</p>
-        <h3 style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--ink);margin:0 0 14px;letter-spacing:0.01em;">You show up. Everything is ready.</h3>
-        <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:rgba(28,28,28,0.65);line-height:1.7;margin:0;">The only thing left is the question.</p>
+      <div class="ps-process-step">
+        <p class="ps-process-num">3</p>
+        <h3>You say the question</h3>
+        <p>Everything is ready. The only thing left is the question.</p>
       </div>
     </div>
-    <div style="margin-top:56px;">
-      <a href="/how-it-works.html" class="ps-process-link">See how it all works &#8594;</a>
+    <div class="ps-process-cta-wrap">
+      <a href="/how-it-works.html" class="section-cta">See how it works <span aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
