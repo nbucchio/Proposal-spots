@@ -1986,6 +1986,9 @@ nav {
 .sdp-tier-sel-price { font-family: 'Cormorant', serif; font-size: 14.5px; font-weight: 300; color: var(--ink); white-space: nowrap; }
 .sdp-tier-addon-row input[type="checkbox"] { accent-color: #A55A4A; }
 .sdp-tier-addon-name { font-size: 12.5px; }
+/* Single-price "Your package" row: shown as chosen, not clickable */
+.sdp-tier-sel-row.sdp-package-row { cursor: default; margin-bottom: 0; }
+.sdp-tier-sel-row.sdp-package-row:hover { border-color: var(--r); }
 /* Estimated total + CTA */
 .sdp-total {
   display: flex;
@@ -2341,6 +2344,19 @@ body.enq-open nav#navbar { opacity: 0; pointer-events: none; transition: opacity
           </div>
 
           <div class="sdp-concierge-body">
+            <!-- Single Price: the package and its price, itemised like the tiered rows (not selectable) -->
+            <div class="sdp-booking-step numbered" id="sdp-step-package" style="display:none">
+              <span class="sdp-step-num"></span>
+              <div class="sdp-step-main">
+                <span class="sdp-step-title">Your package</span>
+                <div class="sdp-tier-sel-row tier-1 selected sdp-package-row">
+                  <div class="sdp-tier-sel-dot"></div>
+                  <span class="sdp-tier-sel-name">The Moment</span>
+                  <span class="sdp-tier-sel-price" id="sdp-package-price">—</span>
+                </div>
+              </div>
+            </div>
+
             <!-- Tiered: Select your package (hidden for Single Price) -->
             <div class="sdp-booking-step numbered" id="sdp-step-tier" style="display:none">
               <span class="sdp-step-num"></span>
@@ -3457,9 +3473,11 @@ function populateSpot(s) {
   const stepTierEl = document.getElementById('sdp-step-tier');
   const step1El    = document.getElementById('sdp-step-1');
   const stepEnhEl  = document.getElementById('sdp-step-enhance');
+  const stepPkgEl  = document.getElementById('sdp-step-package');
   const step1NumEl = step1El && step1El.querySelector('.sdp-step-num');
   const step2NumEl = step2El && step2El.querySelector('.sdp-step-num');
   if (isTiered) {
+    if (stepPkgEl) stepPkgEl.style.display = 'none';
     if (step1El)   step1El.style.display   = 'none';
     if (stepTierEl) stepTierEl.style.display = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none'; // revealed by _renderTierAddons
@@ -3469,6 +3487,16 @@ function populateSpot(s) {
     _updatePriceFromTier(s.packages);
     updateEstimatedTotal();
   } else {
+    // Single price: show "Your package" with the price (display only)
+    if (stepPkgEl) {
+      stepPkgEl.style.display = '';
+      const pkgPriceEl = document.getElementById('sdp-package-price');
+      if (pkgPriceEl) {
+        pkgPriceEl.textContent = s['Price Moment']
+          ? formatPriceShort(s['Price Moment'], s['Price Currency'])
+          : 'Enquire';
+      }
+    }
     if (stepTierEl) stepTierEl.style.display = 'none';
     if (step1El)   step1El.style.display   = '';
     if (stepEnhEl) stepEnhEl.style.display  = 'none';
